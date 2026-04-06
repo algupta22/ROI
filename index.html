@@ -1,8 +1,13 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>R.O.I — Portfolio Dashboard</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --bg:#0A0A0B;--bg2:#111113;--bg3:#18181C;--bg4:#222228;
+  --bg:#0A0A0B;--bg2:#111113;--bg3:#18181C;--bg4:#222228;--bg5:#2A2A32;
   --gold:#C9A84C;--gold-light:#E8C96A;--gold-dim:#8A6E30;
   --border:rgba(201,168,76,0.12);--border2:rgba(201,168,76,0.28);
   --text:#F0EDE6;--text2:#9A9590;--text3:#5C5955;
@@ -13,271 +18,487 @@
 }
 body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;font-size:14px;line-height:1.5;min-height:100vh;}
 
-/* HEADER */
-.header{background:var(--bg2);border-bottom:0.5px solid var(--border);padding:1.25rem 1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
-.logo{font-size:1.1rem;font-weight:700;color:var(--gold);letter-spacing:0.04em;}
-.logo span{color:var(--text);font-weight:400;font-size:0.85rem;margin-left:0.5rem;}
-.header-date{font-size:0.75rem;color:var(--text3);font-family:monospace;}
+/* TOP NAV */
+.topbar{background:var(--bg2);border-bottom:0.5px solid var(--border);padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;height:52px;position:sticky;top:0;z-index:100;}
+.logo{font-size:1rem;font-weight:800;color:var(--gold);letter-spacing:0.06em;}
+.logo-sub{font-size:0.7rem;color:var(--text3);font-weight:400;margin-left:0.5rem;}
+.topbar-right{font-size:0.72rem;color:var(--text3);font-family:monospace;}
+
+/* PORTFOLIO NAV */
+.port-nav{background:var(--bg2);border-bottom:0.5px solid var(--border);padding:0 1.5rem;display:flex;align-items:stretch;gap:0;overflow-x:auto;}
+.port-tab{display:flex;align-items:center;gap:0.4rem;padding:0 1.1rem;height:42px;font-size:0.8rem;font-weight:600;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;transition:all 0.15s;white-space:nowrap;letter-spacing:0.03em;text-transform:uppercase;user-select:none;}
+.port-tab:hover{color:var(--text2);}
+.port-tab.active{color:var(--gold);border-bottom-color:var(--gold);}
+.tab-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.dot-all{background:var(--gold);}
+.dot-amit{background:#4A9EE0;}
+.dot-lovelina{background:#E04A4A;}
+.dot-joint{background:#2FBF6A;}
+.dot-retirement{background:#9B59B6;}
+.chevron{font-size:0.65rem;opacity:0.5;margin-left:2px;}
+
+/* SUB NAV */
+.sub-nav{background:var(--bg3);border-bottom:0.5px solid var(--border);padding:0 1.5rem;display:flex;align-items:stretch;gap:0;overflow-x:auto;}
+.sub-tab{display:flex;align-items:center;gap:0.5rem;padding:0 1rem;height:36px;font-size:0.72rem;font-weight:600;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;transition:all 0.15s;white-space:nowrap;text-transform:uppercase;letter-spacing:0.03em;user-select:none;}
+.sub-tab:hover{color:var(--text2);}
+.sub-tab.active{color:var(--gold);border-bottom-color:var(--gold);}
+.owner-badge{background:var(--bg4);border-radius:3px;padding:1px 6px;font-size:0.65rem;color:var(--text3);}
+.sub-tab.active .owner-badge{color:var(--gold-dim);}
+
+/* BREADCRUMB */
+.breadcrumb{padding:0.6rem 1.5rem;font-size:0.72rem;color:var(--text3);display:flex;align-items:center;gap:0.4rem;background:var(--bg);border-bottom:0.5px solid var(--border);}
+.breadcrumb span{color:var(--text2);}
+.sep{opacity:0.3 !important;color:var(--text3) !important;}
+
+/* MAIN */
+.main{padding:1.25rem 1.5rem;}
 
 /* SUMMARY CARDS */
-.summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:var(--border);border:0.5px solid var(--border);border-radius:var(--r);overflow:hidden;margin:1.25rem 1.5rem 0;}
-.scard{background:var(--bg2);padding:1rem 1.25rem;}
-.scard-label{font-size:0.7rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.4rem;}
-.scard-val{font-size:1.4rem;font-weight:700;font-family:monospace;line-height:1;}
-.scard-sub{font-size:0.7rem;color:var(--text3);margin-top:0.25rem;}
+.summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1px;background:var(--border);border:0.5px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:1.25rem;}
+.scard{background:var(--bg2);padding:0.9rem 1.1rem;}
+.scard-label{font-size:0.67rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.35rem;}
+.scard-val{font-size:1.25rem;font-weight:700;font-family:monospace;line-height:1;}
+.scard-sub{font-size:0.67rem;color:var(--text3);margin-top:0.2rem;}
 .pos{color:var(--green);}
 .neg{color:var(--red);}
 .gold{color:var(--gold);}
 
 /* CONTROLS */
-.controls{display:flex;gap:0.75rem;padding:1.25rem 1.5rem 0;flex-wrap:wrap;align-items:center;}
-.filter-group{display:flex;gap:4px;background:var(--bg3);border:0.5px solid var(--border);border-radius:6px;padding:3px;}
-.filt-btn{background:transparent;border:none;color:var(--text2);padding:0.35rem 0.75rem;border-radius:4px;font-size:0.75rem;font-weight:600;cursor:pointer;letter-spacing:0.04em;transition:all 0.15s;text-transform:uppercase;}
+.controls{display:flex;gap:0.75rem;margin-bottom:1rem;flex-wrap:wrap;align-items:center;}
+.filter-group{display:flex;gap:3px;background:var(--bg3);border:0.5px solid var(--border);border-radius:6px;padding:3px;flex-wrap:wrap;}
+.filt-btn{background:transparent;border:none;color:var(--text2);padding:0.3rem 0.65rem;border-radius:4px;font-size:0.72rem;font-weight:600;cursor:pointer;letter-spacing:0.04em;transition:all 0.15s;text-transform:uppercase;}
 .filt-btn.active{background:var(--bg4);color:var(--gold);}
 .filt-btn:hover:not(.active){color:var(--text);}
-.search-wrap{flex:1;min-width:160px;max-width:280px;}
-.search-input{width:100%;background:var(--bg3);border:0.5px solid var(--border);color:var(--text);padding:0.45rem 0.85rem;border-radius:6px;font-size:0.8rem;outline:none;}
+.search-input{background:var(--bg3);border:0.5px solid var(--border);color:var(--text);padding:0.4rem 0.8rem;border-radius:6px;font-size:0.78rem;outline:none;min-width:160px;}
 .search-input::placeholder{color:var(--text3);}
 .search-input:focus{border-color:var(--gold-dim);}
+.count-badge{margin-left:auto;font-size:0.72rem;color:var(--text3);background:var(--bg3);border:0.5px solid var(--border);padding:0.3rem 0.75rem;border-radius:6px;}
 
 /* TABLE */
-.table-wrap{margin:1rem 1.5rem 1.5rem;overflow-x:auto;border:0.5px solid var(--border);border-radius:var(--r);}
-table{width:100%;border-collapse:collapse;min-width:780px;}
+.table-wrap{border:0.5px solid var(--border);border-radius:var(--r);overflow:hidden;overflow-x:auto;margin-bottom:1.25rem;}
+table{width:100%;border-collapse:collapse;min-width:820px;}
 thead{background:var(--bg3);}
-th{padding:0.7rem 1rem;font-size:0.68rem;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.1em;text-align:left;border-bottom:0.5px solid var(--border);white-space:nowrap;cursor:pointer;user-select:none;}
+th{padding:0.65rem 1rem;font-size:0.67rem;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.1em;text-align:left;border-bottom:0.5px solid var(--border);white-space:nowrap;cursor:pointer;user-select:none;}
 th:hover{color:var(--text2);}
-th .sort-arrow{opacity:0.3;margin-left:4px;}
-th.sorted .sort-arrow{opacity:1;color:var(--gold);}
+th.sorted{color:var(--gold);}
 tbody tr{border-bottom:0.5px solid var(--border);transition:background 0.1s;}
 tbody tr:last-child{border-bottom:none;}
 tbody tr:hover{background:var(--bg3);}
-tr.closed-row{opacity:0.55;}
-td{padding:0.65rem 1rem;font-size:0.82rem;color:var(--text2);white-space:nowrap;}
-td.main{color:var(--text);font-weight:600;}
+tr.closed-row{opacity:0.5;}
+td{padding:0.6rem 1rem;font-size:0.8rem;color:var(--text2);white-space:nowrap;}
+td.main-cell{color:var(--text);font-weight:600;}
 td.mono{font-family:monospace;}
 
 /* BADGES */
-.badge{display:inline-flex;align-items:center;padding:0.18rem 0.55rem;border-radius:4px;font-size:0.68rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;}
-.badge-short-put{background:var(--red-bg);color:var(--red);}
-.badge-long-put{background:var(--blue-bg);color:var(--blue);}
-.badge-long-call{background:var(--green-bg);color:var(--green);}
-.badge-shares{background:rgba(201,168,76,0.1);color:var(--gold);}
-.badge-closed{background:var(--bg4);color:var(--text3);}
-.ticker-chip{display:inline-flex;align-items:center;gap:0.4rem;font-weight:700;font-size:0.82rem;color:var(--text);}
-.t-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
-.t-PLTR{background:#7C5CE4;}
-.t-MSFT{background:#4A9EE0;}
-.t-GOOGL{background:#E8A84C;}
-.t-NVDX{background:#2FBF6A;}
-.t-SOFI{background:#E04A4A;}
-.t-TSLL{background:#E4C15C;}
-.t-NVTS{background:#B0A090;}
-.t-METU{background:#9090C0;}
+.badge{display:inline-flex;align-items:center;padding:0.15rem 0.5rem;border-radius:4px;font-size:0.65rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;}
+.badge-sp{background:var(--red-bg);color:var(--red);}
+.badge-lp{background:var(--blue-bg);color:var(--blue);}
+.badge-lc{background:var(--green-bg);color:var(--green);}
+.badge-sh{background:rgba(201,168,76,0.1);color:var(--gold);}
+.badge-cl{background:var(--bg4);color:var(--text3);}
+.badge-op{background:var(--green-bg);color:var(--green);}
 
-/* EXPIRY color */
-.expiry-soon{color:var(--red);}
+.ticker-chip{display:inline-flex;align-items:center;gap:0.4rem;font-weight:700;font-size:0.8rem;color:var(--text);}
+.t-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.t-PLTR{background:#7C5CE4;}.t-MSFT{background:#4A9EE0;}.t-GOOGL{background:#E8A84C;}
+.t-NVDX{background:#2FBF6A;}.t-SOFI{background:#E04A4A;}.t-TSLL{background:#E4C15C;}
+.t-NVTS{background:#B0A090;}.t-METU{background:#9090C0;}
+
+.expiry-soon{color:var(--red);font-weight:600;}
 .expiry-mid{color:var(--gold);}
 .expiry-far{color:var(--text2);}
 
-/* POSITION BREAKDOWN */
-.breakdown{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin:0 1.5rem 1.5rem;}
-.bcard{background:var(--bg2);border:0.5px solid var(--border);border-radius:var(--r);padding:1.1rem 1.25rem;}
-.bcard-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.9rem;}
-.bcard-ticker{font-weight:700;font-size:0.95rem;display:flex;align-items:center;gap:0.5rem;}
-.bcard-count{font-size:0.7rem;color:var(--text3);}
-.bcard-row{display:flex;justify-content:space-between;font-size:0.75rem;padding:0.25rem 0;border-bottom:0.5px solid var(--border);}
+/* BREAKDOWN */
+.section-bar{font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text3);padding:0.5rem 0;margin-bottom:0.75rem;border-bottom:0.5px solid var(--border);}
+.breakdown{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1rem;margin-bottom:1.5rem;}
+.bcard{background:var(--bg2);border:0.5px solid var(--border);border-radius:var(--r);padding:1rem 1.1rem;transition:border-color 0.15s;}
+.bcard:hover{border-color:var(--border2);}
+.bcard-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.8rem;}
+.bcard-ticker{font-weight:700;font-size:0.9rem;display:flex;align-items:center;gap:0.5rem;}
+.bcard-count{font-size:0.67rem;color:var(--text3);}
+.bcard-row{display:flex;justify-content:space-between;font-size:0.73rem;padding:0.22rem 0;border-bottom:0.5px solid var(--border);}
 .bcard-row:last-child{border-bottom:none;}
 .bcard-row span:first-child{color:var(--text3);}
 .bcard-row span:last-child{font-family:monospace;font-weight:600;}
-.section-title-bar{padding:0.5rem 1.5rem;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text3);border-top:0.5px solid var(--border);border-bottom:0.5px solid var(--border);background:var(--bg2);margin-bottom:0;}
 
-/* EMPTY */
-.empty{text-align:center;padding:3rem;color:var(--text3);font-size:0.85rem;}
+/* PORTFOLIO OVERVIEW */
+.port-overview{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-bottom:1.5rem;}
+.port-card{background:var(--bg2);border:0.5px solid var(--border);border-radius:var(--r);padding:1.25rem;cursor:pointer;transition:all 0.15s;}
+.port-card:hover{border-color:var(--border2);background:var(--bg3);}
+.port-card-header{display:flex;align-items:center;gap:0.6rem;margin-bottom:1rem;}
+.port-card-dot{width:10px;height:10px;border-radius:50%;}
+.port-card-name{font-weight:700;font-size:0.95rem;}
+.port-card-sub{font-size:0.7rem;color:var(--text3);margin-top:2px;}
+.port-card-stats{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;}
+.pcs{background:var(--bg3);border-radius:6px;padding:0.5rem 0.75rem;}
+.pcs-label{font-size:0.62rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;}
+.pcs-val{font-size:1rem;font-weight:700;font-family:monospace;margin-top:1px;}
+
+.empty-cell{text-align:center;padding:3rem;color:var(--text3);font-size:0.85rem;}
+.placeholder-msg{background:var(--bg2);border:0.5px dashed var(--border2);border-radius:var(--r);padding:2.5rem;text-align:center;color:var(--text3);}
+.placeholder-msg strong{display:block;color:var(--text2);font-size:1rem;margin-bottom:0.5rem;}
+
+/* RESPONSIVE */
+@media(max-width:600px){
+  .topbar{padding:0 1rem;}
+  .port-nav,.sub-nav{padding:0 0.5rem;}
+  .main{padding:1rem;}
+  .count-badge{display:none;}
+}
 </style>
+</head>
+<body>
 
-<div class="header">
+<div class="topbar">
   <div>
-    <div class="logo">Lovelina Portfolio <span>Options & Equities Dashboard</span></div>
-    <div class="header-date">As of April 6, 2026</div>
+    <span class="logo">R.O.I</span>
+    <span class="logo-sub">Rick's Options Income — Portfolio Dashboard</span>
   </div>
-  <div id="header-pnl" style="text-align:right;"></div>
+  <div class="topbar-right" id="topbar-date"></div>
 </div>
 
-<div class="summary" id="summary-cards"></div>
-
-<div class="controls">
-  <div class="filter-group" id="type-filter">
-    <button class="filt-btn active" data-filter="all">All</button>
-    <button class="filt-btn" data-filter="open">Open</button>
-    <button class="filt-btn" data-filter="closed">Closed</button>
-    <button class="filt-btn" data-filter="Short Put">Short Put</button>
-    <button class="filt-btn" data-filter="Long Put">Long Put</button>
-    <button class="filt-btn" data-filter="Long Call">Long Call</button>
-    <button class="filt-btn" data-filter="Shares">Shares</button>
-  </div>
-  <div class="search-wrap">
-    <input class="search-input" type="text" placeholder="Search ticker…" id="search-input">
-  </div>
+<div class="port-nav" id="port-nav">
+  <div class="port-tab active" data-port="all"><span class="tab-dot dot-all"></span>All</div>
+  <div class="port-tab" data-port="amit"><span class="tab-dot dot-amit"></span>Amit</div>
+  <div class="port-tab" data-port="lovelina"><span class="tab-dot dot-lovelina"></span>Lovelina</div>
+  <div class="port-tab" data-port="joint"><span class="tab-dot dot-joint"></span>Joint</div>
+  <div class="port-tab" data-port="retirement"><span class="tab-dot dot-retirement"></span>Retirement <span class="chevron">▾</span></div>
 </div>
 
-<div class="table-wrap">
-  <table>
-    <thead>
-      <tr>
-        <th data-col="ticker">Ticker <span class="sort-arrow">↕</span></th>
-        <th data-col="excelType">Type <span class="sort-arrow">↕</span></th>
-        <th data-col="strike">Strike <span class="sort-arrow">↕</span></th>
-        <th data-col="expiryDate">Expiry <span class="sort-arrow">↕</span></th>
-        <th data-col="excelGrossValue" style="text-align:right">Gross Value <span class="sort-arrow">↕</span></th>
-        <th data-col="excelProfit" style="text-align:right">P&L <span class="sort-arrow">↕</span></th>
-        <th data-col="status" style="text-align:center">Status <span class="sort-arrow">↕</span></th>
-      </tr>
-    </thead>
-    <tbody id="table-body"></tbody>
-  </table>
+<div class="sub-nav" id="sub-nav" style="display:none;">
+  <div class="sub-tab active" data-sub="retirement-all">All Retirement</div>
+  <div class="sub-tab" data-sub="amit-roth"><span class="owner-badge">Amit</span>Roth IRA</div>
+  <div class="sub-tab" data-sub="lovelina-roth"><span class="owner-badge">Lovelina</span>Roth IRA</div>
+  <div class="sub-tab" data-sub="lovelina-traditional"><span class="owner-badge">Lovelina</span>Traditional IRA</div>
 </div>
 
-<div class="section-title-bar">Position Summary by Ticker</div>
-<div class="breakdown" id="breakdown-cards"></div>
+<div class="breadcrumb" id="breadcrumb"><span>All Portfolios</span></div>
+
+<div class="main" id="main-content"></div>
 
 <script>
-const RAW = [{"ticker":"GOOGL","name":"GOOGL","kind":"short","optionType":"put","positionKind":"option","portfolio":"Lovelina","strike":295,"contracts":1,"premium":0,"openDate":"","expiryDate":"4/6/26","excelIncome":218,"excelProfit":218,"excelGrossValue":218,"excelCurrentValue":218,"excelType":"Short Put","btcPrice":0.05,"btcDate":"4/6/26","btcNotes":"","closed":true,"id":"uyps46ya"},{"ticker":"MSFT","name":"Microsoft Corp.","kind":"short","optionType":"put","positionKind":"option","portfolio":"Lovelina","strike":370,"contracts":1,"premium":2.31,"openDate":"04/06","expiryDate":"04/08","excelIncome":231,"excelProfit":231,"excelGrossValue":231,"excelCurrentValue":231,"excelType":"Short Put","btcNotes":"","closed":false,"id":"yx15fr1j","rolledOut":false,"contractClosed":false,"contractClosedMarkedOnly":false,"notes":""},{"id":"kgwgjko2mnngmua9","ticker":"METU","name":"METU","kind":"long","optionType":"put","positionKind":"stock","portfolio":"Lovelina","strike":0,"shares":1,"stockPrice":39.1,"contracts":1,"premium":0,"openDate":"","expiryDate":"—","excelCost":3910,"excelProfit":-1643,"excelGrossValue":2267,"excelCurrentValue":2267,"excelType":"Shares"},{"id":"muu42thcmnngmua9","ticker":"NVDX","name":"NVDX","kind":"long","optionType":"put","positionKind":"option","portfolio":"Lovelina","strike":15,"contracts":1,"premium":0,"openDate":"","expiryDate":"5/15/26","excelCost":195,"excelIncome":20,"excelProfit":8,"excelGrossValue":203,"excelCurrentValue":183,"excelType":"Long Put"},{"id":"e9gsqmrrmnngmua9","ticker":"MSFT","name":"MSFT","kind":"short","optionType":"put","positionKind":"option","portfolio":"Lovelina","strike":370,"contracts":1,"premium":0,"openDate":"","expiryDate":"4/6/26","excelIncome":227,"excelProfit":227,"excelGrossValue":227,"excelCurrentValue":227,"excelType":"Short Put","btcPrice":0.26,"btcDate":"4/6/26","btcNotes":"","closed":true},{"id":"57kxh0tamnngmua9","ticker":"MSFT","name":"MSFT","kind":"long","optionType":"put","positionKind":"option","portfolio":"Lovelina","strike":375,"contracts":1,"premium":0,"openDate":"","expiryDate":"5/15/26","excelCost":1837,"excelGrossValue":1837,"excelCurrentValue":1837,"excelType":"Long Put"},{"id":"dxzqpgmomnngmuaa","ticker":"GOOGL","name":"Alphabet Inc.","kind":"short","optionType":"put","positionKind":"option","portfolio":"Lovelina","strike":295,"contracts":1,"premium":1.45,"openDate":"04/06","expiryDate":"04/08/26","excelIncome":295,"excelProfit":295,"excelGrossValue":295,"excelCurrentValue":295,"excelType":"Short Put","btcNotes":"","closed":false,"rolledOut":false,"contractClosed":false,"contractClosedMarkedOnly":false,"notes":""},{"id":"gl7uts3ymnngmuaa","ticker":"GOOGL","name":"GOOGL","kind":"long","optionType":"put","positionKind":"option","portfolio":"Lovelina","strike":300,"contracts":1,"premium":0,"openDate":"","expiryDate":"5/15/26","excelCost":1620,"excelGrossValue":1620,"excelCurrentValue":1620,"excelType":"Long Put"},{"id":"n3b7v3h9mnngmuaa","ticker":"NVDX","name":"NVDX","kind":"long","optionType":"put","positionKind":"option","portfolio":"Lovelina","strike":15.43,"contracts":1,"premium":0,"openDate":"","expiryDate":"6/18/26","excelCost":340,"excelIncome":135,"excelProfit":80,"excelGrossValue":420,"excelCurrentValue":285,"excelType":"Long Put"},{"id":"2iivat6qmnngmuaa","ticker":"NVDX","name":"NVDX","kind":"long","optionType":"call","positionKind":"option","portfolio":"Lovelina","strike":10.43,"contracts":1,"premium":0,"openDate":"","expiryDate":"1/15/27","excelCost":750,"excelProfit":-185,"excelGrossValue":565,"excelCurrentValue":565,"excelType":"Long Call"},{"id":"n82z211fmnngmuaa","ticker":"PLTR","name":"PLTR","kind":"long","optionType":"call","positionKind":"option","portfolio":"Lovelina","strike":95,"contracts":1,"premium":0,"openDate":"","expiryDate":"3/19/27","excelCost":7700,"excelIncome":1507,"excelProfit":372,"excelGrossValue":8072,"excelCurrentValue":6565,"excelType":"Long Call"},{"id":"erl0nqohmnngmuaa","ticker":"PLTR","name":"PLTR","kind":"long","optionType":"call","positionKind":"option","portfolio":"Lovelina","strike":110,"contracts":1,"premium":0,"openDate":"","expiryDate":"1/15/27","excelCost":5425,"excelIncome":1530,"excelProfit":1373,"excelGrossValue":6798,"excelCurrentValue":5268,"excelType":"Long Call"},{"id":"ije4hvblmnngmuaa","ticker":"PLTR","name":"PLTR","kind":"long","optionType":"put","positionKind":"option","portfolio":"Lovelina","strike":145,"contracts":1,"premium":0,"openDate":"","expiryDate":"5/15/26","excelCost":1370,"excelProfit":-375,"excelGrossValue":995,"excelCurrentValue":995,"excelType":"Long Put"},{"id":"8a22gci6mnngmuaa","ticker":"PLTR","name":"PLTR","kind":"long","optionType":"put","positionKind":"option","portfolio":"Lovelina","strike":135,"contracts":1,"premium":0,"openDate":"","expiryDate":"5/8/26","excelCost":1035,"excelProfit":-490,"excelGrossValue":545,"excelCurrentValue":545,"excelType":"Long Put"},{"id":"1ihco1gdmnngmuaa","ticker":"PLTR","name":"PLTR","kind":"long","optionType":"put","positionKind":"option","portfolio":"Lovelina","strike":135,"contracts":1,"premium":0,"openDate":"","expiryDate":"5/1/26","excelCost":440,"excelProfit":-115,"excelGrossValue":325,"excelCurrentValue":325,"excelType":"Long Put"},{"id":"se15psa6mnngmuaa","ticker":"PLTR","name":"PLTR","kind":"short","optionType":"put","positionKind":"option","portfolio":"Lovelina","strike":140,"contracts":1,"premium":0,"openDate":"","expiryDate":"4/10/26","excelIncome":226,"excelProfit":226,"excelGrossValue":226,"excelCurrentValue":226,"excelType":"Short Put"},{"id":"m3u4mgt3mnngmuaa","ticker":"PLTR","name":"PLTR","kind":"short","optionType":"put","positionKind":"option","portfolio":"Lovelina","strike":139,"contracts":1,"premium":0,"openDate":"","expiryDate":"4/10/26","excelIncome":103,"excelProfit":103,"excelGrossValue":103,"excelCurrentValue":103,"excelType":"Short Put"},{"id":"jijrzcrmmnngmuaa","ticker":"TSLL","name":"TSLL","kind":"long","optionType":"put","positionKind":"option","portfolio":"Lovelina","strike":13,"contracts":1,"premium":0,"openDate":"","expiryDate":"5/15/26","excelCost":168,"excelProfit":63,"excelGrossValue":231,"excelCurrentValue":231,"excelType":"Long Put"},{"id":"vo87innmmnngmuaa","ticker":"TSLL","name":"TSLL","kind":"long","optionType":"put","positionKind":"stock","portfolio":"Lovelina","strike":0,"shares":1,"stockPrice":12,"contracts":1,"premium":0,"openDate":"","expiryDate":"—","excelCost":1200,"excelProfit":-46,"excelGrossValue":1154,"excelCurrentValue":1154,"excelType":"Shares"},{"id":"ks4hi877mnngmuaa","ticker":"NVTS","name":"NVTS","kind":"long","optionType":"put","positionKind":"stock","portfolio":"Lovelina","strike":0,"shares":1,"stockPrice":8,"contracts":1,"premium":0,"openDate":"","expiryDate":"—","excelCost":1786,"excelProfit":-31,"excelGrossValue":1755,"excelCurrentValue":1755,"excelType":"Shares"},{"id":"n7s41u5qmnngmuaa","ticker":"NVTS","name":"NVTS","kind":"short","optionType":"put","positionKind":"option","portfolio":"Lovelina","strike":8,"contracts":1,"premium":0,"openDate":"","expiryDate":"4/10/26","excelIncome":59,"excelProfit":59,"excelGrossValue":59,"excelCurrentValue":59,"excelType":"Short Put"},{"id":"znk9m080mnngmuaa","ticker":"NVTS","name":"NVTS","kind":"short","optionType":"put","positionKind":"option","portfolio":"Lovelina","strike":8,"contracts":1,"premium":0,"openDate":"","expiryDate":"4/10/26","excelIncome":26,"excelProfit":26,"excelGrossValue":26,"excelCurrentValue":26,"excelType":"Short Put"},{"id":"24ruvnhwmnngmuaa","ticker":"NVTS","name":"NVTS","kind":"long","optionType":"put","positionKind":"option","portfolio":"Lovelina","strike":8.5,"contracts":1,"premium":0,"openDate":"","expiryDate":"5/8/26","excelCost":144,"excelProfit":-45,"excelGrossValue":99,"excelCurrentValue":99,"excelType":"Long Put"},{"id":"l1d75svlmnngmuaa","ticker":"NVTS","name":"NVTS","kind":"long","optionType":"put","positionKind":"option","portfolio":"Lovelina","strike":8.5,"contracts":1,"premium":0,"openDate":"","expiryDate":"5/8/26","excelCost":144,"excelProfit":-45,"excelGrossValue":99,"excelCurrentValue":99,"excelType":"Long Put"},{"id":"5bplr5pfmnngmuaa","ticker":"SOFI","name":"SOFI","kind":"long","optionType":"call","positionKind":"option","portfolio":"Lovelina","strike":12,"contracts":1,"premium":0,"openDate":"","expiryDate":"1/15/27","excelCost":780,"excelProfit":-182,"excelGrossValue":598,"excelCurrentValue":598,"excelType":"Long Call"},{"id":"ns8p838amnngmuaa","ticker":"SOFI","name":"SOFI","kind":"long","optionType":"call","positionKind":"option","portfolio":"Lovelina","strike":12,"contracts":1,"premium":0,"openDate":"","expiryDate":"1/15/27","excelCost":780,"excelProfit":-182,"excelGrossValue":598,"excelCurrentValue":598,"excelType":"Long Call"},{"id":"yl01cbddmnngmuaa","ticker":"SOFI","name":"SOFI","kind":"long","optionType":"call","positionKind":"option","portfolio":"Lovelina","strike":12,"contracts":1,"premium":0,"openDate":"","expiryDate":"1/15/27","excelCost":780,"excelProfit":-182,"excelGrossValue":598,"excelCurrentValue":598,"excelType":"Long Call"},{"id":"b8nkarl5mnngmuaa","ticker":"SOFI","name":"SOFI","kind":"long","optionType":"put","positionKind":"option","portfolio":"Lovelina","strike":18,"contracts":1,"premium":0,"openDate":"","expiryDate":"5/15/26","excelCost":218,"excelProfit":52,"excelGrossValue":270,"excelCurrentValue":270,"excelType":"Long Put"},{"id":"qqhwpg1xmnngmuaa","ticker":"SOFI","name":"SOFI","kind":"long","optionType":"put","positionKind":"option","portfolio":"Lovelina","strike":17,"contracts":1,"premium":0,"openDate":"","expiryDate":"5/15/26","excelCost":218,"excelProfit":-17,"excelGrossValue":201,"excelCurrentValue":201,"excelType":"Long Put"},{"id":"sc61qngjmnngmuaa","ticker":"SOFI","name":"SOFI","kind":"long","optionType":"put","positionKind":"option","portfolio":"Lovelina","strike":17,"contracts":1,"premium":0,"openDate":"","expiryDate":"5/15/26","excelCost":218,"excelProfit":-17,"excelGrossValue":201,"excelCurrentValue":201,"excelType":"Long Put"},{"id":"jtspoc93mnngmuaa","ticker":"SOFI","name":"SOFI","kind":"short","optionType":"put","positionKind":"option","portfolio":"Lovelina","strike":16,"contracts":1,"premium":0,"openDate":"","expiryDate":"4/10/26","excelIncome":213,"excelProfit":213,"excelGrossValue":213,"excelCurrentValue":213,"excelType":"Short Put"},{"id":"o68uakhumnngmuaa","ticker":"SOFI","name":"SOFI","kind":"short","optionType":"put","positionKind":"option","portfolio":"Lovelina","strike":16.5,"contracts":1,"premium":0,"openDate":"","expiryDate":"4/10/26","excelIncome":93,"excelProfit":93,"excelGrossValue":93,"excelCurrentValue":93,"excelType":"Short Put"},{"id":"na4rf7zgmnngmuaa","ticker":"SOFI","name":"SOFI","kind":"short","optionType":"put","positionKind":"option","portfolio":"Lovelina","strike":17,"contracts":1,"premium":0,"openDate":"","expiryDate":"4/10/26","excelIncome":99,"excelProfit":99,"excelGrossValue":99,"excelCurrentValue":99,"excelType":"Short Put"}];
+// ── DATA ────────────────────────────────────────────────────────────────────
+const LOVELINA_DATA = [
+  {ticker:"GOOGL",name:"GOOGL",kind:"short",positionKind:"option",portfolio:"Lovelina",strike:295,contracts:1,premium:0,expiryDate:"4/6/26",excelIncome:218,excelProfit:218,excelGrossValue:218,excelCurrentValue:218,excelType:"Short Put",closed:true,id:"uyps46ya"},
+  {ticker:"MSFT",name:"Microsoft Corp.",kind:"short",positionKind:"option",portfolio:"Lovelina",strike:370,contracts:1,premium:2.31,expiryDate:"04/08",excelIncome:231,excelProfit:231,excelGrossValue:231,excelCurrentValue:231,excelType:"Short Put",closed:false,id:"yx15fr1j"},
+  {id:"kgwgjko2",ticker:"METU",kind:"long",positionKind:"stock",portfolio:"Lovelina",strike:0,shares:1,expiryDate:"—",excelCost:3910,excelProfit:-1643,excelGrossValue:2267,excelCurrentValue:2267,excelType:"Shares"},
+  {id:"muu42thc",ticker:"NVDX",kind:"long",positionKind:"option",portfolio:"Lovelina",strike:15,expiryDate:"5/15/26",excelCost:195,excelProfit:8,excelGrossValue:203,excelCurrentValue:183,excelType:"Long Put"},
+  {id:"e9gsqmrr",ticker:"MSFT",kind:"short",positionKind:"option",portfolio:"Lovelina",strike:370,expiryDate:"4/6/26",excelIncome:227,excelProfit:227,excelGrossValue:227,excelCurrentValue:227,excelType:"Short Put",closed:true},
+  {id:"57kxh0ta",ticker:"MSFT",kind:"long",positionKind:"option",portfolio:"Lovelina",strike:375,expiryDate:"5/15/26",excelCost:1837,excelProfit:0,excelGrossValue:1837,excelCurrentValue:1837,excelType:"Long Put"},
+  {id:"dxzqpgmo",ticker:"GOOGL",name:"Alphabet Inc.",kind:"short",positionKind:"option",portfolio:"Lovelina",strike:295,premium:1.45,expiryDate:"04/08/26",excelIncome:295,excelProfit:295,excelGrossValue:295,excelCurrentValue:295,excelType:"Short Put",closed:false},
+  {id:"gl7uts3y",ticker:"GOOGL",kind:"long",positionKind:"option",portfolio:"Lovelina",strike:300,expiryDate:"5/15/26",excelCost:1620,excelProfit:0,excelGrossValue:1620,excelCurrentValue:1620,excelType:"Long Put"},
+  {id:"n3b7v3h9",ticker:"NVDX",kind:"long",positionKind:"option",portfolio:"Lovelina",strike:15.43,expiryDate:"6/18/26",excelCost:340,excelProfit:80,excelGrossValue:420,excelCurrentValue:285,excelType:"Long Put"},
+  {id:"2iivat6q",ticker:"NVDX",kind:"long",positionKind:"option",portfolio:"Lovelina",strike:10.43,expiryDate:"1/15/27",excelCost:750,excelProfit:-185,excelGrossValue:565,excelCurrentValue:565,excelType:"Long Call"},
+  {id:"n82z211f",ticker:"PLTR",kind:"long",positionKind:"option",portfolio:"Lovelina",strike:95,expiryDate:"3/19/27",excelCost:7700,excelIncome:1507,excelProfit:372,excelGrossValue:8072,excelCurrentValue:6565,excelType:"Long Call"},
+  {id:"erl0nqoh",ticker:"PLTR",kind:"long",positionKind:"option",portfolio:"Lovelina",strike:110,expiryDate:"1/15/27",excelCost:5425,excelIncome:1530,excelProfit:1373,excelGrossValue:6798,excelCurrentValue:5268,excelType:"Long Call"},
+  {id:"ije4hvbl",ticker:"PLTR",kind:"long",positionKind:"option",portfolio:"Lovelina",strike:145,expiryDate:"5/15/26",excelCost:1370,excelProfit:-375,excelGrossValue:995,excelCurrentValue:995,excelType:"Long Put"},
+  {id:"8a22gci6",ticker:"PLTR",kind:"long",positionKind:"option",portfolio:"Lovelina",strike:135,expiryDate:"5/8/26",excelCost:1035,excelProfit:-490,excelGrossValue:545,excelCurrentValue:545,excelType:"Long Put"},
+  {id:"1ihco1gd",ticker:"PLTR",kind:"long",positionKind:"option",portfolio:"Lovelina",strike:135,expiryDate:"5/1/26",excelCost:440,excelProfit:-115,excelGrossValue:325,excelCurrentValue:325,excelType:"Long Put"},
+  {id:"se15psa6",ticker:"PLTR",kind:"short",positionKind:"option",portfolio:"Lovelina",strike:140,expiryDate:"4/10/26",excelIncome:226,excelProfit:226,excelGrossValue:226,excelCurrentValue:226,excelType:"Short Put"},
+  {id:"m3u4mgt3",ticker:"PLTR",kind:"short",positionKind:"option",portfolio:"Lovelina",strike:139,expiryDate:"4/10/26",excelIncome:103,excelProfit:103,excelGrossValue:103,excelCurrentValue:103,excelType:"Short Put"},
+  {id:"jijrzcrm",ticker:"TSLL",kind:"long",positionKind:"option",portfolio:"Lovelina",strike:13,expiryDate:"5/15/26",excelCost:168,excelProfit:63,excelGrossValue:231,excelCurrentValue:231,excelType:"Long Put"},
+  {id:"vo87innm",ticker:"TSLL",kind:"long",positionKind:"stock",portfolio:"Lovelina",strike:0,expiryDate:"—",excelCost:1200,excelProfit:-46,excelGrossValue:1154,excelCurrentValue:1154,excelType:"Shares"},
+  {id:"ks4hi877",ticker:"NVTS",kind:"long",positionKind:"stock",portfolio:"Lovelina",strike:0,expiryDate:"—",excelCost:1786,excelProfit:-31,excelGrossValue:1755,excelCurrentValue:1755,excelType:"Shares"},
+  {id:"n7s41u5q",ticker:"NVTS",kind:"short",positionKind:"option",portfolio:"Lovelina",strike:8,expiryDate:"4/10/26",excelIncome:59,excelProfit:59,excelGrossValue:59,excelCurrentValue:59,excelType:"Short Put"},
+  {id:"znk9m080",ticker:"NVTS",kind:"short",positionKind:"option",portfolio:"Lovelina",strike:8,expiryDate:"4/10/26",excelIncome:26,excelProfit:26,excelGrossValue:26,excelCurrentValue:26,excelType:"Short Put"},
+  {id:"24ruvnhw",ticker:"NVTS",kind:"long",positionKind:"option",portfolio:"Lovelina",strike:8.5,expiryDate:"5/8/26",excelCost:144,excelProfit:-45,excelGrossValue:99,excelCurrentValue:99,excelType:"Long Put"},
+  {id:"l1d75svl",ticker:"NVTS",kind:"long",positionKind:"option",portfolio:"Lovelina",strike:8.5,expiryDate:"5/8/26",excelCost:144,excelProfit:-45,excelGrossValue:99,excelCurrentValue:99,excelType:"Long Put"},
+  {id:"5bplr5pf",ticker:"SOFI",kind:"long",positionKind:"option",portfolio:"Lovelina",strike:12,expiryDate:"1/15/27",excelCost:780,excelProfit:-182,excelGrossValue:598,excelCurrentValue:598,excelType:"Long Call"},
+  {id:"ns8p838a",ticker:"SOFI",kind:"long",positionKind:"option",portfolio:"Lovelina",strike:12,expiryDate:"1/15/27",excelCost:780,excelProfit:-182,excelGrossValue:598,excelCurrentValue:598,excelType:"Long Call"},
+  {id:"yl01cbdd",ticker:"SOFI",kind:"long",positionKind:"option",portfolio:"Lovelina",strike:12,expiryDate:"1/15/27",excelCost:780,excelProfit:-182,excelGrossValue:598,excelCurrentValue:598,excelType:"Long Call"},
+  {id:"b8nkarl5",ticker:"SOFI",kind:"long",positionKind:"option",portfolio:"Lovelina",strike:18,expiryDate:"5/15/26",excelCost:218,excelProfit:52,excelGrossValue:270,excelCurrentValue:270,excelType:"Long Put"},
+  {id:"qqhwpg1x",ticker:"SOFI",kind:"long",positionKind:"option",portfolio:"Lovelina",strike:17,expiryDate:"5/15/26",excelCost:218,excelProfit:-17,excelGrossValue:201,excelCurrentValue:201,excelType:"Long Put"},
+  {id:"sc61qngj",ticker:"SOFI",kind:"long",positionKind:"option",portfolio:"Lovelina",strike:17,expiryDate:"5/15/26",excelCost:218,excelProfit:-17,excelGrossValue:201,excelCurrentValue:201,excelType:"Long Put"},
+  {id:"jtspoc93",ticker:"SOFI",kind:"short",positionKind:"option",portfolio:"Lovelina",strike:16,expiryDate:"4/10/26",excelIncome:213,excelProfit:213,excelGrossValue:213,excelCurrentValue:213,excelType:"Short Put"},
+  {id:"o68uakhu",ticker:"SOFI",kind:"short",positionKind:"option",portfolio:"Lovelina",strike:16.5,expiryDate:"4/10/26",excelIncome:93,excelProfit:93,excelGrossValue:93,excelCurrentValue:93,excelType:"Short Put"},
+  {id:"na4rf7zg",ticker:"SOFI",kind:"short",positionKind:"option",portfolio:"Lovelina",strike:17,expiryDate:"4/10/26",excelIncome:99,excelProfit:99,excelGrossValue:99,excelCurrentValue:99,excelType:"Short Put"}
+];
 
-const today = new Date('2026-04-06');
-function parseExpiry(s){if(!s||s==='—')return null;try{return new Date(s);}catch{return null;}}
-function daysUntil(s){const d=parseExpiry(s);if(!d)return 999;return Math.round((d-today)/(1000*60*60*24));}
-function fmt(n){if(n===undefined||n===null)return '—';return '$'+Math.abs(n).toLocaleString();}
-function fmtPnl(n){if(n===undefined||n===null)return '—';const s=n>=0?'+':'-';return s+'$'+Math.abs(n).toLocaleString();}
+// Add data for other portfolios here when ready:
+const AMIT_DATA = [];
+const JOINT_DATA = [];
+const AMIT_ROTH_DATA = [];
+const LOVELINA_ROTH_DATA = [];
+const LOVELINA_TRADITIONAL_DATA = [];
 
-let activeFilter='all', searchTerm='', sortCol='ticker', sortDir=1;
+// ── STATE ────────────────────────────────────────────────────────────────────
+let activePort = 'all';
+let activeSub  = 'retirement-all';
+let typeFilter = 'all';
+let searchTerm = '';
+let sortCol    = 'ticker';
+let sortDir    = 1;
 
-function isClosed(r){return r.closed===true||r.contractClosed===true||r.contractClosedMarkedOnly===true;}
+const today = new Date();
 
-function getFiltered(){
-  return RAW.filter(r=>{
-    const cl=isClosed(r);
-    if(activeFilter==='open'&&cl)return false;
-    if(activeFilter==='closed'&&!cl)return false;
-    if(activeFilter==='Short Put'&&r.excelType!=='Short Put')return false;
-    if(activeFilter==='Long Put'&&r.excelType!=='Long Put')return false;
-    if(activeFilter==='Long Call'&&r.excelType!=='Long Call')return false;
-    if(activeFilter==='Shares'&&r.excelType!=='Shares')return false;
-    if(searchTerm&&!r.ticker.toLowerCase().includes(searchTerm))return false;
+// ── HELPERS ──────────────────────────────────────────────────────────────────
+function isClosed(r){ return r.closed === true || r.contractClosed === true; }
+function fmt(n){ return (n === undefined || n === null || n === 0) ? '—' : '$' + Math.abs(n).toLocaleString(); }
+function fmtPnl(n){ return (n === undefined || n === null) ? '—' : (n >= 0 ? '+' : '-') + '$' + Math.abs(n).toLocaleString(); }
+function daysUntil(s){
+  if (!s || s === '—') return 999;
+  try { return Math.round((new Date(s) - today) / 86400000); } catch { return 999; }
+}
+function expiryClass(s){ const d = daysUntil(s); return d <= 4 ? 'expiry-soon' : d <= 30 ? 'expiry-mid' : 'expiry-far'; }
+function badgeClass(t){ return t==='Short Put'?'badge-sp':t==='Long Put'?'badge-lp':t==='Long Call'?'badge-lc':'badge-sh'; }
+
+function calcStats(data){
+  const open   = data.filter(r => !isClosed(r));
+  const closed = data.filter(r => isClosed(r));
+  return {
+    total:      data.length,
+    open:       open.length,
+    closed:     closed.length,
+    totalGross: data.reduce((s,r) => s + (r.excelGrossValue || 0), 0),
+    totalPnl:   data.reduce((s,r) => s + (r.excelProfit || 0), 0),
+    openPnl:    open.reduce((s,r) => s + (r.excelProfit || 0), 0),
+    income:     data.filter(r => r.excelType === 'Short Put').reduce((s,r) => s + (r.excelIncome || 0), 0)
+  };
+}
+
+function getDataFor(port, sub){
+  if (port === 'all')      return LOVELINA_DATA; // expand as more portfolios added
+  if (port === 'lovelina') return LOVELINA_DATA;
+  if (port === 'amit')     return AMIT_DATA;
+  if (port === 'joint')    return JOINT_DATA;
+  if (port === 'retirement'){
+    if (sub === 'amit-roth')            return AMIT_ROTH_DATA;
+    if (sub === 'lovelina-roth')        return LOVELINA_ROTH_DATA;
+    if (sub === 'lovelina-traditional') return LOVELINA_TRADITIONAL_DATA;
+    return [...AMIT_ROTH_DATA, ...LOVELINA_ROTH_DATA, ...LOVELINA_TRADITIONAL_DATA];
+  }
+  return [];
+}
+
+// ── RENDER HELPERS ────────────────────────────────────────────────────────────
+function renderSummaryCards(stats){
+  return `<div class="summary">
+    <div class="scard"><div class="scard-label">Total Positions</div><div class="scard-val gold">${stats.total}</div><div class="scard-sub">${stats.open} open · ${stats.closed} closed</div></div>
+    <div class="scard"><div class="scard-label">Portfolio Value</div><div class="scard-val gold">$${stats.totalGross.toLocaleString()}</div><div class="scard-sub">Gross market value</div></div>
+    <div class="scard"><div class="scard-label">Total P&amp;L</div><div class="scard-val ${stats.totalPnl>=0?'pos':'neg'}">${fmtPnl(stats.totalPnl)}</div><div class="scard-sub">All positions</div></div>
+    <div class="scard"><div class="scard-label">Open P&amp;L</div><div class="scard-val ${stats.openPnl>=0?'pos':'neg'}">${fmtPnl(stats.openPnl)}</div><div class="scard-sub">${stats.open} open positions</div></div>
+    <div class="scard"><div class="scard-label">Premium Income</div><div class="scard-val pos">+$${stats.income.toLocaleString()}</div><div class="scard-sub">Short put collected</div></div>
+  </div>`;
+}
+
+function renderTable(data){
+  const filtered = data.filter(r => {
+    if (typeFilter === 'open'   && isClosed(r))  return false;
+    if (typeFilter === 'closed' && !isClosed(r)) return false;
+    if (['Short Put','Long Put','Long Call','Shares'].includes(typeFilter) && r.excelType !== typeFilter) return false;
+    if (searchTerm && !(r.ticker||'').toLowerCase().includes(searchTerm)) return false;
     return true;
-  }).sort((a,b)=>{
-    let av=a[sortCol],bv=b[sortCol];
-    if(sortCol==='status'){av=isClosed(a)?1:0;bv=isClosed(b)?1:0;}
-    if(typeof av==='string')av=av.toLowerCase();
-    if(typeof bv==='string')bv=bv.toLowerCase();
-    if(av===undefined)av=-Infinity;if(bv===undefined)bv=-Infinity;
-    return av<bv?-sortDir:av>bv?sortDir:0;
+  }).sort((a,b) => {
+    let av = sortCol === 'status' ? (isClosed(a)?1:0) : a[sortCol];
+    let bv = sortCol === 'status' ? (isClosed(b)?1:0) : b[sortCol];
+    if (typeof av === 'string') av = av.toLowerCase();
+    if (typeof bv === 'string') bv = bv.toLowerCase();
+    av = av ?? -Infinity; bv = bv ?? -Infinity;
+    return av < bv ? -sortDir : av > bv ? sortDir : 0;
   });
-}
 
-function badgeClass(t){
-  if(t==='Short Put')return 'badge-short-put';
-  if(t==='Long Put')return 'badge-long-put';
-  if(t==='Long Call')return 'badge-long-call';
-  if(t==='Shares')return 'badge-shares';
-  return '';
-}
+  const rows = filtered.length === 0
+    ? `<tr><td colspan="7" class="empty-cell">No positions match your filter.</td></tr>`
+    : filtered.map(r => {
+        const cl  = isClosed(r);
+        const pnl = r.excelProfit;
+        return `<tr class="${cl?'closed-row':''}">
+          <td class="main-cell"><span class="ticker-chip"><span class="t-dot t-${r.ticker}"></span>${r.ticker}</span></td>
+          <td><span class="badge ${badgeClass(r.excelType)}">${r.excelType}</span></td>
+          <td class="mono">${r.strike > 0 ? '$'+r.strike : '—'}</td>
+          <td class="${expiryClass(r.expiryDate)}">${r.expiryDate || '—'}</td>
+          <td class="mono" style="text-align:right">${fmt(r.excelGrossValue)}</td>
+          <td class="mono ${pnl>=0?'pos':'neg'}" style="text-align:right;font-weight:600">${fmtPnl(pnl)}</td>
+          <td style="text-align:center"><span class="badge ${cl?'badge-cl':'badge-op'}">${cl?'Closed':'Open'}</span></td>
+        </tr>`;
+      }).join('');
 
-function expiryClass(s){
-  const d=daysUntil(s);
-  if(d<=4)return 'expiry-soon';
-  if(d<=30)return 'expiry-mid';
-  return 'expiry-far';
-}
-
-function renderSummary(){
-  const open=RAW.filter(r=>!isClosed(r));
-  const closed=RAW.filter(r=>isClosed(r));
-  const totalGross=RAW.reduce((s,r)=>s+(r.excelGrossValue||0),0);
-  const totalPnl=RAW.reduce((s,r)=>s+(r.excelProfit||0),0);
-  const openPnl=open.reduce((s,r)=>s+(r.excelProfit||0),0);
-  const income=RAW.filter(r=>r.excelType==='Short Put').reduce((s,r)=>s+(r.excelIncome||0),0);
-  document.getElementById('summary-cards').innerHTML=`
-    <div class="scard"><div class="scard-label">Total Positions</div><div class="scard-val gold">${RAW.length}</div><div class="scard-sub">${open.length} open · ${closed.length} closed</div></div>
-    <div class="scard"><div class="scard-label">Portfolio Value</div><div class="scard-val gold">$${totalGross.toLocaleString()}</div><div class="scard-sub">Gross market value</div></div>
-    <div class="scard"><div class="scard-label">Total P&L</div><div class="scard-val ${totalPnl>=0?'pos':'neg'}">${fmtPnl(totalPnl)}</div><div class="scard-sub">All positions</div></div>
-    <div class="scard"><div class="scard-label">Open P&L</div><div class="scard-val ${openPnl>=0?'pos':'neg'}">${fmtPnl(openPnl)}</div><div class="scard-sub">${open.length} open positions</div></div>
-    <div class="scard"><div class="scard-label">Premium Collected</div><div class="scard-val pos">+$${income.toLocaleString()}</div><div class="scard-sub">Short put income</div></div>
-    <div class="scard"><div class="scard-label">Open Positions</div><div class="scard-val">${open.length}</div><div class="scard-sub">Across ${[...new Set(open.map(r=>r.ticker))].length} tickers</div></div>
-  `;
-  const hp=document.getElementById('header-pnl');
-  hp.innerHTML=`<div style="font-size:0.7rem;color:var(--text3);margin-bottom:2px;">Portfolio P&L</div><div style="font-size:1.5rem;font-weight:700;font-family:monospace;color:${totalPnl>=0?'var(--green)':'var(--red)'}">${fmtPnl(totalPnl)}</div>`;
-}
-
-function renderTable(){
-  const rows=getFiltered();
-  const tbody=document.getElementById('table-body');
-  if(!rows.length){tbody.innerHTML=`<tr><td colspan="7" class="empty">No positions match your filter.</td></tr>`;return;}
-  tbody.innerHTML=rows.map(r=>{
-    const cl=isClosed(r);
-    const pnl=r.excelProfit;
-    const pnlClass=pnl===undefined?'':pnl>=0?'pos':'neg';
-    const pnlStr=pnl===undefined?'—':fmtPnl(pnl);
-    const strike=r.strike>0?'$'+r.strike:'—';
-    return `<tr class="${cl?'closed-row':''}">
-      <td class="main"><span class="ticker-chip"><span class="t-dot t-${r.ticker}"></span>${r.ticker}</span></td>
-      <td><span class="badge ${badgeClass(r.excelType)}">${r.excelType}</span></td>
-      <td class="mono">${strike}</td>
-      <td class="${expiryClass(r.expiryDate)}">${r.expiryDate}</td>
-      <td class="mono" style="text-align:right">${fmt(r.excelGrossValue)}</td>
-      <td class="mono ${pnlClass}" style="text-align:right;font-weight:600">${pnlStr}</td>
-      <td style="text-align:center"><span class="badge ${cl?'badge-closed':'badge-long-call'}">${cl?'Closed':'Open'}</span></td>
-    </tr>`;
-  }).join('');
-}
-
-function renderBreakdown(){
-  const tickers=[...new Set(RAW.map(r=>r.ticker))].sort();
-  document.getElementById('breakdown-cards').innerHTML=tickers.map(t=>{
-    const pos=RAW.filter(r=>r.ticker===t);
-    const totalPnl=pos.reduce((s,r)=>s+(r.excelProfit||0),0);
-    const totalVal=pos.reduce((s,r)=>s+(r.excelGrossValue||0),0);
-    const income=pos.filter(r=>r.excelType==='Short Put').reduce((s,r)=>s+(r.excelIncome||0),0);
-    const open=pos.filter(r=>!isClosed(r)).length;
-    return `<div class="bcard">
-      <div class="bcard-head">
-        <div class="bcard-ticker"><span class="t-dot t-${t}"></span>${t}</div>
-        <div class="bcard-count">${pos.length} positions · ${open} open</div>
+  return `
+    <div class="controls">
+      <div class="filter-group">
+        ${['all','open','closed','Short Put','Long Put','Long Call','Shares'].map(f =>
+          `<button class="filt-btn${typeFilter===f?' active':''}" data-type="${f}">${f==='all'?'All':f==='open'?'Open':f==='closed'?'Closed':f}</button>`
+        ).join('')}
       </div>
-      <div class="bcard-row"><span>Gross Value</span><span class="gold">${fmt(totalVal)}</span></div>
-      <div class="bcard-row"><span>Total P&L</span><span class="${totalPnl>=0?'pos':'neg'}">${fmtPnl(totalPnl)}</span></div>
-      ${income?`<div class="bcard-row"><span>Premium Income</span><span class="pos">+$${income.toLocaleString()}</span></div>`:''}
+      <input class="search-input" type="text" placeholder="Search ticker…" value="${searchTerm}" id="ticker-search">
+      <div class="count-badge">${filtered.length} of ${data.length} positions</div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th data-col="ticker">Ticker</th>
+          <th data-col="excelType">Type</th>
+          <th data-col="strike">Strike</th>
+          <th data-col="expiryDate">Expiry</th>
+          <th data-col="excelGrossValue" style="text-align:right">Gross Value</th>
+          <th data-col="excelProfit" style="text-align:right">P&amp;L</th>
+          <th data-col="status" style="text-align:center">Status</th>
+        </tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>`;
+}
+
+function renderBreakdown(data){
+  if (!data.length) return '';
+  const tickers = [...new Set(data.map(r => r.ticker))].sort();
+  const cards = tickers.map(t => {
+    const pos  = data.filter(r => r.ticker === t);
+    const pnl  = pos.reduce((s,r) => s + (r.excelProfit || 0), 0);
+    const val  = pos.reduce((s,r) => s + (r.excelGrossValue || 0), 0);
+    const inc  = pos.filter(r => r.excelType === 'Short Put').reduce((s,r) => s + (r.excelIncome || 0), 0);
+    const open = pos.filter(r => !isClosed(r)).length;
+    return `<div class="bcard">
+      <div class="bcard-head"><div class="bcard-ticker"><span class="t-dot t-${t}"></span>${t}</div><div class="bcard-count">${pos.length} pos · ${open} open</div></div>
+      <div class="bcard-row"><span>Gross Value</span><span class="gold">${fmt(val)}</span></div>
+      <div class="bcard-row"><span>P&amp;L</span><span class="${pnl>=0?'pos':'neg'}">${fmtPnl(pnl)}</span></div>
+      ${inc ? `<div class="bcard-row"><span>Premium</span><span class="pos">+$${inc.toLocaleString()}</span></div>` : ''}
     </div>`;
   }).join('');
+  return `<div class="section-bar">Position Summary by Ticker</div><div class="breakdown">${cards}</div>`;
 }
 
-function render(){renderTable();}
+function renderPlaceholder(label, subs){
+  return `<div class="placeholder-msg">
+    <strong>${label}</strong>
+    No positions added yet.${subs ? '<br><span style="font-size:0.75rem">Sub-accounts: '+subs+'</span>' : ''}
+  </div>`;
+}
 
-document.getElementById('type-filter').addEventListener('click',e=>{
-  const btn=e.target.closest('.filt-btn');
-  if(!btn)return;
-  document.querySelectorAll('.filt-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  activeFilter=btn.dataset.filter;
-  render();
-});
+// ── MAIN RENDER ───────────────────────────────────────────────────────────────
+function renderMain(){
+  const el = document.getElementById('main-content');
 
-document.getElementById('search-input').addEventListener('input',e=>{
-  searchTerm=e.target.value.toLowerCase().trim();
-  render();
-});
+  if (activePort === 'all'){
+    const allStats = calcStats(LOVELINA_DATA);
+    const portCards = [
+      {key:'lovelina', label:'Lovelina', color:'#E04A4A', data:LOVELINA_DATA, subs:''},
+      {key:'amit',     label:'Amit',     color:'#4A9EE0', data:AMIT_DATA,     subs:''},
+      {key:'joint',    label:'Joint',    color:'#2FBF6A', data:JOINT_DATA,    subs:''},
+      {key:'retirement',label:'Retirement',color:'#9B59B6',data:[],subs:'Amit Roth · Lovelina Roth · Lovelina Traditional'}
+    ].map(p => {
+      const s = calcStats(p.data);
+      const empty = p.data.length === 0;
+      return `<div class="port-card" onclick="switchPort('${p.key}')">
+        <div class="port-card-header">
+          <div class="port-card-dot" style="background:${p.color}"></div>
+          <div>
+            <div class="port-card-name">${p.label}</div>
+            ${p.subs ? `<div class="port-card-sub">${p.subs}</div>` : ''}
+          </div>
+        </div>
+        ${empty
+          ? `<div style="font-size:0.75rem;color:var(--text3);text-align:center;padding:0.75rem 0;border-top:0.5px solid var(--border)">No positions yet — click to view</div>`
+          : `<div class="port-card-stats">
+              <div class="pcs"><div class="pcs-label">Value</div><div class="pcs-val gold">$${s.totalGross.toLocaleString()}</div></div>
+              <div class="pcs"><div class="pcs-label">P&amp;L</div><div class="pcs-val ${s.totalPnl>=0?'pos':'neg'}">${fmtPnl(s.totalPnl)}</div></div>
+              <div class="pcs"><div class="pcs-label">Positions</div><div class="pcs-val">${s.total}</div></div>
+              <div class="pcs"><div class="pcs-label">Open</div><div class="pcs-val">${s.open}</div></div>
+            </div>`}
+      </div>`;
+    }).join('');
 
-document.querySelectorAll('th[data-col]').forEach(th=>{
-  th.addEventListener('click',()=>{
-    const col=th.dataset.col;
-    if(sortCol===col)sortDir*=-1;else{sortCol=col;sortDir=1;}
-    document.querySelectorAll('th').forEach(t=>t.classList.remove('sorted'));
-    th.classList.add('sorted');
-    th.querySelector('.sort-arrow').textContent=sortDir===1?'↑':'↓';
-    render();
+    el.innerHTML = `
+      ${renderSummaryCards(allStats)}
+      <div class="section-bar">Portfolio Overview</div>
+      <div class="port-overview">${portCards}</div>
+      ${renderTable(LOVELINA_DATA)}
+      ${renderBreakdown(LOVELINA_DATA)}`;
+
+  } else if (activePort === 'retirement') {
+    const data  = getDataFor('retirement', activeSub);
+    const stats = calcStats(data);
+    const subLabels = {
+      'retirement-all':'All Retirement Accounts',
+      'amit-roth':'Amit — Roth IRA',
+      'lovelina-roth':'Lovelina — Roth IRA',
+      'lovelina-traditional':'Lovelina — Traditional IRA'
+    };
+    el.innerHTML = `
+      ${renderSummaryCards(stats)}
+      ${data.length === 0
+        ? renderPlaceholder(subLabels[activeSub])
+        : renderTable(data) + renderBreakdown(data)}`;
+
+  } else {
+    const data  = getDataFor(activePort, '');
+    const stats = calcStats(data);
+    const labels = {lovelina:'Lovelina Portfolio', amit:'Amit Portfolio', joint:'Joint Portfolio'};
+    el.innerHTML = `
+      ${renderSummaryCards(stats)}
+      ${data.length === 0
+        ? renderPlaceholder(labels[activePort])
+        : renderTable(data) + renderBreakdown(data)}`;
+  }
+
+  attachEvents();
+}
+
+function attachEvents(){
+  document.querySelectorAll('.filt-btn').forEach(b => {
+    b.addEventListener('click', () => { typeFilter = b.dataset.type; renderMain(); });
   });
+  const si = document.getElementById('ticker-search');
+  if (si) si.addEventListener('input', e => { searchTerm = e.target.value.toLowerCase().trim(); renderMain(); });
+  document.querySelectorAll('th[data-col]').forEach(th => {
+    th.addEventListener('click', () => {
+      const col = th.dataset.col;
+      if (sortCol === col) sortDir *= -1; else { sortCol = col; sortDir = 1; }
+      renderMain();
+    });
+  });
+}
+
+function renderBreadcrumb(){
+  const el = document.getElementById('breadcrumb');
+  const subLabel = {
+    'retirement-all':'All Retirement',
+    'amit-roth':'Amit — Roth IRA',
+    'lovelina-roth':'Lovelina — Roth IRA',
+    'lovelina-traditional':'Lovelina — Traditional IRA'
+  };
+  const portLabel = {all:'All Portfolios',amit:'Amit',lovelina:'Lovelina',joint:'Joint',retirement:'Retirement'};
+  if (activePort === 'all'){
+    el.innerHTML = '<span>All Portfolios</span>';
+  } else if (activePort === 'retirement'){
+    el.innerHTML = `<span style="color:var(--text3)">All Portfolios</span><span class="sep"> › </span><span style="color:var(--text3)">Retirement</span><span class="sep"> › </span><span>${subLabel[activeSub]}</span>`;
+  } else {
+    el.innerHTML = `<span style="color:var(--text3)">All Portfolios</span><span class="sep"> › </span><span>${portLabel[activePort]}</span>`;
+  }
+}
+
+function switchPort(port){
+  activePort = port;
+  typeFilter = 'all'; searchTerm = '';
+  document.querySelectorAll('.port-tab').forEach(t => t.classList.toggle('active', t.dataset.port === port));
+  const subNav = document.getElementById('sub-nav');
+  subNav.style.display = port === 'retirement' ? 'flex' : 'none';
+  if (port === 'retirement'){ activeSub = 'retirement-all'; document.querySelectorAll('.sub-tab').forEach(t => t.classList.toggle('active', t.dataset.sub === activeSub)); }
+  renderBreadcrumb();
+  renderMain();
+}
+
+// ── EVENTS ────────────────────────────────────────────────────────────────────
+document.getElementById('port-nav').addEventListener('click', e => {
+  const tab = e.target.closest('.port-tab');
+  if (!tab) return;
+  switchPort(tab.dataset.port);
 });
 
-renderSummary();
-renderTable();
-renderBreakdown();
+document.getElementById('sub-nav').addEventListener('click', e => {
+  const tab = e.target.closest('.sub-tab');
+  if (!tab) return;
+  activeSub = tab.dataset.sub;
+  document.querySelectorAll('.sub-tab').forEach(t => t.classList.toggle('active', t.dataset.sub === activeSub));
+  renderBreadcrumb();
+  renderMain();
+});
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+document.getElementById('topbar-date').textContent = new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+window.switchPort = switchPort;
+renderBreadcrumb();
+renderMain();
 </script>
+</body>
+</html>
