@@ -26,6 +26,23 @@ body{background:var(--bg);min-height:100vh;font-family:'Segoe UI',system-ui,sans
 .logo em{font-style:normal;color:var(--red2);}
 .logo-sub{font-size:0.68rem;color:rgba(255,255,255,0.45);margin-left:0.5rem;}
 .topbar-right{font-size:0.68rem;color:rgba(255,255,255,0.5);font-family:monospace;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);padding:0.25rem 0.65rem;border-radius:20px;}
+.prices-btn{display:inline-flex;align-items:center;gap:0.32rem;background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.8);border:1px solid rgba(255,255,255,0.18);padding:0.22rem 0.7rem;border-radius:20px;font-size:0.65rem;font-weight:700;cursor:pointer;white-space:nowrap;transition:all 0.15s;}
+.prices-btn:hover{background:rgba(255,255,255,0.18);color:#fff;}
+/* Prices admin modal */
+.prices-modal-box{background:#fff;border-radius:14px;padding:1.5rem;width:420px;max-width:95vw;max-height:88vh;overflow-y:auto;box-shadow:0 16px 48px rgba(0,0,0,0.22);}
+.pm-row{display:flex;align-items:center;gap:0.6rem;padding:0.42rem 0;border-bottom:1px solid var(--border);}
+.pm-row:last-child{border-bottom:none;}
+.pm-ticker{font-weight:800;font-size:0.82rem;color:var(--black);min-width:55px;display:flex;align-items:center;gap:0.4rem;}
+.pm-input{flex:1;border:1px solid var(--border2);border-radius:7px;padding:0.35rem 0.6rem;font-size:0.78rem;font-family:monospace;outline:none;color:var(--black);}
+.pm-input:focus{border-color:var(--red);box-shadow:0 0 0 2px rgba(220,38,38,0.1);}
+.pm-saved{font-size:0.65rem;color:var(--green);font-weight:600;min-width:35px;}
+.pm-clear{background:transparent;border:none;color:var(--text3);cursor:pointer;font-size:0.7rem;padding:0.1rem 0.25rem;border-radius:3px;}
+.pm-clear:hover{color:var(--red);}
+.pm-add-row{display:flex;gap:0.5rem;margin-top:0.85rem;padding-top:0.85rem;border-top:1px solid var(--border);}
+.pm-add-input{flex:1;border:1px solid var(--border2);border-radius:7px;padding:0.38rem 0.6rem;font-size:0.76rem;outline:none;color:var(--black);}
+.pm-add-input:focus{border-color:var(--red);}
+.pm-add-btn{background:var(--red);color:#fff;border:none;padding:0.38rem 0.85rem;border-radius:7px;font-size:0.7rem;font-weight:700;cursor:pointer;}
+.pm-add-btn:hover{background:var(--red2);}
 
 .port-nav{background:var(--bg2);border-bottom:2px solid var(--border);padding:0 1.2rem;display:flex;align-items:stretch;overflow-x:auto;}
 .port-tab{display:flex;align-items:center;gap:0.35rem;padding:0 0.9rem;height:42px;font-size:0.72rem;font-weight:700;color:var(--text3);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all 0.15s;white-space:nowrap;letter-spacing:0.04em;text-transform:uppercase;}
@@ -310,7 +327,10 @@ td.mc{color:var(--black);font-weight:700;}td.mn{font-family:monospace;font-size:
 <body>
 <div class="topbar">
   <div style="display:flex;align-items:center;"><span class="logo">R.<em>O</em>.I</span><span class="logo-sub">Rick's Options Income</span></div>
-  <div class="topbar-right" id="topbar-date"></div>
+  <div style="display:flex;align-items:center;gap:0.65rem;">
+    <button class="prices-btn" onclick="openPricesModal()">&#128200; Prices</button>
+    <div class="topbar-right" id="topbar-date"></div>
+  </div>
 </div>
 <div class="port-nav" id="port-nav">
   <div class="port-tab active" data-port="all"><span class="tab-dot dot-all"></span>All</div>
@@ -378,6 +398,24 @@ let editCell=null; // {id, field} for inline cell editing
 let activeView='positions',spreadsOcFilter='open';
 let modal=null; // {id, action, cdType, amount, notes}
 let showUpload=false,csvPreview=null,importMsg='';
+
+// ── UNIVERSAL TICKER PRICES (localStorage) ────────────────────────────────────
+const TP_KEY='roi_ticker_prices_v1';
+function loadTickerPrices(){try{return JSON.parse(localStorage.getItem(TP_KEY)||'{}');}catch{return {};}}
+function saveTickerPrices(p){try{localStorage.setItem(TP_KEY,JSON.stringify(p));}catch{}}
+let tickerPrices=loadTickerPrices(); // {SOFI:12.34, PLTR:95.00, ...}
+function getTickerPrice(ticker){
+  // Universal price takes precedence over per-row manualPrice
+  if(tickerPrices[ticker]!=null)return tickerPrices[ticker];
+  // Fall back to per-row manualPrice for backward compat
+  const r=positions.find(p=>p.ticker===ticker&&p.manualPrice!=null);
+  return r?r.manualPrice:null;
+}
+function setTickerPrice(ticker,price){
+  if(price==null||isNaN(price)){delete tickerPrices[ticker];}
+  else{tickerPrices[ticker]=price;}
+  saveTickerPrices(tickerPrices);
+}
 const now=new Date();
 function getThisFriday(){const d=new Date(now);const diff=5-d.getDay();d.setDate(d.getDate()+(diff>=0?diff:diff+7));d.setHours(23,59,59,0);return d;}
 function getFriday(d){const dt=new Date(d);const diff=5-dt.getDay();dt.setDate(dt.getDate()+(diff>=0?diff:diff+7));return dt;}
@@ -408,7 +446,7 @@ function cs(data){
     .filter(r=>{try{return getFriday(new Date(r.expiryDate))<=thisFri;}catch{return false;}})
     .reduce((s,r)=>s+r.strike*100,0);
   const tc=data.reduce((s,r)=>s+collateral(r),0);
-  return{n:data.length,op:op.length,cl:data.filter(r=>isCl(r)).length,gv:data.reduce((s,r)=>s+(r.excelGrossValue||0),0),tp,ci,ig,be,pct,realized,unrealized,twc,tc};
+  return{n:data.length,op:op.length,cl:data.filter(r=>isCl(r)).length,gv:data.reduce((s,r)=>s+(r.excelGrossValue||0),0),tp,ci,ig,be,pct,realized,unrealized,totalGain:realized+unrealized,twc,tc};
 }
 function getTickersFrom(data){return[...new Set(data.map(r=>r.ticker))].sort();}
 function getAppliedFilters(data){
@@ -442,7 +480,7 @@ function rSum(s){
     +'<div class="scard" style="border-left:3px solid var(--black);"><div class="scard-label" style="color:var(--text3);">Capital Invested</div><div class="scard-val" style="color:var(--black);">$'+s.ci.toLocaleString()+'</div><div class="scard-sub">Total cost basis</div></div>'
     +'<div class="scard" style="border-left:3px solid var(--green);"><div class="scard-label" style="color:var(--text3);">Income Generated</div><div class="scard-val" style="color:var(--green);">+$'+s.ig.toLocaleString()+'</div><div class="scard-sub">Short put premium</div></div>'
     +'<div class="be-mini-card"><div><div class="be-mini-label">&#9889; Breakeven</div><div class="be-mini-val" style="color:'+beColor+';">'+beLabel+'</div></div><div><div class="be-mini-bar-wrap"><div class="be-mini-bar" style="width:'+s.pct+'%"></div></div><div class="be-mini-sub">'+s.pct+'% recovered via income</div></div></div>'
-    +'<div class="gain-card"><div class="gain-title">Gains</div><div class="gain-row"><span class="gain-label">&#9989; Realized</span><span class="gain-val" style="color:'+(s.realized>=0?'var(--green)':'var(--red)')+'">'+fp(s.realized)+'</span></div><div class="gain-divider"></div><div class="gain-row"><span class="gain-label">&#9201; Unrealized</span><span class="gain-val" style="color:'+(s.unrealized>=0?'var(--green)':'var(--red)')+'">'+fp(s.unrealized)+'</span></div></div>'
+    +'<div class="gain-card"><div class="gain-title">Gains</div><div class="gain-row"><span class="gain-label">&#9989; Realized</span><span class="gain-val" style="color:'+(s.realized>=0?'var(--green)':'var(--red)')+'">'+fp(s.realized)+'</span></div><div class="gain-divider"></div><div class="gain-row"><span class="gain-label">&#9201; Unrealized</span><span class="gain-val" style="color:'+(s.unrealized>=0?'var(--green)':'var(--red)')+'">'+fp(s.unrealized)+'</span></div><div class="gain-divider"></div><div class="gain-row"><span class="gain-label" style="font-weight:800;color:var(--black);">&#931; Total</span><span class="gain-val" style="color:'+(s.totalGain>=0?'var(--green)':'var(--red)')+';font-size:1rem;">'+fp(s.totalGain)+'</span></div></div>'
     +'<div class="scard" style="border-left:3px solid var(--red);"><div class="scard-label" style="color:var(--text3);">Portfolio Value</div><div class="scard-val" style="color:var(--black);">$'+s.gv.toLocaleString()+'</div><div class="scard-sub">'+s.op+' open &middot; '+s.cl+' closed</div></div>'
     +'<div class="col-combo-card"><div class="col-combo-title">&#128274; Collateral</div><div class="col-combo-row"><span class="col-combo-label">This Week</span><span class="col-combo-val" style="color:#FB923C;font-size:0.88rem;">$'+s.twc.toLocaleString()+'</span></div><div class="col-combo-divider"></div><div class="col-combo-row"><span class="col-combo-label">Total Open</span><span class="col-combo-val" style="color:#FBBF24;font-size:0.88rem;">$'+s.tc.toLocaleString()+'</span></div></div>'
     +'</div>';
@@ -462,8 +500,9 @@ function rTable(data){
     const rowClass=r.rolledOver?'rolled':isExp?'expiring-soon':'';
     const isEditing=editingPrice===r.id;
     let priceCell;
-    if(isEditing){priceCell='<div class="price-cell"><input class="price-input" id="pi_'+r.id+'" type="number" step="0.01" value="'+(r.manualPrice||'')+'" placeholder="0.00"><button class="edit-btn" onclick="savePrice(\''+r.id+'\')">&#10003;</button></div>';}
-    else{const hp=r.manualPrice!=null;priceCell='<div class="price-cell"><span class="price-val">'+(hp?'$'+r.manualPrice:'--')+'</span><span class="price-icon '+(hp?'price-manual':'price-none')+'">'+(hp?'M':'?')+'</span><button class="edit-btn" onclick="startEdit(\''+r.id+'\')">&#9998;</button></div>';}
+    const hp=getTickerPrice(r.ticker);
+    if(isEditing){priceCell='<div class="price-cell"><input class="price-input" id="pi_'+r.id+'" type="number" step="0.01" value="'+(hp||'')+'" placeholder="0.00"><button class="edit-btn" onclick="savePrice(\''+r.id+'\')">&#10003;</button></div>';}
+    else{priceCell='<div class="price-cell"><span class="price-val">'+(hp!=null?'$'+hp:'--')+'</span><span class="price-icon '+(hp!=null?'price-manual':'price-none')+'">'+(hp!=null?'M':'?')+'</span><button class="edit-btn" onclick="startEdit(\''+r.id+'\')">&#9998;</button></div>';}
     let colCell;
     if(r.excelType==='Short Put'&&!c){colCell=r.rolledOver?'<div class="col-cell"><span class="rolled-badge">&#8635; Roll</span><button class="undo-btn" onclick="undoRoll(\''+r.id+'\')">&#8617; Undo</button></div>':'<div class="col-cell"><span class="col-val">$'+col.toLocaleString()+'</span><button class="roll-btn" onclick="markRoll(\''+r.id+'\')">&#8635; Roll</button></div>';}
     else{colCell='<span style="color:var(--text3)">--</span>';}
@@ -605,7 +644,8 @@ function closeModal(){modal=null;document.getElementById('modal-root').innerHTML
 // ── ADD POSITION MODAL ─────────────────────────────────────────────────────────
 let addForm=null; // holds form state while open
 function openAddModal(){
-  addForm={type:'Short Put',ticker:'',strike:'',expiryDate:'',openDate:'',cost:'',income:'',grossValue:'',currentValue:'',profit:'',contracts:1,closed:false,notes:''};
+  const today=new Date().toLocaleDateString('en-US',{month:'numeric',day:'numeric',year:'2-digit'});
+  addForm={type:'Short Put',ticker:'',strike:'',expiryDate:'',openDate:today,cost:'',income:'',grossValue:'',currentValue:'',profit:'',contracts:1,closed:false,notes:''};
   renderAddModal();
 }
 function renderAddModal(){
@@ -653,24 +693,24 @@ function renderAddModal(){
     // Row 3: Open Date + Cost
     +'<div class="ap-grid">'
     +'<div class="ap-field"><label class="ap-label">Open Date</label><input class="ap-input" id="af-opendate" placeholder="e.g. 4/1/26" value="'+f.openDate+'" oninput="addForm.openDate=this.value"></div>'
-    +'<div class="ap-field"><label class="ap-label">Cost / Debit Paid ($)</label><input class="ap-input" id="af-cost" type="number" step="0.01" placeholder="0" value="'+f.cost+'" oninput="addForm.cost=this.value;renderAddModal()"></div>'
+    +'<div class="ap-field"><label class="ap-label">Cost / Debit Paid ($)</label><input class="ap-input" id="af-cost" type="number" step="0.01" placeholder="0" value="'+f.cost+'" oninput="addForm.cost=this.value;updateGross()"></div>'
     +'</div>'
 
     // Row 4: Income (short only) + Current Value
     +'<div class="ap-grid">'
     +(isShort
-      ?'<div class="ap-field"><label class="ap-label">Premium / Income ($)</label><input class="ap-input" id="af-income" type="number" step="0.01" placeholder="0" value="'+f.income+'" oninput="addForm.income=this.value;renderAddModal()"></div>'
+      ?'<div class="ap-field"><label class="ap-label">Premium / Income ($)</label><input class="ap-input" id="af-income" type="number" step="0.01" placeholder="0" value="'+f.income+'" oninput="addForm.income=this.value;updateGross()"></div>'
       :'<div></div>')
     // Current Value: locked at 0 for shorts, editable for longs (defaults to cost)
     +(isShort
       ?'<div class="ap-field"><label class="ap-label">Current Value ($) <span style="color:var(--text3);font-weight:400;font-size:0.6rem;">(short puts = 0)</span></label><input class="ap-input" type="number" value="0" disabled style="background:var(--bg3);color:var(--text3);"></div>'
-      :'<div class="ap-field"><label class="ap-label">Current Value ($)</label><input class="ap-input" id="af-curr" type="number" step="0.01" placeholder="defaults to cost" value="'+(f.currentValue||f.cost||'')+'" oninput="addForm.currentValue=this.value;renderAddModal()"></div>')
+      :'<div class="ap-field"><label class="ap-label">Current Value ($)</label><input class="ap-input" id="af-curr" type="number" step="0.01" placeholder="defaults to cost" value="'+(f.currentValue||f.cost||'')+'" oninput="addForm.currentValue=this.value;updateGross()"></div>')
     +'</div>'
 
-    // Row 5: Gross Value (auto) + P&L
+    // Row 5: Gross Value (auto) + P&L (auto = Gross - Cost)
     +'<div class="ap-grid">'
-    +'<div class="ap-field"><label class="ap-label">Gross Value ($) <span style="color:var(--text3);font-weight:400;font-size:0.6rem;">'+(isShort?'Income + 0':'Income + Curr Val')+'</span></label><input class="ap-input" type="number" value="'+autoGross+'" disabled style="background:var(--bg3);color:var(--text3);" title="Auto-calculated: Income + Current Value"></div>'
-    +'<div class="ap-field"><label class="ap-label">P&amp;L ($)</label><input class="ap-input" id="af-pnl" type="number" step="0.01" placeholder="0" value="'+f.profit+'" oninput="addForm.profit=this.value"></div>'
+    +'<div class="ap-field"><label class="ap-label">Gross Value ($) <span style="color:var(--text3);font-weight:400;font-size:0.6rem;">'+(isShort?'Income + 0':'Income + Curr Val')+'</span></label><input class="ap-input" id="af-gross" type="number" value="'+autoGross+'" disabled style="background:var(--bg3);color:var(--text3);" title="Auto: Income + Current Value"></div>'
+    +'<div class="ap-field"><label class="ap-label">P&amp;L ($) <span style="color:var(--text3);font-weight:400;font-size:0.6rem;">Gross − Cost</span></label><input class="ap-input" id="af-pnl" type="number" value="'+(autoGross-(parseFloat(f.cost)||0))+'" disabled style="background:var(--bg3);color:var(--text3);" title="Auto: Gross Value − Cost"></div>'
     +'</div>'
 
     // Notes + Status
@@ -691,6 +731,23 @@ function renderAddModal(){
     +'</div></div>';
 }
 function setAF(field,val){if(!addForm)return;addForm[field]=val;renderAddModal();}
+function updateGross(){
+  // Update gross and pnl display without re-rendering (preserves cursor focus)
+  if(!addForm)return;
+  const f=addForm;
+  const isShort=f.type==='Short Put'||f.type==='Short Call';
+  const income=parseFloat(f.income)||0;
+  const cost=parseFloat(f.cost)||0;
+  const currInput=document.getElementById('af-curr');
+  const currVal=isShort?0:(currInput?parseFloat(currInput.value)||0:parseFloat(f.currentValue)||cost);
+  if(!isShort&&currInput){f.currentValue=currInput.value;}
+  const gross=income+currVal;
+  const pnl=gross-cost;
+  const gEl=document.getElementById('af-gross');if(gEl)gEl.value=gross.toFixed(2);
+  const pEl=document.getElementById('af-pnl');if(pEl)pEl.value=pnl.toFixed(2);
+  // Also store in addForm for save
+  f.grossValue=gross;f.profit=pnl;
+}
 function saveAddModal(){
   const f=addForm;if(!f)return;
   // Validation
@@ -753,7 +810,8 @@ function saveAddModal(){
   const curr=isShort?0:(parseFloat(f.currentValue)||cost);
   // Gross = income + current value (auto, same logic as table display)
   const gross=income+curr;
-  const pnl=parseFloat(f.profit)||0;
+  // P&L = Gross - Cost (auto)
+  const pnl=gross-cost;
   if(f._editId){
     // Editing existing — update in place
     const r=positions.find(p=>p.id===f._editId);
@@ -1044,7 +1102,17 @@ function attachEvents(){
 function toggleDropdown(){dropdownOpen=!dropdownOpen;const d=document.getElementById('tkdrop');if(d)d.classList.toggle('open',dropdownOpen);}
 document.addEventListener('click',e=>{if(!e.target.closest('#tkwrap')){dropdownOpen=false;const d=document.getElementById('tkdrop');if(d)d.classList.remove('open');}});
 function startEdit(id){editingPrice=id;rMain();setTimeout(()=>{const inp=document.getElementById('pi_'+id);if(inp){inp.focus();inp.select();}},50);}
-function savePrice(id){const inp=document.getElementById('pi_'+id);if(inp){const v=parseFloat(inp.value);const r=positions.find(p=>p.id===id);if(r&&!isNaN(v))r.manualPrice=v;}editingPrice=null;rMain();}
+function savePrice(id){
+  const inp=document.getElementById('pi_'+id);
+  if(inp){
+    const v=parseFloat(inp.value);
+    const r=positions.find(p=>p.id===id);
+    if(r&&!isNaN(v)){
+      setTickerPrice(r.ticker,v); // save universally for this ticker
+    }
+  }
+  editingPrice=null;rMain();
+}
 // Inline field editing
 function ieStart(id,field){editCell={id,field};rMain();setTimeout(()=>{const inp=document.getElementById('ie_'+id+'_'+field);if(inp){inp.focus();inp.select();}},30);}
 function ieSave(id,field){
@@ -1058,6 +1126,65 @@ function markRoll(id){const r=positions.find(p=>p.id===id);if(r)r.rolledOver=tru
 function undoRoll(id){const r=positions.find(p=>p.id===id);if(r)r.rolledOver=false;rMain();}
 function deleteRow(id){if(confirm('Delete this position?')){positions=positions.filter(p=>p.id!==id);rMain();}}
 function deleteAll(){const data=gd(ap,as);const visible=getAppliedFilters(data).map(r=>r.id);if(!visible.length)return;if(confirm('Delete '+visible.length+' positions?')){positions=positions.filter(p=>!visible.includes(p.id));rMain();}}
+// ── PRICES ADMIN MODAL ────────────────────────────────────────────────────────
+function openPricesModal(){
+  // Collect all unique tickers across all positions
+  const allTickers=[...new Set(positions.map(r=>r.ticker))].sort();
+  const rows=allTickers.map(t=>{
+    const price=tickerPrices[t];
+    return'<div class="pm-row">'
+      +'<span class="pm-ticker"><span class="tk-dot-sm" style="background:'+(DC[t]||'#888')+'"></span>'+t+'</span>'
+      +'<input class="pm-input" id="pmp_'+t+'" type="number" step="0.01" placeholder="Enter price" value="'+(price!=null?price:'')+'">'
+      +(price!=null?'<span class="pm-saved">&#10003;</span>':'<span class="pm-saved"></span>')
+      +'<button class="pm-clear" title="Clear price" onclick="clearTickerPrice(\''+t+'\')">&#10005;</button>'
+      +'</div>';
+  }).join('');
+  document.getElementById('modal-root').innerHTML=
+    '<div class="modal-overlay" onclick="if(event.target===this)closePricesModal()">'
+    +'<div class="prices-modal-box">'
+    +'<div class="modal-title" style="margin-bottom:0.2rem;">&#128200; Stock Prices</div>'
+    +'<div class="modal-sub" style="margin-bottom:1rem;">Set a price per ticker — applies universally across all portfolios and persists across refreshes.</div>'
+    +rows
+    +'<div class="pm-add-row">'
+    +'<input class="pm-add-input" id="pm-new-ticker" placeholder="New ticker (e.g. AAPL)" style="max-width:130px;">'
+    +'<input class="pm-add-input" id="pm-new-price" type="number" step="0.01" placeholder="Price">'
+    +'<button class="pm-add-btn" onclick="addTickerPrice()">+ Add</button>'
+    +'</div>'
+    +'<div class="modal-btns" style="margin-top:1rem;">'
+    +'<button class="modal-confirm" style="background:var(--red);" onclick="savePricesModal()">&#128190; Save All Prices</button>'
+    +'<button class="modal-cancel-btn" onclick="closePricesModal()">Close</button>'
+    +'</div>'
+    +'</div></div>';
+}
+function savePricesModal(){
+  const allTickers=[...new Set(positions.map(r=>r.ticker))].sort();
+  allTickers.forEach(t=>{
+    const inp=document.getElementById('pmp_'+t);
+    if(inp){
+      const v=parseFloat(inp.value);
+      if(!isNaN(v)&&v>0)setTickerPrice(t,v);
+      else if(inp.value===''||inp.value==='0')setTickerPrice(t,null);
+    }
+  });
+  closePricesModal();rMain();
+}
+function clearTickerPrice(ticker){
+  setTickerPrice(ticker,null);
+  openPricesModal(); // re-render modal
+}
+function addTickerPrice(){
+  const tInput=document.getElementById('pm-new-ticker');
+  const pInput=document.getElementById('pm-new-price');
+  if(!tInput||!pInput)return;
+  const t=tInput.value.trim().toUpperCase();
+  const v=parseFloat(pInput.value);
+  if(!t){alert('Enter a ticker symbol.');return;}
+  if(isNaN(v)||v<=0){alert('Enter a valid price.');return;}
+  setTickerPrice(t,v);
+  openPricesModal(); // re-render with new ticker
+}
+function closePricesModal(){document.getElementById('modal-root').innerHTML='';rMain();}
+
 function rBc(){
   const el=document.getElementById('bc');
   const sl={'ret-all':'All Retirement','amit-roth':'Amit - Roth IRA','lov-roth':'Lovelina - Roth IRA','lov-trad':'Lovelina - Traditional IRA'};
@@ -1083,7 +1210,7 @@ function sPort(p){
 document.getElementById('port-nav').addEventListener('click',e=>{const t=e.target.closest('.port-tab');if(t)sPort(t.dataset.port);});
 document.getElementById('sub-nav').addEventListener('click',e=>{const t=e.target.closest('.sub-tab');if(!t)return;as=t.dataset.sub;document.querySelectorAll('.sub-tab').forEach(s=>s.classList.toggle('active',s.dataset.sub===as));rBc();rMain();});
 document.getElementById('topbar-date').textContent=new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
-window.sPort=sPort;window.startEdit=startEdit;window.savePrice=savePrice;window.markRoll=markRoll;window.undoRoll=undoRoll;window.deleteRow=deleteRow;window.deleteAll=deleteAll;window.toggleDropdown=toggleDropdown;window.openModal=openModal;window.closeModal=closeModal;window.confirmModal=confirmModal;window.reopenPosition=reopenPosition;window.setMA=setMA;window.setCD=setCD;window.toggleUpload=toggleUpload;window.cancelUpload=cancelUpload;window.dlTemplate=dlTemplate;window.doImport=doImport;window.openAddModal=openAddModal;window.closeAddModal=closeAddModal;window.saveAddModal=saveAddModal;window.setAF=setAF;window.ieStart=ieStart;window.ieSave=ieSave;window.ieCancel=ieCancel;window.ieKey=ieKey;window.openEditModal=openEditModal;
+window.sPort=sPort;window.startEdit=startEdit;window.savePrice=savePrice;window.markRoll=markRoll;window.undoRoll=undoRoll;window.deleteRow=deleteRow;window.deleteAll=deleteAll;window.toggleDropdown=toggleDropdown;window.openModal=openModal;window.closeModal=closeModal;window.confirmModal=confirmModal;window.reopenPosition=reopenPosition;window.setMA=setMA;window.setCD=setCD;window.toggleUpload=toggleUpload;window.cancelUpload=cancelUpload;window.dlTemplate=dlTemplate;window.doImport=doImport;window.openAddModal=openAddModal;window.closeAddModal=closeAddModal;window.saveAddModal=saveAddModal;window.setAF=setAF;window.updateGross=updateGross;window.ieStart=ieStart;window.ieSave=ieSave;window.ieCancel=ieCancel;window.ieKey=ieKey;window.openEditModal=openEditModal;window.openPricesModal=openPricesModal;window.savePricesModal=savePricesModal;window.closePricesModal=closePricesModal;window.clearTickerPrice=clearTickerPrice;window.addTickerPrice=addTickerPrice;
 rBc();rMain();
 </script>
 </body>
