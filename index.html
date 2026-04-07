@@ -322,13 +322,45 @@ td.mc{color:var(--black);font-weight:700;}td.mn{font-family:monospace;font-size:
 .soc-tabs{display:flex;gap:2px;background:var(--bg3);border:1px solid var(--border);border-radius:9px;padding:3px;}
 .soc-tab{background:transparent;border:none;color:var(--text3);padding:0.22rem 0.5rem;border-radius:6px;font-size:0.65rem;font-weight:700;cursor:pointer;text-transform:uppercase;transition:all 0.15s;}
 .soc-tab.active{background:var(--black);color:#fff;}.soc-tab:hover:not(.active){color:var(--black);}
+
+/* ── ADMIN / PRICES VIEW ── */
+.admin-wrap{max-width:700px;}
+.admin-title{font-size:1rem;font-weight:800;color:var(--black);margin-bottom:0.25rem;}
+.admin-sub{font-size:0.72rem;color:var(--text3);margin-bottom:1.25rem;}
+.admin-table-wrap{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.06);margin-bottom:1rem;}
+.admin-table{width:100%;border-collapse:collapse;}
+.admin-table thead{background:var(--black);}
+.admin-table th{padding:0.6rem 1rem;font-size:0.62rem;font-weight:700;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:0.08em;text-align:left;white-space:nowrap;}
+.admin-table tbody tr{border-bottom:1px solid var(--border);transition:background 0.1s;}
+.admin-table tbody tr:last-child{border-bottom:none;}
+.admin-table tbody tr:hover{background:var(--bg3);}
+.admin-table td{padding:0.6rem 1rem;font-size:0.8rem;color:var(--text2);vertical-align:middle;}
+.admin-ticker-cell{display:flex;align-items:center;gap:0.5rem;font-weight:800;font-size:0.85rem;color:var(--black);}
+.live-price{font-family:monospace;font-weight:800;font-size:0.9rem;color:var(--green);}
+.live-badge{background:var(--green-bg);color:var(--green);font-size:0.58rem;font-weight:700;padding:0.08rem 0.35rem;border-radius:3px;text-transform:uppercase;letter-spacing:0.04em;}
+.manual-badge{background:var(--yellow-bg);color:var(--yellow);font-size:0.58rem;font-weight:700;padding:0.08rem 0.35rem;border-radius:3px;text-transform:uppercase;letter-spacing:0.04em;}
+.fetching-badge{background:var(--bg4);color:var(--text3);font-size:0.58rem;font-weight:700;padding:0.08rem 0.35rem;border-radius:3px;animation:pulse 1.2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+.no-price{color:var(--text3);font-style:italic;font-size:0.75rem;}
+.admin-price-input{border:1px solid var(--border2);border-radius:7px;padding:0.35rem 0.6rem;font-size:0.78rem;font-family:monospace;outline:none;color:var(--black);width:100px;}
+.admin-price-input:focus{border-color:var(--red);box-shadow:0 0 0 2px rgba(220,38,38,0.1);}
+.admin-save-btn{background:var(--red);color:#fff;border:none;padding:0.35rem 0.75rem;border-radius:6px;font-size:0.68rem;font-weight:700;cursor:pointer;white-space:nowrap;}
+.admin-save-btn:hover{background:var(--red2);}
+.admin-clear-btn{background:transparent;color:var(--text3);border:1px solid var(--border);padding:0.35rem 0.6rem;border-radius:6px;font-size:0.68rem;font-weight:600;cursor:pointer;}
+.admin-clear-btn:hover{color:var(--red);border-color:rgba(220,38,38,0.3);}
+.admin-add-row{display:flex;gap:0.6rem;align-items:center;padding:0.85rem 1rem;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);margin-bottom:1rem;}
+.admin-add-label{font-size:0.68rem;font-weight:700;color:var(--text3);white-space:nowrap;}
+.admin-add-input{border:1px solid var(--border2);border-radius:7px;padding:0.38rem 0.65rem;font-size:0.76rem;outline:none;color:var(--black);}
+.admin-add-input:focus{border-color:var(--red);}
+.admin-add-btn{background:var(--red);color:#fff;border:none;padding:0.38rem 0.9rem;border-radius:7px;font-size:0.7rem;font-weight:700;cursor:pointer;}
+.admin-add-btn:hover{background:var(--red2);}
+.admin-note{font-size:0.68rem;color:var(--text3);background:var(--blue-bg);border:1px solid rgba(37,99,235,0.15);border-radius:8px;padding:0.65rem 1rem;line-height:1.6;}
 </style>
 </head>
 <body>
 <div class="topbar">
   <div style="display:flex;align-items:center;"><span class="logo">R.<em>O</em>.I</span><span class="logo-sub">Rick's Options Income</span></div>
   <div style="display:flex;align-items:center;gap:0.65rem;">
-    <button class="prices-btn" onclick="openPricesModal()">&#128200; Prices</button>
     <div class="topbar-right" id="topbar-date"></div>
   </div>
 </div>
@@ -348,6 +380,7 @@ td.mc{color:var(--black);font-weight:700;}td.mn{font-family:monospace;font-size:
 <div class="view-nav" id="view-nav">
   <div class="view-tab active" data-view="positions">&#128202; Positions</div>
   <div class="view-tab" data-view="spreads">&#8597; Spreads / Risk View</div>
+  <div class="view-tab" data-view="admin">&#9881; Admin — Prices</div>
 </div>
 <div class="breadcrumb" id="bc"><span>All Portfolios</span></div>
 <div id="modal-root"></div>
@@ -1069,12 +1102,122 @@ function rSpreadsView(data){
   return sFilterBar+banner+table;
 }
 
+// ── ADMIN / PRICES VIEW ───────────────────────────────────────────────────────
+// Live price fetch via Yahoo Finance (CORS proxy). Falls back gracefully.
+const liveCache={}; // {ticker: {price, ts}} in-memory cache (session only)
+const CACHE_TTL=5*60*1000; // 5 min
+
+async function fetchLivePrice(ticker){
+  const cached=liveCache[ticker];
+  if(cached&&Date.now()-cached.ts<CACHE_TTL)return cached.price;
+  try{
+    // Use allorigins CORS proxy to hit Yahoo Finance v8 quote endpoint
+    const url='https://query1.finance.yahoo.com/v8/finance/chart/'+ticker+'?interval=1d&range=1d';
+    const proxy='https://api.allorigins.win/get?url='+encodeURIComponent(url);
+    const res=await fetch(proxy,{signal:AbortSignal.timeout(6000)});
+    const json=await res.json();
+    const contents=JSON.parse(json.contents);
+    const meta=contents?.chart?.result?.[0]?.meta;
+    const price=meta?.regularMarketPrice??meta?.previousClose??null;
+    if(price!=null){liveCache[ticker]={price,ts:Date.now()};return price;}
+  }catch(e){}
+  return null;
+}
+
+function rAdminView(){
+  // All unique tickers across all positions in current portfolio
+  const allTickers=[...new Set(positions.map(r=>r.ticker))].sort();
+  const rows=allTickers.map(t=>{
+    const manual=tickerPrices[t]??null;
+    const live=liveCache[t]?.price??null;
+    const display=live!=null
+      ?'<span class="live-price">$'+live.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})+'</span> <span class="live-badge">Live</span>'
+      :'<span class="no-price">Fetching...</span>';
+    const manualDisplay=manual!=null
+      ?'<span style="font-family:monospace;font-weight:700;font-size:0.85rem;">$'+manual+'</span> <span class="manual-badge">Manual</span>'
+      :'<span class="no-price">—</span>';
+    const activePrice=manual!=null?manual:live;
+    const usedDisplay=activePrice!=null
+      ?'<span style="font-family:monospace;font-weight:800;color:var(--black);font-size:0.9rem;">$'+Number(activePrice).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})+'</span>'
+      +'<span style="font-size:0.6rem;color:var(--text3);margin-left:4px;">'+(manual!=null?'(manual override)':'(live)')+'</span>'
+      :'<span class="no-price">Not set</span>';
+    return'<tr>'
+      +'<td><div class="admin-ticker-cell"><span class="tk-dot-sm" style="background:'+(DC[t]||'#888')+'"></span>'+t+'</div></td>'
+      +'<td id="lp_'+t+'">'+display+'</td>'
+      +'<td>'+manualDisplay+'</td>'
+      +'<td>'+usedDisplay+'</td>'
+      +'<td><div style="display:flex;align-items:center;gap:0.4rem;">'
+      +'<input class="admin-price-input" id="ap_'+t+'" type="number" step="0.01" placeholder="e.g. 16.50" value="'+(manual!=null?manual:'')+'" onkeydown="if(event.key===\'Enter\')adminSavePrice(\''+t+'\')">'
+      +'<button class="admin-save-btn" onclick="adminSavePrice(\''+t+'\')">Save</button>'
+      +(manual!=null?'<button class="admin-clear-btn" onclick="adminClearPrice(\''+t+'\')">Clear</button>':'')
+      +'</div></td>'
+      +'</tr>';
+  }).join('');
+
+  return'<div class="admin-wrap">'
+    +'<div class="admin-title">&#9881; Prices Admin</div>'
+    +'<div class="admin-sub">Live prices are fetched from Yahoo Finance. Set a manual price to override. Manual prices persist across refreshes and apply to all portfolios.</div>'
+    +'<div class="admin-note">&#8505; <strong>Live prices</strong> are fetched in the background and cached for 5 minutes. If a ticker is not found on Yahoo Finance, set a manual price instead. Manual price always takes priority over the live price.</div>'
+    +'<br>'
+    +'<div class="admin-table-wrap"><table class="admin-table">'
+    +'<thead><tr><th>Ticker</th><th>Live Price</th><th>Manual Price</th><th>Active Price (used)</th><th>Set Manual Price</th></tr></thead>'
+    +'<tbody>'+rows+'</tbody>'
+    +'</table></div>'
+    +'<div class="admin-add-row">'
+    +'<span class="admin-add-label">Add ticker not in portfolio:</span>'
+    +'<input class="admin-add-input" id="adm-new-ticker" placeholder="Ticker" style="width:100px;" onkeydown="if(event.key===\'Enter\')document.getElementById(\'adm-new-price\').focus()">'
+    +'<input class="admin-add-input" id="adm-new-price" type="number" step="0.01" placeholder="Manual price" style="width:120px;" onkeydown="if(event.key===\'Enter\')adminAddTicker()">'
+    +'<button class="admin-add-btn" onclick="adminAddTicker()">+ Add</button>'
+    +'</div>'
+    +'</div>';
+}
+
+function adminSavePrice(ticker){
+  const inp=document.getElementById('ap_'+ticker);if(!inp)return;
+  const v=parseFloat(inp.value);
+  if(isNaN(v)||v<=0){alert('Enter a valid price > 0');return;}
+  setTickerPrice(ticker,v);
+  rMain(); // re-render whole view so all screens reflect new price
+}
+function adminClearPrice(ticker){
+  setTickerPrice(ticker,null);
+  rMain();
+}
+function adminAddTicker(){
+  const t=(document.getElementById('adm-new-ticker')?.value||'').trim().toUpperCase();
+  const p=parseFloat(document.getElementById('adm-new-price')?.value||'');
+  if(!t){alert('Enter a ticker symbol.');return;}
+  if(!isNaN(p)&&p>0)setTickerPrice(t,p);
+  // Trigger a live fetch for this new ticker too
+  fetchAndUpdateLive([t]);
+  rMain();
+}
+
+async function fetchAndUpdateLive(tickers){
+  await Promise.all(tickers.map(async t=>{
+    const price=await fetchLivePrice(t);
+    if(price!=null){
+      // Update just the live price cell if it exists (no full re-render)
+      const el=document.getElementById('lp_'+t);
+      if(el)el.innerHTML='<span class="live-price">$'+price.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})+'</span> <span class="live-badge">Live</span>';
+    }else{
+      const el=document.getElementById('lp_'+t);
+      if(el)el.innerHTML='<span class="no-price">Not available</span>';
+    }
+  }));
+}
+
 function rMain(){
   const el=document.getElementById('mc');
   const data=gd(ap,as);
   const dispData=selectedTickers.has('ALL')?data:data.filter(r=>selectedTickers.has(r.ticker));
   const s=cs(dispData);
-  if(activeView==='spreads'){
+  if(activeView==='admin'){
+    el.innerHTML=rAdminView();
+    // Kick off live price fetches for all unique tickers in background
+    const allTickers=[...new Set(positions.map(r=>r.ticker))].sort();
+    fetchAndUpdateLive(allTickers);
+  }else if(activeView==='spreads'){
     el.innerHTML=rSum(s)+rSpreadsView(data);
   }else{
     el.innerHTML=data.length===0
@@ -1210,7 +1353,7 @@ function sPort(p){
 document.getElementById('port-nav').addEventListener('click',e=>{const t=e.target.closest('.port-tab');if(t)sPort(t.dataset.port);});
 document.getElementById('sub-nav').addEventListener('click',e=>{const t=e.target.closest('.sub-tab');if(!t)return;as=t.dataset.sub;document.querySelectorAll('.sub-tab').forEach(s=>s.classList.toggle('active',s.dataset.sub===as));rBc();rMain();});
 document.getElementById('topbar-date').textContent=new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
-window.sPort=sPort;window.startEdit=startEdit;window.savePrice=savePrice;window.markRoll=markRoll;window.undoRoll=undoRoll;window.deleteRow=deleteRow;window.deleteAll=deleteAll;window.toggleDropdown=toggleDropdown;window.openModal=openModal;window.closeModal=closeModal;window.confirmModal=confirmModal;window.reopenPosition=reopenPosition;window.setMA=setMA;window.setCD=setCD;window.toggleUpload=toggleUpload;window.cancelUpload=cancelUpload;window.dlTemplate=dlTemplate;window.doImport=doImport;window.openAddModal=openAddModal;window.closeAddModal=closeAddModal;window.saveAddModal=saveAddModal;window.setAF=setAF;window.updateGross=updateGross;window.ieStart=ieStart;window.ieSave=ieSave;window.ieCancel=ieCancel;window.ieKey=ieKey;window.openEditModal=openEditModal;window.openPricesModal=openPricesModal;window.savePricesModal=savePricesModal;window.closePricesModal=closePricesModal;window.clearTickerPrice=clearTickerPrice;window.addTickerPrice=addTickerPrice;
+window.sPort=sPort;window.startEdit=startEdit;window.savePrice=savePrice;window.markRoll=markRoll;window.undoRoll=undoRoll;window.deleteRow=deleteRow;window.deleteAll=deleteAll;window.toggleDropdown=toggleDropdown;window.openModal=openModal;window.closeModal=closeModal;window.confirmModal=confirmModal;window.reopenPosition=reopenPosition;window.setMA=setMA;window.setCD=setCD;window.toggleUpload=toggleUpload;window.cancelUpload=cancelUpload;window.dlTemplate=dlTemplate;window.doImport=doImport;window.openAddModal=openAddModal;window.closeAddModal=closeAddModal;window.saveAddModal=saveAddModal;window.setAF=setAF;window.updateGross=updateGross;window.ieStart=ieStart;window.ieSave=ieSave;window.ieCancel=ieCancel;window.ieKey=ieKey;window.openEditModal=openEditModal;window.openPricesModal=openPricesModal;window.savePricesModal=savePricesModal;window.closePricesModal=closePricesModal;window.clearTickerPrice=clearTickerPrice;window.addTickerPrice=addTickerPrice;window.adminSavePrice=adminSavePrice;window.adminClearPrice=adminClearPrice;window.adminAddTicker=adminAddTicker;
 rBc();rMain();
 </script>
 </body>
