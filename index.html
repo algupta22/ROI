@@ -2,10 +2,10 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --bg:#F5F5F5;--bg2:#FFFFFF;--bg3:#F8F8F8;--bg4:#F0F0F0;
-  --card:#FFFFFF;--border:#E5E5E5;--border2:#D0D0D0;
+  --bg:#F5F5F5;--bg2:#FFF;--bg3:#F8F8F8;--bg4:#F0F0F0;
+  --card:#FFF;--border:#E5E5E5;--border2:#D0D0D0;
   --red:#DC2626;--red2:#EF4444;--red-bg:#FEF2F2;
-  --black:#111111;--text:#111111;--text2:#444444;--text3:#888888;
+  --black:#111;--text:#111;--text2:#444;--text3:#888;
   --green:#059669;--green-bg:#ECFDF5;
   --yellow:#D97706;--yellow-bg:#FFFBEB;
   --blue:#2563EB;--blue-bg:#EFF6FF;
@@ -13,7 +13,6 @@
   --orange:#EA580C;--r:10px;
 }
 body{background:var(--bg);min-height:100vh;font-family:'Segoe UI',system-ui,sans-serif;font-size:13px;line-height:1.5;color:var(--text);}
-
 .topbar{background:var(--black);padding:0 1.2rem;display:flex;align-items:center;justify-content:space-between;height:52px;position:sticky;top:0;z-index:100;}
 .logo{font-size:1.15rem;font-weight:900;color:#fff;}.logo em{font-style:normal;color:var(--red2);}
 .logo-sub{font-size:0.68rem;color:rgba(255,255,255,0.45);margin-left:0.5rem;}
@@ -27,29 +26,17 @@ body{background:var(--bg);min-height:100vh;font-family:'Segoe UI',system-ui,sans
 .sub-tab{display:flex;align-items:center;gap:0.4rem;padding:0 0.9rem;height:34px;font-size:0.67rem;font-weight:600;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;transition:all 0.15s;white-space:nowrap;text-transform:uppercase;}
 .sub-tab:hover{color:var(--black);}.sub-tab.active{color:var(--red);border-bottom-color:var(--red);}
 .owner-badge{background:var(--bg4);border:1px solid var(--border);border-radius:3px;padding:1px 5px;font-size:0.62rem;color:var(--text3);}
+/* VIEW TABS - positions vs spreads */
+.view-nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 1.2rem;display:flex;gap:0;}
+.view-tab{display:flex;align-items:center;gap:0.35rem;padding:0 1rem;height:38px;font-size:0.72rem;font-weight:700;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;transition:all 0.15s;white-space:nowrap;}
+.view-tab:hover{color:var(--black);}.view-tab.active{color:var(--black);border-bottom-color:var(--black);}
 .breadcrumb{padding:0.4rem 1.2rem;font-size:0.68rem;color:var(--text3);display:flex;align-items:center;gap:0.35rem;background:var(--bg2);border-bottom:1px solid var(--border);}
 .main{padding:0.85rem 1.2rem;}
-
-/* PRICE LEGEND */
-.price-legend{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:0.55rem 1rem;margin-bottom:0.85rem;display:flex;align-items:center;gap:0.85rem;flex-wrap:wrap;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
-.pl-title{font-size:0.62rem;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;white-space:nowrap;}
-.pl-ticker{display:flex;align-items:center;gap:0.4rem;background:var(--bg3);border:1px solid var(--border);border-radius:7px;padding:0.22rem 0.6rem;}
-.pl-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
-.pl-name{font-size:0.7rem;font-weight:700;color:var(--black);}
-.pl-price{font-family:monospace;font-size:0.7rem;font-weight:700;color:var(--black);}
-.pl-badge{font-size:0.57rem;font-weight:700;padding:0.06rem 0.25rem;border-radius:3px;}
-.pl-m{background:var(--yellow-bg);color:var(--yellow);}
-.pl-edit{background:none;border:none;cursor:pointer;font-size:0.65rem;color:var(--text3);padding:0.05rem 0.18rem;border-radius:3px;}
-.pl-edit:hover{color:var(--red);}
-.pl-input{width:55px;background:#fff;border:1px solid var(--border2);color:var(--black);border-radius:5px;padding:0.1rem 0.25rem;font-size:0.68rem;font-family:monospace;outline:none;}
-.pl-input:focus{border-color:var(--red);}
-.pl-save{background:var(--red);border:none;color:#fff;cursor:pointer;font-size:0.62rem;padding:0.1rem 0.38rem;border-radius:3px;font-weight:700;}
-.persist-note{display:inline-flex;align-items:center;gap:0.3rem;font-size:0.6rem;color:var(--green);font-weight:600;background:var(--green-bg);padding:0.15rem 0.5rem;border-radius:10px;margin-left:auto;}
 
 /* FILTER BAR */
 .filter-bar{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:0.55rem 0.9rem;margin-bottom:0.85rem;display:flex;align-items:center;gap:0.65rem;flex-wrap:wrap;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
 .filter-bar-label{font-size:0.62rem;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;white-space:nowrap;}
-.ticker-select-wrap{position:relative;flex:1;min-width:180px;max-width:360px;}
+.ticker-select-wrap{position:relative;flex:1;min-width:180px;max-width:320px;}
 .ticker-select-btn{background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:0.28rem 0.7rem;border-radius:7px;font-size:0.72rem;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:0.4rem;width:100%;justify-content:space-between;min-height:30px;}
 .ticker-select-btn:hover{border-color:var(--red);}
 .ticker-dropdown{position:absolute;top:calc(100% + 4px);left:0;right:0;background:#fff;border:1px solid var(--border2);border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,0.12);z-index:200;padding:0.4rem;display:none;max-height:200px;overflow-y:auto;}
@@ -63,7 +50,12 @@ body{background:var(--bg);min-height:100vh;font-family:'Segoe UI',system-ui,sans
 .sel-tag{background:var(--red-bg);border:1px solid rgba(220,38,38,0.25);color:var(--red);padding:0.12rem 0.45rem;border-radius:12px;font-size:0.63rem;font-weight:700;display:flex;align-items:center;gap:0.3rem;}
 .sel-tag-x{cursor:pointer;opacity:0.6;font-size:0.58rem;}.sel-tag-x:hover{opacity:1;}
 
-/* SUMMARY */
+/* STATUS FILTER */
+.status-tabs{display:flex;gap:2px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:3px;}
+.status-tab{background:transparent;border:none;color:var(--text3);padding:0.22rem 0.6rem;border-radius:5px;font-size:0.65rem;font-weight:700;cursor:pointer;text-transform:uppercase;transition:all 0.15s;}
+.status-tab.active{background:var(--black);color:#fff;}.status-tab:hover:not(.active){color:var(--black);}
+
+/* SUMMARY CARDS */
 .summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:0.75rem;margin-bottom:0.85rem;}
 .scard{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:0.85rem 1rem;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
 .scard-label{font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.3rem;}
@@ -88,151 +80,76 @@ body{background:var(--bg);min-height:100vh;font-family:'Segoe UI',system-ui,sans
 .col-combo-val{font-size:0.9rem;font-weight:800;font-family:monospace;}
 .col-combo-divider{height:1px;background:rgba(255,255,255,0.1);margin:0.2rem 0;}
 
-/* TABLE CONTROLS */
+/* SPREADS VIEW */
 .sbar{font-size:0.65rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;color:var(--text3);padding:0.35rem 0;margin-bottom:0.65rem;display:flex;align-items:center;gap:0.5rem;}
 .sbar::before{content:'';width:3px;height:12px;background:var(--red);border-radius:2px;display:inline-block;}
-.controls-row{display:flex;gap:0.5rem;margin-bottom:0.75rem;flex-wrap:wrap;align-items:center;}
-.type-tabs{display:flex;gap:2px;background:var(--bg2);border:1px solid var(--border);border-radius:9px;padding:3px;flex-wrap:wrap;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
-.type-tab{background:transparent;border:none;color:var(--text3);padding:0.22rem 0.55rem;border-radius:6px;font-size:0.65rem;font-weight:700;cursor:pointer;text-transform:uppercase;transition:all 0.15s;white-space:nowrap;}
-.type-tab.active{background:var(--red);color:#fff;}.type-tab:hover:not(.active){color:var(--black);}
-.oc-tabs{display:flex;gap:2px;background:var(--bg2);border:1px solid var(--border);border-radius:9px;padding:3px;}
-.oc-tab{background:transparent;border:none;color:var(--text3);padding:0.22rem 0.5rem;border-radius:6px;font-size:0.65rem;font-weight:700;cursor:pointer;text-transform:uppercase;transition:all 0.15s;}
-.oc-tab.active{background:var(--black);color:#fff;}.oc-tab:hover:not(.active){color:var(--black);}
-.expiry-pill{background:var(--red-bg);border:1px solid rgba(220,38,38,0.3);color:var(--red);padding:0.22rem 0.6rem;border-radius:20px;font-size:0.65rem;font-weight:700;cursor:pointer;transition:all 0.15s;white-space:nowrap;}
-.expiry-pill.active{background:var(--red);color:#fff;border-color:var(--red);}
-.del-all-btn{background:var(--bg2);border:1px solid var(--border);color:var(--text3);padding:0.22rem 0.6rem;border-radius:7px;font-size:0.65rem;font-weight:700;cursor:pointer;transition:all 0.15s;}
-.del-all-btn:hover{background:var(--red-bg);border-color:rgba(220,38,38,0.3);color:var(--red);}
-.upload-group{display:flex;align-items:center;gap:0.4rem;margin-left:auto;}
-.upload-csv-btn{display:inline-flex;align-items:center;gap:0.35rem;background:var(--black);color:#fff;border:none;padding:0.28rem 0.75rem;border-radius:7px;font-size:0.65rem;font-weight:700;cursor:pointer;}
-.upload-csv-btn:hover{background:#333;}
-.template-dl-btn{display:inline-flex;align-items:center;gap:0.3rem;background:transparent;color:var(--blue);border:1px solid rgba(37,99,235,0.3);padding:0.28rem 0.65rem;border-radius:7px;font-size:0.65rem;font-weight:700;cursor:pointer;}
-.template-dl-btn:hover{background:var(--blue-bg);}
 
-/* UPLOAD PANEL */
-.upload-panel{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);margin-bottom:0.75rem;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
-.upload-panel-header{background:var(--black);padding:0.5rem 1rem;display:flex;align-items:center;justify-content:space-between;}
-.upload-panel-title{font-size:0.7rem;font-weight:700;color:#fff;letter-spacing:0.04em;}
-.upload-close-btn{background:none;border:none;color:rgba(255,255,255,0.5);cursor:pointer;font-size:0.85rem;padding:0 0.25rem;}
-.upload-close-btn:hover{color:#fff;}
-.upload-panel-body{padding:0.85rem 1rem;}
-.drop-zone{border:2px dashed var(--border2);border-radius:var(--r);padding:1.5rem 1rem;text-align:center;cursor:pointer;transition:all 0.2s;background:var(--bg3);}
-.drop-zone:hover,.drop-zone.drag-over{border-color:var(--red);background:var(--red-bg);}
-.drop-zone-icon{font-size:1.6rem;margin-bottom:0.35rem;}
-.drop-zone-title{font-size:0.78rem;font-weight:700;color:var(--black);margin-bottom:0.2rem;}
-.drop-zone-sub{font-size:0.65rem;color:var(--text3);}
-.drop-zone-btn{display:inline-flex;align-items:center;gap:0.35rem;background:var(--red);color:#fff;border:none;padding:0.38rem 0.9rem;border-radius:6px;font-size:0.68rem;font-weight:700;cursor:pointer;margin-top:0.6rem;}
-.drop-zone-btn:hover{background:var(--red2);}
-.preview-wrap{border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:0.75rem;}
-.preview-header{background:var(--bg4);padding:0.45rem 0.75rem;font-size:0.63rem;font-weight:700;color:var(--text3);text-transform:uppercase;display:flex;align-items:center;justify-content:space-between;}
-.preview-scroll{overflow-x:auto;max-height:200px;overflow-y:auto;}
-.preview-table{width:100%;border-collapse:collapse;min-width:500px;}
-.preview-table th{padding:0.38rem 0.6rem;font-size:0.58rem;font-weight:700;color:rgba(255,255,255,0.8);background:var(--black);text-align:left;white-space:nowrap;text-transform:uppercase;}
-.preview-table td{padding:0.35rem 0.6rem;font-size:0.68rem;color:var(--text2);border-bottom:1px solid var(--border);white-space:nowrap;}
-.preview-table tr:last-child td{border-bottom:none;}
-.preview-table tr:hover td{background:var(--bg3);}
-.calc-cell{color:var(--purple);font-style:italic;}
-.err-cell{color:var(--red);font-size:0.63rem;}
-.import-actions{display:flex;align-items:center;gap:0.65rem;flex-wrap:wrap;}
-.import-btn{background:var(--red);color:#fff;border:none;padding:0.45rem 1.1rem;border-radius:7px;font-size:0.72rem;font-weight:700;cursor:pointer;}
-.import-btn:hover{background:var(--red2);}
-.import-btn:disabled{background:var(--text3);cursor:not-allowed;}
-.cancel-btn{background:transparent;color:var(--text3);border:1px solid var(--border);padding:0.45rem 0.8rem;border-radius:7px;font-size:0.68rem;font-weight:600;cursor:pointer;}
-.cancel-btn:hover{color:var(--red);border-color:rgba(220,38,38,0.3);}
-.success-msg{background:var(--green-bg);border:1px solid rgba(5,150,105,0.25);color:var(--green);padding:0.38rem 0.75rem;border-radius:7px;font-size:0.68rem;font-weight:600;}
-.error-msg{background:var(--red-bg);border:1px solid rgba(220,38,38,0.25);color:var(--red);padding:0.38rem 0.75rem;border-radius:7px;font-size:0.68rem;font-weight:600;}
+/* COLLATERAL SUMMARY CARDS BY TICKER */
+.collat-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:0.75rem;margin-bottom:1rem;}
+.collat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:0.85rem 1rem;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
+.collat-card-header{display:flex;align-items:center;gap:0.45rem;margin-bottom:0.5rem;}
+.collat-ticker{font-weight:800;font-size:0.85rem;color:var(--black);}
+.collat-row{display:flex;justify-content:space-between;font-size:0.7rem;padding:0.18rem 0;border-bottom:1px solid var(--border);}
+.collat-row:last-child{border-bottom:none;}
+.collat-row span:first-child{color:var(--text3);}
+.collat-row span:last-child{font-family:monospace;font-weight:700;}
+.total-collat-banner{background:var(--black);border-radius:var(--r);padding:1rem 1.25rem;margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;}
+.tcb-label{font-size:0.7rem;font-weight:700;color:rgba(255,255,255,0.55);text-transform:uppercase;letter-spacing:0.08em;}
+.tcb-val{font-size:1.6rem;font-weight:900;font-family:monospace;}
+.tcb-sub{font-size:0.65rem;color:rgba(255,255,255,0.4);margin-top:0.1rem;}
+.tcb-breakdown{display:flex;gap:1.5rem;flex-wrap:wrap;}
+.tcb-item{text-align:center;}
+.tcb-item-val{font-size:0.95rem;font-weight:800;font-family:monospace;}
+.tcb-item-label{font-size:0.6rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.06em;margin-top:0.1rem;}
 
-/* ── CLOSE CONTRACT MODAL OVERLAY ── */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:500;display:flex;align-items:center;justify-content:center;}
-.modal-box{background:#fff;border-radius:14px;padding:1.5rem;width:340px;max-width:92vw;box-shadow:0 16px 48px rgba(0,0,0,0.2);}
-.modal-title{font-size:0.85rem;font-weight:800;color:var(--black);margin-bottom:0.25rem;}
-.modal-sub{font-size:0.68rem;color:var(--text3);margin-bottom:1.1rem;}
-.modal-pos-badge{display:inline-flex;align-items:center;gap:0.4rem;background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:0.3rem 0.65rem;margin-bottom:1rem;font-size:0.72rem;font-weight:700;color:var(--black);}
-.modal-action-tabs{display:flex;gap:4px;margin-bottom:1rem;background:var(--bg3);border-radius:8px;padding:3px;}
-.mat{flex:1;text-align:center;padding:0.35rem 0;border-radius:6px;font-size:0.7rem;font-weight:700;cursor:pointer;border:none;background:transparent;color:var(--text3);transition:all 0.15s;}
-.mat:hover{color:var(--black);}
-.mat.mat-close.active{background:var(--red);color:#fff;}
-.mat.mat-buy.active{background:var(--green);color:#fff;}
-.mat.mat-sell.active{background:var(--blue);color:#fff;}
-.modal-value-section{margin-bottom:1rem;}
-.modal-value-label{font-size:0.68rem;font-weight:700;color:var(--text3);margin-bottom:0.4rem;display:flex;align-items:center;gap:0.4rem;}
-.modal-cd-tabs{display:flex;gap:4px;margin-bottom:0.6rem;}
-.mct{flex:1;text-align:center;padding:0.3rem;border-radius:6px;font-size:0.68rem;font-weight:700;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text3);transition:all 0.15s;}
-.mct:hover{border-color:var(--border2);}
-.mct.credit.active{background:var(--green-bg);border-color:rgba(5,150,105,0.4);color:var(--green);}
-.mct.debit.active{background:var(--red-bg);border-color:rgba(220,38,38,0.4);color:var(--red);}
-.mct.zero.active{background:var(--bg4);border-color:var(--border2);color:var(--black);}
-.modal-amount-wrap{display:flex;align-items:center;gap:0.5rem;}
-.modal-amount-pre{font-size:0.9rem;font-weight:700;color:var(--text3);}
-.modal-amount-input{flex:1;border:1px solid var(--border2);border-radius:7px;padding:0.45rem 0.7rem;font-size:0.88rem;font-family:monospace;font-weight:700;outline:none;color:var(--black);}
-.modal-amount-input:focus{border-color:var(--red);}
-.modal-amount-input:disabled{background:var(--bg3);color:var(--text3);}
-.modal-amount-hint{font-size:0.62rem;color:var(--text3);margin-top:0.3rem;}
-.modal-notes-wrap{margin-bottom:1rem;}
-.modal-notes-label{font-size:0.68rem;font-weight:700;color:var(--text3);margin-bottom:0.3rem;}
-.modal-notes-input{width:100%;border:1px solid var(--border2);border-radius:7px;padding:0.4rem 0.7rem;font-size:0.75rem;outline:none;color:var(--black);resize:none;}
-.modal-notes-input:focus{border-color:var(--red);}
-.modal-actions{display:flex;gap:0.6rem;}
-.modal-confirm-btn{flex:1;background:var(--red);color:#fff;border:none;padding:0.55rem;border-radius:8px;font-size:0.75rem;font-weight:700;cursor:pointer;}
-.modal-confirm-btn.green{background:var(--green);}
-.modal-confirm-btn.blue{background:var(--blue);}
-.modal-confirm-btn:hover{opacity:0.9;}
-.modal-cancel-btn{background:transparent;color:var(--text3);border:1px solid var(--border);padding:0.55rem 0.9rem;border-radius:8px;font-size:0.72rem;font-weight:600;cursor:pointer;}
-.modal-cancel-btn:hover{color:var(--red);border-color:rgba(220,38,38,0.3);}
+/* SPREADS TABLE */
+.spreads-wrap{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:1rem;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
+.spread-group{border-bottom:2px solid var(--border);}
+.spread-group:last-child{border-bottom:none;}
+.spread-group-header{background:var(--bg3);padding:0.45rem 1rem;display:flex;align-items:center;gap:0.65rem;border-bottom:1px solid var(--border);}
+.sgh-ticker{display:flex;align-items:center;gap:0.4rem;font-weight:800;font-size:0.82rem;color:var(--black);}
+.sgh-dot{width:8px;height:8px;border-radius:50%;}
+.sgh-exp{font-size:0.68rem;color:var(--text3);}
+.sgh-collat{margin-left:auto;font-family:monospace;font-size:0.8rem;font-weight:800;}
+.sgh-badge{font-size:0.6rem;font-weight:700;padding:0.1rem 0.45rem;border-radius:4px;}
+.badge-spread{background:var(--purple-bg);color:var(--purple);}
+.badge-naked{background:var(--red-bg);color:var(--red);}
+.badge-lp-only{background:var(--blue-bg);color:var(--blue);}
 
-/* TABLE */
-.table-wrap{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;overflow-x:auto;margin-bottom:0.85rem;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
-table{width:100%;border-collapse:collapse;min-width:1200px;}
-thead{background:var(--black);}
-th{padding:0.6rem 0.65rem;font-size:0.6rem;font-weight:700;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:0.08em;text-align:left;white-space:nowrap;cursor:pointer;user-select:none;}
-th:hover{color:var(--red2);}
-tbody tr{border-bottom:1px solid var(--border);transition:background 0.1s;}
-tbody tr:last-child{border-bottom:none;}tbody tr:hover{background:#FAFAFA;}
-tr.cr{background:#F8F8F8;}tr.expiring-soon{background:#FEF2F2!important;}tr.rolled{background:#F5F3FF!important;opacity:0.8;}
-td{padding:0.5rem 0.65rem;font-size:0.73rem;color:var(--text2);white-space:nowrap;}
-td.mc{color:var(--black);font-weight:700;}td.mn{font-family:monospace;font-size:0.71rem;}
+/* SPREAD ROW — side by side */
+.spread-row{display:grid;grid-template-columns:1fr auto 1fr;align-items:stretch;border-bottom:1px solid var(--border);}
+.spread-row:last-child{border-bottom:none;}
+.sp-cell{padding:0.55rem 1rem;}
+.sp-cell.short{background:#FFFAFA;}
+.sp-cell.long{background:#F0FAF7;}
+.sp-cell.empty{background:var(--bg3);display:flex;align-items:center;justify-content:center;}
+.sp-divider{width:1px;background:var(--border);display:flex;align-items:center;justify-content:center;}
+.sp-divider-inner{width:20px;height:20px;border-radius:50%;background:var(--bg4);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.58rem;color:var(--text3);font-weight:700;flex-shrink:0;}
+.sp-type{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.2rem;}
+.sp-type.short-type{color:var(--red);}
+.sp-type.long-type{color:var(--blue);}
+.sp-ticker{font-weight:800;font-size:0.82rem;color:var(--black);display:flex;align-items:center;gap:0.35rem;margin-bottom:0.15rem;}
+.sp-details{font-size:0.68rem;color:var(--text3);font-family:monospace;}
+.sp-detail-row{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:0.15rem;}
+.sp-detail-item{display:flex;gap:0.25rem;}
+.sp-detail-label{color:var(--text3);}
+.sp-detail-val{color:var(--text2);font-weight:600;}
+.sp-income{color:var(--green);font-weight:700;font-family:monospace;font-size:0.72rem;}
+.sp-cost{color:var(--red);font-weight:700;font-family:monospace;font-size:0.72rem;}
+.sp-empty-msg{font-size:0.65rem;color:var(--text3);font-style:italic;}
+.independent-row{padding:0.55rem 1rem;background:var(--blue-bg);border-left:3px solid var(--blue);}
+.independent-label{font-size:0.6rem;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.15rem;}
+.spread-expiry-group{margin-bottom:0.5rem;}
+
+/* STATUS badges */
 .badge{display:inline-flex;align-items:center;padding:0.1rem 0.42rem;border-radius:4px;font-size:0.58rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;}
-.bsp{background:var(--red-bg);color:var(--red);}.blp{background:var(--blue-bg);color:var(--blue);}
-.blc{background:var(--green-bg);color:var(--green);}.bsh{background:var(--yellow-bg);color:var(--yellow);}
-.bcl{background:#F3F4F6;color:#9CA3AF;}.bop{background:var(--green-bg);color:var(--green);}
+.bop{background:var(--green-bg);color:var(--green);}
+.bcl{background:#F3F4F6;color:#9CA3AF;}
 .chip{display:inline-flex;align-items:center;gap:0.35rem;font-weight:700;font-size:0.75rem;color:var(--black);}
 .tk-dot-sm{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
-.es{color:var(--red);font-weight:700;}.em{color:var(--yellow);font-weight:600;}.ef{color:var(--text3);}
-.price-cell{display:flex;align-items:center;gap:0.28rem;}
-.price-val{font-family:monospace;font-weight:700;font-size:0.71rem;color:var(--black);}
-.price-icon{font-size:0.57rem;padding:0.07rem 0.26rem;border-radius:3px;font-weight:700;}
-.price-manual{background:var(--yellow-bg);color:var(--yellow);}.price-none{background:#F3F4F6;color:#9CA3AF;}
-.edit-btn{background:none;border:none;cursor:pointer;font-size:0.68rem;color:var(--text3);padding:0.08rem 0.22rem;border-radius:3px;}
-.edit-btn:hover{color:var(--red);background:var(--red-bg);}
-.col-cell{display:flex;align-items:center;gap:0.28rem;flex-wrap:wrap;}
-.col-val{font-family:monospace;font-weight:700;font-size:0.71rem;color:var(--orange);}
-.roll-btn{background:var(--purple-bg);border:1px solid rgba(124,58,237,0.25);color:var(--purple);padding:0.1rem 0.38rem;border-radius:4px;font-size:0.58rem;font-weight:700;cursor:pointer;}
-.undo-btn{background:var(--green-bg);border:1px solid rgba(5,150,105,0.25);color:var(--green);padding:0.1rem 0.38rem;border-radius:4px;font-size:0.58rem;font-weight:700;cursor:pointer;}
-.rolled-badge{background:var(--purple-bg);color:var(--purple);padding:0.08rem 0.35rem;border-radius:3px;font-size:0.58rem;font-weight:700;}
-.del-btn{background:none;border:none;color:#D1D5DB;cursor:pointer;padding:0.18rem 0.32rem;border-radius:4px;font-size:0.75rem;}
-.del-btn:hover{background:var(--red-bg);color:var(--red);}
-
-/* CLOSE/BUY/SELL ACTION BUTTON */
-.close-btn{display:inline-flex;align-items:center;gap:0.25rem;background:var(--black);color:#fff;border:none;padding:0.18rem 0.5rem;border-radius:5px;font-size:0.6rem;font-weight:700;cursor:pointer;white-space:nowrap;transition:all 0.15s;}
-.close-btn:hover{background:#333;}
-/* Closed row styling */
-tr.cr td{opacity:0.55;}
-.closed-info{font-size:0.6rem;color:var(--text3);font-family:monospace;}
-.closed-credit{color:var(--green);font-weight:700;}
-.closed-debit{color:var(--red);font-weight:700;}
-.reopen-btn{display:inline-flex;align-items:center;gap:0.2rem;background:transparent;color:var(--text3);border:1px solid var(--border);padding:0.12rem 0.42rem;border-radius:5px;font-size:0.58rem;font-weight:700;cursor:pointer;transition:all 0.15s;}
-.reopen-btn:hover{color:var(--blue);border-color:rgba(37,99,235,0.3);background:var(--blue-bg);}
-
-.breakdown{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:0.75rem;margin-bottom:0.85rem;}
-.bcard{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:0.8rem 0.9rem;box-shadow:0 1px 4px rgba(0,0,0,0.06);transition:all 0.2s;}
-.bcard:hover{border-color:var(--red);transform:translateY(-1px);}
-.bcard-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.6rem;}
-.bcard-t{font-weight:800;font-size:0.83rem;display:flex;align-items:center;gap:0.4rem;color:var(--black);}
-.bcard-c{font-size:0.6rem;color:var(--text3);}
-.brow{display:flex;justify-content:space-between;font-size:0.67rem;padding:0.17rem 0;border-bottom:1px solid var(--border);}
-.brow:last-child{border-bottom:none;}.brow span:first-child{color:var(--text3);}.brow span:last-child{font-family:monospace;font-weight:700;}
+.es{color:var(--red);font-weight:700;}.em{color:var(--yellow);}.ef{color:var(--text3);}
 .ph{background:var(--bg2);border:1px dashed var(--border2);border-radius:var(--r);padding:2rem;text-align:center;color:var(--text3);}
 .ph strong{display:block;color:var(--black);margin-bottom:0.5rem;}
-.ec{text-align:center;padding:2rem;color:var(--text3);}
 </style>
 
 <div class="topbar">
@@ -252,62 +169,123 @@ tr.cr td{opacity:0.55;}
   <div class="sub-tab" data-sub="lov-roth"><span class="owner-badge">Lovelina</span>Roth IRA</div>
   <div class="sub-tab" data-sub="lov-trad"><span class="owner-badge">Lovelina</span>Traditional IRA</div>
 </div>
+<div class="view-nav">
+  <div class="view-tab active" data-view="positions">&#128202; Positions</div>
+  <div class="view-tab" data-view="spreads">&#8597; Spreads / Risk View</div>
+</div>
 <div class="breadcrumb" id="bc"><span>All Portfolios</span></div>
-<div id="modal-root"></div>
 <div class="main" id="mc"></div>
-<input type="file" id="csv-file-input" accept=".csv" style="display:none;">
 
 <script>
 const DC={PLTR:'#7C3AED',MSFT:'#2563EB',GOOGL:'#D97706',NVDX:'#059669',SOFI:'#DB2777',TSLL:'#EA580C',NVTS:'#0891B2',METU:'#DC2626'};
-const PRICE_KEY='roi_prices_v4';
-const PORT_KEYS={lovelina:'roi_pos_lov_v4',amit:'roi_pos_amit_v4',joint:'roi_pos_joint_v4','ret-all':'roi_pos_ret_v4','amit-roth':'roi_pos_aroth_v4','lov-roth':'roi_pos_lroth_v4','lov-trad':'roi_pos_ltrad_v4'};
 
-function lsGet(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d;}catch{return d;}}
-function lsSet(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch{}}
-
-let tickerPrices=lsGet(PRICE_KEY,{});
-function getTP(t){return tickerPrices[t]??null;}
-function setTP(t,v){tickerPrices[t]=v;lsSet(PRICE_KEY,tickerPrices);}
-
+// Sample data with a mix of short puts, long puts, and other types
 const DEFAULT_LOV=[
-  {ticker:"GOOGL",strike:295,expiryDate:"4/6/26",openDate:"3/31/26",excelIncome:218,excelProfit:218,excelGrossValue:218,excelCurrentValue:218,excelCost:0,excelType:"Short Put",closed:true,id:"a1",rolledOver:false,closeAction:{action:'Close',type:'credit',amount:218,notes:'Expired worthless'}},
-  {ticker:"MSFT",strike:370,expiryDate:"04/08/26",openDate:"04/06/26",excelIncome:231,excelProfit:231,excelGrossValue:231,excelCurrentValue:231,excelCost:0,excelType:"Short Put",closed:false,id:"a2",rolledOver:false,closeAction:null},
-  {ticker:"METU",strike:0,expiryDate:"",openDate:"",excelCost:3910,excelProfit:-1643,excelGrossValue:2267,excelCurrentValue:2267,excelType:"Shares",id:"a3",rolledOver:false,closeAction:null},
-  {ticker:"PLTR",strike:95,expiryDate:"3/19/27",openDate:"",excelCost:7700,excelIncome:1507,excelProfit:372,excelGrossValue:8072,excelCurrentValue:6565,excelType:"Long Call",id:"a11",rolledOver:false,closeAction:null},
-  {ticker:"PLTR",strike:140,expiryDate:"4/10/26",openDate:"",excelIncome:226,excelProfit:226,excelGrossValue:226,excelCurrentValue:226,excelCost:0,excelType:"Short Put",id:"a16",rolledOver:false,closeAction:null},
-  {ticker:"SOFI",strike:16,expiryDate:"4/10/26",openDate:"",excelIncome:213,excelProfit:213,excelGrossValue:213,excelCurrentValue:213,excelCost:0,excelType:"Short Put",id:"a31",rolledOver:false,closeAction:null},
-  {ticker:"NVTS",strike:0,expiryDate:"",openDate:"",excelCost:1786,excelProfit:-31,excelGrossValue:1755,excelCurrentValue:1755,excelType:"Shares",id:"a20",rolledOver:false,closeAction:null},
-  {ticker:"NVDX",strike:15,expiryDate:"5/15/26",openDate:"",excelCost:195,excelProfit:8,excelGrossValue:203,excelCurrentValue:183,excelType:"Long Put",id:"a4",rolledOver:false,closeAction:null},
+  // GOOGL
+  {ticker:"GOOGL",strike:295,expiryDate:"4/8/26",openDate:"4/6/26",excelIncome:295,excelProfit:295,excelGrossValue:295,excelCurrentValue:295,excelCost:0,excelType:"Short Put",closed:false,id:"g1"},
+  {ticker:"GOOGL",strike:300,expiryDate:"5/15/26",openDate:"",excelCost:1620,excelProfit:0,excelGrossValue:1620,excelCurrentValue:1620,excelType:"Long Put",closed:false,id:"g2"},
+  // MSFT
+  {ticker:"MSFT",strike:370,expiryDate:"4/8/26",openDate:"4/6/26",excelIncome:231,excelProfit:231,excelGrossValue:231,excelCurrentValue:231,excelCost:0,excelType:"Short Put",closed:false,id:"m1"},
+  {ticker:"MSFT",strike:375,expiryDate:"5/15/26",openDate:"",excelCost:1837,excelProfit:0,excelGrossValue:1837,excelCurrentValue:1837,excelType:"Long Put",closed:false,id:"m2"},
+  // PLTR — naked short puts + standalone long puts
+  {ticker:"PLTR",strike:140,expiryDate:"4/10/26",openDate:"",excelIncome:226,excelProfit:226,excelGrossValue:226,excelCurrentValue:226,excelCost:0,excelType:"Short Put",id:"p1",closed:false},
+  {ticker:"PLTR",strike:139,expiryDate:"4/10/26",openDate:"",excelIncome:103,excelProfit:103,excelGrossValue:103,excelCurrentValue:103,excelCost:0,excelType:"Short Put",id:"p2",closed:false},
+  {ticker:"PLTR",strike:145,expiryDate:"5/15/26",openDate:"",excelCost:1370,excelProfit:-375,excelGrossValue:995,excelCurrentValue:995,excelType:"Long Put",id:"p3",closed:false},
+  {ticker:"PLTR",strike:135,expiryDate:"5/8/26",openDate:"",excelCost:1035,excelProfit:-490,excelGrossValue:545,excelCurrentValue:545,excelType:"Long Put",id:"p4",closed:false},
+  {ticker:"PLTR",strike:135,expiryDate:"5/1/26",openDate:"",excelCost:440,excelProfit:-115,excelGrossValue:325,excelCurrentValue:325,excelType:"Long Put",id:"p5",closed:false},
+  {ticker:"PLTR",strike:95,expiryDate:"3/19/27",openDate:"",excelCost:7700,excelIncome:1507,excelProfit:372,excelGrossValue:8072,excelCurrentValue:6565,excelType:"Long Call",id:"p6",closed:false},
+  // SOFI — short puts, some long puts
+  {ticker:"SOFI",strike:16,expiryDate:"4/10/26",openDate:"",excelIncome:213,excelProfit:213,excelGrossValue:213,excelCurrentValue:213,excelCost:0,excelType:"Short Put",id:"s1",closed:false},
+  {ticker:"SOFI",strike:16.5,expiryDate:"4/10/26",openDate:"",excelIncome:93,excelProfit:93,excelGrossValue:93,excelCurrentValue:93,excelCost:0,excelType:"Short Put",id:"s2",closed:false},
+  {ticker:"SOFI",strike:17,expiryDate:"4/10/26",openDate:"",excelIncome:99,excelProfit:99,excelGrossValue:99,excelCurrentValue:99,excelCost:0,excelType:"Short Put",id:"s3",closed:false},
+  {ticker:"SOFI",strike:18,expiryDate:"5/15/26",openDate:"",excelCost:218,excelProfit:52,excelGrossValue:270,excelCurrentValue:270,excelType:"Long Put",id:"s4",closed:false},
+  {ticker:"SOFI",strike:17,expiryDate:"5/15/26",openDate:"",excelCost:218,excelProfit:-17,excelGrossValue:201,excelCurrentValue:201,excelType:"Long Put",id:"s5",closed:false},
+  // NVTS — naked short puts
+  {ticker:"NVTS",strike:8,expiryDate:"4/10/26",openDate:"",excelIncome:59,excelProfit:59,excelGrossValue:59,excelCost:0,excelType:"Short Put",id:"n1",closed:false},
+  {ticker:"NVTS",strike:8,expiryDate:"4/10/26",openDate:"",excelIncome:26,excelProfit:26,excelGrossValue:26,excelCost:0,excelType:"Short Put",id:"n2",closed:false},
+  {ticker:"NVTS",strike:8.5,expiryDate:"5/8/26",openDate:"",excelCost:144,excelProfit:-45,excelGrossValue:99,excelCurrentValue:99,excelType:"Long Put",id:"n3",closed:false},
+  // METU shares
+  {ticker:"METU",strike:0,expiryDate:"",openDate:"",excelCost:3910,excelProfit:-1643,excelGrossValue:2267,excelCurrentValue:2267,excelType:"Shares",id:"a3",closed:false},
 ];
 
-let portData={
-  lovelina:lsGet(PORT_KEYS.lovelina,DEFAULT_LOV),
-  amit:lsGet(PORT_KEYS.amit,[]),joint:lsGet(PORT_KEYS.joint,[]),
-  'ret-all':lsGet(PORT_KEYS['ret-all'],[]),'amit-roth':lsGet(PORT_KEYS['amit-roth'],[]),
-  'lov-roth':lsGet(PORT_KEYS['lov-roth'],[]),'lov-trad':lsGet(PORT_KEYS['lov-trad'],[]),
-};
+let portData={lovelina:[...DEFAULT_LOV],amit:[],joint:[],'ret-all':[],'amit-roth':[],'lov-roth':[],'lov-trad':[]};
+let ap='all',as='ret-all',activeView='positions',statusFilter='open';
+let selTickers=new Set(['ALL']),ddOpen=false;
+const now=new Date('2026-04-06');
 
-let ap='all',as='ret-all',tf='all',ocf='all',expiringOnly=false,sc='ticker',sd=1;
-let selTickers=new Set(['ALL']),editTicker=null,ddOpen=false,showUpload=false,csvPreview=null,importMsg='';
-
-// Modal state
-let modal=null; // {id, action, cdType, amount, notes}
-
-const now=new Date();
 function getCK(){if(ap==='all'||ap==='lovelina')return'lovelina';if(ap==='amit')return'amit';if(ap==='joint')return'joint';if(ap==='retirement')return as;return'lovelina';}
 function getData(){return portData[getCK()]||[];}
-function setData(d){portData[getCK()]=d;lsSet(PORT_KEYS[getCK()],d);}
-
-function getFri(){const d=new Date(now);const di=5-d.getDay();d.setDate(d.getDate()+(di>=0?di:di+7));d.setHours(23,59,59,0);return d;}
-function getFriday(d){const dt=new Date(d);const di=5-dt.getDay();dt.setDate(dt.getDate()+(di>=0?di:di+7));return dt;}
 const isCl=r=>r.closed===true;
 const fm=n=>(n||n===0)?'$'+Math.abs(n).toLocaleString():'--';
 const fp=n=>n==null?'--':(n>=0?'+':'-')+'$'+Math.abs(n).toLocaleString();
 const du=s=>{if(!s)return 999;try{return Math.round((new Date(s)-now)/86400000);}catch{return 999;}};
 const ec=s=>{const d=du(s);return d<=0?'es':d<=4?'es':d<=30?'em':'ef';};
-const bct=t=>t==='Short Put'?'bsp':t==='Long Put'?'blp':t==='Long Call'?'blc':'bsh';
-const collateral=r=>r.excelType==='Short Put'&&!isCl(r)&&!r.rolledOver?r.strike*100:0;
-const uid=()=>Math.random().toString(36).slice(2,10);
+function parseDate(s){if(!s)return null;try{const d=new Date(s);return isNaN(d)?null:d;}catch{return null;}}
+function getTickers(data){return[...new Set(data.map(r=>r.ticker))].sort();}
+
+// ── COLLATERAL CALCULATION ───────────────────────────────────────────────────
+// For a paired spread: (LP strike - SP strike) * 100
+// If SP > LP: -(SP - LP) * 100 (credit spread, limited risk shown as negative)
+// No LP: SP strike * 100 (naked)
+function calcSpreadCollateral(sp, lp){
+  if(!sp)return 0;
+  if(!lp)return sp.strike * 100; // naked
+  if(lp.strike > sp.strike) return (lp.strike - sp.strike) * 100; // debit spread (LP higher = defined risk)
+  if(lp.strike < sp.strike) return -(sp.strike - lp.strike) * 100; // LP lower = credit spread
+  return 0; // same strike
+}
+
+// ── PAIRING LOGIC ─────────────────────────────────────────────────────────────
+// For each ticker, pair each short put with the closest long put whose expiry >= SP expiry
+// Unmatched long puts become independent rows
+function buildSpreadPairs(data){
+  const filtered=data.filter(r=>!isCl(r)||(statusFilter==='all'));
+  const opts=(statusFilter==='open'?filtered.filter(r=>!isCl(r)):statusFilter==='closed'?filtered.filter(r=>isCl(r)):filtered)
+    .filter(r=>selTickers.has('ALL')||selTickers.has(r.ticker));
+
+  const tickers=getTickers(opts).filter(t=>opts.some(r=>r.ticker===t&&(r.excelType==='Short Put'||r.excelType==='Long Put')));
+  const result=[];
+
+  tickers.forEach(ticker=>{
+    const sps=opts.filter(r=>r.ticker===ticker&&r.excelType==='Short Put').sort((a,b)=>{const da=parseDate(a.expiryDate),db=parseDate(b.expiryDate);return(da||0)-(db||0);});
+    const lps=opts.filter(r=>r.ticker===ticker&&r.excelType==='Long Put').sort((a,b)=>{const da=parseDate(a.expiryDate),db=parseDate(b.expiryDate);return(da||0)-(db||0);});
+    const usedLPs=new Set();
+    const pairs=[];
+
+    sps.forEach(sp=>{
+      const spDate=parseDate(sp.expiryDate);
+      // Find the closest LP whose expiry >= SP expiry and not already used
+      const candidates=lps.filter(lp=>!usedLPs.has(lp.id)&&(!spDate||!parseDate(lp.expiryDate)||parseDate(lp.expiryDate)>=spDate));
+      // Sort by expiry ascending (closest first)
+      candidates.sort((a,b)=>{const da=parseDate(a.expiryDate),db=parseDate(b.expiryDate);return(da||0)-(db||0);});
+      const matched=candidates[0]||null;
+      if(matched)usedLPs.add(matched.id);
+      pairs.push({sp,lp:matched,ticker});
+    });
+
+    // Remaining unmatched LPs — independent rows
+    const independentLPs=lps.filter(lp=>!usedLPs.has(lp.id));
+    result.push({ticker,pairs,independentLPs});
+  });
+
+  return result;
+}
+
+// ── COLLATERAL SUMMARY ────────────────────────────────────────────────────────
+function calcPortfolioCollateral(spreadGroups){
+  let totalNaked=0,totalSpread=0,totalIndependent=0;
+  const byTicker={};
+  spreadGroups.forEach(({ticker,pairs,independentLPs})=>{
+    let tNaked=0,tSpread=0;
+    pairs.forEach(({sp,lp})=>{
+      const c=calcSpreadCollateral(sp,lp);
+      if(lp){tSpread+=Math.abs(c);}else{tNaked+=c;}
+    });
+    byTicker[ticker]={naked:tNaked,spread:tSpread,lps:independentLPs.length};
+    totalNaked+=tNaked;totalSpread+=tSpread;
+  });
+  return{totalNaked,totalSpread,total:totalNaked+totalSpread,byTicker};
+}
 
 function cs(data){
   const op=data.filter(r=>!isCl(r));
@@ -317,186 +295,11 @@ function cs(data){
   const be=Math.max(0,ci-ig),pct=ci>0?Math.min(100,Math.round((ig/ci)*100)):0;
   const realized=data.filter(r=>isCl(r)).reduce((s,r)=>s+(r.excelProfit||0),0);
   const unrealized=op.reduce((s,r)=>s+(r.excelProfit||0),0);
-  const fri=getFri();
-  const twc=data.filter(r=>r.excelType==='Short Put'&&!isCl(r)&&!r.rolledOver&&r.expiryDate)
-    .filter(r=>{try{return getFriday(new Date(r.expiryDate))<=fri;}catch{return false;}})
-    .reduce((s,r)=>s+r.strike*100,0);
-  const tc=data.reduce((s,r)=>s+collateral(r),0);
-  return{op:op.length,cl:data.filter(r=>isCl(r)).length,gv:data.reduce((s,r)=>s+(r.excelGrossValue||0),0),tp,ci,ig,be,pct,realized,unrealized,twc,tc};
+  const tc=data.filter(r=>r.excelType==='Short Put'&&!isCl(r)&&r.strike>0).reduce((s,r)=>s+r.strike*100,0);
+  return{op:op.length,cl:data.filter(r=>isCl(r)).length,gv:data.reduce((s,r)=>s+(r.excelGrossValue||0),0),tp,ci,ig,be,pct,realized,unrealized,tc};
 }
 
-function getTickers(data){return[...new Set(data.map(r=>r.ticker))].sort();}
-function getFiltered(data){
-  const fri=getFri();
-  return data.filter(r=>{
-    if(tf!=='all'&&r.excelType!==tf)return false;
-    if(ocf==='open'&&isCl(r))return false;
-    if(ocf==='closed'&&!isCl(r))return false;
-    if(!selTickers.has('ALL')&&!selTickers.has(r.ticker))return false;
-    if(expiringOnly){if(!r.expiryDate)return false;try{if(new Date(r.expiryDate)>fri)return false;}catch{return false;}}
-    return true;
-  }).sort((a,b)=>{
-    let av=sc==='status'?(isCl(a)?1:0):a[sc],bv=sc==='status'?(isCl(b)?1:0):b[sc];
-    if(typeof av==='string')av=av.toLowerCase();if(typeof bv==='string')bv=bv.toLowerCase();
-    av=av??-Infinity;bv=bv??-Infinity;return av<bv?-sd:av>bv?sd:0;
-  });
-}
-
-// ── CLOSE MODAL ───────────────────────────────────────────────────────────────
-function openCloseModal(id){
-  const r=getData().find(p=>p.id===id);if(!r)return;
-  modal={id,action:'Close',cdType:'zero',amount:'',notes:''};
-  renderModal(r);
-}
-
-function renderModal(r){
-  const m=modal;if(!m)return;
-  const actionColors={Close:'red',Buy:'green',Sell:'blue'};
-  const ac=actionColors[m.action];
-  const isZero=m.cdType==='zero';
-  const actionLabel=m.action==='Close'?'Close / Expire':`${m.action} to Close`;
-  const amountHint=m.action==='Close'
-    ?(m.cdType==='credit'?'Credit received (e.g. premium kept, expired OTM)':m.cdType==='debit'?'Amount paid to close (BTC cost)':'Position expired worthless / $0 transaction')
-    :(m.cdType==='credit'?'Net credit received':m.cdType==='debit'?'Net debit paid':'Zero cost transaction');
-
-  document.getElementById('modal-root').innerHTML=`
-  <div class="modal-overlay" onclick="if(event.target===this)closeModal()">
-    <div class="modal-box">
-      <div class="modal-title">&#9940; Close / Trade Contract</div>
-      <div class="modal-sub">Record how this position was closed or transacted</div>
-      <div class="modal-pos-badge">
-        <span class="tk-dot-sm" style="background:${DC[r.ticker]||'#888'}"></span>
-        ${r.ticker} &nbsp;|&nbsp; ${r.excelType} &nbsp;|&nbsp; ${r.strike>0?'$'+r.strike:''} &nbsp;|&nbsp; ${r.expiryDate||'--'}
-      </div>
-
-      <div style="font-size:0.65rem;font-weight:700;color:var(--text3);margin-bottom:0.4rem;text-transform:uppercase;letter-spacing:0.08em;">Action</div>
-      <div class="modal-action-tabs" style="margin-bottom:1rem;">
-        <button class="mat mat-close${m.action==='Close'?' active':''}" onclick="setMA('Close')">&#9940; Close / Expire</button>
-        <button class="mat mat-buy${m.action==='Buy'?' active':''}" onclick="setMA('Buy')">&#8593; Buy to Close</button>
-        <button class="mat mat-sell${m.action==='Sell'?' active':''}" onclick="setMA('Sell')">&#8595; Sell to Close</button>
-      </div>
-
-      <div class="modal-value-section">
-        <div class="modal-value-label">Transaction Value</div>
-        <div class="modal-cd-tabs">
-          <button class="mct credit${m.cdType==='credit'?' active':''}" onclick="setCD('credit')">&#43; Credit</button>
-          <button class="mct debit${m.cdType==='debit'?' active':''}" onclick="setCD('debit')">&#8722; Debit</button>
-          <button class="mct zero${m.cdType==='zero'?' active':''}" onclick="setCD('zero')">&#8776; Zero / Expired</button>
-        </div>
-        <div class="modal-amount-wrap">
-          <span class="modal-amount-pre" style="color:${m.cdType==='credit'?'var(--green)':m.cdType==='debit'?'var(--red)':'var(--text3)'}">${m.cdType==='credit'?'+$':m.cdType==='debit'?'-$':'$0'}</span>
-          <input class="modal-amount-input" id="modal-amt" type="number" step="0.01" min="0" value="${isZero?'':m.amount}" placeholder="${isZero?'0 (auto)':'Enter amount'}" ${isZero?'disabled':''} oninput="modal.amount=this.value">
-        </div>
-        <div class="modal-amount-hint">${amountHint}</div>
-      </div>
-
-      <div class="modal-notes-wrap">
-        <div class="modal-notes-label">Notes (optional)</div>
-        <textarea class="modal-notes-input" rows="2" placeholder="e.g. Expired worthless, bought back at 0.05, rolled to next week..." oninput="modal.notes=this.value">${m.notes}</textarea>
-      </div>
-
-      <div class="modal-actions">
-        <button class="modal-confirm-btn ${ac}" onclick="confirmClose()">&#10003; Confirm ${m.action}</button>
-        <button class="modal-cancel-btn" onclick="closeModal()">Cancel</button>
-      </div>
-    </div>
-  </div>`;
-}
-
-function setMA(action){if(!modal)return;modal.action=action;const r=getData().find(p=>p.id===modal.id);if(r)renderModal(r);}
-function setCD(t){if(!modal)return;modal.cdType=t;if(t==='zero')modal.amount='';const r=getData().find(p=>p.id===modal.id);if(r)renderModal(r);}
-
-function confirmClose(){
-  if(!modal)return;
-  const d=getData();
-  const r=d.find(p=>p.id===modal.id);if(!r)return;
-  const amt=modal.cdType==='zero'?0:parseFloat(modal.amount)||0;
-  const signedAmt=modal.cdType==='credit'?amt:modal.cdType==='debit'?-amt:0;
-  r.closed=true;
-  r.closeAction={action:modal.action,type:modal.cdType,amount:amt,signedAmount:signedAmt,notes:modal.notes,date:new Date().toLocaleDateString('en-US',{month:'numeric',day:'numeric',year:'2-digit'})};
-  // Update profit based on close
-  if(modal.cdType!=='zero'&&amt>0){
-    r.excelProfit=(r.excelIncome||0)+signedAmt;
-  }
-  setData(d);
-  closeModal();
-  rMain();
-}
-
-function reopenContract(id){
-  if(!confirm('Reopen this position? This will undo the close action.'))return;
-  const d=getData();
-  const r=d.find(p=>p.id===id);
-  if(!r)return;
-  r.closed=false;
-  r.closeAction=null;
-  // restore original profit if we have income
-  if(r.excelIncome)r.excelProfit=r.excelIncome;
-  setData(d);rMain();
-}
-
-function closeModal(){modal=null;document.getElementById('modal-root').innerHTML='';rMain();}
-
-// ── CSV ────────────────────────────────────────────────────────────────────────
-function parseCSV(text){
-  const lines=text.trim().split(/\r?\n/);if(lines.length<2)return{error:'Need header + at least 1 row.'};
-  const headers=lines[0].split(',').map(h=>h.trim().toLowerCase().replace(/[^a-z0-9]/g,''));
-  const rows=[];for(let i=1;i<lines.length;i++){if(!lines[i].trim())continue;const vals=lines[i].split(',').map(v=>v.trim().replace(/^"|"$/g,''));const row={};headers.forEach((h,idx)=>row[h]=vals[idx]||'');rows.push(row);}
-  const hmap={ticker:['ticker','symbol'],type:['type','optiontype','kind'],strike:['strike','strikeprice'],expirydate:['expirydate','expiry','expiration'],contracts:['contracts','qty','quantity','shares']};
-  const colMap={};const missing=[];
-  Object.entries(hmap).forEach(([req,aliases])=>{const f=aliases.find(a=>headers.includes(a));if(f)colMap[req]=f;else missing.push(req);});
-  if(missing.length)return{error:'Missing: '+missing.join(', ')};
-  return{rows,colMap};
-}
-function mapRow(raw,colMap,idx){
-  const rawType=(raw[colMap.type]||'').toLowerCase().trim();
-  let excelType='';
-  if(rawType.includes('short')&&rawType.includes('put'))excelType='Short Put';
-  else if(rawType.includes('long')&&rawType.includes('put'))excelType='Long Put';
-  else if(rawType.includes('long')&&rawType.includes('call'))excelType='Long Call';
-  else if(rawType.includes('share')||rawType.includes('stock'))excelType='Shares';
-  else if(rawType==='put')excelType='Long Put';
-  else if(rawType==='call')excelType='Long Call';
-  else excelType='Unknown';
-  const ticker=(raw[colMap.ticker]||'').toUpperCase().trim();
-  if(!ticker)return{error:'Row '+(idx+1)+': empty ticker'};
-  if(excelType==='Unknown')return{error:'Row '+(idx+1)+': unknown type'};
-  const strike=parseFloat(raw[colMap.strike])||0;
-  const expiryDate=raw[colMap.expirydate]||'';
-  const openDate=raw['opendate']||'';
-  const cost=parseFloat(raw['cost']||raw['costbasis'])||0;
-  const income=parseFloat(raw['income']||raw['premium'])||0;
-  const grossValue=parseFloat(raw['grossvalue'])||0;
-  const currentValue=parseFloat(raw['currentvalue'])||0;
-  const profit=parseFloat(raw['profit']||raw['pnl'])||0;
-  const cl=(raw['closed']||'').toLowerCase();
-  const closed=cl==='true'||cl==='yes'||cl==='1'||cl==='closed';
-  return{id:uid(),ticker,strike,contracts:parseInt(raw[colMap.contracts])||1,expiryDate,openDate,excelType,excelCost:cost,excelIncome:income,excelGrossValue:grossValue||cost,excelCurrentValue:currentValue||grossValue||cost,excelProfit:profit,closed,rolledOver:false,closeAction:null,notes:raw['notes']||'',_cc:excelType==='Short Put'&&!closed?strike*100:0};
-}
-function processCSV(text){const p=parseCSV(text);if(p.error)return{error:p.error};const{rows,colMap}=p;const mapped=[],errors=[];rows.forEach((raw,i)=>{const r=mapRow(raw,colMap,i);if(r.error)errors.push(r.error);else mapped.push(r);});return{rows:mapped,errors,total:rows.length};}
-function handleFile(file){if(!file||!file.name.endsWith('.csv')){importMsg={ok:false,text:'Please upload a .csv file'};rMain();return;}const reader=new FileReader();reader.onload=e=>{const r=processCSV(e.target.result);if(r.error){importMsg={ok:false,text:r.error};csvPreview=null;}else{csvPreview=r;importMsg='';}showUpload=true;rMain();};reader.readAsText(file);}
-function doImport(){if(!csvPreview||!csvPreview.rows.length)return;const newRows=csvPreview.rows.map(({_cc,...r})=>r);setData([...getData(),...newRows]);importMsg={ok:true,text:'Imported '+newRows.length+' positions!'};csvPreview=null;showUpload=false;rMain();}
-function cancelUpload(){csvPreview=null;importMsg='';showUpload=false;rMain();}
-function dlTemplate(){const h='ticker,type,strike,expiryDate,contracts,openDate,cost,income,grossValue,currentValue,profit,closed,notes';const ex=['SOFI,Short Put,16,4/10/26,1,4/1/26,0,213,213,213,213,false,','PLTR,Long Call,95,3/19/27,1,,,7700,1507,8072,6565,372,false,','NVTS,Shares,0,,100,2/1/26,1786,0,1755,1755,-31,false,'].join('\n');const blob=new Blob([h+'\n'+ex],{type:'text/csv'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='roi_template.csv';a.click();}
-
-// ── RENDER ─────────────────────────────────────────────────────────────────────
-function rPriceLegend(data){
-  const tickers=getTickers(data);const saved=Object.keys(tickerPrices).filter(t=>tickerPrices[t]!=null).length;
-  const items=tickers.map(t=>{const p=getTP(t);const isE=editTicker===t;
-    if(isE)return`<div class="pl-ticker"><span class="pl-dot" style="background:${DC[t]||'#888'}"></span><span class="pl-name">${t}</span><input class="pl-input" id="pli_${t}" type="number" step="0.01" value="${p||''}" placeholder="price"><button class="pl-save" onclick="saveP('${t}')">&#10003;</button></div>`;
-    return`<div class="pl-ticker"><span class="pl-dot" style="background:${DC[t]||'#888'}"></span><span class="pl-name">${t}</span><span class="pl-price">${p!=null?'$'+p:'--'}</span><span class="pl-badge pl-m">${p!=null?'M':'?'}</span><button class="pl-edit" onclick="startP('${t}')">&#9998;</button></div>`;
-  }).join('');
-  return`<div class="price-legend"><span class="pl-title">&#128200; Prices</span>${items}${saved?`<span class="persist-note">&#128190; ${saved} saved</span>`:''}</div>`;
-}
-
-function rFilterBar(data){
-  const tickers=getTickers(data);const allSel=selTickers.has('ALL');
-  const selList=allSel?[]:tickers.filter(t=>selTickers.has(t));
-  const ddItems=tickers.map(t=>{const sel=allSel||selTickers.has(t);return`<div class="ticker-dd-item${sel?' selected':''}" data-ddticker="${t}"><div class="ticker-dd-check">${sel?'&#10003;':''}</div><span class="dd-dot" style="background:${DC[t]||'#888'}"></span>${t}</div>`;}).join('');
-  const tags=allSel?`<span style="color:var(--text3);font-size:0.7rem;">All Tickers</span>`:selList.map(t=>`<span class="sel-tag"><span style="width:6px;height:6px;border-radius:50%;background:${DC[t]||'#888'};display:inline-block;flex-shrink:0;"></span>${t}<span class="sel-tag-x" data-xticker="${t}">&#10005;</span></span>`).join('');
-  return`<div class="filter-bar"><span class="filter-bar-label">&#127991; Ticker</span><div class="ticker-select-wrap" id="tkwrap"><div class="ticker-select-btn" id="tkbtn" onclick="toggleDD()"><div class="sel-tags">${tags}</div><span style="color:var(--text3);font-size:0.65rem;">&#9660;</span></div><div class="ticker-dropdown${ddOpen?' open':''}" id="tkdrop"><div class="ticker-dd-item${allSel?' selected':''}" data-ddticker="ALL"><div class="ticker-dd-check">${allSel?'&#10003;':''}</div><span style="font-size:0.72rem;font-weight:700;">All Tickers</span></div><div style="height:1px;background:var(--border);margin:0.25rem 0;"></div>${ddItems}</div></div></div>`;
-}
-
+// ── RENDER SUMMARY ─────────────────────────────────────────────────────────────
 function rSum(s){
   const bc=s.be<=0?'var(--green)':'var(--red)';const bl=s.be<=0?'Reached! &#9989;':'$'+s.be.toLocaleString()+' more';
   return`<div class="summary-grid">
@@ -505,173 +308,211 @@ function rSum(s){
     <div class="be-mini-card"><div><div class="be-mini-label">&#9889; Breakeven</div><div class="be-mini-val" style="color:${bc};">${bl}</div></div><div><div class="be-mini-bar-wrap"><div class="be-mini-bar" style="width:${s.pct}%"></div></div><div class="be-mini-sub">${s.pct}% recovered</div></div></div>
     <div class="gain-card"><div class="gain-title">Gains</div><div class="gain-row"><span class="gain-label">&#9989; Realized</span><span class="gain-val" style="color:${s.realized>=0?'var(--green)':'var(--red)'}">${fp(s.realized)}</span></div><div class="gain-divider"></div><div class="gain-row"><span class="gain-label">&#9201; Unrealized</span><span class="gain-val" style="color:${s.unrealized>=0?'var(--green)':'var(--red)'}">${fp(s.unrealized)}</span></div></div>
     <div class="scard" style="border-left:3px solid var(--red);"><div class="scard-label" style="color:var(--text3);">Portfolio Value</div><div class="scard-val" style="color:var(--black);">$${s.gv.toLocaleString()}</div><div class="scard-sub">${s.op} open &middot; ${s.cl} closed</div></div>
-    <div class="col-combo-card"><div class="col-combo-title">&#128274; Collateral</div><div class="col-combo-row"><span class="col-combo-label">This Week</span><span class="col-combo-val" style="color:#FB923C;font-size:0.88rem;">$${s.twc.toLocaleString()}</span></div><div class="col-combo-divider"></div><div class="col-combo-row"><span class="col-combo-label">Total Open</span><span class="col-combo-val" style="color:#FBBF24;font-size:0.88rem;">$${s.tc.toLocaleString()}</span></div></div>
+    <div class="col-combo-card"><div class="col-combo-title">&#128274; Collateral</div><div class="col-combo-row"><span class="col-combo-label">Gross SP</span><span class="col-combo-val" style="color:#FB923C;font-size:0.88rem;">$${s.tc.toLocaleString()}</span></div><div class="col-combo-divider"></div><div class="col-combo-row"><span class="col-combo-label">Net (with LP)</span><span class="col-combo-val" style="color:#FBBF24;font-size:0.88rem;">see Spreads tab</span></div></div>
   </div>`;
 }
 
-function rUploadPanel(){
-  if(!showUpload)return'';
-  let body='';
-  if(csvPreview){
-    const{rows,errors}=csvPreview;const show=rows.slice(0,5);
-    body=`<div class="preview-wrap">
-      <div class="preview-header">Preview — ${rows.length} position${rows.length!==1?'s':''} to import${errors.length?' &nbsp;&#9888; '+errors.length+' error(s)':''}</div>
-      <div class="preview-scroll"><table class="preview-table">
-        <thead><tr><th>Ticker</th><th>Type</th><th>Strike</th><th>Expiry</th><th>Cost</th><th>Income</th><th>P&L</th><th>Collateral(auto)</th><th>Status</th></tr></thead>
-        <tbody>${show.map(r=>`<tr><td><strong>${r.ticker}</strong></td><td><span class="badge ${bct(r.excelType)}">${r.excelType}</span></td><td class="mn">${r.strike>0?'$'+r.strike:'--'}</td><td class="${ec(r.expiryDate)}">${r.expiryDate||'--'}</td><td class="mn">${r.excelCost?'$'+r.excelCost.toLocaleString():'--'}</td><td class="mn" style="color:var(--green)">${r.excelIncome?'+$'+r.excelIncome.toLocaleString():'--'}</td><td class="mn" style="color:${r.excelProfit>=0?'var(--green)':'var(--red)'}">${fp(r.excelProfit)}</td><td>${r._cc>0?`<span class="calc-cell">$${r._cc.toLocaleString()}</span>`:'--'}</td><td><span class="badge ${r.closed?'bcl':'bop'}">${r.closed?'Closed':'Open'}</span></td></tr>`).join('')}
-        ${errors.map(e=>`<tr><td colspan="9" class="err-cell">&#9888; ${e}</td></tr>`).join('')}</tbody>
-      </table></div>
+// ── RENDER FILTER BAR ─────────────────────────────────────────────────────────
+function rFilterBar(data){
+  const tickers=getTickers(data);const allSel=selTickers.has('ALL');
+  const selList=allSel?[]:tickers.filter(t=>selTickers.has(t));
+  const ddItems=tickers.map(t=>{const sel=allSel||selTickers.has(t);return`<div class="ticker-dd-item${sel?' selected':''}" data-ddticker="${t}"><div class="ticker-dd-check">${sel?'&#10003;':''}</div><span class="dd-dot" style="background:${DC[t]||'#888'}"></span>${t}</div>`;}).join('');
+  const tags=allSel?`<span style="color:var(--text3);font-size:0.7rem;">All Tickers</span>`:selList.map(t=>`<span class="sel-tag"><span style="width:6px;height:6px;border-radius:50%;background:${DC[t]||'#888'};display:inline-block;flex-shrink:0;"></span>${t}<span class="sel-tag-x" data-xticker="${t}">&#10005;</span></span>`).join('');
+  const statusTabs=['all','open','closed'].map(s=>`<button class="status-tab${statusFilter===s?' active':''}" data-sf="${s}">${s==='all'?'All':s==='open'?'Open':'Closed'}</button>`).join('');
+  return`<div class="filter-bar">
+    <span class="filter-bar-label">&#127991; Ticker</span>
+    <div class="ticker-select-wrap" id="tkwrap">
+      <div class="ticker-select-btn" id="tkbtn" onclick="toggleDD()"><div class="sel-tags">${tags}</div><span style="color:var(--text3);font-size:0.65rem;">&#9660;</span></div>
+      <div class="ticker-dropdown${ddOpen?' open':''}" id="tkdrop">
+        <div class="ticker-dd-item${allSel?' selected':''}" data-ddticker="ALL"><div class="ticker-dd-check">${allSel?'&#10003;':''}</div><span style="font-size:0.72rem;font-weight:700;">All Tickers</span></div>
+        <div style="height:1px;background:var(--border);margin:0.25rem 0;"></div>${ddItems}
+      </div>
     </div>
-    <div class="import-actions">
-      <button class="import-btn" onclick="doImport()" ${rows.length===0?'disabled':''}>&#8593; Import ${rows.length} Position${rows.length!==1?'s':''}</button>
-      <button class="cancel-btn" onclick="cancelUpload()">Cancel</button>
-    </div>
-    ${importMsg?`<div style="margin-top:0.65rem;"><span class="${importMsg.ok?'success-msg':'error-msg'}">${importMsg.ok?'&#10003;':'&#9888;'} ${importMsg.text}</span></div>`:''}`;
-  }else{
-    body=`<div class="drop-zone" id="drop-zone" onclick="document.getElementById('csv-file-input').click()">
-      <div class="drop-zone-icon">&#128196;</div>
-      <div class="drop-zone-title">Drop your CSV file here</div>
-      <div class="drop-zone-sub">Required: ticker, type, strike, expiryDate, contracts &nbsp;|&nbsp; Optional: openDate, cost, income, grossValue, profit, closed</div>
-      <button class="drop-zone-btn" onclick="event.stopPropagation();document.getElementById('csv-file-input').click()">&#128193; Choose File</button>
-    </div>
-    ${importMsg?`<div style="margin-top:0.65rem;"><span class="${importMsg.ok?'success-msg':'error-msg'}">${importMsg.ok?'&#10003;':'&#9888;'} ${importMsg.text}</span></div>`:''}`;
+    <div class="status-tabs">${statusTabs}</div>
+  </div>`;
+}
+
+// ── SPREADS VIEW ─────────────────────────────────────────────────────────────
+function rSpreadsView(data){
+  const spreadGroups=buildSpreadPairs(data);
+  if(!spreadGroups.length||spreadGroups.every(g=>g.pairs.length===0&&g.independentLPs.length===0)){
+    return`<div class="ph"><strong>No option positions to show</strong>Short puts and long puts will appear here paired by expiry.</div>`;
   }
-  return`<div class="upload-panel"><div class="upload-panel-header"><span class="upload-panel-title">&#8593; Upload Positions via CSV</span><button class="upload-close-btn" onclick="cancelUpload()">&#10005;</button></div><div class="upload-panel-body">${body}</div></div>`;
-}
+  const collatStats=calcPortfolioCollateral(spreadGroups);
 
-function rTableSection(data){
-  const filtered=getFiltered(data);
-  const typeTabs=['all','Short Put','Long Put','Long Call','Shares'].map(t=>`<button class="type-tab${tf===t?' active':''}" data-typef="${t}">${t==='all'?'All':t}</button>`).join('');
-  const ocTabs=['all','open','closed'].map(o=>`<button class="oc-tab${ocf===o?' active':''}" data-ocf="${o}">${o==='all'?'All':o==='open'?'Open':'Closed'}</button>`).join('');
-  const fri=getFri();
-
-  const rows=filtered.length===0
-    ?`<tr><td colspan="15" class="ec">No positions match your filters.</td></tr>`
-    :filtered.map(r=>{
-      const c=isCl(r),p=r.excelProfit,collat=collateral(r);
-      const isExp=r.expiryDate&&!c&&(()=>{try{return new Date(r.expiryDate)<=fri;}catch{return false;}})();
-      const rowClass=r.rolledOver?'rolled':isExp?'expiring-soon':'';
-      const price=getTP(r.ticker);const hp=price!=null;
-
-      const priceCell=`<div class="price-cell"><span class="price-val">${hp?'$'+price:'--'}</span><span class="price-icon ${hp?'price-manual':'price-none'}">${hp?'M':'?'}</span><button class="edit-btn" onclick="startP('${r.ticker}')">&#9998;</button></div>`;
-
-      let colCell;
-      if(r.excelType==='Short Put'&&!c){
-        colCell=r.rolledOver
-          ?`<div class="col-cell"><span class="rolled-badge">&#8635; Roll</span><button class="undo-btn" onclick="undoRoll('${r.id}')">&#8617; Undo</button></div>`
-          :`<div class="col-cell"><span class="col-val">$${collat.toLocaleString()}</span><button class="roll-btn" onclick="markRoll('${r.id}')">&#8635; Roll</button></div>`;
-      }else colCell=`<span style="color:var(--text3)">--</span>`;
-
-      // CLOSE/STATUS CELL
-      let actionCell;
-      if(c){
-        const ca=r.closeAction;
-        const typeLabel=ca?`${ca.action} · ${ca.type==='credit'?'Credit':ca.type==='debit'?'Debit':'Zero'}`:' ';
-        const amtLabel=ca&&ca.amount>0?`<span class="${ca.type==='credit'?'closed-credit':'closed-debit'}">${ca.type==='credit'?'+':'-'}$${ca.amount.toLocaleString()}</span>`:`<span style="color:var(--text3)">$0</span>`;
-        const dateLabel=ca&&ca.date?`<span style="color:var(--text3)">${ca.date}</span>`:'';
-        const notesLabel=ca&&ca.notes?`<span title="${ca.notes}" style="color:var(--text3);cursor:help;">&#128196;</span>`:'';
-        actionCell=`<div style="display:flex;flex-direction:column;gap:2px;">
-          <div style="display:flex;align-items:center;gap:0.35rem;flex-wrap:wrap;">
-            <span class="badge bcl">${typeLabel}</span>${amtLabel}${dateLabel}${notesLabel}
-          </div>
-          <button class="reopen-btn" onclick="reopenContract('${r.id}')">&#8617; Reopen</button>
-        </div>`;
-      }else{
-        actionCell=`<button class="close-btn" onclick="openCloseModal('${r.id}')">&#9940; Close / Trade</button>`;
-      }
-
-      return`<tr class="${rowClass}${c?' cr':''}">
-        <td class="mc"><span class="chip"><span class="tk-dot-sm" style="background:${DC[r.ticker]||'#888'}"></span>${r.ticker}</span></td>
-        <td>${r.openDate||'--'}</td>
-        <td class="mn">${r.excelCost?'$'+r.excelCost.toLocaleString():'--'}</td>
-        <td class="mn" style="color:var(--green)">${r.excelIncome?'+$'+r.excelIncome.toLocaleString():'--'}</td>
-        <td class="mn">${fm(r.excelCurrentValue)}</td>
-        <td class="mn">${fm(r.excelGrossValue)}</td>
-        <td>${priceCell}</td>
-        <td><span class="badge ${bct(r.excelType)}">${r.excelType}</span></td>
-        <td class="mn">${r.strike>0?'$'+r.strike:'--'}</td>
-        <td class="${ec(r.expiryDate)}">${r.expiryDate||'--'}${isExp&&!c?' &#9888;':''}</td>
-        <td class="mn" style="color:${p>=0?'var(--green)':'var(--red)'};font-weight:700">${fp(p)}</td>
-        <td>${colCell}</td>
-        <td>${actionCell}</td>
-        <td style="text-align:center"><button class="del-btn" onclick="delRow('${r.id}')">&#128465;</button></td>
-      </tr>`;
-    }).join('');
-
-  return`<div class="controls-row">
-    <div class="type-tabs">${typeTabs}</div>
-    <div class="oc-tabs">${ocTabs}</div>
-    <button class="expiry-pill${expiringOnly?' active':''}" id="exp-pill">&#9888; Expiring This Week</button>
-    <button class="del-all-btn" onclick="delAll()">&#128465; Delete Visible</button>
-    <div class="upload-group">
-      <button class="upload-csv-btn" onclick="toggleUpload()">&#8593; Upload CSV</button>
-      <button class="template-dl-btn" onclick="dlTemplate()">&#11015; Template</button>
+  // TOTAL COLLATERAL BANNER
+  const banner=`<div class="total-collat-banner">
+    <div>
+      <div class="tcb-label">&#128274; Total Net Collateral Required</div>
+      <div class="tcb-val" style="color:${collatStats.total>0?'#FB923C':'var(--green)'}">$${collatStats.total.toLocaleString()}</div>
+      <div class="tcb-sub">Net after long put offsets</div>
     </div>
-  </div>
-  ${rUploadPanel()}
-  <div class="table-wrap"><table>
-    <thead><tr><th>Ticker</th><th>Open Date</th><th>Cost</th><th>Income</th><th>Curr Val</th><th>Gross Val</th><th>Price</th><th>Type</th><th>Strike</th><th>Expiry</th><th>P&L</th><th>Collateral</th><th>Close / Action</th><th>Del</th></tr></thead>
-    <tbody>${rows}</tbody>
-  </table></div>`;
-}
+    <div class="tcb-breakdown">
+      <div class="tcb-item"><div class="tcb-item-val" style="color:#FB923C;">$${collatStats.totalNaked.toLocaleString()}</div><div class="tcb-item-label">Naked SP</div></div>
+      <div class="tcb-item"><div class="tcb-item-val" style="color:var(--purple);">$${collatStats.totalSpread.toLocaleString()}</div><div class="tcb-item-label">Spread Risk</div></div>
+    </div>
+  </div>`;
 
-function rBreak(data){
-  if(!data.length)return'';
-  const tickers=getTickers(data).filter(t=>selTickers.has('ALL')||selTickers.has(t));
-  return`<div class="sbar">By Ticker</div><div class="breakdown">${tickers.map(t=>{
-    const pos=data.filter(r=>r.ticker===t);
-    const pnl=pos.reduce((s,r)=>s+(r.excelProfit||0),0),val=pos.reduce((s,r)=>s+(r.excelGrossValue||0),0);
-    const inc=pos.filter(r=>r.excelType==='Short Put').reduce((s,r)=>s+(r.excelIncome||0),0);
-    const col=pos.reduce((s,r)=>s+collateral(r),0),op=pos.filter(r=>!isCl(r)).length;
-    const price=getTP(t);
-    return`<div class="bcard" style="border-top:2px solid ${DC[t]||'#888'}">
-      <div class="bcard-h"><div class="bcard-t"><span class="tk-dot-sm" style="background:${DC[t]||'#888'}"></span>${t}</div><div class="bcard-c">${pos.length} &middot; ${op} open</div></div>
-      ${price!=null?`<div class="brow"><span>Price</span><span style="color:var(--yellow)">$${price} <small>(M)</small></span></div>`:''}
-      <div class="brow"><span>Value</span><span>${fm(val)}</span></div>
-      <div class="brow"><span>P&L</span><span style="color:${pnl>=0?'var(--green)':'var(--red)'}">${fp(pnl)}</span></div>
-      ${inc?`<div class="brow"><span>Income</span><span style="color:var(--green)">+$${inc.toLocaleString()}</span></div>`:''}
-      ${col?`<div class="brow"><span>Collateral</span><span style="color:var(--orange)">$${col.toLocaleString()}</span></div>`:''}
+  // PER-TICKER COLLATERAL CARDS
+  const tickerCards=`<div class="collat-summary">${spreadGroups.filter(g=>g.pairs.length>0||g.independentLPs.length>0).map(({ticker,pairs,independentLPs})=>{
+    const stats=collatStats.byTicker[ticker]||{naked:0,spread:0};
+    const total=stats.naked+stats.spread;
+    const nakedCount=pairs.filter(p=>!p.lp).length;
+    const pairedCount=pairs.filter(p=>p.lp).length;
+    return`<div class="collat-card">
+      <div class="collat-card-header">
+        <span class="sgh-dot" style="background:${DC[ticker]||'#888'};width:10px;height:10px;border-radius:50%;"></span>
+        <span class="collat-ticker">${ticker}</span>
+      </div>
+      <div class="collat-row"><span>Net Collateral</span><span style="color:${total>0?'var(--orange)':'var(--green)'}">${total>0?'$'+total.toLocaleString():'$0'}</span></div>
+      ${stats.naked>0?`<div class="collat-row"><span>Naked SP</span><span style="color:var(--red)">$${stats.naked.toLocaleString()}</span></div>`:''}
+      ${stats.spread>0?`<div class="collat-row"><span>Spread Risk</span><span style="color:var(--purple)">$${stats.spread.toLocaleString()}</span></div>`:''}
+      <div class="collat-row"><span>Paired</span><span>${pairedCount} spread${pairedCount!==1?'s':''}</span></div>
+      ${nakedCount?`<div class="collat-row"><span>Naked</span><span style="color:var(--red)">${nakedCount} put${nakedCount!==1?'s':''}</span></div>`:''}
     </div>`;
   }).join('')}</div>`;
+
+  // SPREAD PAIRS TABLE
+  const groups=`<div class="spreads-wrap">${spreadGroups.filter(g=>g.pairs.length>0||g.independentLPs.length>0).map(({ticker,pairs,independentLPs})=>`<div class="spread-group">
+    ${pairs.map(({sp,lp})=>{
+      const c=calcSpreadCollateral(sp,lp);
+      const cLabel=lp?`Spread: ${lp.strike>sp.strike?'(LP-SP)×100':'(SP-LP)×100'}`:'Naked SP';
+      const cColor=!lp?'var(--red)':Math.abs(c)<sp.strike*100?'var(--purple)':'var(--blue)';
+      const isNaked=!lp;
+      const spDate=sp.expiryDate||'--';
+      const lpDate=lp?lp.expiryDate:'';
+      const isProj=lp&&lpDate!==spDate;
+      const badgeType=isNaked?'badge-naked':lp&&lp.strike>sp.strike?'badge-spread':'badge-spread';
+
+      // GROUP HEADER per short put row
+      const header=`<div class="spread-group-header">
+        <span class="sgh-dot" style="background:${DC[ticker]||'#888'};width:8px;height:8px;border-radius:50%;display:inline-block;"></span>
+        <span class="sgh-ticker">${ticker}</span>
+        <span class="sgh-exp" style="color:var(--text3);">SP Expiry: <strong class="${ec(sp.expiryDate)}">${spDate}</strong>${lp&&isProj?` · LP Expiry: <strong class="${ec(lp.expiryDate)}">${lpDate}</strong>`:''}</span>
+        <span class="badge ${badgeType}" style="margin-left:0.5rem;">${isNaked?'Naked Put':'Put Spread'}</span>
+        <span class="sgh-collat" style="color:${cColor};">${c>0?'+':''}$${Math.abs(c).toLocaleString()}</span>
+        <span style="font-size:0.6rem;color:var(--text3);margin-left:0.25rem;">${cLabel}</span>
+      </div>`;
+
+      // LEFT = short put, RIGHT = long put
+      const leftCell=`<div class="sp-cell short">
+        <div class="sp-type short-type">&#8595; Short Put</div>
+        <div class="sp-ticker"><span class="tk-dot-sm" style="background:${DC[sp.ticker]||'#888'}"></span>${sp.ticker}</div>
+        <div class="sp-detail-row">
+          <span class="sp-detail-item"><span class="sp-detail-label">Strike</span><span class="sp-detail-val">&nbsp;$${sp.strike}</span></span>
+          <span class="sp-detail-item"><span class="sp-detail-label">Exp</span><span class="sp-detail-val sp-detail-val ${ec(sp.expiryDate)}">&nbsp;${sp.expiryDate||'--'}</span></span>
+        </div>
+        <div class="sp-income">+$${(sp.excelIncome||0).toLocaleString()} income</div>
+        <span class="badge ${isCl(sp)?'bcl':'bop'}" style="margin-top:3px;">${isCl(sp)?'Closed':'Open'}</span>
+      </div>`;
+
+      const rightCell=lp?`<div class="sp-cell long">
+        <div class="sp-type long-type">&#8593; Long Put${isProj?' <span style="color:var(--yellow);font-size:0.57rem;">(diff expiry)</span>':''}</div>
+        <div class="sp-ticker"><span class="tk-dot-sm" style="background:${DC[lp.ticker]||'#888'}"></span>${lp.ticker}</div>
+        <div class="sp-detail-row">
+          <span class="sp-detail-item"><span class="sp-detail-label">Strike</span><span class="sp-detail-val">&nbsp;$${lp.strike}</span></span>
+          <span class="sp-detail-item"><span class="sp-detail-label">Exp</span><span class="sp-detail-val ${ec(lp.expiryDate)}">&nbsp;${lp.expiryDate||'--'}</span></span>
+        </div>
+        <div class="sp-cost">-$${(lp.excelCost||0).toLocaleString()} cost</div>
+        <span class="badge ${isCl(lp)?'bcl':'bop'}" style="margin-top:3px;">${isCl(lp)?'Closed':'Open'}</span>
+      </div>`
+      :`<div class="sp-cell empty"><span class="sp-empty-msg">No long put hedge</span></div>`;
+
+      return header+`<div class="spread-row">${leftCell}<div class="sp-divider"><div class="sp-divider-inner">vs</div></div>${rightCell}</div>`;
+    }).join('')}
+    ${independentLPs.map(lp=>`
+      <div class="independent-row">
+        <div class="independent-label">&#128204; Independent Long Put — no short put paired</div>
+        <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+          <span class="sp-ticker"><span class="tk-dot-sm" style="background:${DC[lp.ticker]||'#888'}"></span>${lp.ticker}</span>
+          <span style="font-size:0.72rem;color:var(--text2);">Strike: <strong>$${lp.strike}</strong></span>
+          <span style="font-size:0.72rem;color:${ec(lp.expiryDate)==='es'?'var(--red)':ec(lp.expiryDate)==='em'?'var(--yellow)':'var(--text2)'};">Expiry: <strong>${lp.expiryDate||'--'}</strong></span>
+          <span class="sp-cost">-$${(lp.excelCost||0).toLocaleString()} cost</span>
+          <span class="badge ${isCl(lp)?'bcl':'bop'}">${isCl(lp)?'Closed':'Open'}</span>
+        </div>
+      </div>`).join('')}
+  </div>`).join('')}</div>`;
+
+  return banner+tickerCards+groups;
+}
+
+// ── POSITIONS VIEW (simplified) ──────────────────────────────────────────────
+function rPositionsView(data){
+  const filtered=data.filter(r=>
+    (statusFilter==='all')||(statusFilter==='open'&&!isCl(r))||(statusFilter==='closed'&&isCl(r))
+  ).filter(r=>selTickers.has('ALL')||selTickers.has(r.ticker));
+  if(!filtered.length)return`<div class="ph"><strong>No positions found</strong>Try adjusting your filters.</div>`;
+  const bct=t=>t==='Short Put'?'bsp':t==='Long Put'?'blp':t==='Long Call'?'blc':'bsh';
+  const rows=filtered.map(r=>{
+    const p=r.excelProfit;
+    return`<tr class="${isCl(r)?'cr':''}${du(r.expiryDate)<=4&&!isCl(r)?' expiring-soon':''}">
+      <td style="color:var(--black);font-weight:700;"><span style="display:inline-flex;align-items:center;gap:0.35rem;"><span style="width:7px;height:7px;border-radius:50%;background:${DC[r.ticker]||'#888'};flex-shrink:0;"></span>${r.ticker}</span></td>
+      <td><span class="badge ${bct(r.excelType)}">${r.excelType}</span></td>
+      <td style="font-family:monospace;">${r.strike>0?'$'+r.strike:'--'}</td>
+      <td class="${ec(r.expiryDate)}">${r.expiryDate||'--'}</td>
+      <td style="font-family:monospace;">${r.excelCost?'$'+r.excelCost.toLocaleString():'--'}</td>
+      <td style="font-family:monospace;color:var(--green);">${r.excelIncome?'+$'+r.excelIncome.toLocaleString():'--'}</td>
+      <td style="font-family:monospace;color:${p>=0?'var(--green)':'var(--red)'};font-weight:700;">${fp(p)}</td>
+      <td><span class="badge ${isCl(r)?'bcl':'bop'}">${isCl(r)?'Closed':'Open'}</span></td>
+    </tr>`;
+  }).join('');
+  return`<div style="background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;overflow-x:auto;box-shadow:0 1px 4px rgba(0,0,0,0.06);">
+    <table style="width:100%;border-collapse:collapse;min-width:700px;">
+      <thead style="background:var(--black);">
+        <tr><th style="padding:0.6rem 0.75rem;font-size:0.6rem;font-weight:700;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:0.08em;text-align:left;">Ticker</th><th style="padding:0.6rem 0.75rem;font-size:0.6rem;font-weight:700;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:0.08em;text-align:left;">Type</th><th style="padding:0.6rem 0.75rem;font-size:0.6rem;font-weight:700;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:0.08em;text-align:left;">Strike</th><th style="padding:0.6rem 0.75rem;font-size:0.6rem;font-weight:700;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:0.08em;text-align:left;">Expiry</th><th style="padding:0.6rem 0.75rem;font-size:0.6rem;font-weight:700;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:0.08em;text-align:left;">Cost</th><th style="padding:0.6rem 0.75rem;font-size:0.6rem;font-weight:700;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:0.08em;text-align:left;">Income</th><th style="padding:0.6rem 0.75rem;font-size:0.6rem;font-weight:700;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:0.08em;text-align:left;">P&L</th><th style="padding:0.6rem 0.75rem;font-size:0.6rem;font-weight:700;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:0.08em;text-align:left;">Status</th></tr>
+      </thead>
+      <tbody>${rows}</tbody>
+    </table>
+  </div>`;
 }
 
 function rMain(){
   const el=document.getElementById('mc');
   const data=getData();
-  const dispData=selTickers.has('ALL')?data:data.filter(r=>selTickers.has(r.ticker));
-  const s=cs(dispData);
-  el.innerHTML=data.length===0
-    ?rFilterBar([])+rSum(s)+rTableSection([])+`<div class="ph"><strong>No positions yet</strong>Upload a CSV to get started.</div>`
-    :rPriceLegend(data)+rFilterBar(data)+rSum(s)+rTableSection(data)+rBreak(data);
+  const s=cs(data);
+  const fb=rFilterBar(data);
+  if(activeView==='spreads'){
+    el.innerHTML=fb+rSum(s)+`<div class="sbar">Spreads / Risk View — Put Pairs by Expiry</div>`+rSpreadsView(data);
+  }else{
+    el.innerHTML=fb+rSum(s)+`<div class="sbar">All Positions</div>`+rPositionsView(data);
+  }
   attachEv();
 }
 
 function attachEv(){
-  const dz=document.getElementById('drop-zone');
-  if(dz){dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('drag-over');});dz.addEventListener('dragleave',()=>dz.classList.remove('drag-over'));dz.addEventListener('drop',e=>{e.preventDefault();dz.classList.remove('drag-over');const f=e.dataTransfer.files[0];if(f)handleFile(f);});}
-  const fi=document.getElementById('csv-file-input');if(fi)fi.onchange=e=>{if(e.target.files[0])handleFile(e.target.files[0]);fi.value='';};
   document.querySelectorAll('.ticker-dd-item').forEach(item=>{
-    item.addEventListener('click',e=>{e.stopPropagation();const t=item.dataset.ddticker;
-      if(t==='ALL'){selTickers=new Set(['ALL']);}else{selTickers.delete('ALL');if(selTickers.has(t))selTickers.delete(t);else selTickers.add(t);if(selTickers.size===0)selTickers=new Set(['ALL']);}
+    item.addEventListener('click',e=>{
+      e.stopPropagation();const t=item.dataset.ddticker;
+      if(t==='ALL'){selTickers=new Set(['ALL']);}
+      else{selTickers.delete('ALL');if(selTickers.has(t))selTickers.delete(t);else selTickers.add(t);if(selTickers.size===0)selTickers=new Set(['ALL']);}
       rMain();setTimeout(()=>{const d=document.getElementById('tkdrop');if(d){d.classList.add('open');ddOpen=true;}},10);
     });
   });
   document.querySelectorAll('.sel-tag-x').forEach(x=>{x.addEventListener('click',e=>{e.stopPropagation();selTickers.delete(x.dataset.xticker);if(selTickers.size===0)selTickers=new Set(['ALL']);rMain();});});
-  document.querySelectorAll('.type-tab').forEach(b=>b.addEventListener('click',()=>{tf=b.dataset.typef;rMain();}));
-  document.querySelectorAll('.oc-tab').forEach(b=>b.addEventListener('click',()=>{ocf=b.dataset.ocf;rMain();}));
-  const ep=document.getElementById('exp-pill');if(ep)ep.addEventListener('click',()=>{expiringOnly=!expiringOnly;rMain();});
-  document.querySelectorAll('.pl-input').forEach(inp=>{inp.addEventListener('keydown',e=>{if(e.key==='Enter')saveP(inp.id.replace('pli_',''));});});
+  document.querySelectorAll('.status-tab').forEach(b=>b.addEventListener('click',()=>{statusFilter=b.dataset.sf;rMain();}));
 }
 
 function toggleDD(){ddOpen=!ddOpen;const d=document.getElementById('tkdrop');if(d)d.classList.toggle('open',ddOpen);}
-document.addEventListener('click',e=>{if(!e.target.closest('#tkwrap')&&!e.target.closest('.modal-box')){ddOpen=false;const d=document.getElementById('tkdrop');if(d)d.classList.remove('open');}});
-function toggleUpload(){showUpload=!showUpload;if(!showUpload){csvPreview=null;importMsg='';}rMain();}
-function startP(t){editTicker=t;rMain();setTimeout(()=>{const inp=document.getElementById('pli_'+t);if(inp){inp.focus();inp.select();}},30);}
-function saveP(t){const inp=document.getElementById('pli_'+t);if(inp){const v=parseFloat(inp.value);if(!isNaN(v)&&v>0)setTP(t,v);}editTicker=null;rMain();}
-function markRoll(id){const d=getData();const r=d.find(p=>p.id===id);if(r)r.rolledOver=true;setData(d);rMain();}
-function undoRoll(id){const d=getData();const r=d.find(p=>p.id===id);if(r)r.rolledOver=false;setData(d);rMain();}
-function delRow(id){if(confirm('Delete this position?')){setData(getData().filter(p=>p.id!==id));rMain();}}
-function delAll(){const data=getData();const vis=getFiltered(data).map(r=>r.id);if(!vis.length)return;if(confirm('Delete '+vis.length+' positions?')){setData(data.filter(p=>!vis.includes(p.id)));rMain();}}
+document.addEventListener('click',e=>{if(!e.target.closest('#tkwrap')){ddOpen=false;const d=document.getElementById('tkdrop');if(d)d.classList.remove('open');}});
+
+document.getElementById('port-nav').addEventListener('click',e=>{
+  const t=e.target.closest('.port-tab');if(!t)return;
+  ap=t.dataset.port;selTickers=new Set(['ALL']);
+  document.querySelectorAll('.port-tab').forEach(x=>x.classList.toggle('active',x.dataset.port===ap));
+  const sn=document.getElementById('sub-nav');sn.style.display=ap==='retirement'?'flex':'none';
+  rBc();rMain();
+});
+document.getElementById('sub-nav').addEventListener('click',e=>{
+  const t=e.target.closest('.sub-tab');if(!t)return;
+  as=t.dataset.sub;document.querySelectorAll('.sub-tab').forEach(s=>s.classList.toggle('active',s.dataset.sub===as));
+  rBc();rMain();
+});
+document.querySelector('.view-nav').addEventListener('click',e=>{
+  const t=e.target.closest('.view-tab');if(!t)return;
+  activeView=t.dataset.view;
+  document.querySelectorAll('.view-tab').forEach(v=>v.classList.toggle('active',v.dataset.view===activeView));
+  rMain();
+});
 
 function rBc(){
   const el=document.getElementById('bc');
@@ -681,15 +522,7 @@ function rBc(){
   else if(ap==='retirement')el.innerHTML=`<span style="color:var(--text3)">All</span> &rsaquo; <span style="color:var(--text3)">Retirement</span> &rsaquo; <span style="color:var(--red)">${sl[as]}</span>`;
   else el.innerHTML=`<span style="color:var(--text3)">All</span> &rsaquo; <span style="color:var(--red)">${pl[ap]}</span>`;
 }
-function sPort(p){ap=p;tf='all';ocf='all';expiringOnly=false;selTickers=new Set(['ALL']);showUpload=false;csvPreview=null;importMsg='';modal=null;document.getElementById('modal-root').innerHTML='';
-  document.querySelectorAll('.port-tab').forEach(t=>t.classList.toggle('active',t.dataset.port===p));
-  const sn=document.getElementById('sub-nav');sn.style.display=p==='retirement'?'flex':'none';
-  if(p==='retirement'){as='ret-all';document.querySelectorAll('.sub-tab').forEach(t=>t.classList.toggle('active',t.dataset.sub===as));}
-  rBc();rMain();
-}
-document.getElementById('port-nav').addEventListener('click',e=>{const t=e.target.closest('.port-tab');if(t)sPort(t.dataset.port);});
-document.getElementById('sub-nav').addEventListener('click',e=>{const t=e.target.closest('.sub-tab');if(!t)return;as=t.dataset.sub;document.querySelectorAll('.sub-tab').forEach(s=>s.classList.toggle('active',s.dataset.sub===as));rBc();rMain();});
+window.toggleDD=toggleDD;
 document.getElementById('topbar-date').textContent=new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
-window.sPort=sPort;window.startP=startP;window.saveP=saveP;window.markRoll=markRoll;window.undoRoll=undoRoll;window.delRow=delRow;window.delAll=delAll;window.toggleDD=toggleDD;window.toggleUpload=toggleUpload;window.dlTemplate=dlTemplate;window.doImport=doImport;window.cancelUpload=cancelUpload;window.openCloseModal=openCloseModal;window.closeModal=closeModal;window.confirmClose=confirmClose;window.reopenContract=reopenContract;window.setMA=setMA;window.setCD=setCD;
 rBc();rMain();
 </script>
