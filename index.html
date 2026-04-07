@@ -231,6 +231,9 @@ td.mc{color:var(--black);font-weight:700;}td.mn{font-family:monospace;font-size:
 /* ── ADD POSITION BUTTON ── */
 .add-pos-btn{display:inline-flex;align-items:center;gap:0.32rem;background:var(--red);color:#fff;border:none;padding:0.26rem 0.75rem;border-radius:7px;font-size:0.65rem;font-weight:700;cursor:pointer;white-space:nowrap;}
 .add-pos-btn:hover{background:var(--red2);}
+/* Row edit button */
+.row-edit-btn{display:inline-flex;align-items:center;gap:0.22rem;background:transparent;color:var(--text3);border:1px solid var(--border);padding:0.18rem 0.45rem;border-radius:5px;font-size:0.6rem;font-weight:700;cursor:pointer;white-space:nowrap;transition:all 0.15s;}
+.row-edit-btn:hover{color:var(--black);border-color:var(--border2);background:var(--bg3);}
 
 /* ── ADD POSITION MODAL FORM ── */
 .ap-modal-box{background:#fff;border-radius:14px;padding:1.5rem;width:480px;max-width:95vw;max-height:90vh;overflow-y:auto;box-shadow:0 16px 48px rgba(0,0,0,0.22);}
@@ -449,7 +452,7 @@ function rTable(data){
   const typeTabs=['all','Short Put','Long Put','Long Call','Shares'].map(t=>'<button class="type-tab'+(typeFilter===t?' active':'')+'" data-typef="'+t+'">'+(t==='all'?'All':t)+'</button>').join('');
   const ocTabs=['all','open','closed'].map(o=>'<button class="oc-tab'+(ocFilter===o?' active':'')+'" data-ocf="'+o+'">'+(o==='all'?'All':o==='open'?'Open':'Closed')+'</button>').join('');
   const thisFri=getThisFriday();
-  const rows=filtered.length===0?'<tr><td colspan="15" class="ec">No positions match your filters.</td></tr>':filtered.map(r=>{
+  const rows=filtered.length===0?'<tr><td colspan="16" class="ec">No positions match your filters.</td></tr>':filtered.map(r=>{
     const c=isCl(r),p=r.excelProfit,col=collateral(r);
     const isExp=r.expiryDate&&!c&&(()=>{try{return new Date(r.expiryDate)<=thisFri;}catch{return false;}})();
     const rowClass=r.rolledOver?'rolled':isExp?'expiring-soon':'';
@@ -494,11 +497,12 @@ function rTable(data){
     const strikeCell=ieCell(r.id,'strike',r.strike>0?'$'+r.strike:'--','number','w-sm','');
     const expiryCell=ieCell(r.id,'expiryDate',r.expiryDate||'--','text','w-dt','');
     const pnlCell=ieCell(r.id,'excelProfit',fp(p),'number','w-md',(p>=0?'color:var(--green)':'color:var(--red)')+';font-weight:700');
-    return'<tr class="'+rowClass+(c?' cr':'')+'"><td class="mc"><span class="chip"><span class="tk-dot-sm" style="background:'+(DC[r.ticker]||'#888')+'"></span>'+r.ticker+'</span></td><td>'+openDateCell+'</td><td class="mn">'+costCell+'</td><td class="mn">'+incomeCell+'</td><td class="mn">'+currValCell+'</td><td class="mn">'+grossValCell+'</td><td>'+priceCell+'</td><td><span class="badge '+bct(r.excelType)+'">'+r.excelType+'</span></td><td class="mn">'+strikeCell+'</td><td class="'+ec(r.expiryDate)+'">'+expiryCell+(isExp&&!c?' &#9888;':'')+'</td><td class="mn">'+pnlCell+'</td><td>'+colCell+'</td><td>'+actionCell+'</td><td style="text-align:center"><button class="del-btn" onclick="deleteRow(\''+r.id+'\')">&#128465;</button></td></tr>';
+    const editRowBtn='<button class="row-edit-btn" onclick="openEditModal(\''+r.id+'\')" title="Edit all fields">&#9998; Edit</button>';
+    return'<tr class="'+rowClass+(c?' cr':'')+'"><td class="mc"><span class="chip"><span class="tk-dot-sm" style="background:'+(DC[r.ticker]||'#888')+'"></span>'+r.ticker+'</span></td><td>'+(r.openDate||'--')+'</td><td class="mn">'+(r.excelCost?'$'+r.excelCost.toLocaleString():'--')+'</td><td class="mn" style="color:var(--green)">'+(r.excelIncome?'+$'+r.excelIncome.toLocaleString():'--')+'</td><td class="mn">'+fm(r.excelCurrentValue)+'</td><td class="mn">'+fm(r.excelGrossValue)+'</td><td>'+priceCell+'</td><td><span class="badge '+bct(r.excelType)+'">'+r.excelType+'</span></td><td class="mn">'+(r.strike>0?'$'+r.strike:'--')+'</td><td class="'+ec(r.expiryDate)+'">'+(r.expiryDate||'--')+(isExp&&!c?' &#9888;':'')+'</td><td class="mn" style="color:'+(p>=0?'var(--green)':'var(--red)')+';font-weight:700">'+fp(p)+'</td><td>'+colCell+'</td><td>'+actionCell+'</td><td style="text-align:center">'+editRowBtn+'</td><td style="text-align:center"><button class="del-btn" onclick="deleteRow(\''+r.id+'\')">&#128465;</button></td></tr>';
   }).join('');
   return'<div class="controls-row"><div class="type-tabs">'+typeTabs+'</div><div class="oc-tabs">'+ocTabs+'</div><button class="expiry-pill'+(expiringOnly?' active':'')+'" id="exp-pill">&#9888; Expiring This Week</button><button class="del-all-btn" onclick="deleteAll()">&#128465; Delete Visible</button><button class="upload-csv-btn" onclick="toggleUpload()">&#8593; Upload CSV</button><button class="template-dl-btn" onclick="dlTemplate()">&#11015; Template</button><button class="add-pos-btn" onclick="openAddModal()">&#43; Add Position</button></div>'
     +rUploadPanel()
-    +'<div class="table-wrap"><table><thead><tr><th>Ticker</th><th>Open Date</th><th>Cost</th><th>Income</th><th>Curr Val</th><th>Gross Val</th><th>Price</th><th>Type</th><th>Strike</th><th>Expiry</th><th>P&L</th><th>Collateral</th><th>Close / Action</th><th>Del</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
+    +'<div class="table-wrap"><table><thead><tr><th>Ticker</th><th>Open Date</th><th>Cost</th><th>Income</th><th>Curr Val</th><th>Gross Val</th><th>Price</th><th>Type</th><th>Strike</th><th>Expiry</th><th>P&L</th><th>Collateral</th><th>Close / Action</th><th>Edit</th><th>Del</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
 }
 // ── CLOSE / TRADE MODAL ───────────────────────────────────────────────────────
 function openModal(id){
@@ -608,7 +612,7 @@ function renderAddModal(){
   document.getElementById('modal-root').innerHTML=
     '<div class="modal-overlay" onclick="if(event.target===this)closeAddModal()">'
     +'<div class="ap-modal-box">'
-    +'<div class="modal-title">&#43; Add New Position</div>'
+    +'<div class="modal-title">&#43; '+(f._editId?'Edit Position':'Add New Position')+'</div>'
     +'<div class="modal-sub" style="margin-bottom:0.85rem;">Fill in the details below. Fields marked <span style="color:var(--red)">*</span> are required.</div>'
 
     // Type selector
@@ -665,7 +669,7 @@ function renderAddModal(){
 
     // Buttons
     +'<div class="modal-btns" style="margin-top:0.35rem;">'
-    +'<button class="modal-confirm" style="background:var(--red);" onclick="saveAddModal()">&#10003; Add Position</button>'
+    +'<button class="modal-confirm" style="background:var(--red);" onclick="saveAddModal()">&#10003; '+(f._editId?'Save Changes':'Add Position')+'</button>'
     +'<button class="modal-cancel-btn" onclick="closeAddModal()">Cancel</button>'
     +'</div>'
     +'</div></div>';
@@ -698,6 +702,59 @@ function saveAddModal(){
 }
 function closeAddModal(){addForm=null;document.getElementById('modal-root').innerHTML='';}
 
+// ── EDIT EXISTING POSITION MODAL ──────────────────────────────────────────────
+// Reuses the same form as Add, but pre-filled and saves back to the same row
+function openEditModal(id){
+  const r=positions.find(p=>p.id===id);if(!r)return;
+  // Pre-fill addForm with this row's data; tag it with editId so save knows to update not insert
+  addForm={
+    _editId:id,
+    type:r.excelType||'Short Put',
+    ticker:r.ticker||'',
+    strike:r.strike||'',
+    expiryDate:r.expiryDate||'',
+    openDate:r.openDate||'',
+    cost:r.excelCost||'',
+    income:r.excelIncome||'',
+    grossValue:r.excelGrossValue||'',
+    currentValue:r.excelCurrentValue||'',
+    profit:r.excelProfit||'',
+    contracts:r.contracts||1,
+    closed:r.closed||false,
+    notes:r.notes||''
+  };
+  renderAddModal();
+}
+function saveAddModal(){
+  const f=addForm;if(!f)return;
+  if(!f.ticker.trim()){alert('Ticker is required.');return;}
+  if(f.type!=='Shares'&&!f.strike){alert('Strike price is required for options.');return;}
+  if(f.type!=='Shares'&&!f.expiryDate.trim()){alert('Expiry date is required for options.');return;}
+  const cost=parseFloat(f.cost)||0;
+  const income=parseFloat(f.income)||0;
+  const gross=parseFloat(f.grossValue)||cost;
+  const curr=parseFloat(f.currentValue)||gross;
+  const pnl=parseFloat(f.profit)||0;
+  if(f._editId){
+    // Editing existing — update in place
+    const r=positions.find(p=>p.id===f._editId);
+    if(r){
+      r.ticker=f.ticker.trim().toUpperCase();r.excelType=f.type;
+      r.strike=parseFloat(f.strike)||0;r.expiryDate=f.expiryDate.trim();
+      r.openDate=f.openDate.trim();r.contracts=f.contracts;
+      r.excelCost=cost;r.excelIncome=income;r.excelGrossValue=gross;
+      r.excelCurrentValue=curr;r.excelProfit=pnl;
+      r.closed=f.closed;r.notes=f.notes;
+    }
+  }else{
+    // New position
+    const uid=Math.random().toString(36).slice(2,10);
+    positions.push({id:uid,ticker:f.ticker.trim().toUpperCase(),excelType:f.type,strike:parseFloat(f.strike)||0,expiryDate:f.expiryDate.trim(),openDate:f.openDate.trim(),contracts:f.contracts,excelCost:cost,excelIncome:income,excelGrossValue:gross,excelCurrentValue:curr,excelProfit:pnl,closed:f.closed,notes:f.notes,manualPrice:null,rolledOver:false,closeAction:null});
+  }
+  addForm=null;
+  document.getElementById('modal-root').innerHTML='';
+  rMain();
+}
 // ── CSV UPLOAD ────────────────────────────────────────────────────────────────
 function rUploadPanel(){
   if(!showUpload)return'';
@@ -1007,7 +1064,7 @@ function sPort(p){
 document.getElementById('port-nav').addEventListener('click',e=>{const t=e.target.closest('.port-tab');if(t)sPort(t.dataset.port);});
 document.getElementById('sub-nav').addEventListener('click',e=>{const t=e.target.closest('.sub-tab');if(!t)return;as=t.dataset.sub;document.querySelectorAll('.sub-tab').forEach(s=>s.classList.toggle('active',s.dataset.sub===as));rBc();rMain();});
 document.getElementById('topbar-date').textContent=new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
-window.sPort=sPort;window.startEdit=startEdit;window.savePrice=savePrice;window.markRoll=markRoll;window.undoRoll=undoRoll;window.deleteRow=deleteRow;window.deleteAll=deleteAll;window.toggleDropdown=toggleDropdown;window.openModal=openModal;window.closeModal=closeModal;window.confirmModal=confirmModal;window.reopenPosition=reopenPosition;window.setMA=setMA;window.setCD=setCD;window.toggleUpload=toggleUpload;window.cancelUpload=cancelUpload;window.dlTemplate=dlTemplate;window.doImport=doImport;window.openAddModal=openAddModal;window.closeAddModal=closeAddModal;window.saveAddModal=saveAddModal;window.setAF=setAF;window.ieStart=ieStart;window.ieSave=ieSave;window.ieCancel=ieCancel;window.ieKey=ieKey;
+window.sPort=sPort;window.startEdit=startEdit;window.savePrice=savePrice;window.markRoll=markRoll;window.undoRoll=undoRoll;window.deleteRow=deleteRow;window.deleteAll=deleteAll;window.toggleDropdown=toggleDropdown;window.openModal=openModal;window.closeModal=closeModal;window.confirmModal=confirmModal;window.reopenPosition=reopenPosition;window.setMA=setMA;window.setCD=setCD;window.toggleUpload=toggleUpload;window.cancelUpload=cancelUpload;window.dlTemplate=dlTemplate;window.doImport=doImport;window.openAddModal=openAddModal;window.closeAddModal=closeAddModal;window.saveAddModal=saveAddModal;window.setAF=setAF;window.ieStart=ieStart;window.ieSave=ieSave;window.ieCancel=ieCancel;window.ieKey=ieKey;window.openEditModal=openEditModal;
 rBc();rMain();
 </script>
 </body>
