@@ -166,6 +166,23 @@ td.mc{color:var(--black);font-weight:700;}td.mn{font-family:monospace;font-size:
 .rolled-badge{background:var(--purple-bg);color:var(--purple);padding:0.08rem 0.35rem;border-radius:3px;font-size:0.58rem;font-weight:700;}
 .del-btn{background:none;border:none;color:#D1D5DB;cursor:pointer;padding:0.18rem 0.32rem;border-radius:4px;font-size:0.75rem;transition:all 0.15s;}
 .del-btn:hover{background:var(--red-bg);color:var(--red);}
+.copy-btn{background:none;border:none;color:var(--text3);cursor:pointer;padding:0.18rem 0.32rem;border-radius:4px;font-size:0.72rem;transition:all 0.15s;}
+.copy-btn:hover{background:var(--blue-bg);color:var(--blue);}
+/* Price cell inline states */
+.pcell{display:flex;align-items:center;gap:0.3rem;flex-wrap:wrap;}
+.pcell-live{font-family:monospace;font-weight:700;font-size:0.71rem;color:var(--green);}
+.pcell-manual{font-family:monospace;font-weight:700;font-size:0.71rem;color:var(--yellow);}
+.pcell-none{font-size:0.68rem;color:var(--text3);font-style:italic;}
+.pcell-badge{font-size:0.55rem;font-weight:700;padding:0.05rem 0.28rem;border-radius:3px;text-transform:uppercase;letter-spacing:0.04em;}
+.pcell-badge-live{background:var(--green-bg);color:var(--green);}
+.pcell-badge-manual{background:var(--yellow-bg);color:var(--yellow);}
+.pcell-edit-wrap{display:flex;align-items:center;gap:0.2rem;}
+.pcell-input{width:62px;background:#fff;border:1px solid var(--red);border-radius:5px;padding:0.1rem 0.28rem;font-size:0.7rem;font-family:monospace;outline:none;color:var(--black);}
+.pcell-input:focus{box-shadow:0 0 0 2px rgba(220,38,38,0.12);}
+.pcell-ok{background:var(--red);border:none;color:#fff;cursor:pointer;font-size:0.6rem;padding:0.08rem 0.28rem;border-radius:3px;font-weight:700;}
+.pcell-x{background:transparent;border:none;color:var(--text3);cursor:pointer;font-size:0.7rem;padding:0.04rem 0.15rem;}
+.pcell-act{background:none;border:none;cursor:pointer;font-size:0.6rem;color:var(--text3);padding:0.05rem 0.2rem;border-radius:3px;text-decoration:underline;text-decoration-style:dashed;}
+.pcell-act:hover{color:var(--red);}
 
 /* ── CLOSE / TRADE MODAL ── */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:1000;display:flex;align-items:center;justify-content:center;}
@@ -523,7 +540,7 @@ function rTable(data){
   const typeTabs=['all','Short Put','Long Put','Long Call','Shares'].map(t=>'<button class="type-tab'+(typeFilter===t?' active':'')+'" data-typef="'+t+'">'+(t==='all'?'All':t)+'</button>').join('');
   const ocTabs=['all','open','closed'].map(o=>'<button class="oc-tab'+(ocFilter===o?' active':'')+'" data-ocf="'+o+'">'+(o==='all'?'All':o==='open'?'Open':'Closed')+'</button>').join('');
   const thisFri=getThisFriday();
-  const rows=filtered.length===0?'<tr><td colspan="16" class="ec">No positions match your filters.</td></tr>':filtered.map(r=>{
+  const rows=filtered.length===0?'<tr><td colspan="17" class="ec">No positions match your filters.</td></tr>':filtered.map(r=>{
     const c=isCl(r),p=r.excelProfit,col=collateral(r);
     // Gross Value = income + currentValue; short puts: currentValue treated as 0
     const isShortType=r.excelType==='Short Put'||r.excelType==='Short Call';
@@ -532,10 +549,40 @@ function rTable(data){
     const isExp=r.expiryDate&&!c&&(()=>{try{return new Date(r.expiryDate)<=thisFri;}catch{return false;}})();
     const rowClass=r.rolledOver?'rolled':isExp?'expiring-soon':'';
     const isEditing=editingPrice===r.id;
+    // Price: live from cache, manual from tickerPrices; live takes priority for display unless manual set
+    const liveP=liveCache[r.ticker]?.price??null;
+    const manualP=tickerPrices[r.ticker]??null;
+    const activeP=liveP!=null?liveP:(manualP!=null?manualP:null); // live wins
     let priceCell;
-    const hp=getTickerPrice(r.ticker);
-    if(isEditing){priceCell='<div class="price-cell"><input class="price-input" id="pi_'+r.id+'" type="number" step="0.01" value="'+(hp||'')+'" placeholder="0.00"><button class="edit-btn" onclick="savePrice(\''+r.id+'\')">&#10003;</button></div>';}
-    else{priceCell='<div class="price-cell"><span class="price-val">'+(hp!=null?'$'+hp:'--')+'</span><span class="price-icon '+(hp!=null?'price-manual':'price-none')+'">'+(hp!=null?'M':'?')+'</span><button class="edit-btn" onclick="startEdit(\''+r.id+'\')">&#9998;</button></div>';}
+    if(isEditing){
+      // Inline input to set/override manual price
+      priceCell='<div class="pcell-edit-wrap"><input class="pcell-input" id="pi_'+r.id+'" type="number" step="0.01" value="'+(manualP!=null?manualP:'')+'" placeholder="Manual" onkeydown="if(event.key===\'Enter\')savePrice(\''+r.id+'\');if(event.key===\'Escape\')cancelEdit()"><button class="pcell-ok" onclick="savePrice(\''+r.id+'\')">&#10003;</button><button class="pcell-x" onclick="cancelEdit()">&#10005;</button></div>';
+    }else{
+      let priceDisp='';
+      if(liveP!=null){
+        // Live price shown in green; if there's also a manual, show it crossed out / note
+        priceDisp='<span class="pcell-live">$'+liveP.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})+'</span>'
+          +'<span class="pcell-badge pcell-badge-live">Live</span>';
+        if(manualP!=null){
+          // Manual exists but live wins — show clear option
+          priceDisp+='<button class="pcell-act" onclick="clearManualPrice(\''+r.ticker+'\')" title="Remove manual price (live is active)">clear manual</button>';
+        }else{
+          // No manual — offer to set one
+          priceDisp+='<button class="pcell-act" onclick="startEdit(\''+r.id+'\')" title="Set manual override">+manual</button>';
+        }
+      }else if(manualP!=null){
+        // Only manual, no live
+        priceDisp='<span class="pcell-manual">$'+manualP+'</span>'
+          +'<span class="pcell-badge pcell-badge-manual">Manual</span>'
+          +'<button class="pcell-act" onclick="startEdit(\''+r.id+'\')" title="Change manual price">edit</button>'
+          +'<button class="pcell-act" onclick="clearManualPrice(\''+r.ticker+'\')" title="Remove manual price">&#10005;</button>';
+      }else{
+        // Nothing set
+        priceDisp='<span class="pcell-none">--</span>'
+          +'<button class="pcell-act" onclick="startEdit(\''+r.id+'\')" title="Set manual price">+manual</button>';
+      }
+      priceCell='<div class="pcell">'+priceDisp+'</div>';
+    }
     let colCell;
     if(r.excelType==='Short Put'&&!c){colCell=r.rolledOver?'<div class="col-cell"><span class="rolled-badge">&#8635; Roll</span><button class="undo-btn" onclick="undoRoll(\''+r.id+'\')">&#8617; Undo</button></div>':'<div class="col-cell"><span class="col-val">$'+col.toLocaleString()+'</span><button class="roll-btn" onclick="markRoll(\''+r.id+'\')">&#8635; Roll</button></div>';}
     else{colCell='<span style="color:var(--text3)">--</span>';}
@@ -574,11 +621,12 @@ function rTable(data){
     const expiryCell=ieCell(r.id,'expiryDate',r.expiryDate||'--','text','w-dt','');
     const pnlCell=ieCell(r.id,'excelProfit',fp(p),'number','w-md',(p>=0?'color:var(--green)':'color:var(--red)')+';font-weight:700');
     const editRowBtn='<button class="row-edit-btn" onclick="openEditModal(\''+r.id+'\')" title="Edit all fields">&#9998; Edit</button>';
-    return'<tr class="'+rowClass+(c?' cr':'')+'"><td class="mc"><span class="chip"><span class="tk-dot-sm" style="background:'+(DC[r.ticker]||'#888')+'"></span>'+r.ticker+'</span></td><td>'+(r.openDate||'--')+'</td><td class="mn">'+(r.excelCost?'$'+r.excelCost.toLocaleString():'--')+'</td><td class="mn" style="color:var(--green)">'+(r.excelIncome?'+$'+r.excelIncome.toLocaleString():'--')+'</td><td class="mn">'+fm(displayCurrVal)+'</td><td class="mn">'+fm(displayGrossVal)+'</td><td>'+priceCell+'</td><td><span class="badge '+bct(r.excelType)+'">'+r.excelType+'</span></td><td class="mn">'+(r.strike>0?'$'+r.strike:'--')+'</td><td class="'+ec(r.expiryDate)+'">'+(r.expiryDate||'--')+(isExp&&!c?' &#9888;':'')+'</td><td class="mn" style="color:'+(p>=0?'var(--green)':'var(--red)')+';font-weight:700">'+fp(p)+'</td><td>'+colCell+'</td><td>'+actionCell+'</td><td style="text-align:center">'+editRowBtn+'</td><td style="text-align:center"><button class="del-btn" onclick="deleteRow(\''+r.id+'\')">&#128465;</button></td></tr>';
+    const copyRowBtn='<button class="copy-btn" onclick="copyRow(\''+r.id+'\')" title="Duplicate this position">&#10063;</button>';
+    return'<tr class="'+rowClass+(c?' cr':'')+'"><td class="mc"><span class="chip"><span class="tk-dot-sm" style="background:'+(DC[r.ticker]||'#888')+'"></span>'+r.ticker+'</span></td><td>'+(r.openDate||'--')+'</td><td class="mn">'+(r.excelCost?'$'+r.excelCost.toLocaleString():'--')+'</td><td class="mn" style="color:var(--green)">'+(r.excelIncome?'+$'+r.excelIncome.toLocaleString():'--')+'</td><td class="mn">'+fm(displayCurrVal)+'</td><td class="mn">'+fm(displayGrossVal)+'</td><td>'+priceCell+'</td><td><span class="badge '+bct(r.excelType)+'">'+r.excelType+'</span></td><td class="mn">'+(r.strike>0?'$'+r.strike:'--')+'</td><td class="'+ec(r.expiryDate)+'">'+(r.expiryDate||'--')+(isExp&&!c?' &#9888;':'')+'</td><td class="mn" style="color:'+(p>=0?'var(--green)':'var(--red)')+';font-weight:700">'+fp(p)+'</td><td>'+colCell+'</td><td>'+actionCell+'</td><td style="text-align:center">'+editRowBtn+'</td><td style="text-align:center">'+copyRowBtn+'</td><td style="text-align:center"><button class="del-btn" onclick="deleteRow(\''+r.id+'\')">&#128465;</button></td></tr>';
   }).join('');
   return'<div class="controls-row"><div class="type-tabs">'+typeTabs+'</div><div class="oc-tabs">'+ocTabs+'</div><button class="expiry-pill'+(expiringOnly?' active':'')+'" id="exp-pill">&#9888; Expiring This Week</button><button class="del-all-btn" onclick="deleteAll()">&#128465; Delete Visible</button><button class="upload-csv-btn" onclick="toggleUpload()">&#8593; Upload CSV</button><button class="template-dl-btn" onclick="dlTemplate()">&#11015; Template</button><button class="add-pos-btn" onclick="openAddModal()">&#43; Add Position</button></div>'
     +rUploadPanel()
-    +'<div class="table-wrap"><table><thead><tr><th>Ticker</th><th>Open Date</th><th>Cost</th><th>Income</th><th>Curr Val</th><th>Gross Val</th><th>Price</th><th>Type</th><th>Strike</th><th>Expiry</th><th>P&L</th><th>Collateral</th><th>Close / Action</th><th>Edit</th><th>Del</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
+    +'<div class="table-wrap"><table><thead><tr><th>Ticker</th><th>Open Date</th><th>Cost</th><th>Income</th><th>Curr Val</th><th>Gross Val</th><th>Price</th><th>Type</th><th>Strike</th><th>Expiry</th><th>P&L</th><th>Collateral</th><th>Close / Action</th><th>Edit</th><th>Copy</th><th>Del</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
 }
 // ── CLOSE / TRADE MODAL ───────────────────────────────────────────────────────
 function openModal(id){
@@ -729,11 +777,9 @@ function renderAddModal(){
     +'<div class="ap-field"><label class="ap-label">Cost / Debit Paid ($)</label><input class="ap-input" id="af-cost" type="number" step="0.01" placeholder="0" value="'+f.cost+'" oninput="addForm.cost=this.value;updateGross()"></div>'
     +'</div>'
 
-    // Row 4: Income (short only) + Current Value
+    // Row 4: Income + Current Value
     +'<div class="ap-grid">'
-    +(isShort
-      ?'<div class="ap-field"><label class="ap-label">Premium / Income ($)</label><input class="ap-input" id="af-income" type="number" step="0.01" placeholder="0" value="'+f.income+'" oninput="addForm.income=this.value;updateGross()"></div>'
-      :'<div></div>')
+    +'<div class="ap-field"><label class="ap-label">Premium / Income ($)</label><input class="ap-input" id="af-income" type="number" step="0.01" placeholder="0" value="'+f.income+'" oninput="addForm.income=this.value;updateGross()"></div>'
     // Current Value: locked at 0 for shorts, editable for longs (defaults to cost)
     +(isShort
       ?'<div class="ap-field"><label class="ap-label">Current Value ($) <span style="color:var(--text3);font-weight:400;font-size:0.6rem;">(short puts = 0)</span></label><input class="ap-input" type="number" value="0" disabled style="background:var(--bg3);color:var(--text3);"></div>'
@@ -1245,16 +1291,30 @@ function attachEvents(){
 function toggleDropdown(){dropdownOpen=!dropdownOpen;const d=document.getElementById('tkdrop');if(d)d.classList.toggle('open',dropdownOpen);}
 document.addEventListener('click',e=>{if(!e.target.closest('#tkwrap')){dropdownOpen=false;const d=document.getElementById('tkdrop');if(d)d.classList.remove('open');}});
 function startEdit(id){editingPrice=id;rMain();setTimeout(()=>{const inp=document.getElementById('pi_'+id);if(inp){inp.focus();inp.select();}},50);}
+function cancelEdit(){editingPrice=null;rMain();}
 function savePrice(id){
   const inp=document.getElementById('pi_'+id);
   if(inp){
     const v=parseFloat(inp.value);
     const r=positions.find(p=>p.id===id);
-    if(r&&!isNaN(v)){
+    if(r&&!isNaN(v)&&v>0){
       setTickerPrice(r.ticker,v); // save universally for this ticker
     }
   }
   editingPrice=null;rMain();
+}
+function clearManualPrice(ticker){
+  setTickerPrice(ticker,null);
+  rMain();
+}
+function copyRow(id){
+  const r=positions.find(p=>p.id===id);if(!r)return;
+  const uid=Math.random().toString(36).slice(2,10);
+  const copy={...r,id:uid,closed:false,closeAction:null,rolledOver:false};
+  // Insert immediately after the source row
+  const idx=positions.findIndex(p=>p.id===id);
+  positions.splice(idx+1,0,copy);
+  rMain();
 }
 // Inline field editing
 function ieStart(id,field){editCell={id,field};rMain();setTimeout(()=>{const inp=document.getElementById('ie_'+id+'_'+field);if(inp){inp.focus();inp.select();}},30);}
@@ -1353,7 +1413,7 @@ function sPort(p){
 document.getElementById('port-nav').addEventListener('click',e=>{const t=e.target.closest('.port-tab');if(t)sPort(t.dataset.port);});
 document.getElementById('sub-nav').addEventListener('click',e=>{const t=e.target.closest('.sub-tab');if(!t)return;as=t.dataset.sub;document.querySelectorAll('.sub-tab').forEach(s=>s.classList.toggle('active',s.dataset.sub===as));rBc();rMain();});
 document.getElementById('topbar-date').textContent=new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
-window.sPort=sPort;window.startEdit=startEdit;window.savePrice=savePrice;window.markRoll=markRoll;window.undoRoll=undoRoll;window.deleteRow=deleteRow;window.deleteAll=deleteAll;window.toggleDropdown=toggleDropdown;window.openModal=openModal;window.closeModal=closeModal;window.confirmModal=confirmModal;window.reopenPosition=reopenPosition;window.setMA=setMA;window.setCD=setCD;window.toggleUpload=toggleUpload;window.cancelUpload=cancelUpload;window.dlTemplate=dlTemplate;window.doImport=doImport;window.openAddModal=openAddModal;window.closeAddModal=closeAddModal;window.saveAddModal=saveAddModal;window.setAF=setAF;window.updateGross=updateGross;window.ieStart=ieStart;window.ieSave=ieSave;window.ieCancel=ieCancel;window.ieKey=ieKey;window.openEditModal=openEditModal;window.openPricesModal=openPricesModal;window.savePricesModal=savePricesModal;window.closePricesModal=closePricesModal;window.clearTickerPrice=clearTickerPrice;window.addTickerPrice=addTickerPrice;window.adminSavePrice=adminSavePrice;window.adminClearPrice=adminClearPrice;window.adminAddTicker=adminAddTicker;
+window.sPort=sPort;window.startEdit=startEdit;window.cancelEdit=cancelEdit;window.savePrice=savePrice;window.clearManualPrice=clearManualPrice;window.copyRow=copyRow;window.markRoll=markRoll;window.undoRoll=undoRoll;window.deleteRow=deleteRow;window.deleteAll=deleteAll;window.toggleDropdown=toggleDropdown;window.openModal=openModal;window.closeModal=closeModal;window.confirmModal=confirmModal;window.reopenPosition=reopenPosition;window.setMA=setMA;window.setCD=setCD;window.toggleUpload=toggleUpload;window.cancelUpload=cancelUpload;window.dlTemplate=dlTemplate;window.doImport=doImport;window.openAddModal=openAddModal;window.closeAddModal=closeAddModal;window.saveAddModal=saveAddModal;window.setAF=setAF;window.updateGross=updateGross;window.ieStart=ieStart;window.ieSave=ieSave;window.ieCancel=ieCancel;window.ieKey=ieKey;window.openEditModal=openEditModal;window.openPricesModal=openPricesModal;window.savePricesModal=savePricesModal;window.closePricesModal=closePricesModal;window.clearTickerPrice=clearTickerPrice;window.addTickerPrice=addTickerPrice;window.adminSavePrice=adminSavePrice;window.adminClearPrice=adminClearPrice;window.adminAddTicker=adminAddTicker;
 rBc();rMain();
 </script>
 </body>
