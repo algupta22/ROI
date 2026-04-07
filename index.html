@@ -454,6 +454,10 @@ function rTable(data){
   const thisFri=getThisFriday();
   const rows=filtered.length===0?'<tr><td colspan="16" class="ec">No positions match your filters.</td></tr>':filtered.map(r=>{
     const c=isCl(r),p=r.excelProfit,col=collateral(r);
+    // Gross Value = income + currentValue; short puts: currentValue treated as 0
+    const isShortType=r.excelType==='Short Put'||r.excelType==='Short Call';
+    const displayCurrVal=isShortType?0:(r.excelCurrentValue||0);
+    const displayGrossVal=(r.excelIncome||0)+displayCurrVal;
     const isExp=r.expiryDate&&!c&&(()=>{try{return new Date(r.expiryDate)<=thisFri;}catch{return false;}})();
     const rowClass=r.rolledOver?'rolled':isExp?'expiring-soon':'';
     const isEditing=editingPrice===r.id;
@@ -498,7 +502,7 @@ function rTable(data){
     const expiryCell=ieCell(r.id,'expiryDate',r.expiryDate||'--','text','w-dt','');
     const pnlCell=ieCell(r.id,'excelProfit',fp(p),'number','w-md',(p>=0?'color:var(--green)':'color:var(--red)')+';font-weight:700');
     const editRowBtn='<button class="row-edit-btn" onclick="openEditModal(\''+r.id+'\')" title="Edit all fields">&#9998; Edit</button>';
-    return'<tr class="'+rowClass+(c?' cr':'')+'"><td class="mc"><span class="chip"><span class="tk-dot-sm" style="background:'+(DC[r.ticker]||'#888')+'"></span>'+r.ticker+'</span></td><td>'+(r.openDate||'--')+'</td><td class="mn">'+(r.excelCost?'$'+r.excelCost.toLocaleString():'--')+'</td><td class="mn" style="color:var(--green)">'+(r.excelIncome?'+$'+r.excelIncome.toLocaleString():'--')+'</td><td class="mn">'+fm(r.excelCurrentValue)+'</td><td class="mn">'+fm(r.excelGrossValue)+'</td><td>'+priceCell+'</td><td><span class="badge '+bct(r.excelType)+'">'+r.excelType+'</span></td><td class="mn">'+(r.strike>0?'$'+r.strike:'--')+'</td><td class="'+ec(r.expiryDate)+'">'+(r.expiryDate||'--')+(isExp&&!c?' &#9888;':'')+'</td><td class="mn" style="color:'+(p>=0?'var(--green)':'var(--red)')+';font-weight:700">'+fp(p)+'</td><td>'+colCell+'</td><td>'+actionCell+'</td><td style="text-align:center">'+editRowBtn+'</td><td style="text-align:center"><button class="del-btn" onclick="deleteRow(\''+r.id+'\')">&#128465;</button></td></tr>';
+    return'<tr class="'+rowClass+(c?' cr':'')+'"><td class="mc"><span class="chip"><span class="tk-dot-sm" style="background:'+(DC[r.ticker]||'#888')+'"></span>'+r.ticker+'</span></td><td>'+(r.openDate||'--')+'</td><td class="mn">'+(r.excelCost?'$'+r.excelCost.toLocaleString():'--')+'</td><td class="mn" style="color:var(--green)">'+(r.excelIncome?'+$'+r.excelIncome.toLocaleString():'--')+'</td><td class="mn">'+fm(displayCurrVal)+'</td><td class="mn">'+fm(displayGrossVal)+'</td><td>'+priceCell+'</td><td><span class="badge '+bct(r.excelType)+'">'+r.excelType+'</span></td><td class="mn">'+(r.strike>0?'$'+r.strike:'--')+'</td><td class="'+ec(r.expiryDate)+'">'+(r.expiryDate||'--')+(isExp&&!c?' &#9888;':'')+'</td><td class="mn" style="color:'+(p>=0?'var(--green)':'var(--red)')+';font-weight:700">'+fp(p)+'</td><td>'+colCell+'</td><td>'+actionCell+'</td><td style="text-align:center">'+editRowBtn+'</td><td style="text-align:center"><button class="del-btn" onclick="deleteRow(\''+r.id+'\')">&#128465;</button></td></tr>';
   }).join('');
   return'<div class="controls-row"><div class="type-tabs">'+typeTabs+'</div><div class="oc-tabs">'+ocTabs+'</div><button class="expiry-pill'+(expiringOnly?' active':'')+'" id="exp-pill">&#9888; Expiring This Week</button><button class="del-all-btn" onclick="deleteAll()">&#128465; Delete Visible</button><button class="upload-csv-btn" onclick="toggleUpload()">&#8593; Upload CSV</button><button class="template-dl-btn" onclick="dlTemplate()">&#11015; Template</button><button class="add-pos-btn" onclick="openAddModal()">&#43; Add Position</button></div>'
     +rUploadPanel()
@@ -608,6 +612,13 @@ function renderAddModal(){
   const f=addForm;if(!f)return;
   const isOptions=f.type!=='Shares';
   const isShort=f.type==='Short Put'||f.type==='Short Call';
+  const isLong=f.type==='Long Put'||f.type==='Long Call';
+  // Rules:
+  // Short Put/Call: currentValue = 0 (locked), grossValue = income + 0 = income
+  // Long Put/Call/Shares: currentValue defaults to cost if blank, grossValue = currentValue
+  const currVal=isShort?0:(parseFloat(f.currentValue)||parseFloat(f.cost)||0);
+  const incomeVal=parseFloat(f.income)||0;
+  const autoGross=incomeVal+currVal;
   const typeBtnClass=t=>t===f.type?('active-'+(t==='Short Put'?'sp':t==='Long Put'?'lp':t==='Long Call'?'lc':t==='Short Call'?'sc':'sh')):'';
   document.getElementById('modal-root').innerHTML=
     '<div class="modal-overlay" onclick="if(event.target===this)closeAddModal()">'
@@ -642,18 +653,23 @@ function renderAddModal(){
     // Row 3: Open Date + Cost
     +'<div class="ap-grid">'
     +'<div class="ap-field"><label class="ap-label">Open Date</label><input class="ap-input" id="af-opendate" placeholder="e.g. 4/1/26" value="'+f.openDate+'" oninput="addForm.openDate=this.value"></div>'
-    +'<div class="ap-field"><label class="ap-label">Cost / Debit Paid ($)</label><input class="ap-input" id="af-cost" type="number" step="0.01" placeholder="0" value="'+f.cost+'" oninput="addForm.cost=this.value"></div>'
+    +'<div class="ap-field"><label class="ap-label">Cost / Debit Paid ($)</label><input class="ap-input" id="af-cost" type="number" step="0.01" placeholder="0" value="'+f.cost+'" oninput="addForm.cost=this.value;renderAddModal()"></div>'
     +'</div>'
 
-    // Row 4: Income (short only) + Gross Value
+    // Row 4: Income (short only) + Current Value
     +'<div class="ap-grid">'
-    +(isShort?'<div class="ap-field"><label class="ap-label">Premium / Income ($)</label><input class="ap-input" id="af-income" type="number" step="0.01" placeholder="0" value="'+f.income+'" oninput="addForm.income=this.value"></div>':'<div></div>')
-    +'<div class="ap-field"><label class="ap-label">Gross Value ($)</label><input class="ap-input" id="af-gross" type="number" step="0.01" placeholder="0" value="'+f.grossValue+'" oninput="addForm.grossValue=this.value"></div>'
+    +(isShort
+      ?'<div class="ap-field"><label class="ap-label">Premium / Income ($)</label><input class="ap-input" id="af-income" type="number" step="0.01" placeholder="0" value="'+f.income+'" oninput="addForm.income=this.value;renderAddModal()"></div>'
+      :'<div></div>')
+    // Current Value: locked at 0 for shorts, editable for longs (defaults to cost)
+    +(isShort
+      ?'<div class="ap-field"><label class="ap-label">Current Value ($) <span style="color:var(--text3);font-weight:400;font-size:0.6rem;">(short puts = 0)</span></label><input class="ap-input" type="number" value="0" disabled style="background:var(--bg3);color:var(--text3);"></div>'
+      :'<div class="ap-field"><label class="ap-label">Current Value ($)</label><input class="ap-input" id="af-curr" type="number" step="0.01" placeholder="defaults to cost" value="'+(f.currentValue||f.cost||'')+'" oninput="addForm.currentValue=this.value;renderAddModal()"></div>')
     +'</div>'
 
-    // Row 5: Current Value + P&L
+    // Row 5: Gross Value (auto) + P&L
     +'<div class="ap-grid">'
-    +'<div class="ap-field"><label class="ap-label">Current Value ($)</label><input class="ap-input" id="af-curr" type="number" step="0.01" placeholder="0" value="'+f.currentValue+'" oninput="addForm.currentValue=this.value"></div>'
+    +'<div class="ap-field"><label class="ap-label">Gross Value ($) <span style="color:var(--text3);font-weight:400;font-size:0.6rem;">'+(isShort?'Income + 0':'Income + Curr Val')+'</span></label><input class="ap-input" type="number" value="'+autoGross+'" disabled style="background:var(--bg3);color:var(--text3);" title="Auto-calculated: Income + Current Value"></div>'
     +'<div class="ap-field"><label class="ap-label">P&amp;L ($)</label><input class="ap-input" id="af-pnl" type="number" step="0.01" placeholder="0" value="'+f.profit+'" oninput="addForm.profit=this.value"></div>'
     +'</div>'
 
@@ -732,8 +748,11 @@ function saveAddModal(){
   if(f.type!=='Shares'&&!f.expiryDate.trim()){alert('Expiry date is required for options.');return;}
   const cost=parseFloat(f.cost)||0;
   const income=parseFloat(f.income)||0;
-  const gross=parseFloat(f.grossValue)||cost;
-  const curr=parseFloat(f.currentValue)||gross;
+  const isShort=f.type==='Short Put'||f.type==='Short Call';
+  // Short puts: current value = 0; longs/shares: default to cost
+  const curr=isShort?0:(parseFloat(f.currentValue)||cost);
+  // Gross = income + current value (auto, same logic as table display)
+  const gross=income+curr;
   const pnl=parseFloat(f.profit)||0;
   if(f._editId){
     // Editing existing — update in place
