@@ -535,10 +535,15 @@ function rSum(s){
     +'<div class="col-combo-card"><div class="col-combo-title">&#128274; Collateral</div><div class="col-combo-row"><span class="col-combo-label">This Week</span><span class="col-combo-val" style="color:#FB923C;font-size:0.88rem;">$'+s.twc.toLocaleString()+'</span></div><div class="col-combo-divider"></div><div class="col-combo-row"><span class="col-combo-label">Total Open</span><span class="col-combo-val" style="color:#FBBF24;font-size:0.88rem;">$'+s.tc.toLocaleString()+'</span></div></div>'
     +'</div>';
 }
-function rTableControls(){
+function rFiltersRow(data){
+  // Type tabs + Open/Closed + Expiring pill — shown ABOVE summary cards
   const typeTabs=['all','Short Put','Long Put','Long Call','Shares'].map(t=>'<button class="type-tab'+(typeFilter===t?' active':'')+'" data-typef="'+t+'">'+(t==='all'?'All':t)+'</button>').join('');
   const ocTabs=['all','open','closed'].map(o=>'<button class="oc-tab'+(ocFilter===o?' active':'')+'" data-ocf="'+o+'">'+(o==='all'?'All':o==='open'?'Open':'Closed')+'</button>').join('');
-  return'<div class="controls-row"><div class="type-tabs">'+typeTabs+'</div><div class="oc-tabs">'+ocTabs+'</div><button class="expiry-pill'+(expiringOnly?' active':'')+'" id="exp-pill">&#9888; Expiring This Week</button><button class="del-all-btn" onclick="deleteAll()">&#128465; Delete Visible</button><button class="upload-csv-btn" onclick="toggleUpload()">&#8593; Upload CSV</button><button class="template-dl-btn" onclick="dlTemplate()">&#11015; Template</button><button class="add-pos-btn" onclick="openAddModal()">&#43; Add Position</button></div>'
+  return'<div class="controls-row" style="margin-bottom:0.75rem;"><div class="type-tabs">'+typeTabs+'</div><div class="oc-tabs">'+ocTabs+'</div><button class="expiry-pill'+(expiringOnly?' active':'')+'" id="exp-pill">&#9888; Expiring This Week</button></div>';
+}
+function rTableControls(){
+  // Action buttons — shown above the table only
+  return'<div class="controls-row"><button class="del-all-btn" onclick="deleteAll()">&#128465; Delete Visible</button><button class="upload-csv-btn" onclick="toggleUpload()">&#8593; Upload CSV</button><button class="template-dl-btn" onclick="dlTemplate()">&#11015; Template</button><button class="add-pos-btn" onclick="openAddModal()">&#43; Add Position</button></div>'
     +rUploadPanel();
 }
 function rTable(data){
@@ -1445,10 +1450,14 @@ function rMain(){
   }else if(activeView==='spreads'){
     el.innerHTML=rSum(s)+rSpreadsView(data);
   }else{
-    const controlsOnly=rTableControls();
+    // Apply all active filters (type, open/closed, ticker, expiring) for both cards and table
+    const filteredData=getAppliedFilters(dispData);
+    const s=cs(filteredData);
+    const filtersRow=rFiltersRow(data);
+    const actionsRow=rTableControls();
     el.innerHTML=data.length===0
-      ?rFilterBar([])+rSum(s)+controlsOnly+'<div class="ph"><strong>'+ap+' Portfolio</strong>No positions yet. Upload a file or add a position to get started.</div>'
-      :rFilterBar(data)+rSum(s)+rTable(data);
+      ?rFilterBar([])+filtersRow+rSum(s)+actionsRow+'<div class="ph"><strong>'+ap+' Portfolio</strong>No positions yet. Upload a file or add a position to get started.</div>'
+      :rFilterBar(data)+filtersRow+rSum(s)+actionsRow+rTable(data);
   }
   attachEvents();
 }
