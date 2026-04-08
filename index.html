@@ -456,7 +456,7 @@ td.mc{color:var(--black);font-weight:700;}td.mn{font-family:monospace;font-size:
   <div style="display:flex;align-items:center;gap:0.5rem;">
     <button class="gh-btn gh-save" id="gh-save-btn" onclick="ghSave()" title="Save all data to GitHub">&#9729; Save to GitHub</button>
     <button class="gh-btn gh-load" id="gh-load-btn" onclick="ghLoad()" title="Load data from GitHub">&#8681; Load from GitHub</button>
-    <button class="gh-btn gh-cfg" onclick="ghConfigure()" title="Configure GitHub token">&#9881;</button>
+    <button class="gh-btn gh-cfg" onclick="ghConfigure()" title="Configure GitHub sync settings">&#9881;</button>
     <div class="topbar-right" id="topbar-date"></div>
   </div>
 </div>
@@ -2022,147 +2022,160 @@ document.getElementById('port-nav').addEventListener('click',e=>{const t=e.targe
 document.getElementById('sub-nav').addEventListener('click',e=>{const t=e.target.closest('.sub-tab');if(!t)return;as=t.dataset.sub;document.querySelectorAll('.sub-tab').forEach(s=>s.classList.toggle('active',s.dataset.sub===as));rBc();rMain();});
 document.getElementById('topbar-date').textContent=new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
 // ── GITHUB DATA SYNC ─────────────────────────────────────────────────────────
-// Stores/loads all portfolio data as data.json in your GitHub repo.
-// Your Personal Access Token is stored only in localStorage — never shared.
 const GH_TOKEN_KEY='roi_gh_token';
-const GH_REPO='algupta22/Ricks-Trading';
-const GH_FILE='data.json';
-const GH_BRANCH='main';
+const GH_CFG_KEY='roi_gh_cfg';
 
 function ghGetToken(){return localStorage.getItem(GH_TOKEN_KEY)||'';}
 function ghSetToken(t){localStorage.setItem(GH_TOKEN_KEY,t);}
+function ghGetCfg(){
+  try{const c=JSON.parse(localStorage.getItem(GH_CFG_KEY)||'{}');
+    return{repo:c.repo||'algupta22/Ricks-Trading',branch:c.branch||'',file:c.file||'roi-data.json'};}
+  catch{return{repo:'algupta22/Ricks-Trading',branch:'',file:'roi-data.json'};}
+}
+function ghSetCfg(c){localStorage.setItem(GH_CFG_KEY,JSON.stringify(c));}
 
 function ghCollectData(){
-  // Bundle everything that should persist
-  return{
-    version:2,
-    savedAt:new Date().toISOString(),
-    positions:positions,
-    tickerPrices:tickerPrices,
-    activityData:activityData
-  };
+  return{version:2,savedAt:new Date().toISOString(),positions,tickerPrices,activityData};
 }
 function ghApplyData(d){
   if(!d||d.version!==2)return false;
   if(Array.isArray(d.positions))positions=d.positions;
-  if(d.tickerPrices&&typeof d.tickerPrices==='object'){
-    Object.assign(tickerPrices,d.tickerPrices);
-    saveTickerPrices(tickerPrices);
-  }
-  if(d.activityData&&typeof d.activityData==='object'){
-    Object.assign(activityData,d.activityData);
-    saveActivity(activityData);
-  }
-  savePositions();
-  return true;
+  if(d.tickerPrices&&typeof d.tickerPrices==='object'){Object.assign(tickerPrices,d.tickerPrices);saveTickerPrices(tickerPrices);}
+  if(d.activityData&&typeof d.activityData==='object'){Object.assign(activityData,d.activityData);saveActivity(activityData);}
+  savePositions();return true;
 }
 
-async function ghApiGet(token){
-  const url='https://api.github.com/repos/'+GH_REPO+'/contents/'+GH_FILE+'?ref='+GH_BRANCH;
+async function ghDetectBranch(token,repo){
+  // Try main then master
+  for(const b of['main','master']){
+    const r=await fetch('https://api.github.com/repos/'+repo+'/branches/'+b,
+      {headers:{'Authorization':'token '+token,'Accept':'application/vnd.github.v3+json'}});
+    if(r.ok)return b;
+  }
+  return null;
+}
+
+async function ghApiGet(token,repo,branch,file){
+  const url='https://api.github.com/repos/'+repo+'/contents/'+file+'?ref='+branch;
   const r=await fetch(url,{headers:{'Authorization':'token '+token,'Accept':'application/vnd.github.v3+json'}});
   if(r.status===404)return{exists:false,sha:null,data:null};
-  if(!r.ok)throw new Error('GitHub API error '+r.status+': '+await r.text());
+  if(!r.ok)throw new Error('GitHub read error '+r.status+': '+(await r.text()).slice(0,200));
   const j=await r.json();
   const content=JSON.parse(atob(j.content.replace(/\n/g,'')));
   return{exists:true,sha:j.sha,data:content};
 }
 
-async function ghApiPut(token,content,sha){
-  const url='https://api.github.com/repos/'+GH_REPO+'/contents/'+GH_FILE;
+async function ghApiPut(token,repo,branch,file,content,sha){
+  const url='https://api.github.com/repos/'+repo+'/contents/'+file;
   const body={
-    message:'ROI data sync '+new Date().toISOString().slice(0,19).replace('T',' '),
+    message:'ROI sync '+new Date().toISOString().slice(0,16).replace('T',' '),
     content:btoa(unescape(encodeURIComponent(JSON.stringify(content,null,2)))),
-    branch:GH_BRANCH
+    branch
   };
   if(sha)body.sha=sha;
-  const r=await fetch(url,{method:'PUT',headers:{'Authorization':'token '+token,'Content-Type':'application/json','Accept':'application/vnd.github.v3+json'},body:JSON.stringify(body)});
-  if(!r.ok)throw new Error('GitHub write error '+r.status+': '+await r.text());
+  const r=await fetch(url,{method:'PUT',
+    headers:{'Authorization':'token '+token,'Content-Type':'application/json','Accept':'application/vnd.github.v3+json'},
+    body:JSON.stringify(body)});
+  if(!r.ok)throw new Error('GitHub write error '+r.status+': '+(await r.text()).slice(0,200));
   return r.json();
 }
 
-function ghSetBtnState(saving){
+function ghSetBtnState(busy,label){
   const sb=document.getElementById('gh-save-btn');
   const lb=document.getElementById('gh-load-btn');
-  if(sb)sb.disabled=saving||false;
-  if(lb)lb.disabled=saving||false;
+  if(sb){sb.disabled=busy;if(label==='save')sb.textContent=busy?'Saving...':'\u2601 Save to GitHub';}
+  if(lb){lb.disabled=busy;if(label==='load')lb.textContent=busy?'Loading...':'\u2B07 Load from GitHub';}
 }
 
 async function ghSave(){
   const token=ghGetToken();
-  if(!token){ghConfigure('No token set. Enter your GitHub token to enable sync.');return;}
-  ghSetBtnState(true);
-  const sb=document.getElementById('gh-save-btn');
-  if(sb)sb.textContent='Saving...';
+  if(!token){ghConfigure('Please set your GitHub token first.');return;}
+  let cfg=ghGetCfg();
+  ghSetBtnState(true,'save');
   try{
-    const{sha}=await ghApiGet(token);
-    await ghApiPut(token,ghCollectData(),sha);
-    if(sb){sb.textContent='Saved!';sb.style.background='rgba(5,150,105,0.5)';}
-    setTimeout(()=>{if(sb){sb.textContent='\u2601 Save to GitHub';sb.style.background='';}ghSetBtnState(false);},2500);
+    // Auto-detect branch if not set
+    if(!cfg.branch){
+      const b=await ghDetectBranch(token,cfg.repo);
+      if(!b)throw new Error('Could not find main or master branch in repo: '+cfg.repo+'. Check your repo name in settings (⚙).');
+      cfg.branch=b;ghSetCfg(cfg);
+    }
+    const{sha}=await ghApiGet(token,cfg.repo,cfg.branch,cfg.file);
+    await ghApiPut(token,cfg.repo,cfg.branch,cfg.file,ghCollectData(),sha);
+    const sb=document.getElementById('gh-save-btn');
+    if(sb){sb.textContent='&#10003; Saved!';sb.style.background='rgba(5,150,105,0.6)';}
+    setTimeout(()=>{const s=document.getElementById('gh-save-btn');if(s){s.textContent='\u2601 Save to GitHub';s.style.background='';}ghSetBtnState(false,'save');},2500);
   }catch(e){
-    alert('Save failed: '+e.message);
-    if(sb)sb.textContent='\u2601 Save to GitHub';
-    ghSetBtnState(false);
+    ghSetBtnState(false,'save');
+    ghConfigure('Save failed: '+e.message);
   }
 }
 
 async function ghLoad(){
   const token=ghGetToken();
-  if(!token){ghConfigure('No token set. Enter your GitHub token to enable sync.');return;}
-  ghSetBtnState(true);
-  const lb=document.getElementById('gh-load-btn');
-  if(lb)lb.textContent='Loading...';
+  if(!token){ghConfigure('Please set your GitHub token first.');return;}
+  let cfg=ghGetCfg();
+  ghSetBtnState(true,'load');
   try{
-    const{exists,data}=await ghApiGet(token);
+    if(!cfg.branch){
+      const b=await ghDetectBranch(token,cfg.repo);
+      if(!b)throw new Error('Could not find main or master branch in repo: '+cfg.repo+'. Check your repo name in settings (⚙).');
+      cfg.branch=b;ghSetCfg(cfg);
+    }
+    const{exists,data}=await ghApiGet(token,cfg.repo,cfg.branch,cfg.file);
     if(!exists){
-      alert('No data.json found in your repo yet. Click "Save to GitHub" first.');
-    }else if(!ghApplyData(data)){
-      alert('Data format not recognised. The file may be from an older version.');
-    }else{
-      if(lb){lb.textContent='Loaded!';lb.style.background='rgba(37,99,235,0.5)';}
-      setTimeout(()=>{
-        if(lb){lb.textContent='\u2B07 Load from GitHub';lb.style.background='';}
-        ghSetBtnState(false);
-      },2000);
-      rMain();
+      ghSetBtnState(false,'load');
+      ghConfigure('No saved data found yet. Click "Save to GitHub" first to create your backup.');
       return;
     }
+    if(!ghApplyData(data))throw new Error('Unrecognised data format in '+cfg.file);
+    const lb=document.getElementById('gh-load-btn');
+    if(lb){lb.textContent='&#10003; Loaded!';lb.style.background='rgba(37,99,235,0.6)';}
+    setTimeout(()=>{const l=document.getElementById('gh-load-btn');if(l){l.textContent='\u2B07 Load from GitHub';l.style.background='';}ghSetBtnState(false,'load');},2000);
+    rMain();
   }catch(e){
-    alert('Load failed: '+e.message);
+    ghSetBtnState(false,'load');
+    ghConfigure('Load failed: '+e.message);
   }
-  if(lb)lb.textContent='\u2B07 Load from GitHub';
-  ghSetBtnState(false);
 }
 
 function ghConfigure(msg){
   const token=ghGetToken();
+  const cfg=ghGetCfg();
   document.getElementById('modal-root').innerHTML=
     '<div class="modal-overlay" onclick="if(event.target===this)closeGhModal()">'
     +'<div class="gh-modal-box">'
-    +'<div class="modal-title" style="margin-bottom:0.2rem;">&#9729; GitHub Data Sync</div>'
-    +'<div class="modal-sub" style="margin-bottom:1rem;">Your data is saved to <strong>'+GH_REPO+'/'+GH_FILE+'</strong></div>'
-    +(msg?'<div class="gh-status gh-info">'+msg+'</div>':'' )
-    +'<div class="gh-field">'
-    +'<label class="gh-label">GitHub Personal Access Token</label>'
-    +'<input class="gh-input" id="gh-token-inp" type="password" placeholder="ghp_xxxxxxxxxxxx" value="'+token+'">'
-    +'</div>'
-    +'<div class="gh-note">'
-    +'&#8505; To get a token: go to <strong>github.com/settings/tokens</strong> → Generate new token (classic) → check <strong>repo</strong> scope → copy the token.<br><br>'
-    +'Your token is stored only in your browser\'s localStorage and is only ever sent to the GitHub API.'
-    +'</div>'
+    +'<div class="modal-title" style="margin-bottom:0.15rem;">&#9881; GitHub Sync Settings</div>'
+    +'<div class="modal-sub" style="margin-bottom:0.9rem;">Connect to your GitHub repo to save &amp; restore all data</div>'
+    +(msg?'<div class="gh-status '+(msg.includes('failed')||msg.includes('error')||msg.includes('Could not')?'gh-err':'gh-info')+'">'+msg+'</div><br>':'')
+    +'<div class="gh-field"><label class="gh-label">GitHub Repo (owner/repo)</label>'
+    +'<input class="gh-input" id="gh-repo-inp" placeholder="algupta22/Ricks-Trading" value="'+cfg.repo+'"></div>'
+    +'<div class="gh-field"><label class="gh-label">Branch (leave blank to auto-detect)</label>'
+    +'<input class="gh-input" id="gh-branch-inp" placeholder="main or master (auto-detected)" value="'+cfg.branch+'"></div>'
+    +'<div class="gh-field"><label class="gh-label">Data filename</label>'
+    +'<input class="gh-input" id="gh-file-inp" placeholder="roi-data.json" value="'+cfg.file+'"></div>'
+    +'<div class="gh-field"><label class="gh-label">Personal Access Token</label>'
+    +'<input class="gh-input" id="gh-token-inp" type="password" placeholder="ghp_xxxxxxxxxxxx" value="'+token+'"></div>'
+    +'<div class="gh-note">&#8505; Get a token: <strong>github.com/settings/tokens</strong> &rarr; Generate new token (classic) &rarr; check <strong>repo</strong> scope. Your token is stored only in your browser.</div>'
     +'<div class="modal-btns" style="margin-top:1rem;">'
-    +'<button class="modal-confirm" style="background:var(--green);" onclick="ghSaveToken()">&#10003; Save Token</button>'
+    +'<button class="modal-confirm" style="background:var(--green);" onclick="ghSaveSettings()">&#10003; Save Settings</button>'
     +'<button class="modal-cancel-btn" onclick="closeGhModal()">Cancel</button>'
-    +'</div>'
-    +'</div></div>';
+    +'</div></div></div>';
 }
-function ghSaveToken(){
-  const inp=document.getElementById('gh-token-inp');
-  if(inp&&inp.value.trim()){ghSetToken(inp.value.trim());closeGhModal();alert('Token saved. You can now use Save / Load to sync your data.');}
-  else{alert('Please enter a valid token.');}
+function ghSaveSettings(){
+  const token=(document.getElementById('gh-token-inp')?.value||'').trim();
+  const repo=(document.getElementById('gh-repo-inp')?.value||'').trim();
+  const branch=(document.getElementById('gh-branch-inp')?.value||'').trim();
+  const file=(document.getElementById('gh-file-inp')?.value||'').trim()||'roi-data.json';
+  if(!token){alert('Token is required.');return;}
+  if(!repo||!repo.includes('/')){alert('Repo must be in format owner/repo-name.');return;}
+  ghSetToken(token);
+  ghSetCfg({repo,branch,file});
+  closeGhModal();
+  alert('Settings saved. You can now Save/Load your data to GitHub.');
 }
 function closeGhModal(){document.getElementById('modal-root').innerHTML='';}
 
-window.ghSave=ghSave;window.ghLoad=ghLoad;window.ghConfigure=ghConfigure;window.ghSaveToken=ghSaveToken;window.closeGhModal=closeGhModal;
+window.ghSave=ghSave;window.ghLoad=ghLoad;window.ghConfigure=ghConfigure;window.ghSaveSettings=ghSaveSettings;window.closeGhModal=closeGhModal;
 
 window.sPort=sPort;window.startEdit=startEdit;window.cancelEdit=cancelEdit;window.savePrice=savePrice;window.clearManualPrice=clearManualPrice;window.copyRow=copyRow;window.markRoll=markRoll;window.undoRoll=undoRoll;window.deleteRow=deleteRow;window.deleteAll=deleteAll;window.toggleDropdown=toggleDropdown;window.openModal=openModal;window.closeModal=closeModal;window.confirmModal=confirmModal;window.reopenPosition=reopenPosition;window.setMA=setMA;window.setCD=setCD;window.toggleUpload=toggleUpload;window.cancelUpload=cancelUpload;window.dlTemplate=dlTemplate;window.doImport=doImport;window.openAddModal=openAddModal;window.closeAddModal=closeAddModal;window.saveAddModal=saveAddModal;window.setAF=setAF;window.updateGross=updateGross;window.ieStart=ieStart;window.ieSave=ieSave;window.ieCancel=ieCancel;window.ieKey=ieKey;window.openEditModal=openEditModal;window.openPricesModal=openPricesModal;window.savePricesModal=savePricesModal;window.closePricesModal=closePricesModal;window.clearTickerPrice=clearTickerPrice;window.addTickerPrice=addTickerPrice;window.adminSavePrice=adminSavePrice;window.adminClearPrice=adminClearPrice;window.adminAddTicker=adminAddTicker;window.actSort=actSort;window.actSearchChange=actSearchChange;window.actSetPage=actSetPage;window.actSetFilter=actSetFilter;window.actToggleUpload=actToggleUpload;window.actCancelUpload=actCancelUpload;window.actClearAll=actClearAll;window.actDeleteRow=actDeleteRow;window.actDoImport=actDoImport;
 rBc();rMain();
