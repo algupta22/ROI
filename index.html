@@ -931,7 +931,7 @@ function rUploadPanel(){
     body='<div class="drop-zone" id="drop-zone" onclick="document.getElementById(\'csv-file-input\').click()">'
       +'<div class="drop-zone-icon">&#128196;</div>'
       +'<div class="drop-zone-title">Drop your brokerage export file here</div>'
-      +'<div class="drop-zone-sub">Columns: Activity Date &nbsp;·&nbsp; Instrument &nbsp;·&nbsp; Description &nbsp;·&nbsp; Amount &nbsp;·&nbsp; Trans Code &nbsp;·&nbsp; (tab or comma separated)</div>'
+      +'<div class="drop-zone-sub">Columns: Activity Date · Instrument · Description · Trans Code · Amount &nbsp;·&nbsp; Description format: "PLTR 4/10/2026 Put $140.00"</div>'
       +'<button class="drop-zone-btn" onclick="event.stopPropagation();document.getElementById(\'csv-file-input\').click()">&#128193; Choose File</button>'
       +'</div>'
       +(importMsg?'<div style="margin-top:0.6rem;"><span class="'+(importMsg.ok?'import-ok':'import-err')+'">'+(importMsg.ok?'&#10003;':'&#9888;')+' '+importMsg.text+'</span></div>':'');
@@ -941,207 +941,223 @@ function rUploadPanel(){
 function toggleUpload(){showUpload=!showUpload;if(!showUpload){csvPreview=null;importMsg='';}rMain();}
 function cancelUpload(){showUpload=false;csvPreview=null;importMsg='';rMain();}
 function dlTemplate(){
-  // Template matches the brokerage export format (tab-separated)
-  const h='Activity Date\tProcess Date\tSettle Date\tInstrument\tDescription\tTrans Code\tQuantity\tPrice\tAmount';
+  const h='Activity Date,Process Date,Settle Date,Instrument,Description,Trans Code,Quantity,Price,Amount';
   const ex=[
-    '4/10/26\t4/11/26\t4/12/26\tSOFI\tSOFI 04/10/2026 16.00 P\tSTO\t-1\t2.13\t213.00',
-    '3/19/27\t3/20/27\t3/21/27\tPLTR\tPLTR 03/19/2027 95.00 C\tBTO\t1\t77.00\t-7700.00',
-    '4/1/26\t4/2/26\t4/3/26\tMETU\tYou bought 100 shares of METU\tBuy\t100\t39.10\t-3910.00'
+    '4/6/2026,4/6/2026,4/7/2026,PLTR,PLTR 4/10/2026 Put $140.00,STO,1,$0.82 ,$81.94 ',
+    '4/6/2026,4/6/2026,4/7/2026,PLTR,PLTR 4/10/2026 Put $124.00,BTC,1,$0.09 ,($9.04)',
+    '3/31/2026,3/31/2026,4/1/2026,PLTR,PLTR 5/1/2026 Put $135.00,BTO,1,$4.40 ,($440.04)',
+    '3/31/2026,3/31/2026,4/1/2026,PLTR,"PLTR 3/19/2027 Call $95.00",BTO,1,$63.85,"($6,385.04)"',
   ].join('\n');
   const blob=new Blob([h+'\n'+ex],{type:'text/csv'});
-  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='roi_brokerage_template.tsv';a.click();
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='roi_brokerage_template.csv';a.click();
 }
 
 // ── BROKERAGE FORMAT PARSER ───────────────────────────────────────────────────
-// Parses the brokerage activity export:
-// Activity Date | Process Date | Settle Date | Instrument | Description | Trans Code | Quantity | Price | Amount
-// Supports both tab-separated and comma-separated files
+// Real format: Activity Date,Process Date,Settle Date,Instrument,Description,Trans Code,Quantity,Price,Amount
+// Description examples: "PLTR 4/10/2026 Put $140.00", "PLTR 3/19/2027 Call $95.00"
+// Amount examples: $81.94  |  ($9.04)  |  "$7,891.95 "  |  "($6,385.04)"
 
-function parseBrokerageCSV(text){
-  const lines=text.trim().split(/\r?\n/);
-  if(lines.length<2)return{error:'File needs at least a header row and one data row.'};
-
-  // Detect delimiter — tab or comma
-  const firstLine=lines[0];
-  const delim=firstLine.includes('\t')?'\t':',';
-
-  const rawHeaders=firstLine.split(delim).map(h=>h.trim().replace(/^"|"$/g,'').toLowerCase().replace(/\s+/g,''));
-
-  // Map header names to indices (flexible matching)
-  const hIdx={};
-  rawHeaders.forEach((h,i)=>{
-    if(h.includes('activitydate')||h==='actdate'||h==='date'||h==='tradedate')hIdx.activityDate=i;
-    else if(h.includes('instrument')||h==='symbol'||h==='ticker')hIdx.instrument=i;
-    else if(h.includes('description')||h==='desc')hIdx.description=i;
-    else if(h.includes('amount')||h==='netamount'||h==='total')hIdx.amount=i;
-    else if(h.includes('transcode')||h==='transactioncode'||h==='trantype'||h==='action')hIdx.transCode=i;
-    else if(h.includes('quantity')||h==='qty')hIdx.quantity=i;
-    else if(h.includes('price'))hIdx.price=i;
-  });
-
-  if(hIdx.instrument==null&&hIdx.description==null){
-    return{error:'Cannot find Instrument or Description column. Check your file format.'};
-  }
-
-  const mapped=[];const errors=[];
-
-  for(let i=1;i<lines.length;i++){
-    const line=lines[i].trim();if(!line)continue;
-    // Split respecting quoted fields
-    const vals=splitLine(line,delim);
-    const raw={};
-    rawHeaders.forEach((h,idx)=>raw[h]=vals[idx]||'');
-
-    const result=mapBrokerageRow(raw,hIdx,i);
-    if(result.error)errors.push(result.error);
-    else if(result)mapped.push(result);
-  }
-
-  return{rows:mapped,errors};
+function parseAmount(str){
+  // Handles: $81.94  ($9.04)  "$7,891.95 "  "($6,385.04)"
+  if(!str)return 0;
+  const s=str.toString().trim().replace(/[$,\s]/g,'');
+  const neg=s.startsWith('(')&&s.endsWith(')');
+  const num=parseFloat(s.replace(/[()]/g,''))||0;
+  return neg?-num:num;
 }
 
-function splitLine(line,delim){
-  // Handle quoted CSV fields
-  if(delim==='\t')return line.split('\t').map(v=>v.trim().replace(/^"|"$/g,''));
-  const result=[];let cur='';let inQ=false;
+function parseOptionDescription(desc){
+  if(!desc)return null;
+  const d=desc.trim();
+
+  // Format: "PLTR 4/10/2026 Put $140.00"  or  "PLTR 3/19/2027 Call $95.00"
+  // TICKER  DATE  (Put|Call)  $STRIKE
+  const m=d.match(/^([A-Z]{1,6})\s+(\d{1,2}\/\d{1,2}\/\d{2,4})\s+(Put|Call)\s+\$?([\d.]+)/i);
+  if(m){
+    return{
+      ticker:m[1].toUpperCase(),
+      expiryDate:formatExpiry(m[2]),
+      optionType:m[3].charAt(0).toUpperCase()+m[3].slice(1).toLowerCase(), // "Put" or "Call"
+      strike:parseFloat(m[4])
+    };
+  }
+
+  // Fallback: try OCC format "TICKER MM/DD/YYYY STRIKE P|C"
+  const m2=d.match(/^([A-Z]{1,6})\s+(\d{1,2}\/\d{1,2}\/\d{2,4})\s+([\d.]+)\s+([PC])\b/i);
+  if(m2){
+    return{
+      ticker:m2[1].toUpperCase(),
+      expiryDate:formatExpiry(m2[2]),
+      optionType:m2[4].toUpperCase()==='P'?'Put':'Call',
+      strike:parseFloat(m2[3])
+    };
+  }
+
+  return null;
+}
+
+function formatExpiry(dateStr){
+  if(!dateStr)return'';
+  try{
+    const parts=dateStr.split('/');
+    if(parts.length===3){
+      const m=parseInt(parts[0]),d=parseInt(parts[1]),y=parseInt(parts[2]);
+      const yr=y>100?y%100:y;
+      return m+'/'+d+'/'+yr.toString().padStart(2,'0');
+    }
+    const dt=new Date(dateStr);
+    if(!isNaN(dt))return(dt.getMonth()+1)+'/'+dt.getDate()+'/'+(dt.getFullYear()%100).toString().padStart(2,'0');
+  }catch{}
+  return dateStr;
+}
+
+function inferPositionType(transCode,optionType,amount){
+  const tc=(transCode||'').toUpperCase().trim();
+  if(!optionType)return'Shares';
+  // STO = Sell to Open = Short; BTO = Buy to Open = Long
+  // STC = Sell to Close (closing long) = still record the opening type
+  // BTC = Buy to Close (closing short) = still record opening type
+  // Positive amount = credit received = typically Short
+  // Negative amount = debit paid = typically Long
+  const isShort=tc==='STO'||(tc!=='BTO'&&tc!=='STC'&&tc!=='BTC'&&amount>0);
+  if(optionType==='Put')return isShort?'Short Put':'Long Put';
+  return isShort?'Short Call':'Long Call';
+}
+
+function splitCSVLine(line){
+  // Properly splits a CSV line respecting quoted fields (including quoted fields with commas)
+  const result=[];
+  let cur='';
+  let inQuote=false;
   for(let i=0;i<line.length;i++){
     const ch=line[i];
-    if(ch==='"'){inQ=!inQ;}
-    else if(ch===delim&&!inQ){result.push(cur.trim());cur='';}
-    else{cur+=ch;}
+    if(ch==='"'){
+      if(inQuote&&line[i+1]==='"'){cur+='"';i++;}
+      else{inQuote=!inQuote;}
+    }else if(ch===','&&!inQuote){
+      result.push(cur.trim());cur='';
+    }else{
+      cur+=ch;
+    }
   }
   result.push(cur.trim());
   return result;
 }
 
-function parseOptionDescription(desc){
-  // Standard OCC format: "SOFI 04/10/2026 16.00 P" or "PLTR 03/19/2027 95.00 C"
-  // Also handles: "SOFI Apr 10 2026 16 Put" etc.
-  // Returns {ticker, expiryDate, strike, optionType} or null if not an option
-  if(!desc)return null;
-  const d=desc.trim();
+function parseBrokerageCSV(text){
+  // First: collapse multi-line quoted fields (some rows span multiple lines due to quoted newlines)
+  const collapsed=collapseQuotedNewlines(text);
+  const lines=collapsed.split('\n').map(l=>l.trim()).filter((_,i)=>i===0||_); // keep header even if blank
 
-  // Pattern 1: TICKER MM/DD/YYYY STRIKE.xx P|C  (standard OCC)
-  let m=d.match(/^([A-Z]+)\s+(\d{1,2}\/\d{1,2}\/\d{2,4})\s+([\d.]+)\s+([PCpc])\b/i);
-  if(m){
-    return{
-      ticker:m[1].toUpperCase(),
-      expiryDate:formatExpiry(m[2]),
-      strike:parseFloat(m[3]),
-      optionType:m[4].toUpperCase()==='P'?'Put':'Call'
-    };
+  if(lines.length<2)return{error:'File needs at least a header row and one data row.'};
+
+  const headers=splitCSVLine(lines[0]).map(h=>h.toLowerCase().replace(/\s+/g,''));
+
+  // Find column indices
+  const col={};
+  headers.forEach((h,i)=>{
+    if(h.includes('activitydate')||h.includes('tradedate')||h==='date')col.actDate=i;
+    else if(h.includes('instrument')||h==='symbol'||h==='ticker')col.instrument=i;
+    else if(h.includes('description')||h==='desc')col.desc=i;
+    else if(h.includes('transcode')||h==='action'||h==='type')col.tc=i;
+    else if(h==='amount'||h.includes('netamount')||h.includes('total'))col.amount=i;
+  });
+
+  if(col.instrument==null&&col.desc==null){
+    return{error:'Cannot find Instrument or Description column. Columns found: '+headers.join(', ')};
   }
 
-  // Pattern 2: TICKER STRIKE.xx P|C MM/DD/YYYY (some brokers reverse order)
-  m=d.match(/^([A-Z]+)\s+([\d.]+)\s+([PCpc])\s+(\d{1,2}\/\d{1,2}\/\d{2,4})/i);
-  if(m){
-    return{
-      ticker:m[1].toUpperCase(),
-      expiryDate:formatExpiry(m[4]),
-      strike:parseFloat(m[2]),
-      optionType:m[3].toUpperCase()==='P'?'Put':'Call'
-    };
+  const mapped=[];const errors=[];
+  for(let i=1;i<lines.length;i++){
+    const line=lines[i];if(!line)continue;
+    const vals=splitCSVLine(line);
+    // Skip rows that are fully empty
+    if(vals.every(v=>!v))continue;
+
+    const get=idx=>idx!=null?(vals[idx]||'').trim():'';
+    const actDate=get(col.actDate);
+    const instrument=get(col.instrument).toUpperCase();
+    const desc=get(col.desc);
+    const tc=get(col.tc);
+    const rawAmount=get(col.amount);
+
+    // Skip rows with no useful data
+    if(!actDate&&!instrument&&!desc)continue;
+
+    const amount=parseAmount(rawAmount);
+    const opt=parseOptionDescription(desc);
+
+    const ticker=opt?.ticker||instrument||'';
+    if(!ticker){errors.push('Row '+(i+1)+': no ticker found');continue;}
+
+    // Determine if this is an option or shares/other
+    if(!opt){
+      // Not an option — treat as shares transaction (Buy/Sell)
+      const tcUp=tc.toUpperCase();
+      if(tcUp==='BUY'||tcUp==='SELL'||tcUp==='REINVEST'){
+        const cost=amount<0?Math.abs(amount):0;
+        const income=amount>0?amount:0;
+        const uid=Math.random().toString(36).slice(2,10);
+        mapped.push({id:uid,ticker,excelType:'Shares',strike:0,expiryDate:'',openDate:actDate,contracts:1,
+          excelCost:cost,excelIncome:income,excelGrossValue:cost||income,excelCurrentValue:cost||income,
+          excelProfit:0,closed:false,rolledOver:false,closeAction:null,manualPrice:null,notes:desc});
+      }
+      // Skip assignment, margin, dividend, and other non-trade rows
+      continue;
+    }
+
+    const excelType=inferPositionType(tc,opt.optionType,amount);
+    const isShort=excelType==='Short Put'||excelType==='Short Call';
+
+    const excelCost=isShort?0:Math.abs(amount);
+    const excelIncome=isShort?Math.abs(amount):0;
+    const curr=isShort?0:excelCost;
+    const gross=excelIncome+curr;
+    const pnl=gross-excelCost;
+
+    const uid=Math.random().toString(36).slice(2,10);
+    mapped.push({
+      id:uid,ticker,excelType,strike:opt.strike,expiryDate:opt.expiryDate,
+      openDate:actDate,contracts:1,
+      excelCost,excelIncome,excelGrossValue:gross,excelCurrentValue:curr,excelProfit:pnl,
+      closed:false,rolledOver:false,closeAction:null,manualPrice:null,notes:desc
+    });
   }
 
-  // Pattern 3: contains "Put" or "Call" and a date anywhere — partial extraction
-  const hasPut=/(^|\s|-)put(\s|$|-)/i.test(d);
-  const hasCall=/(^|\s|-)call(\s|$|-)/i.test(d);
-  const dateM=d.match(/(\d{1,2}\/\d{1,2}\/\d{2,4})/);
-  const strikeM=d.match(/\b(\d{1,5}(?:\.\d{1,2})?)\b/g);
-  const tickerM=d.match(/^([A-Z]{1,5})/);
-  if((hasPut||hasCall)&&tickerM){
-    return{
-      ticker:tickerM[1],
-      expiryDate:dateM?formatExpiry(dateM[1]):'',
-      strike:strikeM?parseFloat(strikeM[strikeM.length-1]):0,
-      optionType:hasPut?'Put':'Call'
-    };
-  }
-
-  return null; // not an option — treat as shares/other
+  return{rows:mapped,errors};
 }
 
-function formatExpiry(dateStr){
-  // Normalize to M/D/YY
-  if(!dateStr)return'';
-  try{
-    const d=new Date(dateStr);
-    if(isNaN(d))return dateStr;
-    return(d.getMonth()+1)+'/'+d.getDate()+'/'+(d.getFullYear()%100).toString().padStart(2,'0');
-  }catch{return dateStr;}
-}
-
-function inferPositionType(transCode,optionType,amount){
-  // STO = Sell to Open → Short Put/Call
-  // BTO = Buy to Open → Long Put/Call
-  // STC = Sell to Close → treat as open (long position being recorded)
-  // BTC = Buy to Close → treat as open (short position being recorded)
-  // Buy/Sell without options → Shares
-  const tc=(transCode||'').toUpperCase().trim();
-  const amt=parseFloat(amount)||0;
-
-  if(!optionType){
-    return'Shares';
+function collapseQuotedNewlines(text){
+  // Join lines that are inside a quoted field (odd number of quotes before the newline)
+  const result=[];
+  let buf='';
+  let qCount=0;
+  for(let i=0;i<text.length;i++){
+    const ch=text[i];
+    if(ch==='"')qCount++;
+    if((ch==='\n'||ch==='\r')&&qCount%2!==0){
+      // Inside a quoted field — replace newline with space
+      buf+=' ';
+      if(ch==='\r'&&text[i+1]==='\n')i++; // skip \r\n pair
+    }else if(ch==='\r'){
+      if(text[i+1]==='\n'){i++;} // normalize \r\n → \n
+      result.push(buf);buf='';qCount=0;
+    }else if(ch==='\n'){
+      result.push(buf);buf='';qCount=0;
+    }else{
+      buf+=ch;
+    }
   }
-
-  // STO or negative amount (credit) = Short
-  if(tc==='STO'||tc==='SELL'||(tc===''&&amt>0)){
-    return optionType==='Put'?'Short Put':'Short Call';
-  }
-  // BTO or positive amount (debit) = Long
-  return optionType==='Put'?'Long Put':'Long Call';
-}
-
-function mapBrokerageRow(raw,hIdx,rowNum){
-  const get=i=>(i!=null?Object.values(raw)[i]||'':'');
-
-  const activityDate=get(hIdx.activityDate);
-  const instrument=(get(hIdx.instrument)||'').toUpperCase().trim();
-  const description=get(hIdx.description)||'';
-  const transCode=get(hIdx.transCode)||'';
-  const amount=get(hIdx.amount)||'';
-
-  if(!activityDate&&!instrument&&!description)return null; // blank row
-
-  // Try to parse as an option from description
-  const opt=parseOptionDescription(description.toUpperCase()!==description?description:description);
-  const ticker=opt?.ticker||instrument||'';
-  if(!ticker)return{error:'Row '+(rowNum)+': no ticker found'};
-
-  const excelType=inferPositionType(transCode,opt?.optionType,amount);
-  const strike=opt?.strike||0;
-  const expiryDate=opt?.expiryDate||'';
-
-  // Amount: negative = debit (we paid), positive = credit (we received)
-  const rawAmt=parseFloat((amount+'').replace(/[$,]/g,''))||0;
-  const isShortType=excelType==='Short Put'||excelType==='Short Call';
-  const excelCost=isShortType?0:Math.abs(rawAmt);   // cost = what we paid (long/shares)
-  const excelIncome=isShortType?Math.abs(rawAmt):0; // income = what we received (short)
-
-  // Gross and current value
-  const isShort=isShortType;
-  const curr=isShort?0:excelCost;
-  const gross=excelIncome+curr;
-  const pnl=gross-excelCost;
-
-  const uid=Math.random().toString(36).slice(2,10);
-  return{
-    id:uid,ticker,excelType,strike,expiryDate,
-    openDate:activityDate,contracts:1,
-    excelCost,excelIncome,excelGrossValue:gross,
-    excelCurrentValue:curr,excelProfit:pnl,
-    closed:false,rolledOver:false,closeAction:null,manualPrice:null,
-    notes:description
-  };
+  if(buf)result.push(buf);
+  return result.join('\n');
 }
 
 function parseCSV(text){return parseBrokerageCSV(text);}
-function mapCSVRow(raw,colMap,idx){return null;} // legacy stub — not used with new format
+function mapCSVRow(){return null;}
 function processCSV(text){return parseBrokerageCSV(text);}
 
 function handleFile(file){
   if(!file){importMsg={ok:false,text:'No file selected'};rMain();return;}
-  // Accept .csv, .tsv, .txt
   const reader=new FileReader();
   reader.onload=e=>{
     const r=processCSV(e.target.result);
