@@ -1,494 +1,14 @@
 {
   "version": 2,
-  "savedAt": "2026-04-08T04:18:01.921Z",
-  "positions": [
-    {
-      "ticker": "GOOGL",
-      "strike": 295,
-      "expiryDate": "4/6/26",
-      "openDate": "3/31/26",
-      "excelIncome": 218,
-      "excelProfit": 218,
-      "excelGrossValue": 218,
-      "excelCurrentValue": 218,
-      "excelCost": 0,
-      "excelType": "Short Put",
-      "closed": true,
-      "id": "a1",
-      "manualPrice": null,
-      "rolledOver": false
-    },
-    {
-      "ticker": "MSFT",
-      "strike": 370,
-      "expiryDate": "04/08/26",
-      "openDate": "04/06/26",
-      "excelIncome": 231,
-      "excelProfit": 231,
-      "excelGrossValue": 231,
-      "excelCurrentValue": 231,
-      "excelCost": 0,
-      "excelType": "Short Put",
-      "closed": false,
-      "id": "a2",
-      "manualPrice": null,
-      "rolledOver": false
-    },
-    {
-      "ticker": "METU",
-      "strike": 0,
-      "expiryDate": "",
-      "openDate": "",
-      "excelCost": 3910,
-      "excelProfit": -1643,
-      "excelGrossValue": 2267,
-      "excelCurrentValue": 2267,
-      "excelType": "Shares",
-      "id": "a3",
-      "manualPrice": 39.1,
-      "rolledOver": false
-    },
-    {
-      "ticker": "NVDX",
-      "strike": 15,
-      "expiryDate": "5/15/26",
-      "openDate": "",
-      "excelCost": 195,
-      "excelProfit": 8,
-      "excelGrossValue": 203,
-      "excelCurrentValue": 183,
-      "excelType": "Long Put",
-      "id": "a4",
-      "manualPrice": null,
-      "rolledOver": false
-    },
-    {
-      "ticker": "MSFT",
-      "strike": 370,
-      "expiryDate": "4/6/26",
-      "openDate": "",
-      "excelIncome": 227,
-      "excelProfit": 227,
-      "excelGrossValue": 227,
-      "excelCurrentValue": 227,
-      "excelCost": 0,
-      "excelType": "Short Put",
-      "closed": true,
-      "id": "a5",
-      "manualPrice": null,
-      "rolledOver": false
-    },
-    {
-      "ticker": "MSFT",
-      "strike": 375,
-      "expiryDate": "5/15/26",
-      "openDate": "",
-      "excelCost": 1837,
-      "excelProfit": 0,
-      "excelGrossValue": 1837,
-      "excelCurrentValue": 1837,
-      "excelType": "Long Put",
-      "id": "a6",
-      "manualPrice": null,
-      "rolledOver": false
-    },
-    {
-      "ticker": "GOOGL",
-      "strike": 295,
-      "expiryDate": "04/08/26",
-      "openDate": "04/06/26",
-      "excelIncome": 295,
-      "excelProfit": 295,
-      "excelGrossValue": 295,
-      "excelCurrentValue": 295,
-      "excelCost": 0,
-      "excelType": "Short Put",
-      "closed": false,
-      "id": "a7",
-      "manualPrice": null,
-      "rolledOver": false
-    },
-    {
-      "ticker": "GOOGL",
-      "strike": 300,
-      "expiryDate": "5/15/26",
-      "openDate": "",
-      "excelCost": 1620,
-      "excelProfit": 0,
-      "excelGrossValue": 1620,
-      "excelCurrentValue": 1620,
-      "excelType": "Long Put",
-      "id": "a8",
-      "manualPrice": null,
-      "rolledOver": false
-    },
-    {
-      "ticker": "NVDX",
-      "strike": 15.43,
-      "expiryDate": "6/18/26",
-      "openDate": "",
-      "excelCost": 340,
-      "excelProfit": 80,
-      "excelGrossValue": 420,
-      "excelCurrentValue": 285,
-      "excelType": "Long Put",
-      "id": "a9",
-      "manualPrice": null,
-      "rolledOver": false
-    },
-    {
-      "ticker": "NVDX",
-      "strike": 10.43,
-      "expiryDate": "1/15/27",
-      "openDate": "",
-      "excelCost": 750,
-      "excelProfit": -185,
-      "excelGrossValue": 565,
-      "excelCurrentValue": 565,
-      "excelType": "Long Call",
-      "id": "a10",
-      "manualPrice": null,
-      "rolledOver": false
-    },
-    {
-      "ticker": "PLTR",
-      "strike": 95,
-      "expiryDate": "3/19/27",
-      "openDate": "",
-      "excelCost": 7700,
-      "excelIncome": 1507,
-      "excelProfit": 372,
-      "excelGrossValue": 8072,
-      "excelCurrentValue": 6565,
-      "excelType": "Long Call",
-      "id": "a11",
-      "manualPrice": null,
-      "rolledOver": false
-    },
-    {
-      "ticker": "PLTR",
-      "strike": 110,
-      "expiryDate": "1/15/27",
-      "openDate": "",
-      "excelCost": 5425,
-      "excelIncome": 1530,
-      "excelProfit": 1373,
-      "excelGrossValue": 6798,
-      "excelCurrentValue": 5268,
-      "excelType": "Long Call",
-      "id": "a12",
-      "manualPrice": null,
-      "rolledOver": false
-    },
-    {
-      "ticker": "PLTR",
-      "strike": 145,
-      "expiryDate": "5/15/26",
-      "openDate": "",
-      "excelCost": 1370,
-      "excelProfit": -375,
-      "excelGrossValue": 995,
-      "excelCurrentValue": 995,
-      "excelType": "Long Put",
-      "id": "a13",
-      "manualPrice": null,
-      "rolledOver": false
-    },
-    {
-      "ticker": "PLTR",
-      "strike": 135,
-      "expiryDate": "5/8/26",
-      "openDate": "",
-      "excelCost": 1035,
-      "excelProfit": -490,
-      "excelGrossValue": 545,
-      "excelCurrentValue": 545,
-      "excelType": "Long Put",
-      "id": "a14",
-      "manualPrice": null,
-      "rolledOver": false
-    },
-    {
-      "ticker": "PLTR",
-      "strike": 135,
-      "expiryDate": "5/1/26",
-      "openDate": "",
-      "excelCost": 440,
-      "excelProfit": -115,
-      "excelGrossValue": 325,
-      "excelCurrentValue": 325,
-      "excelType": "Long Put",
-      "id": "a15",
-      "manualPrice": null,
-      "rolledOver": false
-    },
-    {
-      "ticker": "PLTR",
-      "strike": 140,
-      "expiryDate": "4/10/26",
-      "openDate": "",
-      "excelIncome": 226,
-      "excelProfit": 226,
-      "excelGrossValue": 226,
-      "excelCurrentValue": 226,
-      "excelCost": 0,
-      "excelType": "Short Put",
-      "id": "a16",
-      "manualPrice": null,
-      "rolledOver": false
-    },
-    {
-      "ticker": "PLTR",
-      "strike": 139,
-      "expiryDate": "4/10/26",
-      "openDate": "",
-      "excelIncome": 103,
-      "excelProfit": 103,
-      "excelGrossValue": 103,
-      "excelCurrentValue": 103,
-      "excelCost": 0,
-      "excelType": "Short Put",
-      "id": "a17",
-      "manualPrice": null,
-      "rolledOver": false
-    },
-    {
-      "ticker": "TSLL",
-      "strike": 13,
-      "expiryDate": "5/15/26",
-      "openDate": "",
-      "excelCost": 168,
-      "excelProfit": 63,
-      "excelGrossValue": 231,
-      "excelCurrentValue": 231,
-      "excelType": "Long Put",
-      "id": "a18",
-      "manualPrice": null,
-      "rolledOver": false
-    },
-    {
-      "ticker": "TSLL",
-      "strike": 0,
-      "expiryDate": "",
-      "openDate": "",
-      "excelCost": 1200,
-      "excelProfit": -46,
-      "excelGrossValue": 1154,
-      "excelCurrentValue": 1154,
-      "excelType": "Shares",
-      "id": "a19",
-      "manualPrice": 12,
-      "rolledOver": false
-    },
-    {
-      "ticker": "NVTS",
-      "strike": 0,
-      "expiryDate": "",
-      "openDate": "",
-      "excelCost": 1786,
-      "excelProfit": -31,
-      "excelGrossValue": 1755,
-      "excelCurrentValue": 1755,
-      "excelType": "Shares",
-      "id": "a20",
-      "manualPrice": 8,
-      "rolledOver": false
-    },
-    {
-      "ticker": "NVTS",
-      "strike": 8,
-      "expiryDate": "4/10/26",
-      "openDate": "",
-      "excelIncome": 59,
-      "excelProfit": 59,
-      "excelGrossValue": 59,
-      "excelCurrentValue": 59,
-      "excelCost": 0,
-      "excelType": "Short Put",
-      "id": "a21",
-      "manualPrice": null,
-      "rolledOver": false
-    },
-    {
-      "ticker": "NVTS",
-      "strike": 8,
-      "expiryDate": "4/10/26",
-      "openDate": "",
-      "excelIncome": 26,
-      "excelProfit": 26,
-      "excelGrossValue": 26,
-      "excelCurrentValue": 26,
-      "excelCost": 0,
-      "excelType": "Short Put",
-      "id": "a22",
-      "manualPrice": null,
-      "rolledOver": false
-    },
-    {
-      "ticker": "NVTS",
-      "strike": 8.5,
-      "expiryDate": "5/8/26",
-      "openDate": "",
-      "excelCost": 144,
-      "excelProfit": -45,
-      "excelGrossValue": 99,
-      "excelCurrentValue": 99,
-      "excelType": "Long Put",
-      "id": "a23",
-      "manualPrice": null,
-      "rolledOver": false
-    },
-    {
-      "ticker": "NVTS",
-      "strike": 8.5,
-      "expiryDate": "5/8/26",
-      "openDate": "",
-      "excelCost": 144,
-      "excelProfit": -45,
-      "excelGrossValue": 99,
-      "excelCurrentValue": 99,
-      "excelType": "Long Put",
-      "id": "a24",
-      "manualPrice": null,
-      "rolledOver": false
-    },
-    {
-      "ticker": "SOFI",
-      "strike": 12,
-      "expiryDate": "1/15/27",
-      "openDate": "",
-      "excelCost": 780,
-      "excelProfit": -182,
-      "excelGrossValue": 598,
-      "excelCurrentValue": 598,
-      "excelType": "Long Call",
-      "id": "a25",
-      "manualPrice": null,
-      "rolledOver": false
-    },
-    {
-      "ticker": "SOFI",
-      "strike": 12,
-      "expiryDate": "1/15/27",
-      "openDate": "",
-      "excelCost": 780,
-      "excelProfit": -182,
-      "excelGrossValue": 598,
-      "excelCurrentValue": 598,
-      "excelType": "Long Call",
-      "id": "a26",
-      "manualPrice": null,
-      "rolledOver": false
-    },
-    {
-      "ticker": "SOFI",
-      "strike": 12,
-      "expiryDate": "1/15/27",
-      "openDate": "",
-      "excelCost": 780,
-      "excelProfit": -182,
-      "excelGrossValue": 598,
-      "excelCurrentValue": 598,
-      "excelType": "Long Call",
-      "id": "a27",
-      "manualPrice": null,
-      "rolledOver": false
-    },
-    {
-      "ticker": "SOFI",
-      "strike": 18,
-      "expiryDate": "5/15/26",
-      "openDate": "",
-      "excelCost": 218,
-      "excelProfit": 52,
-      "excelGrossValue": 270,
-      "excelCurrentValue": 270,
-      "excelType": "Long Put",
-      "id": "a28",
-      "manualPrice": null,
-      "rolledOver": false
-    },
-    {
-      "ticker": "SOFI",
-      "strike": 17,
-      "expiryDate": "5/15/26",
-      "openDate": "",
-      "excelCost": 218,
-      "excelProfit": -17,
-      "excelGrossValue": 201,
-      "excelCurrentValue": 201,
-      "excelType": "Long Put",
-      "id": "a29",
-      "manualPrice": null,
-      "rolledOver": false
-    },
-    {
-      "ticker": "SOFI",
-      "strike": 17,
-      "expiryDate": "5/15/26",
-      "openDate": "",
-      "excelCost": 218,
-      "excelProfit": -17,
-      "excelGrossValue": 201,
-      "excelCurrentValue": 201,
-      "excelType": "Long Put",
-      "id": "a30",
-      "manualPrice": null,
-      "rolledOver": false
-    },
-    {
-      "ticker": "SOFI",
-      "strike": 16,
-      "expiryDate": "4/10/26",
-      "openDate": "",
-      "excelIncome": 213,
-      "excelProfit": 213,
-      "excelGrossValue": 213,
-      "excelCurrentValue": 213,
-      "excelCost": 0,
-      "excelType": "Short Put",
-      "id": "a31",
-      "manualPrice": null,
-      "rolledOver": false
-    },
-    {
-      "ticker": "SOFI",
-      "strike": 16.5,
-      "expiryDate": "4/10/26",
-      "openDate": "",
-      "excelIncome": 93,
-      "excelProfit": 93,
-      "excelGrossValue": 93,
-      "excelCurrentValue": 93,
-      "excelCost": 0,
-      "excelType": "Short Put",
-      "id": "a32",
-      "manualPrice": null,
-      "rolledOver": false
-    },
-    {
-      "ticker": "SOFI",
-      "strike": 17,
-      "expiryDate": "4/10/26",
-      "openDate": "",
-      "excelIncome": 99,
-      "excelProfit": 99,
-      "excelGrossValue": 99,
-      "excelCurrentValue": 99,
-      "excelCost": 0,
-      "excelType": "Short Put",
-      "id": "a33",
-      "manualPrice": null,
-      "rolledOver": false
-    }
-  ],
+  "savedAt": "2026-04-08T21:37:36.065Z",
+  "positions": [],
   "tickerPrices": {
     "GOOGL": 298
   },
   "activityData": {
     "act_all": [
       {
-        "id": "act_vt7wkw48",
+        "id": "act_dhabr2bp",
         "date": "4/6/2026",
         "instrument": "PLTR",
         "desc": "PLTR 4/10/2026 Put $140.00",
@@ -504,7 +24,7 @@
         "expiry": "4/10/26"
       },
       {
-        "id": "act_79oqqgj4",
+        "id": "act_4b7zvsr7",
         "date": "4/6/2026",
         "instrument": "GOOGL",
         "desc": "GOOGL 4/8/2026 Put $295.00",
@@ -520,7 +40,7 @@
         "expiry": "4/8/26"
       },
       {
-        "id": "act_khqy1cdl",
+        "id": "act_ihcbaptj",
         "date": "4/6/2026",
         "instrument": "GOOGL",
         "desc": "GOOGL 4/6/2026 Put $295.00",
@@ -536,7 +56,7 @@
         "expiry": "4/6/26"
       },
       {
-        "id": "act_1pv126pq",
+        "id": "act_bp24gofe",
         "date": "4/6/2026",
         "instrument": "MSFT",
         "desc": "MSFT 4/8/2026 Put $370.00",
@@ -552,7 +72,7 @@
         "expiry": "4/8/26"
       },
       {
-        "id": "act_cwu7can0",
+        "id": "act_e7bjxkzg",
         "date": "4/6/2026",
         "instrument": "MSFT",
         "desc": "MSFT 4/6/2026 Put $370.00",
@@ -568,7 +88,7 @@
         "expiry": "4/6/26"
       },
       {
-        "id": "act_ng5otgbk",
+        "id": "act_fo4kxidn",
         "date": "4/6/2026",
         "instrument": "TSLL",
         "desc": "TSLL 5/22/2026 Put $11.00",
@@ -584,7 +104,7 @@
         "expiry": "5/22/26"
       },
       {
-        "id": "act_6pzgsl3b",
+        "id": "act_b9gfse6i",
         "date": "4/6/2026",
         "instrument": "TSLZ",
         "desc": "T-Rex 2X Inverse Tesla Daily Target ETF CUSIP: 26923N181",
@@ -600,7 +120,7 @@
         "expiry": ""
       },
       {
-        "id": "act_z41213v8",
+        "id": "act_rvrs8ita",
         "date": "4/6/2026",
         "instrument": "TSLL",
         "desc": "TSLL 5/15/2026 Put $13.00",
@@ -616,7 +136,7 @@
         "expiry": "5/15/26"
       },
       {
-        "id": "act_4t0pkrhq",
+        "id": "act_hvdi1m95",
         "date": "4/6/2026",
         "instrument": "PLTR",
         "desc": "PLTR 4/10/2026 Put $124.00",
@@ -632,7 +152,7 @@
         "expiry": "4/10/26"
       },
       {
-        "id": "act_lz0mm60v",
+        "id": "act_6uf93zfi",
         "date": "4/6/2026",
         "instrument": "TSLZ",
         "desc": "T-Rex 2X Inverse Tesla Daily Target ETF CUSIP: 26923N181",
@@ -648,7 +168,7 @@
         "expiry": ""
       },
       {
-        "id": "act_neuf0p5f",
+        "id": "act_wjyjqsx4",
         "date": "4/6/2026",
         "instrument": "TSLZ",
         "desc": "T-Rex 2X Inverse Tesla Daily Target ETF CUSIP: 26923N181",
@@ -664,7 +184,7 @@
         "expiry": ""
       },
       {
-        "id": "act_vghh1wjd",
+        "id": "act_wy1glrst",
         "date": "4/6/2026",
         "instrument": "TSLZ",
         "desc": "T-Rex 2X Inverse Tesla Daily Target ETF CUSIP: 26923N181",
@@ -680,7 +200,7 @@
         "expiry": ""
       },
       {
-        "id": "act_jirlouxc",
+        "id": "act_30ab3jaj",
         "date": "4/2/2026",
         "instrument": "GOOGL",
         "desc": "GOOGL 4/6/2026 Put $295.00",
@@ -696,7 +216,7 @@
         "expiry": "4/6/26"
       },
       {
-        "id": "act_52shhhi7",
+        "id": "act_bsi73wyx",
         "date": "4/2/2026",
         "instrument": "GOOGL",
         "desc": "GOOGL 5/15/2026 Put $300.00",
@@ -712,7 +232,7 @@
         "expiry": "5/15/26"
       },
       {
-        "id": "act_cjhjwh5i",
+        "id": "act_suua7tgf",
         "date": "4/2/2026",
         "instrument": "MSFT",
         "desc": "MSFT 4/6/2026 Put $370.00",
@@ -728,7 +248,7 @@
         "expiry": "4/6/26"
       },
       {
-        "id": "act_68tjle2g",
+        "id": "act_tdn8n9su",
         "date": "4/2/2026",
         "instrument": "MSFT",
         "desc": "MSFT 5/15/2026 Put $375.00",
@@ -744,7 +264,7 @@
         "expiry": "5/15/26"
       },
       {
-        "id": "act_15flsyht",
+        "id": "act_cit6a0zi",
         "date": "4/2/2026",
         "instrument": "NVDX",
         "desc": "NVDX 4/10/2026 Put $13.50",
@@ -760,7 +280,7 @@
         "expiry": "4/10/26"
       },
       {
-        "id": "act_9i42drlp",
+        "id": "act_raya5kcr",
         "date": "4/1/2026",
         "instrument": "NVDX",
         "desc": "NVDX 5/15/2026 Put $15.00",
@@ -776,7 +296,7 @@
         "expiry": "5/15/26"
       },
       {
-        "id": "act_81hi5gfx",
+        "id": "act_i1qokbma",
         "date": "4/1/2026",
         "instrument": "TSLL",
         "desc": "TSLL 5/15/2026 Put $13.00",
@@ -792,13 +312,13 @@
         "expiry": "5/15/26"
       },
       {
-        "id": "act_l3kwry4t",
+        "id": "act_l451js8r",
         "date": "3/31/2026",
-        "instrument": "—",
+        "instrument": "--",
         "desc": "Brokerage-held Cash Interest Payment",
         "tc": "INT",
-        "qty": "—",
-        "price": "—",
+        "qty": "--",
+        "price": "--",
         "amount": 8.14,
         "category": "income",
         "typeLabel": "Brokerage-held Cash Interest Payment",
@@ -808,13 +328,13 @@
         "expiry": ""
       },
       {
-        "id": "act_0rrklb59",
+        "id": "act_mk2ea0rb",
         "date": "3/31/2026",
-        "instrument": "—",
+        "instrument": "--",
         "desc": "Options Cash Collateral Interest Payment",
         "tc": "INT",
-        "qty": "—",
-        "price": "—",
+        "qty": "--",
+        "price": "--",
         "amount": 28.07,
         "category": "income",
         "typeLabel": "Options Cash Collateral Interest Payment",
@@ -824,29 +344,29 @@
         "expiry": ""
       },
       {
-        "id": "act_ljceoghw",
+        "id": "act_lyntm9us",
         "date": "3/31/2026",
         "instrument": "METU",
         "desc": "Cash Div: R/D 2026-03-24 P/D 2026-03-31 - 100 shares at 0.19351",
         "tc": "CDIV",
-        "qty": "—",
-        "price": "—",
+        "qty": "--",
+        "price": "--",
         "amount": 19.35,
         "category": "income",
-        "typeLabel": "Cash Div: R/D 2026-03-24 P/D 2026-03-31 …",
+        "typeLabel": "Cash Div: R/D 2026-03-24 P/D 2026-03-31 ...",
         "optTicker": "",
         "optType": "",
         "strike": 0,
         "expiry": ""
       },
       {
-        "id": "act_hbkruxlw",
+        "id": "act_4hxvxx6i",
         "date": "3/31/2026",
-        "instrument": "—",
+        "instrument": "--",
         "desc": "Interest Payment",
         "tc": "INT",
-        "qty": "—",
-        "price": "—",
+        "qty": "--",
+        "price": "--",
         "amount": 10.5,
         "category": "income",
         "typeLabel": "Interest Payment",
@@ -856,13 +376,13 @@
         "expiry": ""
       },
       {
-        "id": "act_jnkgxi9f",
+        "id": "act_9rglaen7",
         "date": "3/31/2026",
-        "instrument": "—",
+        "instrument": "--",
         "desc": "Gold Deposit Boost Payment",
         "tc": "GDBP",
-        "qty": "—",
-        "price": "—",
+        "qty": "--",
+        "price": "--",
         "amount": 0.85,
         "category": "income",
         "typeLabel": "Gold Deposit Boost Payment",
@@ -872,7 +392,7 @@
         "expiry": ""
       },
       {
-        "id": "act_rshlvsml",
+        "id": "act_61zg0rtb",
         "date": "3/31/2026",
         "instrument": "PLTR",
         "desc": "PLTR 4/24/2026 Put $125.00",
@@ -888,7 +408,7 @@
         "expiry": "4/24/26"
       },
       {
-        "id": "act_yqhdmih8",
+        "id": "act_g3koofaw",
         "date": "3/31/2026",
         "instrument": "PLTR",
         "desc": "PLTR 5/1/2026 Put $135.00",
@@ -904,7 +424,7 @@
         "expiry": "5/1/26"
       },
       {
-        "id": "act_w1oeur6e",
+        "id": "act_d2q6h9nh",
         "date": "3/31/2026",
         "instrument": "PLTR",
         "desc": "PLTR 3/19/2027 Call $95.00",
@@ -920,7 +440,7 @@
         "expiry": "3/19/27"
       },
       {
-        "id": "act_iwqizd7i",
+        "id": "act_mlzrkqvs",
         "date": "3/31/2026",
         "instrument": "PLTR",
         "desc": "PLTR 3/19/2027 Call $75.00",
@@ -936,7 +456,7 @@
         "expiry": "3/19/27"
       },
       {
-        "id": "act_i00s8y78",
+        "id": "act_xgkjh0c5",
         "date": "3/31/2026",
         "instrument": "PLTR",
         "desc": "PLTR 4/2/2026 Put $124.00",
@@ -952,7 +472,7 @@
         "expiry": "4/2/26"
       },
       {
-        "id": "act_s45l4unv",
+        "id": "act_wusbf6p4",
         "date": "3/31/2026",
         "instrument": "PLTR",
         "desc": "PLTR 4/10/2026 Put $124.00",
@@ -968,7 +488,7 @@
         "expiry": "4/10/26"
       },
       {
-        "id": "act_aasadxsv",
+        "id": "act_0160qn83",
         "date": "3/31/2026",
         "instrument": "METU",
         "desc": "METU 5/15/2026 Put $22.00",
@@ -984,7 +504,7 @@
         "expiry": "5/15/26"
       },
       {
-        "id": "act_3uynaewu",
+        "id": "act_2504k856",
         "date": "3/30/2026",
         "instrument": "QQQ",
         "desc": "QQQ 5/29/2026 Put $546.00",
@@ -1000,7 +520,7 @@
         "expiry": "5/29/26"
       },
       {
-        "id": "act_k1i8e43p",
+        "id": "act_xrajsw7c",
         "date": "3/30/2026",
         "instrument": "QQQ",
         "desc": "QQQ 4/30/2026 Put $530.00",
@@ -1016,7 +536,7 @@
         "expiry": "4/30/26"
       },
       {
-        "id": "act_wpnehj13",
+        "id": "act_f1um3sef",
         "date": "3/30/2026",
         "instrument": "QQQ",
         "desc": "QQQ 4/30/2026 Put $435.00",
@@ -1032,7 +552,7 @@
         "expiry": "4/30/26"
       },
       {
-        "id": "act_vp8sf3s3",
+        "id": "act_gdmb1ovc",
         "date": "3/30/2026",
         "instrument": "QQQ",
         "desc": "QQQ 5/29/2026 Put $475.00",
@@ -1048,7 +568,7 @@
         "expiry": "5/29/26"
       },
       {
-        "id": "act_63v0c4uj",
+        "id": "act_3uq1qrde",
         "date": "3/30/2026",
         "instrument": "QQQ",
         "desc": "QQQ 5/29/2026 Call $548.00",
@@ -1064,7 +584,7 @@
         "expiry": "5/29/26"
       },
       {
-        "id": "act_1haw299g",
+        "id": "act_fic7l0i1",
         "date": "3/30/2026",
         "instrument": "QQQ",
         "desc": "QQQ 4/30/2026 Call $535.00",
@@ -1080,7 +600,7 @@
         "expiry": "4/30/26"
       },
       {
-        "id": "act_76d8qpi1",
+        "id": "act_z1zad2f7",
         "date": "3/30/2026",
         "instrument": "QQQ",
         "desc": "QQQ 4/30/2026 Call $641.00",
@@ -1096,7 +616,7 @@
         "expiry": "4/30/26"
       },
       {
-        "id": "act_7rulngkm",
+        "id": "act_u2yuzjfm",
         "date": "3/30/2026",
         "instrument": "QQQ",
         "desc": "QQQ 5/29/2026 Call $638.00",
@@ -1112,7 +632,7 @@
         "expiry": "5/29/26"
       },
       {
-        "id": "act_pcx1lm4e",
+        "id": "act_67hyyhme",
         "date": "3/30/2026",
         "instrument": "NVTS",
         "desc": "NVTS 4/2/2026 Put $8.00",
@@ -1128,7 +648,7 @@
         "expiry": "4/2/26"
       },
       {
-        "id": "act_l9otpbzg",
+        "id": "act_80ysyql6",
         "date": "3/30/2026",
         "instrument": "NVTS",
         "desc": "NVTS 4/10/2026 Put $8.00",
@@ -1144,7 +664,7 @@
         "expiry": "4/10/26"
       },
       {
-        "id": "act_p4bvuj6n",
+        "id": "act_dhytl4y2",
         "date": "3/30/2026",
         "instrument": "NVDX",
         "desc": "NVDX 4/2/2026 Put $14.50",
@@ -1160,7 +680,7 @@
         "expiry": "4/2/26"
       },
       {
-        "id": "act_tc287tlp",
+        "id": "act_67mc9num",
         "date": "3/30/2026",
         "instrument": "NVDX",
         "desc": "NVDX 4/10/2026 Put $14.50",
@@ -1176,7 +696,7 @@
         "expiry": "4/10/26"
       },
       {
-        "id": "act_snv4uf3s",
+        "id": "act_tn4nh5xx",
         "date": "3/30/2026",
         "instrument": "NVDX",
         "desc": "NVDX 6/18/2026 Put $15.43",
@@ -1192,7 +712,7 @@
         "expiry": "6/18/26"
       },
       {
-        "id": "act_on92gmzl",
+        "id": "act_anhihhuu",
         "date": "3/30/2026",
         "instrument": "NVDX",
         "desc": "NVDX 6/18/2026 Put $16.43",
@@ -1208,7 +728,7 @@
         "expiry": "6/18/26"
       },
       {
-        "id": "act_gv2gtvj5",
+        "id": "act_4ua8aj22",
         "date": "3/30/2026",
         "instrument": "SOFI",
         "desc": "SOFI 5/15/2026 Put $17.00",
@@ -1224,7 +744,7 @@
         "expiry": "5/15/26"
       },
       {
-        "id": "act_asbai7rk",
+        "id": "act_44zvrucs",
         "date": "3/30/2026",
         "instrument": "SOFI",
         "desc": "SOFI 5/15/2026 Put $18.00",
@@ -1240,7 +760,7 @@
         "expiry": "5/15/26"
       },
       {
-        "id": "act_m8r1mu9e",
+        "id": "act_e2wmh106",
         "date": "3/30/2026",
         "instrument": "SOFI",
         "desc": "SOFI 4/2/2026 Put $16.00",
@@ -1256,7 +776,7 @@
         "expiry": "4/2/26"
       },
       {
-        "id": "act_kuara7n2",
+        "id": "act_z62fqrk0",
         "date": "3/30/2026",
         "instrument": "SOFI",
         "desc": "SOFI 4/10/2026 Put $16.00",
@@ -1272,7 +792,7 @@
         "expiry": "4/10/26"
       },
       {
-        "id": "act_ls9mv350",
+        "id": "act_hngvi1bm",
         "date": "3/30/2026",
         "instrument": "SOFI",
         "desc": "SOFI 4/2/2026 Put $17.00",
@@ -1288,7 +808,7 @@
         "expiry": "4/2/26"
       },
       {
-        "id": "act_qamw1fr0",
+        "id": "act_sueezq5c",
         "date": "3/30/2026",
         "instrument": "SOFI",
         "desc": "SOFI 4/10/2026 Put $17.00",
@@ -1304,7 +824,7 @@
         "expiry": "4/10/26"
       },
       {
-        "id": "act_r6bzfkoj",
+        "id": "act_wjek6jci",
         "date": "3/30/2026",
         "instrument": "SOFI",
         "desc": "SOFI 4/2/2026 Put $16.50",
@@ -1320,7 +840,7 @@
         "expiry": "4/2/26"
       },
       {
-        "id": "act_4200w9v3",
+        "id": "act_kodmz2bc",
         "date": "3/30/2026",
         "instrument": "SOFI",
         "desc": "SOFI 4/10/2026 Put $16.50",
@@ -1336,7 +856,7 @@
         "expiry": "4/10/26"
       },
       {
-        "id": "act_m7o3cptk",
+        "id": "act_0m06h0cw",
         "date": "3/30/2026",
         "instrument": "PLTR",
         "desc": "PLTR 4/10/2026 Put $139.00",
@@ -1352,7 +872,7 @@
         "expiry": "4/10/26"
       },
       {
-        "id": "act_zxq8l1h2",
+        "id": "act_7q2dwtma",
         "date": "3/30/2026",
         "instrument": "PLTR",
         "desc": "PLTR 4/2/2026 Put $141.00",
@@ -1368,7 +888,7 @@
         "expiry": "4/2/26"
       },
       {
-        "id": "act_qt5f47id",
+        "id": "act_2g93bpy6",
         "date": "3/30/2026",
         "instrument": "HOOD",
         "desc": "HOOD 4/2/2026 Put $68.00",
@@ -1384,7 +904,7 @@
         "expiry": "4/2/26"
       },
       {
-        "id": "act_4cnfi7oe",
+        "id": "act_n6f0xmqa",
         "date": "3/30/2026",
         "instrument": "HOOD",
         "desc": "HOOD 4/10/2026 Put $67.00",
@@ -1400,7 +920,7 @@
         "expiry": "4/10/26"
       },
       {
-        "id": "act_a7b8h8w5",
+        "id": "act_wvl22gid",
         "date": "3/30/2026",
         "instrument": "NVTS",
         "desc": "NVTS 4/2/2026 Put $8.00",
@@ -1416,7 +936,7 @@
         "expiry": "4/2/26"
       },
       {
-        "id": "act_63spvvpt",
+        "id": "act_x1vsm5if",
         "date": "3/30/2026",
         "instrument": "HOOD",
         "desc": "HOOD 5/1/2026 Put $73.00",
@@ -1432,7 +952,7 @@
         "expiry": "5/1/26"
       },
       {
-        "id": "act_hejgg98d",
+        "id": "act_g88wvei9",
         "date": "3/30/2026",
         "instrument": "HOOD",
         "desc": "HOOD 5/1/2026 Put $74.00",
@@ -1448,7 +968,7 @@
         "expiry": "5/1/26"
       },
       {
-        "id": "act_kvo8w8o2",
+        "id": "act_2ysizv6e",
         "date": "3/30/2026",
         "instrument": "NVTS",
         "desc": "NVTS 4/2/2026 Put $8.00",
@@ -1464,7 +984,7 @@
         "expiry": "4/2/26"
       },
       {
-        "id": "act_9kgpcyvu",
+        "id": "act_m23oe7ym",
         "date": "3/30/2026",
         "instrument": "HOOD",
         "desc": "HOOD 4/2/2026 Put $72.00",
@@ -1480,7 +1000,7 @@
         "expiry": "4/2/26"
       },
       {
-        "id": "act_km2vqxpp",
+        "id": "act_u10mbac6",
         "date": "3/30/2026",
         "instrument": "HOOD",
         "desc": "HOOD 4/10/2026 Put $71.00",
@@ -1496,13 +1016,13 @@
         "expiry": "4/10/26"
       },
       {
-        "id": "act_5w6od6ut",
+        "id": "act_m6vpvjjx",
         "date": "3/27/2026",
-        "instrument": "—",
+        "instrument": "--",
         "desc": "Interest Payment",
         "tc": "INT",
-        "qty": "—",
-        "price": "—",
+        "qty": "--",
+        "price": "--",
         "amount": 0.31,
         "category": "income",
         "typeLabel": "Interest Payment",
@@ -1512,7 +1032,7 @@
         "expiry": ""
       },
       {
-        "id": "act_qjzn44cq",
+        "id": "act_0tqmp06h",
         "date": "3/27/2026",
         "instrument": "NVTS",
         "desc": "NVTS 5/8/2026 Put $8.50",
@@ -1528,7 +1048,7 @@
         "expiry": "5/8/26"
       },
       {
-        "id": "act_yky0wwd7",
+        "id": "act_s6jeazyc",
         "date": "3/27/2026",
         "instrument": "PLTR",
         "desc": "PLTR 4/2/2026 Put $124.00",
@@ -1544,7 +1064,7 @@
         "expiry": "4/2/26"
       },
       {
-        "id": "act_uztopdmp",
+        "id": "act_gjv45h85",
         "date": "3/27/2026",
         "instrument": "PLTR",
         "desc": "PLTR 4/24/2026 Put $145.00",
@@ -1560,7 +1080,7 @@
         "expiry": "4/24/26"
       },
       {
-        "id": "act_ic9vnw19",
+        "id": "act_h8phk8o2",
         "date": "3/27/2026",
         "instrument": "PLTR",
         "desc": "PLTR 5/8/2026 Put $135.00",
@@ -1576,7 +1096,7 @@
         "expiry": "5/8/26"
       },
       {
-        "id": "act_0g10r8ym",
+        "id": "act_jy3bd21u",
         "date": "3/27/2026",
         "instrument": "PLTR",
         "desc": "PLTR 5/15/2026 Put $95.00",
@@ -1592,7 +1112,7 @@
         "expiry": "5/15/26"
       },
       {
-        "id": "act_c3cs07u8",
+        "id": "act_n5t2otve",
         "date": "3/27/2026",
         "instrument": "PLTR",
         "desc": "PLTR 4/24/2026 Put $125.00",
@@ -1608,7 +1128,7 @@
         "expiry": "4/24/26"
       },
       {
-        "id": "act_u084p4i8",
+        "id": "act_pby7geit",
         "date": "3/27/2026",
         "instrument": "PLTR",
         "desc": "PLTR 3/27/2026 Put $144.00",
@@ -1624,7 +1144,7 @@
         "expiry": "3/27/26"
       },
       {
-        "id": "act_a1z0qyop",
+        "id": "act_9yimucsl",
         "date": "3/27/2026",
         "instrument": "PLTR",
         "desc": "PLTR 4/2/2026 Put $141.00",
@@ -1640,7 +1160,7 @@
         "expiry": "4/2/26"
       },
       {
-        "id": "act_m0nlp68m",
+        "id": "act_u3zr5mfl",
         "date": "3/27/2026",
         "instrument": "PLTR",
         "desc": "PLTR 5/15/2026 Put $145.00",
@@ -1656,7 +1176,7 @@
         "expiry": "5/15/26"
       },
       {
-        "id": "act_md0bukl8",
+        "id": "act_9mky5gjn",
         "date": "3/27/2026",
         "instrument": "PLTR",
         "desc": "PLTR 3/19/2027 Call $75.00",
@@ -1672,7 +1192,7 @@
         "expiry": "3/19/27"
       },
       {
-        "id": "act_86ek58xs",
+        "id": "act_o3mu3taz",
         "date": "3/27/2026",
         "instrument": "QQQ",
         "desc": "Invesco QQQ CUSIP: 46090E103",
@@ -1688,7 +1208,7 @@
         "expiry": ""
       },
       {
-        "id": "act_162ol60b",
+        "id": "act_25lit1s2",
         "date": "3/27/2026",
         "instrument": "QQQ",
         "desc": "QQQ 3/31/2026 Put $612.00",
@@ -1704,13 +1224,13 @@
         "expiry": "3/31/26"
       },
       {
-        "id": "act_qgv11f3g",
+        "id": "act_in9vg069",
         "date": "3/27/2026",
-        "instrument": "—",
+        "instrument": "--",
         "desc": "ACH Deposit",
         "tc": "ACH",
-        "qty": "—",
-        "price": "—",
+        "qty": "--",
+        "price": "--",
         "amount": 60000,
         "category": "income",
         "typeLabel": "ACH Deposit",
@@ -1720,7 +1240,7 @@
         "expiry": ""
       },
       {
-        "id": "act_4oiscpiz",
+        "id": "act_mxti328v",
         "date": "3/26/2026",
         "instrument": "QQQ",
         "desc": "Invesco QQQ CUSIP: 46090E103 1 QQQ Option Assigned",
@@ -1736,7 +1256,7 @@
         "expiry": ""
       },
       {
-        "id": "act_n86d7ola",
+        "id": "act_sm4jf6fp",
         "date": "3/26/2026",
         "instrument": "HOOD",
         "desc": "HOOD 4/2/2026 Put $68.00",
@@ -1752,7 +1272,7 @@
         "expiry": "4/2/26"
       },
       {
-        "id": "act_0pxklwmd",
+        "id": "act_rv50mxkh",
         "date": "3/26/2026",
         "instrument": "HOOD",
         "desc": "HOOD 3/27/2026 Put $69.00",
@@ -1768,7 +1288,7 @@
         "expiry": "3/27/26"
       },
       {
-        "id": "act_4zugjfkr",
+        "id": "act_k3vif9s2",
         "date": "3/26/2026",
         "instrument": "SOFI",
         "desc": "SOFI 3/27/2026 Put $17.00",
@@ -1784,7 +1304,7 @@
         "expiry": "3/27/26"
       },
       {
-        "id": "act_ru5ytb3a",
+        "id": "act_u78y2mlb",
         "date": "3/26/2026",
         "instrument": "SOFI",
         "desc": "SOFI 4/2/2026 Put $17.00",
@@ -1800,7 +1320,7 @@
         "expiry": "4/2/26"
       },
       {
-        "id": "act_0526x98e",
+        "id": "act_5trbdy4t",
         "date": "3/26/2026",
         "instrument": "SOFI",
         "desc": "SOFI 4/2/2026 Put $16.50",
@@ -1816,7 +1336,7 @@
         "expiry": "4/2/26"
       },
       {
-        "id": "act_3fnjyyvl",
+        "id": "act_4s5ojfpy",
         "date": "3/26/2026",
         "instrument": "SOFI",
         "desc": "SOFI 3/27/2026 Put $16.50",
@@ -1832,7 +1352,7 @@
         "expiry": "3/27/26"
       },
       {
-        "id": "act_9ufg3b90",
+        "id": "act_n1wnrjii",
         "date": "3/26/2026",
         "instrument": "SOFI",
         "desc": "SOFI 3/27/2026 Put $16.50",
@@ -1848,7 +1368,7 @@
         "expiry": "3/27/26"
       },
       {
-        "id": "act_irvd9s3h",
+        "id": "act_ge5t741m",
         "date": "3/26/2026",
         "instrument": "SOFI",
         "desc": "SOFI 4/2/2026 Put $16.00",
@@ -1864,7 +1384,7 @@
         "expiry": "4/2/26"
       },
       {
-        "id": "act_m2p8dbo6",
+        "id": "act_xyeqemna",
         "date": "3/25/2026",
         "instrument": "HOOD",
         "desc": "HOOD 3/27/2026 Put $69.00",
@@ -1880,7 +1400,7 @@
         "expiry": "3/27/26"
       },
       {
-        "id": "act_k3p7pzf9",
+        "id": "act_ogfk7dxg",
         "date": "3/25/2026",
         "instrument": "NVDX",
         "desc": "NVDX 4/2/2026 Put $14.50",
@@ -1896,7 +1416,7 @@
         "expiry": "4/2/26"
       },
       {
-        "id": "act_cc2tn8az",
+        "id": "act_sabnq36t",
         "date": "3/25/2026",
         "instrument": "NVDX",
         "desc": "NVDX 3/27/2026 Put $13.50",
@@ -1912,7 +1432,7 @@
         "expiry": "3/27/26"
       },
       {
-        "id": "act_fk1r0ry1",
+        "id": "act_ak3es672",
         "date": "3/25/2026",
         "instrument": "HOOD",
         "desc": "HOOD 5/1/2026 Put $74.00",
@@ -1928,7 +1448,7 @@
         "expiry": "5/1/26"
       },
       {
-        "id": "act_udfncseq",
+        "id": "act_0isll6b9",
         "date": "3/24/2026",
         "instrument": "HOOD",
         "desc": "HOOD 5/1/2026 Put $74.00",
@@ -1944,7 +1464,7 @@
         "expiry": "5/1/26"
       },
       {
-        "id": "act_6b72y30v",
+        "id": "act_etxxrq30",
         "date": "3/24/2026",
         "instrument": "HOOD",
         "desc": "HOOD 5/1/2026 Put $76.00",
@@ -1960,7 +1480,7 @@
         "expiry": "5/1/26"
       },
       {
-        "id": "act_i4p0chd9",
+        "id": "act_yvfsfa49",
         "date": "3/24/2026",
         "instrument": "HOOD",
         "desc": "HOOD 3/27/2026 Put $73.00",
@@ -1976,7 +1496,7 @@
         "expiry": "3/27/26"
       },
       {
-        "id": "act_t76pnjug",
+        "id": "act_jeou3kgv",
         "date": "3/24/2026",
         "instrument": "HOOD",
         "desc": "HOOD 4/2/2026 Put $72.00",
@@ -1992,7 +1512,7 @@
         "expiry": "4/2/26"
       },
       {
-        "id": "act_c3v3ol5c",
+        "id": "act_bau4j6wq",
         "date": "3/24/2026",
         "instrument": "HOOD",
         "desc": "HOOD 3/27/2026 Put $69.00",
@@ -2008,7 +1528,7 @@
         "expiry": "3/27/26"
       },
       {
-        "id": "act_y857bhok",
+        "id": "act_596j6kss",
         "date": "3/23/2026",
         "instrument": "SOFI",
         "desc": "SOFI 3/27/2026 Put $16.50",
@@ -2024,7 +1544,7 @@
         "expiry": "3/27/26"
       },
       {
-        "id": "act_btmrsqrg",
+        "id": "act_k9xx0uzm",
         "date": "3/23/2026",
         "instrument": "PLTR",
         "desc": "PLTR 1/15/2027 Call $110.00",
@@ -2040,7 +1560,7 @@
         "expiry": "1/15/27"
       },
       {
-        "id": "act_icnqj02m",
+        "id": "act_4vc6ydz2",
         "date": "3/23/2026",
         "instrument": "PLTR",
         "desc": "PLTR 1/15/2027 Call $105.00",
@@ -2056,7 +1576,7 @@
         "expiry": "1/15/27"
       },
       {
-        "id": "act_gxh6fg88",
+        "id": "act_clugydbl",
         "date": "3/20/2026",
         "instrument": "NVDX",
         "desc": "NVDX 3/20/2026 Put $14.43",
@@ -2072,7 +1592,7 @@
         "expiry": "3/20/26"
       },
       {
-        "id": "act_sg0kszxj",
+        "id": "act_vnefwufe",
         "date": "3/20/2026",
         "instrument": "NVDX",
         "desc": "NVDX 3/27/2026 Put $13.50",
@@ -2088,7 +1608,7 @@
         "expiry": "3/27/26"
       },
       {
-        "id": "act_qrol2c56",
+        "id": "act_jqg1h3j2",
         "date": "3/20/2026",
         "instrument": "PLTR",
         "desc": "PLTR 5/15/2026 Put $90.00",
@@ -2104,7 +1624,7 @@
         "expiry": "5/15/26"
       },
       {
-        "id": "act_un43kiz5",
+        "id": "act_fc47zxca",
         "date": "3/20/2026",
         "instrument": "PLTR",
         "desc": "PLTR 5/15/2026 Put $95.00",
@@ -2120,7 +1640,7 @@
         "expiry": "5/15/26"
       },
       {
-        "id": "act_qnk8jnd1",
+        "id": "act_35y8haxt",
         "date": "3/20/2026",
         "instrument": "SOFI",
         "desc": "SOFI 3/20/2026 Put $16.50",
@@ -2136,7 +1656,7 @@
         "expiry": "3/20/26"
       },
       {
-        "id": "act_mrtj3q7a",
+        "id": "act_vsorowva",
         "date": "3/19/2026",
         "instrument": "HOOD",
         "desc": "HOOD 5/1/2026 Put $74.00",
@@ -2152,7 +1672,7 @@
         "expiry": "5/1/26"
       },
       {
-        "id": "act_3p6sq7oo",
+        "id": "act_7h3c272q",
         "date": "3/19/2026",
         "instrument": "QQQ",
         "desc": "QQQ 3/31/2026 Put $612.00",
@@ -2168,7 +1688,7 @@
         "expiry": "3/31/26"
       },
       {
-        "id": "act_l6vtyavb",
+        "id": "act_lauosomo",
         "date": "3/19/2026",
         "instrument": "QQQ",
         "desc": "QQQ 3/31/2026 Put $614.00",
@@ -2184,7 +1704,7 @@
         "expiry": "3/31/26"
       },
       {
-        "id": "act_t9kliaf7",
+        "id": "act_kpvltz72",
         "date": "3/19/2026",
         "instrument": "SOFI",
         "desc": "SOFI 5/15/2026 Put $18.00",
@@ -2200,7 +1720,7 @@
         "expiry": "5/15/26"
       },
       {
-        "id": "act_6ll7vh7w",
+        "id": "act_9ui0d2di",
         "date": "3/19/2026",
         "instrument": "SOFI",
         "desc": "SOFI 5/15/2026 Put $19.00",
@@ -2216,7 +1736,7 @@
         "expiry": "5/15/26"
       },
       {
-        "id": "act_r9x5mjhv",
+        "id": "act_el09k382",
         "date": "3/19/2026",
         "instrument": "SOFI",
         "desc": "SOFI 5/15/2026 Put $18.00",
@@ -2232,7 +1752,7 @@
         "expiry": "5/15/26"
       },
       {
-        "id": "act_2is2so3e",
+        "id": "act_4rzu7kxe",
         "date": "3/19/2026",
         "instrument": "SOFI",
         "desc": "SOFI 5/15/2026 Put $19.00",
@@ -2248,7 +1768,7 @@
         "expiry": "5/15/26"
       },
       {
-        "id": "act_or4fi6ft",
+        "id": "act_k1meeeso",
         "date": "3/19/2026",
         "instrument": "HOOD",
         "desc": "HOOD 5/1/2026 Put $76.00",
@@ -2264,7 +1784,7 @@
         "expiry": "5/1/26"
       },
       {
-        "id": "act_8sljt0id",
+        "id": "act_l714ou3s",
         "date": "3/19/2026",
         "instrument": "HOOD",
         "desc": "HOOD 5/1/2026 Put $77.00",
@@ -2280,7 +1800,7 @@
         "expiry": "5/1/26"
       },
       {
-        "id": "act_y49pmhsm",
+        "id": "act_k3bmepy9",
         "date": "3/19/2026",
         "instrument": "HOOD",
         "desc": "HOOD 3/20/2026 Put $74.00",
@@ -2296,7 +1816,7 @@
         "expiry": "3/20/26"
       },
       {
-        "id": "act_5e7cm1xg",
+        "id": "act_cn6rk4xl",
         "date": "3/19/2026",
         "instrument": "HOOD",
         "desc": "HOOD 3/27/2026 Put $73.00",
@@ -2312,7 +1832,7 @@
         "expiry": "3/27/26"
       },
       {
-        "id": "act_adpcs825",
+        "id": "act_64p3h68e",
         "date": "3/18/2026",
         "instrument": "SOFI",
         "desc": "SOFI 3/27/2026 Put $17.00",
@@ -2328,7 +1848,7 @@
         "expiry": "3/27/26"
       },
       {
-        "id": "act_fwxg3grl",
+        "id": "act_jgqfj64w",
         "date": "3/18/2026",
         "instrument": "SOFI",
         "desc": "SOFI 3/20/2026 Put $17.50",
@@ -2344,7 +1864,7 @@
         "expiry": "3/20/26"
       },
       {
-        "id": "act_794mhmno",
+        "id": "act_l31jvfxu",
         "date": "3/18/2026",
         "instrument": "PLTR",
         "desc": "PLTR 3/20/2026 Put $140.00",
@@ -2360,7 +1880,7 @@
         "expiry": "3/20/26"
       },
       {
-        "id": "act_i4f4t1yn",
+        "id": "act_hk0pazwk",
         "date": "3/18/2026",
         "instrument": "PLTR",
         "desc": "PLTR 3/27/2026 Put $144.00",
@@ -2376,7 +1896,7 @@
         "expiry": "3/27/26"
       },
       {
-        "id": "act_nr0wcbvk",
+        "id": "act_stnxzoab",
         "date": "3/17/2026",
         "instrument": "HOOD",
         "desc": "HOOD 3/20/2026 Put $74.00",
@@ -2392,7 +1912,7 @@
         "expiry": "3/20/26"
       },
       {
-        "id": "act_rkdt0dvs",
+        "id": "act_ctm57pxh",
         "date": "3/17/2026",
         "instrument": "HOOD",
         "desc": "HOOD 5/1/2026 Put $77.00",
@@ -2408,7 +1928,7 @@
         "expiry": "5/1/26"
       },
       {
-        "id": "act_ujjls3x5",
+        "id": "act_mpr0x5h9",
         "date": "3/17/2026",
         "instrument": "PLTR",
         "desc": "PLTR 5/15/2026 Put $85.00",
@@ -2424,7 +1944,7 @@
         "expiry": "5/15/26"
       },
       {
-        "id": "act_5dnshqco",
+        "id": "act_4djigts8",
         "date": "3/17/2026",
         "instrument": "PLTR",
         "desc": "PLTR 5/15/2026 Put $90.00",
@@ -2440,7 +1960,7 @@
         "expiry": "5/15/26"
       },
       {
-        "id": "act_h1aqb554",
+        "id": "act_tabdt6ya",
         "date": "3/16/2026",
         "instrument": "SOFI",
         "desc": "SOFI 3/20/2026 Put $16.50",
@@ -2456,7 +1976,7 @@
         "expiry": "3/20/26"
       },
       {
-        "id": "act_xokqolge",
+        "id": "act_voa1wz37",
         "date": "3/16/2026",
         "instrument": "SOFI",
         "desc": "SOFI 3/20/2026 Put $16.50",
@@ -2472,7 +1992,7 @@
         "expiry": "3/20/26"
       },
       {
-        "id": "act_0kylcr2e",
+        "id": "act_bz5uxtp2",
         "date": "3/16/2026",
         "instrument": "SOFI",
         "desc": "SOFI 1/15/2027 Call $12.00",
@@ -2488,7 +2008,7 @@
         "expiry": "1/15/27"
       },
       {
-        "id": "act_azvov99v",
+        "id": "act_txnqx67y",
         "date": "3/16/2026",
         "instrument": "SOFI",
         "desc": "SoFi Technologies CUSIP: 83406F102",
@@ -2504,7 +2024,7 @@
         "expiry": ""
       },
       {
-        "id": "act_nx0avvh2",
+        "id": "act_grevtel0",
         "date": "3/16/2026",
         "instrument": "ROBN",
         "desc": "ROBN 6/18/2026 Put $50.00",
@@ -2520,7 +2040,7 @@
         "expiry": "6/18/26"
       },
       {
-        "id": "act_ngxy3xg3",
+        "id": "act_v7z7hxib",
         "date": "3/16/2026",
         "instrument": "ROBN",
         "desc": "ROBN 3/20/2026 Put $50.00",
@@ -2536,7 +2056,7 @@
         "expiry": "3/20/26"
       },
       {
-        "id": "act_t83in087",
+        "id": "act_n2cmskpt",
         "date": "3/16/2026",
         "instrument": "ROBN",
         "desc": "ROBN 3/20/2026 Put $13.00",
@@ -2552,7 +2072,7 @@
         "expiry": "3/20/26"
       },
       {
-        "id": "act_48iog4ni",
+        "id": "act_ijhoxpli",
         "date": "3/16/2026",
         "instrument": "ROBN",
         "desc": "ROBN 6/18/2026 Put $7.00",
@@ -2568,7 +2088,7 @@
         "expiry": "6/18/26"
       },
       {
-        "id": "act_nbq4j2ca",
+        "id": "act_4c3vc55q",
         "date": "3/13/2026",
         "instrument": "SOFI",
         "desc": "SoFi Technologies CUSIP: 83406F102 1 SOFI Option Assigned",
@@ -2584,7 +2104,7 @@
         "expiry": ""
       },
       {
-        "id": "act_9ur9wovx",
+        "id": "act_aoq4bsit",
         "date": "3/13/2026",
         "instrument": "SOFI",
         "desc": "SOFI 5/15/2026 Put $18.00",
@@ -2600,7 +2120,7 @@
         "expiry": "5/15/26"
       },
       {
-        "id": "act_68kgcjjr",
+        "id": "act_dbbs6kph",
         "date": "3/13/2026",
         "instrument": "NVDX",
         "desc": "NVDX 3/13/2026 Put $15.00",
@@ -2616,7 +2136,7 @@
         "expiry": "3/13/26"
       },
       {
-        "id": "act_dfkz5crj",
+        "id": "act_w4dt3uvu",
         "date": "3/13/2026",
         "instrument": "NVDX",
         "desc": "NVDX 3/20/2026 Put $14.43",
@@ -2632,7 +2152,7 @@
         "expiry": "3/20/26"
       },
       {
-        "id": "act_h7jd8mrz",
+        "id": "act_nd9jfbar",
         "date": "3/12/2026",
         "instrument": "SOFI",
         "desc": "SOFI 3/13/2026 Put $18.00",
@@ -2648,7 +2168,7 @@
         "expiry": "3/13/26"
       },
       {
-        "id": "act_w4652k1h",
+        "id": "act_kdrgho2m",
         "date": "3/12/2026",
         "instrument": "SOFI",
         "desc": "SOFI 3/20/2026 Put $17.50",
@@ -2664,7 +2184,7 @@
         "expiry": "3/20/26"
       },
       {
-        "id": "act_8ccobh04",
+        "id": "act_rfes4rrj",
         "date": "3/9/2026",
         "instrument": "PLTR",
         "desc": "PLTR 3/20/2026 Put $140.00",
@@ -2680,7 +2200,7 @@
         "expiry": "3/20/26"
       },
       {
-        "id": "act_sh1c88h3",
+        "id": "act_n8sj9sjj",
         "date": "3/9/2026",
         "instrument": "PLTR",
         "desc": "PLTR 3/13/2026 Put $130.00",
@@ -2696,7 +2216,7 @@
         "expiry": "3/13/26"
       },
       {
-        "id": "act_4cetqrm3",
+        "id": "act_juic4gfu",
         "date": "3/9/2026",
         "instrument": "PLTR",
         "desc": "PLTR 4/24/2026 Put $145.00",
@@ -2712,7 +2232,7 @@
         "expiry": "4/24/26"
       },
       {
-        "id": "act_h3kxs6nq",
+        "id": "act_xnjhqle6",
         "date": "3/9/2026",
         "instrument": "PLTR",
         "desc": "PLTR 4/17/2026 Put $130.00",
@@ -2728,7 +2248,7 @@
         "expiry": "4/17/26"
       },
       {
-        "id": "act_1rjzkj4n",
+        "id": "act_e0c1ll8m",
         "date": "3/9/2026",
         "instrument": "PLTR",
         "desc": "PLTR 1/15/2027 Call $105.00",
@@ -2744,7 +2264,7 @@
         "expiry": "1/15/27"
       },
       {
-        "id": "act_cxoa20hc",
+        "id": "act_i96zf6c2",
         "date": "3/9/2026",
         "instrument": "PLTR",
         "desc": "PLTR 1/15/2027 Call $87.50",
@@ -2760,13 +2280,13 @@
         "expiry": "1/15/27"
       },
       {
-        "id": "act_5mj9fjyg",
+        "id": "act_t5eklpqj",
         "date": "3/9/2026",
-        "instrument": "—",
+        "instrument": "--",
         "desc": "Gold Subscription Fee",
         "tc": "GOLD",
-        "qty": "—",
-        "price": "—",
+        "qty": "--",
+        "price": "--",
         "amount": -50,
         "category": "other",
         "typeLabel": "Gold Subscription Fee",
@@ -2776,13 +2296,13 @@
         "expiry": ""
       },
       {
-        "id": "act_78lae8il",
+        "id": "act_40wnq9ls",
         "date": "3/6/2026",
         "instrument": "METU",
         "desc": "Stock Lending",
         "tc": "SLIP",
-        "qty": "—",
-        "price": "—",
+        "qty": "--",
+        "price": "--",
         "amount": 0.15,
         "category": "share",
         "typeLabel": "Shares",
@@ -2792,7 +2312,7 @@
         "expiry": ""
       },
       {
-        "id": "act_gvnsbiau",
+        "id": "act_0rqy6gfv",
         "date": "3/4/2026",
         "instrument": "NVDX",
         "desc": "NVDX 3/13/2026 Put $15.00",
@@ -2808,7 +2328,7 @@
         "expiry": "3/13/26"
       },
       {
-        "id": "act_bcnr5hoz",
+        "id": "act_bzlrt6hu",
         "date": "3/4/2026",
         "instrument": "NVDX",
         "desc": "NVDX 6/18/2026 Put $16.43",
@@ -2824,7 +2344,7 @@
         "expiry": "6/18/26"
       },
       {
-        "id": "act_i8ljqit9",
+        "id": "act_st7sn02g",
         "date": "3/4/2026",
         "instrument": "NVDX",
         "desc": "NVDX 1/15/2027 Call $10.43",
@@ -2840,7 +2360,7 @@
         "expiry": "1/15/27"
       },
       {
-        "id": "act_gjpzqbed",
+        "id": "act_f36vfvtj",
         "date": "3/4/2026",
         "instrument": "SOFI",
         "desc": "SOFI 3/6/2026 Put $17.50",
@@ -2856,7 +2376,7 @@
         "expiry": "3/6/26"
       },
       {
-        "id": "act_qc4zkrme",
+        "id": "act_88mopqbw",
         "date": "3/4/2026",
         "instrument": "SOFI",
         "desc": "SOFI 3/13/2026 Put $18.00",
@@ -2872,7 +2392,7 @@
         "expiry": "3/13/26"
       },
       {
-        "id": "act_k19mqp1v",
+        "id": "act_83o8gdch",
         "date": "3/3/2026",
         "instrument": "SOFI",
         "desc": "SOFI 3/13/2026 Put $18.00",
@@ -2888,7 +2408,7 @@
         "expiry": "3/13/26"
       },
       {
-        "id": "act_cmjepmaw",
+        "id": "act_2czvfhlp",
         "date": "3/3/2026",
         "instrument": "SOFI",
         "desc": "SOFI 3/6/2026 Put $17.50",
@@ -2904,7 +2424,7 @@
         "expiry": "3/6/26"
       },
       {
-        "id": "act_i22b5u57",
+        "id": "act_gnpcoi22",
         "date": "3/3/2026",
         "instrument": "SOFI",
         "desc": "SOFI 4/17/2026 Put $18.00",
@@ -2920,7 +2440,7 @@
         "expiry": "4/17/26"
       },
       {
-        "id": "act_6r2kwbbx",
+        "id": "act_tsr4cy9y",
         "date": "3/3/2026",
         "instrument": "SOFI",
         "desc": "SOFI 5/15/2026 Put $19.00",
@@ -2936,7 +2456,7 @@
         "expiry": "5/15/26"
       },
       {
-        "id": "act_2yupidzl",
+        "id": "act_1l0q143k",
         "date": "3/3/2026",
         "instrument": "PLTR",
         "desc": "PLTR 3/6/2026 Put $128.00",
@@ -2952,7 +2472,7 @@
         "expiry": "3/6/26"
       },
       {
-        "id": "act_4x0fzu31",
+        "id": "act_gx3i334d",
         "date": "3/3/2026",
         "instrument": "PLTR",
         "desc": "PLTR 3/13/2026 Put $130.00",
@@ -2968,7 +2488,7 @@
         "expiry": "3/13/26"
       },
       {
-        "id": "act_6tdq3wfa",
+        "id": "act_j7mfcd51",
         "date": "3/3/2026",
         "instrument": "SOFI",
         "desc": "SOFI 5/15/2026 Put $19.00",
@@ -2984,7 +2504,7 @@
         "expiry": "5/15/26"
       },
       {
-        "id": "act_9g4czx4x",
+        "id": "act_uohn7zd2",
         "date": "3/3/2026",
         "instrument": "SOFI",
         "desc": "SOFI 4/17/2026 Put $18.00",
@@ -3000,7 +2520,7 @@
         "expiry": "4/17/26"
       },
       {
-        "id": "act_n4rp5uat",
+        "id": "act_ka0iu0o9",
         "date": "3/2/2026",
         "instrument": "QQQ",
         "desc": "QQQ 3/31/2026 Put $525.00",
@@ -3016,7 +2536,7 @@
         "expiry": "3/31/26"
       },
       {
-        "id": "act_dyh7vzei",
+        "id": "act_vg1zwer2",
         "date": "3/2/2026",
         "instrument": "QQQ",
         "desc": "QQQ 4/30/2026 Put $530.00",
@@ -3032,7 +2552,7 @@
         "expiry": "4/30/26"
       },
       {
-        "id": "act_jm5pllx4",
+        "id": "act_630rj1w8",
         "date": "3/2/2026",
         "instrument": "QQQ",
         "desc": "QQQ 4/30/2026 Put $435.00",
@@ -3048,7 +2568,7 @@
         "expiry": "4/30/26"
       },
       {
-        "id": "act_mceo7e48",
+        "id": "act_x31anab7",
         "date": "3/2/2026",
         "instrument": "QQQ",
         "desc": "QQQ 3/31/2026 Put $425.00",
@@ -3064,7 +2584,7 @@
         "expiry": "3/31/26"
       },
       {
-        "id": "act_c1yovut1",
+        "id": "act_z5y5f24z",
         "date": "3/2/2026",
         "instrument": "QQQ",
         "desc": "QQQ 3/31/2026 Call $530.00",
@@ -3080,7 +2600,7 @@
         "expiry": "3/31/26"
       },
       {
-        "id": "act_dz8sxv6e",
+        "id": "act_a41bv67q",
         "date": "3/2/2026",
         "instrument": "QQQ",
         "desc": "QQQ 4/30/2026 Call $535.00",
@@ -3096,7 +2616,7 @@
         "expiry": "4/30/26"
       },
       {
-        "id": "act_ovng4ce0",
+        "id": "act_rqgeyrau",
         "date": "3/2/2026",
         "instrument": "QQQ",
         "desc": "QQQ 3/31/2026 Call $625.00",
@@ -3112,7 +2632,7 @@
         "expiry": "3/31/26"
       },
       {
-        "id": "act_x8sj5vew",
+        "id": "act_1gvw80sn",
         "date": "3/2/2026",
         "instrument": "QQQ",
         "desc": "QQQ 4/30/2026 Call $641.00",
@@ -3128,7 +2648,7 @@
         "expiry": "4/30/26"
       },
       {
-        "id": "act_rjs17uac",
+        "id": "act_bqor4z0p",
         "date": "3/2/2026",
         "instrument": "HOOZ",
         "desc": "Defiance Daily Target 2X Short HOOD ETF CUSIP: 88636W528",
@@ -3144,13 +2664,13 @@
         "expiry": ""
       },
       {
-        "id": "act_wa43hep9",
+        "id": "act_9w0litb3",
         "date": "3/2/2026",
-        "instrument": "—",
+        "instrument": "--",
         "desc": "Gold Deposit Boost Payment",
         "tc": "GDBP",
-        "qty": "—",
-        "price": "—",
+        "qty": "--",
+        "price": "--",
         "amount": 0.85,
         "category": "income",
         "typeLabel": "Gold Deposit Boost Payment",
@@ -3160,13 +2680,13 @@
         "expiry": ""
       },
       {
-        "id": "act_j3lajmxq",
+        "id": "act_iyilu6w6",
         "date": "2/27/2026",
-        "instrument": "—",
+        "instrument": "--",
         "desc": "Brokerage-held Cash Interest Payment",
         "tc": "INT",
-        "qty": "—",
-        "price": "—",
+        "qty": "--",
+        "price": "--",
         "amount": 7.85,
         "category": "income",
         "typeLabel": "Brokerage-held Cash Interest Payment",
@@ -3176,13 +2696,13 @@
         "expiry": ""
       },
       {
-        "id": "act_eduuev12",
+        "id": "act_apulew8r",
         "date": "2/27/2026",
-        "instrument": "—",
+        "instrument": "--",
         "desc": "Interest Payment",
         "tc": "INT",
-        "qty": "—",
-        "price": "—",
+        "qty": "--",
+        "price": "--",
         "amount": 5.71,
         "category": "income",
         "typeLabel": "Interest Payment",
@@ -3192,7 +2712,7 @@
         "expiry": ""
       },
       {
-        "id": "act_dkhjivj1",
+        "id": "act_44vgnniu",
         "date": "2/27/2026",
         "instrument": "SOFI",
         "desc": "SOFI 3/6/2026 Put $17.50",
@@ -3208,7 +2728,7 @@
         "expiry": "3/6/26"
       },
       {
-        "id": "act_eel3wbkm",
+        "id": "act_05npeple",
         "date": "2/27/2026",
         "instrument": "SOFI",
         "desc": "SOFI 2/27/2026 Put $18.00",
@@ -3224,7 +2744,7 @@
         "expiry": "2/27/26"
       },
       {
-        "id": "act_hfi25bpj",
+        "id": "act_9ob7v2b1",
         "date": "2/26/2026",
         "instrument": "SOFI",
         "desc": "SOFI 3/6/2026 Put $17.50",
@@ -3240,7 +2760,7 @@
         "expiry": "3/6/26"
       },
       {
-        "id": "act_vivvr69g",
+        "id": "act_aaqrxhln",
         "date": "2/26/2026",
         "instrument": "SOFI",
         "desc": "SOFI 2/27/2026 Put $17.00",
@@ -3256,7 +2776,7 @@
         "expiry": "2/27/26"
       },
       {
-        "id": "act_fxt4xyae",
+        "id": "act_bgl4cswy",
         "date": "2/26/2026",
         "instrument": "PLTR",
         "desc": "PLTR 3/6/2026 Put $128.00",
@@ -3272,7 +2792,7 @@
         "expiry": "3/6/26"
       },
       {
-        "id": "act_5m9hrctm",
+        "id": "act_20xz8smk",
         "date": "2/26/2026",
         "instrument": "PLTR",
         "desc": "PLTR 2/27/2026 Put $124.00",
@@ -3288,7 +2808,7 @@
         "expiry": "2/27/26"
       },
       {
-        "id": "act_dhmr60t0",
+        "id": "act_6urgseir",
         "date": "2/23/2026",
         "instrument": "PLTR",
         "desc": "Palantir Technologies CUSIP: 69608A108",
@@ -3304,7 +2824,7 @@
         "expiry": ""
       },
       {
-        "id": "act_wx163twv",
+        "id": "act_9bgujdgp",
         "date": "2/23/2026",
         "instrument": "SOFI",
         "desc": "SoFi Technologies CUSIP: 83406F102",
@@ -3320,7 +2840,7 @@
         "expiry": ""
       },
       {
-        "id": "act_7jnz1jil",
+        "id": "act_mjrtvl0q",
         "date": "2/23/2026",
         "instrument": "SOFI",
         "desc": "SoFi Technologies CUSIP: 83406F102",
@@ -3336,7 +2856,7 @@
         "expiry": ""
       },
       {
-        "id": "act_599idg16",
+        "id": "act_3emehtvq",
         "date": "2/23/2026",
         "instrument": "SOFI",
         "desc": "SoFi Technologies CUSIP: 83406F102",
@@ -3352,7 +2872,7 @@
         "expiry": ""
       },
       {
-        "id": "act_hdovp6vr",
+        "id": "act_f1j295dd",
         "date": "2/23/2026",
         "instrument": "SOFI",
         "desc": "SoFi Technologies CUSIP: 83406F102",
@@ -3368,7 +2888,7 @@
         "expiry": ""
       },
       {
-        "id": "act_adzuolin",
+        "id": "act_2qbua2f4",
         "date": "2/23/2026",
         "instrument": "SOFI",
         "desc": "SOFI 2/27/2026 Put $17.00",
@@ -3384,7 +2904,7 @@
         "expiry": "2/27/26"
       },
       {
-        "id": "act_8olz8li1",
+        "id": "act_1v876rtr",
         "date": "2/23/2026",
         "instrument": "SOFI",
         "desc": "SOFI 4/17/2026 Put $18.00",
@@ -3400,7 +2920,7 @@
         "expiry": "4/17/26"
       },
       {
-        "id": "act_zqvq9d9z",
+        "id": "act_0z9hjbzi",
         "date": "2/23/2026",
         "instrument": "SOFI",
         "desc": "SOFI 1/15/2027 Call $12.00",
@@ -3416,7 +2936,7 @@
         "expiry": "1/15/27"
       },
       {
-        "id": "act_lm7fjy0w",
+        "id": "act_nuj40215",
         "date": "2/23/2026",
         "instrument": "SOFI",
         "desc": "SOFI 4/17/2026 Put $18.00",
@@ -3432,7 +2952,7 @@
         "expiry": "4/17/26"
       },
       {
-        "id": "act_ibdezp2q",
+        "id": "act_13holtx6",
         "date": "2/23/2026",
         "instrument": "SOFI",
         "desc": "SOFI 3/27/2026 Put $19.00",
@@ -3448,7 +2968,7 @@
         "expiry": "3/27/26"
       },
       {
-        "id": "act_dgnex6x9",
+        "id": "act_ke24yf6l",
         "date": "2/23/2026",
         "instrument": "PLTR",
         "desc": "PLTR 1/15/2027 Call $87.50",
@@ -3464,7 +2984,7 @@
         "expiry": "1/15/27"
       },
       {
-        "id": "act_rwa5lt1n",
+        "id": "act_ucza02bc",
         "date": "2/23/2026",
         "instrument": "PLTR",
         "desc": "Palantir Technologies CUSIP: 69608A108",
@@ -3480,7 +3000,7 @@
         "expiry": ""
       },
       {
-        "id": "act_gd5k73py",
+        "id": "act_whetac2w",
         "date": "2/23/2026",
         "instrument": "PLTR",
         "desc": "PLTR 2/27/2026 Put $124.00",
@@ -3496,7 +3016,7 @@
         "expiry": "2/27/26"
       },
       {
-        "id": "act_t90o7c78",
+        "id": "act_0d5ttvve",
         "date": "2/23/2026",
         "instrument": "PLTR",
         "desc": "PLTR 4/17/2026 Put $130.00",
@@ -3512,7 +3032,7 @@
         "expiry": "4/17/26"
       },
       {
-        "id": "act_uglp8k6e",
+        "id": "act_r2i2j2jq",
         "date": "2/20/2026",
         "instrument": "PLTR",
         "desc": "Palantir Technologies CUSIP: 69608A108 1 PLTR Option Assigned",
@@ -3528,7 +3048,7 @@
         "expiry": ""
       },
       {
-        "id": "act_7iaroych",
+        "id": "act_ekvqwg3v",
         "date": "2/20/2026",
         "instrument": "SOFI",
         "desc": "SoFi Technologies CUSIP: 83406F102 1 SOFI Option Assigned",
@@ -3544,7 +3064,7 @@
         "expiry": ""
       },
       {
-        "id": "act_jtfcrudi",
+        "id": "act_7o6ptl18",
         "date": "2/20/2026",
         "instrument": "HOOZ",
         "desc": "Defiance Daily Target 2X Short HOOD ETF CUSIP: 88636W528",
@@ -3560,7 +3080,7 @@
         "expiry": ""
       },
       {
-        "id": "act_n8u810lm",
+        "id": "act_jz0856rt",
         "date": "2/20/2026",
         "instrument": "METU",
         "desc": "METU 2/20/2026 Put $30.00",
@@ -3576,23 +3096,23 @@
         "expiry": "2/20/26"
       },
       {
-        "id": "act_vdt28fvg",
+        "id": "act_wcbbfarf",
         "date": "2/18/2026",
         "instrument": "NOK",
         "desc": "Cash Div: R/D 2026-02-03 P/D 2026-02-18 - 200 shares at 0.035642",
         "tc": "CDIV",
-        "qty": "—",
-        "price": "—",
+        "qty": "--",
+        "price": "--",
         "amount": 7.13,
         "category": "income",
-        "typeLabel": "Cash Div: R/D 2026-02-03 P/D 2026-02-18 …",
+        "typeLabel": "Cash Div: R/D 2026-02-03 P/D 2026-02-18 ...",
         "optTicker": "",
         "optType": "",
         "strike": 0,
         "expiry": ""
       },
       {
-        "id": "act_o6isksi4",
+        "id": "act_5mrnkuyv",
         "date": "2/18/2026",
         "instrument": "METU",
         "desc": "METU 2/20/2026 Put $25.00",
@@ -3608,7 +3128,7 @@
         "expiry": "2/20/26"
       },
       {
-        "id": "act_mgwtywvs",
+        "id": "act_zwup5wn7",
         "date": "2/18/2026",
         "instrument": "NOK",
         "desc": "Nokia CUSIP: 654902204",
@@ -3624,7 +3144,7 @@
         "expiry": ""
       },
       {
-        "id": "act_e7az38gy",
+        "id": "act_jgx88yqq",
         "date": "2/18/2026",
         "instrument": "NOK",
         "desc": "NOK 2/20/2026 Call $7.00",
@@ -3640,7 +3160,7 @@
         "expiry": "2/20/26"
       },
       {
-        "id": "act_wklxyjvi",
+        "id": "act_oz18485q",
         "date": "2/18/2026",
         "instrument": "NOK",
         "desc": "Nokia CUSIP: 654902204",
@@ -3656,7 +3176,7 @@
         "expiry": ""
       },
       {
-        "id": "act_kz3uy4jz",
+        "id": "act_8kpv9ujn",
         "date": "2/18/2026",
         "instrument": "NOK",
         "desc": "NOK 2/20/2026 Call $7.00",
@@ -3672,7 +3192,7 @@
         "expiry": "2/20/26"
       },
       {
-        "id": "act_b54pt49u",
+        "id": "act_85pivsp2",
         "date": "2/18/2026",
         "instrument": "SOFI",
         "desc": "SOFI 2/20/2026 Put $18.00",
@@ -3688,7 +3208,7 @@
         "expiry": "2/20/26"
       },
       {
-        "id": "act_iy2t5f7f",
+        "id": "act_gmnkd6qh",
         "date": "2/18/2026",
         "instrument": "SOFI",
         "desc": "SOFI 2/20/2026 Put $18.00",
@@ -3704,7 +3224,7 @@
         "expiry": "2/20/26"
       },
       {
-        "id": "act_jagr1zwe",
+        "id": "act_ippf3x9r",
         "date": "2/18/2026",
         "instrument": "PLTR",
         "desc": "PLTR 2/20/2026 Put $120.00",
@@ -3720,7 +3240,7 @@
         "expiry": "2/20/26"
       },
       {
-        "id": "act_iqacj9g9",
+        "id": "act_yerbb3oq",
         "date": "2/18/2026",
         "instrument": "SOFI",
         "desc": "SOFI 2/27/2026 Put $18.00",
@@ -3736,7 +3256,7 @@
         "expiry": "2/27/26"
       },
       {
-        "id": "act_zueyfuvq",
+        "id": "act_9d159hzp",
         "date": "2/18/2026",
         "instrument": "SOFI",
         "desc": "SOFI 3/27/2026 Put $19.00",
@@ -3752,7 +3272,7 @@
         "expiry": "3/27/26"
       },
       {
-        "id": "act_s2zycem0",
+        "id": "act_hvw5tz40",
         "date": "2/18/2026",
         "instrument": "SOFI",
         "desc": "SOFI 1/15/2027 Call $12.00",
@@ -3768,7 +3288,7 @@
         "expiry": "1/15/27"
       },
       {
-        "id": "act_grh4953h",
+        "id": "act_a8kuju3v",
         "date": "2/18/2026",
         "instrument": "ROBN",
         "desc": "ROBN 3/20/2026 Put $13.00",
@@ -3784,7 +3304,7 @@
         "expiry": "3/20/26"
       },
       {
-        "id": "act_l4gxt4f5",
+        "id": "act_bm3wg658",
         "date": "2/18/2026",
         "instrument": "ROBN",
         "desc": "ROBN 2/20/2026 Put $50.00",
@@ -3800,7 +3320,7 @@
         "expiry": "2/20/26"
       },
       {
-        "id": "act_23pznbij",
+        "id": "act_e1s1ffih",
         "date": "2/18/2026",
         "instrument": "ROBN",
         "desc": "ROBN 3/20/2026 Put $50.00",
@@ -3816,7 +3336,7 @@
         "expiry": "3/20/26"
       },
       {
-        "id": "act_5q8zx2vq",
+        "id": "act_06t3tbcl",
         "date": "2/17/2026",
         "instrument": "SOFI",
         "desc": "SoFi Technologies CUSIP: 83406F102 1 SOFI Option Assigned",
@@ -3832,7 +3352,7 @@
         "expiry": ""
       },
       {
-        "id": "act_hjyr0s9k",
+        "id": "act_2n2qoivp",
         "date": "2/17/2026",
         "instrument": "ROBN",
         "desc": "ROBN 2/20/2026 Put $35.00",
@@ -3848,7 +3368,7 @@
         "expiry": "2/20/26"
       },
       {
-        "id": "act_k45x3bi6",
+        "id": "act_lwf3jp0j",
         "date": "2/13/2026",
         "instrument": "SOFI",
         "desc": "SOFI 2/20/2026 Put $18.00",
@@ -3864,7 +3384,7 @@
         "expiry": "2/20/26"
       },
       {
-        "id": "act_ni6nyb64",
+        "id": "act_pfj7n9a9",
         "date": "2/13/2026",
         "instrument": "SOFI",
         "desc": "SOFI 2/20/2026 Put $18.00",
@@ -3880,7 +3400,7 @@
         "expiry": "2/20/26"
       },
       {
-        "id": "act_x37ksr4v",
+        "id": "act_q1zx4fli",
         "date": "2/13/2026",
         "instrument": "METU",
         "desc": "METU 2/20/2026 Call $40.00",
@@ -3896,7 +3416,7 @@
         "expiry": "2/20/26"
       },
       {
-        "id": "act_pyzh8hpq",
+        "id": "act_y103y3fr",
         "date": "2/12/2026",
         "instrument": "SOFI",
         "desc": "SoFi Technologies CUSIP: 83406F102 2 SOFI Options Assigned",
@@ -3912,7 +3432,7 @@
         "expiry": ""
       },
       {
-        "id": "act_0acxey0o",
+        "id": "act_j80hhxrz",
         "date": "2/9/2026",
         "instrument": "ROBN",
         "desc": "ROBN 2/20/2026 Put $55.00",
@@ -3928,7 +3448,7 @@
         "expiry": "2/20/26"
       },
       {
-        "id": "act_c9p58h3l",
+        "id": "act_fengdhk8",
         "date": "2/9/2026",
         "instrument": "ROBN",
         "desc": "ROBN 2/20/2026 Put $53.00",
@@ -3944,7 +3464,7 @@
         "expiry": "2/20/26"
       },
       {
-        "id": "act_736bgwci",
+        "id": "act_wzaxiqb5",
         "date": "2/9/2026",
         "instrument": "QQQ",
         "desc": "QQQ 3/31/2026 Put $525.00",
@@ -3960,7 +3480,7 @@
         "expiry": "3/31/26"
       },
       {
-        "id": "act_x2ax5u1n",
+        "id": "act_x14va9dh",
         "date": "2/9/2026",
         "instrument": "QQQ",
         "desc": "QQQ 3/31/2026 Put $425.00",
@@ -3976,13 +3496,13 @@
         "expiry": "3/31/26"
       },
       {
-        "id": "act_q89m9dn4",
+        "id": "act_zonv8cwk",
         "date": "2/2/2026",
-        "instrument": "—",
+        "instrument": "--",
         "desc": "Gold Deposit Boost Payment",
         "tc": "GDBP",
-        "qty": "—",
-        "price": "—",
+        "qty": "--",
+        "price": "--",
         "amount": 0.86,
         "category": "income",
         "typeLabel": "Gold Deposit Boost Payment",
