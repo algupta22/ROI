@@ -372,6 +372,60 @@ td.mc{color:var(--black);font-weight:700;}td.mn{font-family:monospace;font-size:
 .admin-add-btn{background:var(--red);color:#fff;border:none;padding:0.38rem 0.9rem;border-radius:7px;font-size:0.7rem;font-weight:700;cursor:pointer;}
 .admin-add-btn:hover{background:var(--red2);}
 .admin-note{font-size:0.68rem;color:var(--text3);background:var(--blue-bg);border:1px solid rgba(37,99,235,0.15);border-radius:8px;padding:0.65rem 1rem;line-height:1.6;}
+/* ── ACTIVITY VIEW ── */
+.act-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0.65rem;margin-bottom:0.85rem;}
+.act-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:0.75rem 0.9rem;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
+.act-card-lbl{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text3);margin-bottom:0.25rem;}
+.act-card-val{font-size:1.05rem;font-weight:800;font-family:monospace;line-height:1.1;}
+.act-card-sub{font-size:0.58rem;color:var(--text3);margin-top:0.15rem;}
+.act-controls{display:flex;gap:0.5rem;flex-wrap:wrap;align-items:center;margin-bottom:0.75rem;}
+.act-search{flex:1;min-width:160px;max-width:260px;border:1px solid var(--border2);border-radius:7px;padding:0.3rem 0.65rem;font-size:0.73rem;outline:none;color:var(--black);}
+.act-search:focus{border-color:var(--red);}
+.act-type-filter{display:flex;gap:2px;background:var(--bg2);border:1px solid var(--border);border-radius:9px;padding:3px;box-shadow:0 1px 4px rgba(0,0,0,0.06);flex-wrap:wrap;}
+.act-tab{background:transparent;border:none;color:var(--text3);padding:0.2rem 0.5rem;border-radius:6px;font-size:0.62rem;font-weight:700;cursor:pointer;text-transform:uppercase;transition:all 0.15s;white-space:nowrap;}
+.act-tab.active{background:var(--red);color:#fff;}.act-tab:hover:not(.active){color:var(--black);}
+.act-upload-btn{display:inline-flex;align-items:center;gap:0.32rem;background:var(--black);color:#fff;border:none;padding:0.26rem 0.72rem;border-radius:7px;font-size:0.65rem;font-weight:700;cursor:pointer;white-space:nowrap;margin-left:auto;}
+.act-upload-btn:hover{background:#333;}
+.act-dl-btn{display:inline-flex;align-items:center;gap:0.3rem;background:transparent;color:var(--blue);border:1px solid rgba(37,99,235,0.3);padding:0.26rem 0.65rem;border-radius:7px;font-size:0.65rem;font-weight:700;cursor:pointer;white-space:nowrap;}
+.act-dl-btn:hover{background:var(--blue-bg);}
+.act-clear-btn{background:transparent;color:var(--text3);border:1px solid var(--border);padding:0.22rem 0.55rem;border-radius:7px;font-size:0.62rem;font-weight:600;cursor:pointer;}
+.act-clear-btn:hover{color:var(--red);border-color:rgba(220,38,38,0.3);}
+.act-table-wrap{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;overflow-x:auto;box-shadow:0 1px 4px rgba(0,0,0,0.06);margin-bottom:0.85rem;}
+.act-table{width:100%;border-collapse:collapse;min-width:820px;}
+.act-table thead{background:var(--black);}
+.act-table th{padding:0.55rem 0.75rem;font-size:0.6rem;font-weight:700;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:0.07em;text-align:left;white-space:nowrap;cursor:pointer;user-select:none;}
+.act-table th:hover{color:var(--red2);}
+.act-table th .sort-icon{margin-left:3px;opacity:0.5;font-size:0.55rem;}
+.act-table th.sorted .sort-icon{opacity:1;color:var(--red2);}
+.act-table tbody tr{border-bottom:1px solid var(--border);transition:background 0.1s;}
+.act-table tbody tr:last-child{border-bottom:none;}
+.act-table tbody tr:hover{background:#FAFAFA;}
+.act-table td{padding:0.48rem 0.75rem;font-size:0.72rem;color:var(--text2);white-space:nowrap;}
+.act-table td.mn{font-family:monospace;font-size:0.71rem;}
+.act-pill{display:inline-flex;align-items:center;padding:0.1rem 0.45rem;border-radius:4px;font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;white-space:nowrap;}
+.act-sto{background:#FEF2F2;color:#DC2626;}
+.act-btc{background:#ECFDF5;color:#059669;}
+.act-bto{background:#EFF6FF;color:#2563EB;}
+.act-stc{background:#F5F3FF;color:#7C3AED;}
+.act-buy{background:#FFFBEB;color:#D97706;}
+.act-sell{background:#F0FFF4;color:#16A34A;}
+.act-int{background:#F8FAFC;color:#94A3B8;}
+.act-other{background:#F3F4F6;color:#9CA3AF;}
+.act-amt-pos{color:var(--green);font-weight:700;font-family:monospace;}
+.act-amt-neg{color:var(--red);font-weight:700;font-family:monospace;}
+.act-del-row{background:none;border:none;color:#D1D5DB;cursor:pointer;padding:0.15rem 0.28rem;border-radius:3px;font-size:0.7rem;}
+.act-del-row:hover{background:var(--red-bg);color:var(--red);}
+.act-upload-panel{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);margin-bottom:0.75rem;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
+.act-upload-hdr{background:var(--black);padding:0.48rem 1rem;display:flex;align-items:center;justify-content:space-between;}
+.act-upload-title{font-size:0.7rem;font-weight:700;color:#fff;}
+.act-close-x{background:none;border:none;color:rgba(255,255,255,0.5);cursor:pointer;font-size:0.85rem;}
+.act-close-x:hover{color:#fff;}
+.act-upload-body{padding:0.85rem 1rem;}
+.act-info-badge{background:var(--blue-bg);border:1px solid rgba(37,99,235,0.15);border-radius:8px;padding:0.45rem 0.85rem;font-size:0.68rem;color:var(--blue);margin-bottom:0.65rem;}
+.act-pg{display:flex;align-items:center;gap:0.5rem;justify-content:flex-end;padding-top:0.5rem;font-size:0.68rem;color:var(--text3);}
+.act-pg-btn{background:var(--bg3);border:1px solid var(--border);color:var(--text2);padding:0.2rem 0.55rem;border-radius:5px;font-size:0.65rem;font-weight:600;cursor:pointer;}
+.act-pg-btn:hover:not(:disabled){background:var(--black);color:#fff;border-color:var(--black);}
+.act-pg-btn:disabled{opacity:0.4;cursor:not-allowed;}
 </style>
 </head>
 <body>
@@ -397,11 +451,13 @@ td.mc{color:var(--black);font-weight:700;}td.mn{font-family:monospace;font-size:
 <div class="view-nav" id="view-nav">
   <div class="view-tab active" data-view="positions">&#128202; Positions</div>
   <div class="view-tab" data-view="spreads">&#8597; Spreads / Risk View</div>
+  <div class="view-tab" data-view="activity">&#128196; Activity</div>
   <div class="view-tab" data-view="admin">&#9881; Admin — Prices</div>
 </div>
 <div class="breadcrumb" id="bc"><span>All Portfolios</span></div>
 <div id="modal-root"></div>
 <input type="file" id="csv-file-input" accept=".csv,.tsv,.txt" style="display:none;">
+<input type="file" id="act-file-input" accept=".csv,.tsv,.txt" style="display:none;">
 <div class="main" id="mc"></div>
 <script>
 const DC={PLTR:'#7C3AED',MSFT:'#2563EB',GOOGL:'#D97706',NVDX:'#059669',SOFI:'#DB2777',TSLL:'#EA580C',NVTS:'#0891B2',METU:'#DC2626'};
@@ -1436,12 +1492,314 @@ async function fetchAndUpdateLive(tickers){
   }));
 }
 
+// ── ACTIVITY TAB ─────────────────────────────────────────────────────────────
+const ACT_KEY='roi_activity_v1';
+function loadActivity(){try{return JSON.parse(localStorage.getItem(ACT_KEY)||'{}');}catch{return{};}}
+function saveActivity(d){try{localStorage.setItem(ACT_KEY,JSON.stringify(d));}catch{}}
+let activityData=loadActivity(); // {portKey:[rows...]}
+
+// State for activity tab
+let actFilter='all'; // all|options|shares|other
+let actSearch='';
+let actSortCol='date';let actSortDir=-1; // -1=desc (newest first)
+let actPage=0;const ACT_PAGE_SIZE=50;
+let actUploadOpen=false;let actUploadPreview=null;let actUploadMsg='';
+
+function getActPortKey(){
+  // Map current port/sub to a storage key
+  if(ap==='retirement')return'act_'+as;
+  return'act_'+ap;
+}
+function getActRows(){return activityData[getActPortKey()]||[];}
+function setActRows(rows){
+  activityData[getActPortKey()]=rows;
+  saveActivity(activityData);
+}
+
+// Parse a brokerage row into an activity record
+function parseActDesc(desc){
+  if(!desc)return{kind:'other',label:'Other'};
+  const d=desc.trim();
+  const opt=parseOptionDescription(d);
+  if(opt)return{kind:'option',ticker:opt.ticker,optionType:opt.optionType,strike:opt.strike,expiry:opt.expiryDate};
+  // Share transaction
+  if(/CUSIP|buy|sell/i.test(d)||/\d+\s+shares/i.test(d))return{kind:'share'};
+  // Interest / dividend
+  if(/interest|INT|GDBP|CDIV|dividend/i.test(d))return{kind:'income'};
+  return{kind:'other'};
+}
+
+function parseBrokerageForActivity(text){
+  const collapsed=collapseQuotedNewlines(text);
+  const lines=collapsed.split('\n').map(l=>l.trim());
+  if(lines.length<2)return{error:'Need header + data rows.'};
+  const headers=splitCSVLine(lines[0]).map(h=>h.toLowerCase().replace(/\s+/g,''));
+  const col={};
+  headers.forEach((h,i)=>{
+    if(h.includes('activitydate')||h==='date')col.date=i;
+    else if(h.includes('instrument')||h==='symbol')col.instrument=i;
+    else if(h.includes('description')||h==='desc')col.desc=i;
+    else if(h.includes('transcode')||h==='action')col.tc=i;
+    else if(h==='quantity'||h.includes('qty'))col.qty=i;
+    else if(h==='price')col.price=i;
+    else if(h==='amount'||h.includes('netamount'))col.amount=i;
+  });
+  const rows=[];
+  for(let i=1;i<lines.length;i++){
+    const line=lines[i];if(!line)continue;
+    const vals=splitCSVLine(line);
+    if(vals.every(v=>!v))continue;
+    // Skip disclaimer row
+    if(vals.join('').includes('informational purposes only'))continue;
+    const get=idx=>idx!=null?(vals[idx]||'').trim():'';
+    const date=get(col.date);
+    const instrument=get(col.instrument).toUpperCase();
+    const desc=get(col.desc);
+    const tc=get(col.tc).toUpperCase();
+    const qty=get(col.qty);
+    const price=get(col.price);
+    const rawAmt=get(col.amount);
+    if(!date&&!instrument&&!desc)continue;
+    // Skip pure admin rows (OASGN, ITRF, DFEE, DTAX, GDBP, INT, CDIV, ACH unless we want income)
+    // We include INT/CDIV as income rows, skip ITRF/OASGN/DFEE/DTAX
+    const skipCodes=['ITRF','OASGN','DFEE','DTAX'];
+    if(skipCodes.includes(tc))continue;
+    const amount=parseAmount(rawAmt);
+    const opt=parseOptionDescription(desc);
+    // Determine category
+    let category,typeLabel,tcDisplay;
+    if(opt){
+      category='option';
+      if(tc==='STO')tcDisplay='STO';
+      else if(tc==='BTC')tcDisplay='BTC';
+      else if(tc==='BTO')tcDisplay='BTO';
+      else if(tc==='STC')tcDisplay='STC';
+      else tcDisplay=tc||'OPT';
+      typeLabel=opt.optionType+' '+opt.strike+(opt.expiryDate?' exp '+opt.expiryDate:'');
+    }else if(tc==='BUY'||tc==='SELL'||(instrument&&(desc.includes('CUSIP')||(!opt&&tc&&!['INT','CDIV','GDBP','ACH'].includes(tc))))){
+      category='share';
+      tcDisplay=tc==='BUY'?'Buy':(tc==='SELL'?'Sell':tc);
+      typeLabel='Shares';
+    }else if(['INT','CDIV','GDBP','ACH'].includes(tc)){
+      category='income';
+      tcDisplay=tc;
+      typeLabel=desc.length>40?desc.slice(0,40)+'…':desc;
+    }else{
+      category='other';
+      tcDisplay=tc||'—';
+      typeLabel=desc.length>40?desc.slice(0,40)+'…':desc;
+    }
+    const uid='act_'+Math.random().toString(36).slice(2,10);
+    rows.push({
+      id:uid,date,instrument:instrument||'—',desc,tc:tcDisplay,
+      qty:qty||'—',price:price||'—',amount,category,
+      typeLabel,
+      optTicker:opt?.ticker||'',optType:opt?.optionType||'',
+      strike:opt?.strike||0,expiry:opt?.expiryDate||''
+    });
+  }
+  return{rows,errors:[]};
+}
+
+function actSummaryStats(rows){
+  const opts=rows.filter(r=>r.category==='option');
+  const shares=rows.filter(r=>r.category==='share');
+  const income=rows.filter(r=>r.category==='income');
+  const credits=opts.filter(r=>r.amount>0).reduce((s,r)=>s+r.amount,0);
+  const debits=opts.filter(r=>r.amount<0).reduce((s,r)=>s+Math.abs(r.amount),0);
+  const netOptions=opts.reduce((s,r)=>s+r.amount,0);
+  const netShares=shares.reduce((s,r)=>s+r.amount,0);
+  const netIncome=income.reduce((s,r)=>s+r.amount,0);
+  const tickers=[...new Set(rows.filter(r=>r.instrument&&r.instrument!=='—').map(r=>r.instrument))];
+  return{total:rows.length,opts:opts.length,shares:shares.length,credits,debits,netOptions,netShares,netIncome,tickers:tickers.length};
+}
+
+function rActivityView(){
+  const allRows=getActRows();
+
+  // Filter rows
+  let rows=[...allRows];
+  if(actFilter==='options')rows=rows.filter(r=>r.category==='option');
+  else if(actFilter==='shares')rows=rows.filter(r=>r.category==='share');
+  else if(actFilter==='income')rows=rows.filter(r=>r.category==='income');
+  else if(actFilter==='other')rows=rows.filter(r=>r.category==='other');
+
+  // Ticker filter (reuse selectedTickers from main state)
+  if(!selectedTickers.has('ALL')){
+    rows=rows.filter(r=>selectedTickers.has(r.instrument));
+  }
+
+  // Search
+  if(actSearch){
+    const q=actSearch.toLowerCase();
+    rows=rows.filter(r=>(r.instrument+r.desc+r.tc+r.typeLabel).toLowerCase().includes(q));
+  }
+
+  // Sort
+  rows.sort((a,b)=>{
+    let av,bv;
+    if(actSortCol==='date'){av=new Date(a.date||0);bv=new Date(b.date||0);}
+    else if(actSortCol==='amount'){av=a.amount;bv=b.amount;}
+    else if(actSortCol==='ticker'){av=(a.instrument||'').toLowerCase();bv=(b.instrument||'').toLowerCase();}
+    else if(actSortCol==='tc'){av=(a.tc||'').toLowerCase();bv=(b.tc||'').toLowerCase();}
+    else{av=a[actSortCol]||'';bv=b[actSortCol]||'';}
+    if(av<bv)return actSortDir;if(av>bv)return-actSortDir;return 0;
+  });
+
+  const stats=actSummaryStats(rows);
+  const totalPages=Math.ceil(rows.length/ACT_PAGE_SIZE);
+  const page=Math.min(actPage,Math.max(0,totalPages-1));
+  const pageRows=rows.slice(page*ACT_PAGE_SIZE,(page+1)*ACT_PAGE_SIZE);
+
+  // Summary cards
+  const cards='<div class="act-summary">'
+    +'<div class="act-card"><div class="act-card-lbl">Total Rows</div><div class="act-card-val" style="color:var(--black);">'+rows.length.toLocaleString()+'</div><div class="act-card-sub">filtered</div></div>'
+    +'<div class="act-card"><div class="act-card-lbl">Options Trades</div><div class="act-card-val" style="color:var(--red);">'+stats.opts+'</div><div class="act-card-sub">in view</div></div>'
+    +'<div class="act-card"><div class="act-card-lbl">Net Options P&L</div><div class="act-card-val" style="color:'+(stats.netOptions>=0?'var(--green)':'var(--red)');+'">'+fp(stats.netOptions)+'</div><div class="act-card-sub">credits − debits</div></div>'
+    +'<div class="act-card"><div class="act-card-lbl">Credits</div><div class="act-card-val" style="color:var(--green);">+$'+stats.credits.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})+'</div><div class="act-card-sub">options income</div></div>'
+    +'<div class="act-card"><div class="act-card-lbl">Debits</div><div class="act-card-val" style="color:var(--red);">-$'+stats.debits.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})+'</div><div class="act-card-sub">options cost</div></div>'
+    +'<div class="act-card"><div class="act-card-lbl">Net Shares</div><div class="act-card-val" style="color:'+(stats.netShares>=0?'var(--green)':'var(--red)')+'">'+fp(stats.netShares)+'</div><div class="act-card-sub">share trades</div></div>'
+    +'<div class="act-card"><div class="act-card-lbl">Other Income</div><div class="act-card-val" style="color:var(--green);">+$'+Math.max(0,stats.netIncome).toFixed(2)+'</div><div class="act-card-sub">interest &amp; div</div></div>'
+    +'<div class="act-card"><div class="act-card-lbl">Tickers</div><div class="act-card-val" style="color:var(--black);">'+stats.tickers+'</div><div class="act-card-sub">unique</div></div>'
+    +'</div>';
+
+  // Filter bar — ticker dropdown + type tabs + search + upload
+  const allTickers=[...new Set(allRows.filter(r=>r.instrument&&r.instrument!=='—').map(r=>r.instrument))].sort();
+  const allSel=selectedTickers.has('ALL');
+  const selList=allSel?[]:allTickers.filter(t=>selectedTickers.has(t));
+  const ddItems=allTickers.map(t=>{const sel=allSel||selectedTickers.has(t);return'<div class="ticker-dd-item'+(sel?' selected':'')+'" data-ddticker="'+t+'"><div class="ticker-dd-check">'+(sel?'&#10003;':'')+'</div><span class="dd-dot" style="background:'+(DC[t]||'#888')+'"></span>'+t+'</div>';}).join('');
+  const tags=allSel?'<span style="color:var(--text3);font-size:0.7rem;">All Tickers</span>':selList.map(t=>'<span class="sel-tag"><span style="width:6px;height:6px;border-radius:50%;background:'+(DC[t]||'#888')+';display:inline-block;flex-shrink:0;"></span>'+t+'<span class="sel-tag-x" data-xticker="'+t+'">&#10005;</span></span>').join('');
+  const tickerDd='<div class="filter-bar" style="margin-bottom:0.65rem;"><span class="filter-bar-label">&#127991; Ticker</span><div class="ticker-select-wrap" id="tkwrap"><div class="ticker-select-btn" id="tkbtn" onclick="toggleDropdown()"><div class="sel-tags">'+tags+'</div><span style="color:var(--text3);font-size:0.65rem;">&#9660;</span></div><div class="ticker-dropdown'+(dropdownOpen?' open':'')+'" id="tkdrop"><div class="ticker-dd-item'+(allSel?' selected':'')+'" data-ddticker="ALL"><div class="ticker-dd-check">'+(allSel?'&#10003;':'')+'</div><span style="font-size:0.72rem;font-weight:700;">All Tickers</span></div><div style="height:1px;background:var(--border);margin:0.25rem 0;"></div>'+ddItems+'</div></div></div>';
+
+  const typeTabs=['all','options','shares','income','other'].map(f=>'<button class="act-tab'+(actFilter===f?' active':'')+'" data-actf="'+f+'">'+(f==='all'?'All':f==='options'?'Options':f==='shares'?'Shares':f==='income'?'Income':'Other')+'</button>').join('');
+
+  const controls='<div class="act-controls">'
+    +'<div class="act-type-filter">'+typeTabs+'</div>'
+    +'<input class="act-search" id="act-search-inp" placeholder="&#128269; Search ticker, description..." value="'+actSearch+'" oninput="actSearchChange(this.value)">'
+    +(allRows.length?'<button class="act-clear-btn" onclick="actClearAll()" title="Delete all activity for this portfolio">&#128465; Clear All</button>':'')
+    +'<button class="act-upload-btn" onclick="actToggleUpload()">&#8593; Upload Activity</button>'
+    +'</div>';
+
+  // Upload panel
+  let uploadPanel='';
+  if(actUploadOpen){
+    let upBody='';
+    if(actUploadPreview){
+      const{rows:pr,errors}=actUploadPreview;const show=pr.slice(0,6);
+      upBody='<div class="act-info-badge">&#8505; <strong>'+pr.length+' rows</strong> parsed — these will be <strong>prepended</strong> (newest on top). Duplicates are not filtered automatically.</div>'
+        +'<div class="preview-wrap"><div class="preview-hdr">Preview (first 6 of '+pr.length+')</div>'
+        +'<div class="preview-scroll"><table class="preview-table"><thead><tr><th>Date</th><th>Ticker</th><th>Action</th><th>Description</th><th>Amount</th></tr></thead>'
+        +'<tbody>'+show.map(r=>'<tr><td>'+r.date+'</td><td><strong>'+(r.instrument||'—')+'</strong></td><td>'+rActPill(r.tc,r.category)+'</td><td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;font-size:0.63rem;color:var(--text3);">'+r.desc+'</td><td class="mn '+(r.amount>=0?'act-amt-pos':'act-amt-neg')+'">'+(r.amount>=0?'+':'')+r.amount.toFixed(2)+'</td></tr>').join('')
+        +errors.map(e=>'<tr><td colspan="5" class="err-cell">&#9888; '+e+'</td></tr>').join('')
+        +'</tbody></table></div></div>'
+        +'<div class="import-actions" style="margin-top:0.6rem;"><button class="import-btn" onclick="actDoImport()">&#8593; Import '+pr.length+' Rows</button><button class="cancel-upload-btn" onclick="actCancelUpload()">Cancel</button></div>'
+        +(actUploadMsg?'<div style="margin-top:0.5rem;"><span class="'+(actUploadMsg.ok?'import-ok':'import-err')+'">'+(actUploadMsg.ok?'✓':'⚠')+' '+actUploadMsg.text+'</span></div>':'');
+    }else{
+      upBody='<div class="act-info-badge">&#8505; Upload your Robinhood activity CSV. New rows are <strong>prepended on top</strong> — upload each week to keep history growing.</div>'
+        +'<div class="drop-zone" id="act-drop-zone" onclick="document.getElementById(\'act-file-input\').click()">'
+        +'<div class="drop-zone-icon">&#128196;</div>'
+        +'<div class="drop-zone-title">Drop Robinhood activity export here</div>'
+        +'<div class="drop-zone-sub">Activity Date · Instrument · Description · Trans Code · Amount</div>'
+        +'<button class="drop-zone-btn" onclick="event.stopPropagation();document.getElementById(\'act-file-input\').click()">&#128193; Choose File</button>'
+        +'</div>'
+        +(actUploadMsg?'<div style="margin-top:0.5rem;"><span class="'+(actUploadMsg.ok?'import-ok':'import-err')+'">'+(actUploadMsg.ok?'✓':'⚠')+' '+actUploadMsg.text+'</span></div>':'');
+    }
+    uploadPanel='<div class="act-upload-panel"><div class="act-upload-hdr"><span class="act-upload-title">&#8593; Upload Robinhood Activity</span><button class="act-close-x" onclick="actCancelUpload()">&#10005;</button></div><div class="act-upload-body">'+upBody+'</div></div>';
+  }
+
+  // Table
+  function th(col,label){const sorted=actSortCol===col;const icon=sorted?(actSortDir===-1?'▼':'▲'):'⇅';return'<th class="'+(sorted?'sorted':'')+'" onclick="actSort(\''+col+'\')">'+label+' <span class="sort-icon">'+icon+'</span></th>';}
+  const tableRows=pageRows.length===0
+    ?'<tr><td colspan="8" class="ec">'+(allRows.length===0?'No activity yet. Upload your Robinhood CSV to get started.':'No rows match your filters.')+'</td></tr>'
+    :pageRows.map(r=>{
+      const pill=rActPill(r.tc,r.category);
+      const amtClass=r.amount>=0?'act-amt-pos':'act-amt-neg';
+      const tkColor=DC[r.instrument]||'#888';
+      const optDetail=r.category==='option'?'<div style="font-size:0.6rem;color:var(--text3);margin-top:1px;">'+r.typeLabel+'</div>':'';
+      return'<tr>'
+        +'<td class="mn">'+r.date+'</td>'
+        +'<td><span style="display:inline-flex;align-items:center;gap:0.35rem;font-weight:700;font-size:0.75rem;color:var(--black);"><span class="tk-dot-sm" style="background:'+tkColor+'"></span>'+(r.instrument||'—')+'</span></td>'
+        +'<td>'+pill+'</td>'
+        +'<td style="max-width:220px;"><div style="font-size:0.71rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="'+r.desc+'">'+r.desc+'</div>'+optDetail+'</td>'
+        +(r.category==='option'?'<td class="mn" style="color:var(--black);font-weight:700;">'+(r.strike?'$'+r.strike:'—')+'</td><td class="mn '+(ec(r.expiry))+'">'+(r.expiry||'—')+'</td>':'<td colspan="2" style="color:var(--text3);font-size:0.65rem;">'+r.typeLabel+'</td>')
+        +'<td class="mn '+(r.qty&&r.qty!=='—'?'':'')+'">'+r.qty+'</td>'
+        +'<td class="mn '+amtClass+'">'+(r.amount>=0?'+':'')+r.amount.toFixed(2)+'</td>'
+        +'<td><button class="act-del-row" onclick="actDeleteRow(\''+r.id+'\')">&#128465;</button></td>'
+        +'</tr>';
+    }).join('');
+
+  const pagination=totalPages>1?'<div class="act-pg">'
+    +'<span>'+((page*ACT_PAGE_SIZE)+1)+'–'+Math.min((page+1)*ACT_PAGE_SIZE,rows.length)+' of '+rows.length+'</span>'
+    +'<button class="act-pg-btn" onclick="actSetPage('+(page-1)+')" '+(page===0?'disabled':'')+'>&#8592; Prev</button>'
+    +'<button class="act-pg-btn" onclick="actSetPage('+(page+1)+')" '+(page>=totalPages-1?'disabled':'')+'>Next &#8594;</button>'
+    +'</div>':'';
+
+  const table='<div class="act-table-wrap"><table class="act-table"><thead><tr>'
+    +th('date','Date')+th('ticker','Ticker')+th('tc','Action')+'<th>Description</th><th>Strike</th><th>Expiry</th><th>Qty</th>'+th('amount','Amount')+'<th></th>'
+    +'</tr></thead><tbody>'+tableRows+'</tbody></table></div>'+pagination;
+
+  const emptyState=allRows.length===0?'':'' ; // always show table
+
+  return tickerDd+cards+controls+uploadPanel+table;
+}
+
+function rActPill(tc,category){
+  const cls=tc==='STO'?'act-sto':tc==='BTC'?'act-btc':tc==='BTO'?'act-bto':tc==='STC'?'act-stc':category==='share'&&(tc==='Buy'||tc==='BUY')?'act-buy':category==='share'?'act-sell':category==='income'?'act-int':'act-other';
+  return'<span class="act-pill '+cls+'">'+tc+'</span>';
+}
+
+// Activity tab actions
+function actSort(col){if(actSortCol===col)actSortDir*=-1;else{actSortCol=col;actSortDir=col==='date'?-1:1;}actPage=0;rMain();}
+function actSearchChange(v){actSearch=v;actPage=0;rMain();}
+function actSetPage(p){actPage=p;rMain();}
+function actSetFilter(f){actFilter=f;actPage=0;rMain();}
+function actToggleUpload(){actUploadOpen=!actUploadOpen;if(!actUploadOpen){actUploadPreview=null;actUploadMsg='';}rMain();}
+function actCancelUpload(){actUploadOpen=false;actUploadPreview=null;actUploadMsg='';rMain();}
+function actClearAll(){if(!confirm('Delete ALL activity for this portfolio? This cannot be undone.'))return;setActRows([]);rMain();}
+function actDeleteRow(id){const rows=getActRows().filter(r=>r.id!==id);setActRows(rows);rMain();}
+function actDoImport(){
+  if(!actUploadPreview||!actUploadPreview.rows.length)return;
+  const existing=getActRows();
+  // Prepend new rows (newest on top)
+  setActRows([...actUploadPreview.rows,...existing]);
+  actUploadMsg={ok:true,text:'Imported '+actUploadPreview.rows.length+' rows. Upload again next week to append more.'};
+  actUploadPreview=null;actUploadOpen=false;actPage=0;rMain();
+}
+function actHandleFile(file){
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const r=parseBrokerageForActivity(e.target.result);
+    if(r.error){actUploadMsg={ok:false,text:r.error};actUploadPreview=null;}
+    else if(!r.rows||r.rows.length===0){actUploadMsg={ok:false,text:'No rows could be parsed.'};actUploadPreview=null;}
+    else{actUploadPreview=r;actUploadMsg='';}
+    actUploadOpen=true;rMain();
+  };
+  reader.readAsText(file);
+}
+function attachActUploadEvents(){
+  const dz=document.getElementById('act-drop-zone');
+  if(dz){
+    dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('drag-over');});
+    dz.addEventListener('dragleave',()=>dz.classList.remove('drag-over'));
+    dz.addEventListener('drop',e=>{e.preventDefault();dz.classList.remove('drag-over');actHandleFile(e.dataTransfer.files[0]);});
+  }
+  const fi=document.getElementById('act-file-input');
+  if(fi)fi.onchange=e=>{if(e.target.files[0])actHandleFile(e.target.files[0]);fi.value='';};
+}
+
 function rMain(){
   const el=document.getElementById('mc');
   const data=gd(ap,as);
   const dispData=selectedTickers.has('ALL')?data:data.filter(r=>selectedTickers.has(r.ticker));
   const s=cs(dispData);
-  if(activeView==='admin'){
+  if(activeView==='activity'){
+    el.innerHTML=rActivityView();
+    attachEvents();attachActUploadEvents();
+    const inp=document.getElementById('act-search-inp');
+    if(inp&&document.activeElement!==inp){/* keep focus */}
+    return;
+  }else if(activeView==='admin'){
     el.innerHTML=rAdminView();
     // Kick off live price fetches for all unique tickers in background
     const allTickers=[...new Set(positions.map(r=>r.ticker))].sort();
@@ -1473,6 +1831,7 @@ function attachEvents(){
   document.querySelectorAll('.type-tab').forEach(b=>b.addEventListener('click',()=>{typeFilter=b.dataset.typef;rMain();}));
   document.querySelectorAll('.oc-tab').forEach(b=>b.addEventListener('click',()=>{ocFilter=b.dataset.ocf;rMain();}));
   document.querySelectorAll('.soc-tab').forEach(b=>b.addEventListener('click',()=>{spreadsOcFilter=b.dataset.soc;rMain();}));
+  document.querySelectorAll('.act-tab').forEach(b=>b.addEventListener('click',()=>{actFilter=b.dataset.actf;actPage=0;rMain();}));
   const ep=document.getElementById('exp-pill');if(ep)ep.addEventListener('click',()=>{expiringOnly=!expiringOnly;rMain();});
   attachUploadEvents();
 }
@@ -1593,6 +1952,7 @@ document.getElementById('view-nav').addEventListener('click',e=>{
 function sPort(p){
   ap=p;typeFilter='all';ocFilter='all';expiringOnly=false;selectedTickers=new Set(['ALL']);
   showUpload=false;csvPreview=null;importMsg='';editCell=null;
+  actFilter='all';actSearch='';actPage=0;actUploadOpen=false;actUploadPreview=null;actUploadMsg='';
   document.querySelectorAll('.port-tab').forEach(t=>t.classList.toggle('active',t.dataset.port===p));
   const sn=document.getElementById('sub-nav');sn.style.display=p==='retirement'?'flex':'none';
   if(p==='retirement'){as='ret-all';document.querySelectorAll('.sub-tab').forEach(t=>t.classList.toggle('active',t.dataset.sub===as));}
@@ -1601,7 +1961,7 @@ function sPort(p){
 document.getElementById('port-nav').addEventListener('click',e=>{const t=e.target.closest('.port-tab');if(t)sPort(t.dataset.port);});
 document.getElementById('sub-nav').addEventListener('click',e=>{const t=e.target.closest('.sub-tab');if(!t)return;as=t.dataset.sub;document.querySelectorAll('.sub-tab').forEach(s=>s.classList.toggle('active',s.dataset.sub===as));rBc();rMain();});
 document.getElementById('topbar-date').textContent=new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
-window.sPort=sPort;window.startEdit=startEdit;window.cancelEdit=cancelEdit;window.savePrice=savePrice;window.clearManualPrice=clearManualPrice;window.copyRow=copyRow;window.markRoll=markRoll;window.undoRoll=undoRoll;window.deleteRow=deleteRow;window.deleteAll=deleteAll;window.toggleDropdown=toggleDropdown;window.openModal=openModal;window.closeModal=closeModal;window.confirmModal=confirmModal;window.reopenPosition=reopenPosition;window.setMA=setMA;window.setCD=setCD;window.toggleUpload=toggleUpload;window.cancelUpload=cancelUpload;window.dlTemplate=dlTemplate;window.doImport=doImport;window.openAddModal=openAddModal;window.closeAddModal=closeAddModal;window.saveAddModal=saveAddModal;window.setAF=setAF;window.updateGross=updateGross;window.ieStart=ieStart;window.ieSave=ieSave;window.ieCancel=ieCancel;window.ieKey=ieKey;window.openEditModal=openEditModal;window.openPricesModal=openPricesModal;window.savePricesModal=savePricesModal;window.closePricesModal=closePricesModal;window.clearTickerPrice=clearTickerPrice;window.addTickerPrice=addTickerPrice;window.adminSavePrice=adminSavePrice;window.adminClearPrice=adminClearPrice;window.adminAddTicker=adminAddTicker;
+window.sPort=sPort;window.startEdit=startEdit;window.cancelEdit=cancelEdit;window.savePrice=savePrice;window.clearManualPrice=clearManualPrice;window.copyRow=copyRow;window.markRoll=markRoll;window.undoRoll=undoRoll;window.deleteRow=deleteRow;window.deleteAll=deleteAll;window.toggleDropdown=toggleDropdown;window.openModal=openModal;window.closeModal=closeModal;window.confirmModal=confirmModal;window.reopenPosition=reopenPosition;window.setMA=setMA;window.setCD=setCD;window.toggleUpload=toggleUpload;window.cancelUpload=cancelUpload;window.dlTemplate=dlTemplate;window.doImport=doImport;window.openAddModal=openAddModal;window.closeAddModal=closeAddModal;window.saveAddModal=saveAddModal;window.setAF=setAF;window.updateGross=updateGross;window.ieStart=ieStart;window.ieSave=ieSave;window.ieCancel=ieCancel;window.ieKey=ieKey;window.openEditModal=openEditModal;window.openPricesModal=openPricesModal;window.savePricesModal=savePricesModal;window.closePricesModal=closePricesModal;window.clearTickerPrice=clearTickerPrice;window.addTickerPrice=addTickerPrice;window.adminSavePrice=adminSavePrice;window.adminClearPrice=adminClearPrice;window.adminAddTicker=adminAddTicker;window.actSort=actSort;window.actSearchChange=actSearchChange;window.actSetPage=actSetPage;window.actSetFilter=actSetFilter;window.actToggleUpload=actToggleUpload;window.actCancelUpload=actCancelUpload;window.actClearAll=actClearAll;window.actDeleteRow=actDeleteRow;window.actDoImport=actDoImport;
 rBc();rMain();
 </script>
 </body>
