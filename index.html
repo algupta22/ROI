@@ -535,10 +535,14 @@ function rSum(s){
     +'<div class="col-combo-card"><div class="col-combo-title">&#128274; Collateral</div><div class="col-combo-row"><span class="col-combo-label">This Week</span><span class="col-combo-val" style="color:#FB923C;font-size:0.88rem;">$'+s.twc.toLocaleString()+'</span></div><div class="col-combo-divider"></div><div class="col-combo-row"><span class="col-combo-label">Total Open</span><span class="col-combo-val" style="color:#FBBF24;font-size:0.88rem;">$'+s.tc.toLocaleString()+'</span></div></div>'
     +'</div>';
 }
-function rTable(data){
-  const filtered=getAppliedFilters(data);
+function rTableControls(){
   const typeTabs=['all','Short Put','Long Put','Long Call','Shares'].map(t=>'<button class="type-tab'+(typeFilter===t?' active':'')+'" data-typef="'+t+'">'+(t==='all'?'All':t)+'</button>').join('');
   const ocTabs=['all','open','closed'].map(o=>'<button class="oc-tab'+(ocFilter===o?' active':'')+'" data-ocf="'+o+'">'+(o==='all'?'All':o==='open'?'Open':'Closed')+'</button>').join('');
+  return'<div class="controls-row"><div class="type-tabs">'+typeTabs+'</div><div class="oc-tabs">'+ocTabs+'</div><button class="expiry-pill'+(expiringOnly?' active':'')+'" id="exp-pill">&#9888; Expiring This Week</button><button class="del-all-btn" onclick="deleteAll()">&#128465; Delete Visible</button><button class="upload-csv-btn" onclick="toggleUpload()">&#8593; Upload CSV</button><button class="template-dl-btn" onclick="dlTemplate()">&#11015; Template</button><button class="add-pos-btn" onclick="openAddModal()">&#43; Add Position</button></div>'
+    +rUploadPanel();
+}
+function rTable(data){
+  const filtered=getAppliedFilters(data);
   const thisFri=getThisFriday();
   const rows=filtered.length===0?'<tr><td colspan="17" class="ec">No positions match your filters.</td></tr>':filtered.map(r=>{
     const c=isCl(r),p=r.excelProfit,col=collateral(r);
@@ -624,8 +628,7 @@ function rTable(data){
     const copyRowBtn='<button class="copy-btn" onclick="copyRow(\''+r.id+'\')" title="Duplicate this position">&#10063;</button>';
     return'<tr class="'+rowClass+(c?' cr':'')+'"><td class="mc"><span class="chip"><span class="tk-dot-sm" style="background:'+(DC[r.ticker]||'#888')+'"></span>'+r.ticker+'</span></td><td>'+(r.openDate||'--')+'</td><td class="mn">'+(r.excelCost?'$'+r.excelCost.toLocaleString():'--')+'</td><td class="mn" style="color:var(--green)">'+(r.excelIncome?'+$'+r.excelIncome.toLocaleString():'--')+'</td><td class="mn">'+fm(displayCurrVal)+'</td><td class="mn">'+fm(displayGrossVal)+'</td><td>'+priceCell+'</td><td><span class="badge '+bct(r.excelType)+'">'+r.excelType+'</span></td><td class="mn">'+(r.strike>0?'$'+r.strike:'--')+'</td><td class="'+ec(r.expiryDate)+'">'+(r.expiryDate||'--')+(isExp&&!c?' &#9888;':'')+'</td><td class="mn" style="color:'+(p>=0?'var(--green)':'var(--red)')+';font-weight:700">'+fp(p)+'</td><td>'+colCell+'</td><td>'+actionCell+'</td><td style="text-align:center">'+editRowBtn+'</td><td style="text-align:center">'+copyRowBtn+'</td><td style="text-align:center"><button class="del-btn" onclick="deleteRow(\''+r.id+'\')">&#128465;</button></td></tr>';
   }).join('');
-  return'<div class="controls-row"><div class="type-tabs">'+typeTabs+'</div><div class="oc-tabs">'+ocTabs+'</div><button class="expiry-pill'+(expiringOnly?' active':'')+'" id="exp-pill">&#9888; Expiring This Week</button><button class="del-all-btn" onclick="deleteAll()">&#128465; Delete Visible</button><button class="upload-csv-btn" onclick="toggleUpload()">&#8593; Upload CSV</button><button class="template-dl-btn" onclick="dlTemplate()">&#11015; Template</button><button class="add-pos-btn" onclick="openAddModal()">&#43; Add Position</button></div>'
-    +rUploadPanel()
+  return rTableControls()
     +'<div class="table-wrap"><table><thead><tr><th>Ticker</th><th>Open Date</th><th>Cost</th><th>Income</th><th>Curr Val</th><th>Gross Val</th><th>Price</th><th>Type</th><th>Strike</th><th>Expiry</th><th>P&L</th><th>Collateral</th><th>Close / Action</th><th>Edit</th><th>Copy</th><th>Del</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
 }
 // ── CLOSE / TRADE MODAL ───────────────────────────────────────────────────────
@@ -1331,8 +1334,8 @@ async function fetchLivePrice(ticker){
 }
 
 function rAdminView(){
-  // All unique tickers across all positions in current portfolio
-  const allTickers=[...new Set(positions.map(r=>r.ticker))].sort();
+  // All unique tickers: from positions UNION keys in tickerPrices (so manually-added tickers survive position deletion)
+  const allTickers=[...new Set([...positions.map(r=>r.ticker),...Object.keys(tickerPrices)])].sort();
   const rows=allTickers.map(t=>{
     const manual=tickerPrices[t]??null;
     const live=liveCache[t]?.price??null;
@@ -1426,8 +1429,9 @@ function rMain(){
   }else if(activeView==='spreads'){
     el.innerHTML=rSum(s)+rSpreadsView(data);
   }else{
+    const controlsOnly=rTableControls();
     el.innerHTML=data.length===0
-      ?rFilterBar([])+rSum(s)+'<div class="ph"><strong>'+ap+' Portfolio</strong>No positions yet.</div>'
+      ?rFilterBar([])+rSum(s)+controlsOnly+'<div class="ph"><strong>'+ap+' Portfolio</strong>No positions yet. Upload a file or add a position to get started.</div>'
       :rFilterBar(data)+rSum(s)+rTable(data);
   }
   attachEvents();
