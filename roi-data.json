@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-08T21:38:44.938Z",
+  "savedAt": "2026-04-09T05:18:32.740Z",
   "positions": [],
   "tickerPrices": {
     "GOOGL": 298
@@ -3512,5 +3512,8 @@
         "expiry": ""
       }
     ]
+  },
+  "cashBalances": {
+    "amit": 5000
   }
 }
