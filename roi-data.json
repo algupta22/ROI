@@ -1,7 +1,27 @@
 {
   "version": 2,
-  "savedAt": "2026-04-09T05:19:21.984Z",
-  "positions": [],
+  "savedAt": "2026-04-09T05:20:42.969Z",
+  "positions": [
+    {
+      "id": "34eklw3a",
+      "ticker": "SOFI",
+      "excelType": "Short Put",
+      "strike": 16,
+      "expiryDate": "04/27",
+      "openDate": "4/9/26",
+      "contracts": 1,
+      "excelCost": 5000,
+      "excelIncome": 0,
+      "excelGrossValue": 0,
+      "excelCurrentValue": 0,
+      "excelProfit": -5000,
+      "closed": false,
+      "notes": "",
+      "manualPrice": null,
+      "rolledOver": false,
+      "closeAction": null
+    }
+  ],
   "tickerPrices": {
     "GOOGL": 298
   },
