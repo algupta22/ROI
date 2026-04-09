@@ -29,13 +29,6 @@ body{background:var(--bg);min-height:100vh;font-family:'Segoe UI',system-ui,sans
 .gh-load{background:rgba(37,99,235,0.25);color:#93C5FD;}.gh-load:hover{background:rgba(37,99,235,0.45);}
 .gh-cfg{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.55);padding:0.22rem 0.5rem;font-size:0.8rem;}.gh-cfg:hover{background:rgba(255,255,255,0.18);color:#fff;}
 .gh-btn:disabled{opacity:0.45;cursor:not-allowed;}
-.bk-btn{display:inline-flex;align-items:center;gap:0.3rem;border-radius:7px;padding:0.22rem 0.65rem;font-size:0.63rem;font-weight:700;cursor:pointer;transition:all 0.15s;white-space:nowrap;border:1px solid transparent;}
-.bk-dl{background:rgba(217,119,6,0.35);color:#FCD34D;border-color:rgba(217,119,6,0.5);}.bk-dl:hover{background:rgba(217,119,6,0.55);}
-.bk-ul{background:rgba(124,58,237,0.35);color:#C4B5FD;border-color:rgba(124,58,237,0.5);}.bk-ul:hover{background:rgba(124,58,237,0.55);}
-.proto-banner{background:#7C3AED;color:#fff;padding:0.6rem 1.2rem;font-size:0.72rem;display:flex;align-items:flex-start;gap:0.75rem;line-height:1.6;}
-.proto-banner strong{font-weight:800;}
-.proto-x{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:#fff;border-radius:5px;padding:0.15rem 0.55rem;font-size:0.65rem;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0;margin-left:auto;}
-.proto-x:hover{background:rgba(255,255,255,0.28);}
 /* CASH CARD */
 .cash-card{background:var(--black);border-radius:var(--r);padding:0.85rem 1rem;box-shadow:0 1px 4px rgba(0,0,0,0.12);}
 .cash-lbl{font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.5);margin-bottom:0.3rem;display:flex;align-items:center;justify-content:space-between;}
@@ -384,17 +377,25 @@ td.mc{color:var(--black);font-weight:700;}td.mn{font-family:monospace;font-size:
 .gh-status{font-size:0.72rem;padding:0.5rem 0.75rem;border-radius:7px;margin-bottom:0.75rem;line-height:1.5;}
 .gh-err{background:var(--red-bg);color:var(--red);}.gh-info{background:var(--blue-bg);color:var(--blue);}
 .gh-note{font-size:0.65rem;color:var(--text3);margin-top:0.5rem;line-height:1.5;}
+.bk-btn{display:inline-flex;align-items:center;gap:0.3rem;border-radius:7px;padding:0.22rem 0.65rem;font-size:0.63rem;font-weight:700;cursor:pointer;white-space:nowrap;border:1px solid transparent;}
+.bk-dl{background:rgba(217,119,6,0.35);color:#FCD34D;border-color:rgba(217,119,6,0.5);}
+.bk-dl:hover{background:rgba(217,119,6,0.55);}
+.bk-ul{background:rgba(124,58,237,0.35);color:#C4B5FD;border-color:rgba(124,58,237,0.5);}
+.bk-ul:hover{background:rgba(124,58,237,0.55);}
+.proto-banner{background:#7C3AED;color:#fff;padding:0.6rem 1.2rem;font-size:0.72rem;display:flex;align-items:flex-start;gap:0.75rem;line-height:1.6;}
+.proto-banner strong{font-weight:800;}
+.proto-x{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:#fff;border-radius:5px;padding:0.15rem 0.55rem;font-size:0.65rem;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0;margin-left:auto;}
 </style>
 </head>
 <body>
 <div class="topbar">
   <div style="display:flex;align-items:center;"><span class="logo">R.<em>O</em>.I</span><span class="logo-sub">Rick's Options Income</span></div>
-  <div style="display:flex;align-items:center;gap:0.4rem;flex-wrap:wrap;">
-    <button class="bk-btn bk-dl" onclick="backupToFile()" title="Download all data as a .json file — works always">&#11015; Backup File</button>
-    <button class="bk-btn bk-ul" onclick="document.getElementById('restore-input').click()" title="Restore data from a .json backup file">&#8679; Restore File</button>
-    <input type="file" id="restore-input" accept=".json" style="display:none" onchange="restoreFromFile(this)">
-    <div style="width:1px;height:18px;background:rgba(255,255,255,0.15);margin:0 0.15rem;flex-shrink:0;"></div>
-    <button class="gh-btn gh-save" id="gh-save-btn" onclick="ghSave()" title="Save data to GitHub">&#9729; GitHub Save</button>
+  <div style="display:flex;align-items:center;gap:0.5rem;">
+    <button class="bk-btn bk-dl" onclick="backupToFile()">&#11015; Backup File</button>
+    <button class="bk-btn bk-ul" onclick="document.getElementById('ri').click()">&#8679; Restore File</button>
+    <input type="file" id="ri" accept=".json" style="display:none" onchange="restoreFromFile(this)">
+    <div style="width:1px;height:18px;background:rgba(255,255,255,0.15);"></div>
+    <button class="gh-btn gh-save" id="gh-save-btn" onclick="ghSave()" title="Save all data to GitHub">&#9729; GitHub Save</button>
     <button class="gh-btn gh-load" id="gh-load-btn" onclick="ghLoad()" title="Load data from GitHub">&#8681; GitHub Load</button>
     <button class="gh-btn gh-cfg" onclick="ghConfigure()" title="GitHub sync settings">&#9881;</button>
     <div class="topbar-right" id="topbar-date"></div>
@@ -1245,10 +1246,109 @@ document.getElementById('port-nav').addEventListener('click',function(e){var t=e
 document.getElementById('sub-nav').addEventListener('click',function(e){var t=e.target.closest('.sub-tab');if(!t)return;as=t.dataset.sub;document.querySelectorAll('.sub-tab').forEach(function(s){s.classList.toggle('active',s.dataset.sub===as);});rBc();rMain();});
 document.getElementById('topbar-date').textContent=new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
 
-// ── LOCAL BACKUP / RESTORE (always works, even from file://) ─────────────────
-function collectAll(){
-  return{version:2,savedAt:new Date().toISOString(),positions:positions,tickerPrices:tickerPrices,activityData:activityData,cashBalances:cashBalances};
+// ── GITHUB SYNC ───────────────────────────────────────────────────────────────
+var GH_TK='roi_gh_token',GH_CF='roi_gh_cfg';
+function ghGetToken(){return localStorage.getItem(GH_TK)||'';}
+function ghSetToken(t){localStorage.setItem(GH_TK,t);}
+function ghGetCfg(){try{var c=JSON.parse(localStorage.getItem(GH_CF)||'{}');return{repo:c.repo||'algupta22/Ricks-Trading',branch:c.branch||'',file:c.file||'roi-data.json'};}catch(e){return{repo:'algupta22/Ricks-Trading',branch:'',file:'roi-data.json'};}}
+function ghSetCfg(c){localStorage.setItem(GH_CF,JSON.stringify(c));}
+function ghCollect(){return{version:2,savedAt:new Date().toISOString(),positions:positions,tickerPrices:tickerPrices,activityData:activityData,cashBalances:cashBalances};}
+function ghApply(d){
+  if(!d||d.version!==2)return false;
+  if(Array.isArray(d.positions))positions=d.positions;
+  if(d.tickerPrices&&typeof d.tickerPrices==='object'){Object.assign(tickerPrices,d.tickerPrices);saveTP(tickerPrices);}
+  if(d.activityData&&typeof d.activityData==='object'){Object.assign(activityData,d.activityData);saveAct(activityData);}
+  if(d.cashBalances&&typeof d.cashBalances==='object'){Object.assign(cashBalances,d.cashBalances);saveCash();}
+  savePositions();return true;
 }
+async function ghDetect(token,repo){for(var i=0;i<2;i++){var b=['main','master'][i];var r=await fetch('https://api.github.com/repos/'+repo+'/branches/'+b,{headers:{'Authorization':'token '+token,'Accept':'application/vnd.github.v3+json'}});if(r.ok)return b;}return null;}
+async function ghGet(token,repo,branch,file){
+  var r=await fetch('https://api.github.com/repos/'+repo+'/contents/'+file+'?ref='+branch,{headers:{'Authorization':'token '+token,'Accept':'application/vnd.github.v3+json'}});
+  if(r.status===404)return{exists:false,sha:null,data:null};
+  if(!r.ok)throw new Error('GitHub read error '+r.status+': '+(await r.text()).slice(0,200));
+  var j=await r.json();return{exists:true,sha:j.sha,data:JSON.parse(atob(j.content.replace(/\n/g,'')))};
+}
+async function ghPut(token,repo,branch,file,content,sha){
+  var body={message:'ROI sync '+new Date().toISOString().slice(0,16).replace('T',' '),content:btoa(unescape(encodeURIComponent(JSON.stringify(content,null,2)))),branch:branch};
+  if(sha)body.sha=sha;
+  var r=await fetch('https://api.github.com/repos/'+repo+'/contents/'+file,{method:'PUT',headers:{'Authorization':'token '+token,'Content-Type':'application/json','Accept':'application/vnd.github.v3+json'},body:JSON.stringify(body)});
+  if(!r.ok)throw new Error('GitHub write error '+r.status+': '+(await r.text()).slice(0,200));
+  return r.json();
+}
+async function ghSave(){
+  var token=ghGetToken();if(!token){ghConfigure('Please set your GitHub token first.');return;}
+  var cfg=ghGetCfg(),sb=document.getElementById('gh-save-btn'),lb=document.getElementById('gh-load-btn');
+  if(sb){sb.disabled=true;sb.textContent='Saving...';}if(lb)lb.disabled=true;
+  try{
+    if(!cfg.branch){var b=await ghDetect(token,cfg.repo);if(!b)throw new Error('Cannot find main or master branch in: '+cfg.repo+'. Check repo name in \u2699 settings.');cfg.branch=b;ghSetCfg(cfg);}
+    var got=await ghGet(token,cfg.repo,cfg.branch,cfg.file);
+    await ghPut(token,cfg.repo,cfg.branch,cfg.file,ghCollect(),got.sha);
+    if(sb){sb.textContent='\u2601 Save to GitHub';sb.style.background='rgba(5,150,105,0.6)';}
+    setTimeout(function(){if(sb){sb.textContent='\u2601 Save to GitHub';sb.style.background='';}if(sb)sb.disabled=false;if(lb)lb.disabled=false;},2500);
+  }catch(e){if(sb){sb.textContent='\u2601 Save to GitHub';sb.disabled=false;}if(lb)lb.disabled=false;ghConfigure('Save failed: '+e.message);}
+}
+async function ghLoad(){
+  var token=ghGetToken();if(!token){ghConfigure('Please set your GitHub token first.');return;}
+  var cfg=ghGetCfg(),lb=document.getElementById('gh-load-btn'),sb=document.getElementById('gh-save-btn');
+  if(lb){lb.disabled=true;lb.textContent='Loading...';}if(sb)sb.disabled=true;
+  try{
+    if(!cfg.branch){var b=await ghDetect(token,cfg.repo);if(!b)throw new Error('Cannot find main or master branch in: '+cfg.repo+'. Check repo name in \u2699 settings.');cfg.branch=b;ghSetCfg(cfg);}
+    var got=await ghGet(token,cfg.repo,cfg.branch,cfg.file);
+    if(!got.exists){if(lb){lb.textContent='\u2B07 Load from GitHub';lb.disabled=false;}if(sb)sb.disabled=false;ghConfigure('No saved data found yet. Click \u201cSave to GitHub\u201d first.');return;}
+    if(!ghApply(got.data))throw new Error('Unrecognised data format in '+cfg.file);
+    if(lb){lb.textContent='\u2B07 Load from GitHub';lb.style.background='rgba(37,99,235,0.6)';}
+    setTimeout(function(){if(lb){lb.textContent='\u2B07 Load from GitHub';lb.style.background='';}if(lb)lb.disabled=false;if(sb)sb.disabled=false;},2000);
+    rMain();
+  }catch(e){if(lb){lb.textContent='\u2B07 Load from GitHub';lb.disabled=false;}if(sb)sb.disabled=false;ghConfigure('Load failed: '+e.message);}
+}
+function ghConfigure(msg){
+  var token=ghGetToken(),cfg=ghGetCfg();
+  document.getElementById('modal-root').innerHTML=
+    '<div class="modal-overlay" onclick="if(event.target===this)closeGhModal()">'
+    +'<div class="gh-modal-box"><div class="modal-title" style="margin-bottom:0.15rem;">&#9881; GitHub Sync Settings</div>'
+    +'<div class="modal-sub" style="margin-bottom:0.9rem;">Connect to your GitHub repo to save &amp; restore all data</div>'
+    +(msg?'<div class="gh-status '+(msg.includes('failed')||msg.includes('error')||msg.includes('Cannot')?'gh-err':'gh-info')+'">'+msg+'</div><br>':'')
+    +'<div class="gh-field"><label class="gh-label">GitHub Repo (owner/repo)</label><input class="gh-input" id="gh-repo-inp" placeholder="algupta22/Ricks-Trading" value="'+cfg.repo+'"></div>'
+    +'<div class="gh-field"><label class="gh-label">Branch (leave blank to auto-detect)</label><input class="gh-input" id="gh-branch-inp" placeholder="main or master" value="'+cfg.branch+'"></div>'
+    +'<div class="gh-field"><label class="gh-label">Data filename</label><input class="gh-input" id="gh-file-inp" placeholder="roi-data.json" value="'+cfg.file+'"></div>'
+    +'<div class="gh-field"><label class="gh-label">Personal Access Token</label><input class="gh-input" id="gh-token-inp" type="password" placeholder="ghp_xxxxxxxxxxxx" value="'+token+'"></div>'
+    +'<div class="gh-note">&#8505; Get a token: <strong>github.com/settings/tokens</strong> &rarr; Generate new token (classic) &rarr; check <strong>repo</strong> scope. Token stored only in your browser.</div>'
+    +'<div class="modal-btns" style="margin-top:1rem;"><button class="modal-confirm" style="background:var(--green);" onclick="ghSaveSettings()">&#10003; Save Settings</button><button class="modal-cancel-btn" onclick="closeGhModal()">Cancel</button></div>'
+    +'</div></div>';
+}
+function ghSaveSettings(){
+  var token=((document.getElementById('gh-token-inp')||{value:''}).value||'').trim();
+  var repo=((document.getElementById('gh-repo-inp')||{value:''}).value||'').trim();
+  var branch=((document.getElementById('gh-branch-inp')||{value:''}).value||'').trim();
+  var file=((document.getElementById('gh-file-inp')||{value:''}).value||'').trim()||'roi-data.json';
+  if(!token){alert('Token is required.');return;}
+  if(!repo||!repo.includes('/')){alert('Repo must be in format owner/repo-name.');return;}
+  ghSetToken(token);ghSetCfg({repo:repo,branch:branch,file:file});
+  closeGhModal();alert('Settings saved! You can now Save/Load your data to GitHub.');
+}
+function closeGhModal(){document.getElementById('modal-root').innerHTML='';}
+
+// ── EXPOSE GLOBALS ────────────────────────────────────────────────────────────
+window.sPort=sPort;window.toggleDropdown=toggleDropdown;
+window.openModal=openModal;window.closeModal=closeModal;window.confirmModal=confirmModal;window.setMA=setMA;window.setCD=setCD;
+window.reopenPosition=reopenPosition;window.startEdit=startEdit;window.cancelEdit=cancelEdit;
+window.savePrice=savePrice;window.clearManualPrice=clearManualPrice;
+window.copyRow=copyRow;window.markRoll=markRoll;window.undoRoll=undoRoll;
+window.deleteRow=deleteRow;window.deleteAll=deleteAll;
+window.toggleUpload=toggleUpload;window.cancelUpload=cancelUpload;window.dlTemplate=dlTemplate;window.doImport=doImport;
+window.openAddModal=openAddModal;window.closeAddModal=closeAddModal;window.saveAddModal=saveAddModal;window.openEditModal=openEditModal;
+window.setAF=setAF;window.updateGross=updateGross;
+window.ieStart=ieStart;window.ieSave=ieSave;window.ieCancel=ieCancel;window.ieKey=ieKey;
+window.openPricesModal=openPricesModal;window.savePricesModal=savePricesModal;window.closePricesModal=closePricesModal;
+window.clearTickerPrice=clearTickerPrice;window.addTickerPrice=addTickerPrice;
+window.adminSavePrice=adminSavePrice;window.adminClearPrice=adminClearPrice;window.adminAddTicker=adminAddTicker;
+window.actSort=actSort;window.actSearchChange=actSearchChange;window.actSetPage=actSetPage;window.actSetFilter=actSetFilter;
+window.actToggleUpload=actToggleUpload;window.actCancelUpload=actCancelUpload;window.actClearAll=actClearAll;window.actDeleteRow=actDeleteRow;window.actDoImport=actDoImport;
+window.cashEdit=cashEdit;window.cashSave=cashSave;window.cashCancel=cashCancel;
+window.ghSave=ghSave;window.ghLoad=ghLoad;window.ghConfigure=ghConfigure;window.ghSaveSettings=ghSaveSettings;window.closeGhModal=closeGhModal;
+
+// ── BACKUP / RESTORE (works from file://) ────────────────────────────────────
+function collectAll(){return{version:2,savedAt:new Date().toISOString(),positions:positions,tickerPrices:tickerPrices,activityData:activityData,cashBalances:cashBalances};}
 function applyAll(d){
   if(!d||d.version!==2)return false;
   if(Array.isArray(d.positions)){positions=d.positions;savePositions();}
@@ -1273,153 +1373,25 @@ function restoreFromFile(input){
   reader.onload=function(e){
     try{
       var d=JSON.parse(e.target.result);
-      if(!applyAll(d)){alert('Invalid backup file — this does not look like a ROI Portfolio backup.');input.value='';return;}
-      rMain();
-      alert('✅ Data restored successfully!');
+      if(!applyAll(d)){alert('Invalid backup file.');input.value='';return;}
+      rMain();alert('✅ Data restored successfully!');
     }catch(err){alert('Could not read file: '+err.message);}
     input.value='';
   };
   reader.readAsText(file);
 }
 window.backupToFile=backupToFile;window.restoreFromFile=restoreFromFile;
-
-// ── BANNER: warn when running from file:// ──────────────────────────────────────────
-(function showBanner(){
+// Show banner if opened from file://
+(function(){
   var el=document.getElementById('proto-banner');if(!el)return;
-  if(location.protocol!=='file:'){el.innerHTML='';return;}
+  if(location.protocol!=='file:'){return;}
   el.innerHTML='<div class="proto-banner">'
-    +'<span style="font-size:1.1rem;flex-shrink:0;">⚠</span>'
-    +'<span><strong>GitHub sync is blocked</strong> — you opened this file directly (file://). '
-    +'Your browser blocks all network requests in this mode. '
-    +'<strong style="color:#FCD34D;">↓ Backup File</strong> saves all data to your computer instantly. '
-    +'<strong style="color:#C4B5FD;">↑ Restore File</strong> reloads it after refresh. Both always work.</span>'
+    +'<span style="font-size:1rem;flex-shrink:0;">⚠️</span>'
+    +'<span><strong>GitHub Save/Load is blocked</strong> — your browser blocks network calls when a file is opened directly. '
+    +'Use <strong style="color:#FCD34D;">⬇ Backup File</strong> to save and <strong style="color:#C4B5FD;">⬆ Restore File</strong> to reload your data instead.</span>'
     +'<button class="proto-x" onclick="document.getElementById('proto-banner').innerHTML=''">&#10005;</button>'
     +'</div>';
 })();
-
-// ── GITHUB SYNC ─────────────────────────────────────────────────────────────────────────────
-var GH_TK='roi_gh_token',GH_CF='roi_gh_cfg';
-function ghGetToken(){return localStorage.getItem(GH_TK)||'';}
-function ghSetToken(t){localStorage.setItem(GH_TK,t);}
-function ghGetCfg(){try{var c=JSON.parse(localStorage.getItem(GH_CF)||'{}');return{repo:c.repo||'algupta22/Ricks-Trading',branch:c.branch||'',file:c.file||'roi-data.json'};}catch(e){return{repo:'algupta22/Ricks-Trading',branch:'',file:'roi-data.json'};}}
-function ghSetCfg(c){localStorage.setItem(GH_CF,JSON.stringify(c));}
-function ghCollect(){return collectAll();}
-function ghApply(d){return applyAll(d);}
-async function ghDetect(token,repo){
-  for(var i=0;i<2;i++){var b=['main','master'][i];
-    try{var r=await fetch('https://api.github.com/repos/'+repo+'/branches/'+b,{headers:{'Authorization':'token '+token,'Accept':'application/vnd.github.v3+json'}});if(r.ok)return b;}catch(e){}
-  }return null;
-}
-async function ghGet(token,repo,branch,file){
-  var url='https://api.github.com/repos/'+repo+'/contents/'+file+'?ref='+branch+'&_='+Date.now();
-  var r=await fetch(url,{headers:{'Authorization':'token '+token,'Accept':'application/vnd.github.v3+json','Cache-Control':'no-cache'}});
-  if(r.status===404)return{exists:false,sha:null,data:null};
-  if(!r.ok)throw new Error('GitHub read error '+r.status+': '+(await r.text()).slice(0,300));
-  var j=await r.json();
-  return{exists:true,sha:j.sha,data:JSON.parse(atob(j.content.replace(/
-/g,'')))};
-}
-async function ghPut(token,repo,branch,file,content,sha){
-  var body={message:'ROI sync '+new Date().toISOString().slice(0,16).replace('T',' '),
-    content:btoa(unescape(encodeURIComponent(JSON.stringify(content,null,2)))),branch:branch};
-  if(sha)body.sha=sha;
-  var r=await fetch('https://api.github.com/repos/'+repo+'/contents/'+file,
-    {method:'PUT',headers:{'Authorization':'token '+token,'Content-Type':'application/json','Accept':'application/vnd.github.v3+json'},body:JSON.stringify(body)});
-  if(!r.ok){var t=(await r.text()).slice(0,300);
-    if(r.status===409)throw new Error('409 conflict: file changed elsewhere. Click GitHub Load first, then save again.');
-    throw new Error('GitHub write error '+r.status+': '+t);
-  }return r.json();
-}
-async function ghSave(){
-  if(location.protocol==='file:'){ghConfigure('GitHub sync is blocked when opening the file directly (file://).
-
-Use the ↓ Backup File button instead — it downloads a .json file instantly.');return;}
-  var token=ghGetToken();if(!token){ghConfigure('Please configure your GitHub token first (click ⚙).');return;}
-  var cfg=ghGetCfg(),sb=document.getElementById('gh-save-btn'),lb=document.getElementById('gh-load-btn');
-  if(sb){sb.disabled=true;sb.textContent='Saving...';}if(lb)lb.disabled=true;
-  try{
-    if(!cfg.branch){var b=await ghDetect(token,cfg.repo);
-      if(!b)throw new Error('Branch not found in repo: '+cfg.repo+'. Check your repo name in ⚙ settings.');
-      cfg.branch=b;ghSetCfg(cfg);}
-    var got=await ghGet(token,cfg.repo,cfg.branch,cfg.file);
-    await ghPut(token,cfg.repo,cfg.branch,cfg.file,ghCollect(),got.sha);
-    if(sb){sb.textContent='✓ Saved!';sb.style.background='rgba(5,150,105,0.6)';}
-    setTimeout(function(){if(sb){sb.textContent='☁ GitHub Save';sb.style.background='';sb.disabled=false;}if(lb)lb.disabled=false;},2500);
-  }catch(e){
-    if(sb){sb.textContent='☁ GitHub Save';sb.disabled=false;}if(lb)lb.disabled=false;
-    ghConfigure('Save failed: '+e.message);
-  }
-}
-async function ghLoad(){
-  if(location.protocol==='file:'){ghConfigure('GitHub sync is blocked when opening the file directly (file://).
-
-Use the ↑ Restore File button instead — pick a .json backup file from your computer.');return;}
-  var token=ghGetToken();if(!token){ghConfigure('Please configure your GitHub token first (click ⚙).');return;}
-  var cfg=ghGetCfg(),lb=document.getElementById('gh-load-btn'),sb=document.getElementById('gh-save-btn');
-  if(lb){lb.disabled=true;lb.textContent='Loading...';}if(sb)sb.disabled=true;
-  try{
-    if(!cfg.branch){var b=await ghDetect(token,cfg.repo);
-      if(!b)throw new Error('Branch not found in repo: '+cfg.repo+'. Check your repo name in ⚙ settings.');
-      cfg.branch=b;ghSetCfg(cfg);}
-    var got=await ghGet(token,cfg.repo,cfg.branch,cfg.file);
-    if(!got.exists){if(lb){lb.textContent='⬇ GitHub Load';lb.disabled=false;}if(sb)sb.disabled=false;
-      ghConfigure('No saved data found on GitHub yet. Click GitHub Save first to create your backup.');return;}
-    if(!ghApply(got.data))throw new Error('Unrecognised data format in '+cfg.file+'.');
-    if(lb){lb.textContent='✓ Loaded!';lb.style.background='rgba(37,99,235,0.6)';}
-    setTimeout(function(){if(lb){lb.textContent='⬇ GitHub Load';lb.style.background='';lb.disabled=false;}if(sb)sb.disabled=false;},2000);
-    rMain();
-  }catch(e){
-    if(lb){lb.textContent='⬇ GitHub Load';lb.disabled=false;}if(sb)sb.disabled=false;
-    ghConfigure('Load failed: '+e.message);
-  }
-}
-function ghConfigure(msg){
-  var token=ghGetToken(),cfg=ghGetCfg();
-  var isErr=!!(msg&&(msg.includes('failed')||msg.includes('blocked')||msg.includes('conflict')||msg.includes('not found')||msg.includes('error')));
-  document.getElementById('modal-root').innerHTML=
-    '<div class="modal-overlay" onclick="if(event.target===this)closeGhModal()">'
-    +'<div class="gh-modal-box">'
-    +'<div class="modal-title" style="margin-bottom:0.15rem;">&#9881; GitHub Sync Settings</div>'
-    +'<div class="modal-sub" style="margin-bottom:0.75rem;">Connect to your GitHub repo to save &amp; restore all data</div>'
-    +(msg?'<div class="gh-status '+(isErr?'gh-err':'gh-info')+'" style="white-space:pre-wrap;margin-bottom:0.85rem;">'+msg+'</div>':'')
-    +'<div class="gh-field"><label class="gh-label">GitHub Repo (owner/repo)</label><input class="gh-input" id="gh-repo-inp" placeholder="algupta22/Ricks-Trading" value="'+cfg.repo+'"></div>'
-    +'<div class="gh-field"><label class="gh-label">Branch (leave blank to auto-detect)</label><input class="gh-input" id="gh-branch-inp" placeholder="main or master" value="'+cfg.branch+'"></div>'
-    +'<div class="gh-field"><label class="gh-label">Data filename</label><input class="gh-input" id="gh-file-inp" placeholder="roi-data.json" value="'+cfg.file+'"></div>'
-    +'<div class="gh-field"><label class="gh-label">Personal Access Token</label><input class="gh-input" id="gh-token-inp" type="password" placeholder="ghp_xxxxxxxxxxxx" value="'+token+'"></div>'
-    +'<div class="gh-note">&#8505; <strong>github.com/settings/tokens</strong> → Generate new token (classic) → check <strong>repo</strong> scope. Stored only in your browser.</div>'
-    +'<div class="modal-btns" style="margin-top:1rem;"><button class="modal-confirm" style="background:var(--green);" onclick="ghSaveSettings()">✓ Save Settings</button><button class="modal-cancel-btn" onclick="closeGhModal()">Close</button></div>'
-    +'</div></div>';
-}
-function ghSaveSettings(){
-  var token=((document.getElementById('gh-token-inp')||{value:''}).value||'').trim();
-  var repo=((document.getElementById('gh-repo-inp')||{value:''}).value||'').trim();
-  var branch=((document.getElementById('gh-branch-inp')||{value:''}).value||'').trim();
-  var file=((document.getElementById('gh-file-inp')||{value:''}).value||'').trim()||'roi-data.json';
-  if(!token){alert('Token is required.');return;}
-  if(!repo||!repo.includes('/')){alert('Repo must be in format owner/repo-name.');return;}
-  ghSetToken(token);ghSetCfg({repo:repo,branch:branch,file:file});
-  closeGhModal();
-}
-function closeGhModal(){document.getElementById('modal-root').innerHTML='';}
-
-// ── EXPOSE GLOBALS ────────────────────────────────────────────────────────────
-window.sPort=sPort;window.toggleDropdown=toggleDropdown;
-window.openModal=openModal;window.closeModal=closeModal;window.confirmModal=confirmModal;window.setMA=setMA;window.setCD=setCD;
-window.reopenPosition=reopenPosition;window.startEdit=startEdit;window.cancelEdit=cancelEdit;
-window.savePrice=savePrice;window.clearManualPrice=clearManualPrice;
-window.copyRow=copyRow;window.markRoll=markRoll;window.undoRoll=undoRoll;
-window.deleteRow=deleteRow;window.deleteAll=deleteAll;
-window.toggleUpload=toggleUpload;window.cancelUpload=cancelUpload;window.dlTemplate=dlTemplate;window.doImport=doImport;
-window.openAddModal=openAddModal;window.closeAddModal=closeAddModal;window.saveAddModal=saveAddModal;window.openEditModal=openEditModal;
-window.setAF=setAF;window.updateGross=updateGross;
-window.ieStart=ieStart;window.ieSave=ieSave;window.ieCancel=ieCancel;window.ieKey=ieKey;
-window.openPricesModal=openPricesModal;window.savePricesModal=savePricesModal;window.closePricesModal=closePricesModal;
-window.clearTickerPrice=clearTickerPrice;window.addTickerPrice=addTickerPrice;
-window.adminSavePrice=adminSavePrice;window.adminClearPrice=adminClearPrice;window.adminAddTicker=adminAddTicker;
-window.actSort=actSort;window.actSearchChange=actSearchChange;window.actSetPage=actSetPage;window.actSetFilter=actSetFilter;
-window.actToggleUpload=actToggleUpload;window.actCancelUpload=actCancelUpload;window.actClearAll=actClearAll;window.actDeleteRow=actDeleteRow;window.actDoImport=actDoImport;
-window.cashEdit=cashEdit;window.cashSave=cashSave;window.cashCancel=cashCancel;
-window.ghSave=ghSave;window.ghLoad=ghLoad;window.ghConfigure=ghConfigure;window.ghSaveSettings=ghSaveSettings;window.closeGhModal=closeGhModal;
 
 rBc();rMain();
 </script>
