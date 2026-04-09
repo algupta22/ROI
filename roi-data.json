@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-09T05:21:11.023Z",
+  "savedAt": "2026-04-09T13:13:36.563Z",
   "positions": [
     {
       "id": "34eklw3a",
@@ -15,6 +15,44 @@
       "excelGrossValue": 0,
       "excelCurrentValue": 0,
       "excelProfit": -5000,
+      "closed": false,
+      "notes": "",
+      "manualPrice": null,
+      "rolledOver": false,
+      "closeAction": null
+    },
+    {
+      "id": "aqytlgjy",
+      "ticker": "SOFI",
+      "excelType": "Short Put",
+      "strike": 16,
+      "expiryDate": "04/27",
+      "openDate": "4/9/26",
+      "contracts": 1,
+      "excelCost": 7800,
+      "excelIncome": 0,
+      "excelGrossValue": 0,
+      "excelCurrentValue": 0,
+      "excelProfit": -7800,
+      "closed": false,
+      "notes": "",
+      "manualPrice": null,
+      "rolledOver": false,
+      "closeAction": null
+    },
+    {
+      "id": "otg23gb4",
+      "ticker": "SOFI",
+      "excelType": "Short Put",
+      "strike": 16,
+      "expiryDate": "04/27",
+      "openDate": "4/9/26",
+      "contracts": 1,
+      "excelCost": 9000,
+      "excelIncome": 0,
+      "excelGrossValue": 0,
+      "excelCurrentValue": 0,
+      "excelProfit": -9000,
       "closed": false,
       "notes": "",
       "manualPrice": null,
@@ -3532,8 +3570,5 @@
         "expiry": ""
       }
     ]
-  },
-  "cashBalances": {
-    "amit": 5000
   }
 }
