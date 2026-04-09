@@ -1250,43 +1250,80 @@ function ghApply(d){
 }
 async function ghDetect(token,repo){for(var i=0;i<2;i++){var b=['main','master'][i];var r=await fetch('https://api.github.com/repos/'+repo+'/branches/'+b,{headers:{'Authorization':'token '+token,'Accept':'application/vnd.github.v3+json'}});if(r.ok)return b;}return null;}
 async function ghGet(token,repo,branch,file){
-  var r=await fetch('https://api.github.com/repos/'+repo+'/contents/'+file+'?ref='+branch,{headers:{'Authorization':'token '+token,'Accept':'application/vnd.github.v3+json'}});
+  // Always fetch fresh — never use a cached SHA
+  var r=await fetch('https://api.github.com/repos/'+repo+'/contents/'+file+'?ref='+branch+'&t='+Date.now(),{headers:{'Authorization':'token '+token,'Accept':'application/vnd.github.v3+json','Cache-Control':'no-cache'}});
   if(r.status===404)return{exists:false,sha:null,data:null};
   if(!r.ok)throw new Error('GitHub read error '+r.status+': '+(await r.text()).slice(0,200));
-  var j=await r.json();return{exists:true,sha:j.sha,data:JSON.parse(atob(j.content.replace(/\n/g,'')))};
+  var j=await r.json();
+  var content=JSON.parse(atob(j.content.replace(/\n/g,'')));
+  return{exists:true,sha:j.sha,data:content};
 }
 async function ghPut(token,repo,branch,file,content,sha){
   var body={message:'ROI sync '+new Date().toISOString().slice(0,16).replace('T',' '),content:btoa(unescape(encodeURIComponent(JSON.stringify(content,null,2)))),branch:branch};
-  if(sha)body.sha=sha;
+  if(sha)body.sha=sha; // required for update; omit only for brand-new file
   var r=await fetch('https://api.github.com/repos/'+repo+'/contents/'+file,{method:'PUT',headers:{'Authorization':'token '+token,'Content-Type':'application/json','Accept':'application/vnd.github.v3+json'},body:JSON.stringify(body)});
-  if(!r.ok)throw new Error('GitHub write error '+r.status+': '+(await r.text()).slice(0,200));
+  if(!r.ok){
+    var errText=(await r.text()).slice(0,300);
+    throw new Error('GitHub write error '+r.status+': '+errText);
+  }
   return r.json();
 }
 async function ghSave(){
   var token=ghGetToken();if(!token){ghConfigure('Please set your GitHub token first.');return;}
-  var cfg=ghGetCfg(),sb=document.getElementById('gh-save-btn'),lb=document.getElementById('gh-load-btn');
+  var cfg=ghGetCfg();
+  var sb=document.getElementById('gh-save-btn'),lb=document.getElementById('gh-load-btn');
   if(sb){sb.disabled=true;sb.textContent='Saving...';}if(lb)lb.disabled=true;
   try{
-    if(!cfg.branch){var b=await ghDetect(token,cfg.repo);if(!b)throw new Error('Cannot find main or master branch in: '+cfg.repo+'. Check repo name in \u2699 settings.');cfg.branch=b;ghSetCfg(cfg);}
+    // Auto-detect branch once and cache it
+    if(!cfg.branch){
+      var b=await ghDetect(token,cfg.repo);
+      if(!b)throw new Error('Cannot find main or master branch in: '+cfg.repo+'. Check repo name in \u2699 settings.');
+      cfg.branch=b;ghSetCfg(cfg);
+    }
+    // ALWAYS fetch fresh SHA first to avoid 409 conflicts
     var got=await ghGet(token,cfg.repo,cfg.branch,cfg.file);
+    // got.sha is null if file doesn't exist yet — that's fine, ghPut handles it
     await ghPut(token,cfg.repo,cfg.branch,cfg.file,ghCollect(),got.sha);
-    if(sb){sb.textContent='\u2601 Save to GitHub';sb.style.background='rgba(5,150,105,0.6)';}
-    setTimeout(function(){if(sb){sb.textContent='\u2601 Save to GitHub';sb.style.background='';}if(sb)sb.disabled=false;if(lb)lb.disabled=false;},2500);
-  }catch(e){if(sb){sb.textContent='\u2601 Save to GitHub';sb.disabled=false;}if(lb)lb.disabled=false;ghConfigure('Save failed: '+e.message);}
+    if(sb){sb.style.background='rgba(5,150,105,0.6)';sb.textContent='\u2601 Saved!';}
+    setTimeout(function(){if(sb){sb.textContent='\u2601 Save to GitHub';sb.style.background='';sb.disabled=false;}if(lb)lb.disabled=false;},2500);
+  }catch(e){
+    if(sb){sb.textContent='\u2601 Save to GitHub';sb.disabled=false;}
+    if(lb)lb.disabled=false;
+    // 409 usually means SHA mismatch — give a clear message
+    var msg=e.message||'';
+    if(msg.includes('409')||msg.includes('does not match')){
+      ghConfigure('Save failed: SHA mismatch (409). This usually means the file was changed outside this app. Click \u201cLoad from GitHub\u201d first to sync, then try saving again.');
+    } else {
+      ghConfigure('Save failed: '+msg);
+    }
+  }
 }
 async function ghLoad(){
   var token=ghGetToken();if(!token){ghConfigure('Please set your GitHub token first.');return;}
-  var cfg=ghGetCfg(),lb=document.getElementById('gh-load-btn'),sb=document.getElementById('gh-save-btn');
+  var cfg=ghGetCfg();
+  var lb=document.getElementById('gh-load-btn'),sb=document.getElementById('gh-save-btn');
   if(lb){lb.disabled=true;lb.textContent='Loading...';}if(sb)sb.disabled=true;
   try{
-    if(!cfg.branch){var b=await ghDetect(token,cfg.repo);if(!b)throw new Error('Cannot find main or master branch in: '+cfg.repo+'. Check repo name in \u2699 settings.');cfg.branch=b;ghSetCfg(cfg);}
+    if(!cfg.branch){
+      var b=await ghDetect(token,cfg.repo);
+      if(!b)throw new Error('Cannot find main or master branch in: '+cfg.repo+'. Check repo name in \u2699 settings.');
+      cfg.branch=b;ghSetCfg(cfg);
+    }
     var got=await ghGet(token,cfg.repo,cfg.branch,cfg.file);
-    if(!got.exists){if(lb){lb.textContent='\u2B07 Load from GitHub';lb.disabled=false;}if(sb)sb.disabled=false;ghConfigure('No saved data found yet. Click \u201cSave to GitHub\u201d first.');return;}
-    if(!ghApply(got.data))throw new Error('Unrecognised data format in '+cfg.file);
-    if(lb){lb.textContent='\u2B07 Load from GitHub';lb.style.background='rgba(37,99,235,0.6)';}
-    setTimeout(function(){if(lb){lb.textContent='\u2B07 Load from GitHub';lb.style.background='';}if(lb)lb.disabled=false;if(sb)sb.disabled=false;},2000);
+    if(!got.exists){
+      if(lb){lb.textContent='\u2B07 Load from GitHub';lb.disabled=false;}if(sb)sb.disabled=false;
+      ghConfigure('No saved data found on GitHub yet.\n\nClick \u201cSave to GitHub\u201d first to create your backup file.');
+      return;
+    }
+    if(!ghApply(got.data))throw new Error('Unrecognised data format in '+cfg.file+'. The file may be corrupted or from an incompatible version.');
+    if(lb){lb.style.background='rgba(37,99,235,0.6)';lb.textContent='\u2B07 Loaded!';}
+    setTimeout(function(){if(lb){lb.textContent='\u2B07 Load from GitHub';lb.style.background='';lb.disabled=false;}if(sb)sb.disabled=false;},2000);
     rMain();
-  }catch(e){if(lb){lb.textContent='\u2B07 Load from GitHub';lb.disabled=false;}if(sb)sb.disabled=false;ghConfigure('Load failed: '+e.message);}
+  }catch(e){
+    if(lb){lb.textContent='\u2B07 Load from GitHub';lb.disabled=false;}
+    if(sb)sb.disabled=false;
+    ghConfigure('Load failed: '+(e.message||String(e)));
+  }
 }
 function ghConfigure(msg){
   var token=ghGetToken(),cfg=ghGetCfg();
