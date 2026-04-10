@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-09T13:21:10.078Z",
+  "savedAt": "2026-04-10T03:45:15.466Z",
   "positions": [
     {
       "id": "34eklw3a",
@@ -58,6 +58,26 @@
       "manualPrice": null,
       "rolledOver": false,
       "closeAction": null
+    },
+    {
+      "id": "p7uwqgpg",
+      "portfolio": "lov-trad",
+      "ticker": "PLTR",
+      "excelType": "Short Put",
+      "strike": 95,
+      "expiryDate": "03/19/2027",
+      "openDate": "4/9/26",
+      "contracts": 1,
+      "excelCost": 6045,
+      "excelIncome": 0,
+      "excelGrossValue": 0,
+      "excelCurrentValue": 0,
+      "excelProfit": -6045,
+      "closed": false,
+      "notes": "",
+      "manualPrice": null,
+      "rolledOver": false,
+      "closeAction": null
     }
   ],
   "tickerPrices": {
@@ -65,5 +85,8 @@
   },
   "activityData": {
     "act_all": []
+  },
+  "cashBalances": {
+    "amit": 600
   }
 }
