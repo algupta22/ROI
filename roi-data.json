@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-11T23:31:31.341Z",
+  "savedAt": "2026-04-11T23:54:37.569Z",
   "positions": [
     {
       "id": "d53fqivm",
@@ -307,9 +307,9 @@
       "contracts": 1,
       "excelCost": 1140.04,
       "excelIncome": 0,
-      "excelGrossValue": 1140.04,
-      "excelCurrentValue": 1140.04,
-      "excelProfit": 0,
+      "excelGrossValue": 0,
+      "excelCurrentValue": 0,
+      "excelProfit": -1140.04,
       "closed": true,
       "rolledOver": false,
       "closeAction": {
