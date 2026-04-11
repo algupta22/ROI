@@ -1187,8 +1187,133 @@ function actClearAll(){if(!confirm('Delete ALL activity for this portfolio?'))re
 function actDeleteRow(id){setActRows(getActRows().filter(function(r){return r.id!==id;}));rMain();}
 function actDoImport(){
   if(!actUpPreview||!actUpPreview.rows.length)return;
+  var portTag=ap==='retirement'?as:ap;
+  if(portTag==='all')portTag='lovelina';
+  if(portTag==='ret-all')portTag='amit-roth';
+  var now2=new Date();
+  var newPositions=0,closedPositions=0,expiredPositions=0;
+  actUpPreview.rows.forEach(function(actRow){
+    var tc=actRow.tc;
+    var ticker=actRow.instrument&&actRow.instrument!=='--'?actRow.instrument:'';
+    var strike=actRow.strike||0;
+    var expiry=actRow.expiry||'';
+    var optType=actRow.optType||'';
+    var amt=actRow.amount||0;
+    var actDate=actRow.date||'';
+    // 1. BTC or STC: find matching open position and close it
+    if(tc==='BTC'||tc==='STC'){
+      var match=positions.find(function(p){
+        return !p.closed&&p.ticker===ticker
+          &&(strike===0||Math.abs((p.strike||0)-strike)<0.01)
+          &&(expiry===''||(p.expiryDate||'')===(expiry));
+      });
+      if(!match&&ticker&&strike>0){
+        match=positions.find(function(p){
+          return !p.closed&&p.ticker===ticker&&Math.abs((p.strike||0)-strike)<0.01;
+        });
+      }
+      if(match){
+        match.closed=true;
+        var signed=tc==='BTC'?-Math.abs(amt):amt;
+        var cdType=amt===0?'zero':signed>=0?'credit':'debit';
+        match.closeAction={action:tc,type:cdType,amount:Math.abs(amt),signedAmount:signed,notes:'Auto-closed from activity import ('+actDate+')',date:actDate};
+        if(cdType!=='zero')match.excelProfit=(match.excelIncome||0)+signed;
+        closedPositions++;
+      }
+      return;
+    }
+    // 2. Expiry check: mark expired if expiry date already passed
+    if(expiry){
+      try{
+        var expDate=new Date(expiry);expDate.setHours(23,59,59,999);
+        if(expDate<now2){
+          var expMatch=positions.find(function(p){
+            return !p.closed&&p.ticker===ticker
+              &&(strike===0||Math.abs((p.strike||0)-strike)<0.01)
+              &&(p.expiryDate||'')===(expiry);
+          });
+          if(expMatch){
+            expMatch.closed=true;
+            expMatch.closeAction={action:'Close',type:'zero',amount:0,signedAmount:0,notes:'Auto-expired (expiry date passed)',date:expiry};
+            expiredPositions++;
+          }
+        }
+      }catch(e){}
+    }
+    // 3. STO: create new Short option
+    if(tc==='STO'&&ticker&&optType&&strike>0){
+      var excelType=optType==='Put'?'Short Put':'Short Call';
+      var income=Math.abs(amt);
+      var dup=positions.find(function(p){
+        return p.ticker===ticker&&p.excelType===excelType
+          &&Math.abs((p.strike||0)-strike)<0.01
+          &&(p.expiryDate||'')===(expiry)
+          &&!p.closed&&(p.openDate||'')===(actDate);
+      });
+      if(!dup){
+        var uid7=Math.random().toString(36).slice(2,10);
+        positions.push({id:uid7,portfolio:portTag,ticker:ticker,excelType:excelType,strike:strike,expiryDate:expiry,openDate:actDate,contracts:parseInt(actRow.qty)||1,excelCost:0,excelIncome:income,excelGrossValue:income,excelCurrentValue:income,excelProfit:income,closed:false,notes:actRow.desc||'',manualPrice:null,rolledOver:false,closeAction:null});
+        newPositions++;
+      }
+      return;
+    }
+    // 4. BTO: create new Long option
+    if(tc==='BTO'&&ticker&&optType&&strike>0){
+      var excelTypeLong=optType==='Put'?'Long Put':'Long Call';
+      var cost=Math.abs(amt);
+      var dup2=positions.find(function(p){
+        return p.ticker===ticker&&p.excelType===excelTypeLong
+          &&Math.abs((p.strike||0)-strike)<0.01
+          &&(p.expiryDate||'')===(expiry)
+          &&!p.closed&&(p.openDate||'')===(actDate);
+      });
+      if(!dup2){
+        var uid8=Math.random().toString(36).slice(2,10);
+        positions.push({id:uid8,portfolio:portTag,ticker:ticker,excelType:excelTypeLong,strike:strike,expiryDate:expiry,openDate:actDate,contracts:parseInt(actRow.qty)||1,excelCost:cost,excelIncome:0,excelGrossValue:cost,excelCurrentValue:cost,excelProfit:0,closed:false,notes:actRow.desc||'',manualPrice:null,rolledOver:false,closeAction:null});
+        newPositions++;
+      }
+      return;
+    }
+    // 5. BUY shares
+    if(tc==='Buy'&&ticker){
+      var shareCost=Math.abs(amt);
+      var uid9=Math.random().toString(36).slice(2,10);
+      positions.push({id:uid9,portfolio:portTag,ticker:ticker,excelType:'Shares',strike:0,expiryDate:'',openDate:actDate,contracts:parseInt(actRow.qty)||1,excelCost:shareCost,excelIncome:0,excelGrossValue:shareCost,excelCurrentValue:shareCost,excelProfit:0,closed:false,notes:actRow.desc||'',manualPrice:null,rolledOver:false,closeAction:null});
+      newPositions++;
+      return;
+    }
+    // 6. SELL shares: close matching open Shares position
+    if(tc==='Sell'&&ticker){
+      var shareMatch=positions.find(function(p){return !p.closed&&p.ticker===ticker&&p.excelType==='Shares';});
+      if(shareMatch){
+        shareMatch.closed=true;
+        var sAmt=amt;
+        shareMatch.closeAction={action:'Sell',type:sAmt>=0?'credit':'debit',amount:Math.abs(sAmt),signedAmount:sAmt,notes:'Auto-closed from activity import ('+actDate+')',date:actDate};
+        if(sAmt!==0)shareMatch.excelProfit=(shareMatch.excelIncome||0)+sAmt-(shareMatch.excelCost||0);
+        closedPositions++;
+      }
+      return;
+    }
+  });
+  // Sweep all positions: auto-expire anything past expiry date
+  positions.forEach(function(p){
+    if(p.closed||!p.expiryDate)return;
+    try{
+      var exp2=new Date(p.expiryDate);exp2.setHours(23,59,59,999);
+      if(exp2<now2){
+        p.closed=true;
+        p.closeAction={action:'Close',type:'zero',amount:0,signedAmount:0,notes:'Auto-expired (expiry date passed)',date:p.expiryDate};
+        expiredPositions++;
+      }
+    }catch(e){}
+  });
+  savePositions();
   setActRows(actUpPreview.rows.concat(getActRows()));
-  actUpMsg={ok:true,text:'Imported '+actUpPreview.rows.length+' rows.'};
+  var summary='Imported '+actUpPreview.rows.length+' activity rows.';
+  if(newPositions)summary+=' Created '+newPositions+' new position'+(newPositions!==1?'s':'')+'.';
+  if(closedPositions)summary+=' Closed '+closedPositions+' position'+(closedPositions!==1?'s':'')+'.';
+  if(expiredPositions)summary+=' Auto-expired '+expiredPositions+' position'+(expiredPositions!==1?'s':'')+'.';
+  actUpMsg={ok:true,text:summary};
   actUpPreview=null;actUpOpen=false;actPage=0;rMain();
 }
 function actHandleFile(file){
