@@ -426,39 +426,39 @@ var DC={PLTR:'#7C3AED',MSFT:'#2563EB',GOOGL:'#D97706',NVDX:'#059669',SOFI:'#DB28
 
 // ── SEED DATA (used only on very first load ever) ──────────────────────────────
 var SEED=[
-{ticker:"GOOGL",strike:295,expiryDate:"4/6/26",openDate:"3/31/26",excelIncome:218,excelProfit:218,excelGrossValue:218,excelCurrentValue:218,excelCost:0,excelType:"Short Put",closed:true,id:"a1",manualPrice:null,rolledOver:false},
-{ticker:"MSFT",strike:370,expiryDate:"04/08/26",openDate:"04/06/26",excelIncome:231,excelProfit:231,excelGrossValue:231,excelCurrentValue:231,excelCost:0,excelType:"Short Put",closed:false,id:"a2",manualPrice:null,rolledOver:false},
-{ticker:"METU",strike:0,expiryDate:"",openDate:"",excelCost:3910,excelProfit:-1643,excelGrossValue:2267,excelCurrentValue:2267,excelType:"Shares",id:"a3",manualPrice:39.1,rolledOver:false},
-{ticker:"NVDX",strike:15,expiryDate:"5/15/26",openDate:"",excelCost:195,excelProfit:8,excelGrossValue:203,excelCurrentValue:183,excelType:"Long Put",id:"a4",manualPrice:null,rolledOver:false},
-{ticker:"MSFT",strike:370,expiryDate:"4/6/26",openDate:"",excelIncome:227,excelProfit:227,excelGrossValue:227,excelCurrentValue:227,excelCost:0,excelType:"Short Put",closed:true,id:"a5",manualPrice:null,rolledOver:false},
-{ticker:"MSFT",strike:375,expiryDate:"5/15/26",openDate:"",excelCost:1837,excelProfit:0,excelGrossValue:1837,excelCurrentValue:1837,excelType:"Long Put",id:"a6",manualPrice:null,rolledOver:false},
-{ticker:"GOOGL",strike:295,expiryDate:"04/08/26",openDate:"04/06/26",excelIncome:295,excelProfit:295,excelGrossValue:295,excelCurrentValue:295,excelCost:0,excelType:"Short Put",closed:false,id:"a7",manualPrice:null,rolledOver:false},
-{ticker:"GOOGL",strike:300,expiryDate:"5/15/26",openDate:"",excelCost:1620,excelProfit:0,excelGrossValue:1620,excelCurrentValue:1620,excelType:"Long Put",id:"a8",manualPrice:null,rolledOver:false},
-{ticker:"NVDX",strike:15.43,expiryDate:"6/18/26",openDate:"",excelCost:340,excelProfit:80,excelGrossValue:420,excelCurrentValue:285,excelType:"Long Put",id:"a9",manualPrice:null,rolledOver:false},
-{ticker:"NVDX",strike:10.43,expiryDate:"1/15/27",openDate:"",excelCost:750,excelProfit:-185,excelGrossValue:565,excelCurrentValue:565,excelType:"Long Call",id:"a10",manualPrice:null,rolledOver:false},
-{ticker:"PLTR",strike:95,expiryDate:"3/19/27",openDate:"",excelCost:7700,excelIncome:1507,excelProfit:372,excelGrossValue:8072,excelCurrentValue:6565,excelType:"Long Call",id:"a11",manualPrice:null,rolledOver:false},
-{ticker:"PLTR",strike:110,expiryDate:"1/15/27",openDate:"",excelCost:5425,excelIncome:1530,excelProfit:1373,excelGrossValue:6798,excelCurrentValue:5268,excelType:"Long Call",id:"a12",manualPrice:null,rolledOver:false},
-{ticker:"PLTR",strike:145,expiryDate:"5/15/26",openDate:"",excelCost:1370,excelProfit:-375,excelGrossValue:995,excelCurrentValue:995,excelType:"Long Put",id:"a13",manualPrice:null,rolledOver:false},
-{ticker:"PLTR",strike:135,expiryDate:"5/8/26",openDate:"",excelCost:1035,excelProfit:-490,excelGrossValue:545,excelCurrentValue:545,excelType:"Long Put",id:"a14",manualPrice:null,rolledOver:false},
-{ticker:"PLTR",strike:135,expiryDate:"5/1/26",openDate:"",excelCost:440,excelProfit:-115,excelGrossValue:325,excelCurrentValue:325,excelType:"Long Put",id:"a15",manualPrice:null,rolledOver:false},
-{ticker:"PLTR",strike:140,expiryDate:"4/10/26",openDate:"",excelIncome:226,excelProfit:226,excelGrossValue:226,excelCurrentValue:226,excelCost:0,excelType:"Short Put",id:"a16",manualPrice:null,rolledOver:false},
-{ticker:"PLTR",strike:139,expiryDate:"4/10/26",openDate:"",excelIncome:103,excelProfit:103,excelGrossValue:103,excelCurrentValue:103,excelCost:0,excelType:"Short Put",id:"a17",manualPrice:null,rolledOver:false},
-{ticker:"TSLL",strike:13,expiryDate:"5/15/26",openDate:"",excelCost:168,excelProfit:63,excelGrossValue:231,excelCurrentValue:231,excelType:"Long Put",id:"a18",manualPrice:null,rolledOver:false},
-{ticker:"TSLL",strike:0,expiryDate:"",openDate:"",excelCost:1200,excelProfit:-46,excelGrossValue:1154,excelCurrentValue:1154,excelType:"Shares",id:"a19",manualPrice:12,rolledOver:false},
-{ticker:"NVTS",strike:0,expiryDate:"",openDate:"",excelCost:1786,excelProfit:-31,excelGrossValue:1755,excelCurrentValue:1755,excelType:"Shares",id:"a20",manualPrice:8,rolledOver:false},
-{ticker:"NVTS",strike:8,expiryDate:"4/10/26",openDate:"",excelIncome:59,excelProfit:59,excelGrossValue:59,excelCurrentValue:59,excelCost:0,excelType:"Short Put",id:"a21",manualPrice:null,rolledOver:false},
-{ticker:"NVTS",strike:8,expiryDate:"4/10/26",openDate:"",excelIncome:26,excelProfit:26,excelGrossValue:26,excelCurrentValue:26,excelCost:0,excelType:"Short Put",id:"a22",manualPrice:null,rolledOver:false},
-{ticker:"NVTS",strike:8.5,expiryDate:"5/8/26",openDate:"",excelCost:144,excelProfit:-45,excelGrossValue:99,excelCurrentValue:99,excelType:"Long Put",id:"a23",manualPrice:null,rolledOver:false},
-{ticker:"NVTS",strike:8.5,expiryDate:"5/8/26",openDate:"",excelCost:144,excelProfit:-45,excelGrossValue:99,excelCurrentValue:99,excelType:"Long Put",id:"a24",manualPrice:null,rolledOver:false},
-{ticker:"SOFI",strike:12,expiryDate:"1/15/27",openDate:"",excelCost:780,excelProfit:-182,excelGrossValue:598,excelCurrentValue:598,excelType:"Long Call",id:"a25",manualPrice:null,rolledOver:false},
-{ticker:"SOFI",strike:12,expiryDate:"1/15/27",openDate:"",excelCost:780,excelProfit:-182,excelGrossValue:598,excelCurrentValue:598,excelType:"Long Call",id:"a26",manualPrice:null,rolledOver:false},
-{ticker:"SOFI",strike:12,expiryDate:"1/15/27",openDate:"",excelCost:780,excelProfit:-182,excelGrossValue:598,excelCurrentValue:598,excelType:"Long Call",id:"a27",manualPrice:null,rolledOver:false},
-{ticker:"SOFI",strike:18,expiryDate:"5/15/26",openDate:"",excelCost:218,excelProfit:52,excelGrossValue:270,excelCurrentValue:270,excelType:"Long Put",id:"a28",manualPrice:null,rolledOver:false},
-{ticker:"SOFI",strike:17,expiryDate:"5/15/26",openDate:"",excelCost:218,excelProfit:-17,excelGrossValue:201,excelCurrentValue:201,excelType:"Long Put",id:"a29",manualPrice:null,rolledOver:false},
-{ticker:"SOFI",strike:17,expiryDate:"5/15/26",openDate:"",excelCost:218,excelProfit:-17,excelGrossValue:201,excelCurrentValue:201,excelType:"Long Put",id:"a30",manualPrice:null,rolledOver:false},
-{ticker:"SOFI",strike:16,expiryDate:"4/10/26",openDate:"",excelIncome:213,excelProfit:213,excelGrossValue:213,excelCurrentValue:213,excelCost:0,excelType:"Short Put",id:"a31",manualPrice:null,rolledOver:false},
-{ticker:"SOFI",strike:16.5,expiryDate:"4/10/26",openDate:"",excelIncome:93,excelProfit:93,excelGrossValue:93,excelCurrentValue:93,excelCost:0,excelType:"Short Put",id:"a32",manualPrice:null,rolledOver:false},
-{ticker:"SOFI",strike:17,expiryDate:"4/10/26",openDate:"",excelIncome:99,excelProfit:99,excelGrossValue:99,excelCurrentValue:99,excelCost:0,excelType:"Short Put",id:"a33",manualPrice:null,rolledOver:false}
+{portfolio:"lovelina",ticker:"GOOGL",strike:295,expiryDate:"4/6/26",openDate:"3/31/26",excelIncome:218,excelProfit:218,excelGrossValue:218,excelCurrentValue:218,excelCost:0,excelType:"Short Put",closed:true,id:"a1",manualPrice:null,rolledOver:false},
+{portfolio:"lovelina",ticker:"MSFT",strike:370,expiryDate:"04/08/26",openDate:"04/06/26",excelIncome:231,excelProfit:231,excelGrossValue:231,excelCurrentValue:231,excelCost:0,excelType:"Short Put",closed:false,id:"a2",manualPrice:null,rolledOver:false},
+{portfolio:"lovelina",ticker:"METU",strike:0,expiryDate:"",openDate:"",excelCost:3910,excelProfit:-1643,excelGrossValue:2267,excelCurrentValue:2267,excelType:"Shares",id:"a3",manualPrice:39.1,rolledOver:false},
+{portfolio:"lovelina",ticker:"NVDX",strike:15,expiryDate:"5/15/26",openDate:"",excelCost:195,excelProfit:8,excelGrossValue:203,excelCurrentValue:183,excelType:"Long Put",id:"a4",manualPrice:null,rolledOver:false},
+{portfolio:"lovelina",ticker:"MSFT",strike:370,expiryDate:"4/6/26",openDate:"",excelIncome:227,excelProfit:227,excelGrossValue:227,excelCurrentValue:227,excelCost:0,excelType:"Short Put",closed:true,id:"a5",manualPrice:null,rolledOver:false},
+{portfolio:"lovelina",ticker:"MSFT",strike:375,expiryDate:"5/15/26",openDate:"",excelCost:1837,excelProfit:0,excelGrossValue:1837,excelCurrentValue:1837,excelType:"Long Put",id:"a6",manualPrice:null,rolledOver:false},
+{portfolio:"lovelina",ticker:"GOOGL",strike:295,expiryDate:"04/08/26",openDate:"04/06/26",excelIncome:295,excelProfit:295,excelGrossValue:295,excelCurrentValue:295,excelCost:0,excelType:"Short Put",closed:false,id:"a7",manualPrice:null,rolledOver:false},
+{portfolio:"lovelina",ticker:"GOOGL",strike:300,expiryDate:"5/15/26",openDate:"",excelCost:1620,excelProfit:0,excelGrossValue:1620,excelCurrentValue:1620,excelType:"Long Put",id:"a8",manualPrice:null,rolledOver:false},
+{portfolio:"lovelina",ticker:"NVDX",strike:15.43,expiryDate:"6/18/26",openDate:"",excelCost:340,excelProfit:80,excelGrossValue:420,excelCurrentValue:285,excelType:"Long Put",id:"a9",manualPrice:null,rolledOver:false},
+{portfolio:"lovelina",ticker:"NVDX",strike:10.43,expiryDate:"1/15/27",openDate:"",excelCost:750,excelProfit:-185,excelGrossValue:565,excelCurrentValue:565,excelType:"Long Call",id:"a10",manualPrice:null,rolledOver:false},
+{portfolio:"lovelina",ticker:"PLTR",strike:95,expiryDate:"3/19/27",openDate:"",excelCost:7700,excelIncome:1507,excelProfit:372,excelGrossValue:8072,excelCurrentValue:6565,excelType:"Long Call",id:"a11",manualPrice:null,rolledOver:false},
+{portfolio:"lovelina",ticker:"PLTR",strike:110,expiryDate:"1/15/27",openDate:"",excelCost:5425,excelIncome:1530,excelProfit:1373,excelGrossValue:6798,excelCurrentValue:5268,excelType:"Long Call",id:"a12",manualPrice:null,rolledOver:false},
+{portfolio:"lovelina",ticker:"PLTR",strike:145,expiryDate:"5/15/26",openDate:"",excelCost:1370,excelProfit:-375,excelGrossValue:995,excelCurrentValue:995,excelType:"Long Put",id:"a13",manualPrice:null,rolledOver:false},
+{portfolio:"lovelina",ticker:"PLTR",strike:135,expiryDate:"5/8/26",openDate:"",excelCost:1035,excelProfit:-490,excelGrossValue:545,excelCurrentValue:545,excelType:"Long Put",id:"a14",manualPrice:null,rolledOver:false},
+{portfolio:"lovelina",ticker:"PLTR",strike:135,expiryDate:"5/1/26",openDate:"",excelCost:440,excelProfit:-115,excelGrossValue:325,excelCurrentValue:325,excelType:"Long Put",id:"a15",manualPrice:null,rolledOver:false},
+{portfolio:"lovelina",ticker:"PLTR",strike:140,expiryDate:"4/10/26",openDate:"",excelIncome:226,excelProfit:226,excelGrossValue:226,excelCurrentValue:226,excelCost:0,excelType:"Short Put",id:"a16",manualPrice:null,rolledOver:false},
+{portfolio:"lovelina",ticker:"PLTR",strike:139,expiryDate:"4/10/26",openDate:"",excelIncome:103,excelProfit:103,excelGrossValue:103,excelCurrentValue:103,excelCost:0,excelType:"Short Put",id:"a17",manualPrice:null,rolledOver:false},
+{portfolio:"lovelina",ticker:"TSLL",strike:13,expiryDate:"5/15/26",openDate:"",excelCost:168,excelProfit:63,excelGrossValue:231,excelCurrentValue:231,excelType:"Long Put",id:"a18",manualPrice:null,rolledOver:false},
+{portfolio:"lovelina",ticker:"TSLL",strike:0,expiryDate:"",openDate:"",excelCost:1200,excelProfit:-46,excelGrossValue:1154,excelCurrentValue:1154,excelType:"Shares",id:"a19",manualPrice:12,rolledOver:false},
+{portfolio:"lovelina",ticker:"NVTS",strike:0,expiryDate:"",openDate:"",excelCost:1786,excelProfit:-31,excelGrossValue:1755,excelCurrentValue:1755,excelType:"Shares",id:"a20",manualPrice:8,rolledOver:false},
+{portfolio:"lovelina",ticker:"NVTS",strike:8,expiryDate:"4/10/26",openDate:"",excelIncome:59,excelProfit:59,excelGrossValue:59,excelCurrentValue:59,excelCost:0,excelType:"Short Put",id:"a21",manualPrice:null,rolledOver:false},
+{portfolio:"lovelina",ticker:"NVTS",strike:8,expiryDate:"4/10/26",openDate:"",excelIncome:26,excelProfit:26,excelGrossValue:26,excelCurrentValue:26,excelCost:0,excelType:"Short Put",id:"a22",manualPrice:null,rolledOver:false},
+{portfolio:"lovelina",ticker:"NVTS",strike:8.5,expiryDate:"5/8/26",openDate:"",excelCost:144,excelProfit:-45,excelGrossValue:99,excelCurrentValue:99,excelType:"Long Put",id:"a23",manualPrice:null,rolledOver:false},
+{portfolio:"lovelina",ticker:"NVTS",strike:8.5,expiryDate:"5/8/26",openDate:"",excelCost:144,excelProfit:-45,excelGrossValue:99,excelCurrentValue:99,excelType:"Long Put",id:"a24",manualPrice:null,rolledOver:false},
+{portfolio:"lovelina",ticker:"SOFI",strike:12,expiryDate:"1/15/27",openDate:"",excelCost:780,excelProfit:-182,excelGrossValue:598,excelCurrentValue:598,excelType:"Long Call",id:"a25",manualPrice:null,rolledOver:false},
+{portfolio:"lovelina",ticker:"SOFI",strike:12,expiryDate:"1/15/27",openDate:"",excelCost:780,excelProfit:-182,excelGrossValue:598,excelCurrentValue:598,excelType:"Long Call",id:"a26",manualPrice:null,rolledOver:false},
+{portfolio:"lovelina",ticker:"SOFI",strike:12,expiryDate:"1/15/27",openDate:"",excelCost:780,excelProfit:-182,excelGrossValue:598,excelCurrentValue:598,excelType:"Long Call",id:"a27",manualPrice:null,rolledOver:false},
+{portfolio:"lovelina",ticker:"SOFI",strike:18,expiryDate:"5/15/26",openDate:"",excelCost:218,excelProfit:52,excelGrossValue:270,excelCurrentValue:270,excelType:"Long Put",id:"a28",manualPrice:null,rolledOver:false},
+{portfolio:"lovelina",ticker:"SOFI",strike:17,expiryDate:"5/15/26",openDate:"",excelCost:218,excelProfit:-17,excelGrossValue:201,excelCurrentValue:201,excelType:"Long Put",id:"a29",manualPrice:null,rolledOver:false},
+{portfolio:"lovelina",ticker:"SOFI",strike:17,expiryDate:"5/15/26",openDate:"",excelCost:218,excelProfit:-17,excelGrossValue:201,excelCurrentValue:201,excelType:"Long Put",id:"a30",manualPrice:null,rolledOver:false},
+{portfolio:"lovelina",ticker:"SOFI",strike:16,expiryDate:"4/10/26",openDate:"",excelIncome:213,excelProfit:213,excelGrossValue:213,excelCurrentValue:213,excelCost:0,excelType:"Short Put",id:"a31",manualPrice:null,rolledOver:false},
+{portfolio:"lovelina",ticker:"SOFI",strike:16.5,expiryDate:"4/10/26",openDate:"",excelIncome:93,excelProfit:93,excelGrossValue:93,excelCurrentValue:93,excelCost:0,excelType:"Short Put",id:"a32",manualPrice:null,rolledOver:false},
+{portfolio:"lovelina",ticker:"SOFI",strike:17,expiryDate:"4/10/26",openDate:"",excelIncome:99,excelProfit:99,excelGrossValue:99,excelCurrentValue:99,excelCost:0,excelType:"Short Put",id:"a33",manualPrice:null,rolledOver:false}
 ];
 
 // ── FIX 1: PERSISTENCE — data survives GitHub deploys ────────────────────────
@@ -470,7 +470,16 @@ var positions=SEED.slice();
 (function(){
   try{
     var raw=localStorage.getItem('roi_positions_v1');
-    if(raw){var d=JSON.parse(raw);if(Array.isArray(d)&&d.length>0){positions=d;return;}}
+    if(raw){
+      var d=JSON.parse(raw);
+      if(Array.isArray(d)&&d.length>0){
+        // Tag any legacy positions (no portfolio field) as lovelina
+        d.forEach(function(r){if(!r.portfolio)r.portfolio='lovelina';});
+        positions=d;
+        savePositions(); // persist the tags
+        return;
+      }
+    }
   }catch(e){}
   savePositions();
 })();
@@ -528,14 +537,18 @@ function ec(s){var d=du(s);return d<=4?'es':d<=30?'em':'ef';}
 function bct(t){return t==='Short Put'?'bsp':t==='Long Put'?'blp':t==='Long Call'?'blc':'bsh';}
 function collateral(r){return r.excelType==='Short Put'&&!isCl(r)&&!r.rolledOver?r.strike*100:0;}
 function gd(p,s){
-  if(p==='all'||p==='lovelina')return positions;
-  if(p==='amit')return positions.filter(function(r){return r.portfolio==='amit';});
-  if(p==='joint')return positions.filter(function(r){return r.portfolio==='joint';});
+  // All tab: return everything
+  if(p==='all') return positions;
+  // Each tab: strict filter by portfolio tag
+  if(p==='lovelina') return positions.filter(function(r){return r.portfolio==='lovelina';});
+  if(p==='amit')     return positions.filter(function(r){return r.portfolio==='amit';});
+  if(p==='joint')    return positions.filter(function(r){return r.portfolio==='joint';});
   if(p==='retirement'){
-    if(s==='amit-roth')return positions.filter(function(r){return r.portfolio==='amit-roth';});
-    if(s==='lov-roth')return positions.filter(function(r){return r.portfolio==='lov-roth';});
-    if(s==='lov-trad')return positions.filter(function(r){return r.portfolio==='lov-trad';});
-    return positions.filter(function(r){return r.portfolio==='amit-roth'||r.portfolio==='lov-roth'||r.portfolio==='lov-trad';});
+    var retPorts=['amit-roth','lov-roth','lov-trad'];
+    if(s==='amit-roth') return positions.filter(function(r){return r.portfolio==='amit-roth';});
+    if(s==='lov-roth')  return positions.filter(function(r){return r.portfolio==='lov-roth';});
+    if(s==='lov-trad')  return positions.filter(function(r){return r.portfolio==='lov-trad';});
+    return positions.filter(function(r){return retPorts.indexOf(r.portfolio)>=0;});
   }
   return[];
 }
@@ -744,23 +757,27 @@ function openEditModal(id){
 }
 function renderAddModal(){
   var f=addForm;if(!f)return;
-  var isEditing=!!f._editId;
   var isShort=f.type==='Short Put'||f.type==='Short Call',isOpts=f.type!=='Shares';
-  var cV=isEditing?(parseFloat(f.currentValue)||0):(isShort?0:(parseFloat(f.currentValue)||parseFloat(f.cost)||0));
+  var cV=isShort?0:(parseFloat(f.currentValue)||parseFloat(f.cost)||0);
   var iV=parseFloat(f.income)||0,aG=iV+cV;
-  var grossV=isEditing&&f.grossValue!==''&&f.grossValue!==undefined?(parseFloat(f.grossValue)||aG):aG;
-  var pnlV=isEditing&&f.profit!==''&&f.profit!==undefined?(parseFloat(f.profit)||0):(aG-(parseFloat(f.cost)||0));
-  function tbc(t){return t===f.type?'active-'+(t==='Short Put'?'sp':t==='Long Put'?'lp':t==='Long Call'?'lc':t==='Short Call'?'sc':'sh'):'';}  var currField=(!isEditing&&isShort)
-    ?'<div class="ap-field"><label class="ap-label">Current Value ($) <span style="font-size:0.6rem;color:var(--text3);font-weight:400">(locked 0 on add)</span></label><input class="ap-input" type="number" value="0" disabled style="background:var(--bg3);color:var(--text3);"></div>'
-    :'<div class="ap-field"><label class="ap-label">Current Value ($)</label><input class="ap-input" id="af-curr" type="number" step="0.01" placeholder="0" value="'+cV+'" oninput="addForm.currentValue=this.value;updateGross()"></div>';
-  var grossField=isEditing
-    ?'<div class="ap-field"><label class="ap-label">Gross Val ($)</label><input class="ap-input" id="af-gross" type="number" step="0.01" value="'+grossV+'" oninput="addForm.grossValue=this.value"></div>'
-    :'<div class="ap-field"><label class="ap-label">Gross Val ($) <span style="font-size:0.6rem;color:var(--text3);font-weight:400">(auto)</span></label><input class="ap-input" id="af-gross" type="number" value="'+grossV+'" disabled style="background:var(--bg3);color:var(--text3);"></div>';
-  var pnlField=isEditing
-    ?'<div class="ap-field"><label class="ap-label">P&amp;L ($)</label><input class="ap-input" id="af-pnl" type="number" step="0.01" value="'+pnlV+'" oninput="addForm.profit=this.value"></div>'
-    :'<div class="ap-field"><label class="ap-label">P&amp;L ($) <span style="font-size:0.6rem;color:var(--text3);font-weight:400">(auto)</span></label><input class="ap-input" id="af-pnl" type="number" value="'+pnlV+'" disabled style="background:var(--bg3);color:var(--text3);"></div>';
+  function tbc(t){return t===f.type?'active-'+(t==='Short Put'?'sp':t==='Long Put'?'lp':t==='Long Call'?'lc':t==='Short Call'?'sc':'sh'):'';}
   document.getElementById('modal-root').innerHTML=
-    '<div class="modal-overlay" onclick="if(event.target===this)closeAddModal()">'    +'<div class="ap-modal-box"><div class="modal-title">'+(isEditing?'&#9998; Edit Position':'&#43; Add New Position')+'</div>'    +'<div class="modal-sub" style="margin-bottom:0.85rem;">Fields marked <span style="color:var(--red)">*</span> are required.'+(isEditing?' <span style="color:var(--blue);">All fields editable in edit mode.</span>':'')+'</div>'    +'<div class="modal-section-label">Position Type <span style="color:var(--red)">*</span></div>'    +'<div class="ap-type-tabs"><button class="apt '+tbc('Short Put')+'" onclick="setAF(\'type\',\'Short Put\')">&#8595; Short Put</button><button class="apt '+tbc('Long Put')+'" onclick="setAF(\'type\',\'Long Put\')">&#8593; Long Put</button><button class="apt '+tbc('Long Call')+'" onclick="setAF(\'type\',\'Long Call\')">&#8593; Long Call</button><button class="apt '+tbc('Short Call')+'" onclick="setAF(\'type\',\'Short Call\')">&#8595; Short Call</button><button class="apt '+tbc('Shares')+'" onclick="setAF(\'type\',\'Shares\')">&#9632; Shares</button></div>'    +'<div class="ap-grid"><div class="ap-field"><label class="ap-label">Ticker <span>*</span></label><input class="ap-input" id="af-ticker" placeholder="e.g. SOFI" value="'+f.ticker+'" oninput="addForm.ticker=this.value.toUpperCase()"></div>'    +'<div class="ap-field"><label class="ap-label">'+(f.type==='Shares'?'Shares':'Contracts')+' <span>*</span></label><input class="ap-input" id="af-contracts" type="number" min="1" placeholder="1" value="'+f.contracts+'" oninput="addForm.contracts=parseInt(this.value)||1"></div></div>'    +(isOpts?'<div class="ap-grid"><div class="ap-field"><label class="ap-label">Strike <span>*</span></label><input class="ap-input" id="af-strike" type="number" step="0.01" placeholder="e.g. 16.00" value="'+f.strike+'" oninput="addForm.strike=this.value"></div><div class="ap-field"><label class="ap-label">Expiry <span>*</span></label><input class="ap-input" id="af-expiry" placeholder="e.g. 4/10/26" value="'+f.expiryDate+'" oninput="addForm.expiryDate=this.value"></div></div>':'')    +'<div class="ap-grid"><div class="ap-field"><label class="ap-label">Open Date</label><input class="ap-input" id="af-opendate" placeholder="e.g. 4/1/26" value="'+f.openDate+'" oninput="addForm.openDate=this.value"></div><div class="ap-field"><label class="ap-label">Cost / Debit ($)</label><input class="ap-input" id="af-cost" type="number" step="0.01" placeholder="0" value="'+f.cost+'" oninput="addForm.cost=this.value;updateGross()"></div></div>'    +'<div class="ap-grid"><div class="ap-field"><label class="ap-label">Premium / Income ($)</label><input class="ap-input" id="af-income" type="number" step="0.01" placeholder="0" value="'+f.income+'" oninput="addForm.income=this.value;updateGross()"></div>'    +currField    +'</div><div class="ap-grid">'+grossField+pnlField+'</div>'    +'<div class="ap-grid"><div class="ap-field"><label class="ap-label">Notes</label><input class="ap-input" id="af-notes" placeholder="Optional" value="'+f.notes+'" oninput="addForm.notes=this.value"></div>'    +'<div class="ap-field"><label class="ap-label">Status</label><select class="ap-select" onchange="addForm.closed=this.value===\'closed\'"><option value="open"'+(f.closed?'':' selected')+'>Open</option><option value="closed"'+(f.closed?' selected':'')+'>Closed</option></select></div></div>'    +'<div class="modal-btns" style="margin-top:0.35rem;"><button class="modal-confirm" style="background:var(--red);" onclick="saveAddModal()">&#10003; '+(isEditing?'Save Changes':'Add Position')+'</button><button class="modal-cancel-btn" onclick="closeAddModal()">Cancel</button></div>'    +'</div></div>';
+    '<div class="modal-overlay" onclick="if(event.target===this)closeAddModal()">'
+    +'<div class="ap-modal-box"><div class="modal-title">&#43; '+(f._editId?'Edit Position':'Add New Position')+'</div>'
+    +'<div class="modal-sub" style="margin-bottom:0.85rem;">Fields marked <span style="color:var(--red)">*</span> are required.</div>'
+    +'<div class="modal-section-label">Position Type <span style="color:var(--red)">*</span></div>'
+    +'<div class="ap-type-tabs"><button class="apt '+tbc('Short Put')+'" onclick="setAF(\'type\',\'Short Put\')">&#8595; Short Put</button><button class="apt '+tbc('Long Put')+'" onclick="setAF(\'type\',\'Long Put\')">&#8593; Long Put</button><button class="apt '+tbc('Long Call')+'" onclick="setAF(\'type\',\'Long Call\')">&#8593; Long Call</button><button class="apt '+tbc('Short Call')+'" onclick="setAF(\'type\',\'Short Call\')">&#8595; Short Call</button><button class="apt '+tbc('Shares')+'" onclick="setAF(\'type\',\'Shares\')">&#9632; Shares</button></div>'
+    +'<div class="ap-grid"><div class="ap-field"><label class="ap-label">Ticker <span>*</span></label><input class="ap-input" id="af-ticker" placeholder="e.g. SOFI" value="'+f.ticker+'" oninput="addForm.ticker=this.value.toUpperCase()"></div>'
+    +'<div class="ap-field"><label class="ap-label">'+(f.type==='Shares'?'Shares':'Contracts')+' <span>*</span></label><input class="ap-input" id="af-contracts" type="number" min="1" placeholder="1" value="'+f.contracts+'" oninput="addForm.contracts=parseInt(this.value)||1"></div></div>'
+    +(isOpts?'<div class="ap-grid"><div class="ap-field"><label class="ap-label">Strike <span>*</span></label><input class="ap-input" id="af-strike" type="number" step="0.01" placeholder="e.g. 16.00" value="'+f.strike+'" oninput="addForm.strike=this.value"></div><div class="ap-field"><label class="ap-label">Expiry <span>*</span></label><input class="ap-input" id="af-expiry" placeholder="e.g. 4/10/26" value="'+f.expiryDate+'" oninput="addForm.expiryDate=this.value"></div></div>':'')
+    +'<div class="ap-grid"><div class="ap-field"><label class="ap-label">Open Date</label><input class="ap-input" id="af-opendate" placeholder="e.g. 4/1/26" value="'+f.openDate+'" oninput="addForm.openDate=this.value"></div><div class="ap-field"><label class="ap-label">Cost / Debit ($)</label><input class="ap-input" id="af-cost" type="number" step="0.01" placeholder="0" value="'+f.cost+'" oninput="addForm.cost=this.value;updateGross()"></div></div>'
+    +'<div class="ap-grid"><div class="ap-field"><label class="ap-label">Premium / Income ($)</label><input class="ap-input" id="af-income" type="number" step="0.01" placeholder="0" value="'+f.income+'" oninput="addForm.income=this.value;updateGross()"></div>'
+    +(isShort?'<div class="ap-field"><label class="ap-label">Current Value ($)</label><input class="ap-input" type="number" value="0" disabled style="background:var(--bg3);color:var(--text3);"></div>':'<div class="ap-field"><label class="ap-label">Current Value ($)</label><input class="ap-input" id="af-curr" type="number" step="0.01" placeholder="defaults to cost" value="'+(f.currentValue||f.cost||'')+'" oninput="addForm.currentValue=this.value;updateGross()"></div>')
+    +'</div><div class="ap-grid"><div class="ap-field"><label class="ap-label">Gross Val ($)</label><input class="ap-input" id="af-gross" type="number" value="'+aG+'" disabled style="background:var(--bg3);color:var(--text3);"></div><div class="ap-field"><label class="ap-label">P&amp;L ($)</label><input class="ap-input" id="af-pnl" type="number" value="'+(aG-(parseFloat(f.cost)||0))+'" disabled style="background:var(--bg3);color:var(--text3);"></div></div>'
+    +'<div class="ap-grid"><div class="ap-field"><label class="ap-label">Notes</label><input class="ap-input" id="af-notes" placeholder="Optional" value="'+f.notes+'" oninput="addForm.notes=this.value"></div>'
+    +'<div class="ap-field"><label class="ap-label">Status</label><select class="ap-select" onchange="addForm.closed=this.value===\'closed\'"><option value="open"'+(f.closed?'':' selected')+'>Open</option><option value="closed"'+(f.closed?' selected':'')+'>Closed</option></select></div></div>'
+    +'<div class="modal-btns" style="margin-top:0.35rem;"><button class="modal-confirm" style="background:var(--red);" onclick="saveAddModal()">&#10003; '+(f._editId?'Save Changes':'Add Position')+'</button><button class="modal-cancel-btn" onclick="closeAddModal()">Cancel</button></div>'
+    +'</div></div>';
 }
 function setAF(field,val){if(!addForm)return;addForm[field]=val;renderAddModal();}
 function updateGross(){
@@ -782,17 +799,15 @@ function saveAddModal(){
   if(f.type!=='Shares'&&!f.expiryDate.trim()){alert('Expiry date is required for options.');return;}
   var cost=parseFloat(f.cost)||0,income=parseFloat(f.income)||0;
   var isShort=f.type==='Short Put'||f.type==='Short Call';
-  var isEditing=!!f._editId;
-  var curr=isEditing?(parseFloat(f.currentValue)||0):(isShort?0:(parseFloat(f.currentValue)||cost));
-  var autoGross=income+curr,autoPnl=autoGross-cost;
-  var gross=isEditing&&f.grossValue!==''&&f.grossValue!=null?(parseFloat(f.grossValue)||autoGross):autoGross;
-  var pnl=isEditing&&f.profit!==''&&f.profit!=null?(parseFloat(f.profit)||autoPnl):autoPnl;
-  if(isEditing){
+  var curr=isShort?0:(parseFloat(f.currentValue)||cost);
+  var gross=income+curr,pnl=gross-cost;
+  if(f._editId){
     var r=positions.find(function(p){return p.id===f._editId;});
     if(r){r.ticker=f.ticker.trim().toUpperCase();r.excelType=f.type;r.strike=parseFloat(f.strike)||0;r.expiryDate=f.expiryDate.trim();r.openDate=f.openDate.trim();r.contracts=f.contracts;r.excelCost=cost;r.excelIncome=income;r.excelGrossValue=gross;r.excelCurrentValue=curr;r.excelProfit=pnl;r.closed=f.closed;r.notes=f.notes;}
   }else{
     var uid=Math.random().toString(36).slice(2,10);
-    var portTag=ap==='retirement'?as:(ap==='all'||ap==='lovelina'?'lovelina':ap);
+    // Tag with current portfolio — for retirement use the sub-tab (e.g. 'amit-roth')
+    var portTag=ap==='retirement'?as:ap;
     positions.push({id:uid,portfolio:portTag,ticker:f.ticker.trim().toUpperCase(),excelType:f.type,strike:parseFloat(f.strike)||0,expiryDate:f.expiryDate.trim(),openDate:f.openDate.trim(),contracts:f.contracts,excelCost:cost,excelIncome:income,excelGrossValue:gross,excelCurrentValue:curr,excelProfit:pnl,closed:f.closed,notes:f.notes,manualPrice:null,rolledOver:false,closeAction:null});
   }
   savePositions();addForm=null;document.getElementById('modal-root').innerHTML='';rMain();
@@ -885,7 +900,7 @@ function handleFile(file){
 }
 function doImport(){
   if(!csvPreview||!csvPreview.rows.length)return;
-  var portTag=ap==='retirement'?as:(ap==='all'||ap==='lovelina'?'lovelina':ap);
+  var portTag=ap==='retirement'?as:ap;
   csvPreview.rows.forEach(function(r){if(!r.portfolio)r.portfolio=portTag;});
   positions=positions.concat(csvPreview.rows);
   savePositions();
