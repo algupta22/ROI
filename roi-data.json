@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-11T22:39:15.183Z",
+  "savedAt": "2026-04-11T22:57:47.648Z",
   "positions": [
     {
       "id": "d53fqivm",
@@ -264,41 +264,14 @@
       "expiryDate": "5/29/26",
       "openDate": "4/9/2026",
       "contracts": 1,
-      "excelCost": 0,
-      "excelIncome": -1200,
-      "excelGrossValue": -5,
+      "excelCost": 1200,
+      "excelIncome": 0,
+      "excelGrossValue": 1195,
       "excelCurrentValue": 1195,
       "excelProfit": -5,
       "closed": false,
       "rolledOver": false,
       "closeAction": null,
-      "manualPrice": null,
-      "notes": "PLTR 5/29/2026 Put $130.00",
-      "portfolio": "lov-trad"
-    },
-    {
-      "id": "kff4fqtp",
-      "ticker": "PLTR",
-      "excelType": "Long Put",
-      "strike": 130,
-      "expiryDate": "5/29/26",
-      "openDate": "4/9/2026",
-      "contracts": 1,
-      "excelCost": 0,
-      "excelIncome": 1950,
-      "excelGrossValue": 1950,
-      "excelCurrentValue": 0,
-      "excelProfit": 1950,
-      "closed": true,
-      "rolledOver": false,
-      "closeAction": {
-        "action": "Close",
-        "type": "zero",
-        "amount": 0,
-        "signedAmount": 0,
-        "notes": "",
-        "date": "4/11/26"
-      },
       "manualPrice": null,
       "notes": "PLTR 5/29/2026 Put $130.00",
       "portfolio": "lov-trad"
@@ -341,14 +314,16 @@
       "closeAction": {
         "action": "STC",
         "type": "credit",
-        "amount": 808,
-        "signedAmount": 808,
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": 1950,
         "notes": "",
         "date": "4/11/26"
       },
       "manualPrice": null,
       "notes": "PLTR 5/22/2026 Put $144.00",
-      "portfolio": "lov-trad"
+      "portfolio": "lov-trad",
+      "soldAmount": 1950
     },
     {
       "id": "nj12l69h",
