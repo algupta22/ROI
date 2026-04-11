@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-11T19:11:20.924Z",
+  "savedAt": "2026-04-11T19:25:14.124Z",
   "positions": [
     {
       "id": "d53fqivm",
@@ -203,26 +203,6 @@
       "portfolio": "amit-roth"
     },
     {
-      "id": "k016452h",
-      "ticker": "PLTR",
-      "excelType": "Long Put",
-      "strike": 144,
-      "expiryDate": "5/22/26",
-      "openDate": "4/9/2026",
-      "contracts": 1,
-      "excelCost": 1949.9,
-      "excelIncome": 0,
-      "excelGrossValue": 1949.9,
-      "excelCurrentValue": 1949.9,
-      "excelProfit": 0,
-      "closed": false,
-      "rolledOver": false,
-      "closeAction": null,
-      "manualPrice": null,
-      "notes": "PLTR 5/22/2026 Put $144.00",
-      "portfolio": "lov-trad"
-    },
-    {
       "id": "7pyhto05",
       "ticker": "PLTR",
       "excelType": "Long Put",
@@ -232,9 +212,9 @@
       "contracts": 1,
       "excelCost": 1200.04,
       "excelIncome": 0,
-      "excelGrossValue": 1200.04,
-      "excelCurrentValue": 1200.04,
-      "excelProfit": 0,
+      "excelGrossValue": 1195,
+      "excelCurrentValue": 1195,
+      "excelProfit": -5.039999999999964,
       "closed": false,
       "rolledOver": false,
       "closeAction": null,
@@ -274,10 +254,17 @@
       "excelIncome": 0,
       "excelGrossValue": 1140.04,
       "excelCurrentValue": 1140.04,
-      "excelProfit": 0,
-      "closed": false,
+      "excelProfit": 808,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "STC",
+        "type": "credit",
+        "amount": 808,
+        "signedAmount": 808,
+        "notes": "",
+        "date": "4/11/26"
+      },
       "manualPrice": null,
       "notes": "PLTR 5/22/2026 Put $144.00",
       "portfolio": "lov-trad"
@@ -292,9 +279,9 @@
       "contracts": 1,
       "excelCost": 6095.04,
       "excelIncome": 0,
-      "excelGrossValue": 6095.04,
-      "excelCurrentValue": 6095.04,
-      "excelProfit": 0,
+      "excelGrossValue": 4815,
+      "excelCurrentValue": 4815,
+      "excelProfit": -1280.04,
       "closed": false,
       "rolledOver": false,
       "closeAction": null,
@@ -304,7 +291,8 @@
     }
   ],
   "tickerPrices": {
-    "GOOGL": 298
+    "GOOGL": 298,
+    "PLTR": 129
   },
   "activityData": {
     "act_all": [],
@@ -2967,6 +2955,7 @@
     "joint": 14.85
   },
   "initialCashBalances": {
-    "amit-roth": 15750
+    "amit-roth": 15750,
+    "lov-trad": 235506
   }
 }
