@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-11T19:25:14.124Z",
+  "savedAt": "2026-04-11T19:31:11.413Z",
   "positions": [
     {
       "id": "d53fqivm",
@@ -103,7 +103,34 @@
       "portfolio": "amit-roth"
     },
     {
-      "id": "7ggrjcqe",
+      "id": "drw67eg0",
+      "ticker": "NVTS",
+      "excelType": "Shares",
+      "strike": 0,
+      "expiryDate": "",
+      "openDate": "3/27/2026",
+      "contracts": 100,
+      "excelCost": 847,
+      "excelIncome": 117.38,
+      "excelGrossValue": 964.38,
+      "excelCurrentValue": 847,
+      "excelProfit": 117.38,
+      "closed": true,
+      "rolledOver": false,
+      "closeAction": {
+        "action": "Sell",
+        "type": "credit",
+        "amount": 117.38,
+        "signedAmount": 117.38,
+        "notes": "",
+        "date": "4/11/26"
+      },
+      "manualPrice": null,
+      "notes": "Navitas Semiconductor CUSIP: 63942X106 2 NVTS Options Assigned",
+      "portfolio": "amit-roth"
+    },
+    {
+      "id": "6ukqoci6",
       "ticker": "CELH",
       "excelType": "Shares",
       "strike": 0,
