@@ -1224,13 +1224,18 @@ function autoExpirePositions(skipIds){
   return count;
 }
 function normExpiry(s){
-  // Normalize any m/d/yy or m/d/yyyy or mm/dd/yy to Date at 23:59:59 for comparison
+  // Normalize m/d/yy, m/d/yyyy, mm/dd/yy, or mm/dd (assumes current year) to Date at 23:59:59
   if(!s)return null;
   try{
     var parts=s.trim().split('/');
-    if(parts.length!==3)return null;
-    var mo=parseInt(parts[0]),dy=parseInt(parts[1]),yr=parseInt(parts[2]);
-    if(yr<100)yr+=2000;
+    var mo,dy,yr;
+    if(parts.length===2){
+      // mm/dd — assume current year
+      mo=parseInt(parts[0]);dy=parseInt(parts[1]);yr=new Date().getFullYear();
+    }else if(parts.length===3){
+      mo=parseInt(parts[0]);dy=parseInt(parts[1]);yr=parseInt(parts[2]);
+      if(yr<100)yr+=2000;
+    }else{return null;}
     var dt=new Date(yr,mo-1,dy,23,59,59,999);
     return isNaN(dt)?null:dt;
   }catch(e){return null;}
