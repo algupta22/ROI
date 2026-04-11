@@ -727,9 +727,10 @@ function rTable(data){
     var portKey=r.portfolio||'lovelina';
     var portBadge=ap==='all'?'<td><span style="display:inline-flex;align-items:center;gap:0.3rem;font-size:0.65rem;font-weight:700;color:'+(portColors[portKey]||'#888')+'"><span style="width:7px;height:7px;border-radius:50%;background:'+(portColors[portKey]||'#888')+';flex-shrink:0;"></span>'+(portNames[portKey]||portKey)+'</span></td>':'';
     var sold=r.soldAmount!=null?r.soldAmount:null;
-    var netIncome=sold!=null?(sold-(r.excelCost||0)):(r.excelIncome||0)-(r.excelCost||0);
-    var soldCell=sold!=null?'<td class="mn" style="color:var(--blue);">$'+sold.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})+'</td>':'<td class="mn" style="color:var(--text3);">--</td>';
-    var netIncCell='<td class="mn" style="color:'+(netIncome>=0?'var(--green)':'var(--red)')+';">'+(netIncome>=0?'+':'-')+'$'+Math.abs(netIncome).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})+'</td>';
+    var hasSold=sold!=null&&sold!==0&&sold!=='';
+    var netIncome=hasSold?(sold-(r.excelCost||0)):null;
+    var soldCell=hasSold?'<td class="mn" style="color:var(--blue);">$'+sold.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})+'</td>':'<td class="mn" style="color:var(--text3);">--</td>';
+    var netIncCell=netIncome!=null?'<td class="mn" style="color:'+(netIncome>=0?'var(--green)':'var(--red)')+';">'+(netIncome>=0?'+':'-')+'$'+Math.abs(netIncome).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})+'</td>':'<td class="mn" style="color:var(--text3);">--</td>';
     return'<tr class="'+rowClass+(c?' cr':'')+'"><td class="mc"><span class="chip"><span class="tk-dot-sm" style="background:'+(DC[r.ticker]||'#888')+'"></span>'+r.ticker+'</span></td>'+portBadge+'<td>'+(r.openDate||'--')+'</td><td class="mn">'+(r.excelCost?'$'+r.excelCost.toLocaleString():'--')+'</td>'+soldCell+netIncCell+'<td class="mn">'+fm(dCV)+'</td><td>'+priceCell+'</td><td><span class="badge '+bct(r.excelType)+'">'+r.excelType+'</span></td><td class="mn">'+(r.strike>0?'$'+r.strike:'--')+'</td><td class="'+ec(r.expiryDate)+'">'+(r.expiryDate||'--')+(isExp&&!c?' &#9888;':'')+'</td><td class="mn" style="color:'+(p>=0?'var(--green)':'var(--red)')+';font-weight:700">'+fp(p)+'</td><td>'+colCell+'</td><td>'+actionCell+'</td><td style="text-align:center">'+erb+'</td><td style="text-align:center">'+crb+'</td><td style="text-align:center"><button class="del-btn" onclick="deleteRow('+Q+r.id+Q+')">&#128465;</button></td></tr>';
   }).join('');
   var portHeader=ap==='all'?'<th style="color:rgba(255,255,255,0.7);">Portfolio</th>':'';
