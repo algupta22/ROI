@@ -750,10 +750,10 @@ function renderModal(){
   var r=positions.find(function(p){return p.id===m.id;});if(!r)return;
   var t=r.excelType,isShares=t==='Shares',isShortPut=t==='Short Put',isLong=t==='Long Put'||t==='Long Call';
   var at='';
-  if(isShortPut){at='<button class="mat mat-close'+(m.action==='Close'?' active':'')+'" onclick="setMA('Close')">&#9940; Expire</button><button class="mat mat-btc'+(m.action==='BTC'?' active':'')+'" onclick="setMA('BTC')">&#8593; Buy to Close</button>';}
-  else if(isLong){at='<button class="mat mat-stc'+(m.action==='STC'?' active':'')+'" onclick="setMA('STC')">&#8595; Sell to Close</button><button class="mat mat-close'+(m.action==='Close'?' active':'')+'" onclick="setMA('Close')">&#9940; Expire</button>';}
-  else if(isShares){at='<button class="mat mat-sell'+(m.action==='Sell'?' active':'')+'" onclick="setMA('Sell')">&#8595; Sell Shares</button><button class="mat mat-close'+(m.action==='Close'?' active':'')+'" onclick="setMA('Close')">&#9940; Other</button>';}
-  else{at='<button class="mat mat-close'+(m.action==='Close'?' active':'')+'" onclick="setMA('Close')">&#9940; Close</button><button class="mat mat-btc'+(m.action==='BTC'?' active':'')+'" onclick="setMA('BTC')">&#8593; Buy to Close</button><button class="mat mat-stc'+(m.action==='STC'?' active':'')+'" onclick="setMA('STC')">&#8595; Sell to Close</button>';}
+  if(isShortPut){at='<button class="mat mat-close'+(m.action==='Close'?' active':'')+'" onclick="setMA(\'Close\')">&#9940; Expire</button><button class="mat mat-btc'+(m.action==='BTC'?' active':'')+'" onclick="setMA(\'BTC\')">&#8593; Buy to Close</button>';}
+  else if(isLong){at='<button class="mat mat-stc'+(m.action==='STC'?' active':'')+'" onclick="setMA(\'STC\')">&#8595; Sell to Close</button><button class="mat mat-close'+(m.action==='Close'?' active':'')+'" onclick="setMA(\'Close\')">&#9940; Expire</button>';}
+  else if(isShares){at='<button class="mat mat-sell'+(m.action==='Sell'?' active':'')+'" onclick="setMA(\'Sell\')">&#8595; Sell Shares</button><button class="mat mat-close'+(m.action==='Close'?' active':'')+'" onclick="setMA(\'Close\')">&#9940; Other</button>';}
+  else{at='<button class="mat mat-close'+(m.action==='Close'?' active':'')+'" onclick="setMA(\'Close\')">&#9940; Close</button><button class="mat mat-btc'+(m.action==='BTC'?' active':'')+'" onclick="setMA(\'BTC\')">&#8593; Buy to Close</button><button class="mat mat-stc'+(m.action==='STC'?' active':'')+'" onclick="setMA(\'STC\')">&#8595; Sell to Close</button>';}
   var amtColor=m.cdType==='credit'?'var(--green)':m.cdType==='debit'?'var(--red)':'var(--text3)';
   var amtPre=m.cdType==='credit'?'+$':m.cdType==='debit'?'-$':'$';
   var hint=m.cdType==='credit'?'Net credit received':m.cdType==='debit'?'Net debit paid':'Zero / expired worthless';
@@ -763,7 +763,7 @@ function renderModal(){
     +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:0.2rem;">'
     +'<div>'
     +'<div class="modal-section-label" style="margin-bottom:0.35rem;">Transaction Value</div>'
-    +'<div class="modal-cd-tabs" style="margin-bottom:0.45rem;"><button class="mct credit'+(m.cdType==='credit'?' active':'')+'" onclick="setCD('credit')">+ Credit</button><button class="mct debit'+(m.cdType==='debit'?' active':'')+'" onclick="setCD('debit')">&minus; Debit</button><button class="mct zero'+(m.cdType==='zero'?' active':'')+'" onclick="setCD('zero')">&asymp; Zero</button></div>'
+    +'<div class="modal-cd-tabs" style="margin-bottom:0.45rem;"><button class="mct credit'+(m.cdType==='credit'?' active':'')+'" onclick="setCD(\'credit\')">+ Credit</button><button class="mct debit'+(m.cdType==='debit'?' active':'')+'" onclick="setCD(\'debit\')">&minus; Debit</button><button class="mct zero'+(m.cdType==='zero'?' active':'')+'" onclick="setCD(\'zero\')">&asymp; Zero</button></div>'
     +'<div class="modal-amt-wrap"><span class="modal-amt-pre" style="color:'+amtColor+';">'+amtPre+'</span>'
     +'<input class="modal-amt-input" id="modal-amt" type="number" step="0.01" min="0" value="'+m.amount+'" placeholder="0.00" oninput="modal.amount=this.value"></div>'
     +'<div class="modal-hint">'+hint+'</div>'
