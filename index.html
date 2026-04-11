@@ -562,7 +562,51 @@ function gd(p,s){
   }
   return[];
 }
-function cs(data){
+// Returns total net collateral using spread-aware logic (same as Spreads/Risk view)
+function calcSpreadCollateral(data){
+  var openSPs=data.filter(function(r){return r.excelType==='Short Put'&&!isCl(r)&&!r.rolledOver;});
+  var openLPs=data.filter(function(r){return r.excelType==='Long Put'&&!isCl(r);});
+  var tickers=[...new Set(openSPs.map(function(r){return r.ticker;}))];
+  var netMap={};
+  tickers.forEach(function(ticker){
+    var sps=openSPs.filter(function(r){return r.ticker===ticker;}).sort(function(a,b){return(parseDate(a.expiryDate)||0)-(parseDate(b.expiryDate)||0);});
+    var lps=openLPs.filter(function(r){return r.ticker===ticker;}).sort(function(a,b){return(parseDate(a.expiryDate)||0)-(parseDate(b.expiryDate)||0);});
+    var usedLPs=new Set(),tn=0,ts=0;
+    sps.forEach(function(sp){
+      var spD=parseDate(sp.expiryDate);
+      var cands=lps.filter(function(lp){return!usedLPs.has(lp.id)&&(!spD||!parseDate(lp.expiryDate)||parseDate(lp.expiryDate)>=spD);}).sort(function(a,b){return(parseDate(a.expiryDate)||0)-(parseDate(b.expiryDate)||0);});
+      var m=cands[0]||null;if(m)usedLPs.add(m.id);
+      var c=calcSpreadCol(sp,m);
+      if(m)ts+=c;else tn+=c;
+    });
+    netMap[ticker]=Math.max(0,tn+ts);
+  });
+  return Object.values(netMap).reduce(function(s,v){return s+v;},0);
+}
+// Returns this-week net collateral using spread-aware logic
+function calcSpreadCollateralThisWeek(data){
+  var thisFri=getThisFriday();
+  var twSPs=data.filter(function(r){return r.excelType==='Short Put'&&!isCl(r)&&!r.rolledOver&&r.expiryDate;})
+    .filter(function(r){try{return getFriday(new Date(r.expiryDate))<=thisFri;}catch(e){return false;}});
+  var openLPs=data.filter(function(r){return r.excelType==='Long Put'&&!isCl(r);});
+  var tickers=[...new Set(twSPs.map(function(r){return r.ticker;}))];
+  var netMap={};
+  tickers.forEach(function(ticker){
+    var sps=twSPs.filter(function(r){return r.ticker===ticker;}).sort(function(a,b){return(parseDate(a.expiryDate)||0)-(parseDate(b.expiryDate)||0);});
+    var lps=openLPs.filter(function(r){return r.ticker===ticker;}).sort(function(a,b){return(parseDate(a.expiryDate)||0)-(parseDate(b.expiryDate)||0);});
+    var usedLPs=new Set(),tn=0,ts=0;
+    sps.forEach(function(sp){
+      var spD=parseDate(sp.expiryDate);
+      var cands=lps.filter(function(lp){return!usedLPs.has(lp.id)&&(!spD||!parseDate(lp.expiryDate)||parseDate(lp.expiryDate)>=spD);}).sort(function(a,b){return(parseDate(a.expiryDate)||0)-(parseDate(b.expiryDate)||0);});
+      var m=cands[0]||null;if(m)usedLPs.add(m.id);
+      var c=calcSpreadCol(sp,m);
+      if(m)ts+=c;else tn+=c;
+    });
+    netMap[ticker]=Math.max(0,tn+ts);
+  });
+  return Object.values(netMap).reduce(function(s,v){return s+v;},0);
+}
+function cs(data,isRetirement){
   var op=data.filter(function(r){return!isCl(r);});
   var ci=data.reduce(function(s,r){return s+(r.excelCost||0);},0);
   var ig=data.reduce(function(s,r){var sold=r.soldAmount!=null&&r.soldAmount!==0&&r.soldAmount!==''?r.soldAmount:null;return s+(sold!=null?(sold-(r.excelCost||0)):0);},0);
@@ -570,10 +614,19 @@ function cs(data){
   var realized=data.filter(function(r){return isCl(r);}).reduce(function(s,r){return s+(r.excelProfit||0);},0);
   var unrealized=op.reduce(function(s,r){return s+(r.excelProfit||0);},0);
   var thisFri=getThisFriday();
-  var twc=data.filter(function(r){return r.excelType==='Short Put'&&!isCl(r)&&!r.rolledOver&&r.expiryDate;})
-    .filter(function(r){try{return getFriday(new Date(r.expiryDate))<=thisFri;}catch(e){return false;}})
-    .reduce(function(s,r){return s+r.strike*100;},0);
-  var tc=data.reduce(function(s,r){return s+collateral(r);},0);
+  var twc,tc;
+  if(isRetirement){
+    // Retirement: simple sum of SP strike*100, no spread netting
+    twc=data.filter(function(r){return r.excelType==='Short Put'&&!isCl(r)&&!r.rolledOver&&r.expiryDate;})
+      .filter(function(r){try{return getFriday(new Date(r.expiryDate))<=thisFri;}catch(e){return false;}})
+      .reduce(function(s,r){return s+r.strike*100;},0);
+    tc=data.filter(function(r){return r.excelType==='Short Put'&&!isCl(r)&&!r.rolledOver;})
+      .reduce(function(s,r){return s+r.strike*100;},0);
+  }else{
+    // Non-retirement: spread-aware net collateral (matches Spreads/Risk view)
+    twc=calcSpreadCollateralThisWeek(data);
+    tc=calcSpreadCollateral(data);
+  }
   var gv=data.reduce(function(s,r){return s+(r.excelGrossValue||0);},0);
   return{n:data.length,op:op.length,cl:data.filter(function(r){return isCl(r);}).length,gv:gv,ci:ci,ig:ig,be:be,pct:pct,realized:realized,unrealized:unrealized,totalGain:realized+unrealized,twc:twc,tc:tc};
 }
@@ -1406,7 +1459,8 @@ function rMain(){
   var el=document.getElementById('mc');
   var data=gd(ap,as);
   var dispData=selectedTickers.has('ALL')?data:data.filter(function(r){return selectedTickers.has(r.ticker);});
-  var s=cs(dispData);
+  var isRet=ap==='retirement';
+  var s=cs(dispData,isRet);
   if(activeView==='activity'){
     el.innerHTML=rActivityView();attachEvents();attachActUpload();return;
   }else if(activeView==='admin'){
@@ -1415,7 +1469,7 @@ function rMain(){
   }else if(activeView==='spreads'){
     el.innerHTML=rSum(s)+rSpreadsView(data);
   }else{
-    var fd=getAppliedFilters(dispData),sf=cs(fd);
+    var fd=getAppliedFilters(dispData),sf=cs(fd,isRet);
     el.innerHTML=data.length===0
       ?rFilterBar([])+rFiltersRow(data)+rSum(sf)+rTableControls()+'<div class="ph"><strong>'+ap+' Portfolio</strong><br>No positions yet.</div>'
       :rFilterBar(data)+rFiltersRow(data)+rSum(sf)+rTableControls()+rTable(data);
