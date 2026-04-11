@@ -1213,6 +1213,9 @@ function actDoImport(){
   var now2=new Date();
   var newPositions=0,closedPositions=0,expiredPositions=0;
 
+  // Track IDs created in THIS import so the expiry sweep never touches them
+  var justCreatedIds={};
+
   actUpPreview.rows.forEach(function(actRow){
     var tc=actRow.tc;
     var ticker=actRow.instrument&&actRow.instrument!=='--'?actRow.instrument:'';
@@ -1224,17 +1227,18 @@ function actDoImport(){
 
     // ── 1. BTC or STC: find matching open position and mark it closed ──────────
     if(tc==='BTC'||tc==='STC'){
-      // Best match: ticker + strike + same expiry day
+      // Best match: ticker + strike + same expiry day (skip just-created positions)
       var match=positions.find(function(p){
         return !p.closed
+          &&!justCreatedIds[p.id]
           &&p.ticker===ticker
           &&(strike===0||Math.abs((p.strike||0)-strike)<0.01)
           &&(expiry===''||sameExpiry(p.expiryDate,expiry));
       });
-      // Fallback: ticker + strike only
+      // Fallback: ticker + strike only (still skip just-created)
       if(!match&&ticker&&strike>0){
         match=positions.find(function(p){
-          return !p.closed&&p.ticker===ticker&&Math.abs((p.strike||0)-strike)<0.01;
+          return !p.closed&&!justCreatedIds[p.id]&&p.ticker===ticker&&Math.abs((p.strike||0)-strike)<0.01;
         });
       }
       if(match){
@@ -1257,14 +1261,17 @@ function actDoImport(){
     if(tc==='STO'&&ticker&&optType&&strike>0){
       var excelType=optType==='Put'?'Short Put':'Short Call';
       var income=Math.abs(amt);
+      // Dup check: skip positions created in this same import run
       var dup=positions.find(function(p){
-        return p.ticker===ticker&&p.excelType===excelType
+        return !justCreatedIds[p.id]
+          &&p.ticker===ticker&&p.excelType===excelType
           &&Math.abs((p.strike||0)-strike)<0.01
           &&sameExpiry(p.expiryDate,expiry)
           &&!p.closed&&(p.openDate||'')===(actDate);
       });
       if(!dup){
         var uid7=Math.random().toString(36).slice(2,10);
+        justCreatedIds[uid7]=true;
         positions.push({id:uid7,portfolio:portTag,ticker:ticker,excelType:excelType,strike:strike,expiryDate:expiry,openDate:actDate,contracts:parseInt(actRow.qty)||1,excelCost:0,excelIncome:income,excelGrossValue:income,excelCurrentValue:income,excelProfit:income,closed:false,notes:actRow.desc||'',manualPrice:null,rolledOver:false,closeAction:null});
         newPositions++;
       }
@@ -1276,13 +1283,15 @@ function actDoImport(){
       var excelTypeLong=optType==='Put'?'Long Put':'Long Call';
       var cost=Math.abs(amt);
       var dup2=positions.find(function(p){
-        return p.ticker===ticker&&p.excelType===excelTypeLong
+        return !justCreatedIds[p.id]
+          &&p.ticker===ticker&&p.excelType===excelTypeLong
           &&Math.abs((p.strike||0)-strike)<0.01
           &&sameExpiry(p.expiryDate,expiry)
           &&!p.closed&&(p.openDate||'')===(actDate);
       });
       if(!dup2){
         var uid8=Math.random().toString(36).slice(2,10);
+        justCreatedIds[uid8]=true;
         positions.push({id:uid8,portfolio:portTag,ticker:ticker,excelType:excelTypeLong,strike:strike,expiryDate:expiry,openDate:actDate,contracts:parseInt(actRow.qty)||1,excelCost:cost,excelIncome:0,excelGrossValue:cost,excelCurrentValue:cost,excelProfit:0,closed:false,notes:actRow.desc||'',manualPrice:null,rolledOver:false,closeAction:null});
         newPositions++;
       }
@@ -1293,6 +1302,7 @@ function actDoImport(){
     if(tc==='Buy'&&ticker){
       var shareCost=Math.abs(amt);
       var uid9=Math.random().toString(36).slice(2,10);
+      justCreatedIds[uid9]=true;
       positions.push({id:uid9,portfolio:portTag,ticker:ticker,excelType:'Shares',strike:0,expiryDate:'',openDate:actDate,contracts:parseInt(actRow.qty)||1,excelCost:shareCost,excelIncome:0,excelGrossValue:shareCost,excelCurrentValue:shareCost,excelProfit:0,closed:false,notes:actRow.desc||'',manualPrice:null,rolledOver:false,closeAction:null});
       newPositions++;
       return;
@@ -1300,7 +1310,7 @@ function actDoImport(){
 
     // ── 5. SELL shares: close matching open Shares position ────────────────────
     if(tc==='Sell'&&ticker){
-      var shareMatch=positions.find(function(p){return !p.closed&&p.ticker===ticker&&p.excelType==='Shares';});
+      var shareMatch=positions.find(function(p){return !p.closed&&!justCreatedIds[p.id]&&p.ticker===ticker&&p.excelType==='Shares';});
       if(shareMatch){
         shareMatch.closed=true;
         var sAmt=amt;
@@ -1312,10 +1322,10 @@ function actDoImport(){
     }
   });
 
-  // ── Sweep: auto-expire ALL open positions whose expiry date has passed ────────
-  // Uses 11:59:59 PM of the expiry day — so today's expiry is NOT yet expired
+  // ── Sweep: auto-expire open positions whose expiry has passed (11:59 PM rule) ─
+  // NEVER touches positions created in this same import run
   positions.forEach(function(p){
-    if(p.closed||!p.expiryDate)return;
+    if(p.closed||!p.expiryDate||justCreatedIds[p.id])return;
     var expDt=normExpiry(p.expiryDate);
     if(expDt&&expDt<now2){
       p.closed=true;
