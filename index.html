@@ -1185,6 +1185,26 @@ function actToggleUpload(){actUpOpen=!actUpOpen;if(!actUpOpen){actUpPreview=null
 function actCancelUpload(){actUpOpen=false;actUpPreview=null;actUpMsg='';rMain();}
 function actClearAll(){if(!confirm('Delete ALL activity for this portfolio?'))return;setActRows([]);rMain();}
 function actDeleteRow(id){setActRows(getActRows().filter(function(r){return r.id!==id;}));rMain();}
+function normExpiry(s){
+  // Normalize any m/d/yy or m/d/yyyy or mm/dd/yy to Date at 23:59:59 for comparison
+  if(!s)return null;
+  try{
+    var parts=s.trim().split('/');
+    if(parts.length!==3)return null;
+    var mo=parseInt(parts[0]),dy=parseInt(parts[1]),yr=parseInt(parts[2]);
+    if(yr<100)yr+=2000;
+    var dt=new Date(yr,mo-1,dy,23,59,59,999);
+    return isNaN(dt)?null:dt;
+  }catch(e){return null;}
+}
+function sameExpiry(a,b){
+  // True if two expiry strings refer to the same calendar day
+  if(!a&&!b)return true;
+  if(!a||!b)return false;
+  var da=normExpiry(a),db=normExpiry(b);
+  if(!da||!db)return a.trim()===b.trim();
+  return da.getFullYear()===db.getFullYear()&&da.getMonth()===db.getMonth()&&da.getDate()===db.getDate();
+}
 function actDoImport(){
   if(!actUpPreview||!actUpPreview.rows.length)return;
   var portTag=ap==='retirement'?as:ap;
@@ -1192,6 +1212,7 @@ function actDoImport(){
   if(portTag==='ret-all')portTag='amit-roth';
   var now2=new Date();
   var newPositions=0,closedPositions=0,expiredPositions=0;
+
   actUpPreview.rows.forEach(function(actRow){
     var tc=actRow.tc;
     var ticker=actRow.instrument&&actRow.instrument!=='--'?actRow.instrument:'';
@@ -1200,13 +1221,17 @@ function actDoImport(){
     var optType=actRow.optType||'';
     var amt=actRow.amount||0;
     var actDate=actRow.date||'';
-    // 1. BTC or STC: find matching open position and close it
+
+    // ── 1. BTC or STC: find matching open position and mark it closed ──────────
     if(tc==='BTC'||tc==='STC'){
+      // Best match: ticker + strike + same expiry day
       var match=positions.find(function(p){
-        return !p.closed&&p.ticker===ticker
+        return !p.closed
+          &&p.ticker===ticker
           &&(strike===0||Math.abs((p.strike||0)-strike)<0.01)
-          &&(expiry===''||(p.expiryDate||'')===(expiry));
+          &&(expiry===''||sameExpiry(p.expiryDate,expiry));
       });
+      // Fallback: ticker + strike only
       if(!match&&ticker&&strike>0){
         match=positions.find(function(p){
           return !p.closed&&p.ticker===ticker&&Math.abs((p.strike||0)-strike)<0.01;
@@ -1216,38 +1241,26 @@ function actDoImport(){
         match.closed=true;
         var signed=tc==='BTC'?-Math.abs(amt):amt;
         var cdType=amt===0?'zero':signed>=0?'credit':'debit';
-        match.closeAction={action:tc,type:cdType,amount:Math.abs(amt),signedAmount:signed,notes:'Auto-closed from activity import ('+actDate+')',date:actDate};
+        match.closeAction={
+          action:tc,type:cdType,
+          amount:Math.abs(amt),signedAmount:signed,
+          notes:'Auto-closed from activity import ('+actDate+')',
+          date:actDate
+        };
         if(cdType!=='zero')match.excelProfit=(match.excelIncome||0)+signed;
         closedPositions++;
       }
-      return;
+      return; // never create a new position for BTC/STC
     }
-    // 2. Expiry check: mark expired if expiry date already passed
-    if(expiry){
-      try{
-        var expDate=new Date(expiry);expDate.setHours(23,59,59,999);
-        if(expDate<now2){
-          var expMatch=positions.find(function(p){
-            return !p.closed&&p.ticker===ticker
-              &&(strike===0||Math.abs((p.strike||0)-strike)<0.01)
-              &&(p.expiryDate||'')===(expiry);
-          });
-          if(expMatch){
-            expMatch.closed=true;
-            expMatch.closeAction={action:'Close',type:'zero',amount:0,signedAmount:0,notes:'Auto-expired (expiry date passed)',date:expiry};
-            expiredPositions++;
-          }
-        }
-      }catch(e){}
-    }
-    // 3. STO: create new Short option
+
+    // ── 2. STO: create new Short option ────────────────────────────────────────
     if(tc==='STO'&&ticker&&optType&&strike>0){
       var excelType=optType==='Put'?'Short Put':'Short Call';
       var income=Math.abs(amt);
       var dup=positions.find(function(p){
         return p.ticker===ticker&&p.excelType===excelType
           &&Math.abs((p.strike||0)-strike)<0.01
-          &&(p.expiryDate||'')===(expiry)
+          &&sameExpiry(p.expiryDate,expiry)
           &&!p.closed&&(p.openDate||'')===(actDate);
       });
       if(!dup){
@@ -1257,14 +1270,15 @@ function actDoImport(){
       }
       return;
     }
-    // 4. BTO: create new Long option
+
+    // ── 3. BTO: create new Long option ─────────────────────────────────────────
     if(tc==='BTO'&&ticker&&optType&&strike>0){
       var excelTypeLong=optType==='Put'?'Long Put':'Long Call';
       var cost=Math.abs(amt);
       var dup2=positions.find(function(p){
         return p.ticker===ticker&&p.excelType===excelTypeLong
           &&Math.abs((p.strike||0)-strike)<0.01
-          &&(p.expiryDate||'')===(expiry)
+          &&sameExpiry(p.expiryDate,expiry)
           &&!p.closed&&(p.openDate||'')===(actDate);
       });
       if(!dup2){
@@ -1274,7 +1288,8 @@ function actDoImport(){
       }
       return;
     }
-    // 5. BUY shares
+
+    // ── 4. BUY shares ──────────────────────────────────────────────────────────
     if(tc==='Buy'&&ticker){
       var shareCost=Math.abs(amt);
       var uid9=Math.random().toString(36).slice(2,10);
@@ -1282,7 +1297,8 @@ function actDoImport(){
       newPositions++;
       return;
     }
-    // 6. SELL shares: close matching open Shares position
+
+    // ── 5. SELL shares: close matching open Shares position ────────────────────
     if(tc==='Sell'&&ticker){
       var shareMatch=positions.find(function(p){return !p.closed&&p.ticker===ticker&&p.excelType==='Shares';});
       if(shareMatch){
@@ -1295,18 +1311,19 @@ function actDoImport(){
       return;
     }
   });
-  // Sweep all positions: auto-expire anything past expiry date
+
+  // ── Sweep: auto-expire ALL open positions whose expiry date has passed ────────
+  // Uses 11:59:59 PM of the expiry day — so today's expiry is NOT yet expired
   positions.forEach(function(p){
     if(p.closed||!p.expiryDate)return;
-    try{
-      var exp2=new Date(p.expiryDate);exp2.setHours(23,59,59,999);
-      if(exp2<now2){
-        p.closed=true;
-        p.closeAction={action:'Close',type:'zero',amount:0,signedAmount:0,notes:'Auto-expired (expiry date passed)',date:p.expiryDate};
-        expiredPositions++;
-      }
-    }catch(e){}
+    var expDt=normExpiry(p.expiryDate);
+    if(expDt&&expDt<now2){
+      p.closed=true;
+      p.closeAction={action:'Close',type:'zero',amount:0,signedAmount:0,notes:'Auto-expired (expiry date passed)',date:p.expiryDate};
+      expiredPositions++;
+    }
   });
+
   savePositions();
   setActRows(actUpPreview.rows.concat(getActRows()));
   var summary='Imported '+actUpPreview.rows.length+' activity rows.';
