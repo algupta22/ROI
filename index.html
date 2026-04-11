@@ -1185,6 +1185,23 @@ function actToggleUpload(){actUpOpen=!actUpOpen;if(!actUpOpen){actUpPreview=null
 function actCancelUpload(){actUpOpen=false;actUpPreview=null;actUpMsg='';rMain();}
 function actClearAll(){if(!confirm('Delete ALL activity for this portfolio?'))return;setActRows([]);rMain();}
 function actDeleteRow(id){setActRows(getActRows().filter(function(r){return r.id!==id;}));rMain();}
+function autoExpirePositions(skipIds){
+  // Marks any open position whose expiry has passed (11:59:59 PM of that day) as closed.
+  // skipIds: optional object of IDs to leave untouched (used during import).
+  var count=0,now3=new Date();
+  positions.forEach(function(p){
+    if(p.closed||!p.expiryDate)return;
+    if(skipIds&&skipIds[p.id])return;
+    var expDt=normExpiry(p.expiryDate);
+    if(expDt&&expDt<now3){
+      p.closed=true;
+      p.closeAction={action:'Close',type:'zero',amount:0,signedAmount:0,notes:'Auto-expired (expiry date passed)',date:p.expiryDate};
+      count++;
+    }
+  });
+  if(count>0)savePositions();
+  return count;
+}
 function normExpiry(s){
   // Normalize any m/d/yy or m/d/yyyy or mm/dd/yy to Date at 23:59:59 for comparison
   if(!s)return null;
@@ -1323,16 +1340,7 @@ function actDoImport(){
   });
 
   // ── Sweep: auto-expire open positions whose expiry has passed (11:59 PM rule) ─
-  // NEVER touches positions created in this same import run
-  positions.forEach(function(p){
-    if(p.closed||!p.expiryDate||justCreatedIds[p.id])return;
-    var expDt=normExpiry(p.expiryDate);
-    if(expDt&&expDt<now2){
-      p.closed=true;
-      p.closeAction={action:'Close',type:'zero',amount:0,signedAmount:0,notes:'Auto-expired (expiry date passed)',date:p.expiryDate};
-      expiredPositions++;
-    }
-  });
+  expiredPositions+=autoExpirePositions(justCreatedIds);
 
   savePositions();
   setActRows(actUpPreview.rows.concat(getActRows()));
@@ -1465,10 +1473,10 @@ function sPort(p){
   document.querySelectorAll('.port-tab').forEach(function(t){t.classList.toggle('active',t.dataset.port===p);});
   var sn=document.getElementById('sub-nav');sn.style.display=p==='retirement'?'flex':'none';
   if(p==='retirement'){as='ret-all';document.querySelectorAll('.sub-tab').forEach(function(t){t.classList.toggle('active',t.dataset.sub===as);});}
-  rBc();rMain();
+  autoExpirePositions();rBc();rMain();
 }
 document.getElementById('port-nav').addEventListener('click',function(e){var t=e.target.closest('.port-tab');if(t)sPort(t.dataset.port);});
-document.getElementById('sub-nav').addEventListener('click',function(e){var t=e.target.closest('.sub-tab');if(!t)return;as=t.dataset.sub;document.querySelectorAll('.sub-tab').forEach(function(s){s.classList.toggle('active',s.dataset.sub===as);});rBc();rMain();});
+document.getElementById('sub-nav').addEventListener('click',function(e){var t=e.target.closest('.sub-tab');if(!t)return;as=t.dataset.sub;document.querySelectorAll('.sub-tab').forEach(function(s){s.classList.toggle('active',s.dataset.sub===as);});autoExpirePositions();rBc();rMain();});
 document.getElementById('topbar-date').textContent=new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
 
 // ── GITHUB SYNC ───────────────────────────────────────────────────────────────
@@ -1604,7 +1612,7 @@ function restoreFromFile(inp){
 }
 window.backupToFile=backupToFile;window.restoreFromFile=restoreFromFile;
 
-rBc();rMain();
+autoExpirePositions();rBc();rMain();
 </script>
 </body>
 </html>
