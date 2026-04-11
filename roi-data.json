@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-11T01:37:21.430Z",
+  "savedAt": "2026-04-11T02:00:48.390Z",
   "positions": [
     {
       "id": "34eklw3a",
@@ -70,9 +70,9 @@
       "contracts": 1,
       "excelCost": 6095,
       "excelIncome": 0,
-      "excelGrossValue": 5020,
-      "excelCurrentValue": 5020,
-      "excelProfit": -1075,
+      "excelGrossValue": 4815,
+      "excelCurrentValue": 4815,
+      "excelProfit": -1280,
       "closed": false,
       "notes": "",
       "manualPrice": null,
@@ -110,9 +110,9 @@
       "contracts": 1,
       "excelCost": 1200,
       "excelIncome": 0,
-      "excelGrossValue": 1110,
-      "excelCurrentValue": 1110,
-      "excelProfit": -90,
+      "excelGrossValue": 1195,
+      "excelCurrentValue": 1195,
+      "excelProfit": -5,
       "closed": false,
       "notes": "",
       "manualPrice": null,
@@ -148,6 +148,6 @@
   },
   "cashBalances": {
     "amit": 600,
-    "lov-trad": 213398
+    "lov-trad": 215348
   }
 }
