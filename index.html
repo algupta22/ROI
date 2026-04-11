@@ -814,12 +814,12 @@ function closeModal(){modal=null;document.getElementById('modal-root').innerHTML
 var addForm=null;
 function openAddModal(){
   var today=new Date().toLocaleDateString('en-US',{month:'numeric',day:'numeric',year:'2-digit'});
-  addForm={type:'Short Put',ticker:'',strike:'',expiryDate:'',openDate:today,cost:'',income:'',grossValue:'',currentValue:'',profit:'',contracts:1,closed:false,notes:''};
+  addForm={type:'Short Put',ticker:'',strike:'',expiryDate:'',openDate:today,cost:'',income:'',sold:'',grossValue:'',currentValue:'',profit:'',contracts:1,closed:false,notes:''};
   renderAddModal();
 }
 function openEditModal(id){
   var r=positions.find(function(p){return p.id===id;});if(!r)return;
-  addForm={_editId:id,type:r.excelType||'Short Put',ticker:r.ticker||'',strike:r.strike||'',expiryDate:r.expiryDate||'',openDate:r.openDate||'',cost:r.excelCost||'',income:r.excelIncome||'',grossValue:r.excelGrossValue||'',currentValue:r.excelCurrentValue||'',profit:r.excelProfit||'',contracts:r.contracts||1,closed:r.closed||false,notes:r.notes||''};
+  addForm={_editId:id,type:r.excelType||'Short Put',ticker:r.ticker||'',strike:r.strike||'',expiryDate:r.expiryDate||'',openDate:r.openDate||'',cost:r.excelCost||'',income:r.excelIncome||'',sold:r.soldAmount!=null?r.soldAmount:'',grossValue:r.excelGrossValue||'',currentValue:r.excelCurrentValue||'',profit:r.excelProfit||'',contracts:r.contracts||1,closed:r.closed||false,notes:r.notes||''};
   renderAddModal();
 }
 function renderAddModal(){
@@ -841,8 +841,9 @@ function renderAddModal(){
     +'<div class="ap-grid"><div class="ap-field"><label class="ap-label">Premium / Income ($)</label><input class="ap-input" id="af-income" type="number" step="0.01" placeholder="0" value="'+f.income+'" oninput="addForm.income=this.value;updateGross()"></div>'
     +(isShort?'<div class="ap-field"><label class="ap-label">Current Value ($)</label><input class="ap-input" type="number" value="0" disabled style="background:var(--bg3);color:var(--text3);"></div>':'<div class="ap-field"><label class="ap-label">Current Value ($)</label><input class="ap-input" id="af-curr" type="number" step="0.01" placeholder="defaults to cost" value="'+(f.currentValue||f.cost||'')+'" oninput="addForm.currentValue=this.value;updateGross()"></div>')
     +'</div><div class="ap-grid"><div class="ap-field"><label class="ap-label">Gross Val ($)</label><input class="ap-input" id="af-gross" type="number" value="'+aG+'" disabled style="background:var(--bg3);color:var(--text3);"></div><div class="ap-field"><label class="ap-label">P&amp;L ($)</label><input class="ap-input" id="af-pnl" type="number" value="'+(aG-(parseFloat(f.cost)||0))+'" disabled style="background:var(--bg3);color:var(--text3);"></div></div>'
-    +'<div class="ap-grid"><div class="ap-field"><label class="ap-label">Notes</label><input class="ap-input" id="af-notes" placeholder="Optional" value="'+f.notes+'" oninput="addForm.notes=this.value"></div>'
+    +'<div class="ap-grid"><div class="ap-field"><label class="ap-label">Sold ($) <span style="font-size:0.58rem;color:var(--text3);font-weight:400;">(maps to Sold column)</span></label><input class="ap-input" id="af-sold" type="number" step="0.01" placeholder="0.00" value="'+f.sold+'" oninput="addForm.sold=this.value"></div>'
     +'<div class="ap-field"><label class="ap-label">Status</label><select class="ap-select" onchange="addForm.closed=this.value===\'closed\'"><option value="open"'+(f.closed?'':' selected')+'>Open</option><option value="closed"'+(f.closed?' selected':'')+'>Closed</option></select></div></div>'
+    +'<div class="ap-grid"><div class="ap-field"><label class="ap-label">Notes</label><input class="ap-input" id="af-notes" placeholder="Optional" value="'+f.notes+'" oninput="addForm.notes=this.value"></div><div class="ap-field"></div></div>'
     +'<div class="modal-btns" style="margin-top:0.35rem;"><button class="modal-confirm" style="background:var(--red);" onclick="saveAddModal()">&#10003; '+(f._editId?'Save Changes':'Add Position')+'</button><button class="modal-cancel-btn" onclick="closeAddModal()">Cancel</button></div>'
     +'</div></div>';
 }
@@ -870,11 +871,11 @@ function saveAddModal(){
   var gross=income+curr,pnl=gross-cost;
   if(f._editId){
     var r=positions.find(function(p){return p.id===f._editId;});
-    if(r){r.ticker=f.ticker.trim().toUpperCase();r.excelType=f.type;r.strike=parseFloat(f.strike)||0;r.expiryDate=f.expiryDate.trim();r.openDate=f.openDate.trim();r.contracts=f.contracts;r.excelCost=cost;r.excelIncome=income;r.excelGrossValue=gross;r.excelCurrentValue=curr;r.excelProfit=pnl;r.closed=f.closed;r.notes=f.notes;}
+    if(r){r.ticker=f.ticker.trim().toUpperCase();r.excelType=f.type;r.strike=parseFloat(f.strike)||0;r.expiryDate=f.expiryDate.trim();r.openDate=f.openDate.trim();r.contracts=f.contracts;r.excelCost=cost;r.excelIncome=income;r.excelGrossValue=gross;r.excelCurrentValue=curr;r.excelProfit=pnl;r.closed=f.closed;r.notes=f.notes;var sv=f.sold!==''?parseFloat(f.sold):null;if(sv!=null&&!isNaN(sv)){r.soldAmount=sv;}else{delete r.soldAmount;}}
   }else{
     var uid=Math.random().toString(36).slice(2,10);
     var portTag=ap==='retirement'?as:ap;
-    positions.push({id:uid,portfolio:portTag,ticker:f.ticker.trim().toUpperCase(),excelType:f.type,strike:parseFloat(f.strike)||0,expiryDate:f.expiryDate.trim(),openDate:f.openDate.trim(),contracts:f.contracts,excelCost:cost,excelIncome:income,excelGrossValue:gross,excelCurrentValue:curr,excelProfit:pnl,closed:f.closed,notes:f.notes,manualPrice:null,rolledOver:false,closeAction:null});
+    var sv2=f.sold!==''?parseFloat(f.sold):null;var newPos={id:uid,portfolio:portTag,ticker:f.ticker.trim().toUpperCase(),excelType:f.type,strike:parseFloat(f.strike)||0,expiryDate:f.expiryDate.trim(),openDate:f.openDate.trim(),contracts:f.contracts,excelCost:cost,excelIncome:income,excelGrossValue:gross,excelCurrentValue:curr,excelProfit:pnl,closed:f.closed,notes:f.notes,manualPrice:null,rolledOver:false,closeAction:null};if(sv2!=null&&!isNaN(sv2))newPos.soldAmount=sv2;positions.push(newPos);
   }
   savePositions();addForm=null;document.getElementById('modal-root').innerHTML='';rMain();
 }
