@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-11T23:02:16.164Z",
+  "savedAt": "2026-04-11T23:05:12.232Z",
   "positions": [
     {
       "id": "d53fqivm",
@@ -294,7 +294,8 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "PLTR 4/17/2026 Put $139.00",
-      "portfolio": "lov-trad"
+      "portfolio": "lov-trad",
+      "soldAmount": 434.94
     },
     {
       "id": "3llwl80j",
