@@ -627,7 +627,16 @@ function cs(data,isRetirement){
     twc=calcSpreadCollateralThisWeek(data);
     tc=calcSpreadCollateral(data);
   }
-  var gv=data.reduce(function(s,r){return s+(r.excelGrossValue||0);},0);
+  var gv=data.reduce(function(s,r){
+    if(isCl(r))return s;
+    var isSP=r.excelType==='Short Put';
+    var isST=r.excelType==='Short Put'||r.excelType==='Short Call';
+    var lP=(liveCache[r.ticker]&&liveCache[r.ticker].price!=null)?liveCache[r.ticker].price:null;
+    var mP=tickerPrices[r.ticker]!=null?tickerPrices[r.ticker]:null;
+    var sp=lP!=null?lP:(mP!=null?mP:null);
+    var cv=isSP&&sp!=null?sp*100:(isST?0:(r.excelCurrentValue||0));
+    return s+cv;
+  },0);
   return{n:data.length,op:op.length,cl:data.filter(function(r){return isCl(r);}).length,gv:gv,ci:ci,ig:ig,be:be,pct:pct,realized:realized,unrealized:unrealized,totalGain:realized+unrealized,twc:twc,tc:tc};
 }
 function getTickersFrom(d){return[...new Set(d.map(function(r){return r.ticker;}))].sort();}
@@ -733,13 +742,15 @@ function rTable(data){
   var rows=filtered.length===0?'<tr><td colspan="17" class="ec">No positions match your filters.</td></tr>':filtered.map(function(r){
     var c=isCl(r),p=r.excelProfit,col=collateral(r);
     var isST=r.excelType==='Short Put'||r.excelType==='Short Call';
-    var dCV=isST?0:(r.excelCurrentValue||0);
-    var dGV=(r.excelIncome||0)+dCV;
-    var isExp=r.expiryDate&&!c&&(function(){try{return new Date(r.expiryDate)<=thisFri;}catch(e){return false;}})();
-    var rowClass=r.rolledOver?'rolled':isExp?'expiring-soon':'';
+    var isSP=r.excelType==='Short Put';
     var isEditing=editingPrice===r.id;
     var liveP=(liveCache[r.ticker]&&liveCache[r.ticker].price!=null)?liveCache[r.ticker].price:null;
     var manP=tickerPrices[r.ticker]!=null?tickerPrices[r.ticker]:null;
+    var stockPrice=liveP!=null?liveP:(manP!=null?manP:null);
+    var dCV=c?0:(isSP&&stockPrice!=null?stockPrice*100:(isST?0:(r.excelCurrentValue||0)));
+    var dGV=(r.excelIncome||0)+dCV;
+    var isExp=r.expiryDate&&!c&&(function(){try{return new Date(r.expiryDate)<=thisFri;}catch(e){return false;}})();
+    var rowClass=r.rolledOver?'rolled':isExp?'expiring-soon':'';
     var priceCell;
     if(isEditing){
       priceCell='<div class="pcell-edit-wrap"><input class="pcell-input" id="pi_'+r.id+'" type="number" step="0.01" value="'+(manP!=null?manP:'')+'" placeholder="Manual" onkeydown="if(event.keyCode===13)savePrice('+Q+r.id+Q+');if(event.keyCode===27)cancelEdit()"><button class="pcell-ok" onclick="savePrice('+Q+r.id+Q+')">&#10003;</button><button class="pcell-x" onclick="cancelEdit()">&#10005;</button></div>';
