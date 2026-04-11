@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-11T13:19:02.136Z",
+  "savedAt": "2026-04-11T13:43:23.697Z",
   "positions": [
     {
       "id": "34eklw3a",
@@ -505,6 +505,7 @@
   },
   "cashBalances": {
     "amit": 600,
-    "lov-trad": 215348
+    "lov-trad": 215348,
+    "amit-roth": 3835
   }
 }
