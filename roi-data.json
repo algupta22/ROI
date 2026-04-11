@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-11T02:00:48.390Z",
+  "savedAt": "2026-04-11T03:16:59.186Z",
   "positions": [
     {
       "id": "34eklw3a",
@@ -131,7 +131,7 @@
       "excelCost": 0,
       "excelIncome": 435,
       "excelGrossValue": 435,
-      "excelCurrentValue": 0,
+      "excelCurrentValue": 1178,
       "excelProfit": 435,
       "closed": false,
       "notes": "",
