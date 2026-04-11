@@ -893,8 +893,8 @@ function renderAddModal(){
     +(isOpts?'<div class="ap-grid"><div class="ap-field"><label class="ap-label">Strike <span>*</span></label><input class="ap-input" id="af-strike" type="number" step="0.01" placeholder="e.g. 16.00" value="'+f.strike+'" oninput="addForm.strike=this.value"></div><div class="ap-field"><label class="ap-label">Expiry <span>*</span></label><input class="ap-input" id="af-expiry" placeholder="e.g. 4/10/26" value="'+f.expiryDate+'" oninput="addForm.expiryDate=this.value"></div></div>':'')
     +'<div class="ap-grid"><div class="ap-field"><label class="ap-label">Open Date</label><input class="ap-input" id="af-opendate" placeholder="e.g. 4/1/26" value="'+f.openDate+'" oninput="addForm.openDate=this.value"></div><div class="ap-field"><label class="ap-label">Cost / Debit ($)</label><input class="ap-input" id="af-cost" type="number" step="0.01" placeholder="0" value="'+f.cost+'" oninput="addForm.cost=this.value;updateGross()"></div></div>'
     +'<div class="ap-grid"><div class="ap-field"><label class="ap-label">Premium / Income ($)</label><input class="ap-input" id="af-income" type="number" step="0.01" placeholder="0" value="'+f.income+'" oninput="addForm.income=this.value;updateGross()"></div>'
-    +(isShort?'<div class="ap-field"><label class="ap-label">Current Value ($)</label><input class="ap-input" type="number" value="0" disabled style="background:var(--bg3);color:var(--text3);"></div>':'<div class="ap-field"><label class="ap-label">Current Value ($)</label><input class="ap-input" id="af-curr" type="number" step="0.01" placeholder="defaults to cost" value="'+(f.currentValue||f.cost||'')+'" oninput="addForm.currentValue=this.value;updateGross()"></div>')
-    +'</div><div class="ap-grid"><div class="ap-field"><label class="ap-label">Gross Val ($)</label><input class="ap-input" id="af-gross" type="number" value="'+aG+'" disabled style="background:var(--bg3);color:var(--text3);"></div><div class="ap-field"><label class="ap-label">P&amp;L ($)</label><input class="ap-input" id="af-pnl" type="number" value="'+(aG-(parseFloat(f.cost)||0))+'" disabled style="background:var(--bg3);color:var(--text3);"></div></div>'
+    +'<div class="ap-field"><label class="ap-label">Current Value ($)</label><input class="ap-input" id="af-curr" type="number" step="0.01" placeholder="0" value="'+(isShort?(f.currentValue!=null&&f.currentValue!==''?f.currentValue:0):(f.currentValue||f.cost||''))+'" oninput="addForm.currentValue=this.value;updateGross()"></div>'
+    +'</div><div class="ap-grid"><div class="ap-field"><label class="ap-label">Gross Val ($)</label><input class="ap-input" id="af-gross" type="number" step="0.01" value="'+aG+'" oninput="addForm.grossValue=this.value"></div><div class="ap-field"><label class="ap-label">P&amp;L ($)</label><input class="ap-input" id="af-pnl" type="number" step="0.01" value="'+(aG-(parseFloat(f.cost)||0))+'" oninput="addForm.profit=this.value"></div></div>'
     +'<div class="ap-grid"><div class="ap-field"><label class="ap-label">Sold ($) <span style="font-size:0.58rem;color:var(--text3);font-weight:400;">(maps to Sold column)</span></label><input class="ap-input" id="af-sold" type="number" step="0.01" placeholder="0.00" value="'+f.sold+'" oninput="addForm.sold=this.value"></div>'
     +'<div class="ap-field"><label class="ap-label">Status</label><select class="ap-select" onchange="addForm.closed=this.value===\'closed\'"><option value="open"'+(f.closed?'':' selected')+'>Open</option><option value="closed"'+(f.closed?' selected':'')+'>Closed</option></select></div></div>'
     +'<div class="ap-grid"><div class="ap-field"><label class="ap-label">Notes</label><input class="ap-input" id="af-notes" placeholder="Optional" value="'+f.notes+'" oninput="addForm.notes=this.value"></div><div class="ap-field"></div></div>'
@@ -921,8 +921,12 @@ function saveAddModal(){
   if(f.type!=='Shares'&&!f.expiryDate.trim()){alert('Expiry date is required for options.');return;}
   var cost=parseFloat(f.cost)||0,income=parseFloat(f.income)||0;
   var isShort=f.type==='Short Put'||f.type==='Short Call';
-  var curr=isShort?0:(parseFloat(f.currentValue)||cost);
-  var gross=income+curr,pnl=gross-cost;
+  var currInp=document.getElementById('af-curr');
+  var curr=currInp?parseFloat(currInp.value)||0:(isShort?0:(parseFloat(f.currentValue)||cost));
+  var grossInp=document.getElementById('af-gross');
+  var pnlInp=document.getElementById('af-pnl');
+  var gross=grossInp&&grossInp.value!==''?parseFloat(grossInp.value)||(income+curr):income+curr;
+  var pnl=pnlInp&&pnlInp.value!==''?parseFloat(pnlInp.value)||(gross-cost):gross-cost;
   if(f._editId){
     var r=positions.find(function(p){return p.id===f._editId;});
     if(r){r.ticker=f.ticker.trim().toUpperCase();r.excelType=f.type;r.strike=parseFloat(f.strike)||0;r.expiryDate=f.expiryDate.trim();r.openDate=f.openDate.trim();r.contracts=f.contracts;r.excelCost=cost;r.excelIncome=income;r.excelGrossValue=gross;r.excelCurrentValue=curr;r.excelProfit=pnl;r.closed=f.closed;r.notes=f.notes;var sv=f.sold!==''?parseFloat(f.sold):null;if(sv!=null&&!isNaN(sv)){r.soldAmount=sv;}else{delete r.soldAmount;}}
