@@ -484,16 +484,11 @@ var cashBalances=loadCash();
 var editingCash=false;
 function getCashKey(){return ap==='retirement'?as:ap;}
 function getPortCash(){
-  // All portfolios tab: sum everything
   if(ap==='all'){var t=0;for(var k in cashBalances)t+=cashBalances[k]||0;return t;}
-  // Retirement "All Retirement" sub-tab: sum only the three retirement sub-portfolios
-  if(ap==='retirement'&&as==='ret-all'){
-    return(cashBalances['amit-roth']||0)+(cashBalances['lov-roth']||0)+(cashBalances['lov-trad']||0);
-  }
+  if(ap==='retirement'&&as==='ret-all'){return(cashBalances['amit-roth']||0)+(cashBalances['lov-roth']||0)+(cashBalances['lov-trad']||0);}
   return cashBalances[getCashKey()]||0;
 }
 function setPortCash(v){
-  // Read-only on aggregate tabs
   if(ap==='all')return;
   if(ap==='retirement'&&as==='ret-all')return;
   cashBalances[getCashKey()]=v;saveCash();
@@ -588,43 +583,17 @@ function rFilterBar(data){
 
 // ── FIX 2: CASH CARD ──────────────────────────────────────────────────────────
 function rCashCard(){
-  var cash=getPortCash();
-  var isAggregate=(ap==='all')||(ap==='retirement'&&as==='ret-all');
-
-  // Aggregate views: show total + per-portfolio breakdown, no edit
-  if(isAggregate){
-    var keys,names;
-    if(ap==='all'){
-      keys=['lovelina','amit','joint','amit-roth','lov-roth','lov-trad'];
-      names={lovelina:'Lovelina',amit:'Amit',joint:'Joint','amit-roth':'Amit Roth','lov-roth':'Lov Roth','lov-trad':'Lov Trad'};
-    }else{
-      keys=['amit-roth','lov-roth','lov-trad'];
-      names={'amit-roth':'Amit Roth IRA','lov-roth':'Lov Roth IRA','lov-trad':'Lov Traditional IRA'};
-    }
-    var rows=keys.filter(function(k){return cashBalances[k]>0;}).map(function(k){
-      return'<div style="display:flex;justify-content:space-between;font-size:0.58rem;padding:0.08rem 0;">'
-        +'<span style="color:rgba(255,255,255,0.45);">'+names[k]+'</span>'
-        +'<span style="font-family:monospace;color:#34D399;font-weight:700;">$'+(cashBalances[k]||0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})+'</span>'
-        +'</div>';
-    }).join('');
-    var subLabel=ap==='all'?'Sum of all portfolios':'Sum of all retirement accounts';
-    return'<div class="cash-card"><div class="cash-lbl"><span>&#128181; Cash Balance</span></div>'
-      +'<div class="cash-val">$'+cash.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})+'</div>'
-      +(rows?'<div style="margin-top:0.3rem;border-top:1px solid rgba(255,255,255,0.1);padding-top:0.3rem;">'+rows+'</div>':'')
-      +'<div class="cash-sub">'+subLabel+' &mdash; edit per tab</div></div>';
-  }
-
-  // Individual portfolio/sub-portfolio: editable
-  var portLabel=getCashKey().replace(/-/g,' ');
-  if(editingCash){
+  var cash=getPortCash(),isAll=ap==='all';
+  var portLabel=isAll?'Sum of all portfolios':getCashKey().replace(/-/g,' ');
+  if(editingCash&&!isAll){
     return'<div class="cash-card"><div class="cash-lbl">&#128181; Cash Balance</div>'
       +'<div class="cash-wrap"><input class="cash-inp" id="cash-inp" type="number" step="0.01" value="'+cash+'" placeholder="0.00" onkeydown="if(event.keyCode===13)cashSave();if(event.keyCode===27)cashCancel()"><button class="cash-ok" onclick="cashSave()">&#10003;</button><button class="cash-x2" onclick="cashCancel()">&#10005;</button></div>'
       +'<div class="cash-sub">'+portLabel+'</div></div>';
   }
   return'<div class="cash-card"><div class="cash-lbl"><span>&#128181; Cash Balance</span>'
-    +'<button class="cash-edt" onclick="cashEdit()">edit</button></div>'
+    +(isAll?'':'<button class="cash-edt" onclick="cashEdit()">edit</button>')+'</div>'
     +'<div class="cash-val">$'+cash.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})+'</div>'
-    +'<div class="cash-sub">'+portLabel+'</div></div>';
+    +'<div class="cash-sub">'+portLabel+(isAll?' &mdash; edit per portfolio tab':'')+'</div></div>';
 }
 function cashEdit(){editingCash=true;rMain();setTimeout(function(){var i=document.getElementById('cash-inp');if(i){i.focus();i.select();}},30);}
 function cashSave(){var i=document.getElementById('cash-inp');if(i){var v=parseFloat(i.value);if(!isNaN(v))setPortCash(v);}editingCash=false;rMain();}
@@ -775,27 +744,23 @@ function openEditModal(id){
 }
 function renderAddModal(){
   var f=addForm;if(!f)return;
+  var isEditing=!!f._editId;
   var isShort=f.type==='Short Put'||f.type==='Short Call',isOpts=f.type!=='Shares';
-  var cV=isShort?0:(parseFloat(f.currentValue)||parseFloat(f.cost)||0);
+  var cV=isEditing?(parseFloat(f.currentValue)||0):(isShort?0:(parseFloat(f.currentValue)||parseFloat(f.cost)||0));
   var iV=parseFloat(f.income)||0,aG=iV+cV;
-  function tbc(t){return t===f.type?'active-'+(t==='Short Put'?'sp':t==='Long Put'?'lp':t==='Long Call'?'lc':t==='Short Call'?'sc':'sh'):'';}
+  var grossV=isEditing&&f.grossValue!==''&&f.grossValue!==undefined?(parseFloat(f.grossValue)||aG):aG;
+  var pnlV=isEditing&&f.profit!==''&&f.profit!==undefined?(parseFloat(f.profit)||0):(aG-(parseFloat(f.cost)||0));
+  function tbc(t){return t===f.type?'active-'+(t==='Short Put'?'sp':t==='Long Put'?'lp':t==='Long Call'?'lc':t==='Short Call'?'sc':'sh'):'';}  var currField=(!isEditing&&isShort)
+    ?'<div class="ap-field"><label class="ap-label">Current Value ($) <span style="font-size:0.6rem;color:var(--text3);font-weight:400">(locked 0 on add)</span></label><input class="ap-input" type="number" value="0" disabled style="background:var(--bg3);color:var(--text3);"></div>'
+    :'<div class="ap-field"><label class="ap-label">Current Value ($)</label><input class="ap-input" id="af-curr" type="number" step="0.01" placeholder="0" value="'+cV+'" oninput="addForm.currentValue=this.value;updateGross()"></div>';
+  var grossField=isEditing
+    ?'<div class="ap-field"><label class="ap-label">Gross Val ($)</label><input class="ap-input" id="af-gross" type="number" step="0.01" value="'+grossV+'" oninput="addForm.grossValue=this.value"></div>'
+    :'<div class="ap-field"><label class="ap-label">Gross Val ($) <span style="font-size:0.6rem;color:var(--text3);font-weight:400">(auto)</span></label><input class="ap-input" id="af-gross" type="number" value="'+grossV+'" disabled style="background:var(--bg3);color:var(--text3);"></div>';
+  var pnlField=isEditing
+    ?'<div class="ap-field"><label class="ap-label">P&amp;L ($)</label><input class="ap-input" id="af-pnl" type="number" step="0.01" value="'+pnlV+'" oninput="addForm.profit=this.value"></div>'
+    :'<div class="ap-field"><label class="ap-label">P&amp;L ($) <span style="font-size:0.6rem;color:var(--text3);font-weight:400">(auto)</span></label><input class="ap-input" id="af-pnl" type="number" value="'+pnlV+'" disabled style="background:var(--bg3);color:var(--text3);"></div>';
   document.getElementById('modal-root').innerHTML=
-    '<div class="modal-overlay" onclick="if(event.target===this)closeAddModal()">'
-    +'<div class="ap-modal-box"><div class="modal-title">&#43; '+(f._editId?'Edit Position':'Add New Position')+'</div>'
-    +'<div class="modal-sub" style="margin-bottom:0.85rem;">Fields marked <span style="color:var(--red)">*</span> are required.</div>'
-    +'<div class="modal-section-label">Position Type <span style="color:var(--red)">*</span></div>'
-    +'<div class="ap-type-tabs"><button class="apt '+tbc('Short Put')+'" onclick="setAF(\'type\',\'Short Put\')">&#8595; Short Put</button><button class="apt '+tbc('Long Put')+'" onclick="setAF(\'type\',\'Long Put\')">&#8593; Long Put</button><button class="apt '+tbc('Long Call')+'" onclick="setAF(\'type\',\'Long Call\')">&#8593; Long Call</button><button class="apt '+tbc('Short Call')+'" onclick="setAF(\'type\',\'Short Call\')">&#8595; Short Call</button><button class="apt '+tbc('Shares')+'" onclick="setAF(\'type\',\'Shares\')">&#9632; Shares</button></div>'
-    +'<div class="ap-grid"><div class="ap-field"><label class="ap-label">Ticker <span>*</span></label><input class="ap-input" id="af-ticker" placeholder="e.g. SOFI" value="'+f.ticker+'" oninput="addForm.ticker=this.value.toUpperCase()"></div>'
-    +'<div class="ap-field"><label class="ap-label">'+(f.type==='Shares'?'Shares':'Contracts')+' <span>*</span></label><input class="ap-input" id="af-contracts" type="number" min="1" placeholder="1" value="'+f.contracts+'" oninput="addForm.contracts=parseInt(this.value)||1"></div></div>'
-    +(isOpts?'<div class="ap-grid"><div class="ap-field"><label class="ap-label">Strike <span>*</span></label><input class="ap-input" id="af-strike" type="number" step="0.01" placeholder="e.g. 16.00" value="'+f.strike+'" oninput="addForm.strike=this.value"></div><div class="ap-field"><label class="ap-label">Expiry <span>*</span></label><input class="ap-input" id="af-expiry" placeholder="e.g. 4/10/26" value="'+f.expiryDate+'" oninput="addForm.expiryDate=this.value"></div></div>':'')
-    +'<div class="ap-grid"><div class="ap-field"><label class="ap-label">Open Date</label><input class="ap-input" id="af-opendate" placeholder="e.g. 4/1/26" value="'+f.openDate+'" oninput="addForm.openDate=this.value"></div><div class="ap-field"><label class="ap-label">Cost / Debit ($)</label><input class="ap-input" id="af-cost" type="number" step="0.01" placeholder="0" value="'+f.cost+'" oninput="addForm.cost=this.value;updateGross()"></div></div>'
-    +'<div class="ap-grid"><div class="ap-field"><label class="ap-label">Premium / Income ($)</label><input class="ap-input" id="af-income" type="number" step="0.01" placeholder="0" value="'+f.income+'" oninput="addForm.income=this.value;updateGross()"></div>'
-    +(isShort?'<div class="ap-field"><label class="ap-label">Current Value ($)</label><input class="ap-input" type="number" value="0" disabled style="background:var(--bg3);color:var(--text3);"></div>':'<div class="ap-field"><label class="ap-label">Current Value ($)</label><input class="ap-input" id="af-curr" type="number" step="0.01" placeholder="defaults to cost" value="'+(f.currentValue||f.cost||'')+'" oninput="addForm.currentValue=this.value;updateGross()"></div>')
-    +'</div><div class="ap-grid"><div class="ap-field"><label class="ap-label">Gross Val ($)</label><input class="ap-input" id="af-gross" type="number" value="'+aG+'" disabled style="background:var(--bg3);color:var(--text3);"></div><div class="ap-field"><label class="ap-label">P&amp;L ($)</label><input class="ap-input" id="af-pnl" type="number" value="'+(aG-(parseFloat(f.cost)||0))+'" disabled style="background:var(--bg3);color:var(--text3);"></div></div>'
-    +'<div class="ap-grid"><div class="ap-field"><label class="ap-label">Notes</label><input class="ap-input" id="af-notes" placeholder="Optional" value="'+f.notes+'" oninput="addForm.notes=this.value"></div>'
-    +'<div class="ap-field"><label class="ap-label">Status</label><select class="ap-select" onchange="addForm.closed=this.value===\'closed\'"><option value="open"'+(f.closed?'':' selected')+'>Open</option><option value="closed"'+(f.closed?' selected':'')+'>Closed</option></select></div></div>'
-    +'<div class="modal-btns" style="margin-top:0.35rem;"><button class="modal-confirm" style="background:var(--red);" onclick="saveAddModal()">&#10003; '+(f._editId?'Save Changes':'Add Position')+'</button><button class="modal-cancel-btn" onclick="closeAddModal()">Cancel</button></div>'
-    +'</div></div>';
+    '<div class="modal-overlay" onclick="if(event.target===this)closeAddModal()">'    +'<div class="ap-modal-box"><div class="modal-title">'+(isEditing?'&#9998; Edit Position':'&#43; Add New Position')+'</div>'    +'<div class="modal-sub" style="margin-bottom:0.85rem;">Fields marked <span style="color:var(--red)">*</span> are required.'+(isEditing?' <span style="color:var(--blue);">All fields editable in edit mode.</span>':'')+'</div>'    +'<div class="modal-section-label">Position Type <span style="color:var(--red)">*</span></div>'    +'<div class="ap-type-tabs"><button class="apt '+tbc('Short Put')+'" onclick="setAF(\'type\',\'Short Put\')">&#8595; Short Put</button><button class="apt '+tbc('Long Put')+'" onclick="setAF(\'type\',\'Long Put\')">&#8593; Long Put</button><button class="apt '+tbc('Long Call')+'" onclick="setAF(\'type\',\'Long Call\')">&#8593; Long Call</button><button class="apt '+tbc('Short Call')+'" onclick="setAF(\'type\',\'Short Call\')">&#8595; Short Call</button><button class="apt '+tbc('Shares')+'" onclick="setAF(\'type\',\'Shares\')">&#9632; Shares</button></div>'    +'<div class="ap-grid"><div class="ap-field"><label class="ap-label">Ticker <span>*</span></label><input class="ap-input" id="af-ticker" placeholder="e.g. SOFI" value="'+f.ticker+'" oninput="addForm.ticker=this.value.toUpperCase()"></div>'    +'<div class="ap-field"><label class="ap-label">'+(f.type==='Shares'?'Shares':'Contracts')+' <span>*</span></label><input class="ap-input" id="af-contracts" type="number" min="1" placeholder="1" value="'+f.contracts+'" oninput="addForm.contracts=parseInt(this.value)||1"></div></div>'    +(isOpts?'<div class="ap-grid"><div class="ap-field"><label class="ap-label">Strike <span>*</span></label><input class="ap-input" id="af-strike" type="number" step="0.01" placeholder="e.g. 16.00" value="'+f.strike+'" oninput="addForm.strike=this.value"></div><div class="ap-field"><label class="ap-label">Expiry <span>*</span></label><input class="ap-input" id="af-expiry" placeholder="e.g. 4/10/26" value="'+f.expiryDate+'" oninput="addForm.expiryDate=this.value"></div></div>':'')    +'<div class="ap-grid"><div class="ap-field"><label class="ap-label">Open Date</label><input class="ap-input" id="af-opendate" placeholder="e.g. 4/1/26" value="'+f.openDate+'" oninput="addForm.openDate=this.value"></div><div class="ap-field"><label class="ap-label">Cost / Debit ($)</label><input class="ap-input" id="af-cost" type="number" step="0.01" placeholder="0" value="'+f.cost+'" oninput="addForm.cost=this.value;updateGross()"></div></div>'    +'<div class="ap-grid"><div class="ap-field"><label class="ap-label">Premium / Income ($)</label><input class="ap-input" id="af-income" type="number" step="0.01" placeholder="0" value="'+f.income+'" oninput="addForm.income=this.value;updateGross()"></div>'    +currField    +'</div><div class="ap-grid">'+grossField+pnlField+'</div>'    +'<div class="ap-grid"><div class="ap-field"><label class="ap-label">Notes</label><input class="ap-input" id="af-notes" placeholder="Optional" value="'+f.notes+'" oninput="addForm.notes=this.value"></div>'    +'<div class="ap-field"><label class="ap-label">Status</label><select class="ap-select" onchange="addForm.closed=this.value===\'closed\'"><option value="open"'+(f.closed?'':' selected')+'>Open</option><option value="closed"'+(f.closed?' selected':'')+'>Closed</option></select></div></div>'    +'<div class="modal-btns" style="margin-top:0.35rem;"><button class="modal-confirm" style="background:var(--red);" onclick="saveAddModal()">&#10003; '+(isEditing?'Save Changes':'Add Position')+'</button><button class="modal-cancel-btn" onclick="closeAddModal()">Cancel</button></div>'    +'</div></div>';
 }
 function setAF(field,val){if(!addForm)return;addForm[field]=val;renderAddModal();}
 function updateGross(){
@@ -817,9 +782,12 @@ function saveAddModal(){
   if(f.type!=='Shares'&&!f.expiryDate.trim()){alert('Expiry date is required for options.');return;}
   var cost=parseFloat(f.cost)||0,income=parseFloat(f.income)||0;
   var isShort=f.type==='Short Put'||f.type==='Short Call';
-  var curr=isShort?0:(parseFloat(f.currentValue)||cost);
-  var gross=income+curr,pnl=gross-cost;
-  if(f._editId){
+  var isEditing=!!f._editId;
+  var curr=isEditing?(parseFloat(f.currentValue)||0):(isShort?0:(parseFloat(f.currentValue)||cost));
+  var autoGross=income+curr,autoPnl=autoGross-cost;
+  var gross=isEditing&&f.grossValue!==''&&f.grossValue!=null?(parseFloat(f.grossValue)||autoGross):autoGross;
+  var pnl=isEditing&&f.profit!==''&&f.profit!=null?(parseFloat(f.profit)||autoPnl):autoPnl;
+  if(isEditing){
     var r=positions.find(function(p){return p.id===f._editId;});
     if(r){r.ticker=f.ticker.trim().toUpperCase();r.excelType=f.type;r.strike=parseFloat(f.strike)||0;r.expiryDate=f.expiryDate.trim();r.openDate=f.openDate.trim();r.contracts=f.contracts;r.excelCost=cost;r.excelIncome=income;r.excelGrossValue=gross;r.excelCurrentValue=curr;r.excelProfit=pnl;r.closed=f.closed;r.notes=f.notes;}
   }else{
