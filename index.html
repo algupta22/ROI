@@ -677,7 +677,6 @@ function rTable(data){
     }
     var erb='<button class="row-edit-btn" onclick="openEditModal('+Q+r.id+Q+')" title="Edit all fields">&#9998; Edit</button>';
     var crb='<button class="copy-btn" onclick="copyRow('+Q+r.id+Q+')" title="Duplicate">&#10063;</button>';
-    // Portfolio badge — shown only on All tab
     var portNames={'lovelina':'Lovelina','amit':'Amit','joint':'Joint','amit-roth':'Amit Roth','lov-roth':'Lov Roth','lov-trad':'Lov Trad'};
     var portColors={'lovelina':'#DB2877','amit':'#2563EB','joint':'#059669','amit-roth':'#7C3AED','lov-roth':'#DB2877','lov-trad':'#0891B2'};
     var portKey=r.portfolio||'lovelina';
@@ -1077,16 +1076,11 @@ function rActivityView(){
   var nSh=rows.filter(function(r){return r.category==='share';}).reduce(function(s,r){return s+r.amount;},0);
   var nInc=rows.filter(function(r){return r.category==='income';}).reduce(function(s,r){return s+r.amount;},0);
   var uniqTk=[...new Set(rows.filter(function(r){return r.instrument&&r.instrument!=='--';}).map(function(r){return r.instrument;}))].length;
-  var stats='<div class="av-stats">'
-    +'<div class="av-stat"><div class="av-stat-lbl">Trades</div><div class="av-stat-val" style="color:var(--black);">'+rows.length+'</div><div class="av-stat-sub">filtered</div></div>'
-    +'<div class="av-stat"><div class="av-stat-lbl">Net Options</div><div class="av-stat-val" style="color:'+(nOpt>=0?'var(--green)':'var(--red)')+';">'+(nOpt>=0?'+':'')+nOpt.toFixed(2)+'</div><div class="av-stat-sub">P&L</div></div>'
-    +'<div class="av-stat"><div class="av-stat-lbl">Credits</div><div class="av-stat-val" style="color:var(--green);">+'+cred.toFixed(2)+'</div><div class="av-stat-sub">premium received</div></div>'
-    +'<div class="av-stat"><div class="av-stat-lbl">Debits</div><div class="av-stat-val" style="color:var(--red);">-'+deb.toFixed(2)+'</div><div class="av-stat-sub">cost paid</div></div>'
-    +'<div class="av-stat"><div class="av-stat-lbl">Net Shares</div><div class="av-stat-val" style="color:'+(nSh>=0?'var(--green)':'var(--red)')+';">'+(nSh>=0?'+':'')+nSh.toFixed(2)+'</div><div class="av-stat-sub">share trades</div></div>'
-    +'<div class="av-stat"><div class="av-stat-lbl">Interest/Div</div><div class="av-stat-val" style="color:var(--blue);">+'+Math.max(0,nInc).toFixed(2)+'</div><div class="av-stat-sub">income</div></div>'
-    +'<div class="av-stat"><div class="av-stat-lbl">Tickers</div><div class="av-stat-val" style="color:var(--black);">'+uniqTk+'</div><div class="av-stat-sub">unique</div></div>'
-    +'</div>';
-  var allT=[...new Set(allRows.filter(function(r){return r.instrument&&r.instrument!=='--';}).map(function(r){return r.instrument;}))].sort();
+  // Activity summary cards — same style as positions tab
+  function fmC(v){return'$'+Math.abs(v).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});}
+  function fmP(v){return(v>=0?'+':'-')+'$'+Math.abs(v).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});}
+  var stats='<div class="summary-grid" style="margin-bottom:0.85rem;">'    +'<div class="scard" style="border-left:3px solid var(--black);"><div class="scard-label" style="color:var(--text3);">Total Trades</div><div class="scard-val" style="color:var(--black);">'+rows.length+'</div><div class="scard-sub">'+uniqTk+' unique tickers</div></div>'    +'<div class="scard" style="border-left:3px solid var(--green);"><div class="scard-label" style="color:var(--text3);">Credits Received</div><div class="scard-val" style="color:var(--green);">+'+fmC(cred)+'</div><div class="scard-sub">option premium in</div></div>'    +'<div class="scard" style="border-left:3px solid var(--red);"><div class="scard-label" style="color:var(--text3);">Debits Paid</div><div class="scard-val" style="color:var(--red);">-'+fmC(deb)+'</div><div class="scard-sub">option cost out</div></div>'    +'<div class="gain-card"><div class="gain-title">Options P&amp;L</div>'      +'<div class="gain-row"><span class="gain-label">Credits</span><span class="gain-val" style="color:var(--green);">+'+fmC(cred)+'</span></div>'      +'<div class="gain-divider"></div>'      +'<div class="gain-row"><span class="gain-label">Debits</span><span class="gain-val" style="color:var(--red);">-'+fmC(deb)+'</span></div>'      +'<div class="gain-divider"></div>'      +'<div class="gain-row"><span class="gain-label" style="font-weight:800;color:var(--black);">&#931; Net</span><span class="gain-val" style="color:'+(nOpt>=0?'var(--green)':'var(--red)')+';font-size:1rem;">'+fmP(nOpt)+'</span></div>'    +'</div>'    +'<div class="scard" style="border-left:3px solid var(--blue);"><div class="scard-label" style="color:var(--text3);">Net Shares</div><div class="scard-val" style="color:'+(nSh>=0?'var(--green)':'var(--red)')+';">'+(nSh>=0?'+':'-')+fmC(Math.abs(nSh))+'</div><div class="scard-sub">share trade flow</div></div>'    +'<div class="scard" style="border-left:3px solid var(--purple);"><div class="scard-label" style="color:var(--text3);">Interest / Div</div><div class="scard-val" style="color:var(--purple);">+'+fmC(Math.max(0,nInc))+'</div><div class="scard-sub">income received</div></div>'    +'</div>';
+    var allT=[...new Set(allRows.filter(function(r){return r.instrument&&r.instrument!=='--';}).map(function(r){return r.instrument;}))].sort();
   var allSel=selectedTickers.has('ALL');
   var selList=allSel?[]:allT.filter(function(t){return selectedTickers.has(t);});
   var ddI=allT.map(function(t){var sel=allSel||selectedTickers.has(t);return'<div class="ticker-dd-item'+(sel?' selected':'')+'" data-ddticker="'+t+'"><div class="ticker-dd-check">'+(sel?'&#10003;':'')+'</div><span class="dd-dot" style="background:'+(DC[t]||'#888')+'"></span>'+t+'</div>';}).join('');
