@@ -473,11 +473,8 @@ var positions=SEED.slice();
     if(raw){
       var d=JSON.parse(raw);
       if(Array.isArray(d)&&d.length>0){
-        // Tag any legacy positions (no portfolio field) as lovelina
         d.forEach(function(r){if(!r.portfolio)r.portfolio='lovelina';});
-        positions=d;
-        savePositions(); // persist the tags
-        return;
+        positions=d;savePositions();return;
       }
     }
   }catch(e){}
@@ -537,18 +534,16 @@ function ec(s){var d=du(s);return d<=4?'es':d<=30?'em':'ef';}
 function bct(t){return t==='Short Put'?'bsp':t==='Long Put'?'blp':t==='Long Call'?'blc':'bsh';}
 function collateral(r){return r.excelType==='Short Put'&&!isCl(r)&&!r.rolledOver?r.strike*100:0;}
 function gd(p,s){
-  // All tab: return everything
   if(p==='all') return positions;
-  // Each tab: strict filter by portfolio tag
   if(p==='lovelina') return positions.filter(function(r){return r.portfolio==='lovelina';});
   if(p==='amit')     return positions.filter(function(r){return r.portfolio==='amit';});
   if(p==='joint')    return positions.filter(function(r){return r.portfolio==='joint';});
   if(p==='retirement'){
-    var retPorts=['amit-roth','lov-roth','lov-trad'];
+    var rp=['amit-roth','lov-roth','lov-trad'];
     if(s==='amit-roth') return positions.filter(function(r){return r.portfolio==='amit-roth';});
     if(s==='lov-roth')  return positions.filter(function(r){return r.portfolio==='lov-roth';});
     if(s==='lov-trad')  return positions.filter(function(r){return r.portfolio==='lov-trad';});
-    return positions.filter(function(r){return retPorts.indexOf(r.portfolio)>=0;});
+    return positions.filter(function(r){return rp.indexOf(r.portfolio)>=0;});
   }
   return[];
 }
@@ -637,7 +632,7 @@ function rTable(data){
   var filtered=getAppliedFilters(data);
   var thisFri=getThisFriday();
   var Q=String.fromCharCode(39);
-  var rows=filtered.length===0?'<tr><td colspan="16" class="ec">No positions match your filters.</td></tr>':filtered.map(function(r){
+  var rows=filtered.length===0?'<tr><td colspan="17" class="ec">No positions match your filters.</td></tr>':filtered.map(function(r){
     var c=isCl(r),p=r.excelProfit,col=collateral(r);
     var isST=r.excelType==='Short Put'||r.excelType==='Short Call';
     var dCV=isST?0:(r.excelCurrentValue||0);
@@ -682,9 +677,15 @@ function rTable(data){
     }
     var erb='<button class="row-edit-btn" onclick="openEditModal('+Q+r.id+Q+')" title="Edit all fields">&#9998; Edit</button>';
     var crb='<button class="copy-btn" onclick="copyRow('+Q+r.id+Q+')" title="Duplicate">&#10063;</button>';
-    return'<tr class="'+rowClass+(c?' cr':'')+'"><td class="mc"><span class="chip"><span class="tk-dot-sm" style="background:'+(DC[r.ticker]||'#888')+'"></span>'+r.ticker+'</span></td><td>'+(r.openDate||'--')+'</td><td class="mn">'+(r.excelCost?'$'+r.excelCost.toLocaleString():'--')+'</td><td class="mn" style="color:var(--green)">'+(r.excelIncome?'+$'+r.excelIncome.toLocaleString():'--')+'</td><td class="mn">'+fm(dCV)+'</td><td class="mn">'+fm(dGV)+'</td><td>'+priceCell+'</td><td><span class="badge '+bct(r.excelType)+'">'+r.excelType+'</span></td><td class="mn">'+(r.strike>0?'$'+r.strike:'--')+'</td><td class="'+ec(r.expiryDate)+'">'+(r.expiryDate||'--')+(isExp&&!c?' &#9888;':'')+'</td><td class="mn" style="color:'+(p>=0?'var(--green)':'var(--red)')+';font-weight:700">'+fp(p)+'</td><td>'+colCell+'</td><td>'+actionCell+'</td><td style="text-align:center">'+erb+'</td><td style="text-align:center">'+crb+'</td><td style="text-align:center"><button class="del-btn" onclick="deleteRow('+Q+r.id+Q+')">&#128465;</button></td></tr>';
+    // Portfolio badge — shown only on All tab
+    var portNames={'lovelina':'Lovelina','amit':'Amit','joint':'Joint','amit-roth':'Amit Roth','lov-roth':'Lov Roth','lov-trad':'Lov Trad'};
+    var portColors={'lovelina':'#DB2877','amit':'#2563EB','joint':'#059669','amit-roth':'#7C3AED','lov-roth':'#DB2877','lov-trad':'#0891B2'};
+    var portKey=r.portfolio||'lovelina';
+    var portBadge=ap==='all'?'<td><span style="display:inline-flex;align-items:center;gap:0.3rem;font-size:0.65rem;font-weight:700;color:'+(portColors[portKey]||'#888')+'"><span style="width:7px;height:7px;border-radius:50%;background:'+(portColors[portKey]||'#888')+';flex-shrink:0;"></span>'+(portNames[portKey]||portKey)+'</span></td>':'';
+    return'<tr class="'+rowClass+(c?' cr':'')+'"><td class="mc"><span class="chip"><span class="tk-dot-sm" style="background:'+(DC[r.ticker]||'#888')+'"></span>'+r.ticker+'</span></td>'+portBadge+'<td>'+(r.openDate||'--')+'</td><td class="mn">'+(r.excelCost?'$'+r.excelCost.toLocaleString():'--')+'</td><td class="mn" style="color:var(--green)">'+(r.excelIncome?'+$'+r.excelIncome.toLocaleString():'--')+'</td><td class="mn">'+fm(dCV)+'</td><td class="mn">'+fm(dGV)+'</td><td>'+priceCell+'</td><td><span class="badge '+bct(r.excelType)+'">'+r.excelType+'</span></td><td class="mn">'+(r.strike>0?'$'+r.strike:'--')+'</td><td class="'+ec(r.expiryDate)+'">'+(r.expiryDate||'--')+(isExp&&!c?' &#9888;':'')+'</td><td class="mn" style="color:'+(p>=0?'var(--green)':'var(--red)')+';font-weight:700">'+fp(p)+'</td><td>'+colCell+'</td><td>'+actionCell+'</td><td style="text-align:center">'+erb+'</td><td style="text-align:center">'+crb+'</td><td style="text-align:center"><button class="del-btn" onclick="deleteRow('+Q+r.id+Q+')">&#128465;</button></td></tr>';
   }).join('');
-  return'<div class="table-wrap"><table><thead><tr><th>Ticker</th><th>Open Date</th><th>Cost</th><th>Income</th><th>Curr Val</th><th>Gross Val</th><th>Price</th><th>Type</th><th>Strike</th><th>Expiry</th><th>P&L</th><th>Collateral</th><th>Close / Action</th><th>Edit</th><th>Copy</th><th>Del</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
+  var portHeader=ap==='all'?'<th style="color:rgba(255,255,255,0.7);">Portfolio</th>':'';
+  return'<div class="table-wrap"><table><thead><tr><th>Ticker</th>'+portHeader+'<th>Open Date</th><th>Cost</th><th>Income</th><th>Curr Val</th><th>Gross Val</th><th>Price</th><th>Type</th><th>Strike</th><th>Expiry</th><th>P&L</th><th>Collateral</th><th>Close / Action</th><th>Edit</th><th>Copy</th><th>Del</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
 }
 
 // ── CLOSE MODAL ───────────────────────────────────────────────────────────────
@@ -806,7 +807,6 @@ function saveAddModal(){
     if(r){r.ticker=f.ticker.trim().toUpperCase();r.excelType=f.type;r.strike=parseFloat(f.strike)||0;r.expiryDate=f.expiryDate.trim();r.openDate=f.openDate.trim();r.contracts=f.contracts;r.excelCost=cost;r.excelIncome=income;r.excelGrossValue=gross;r.excelCurrentValue=curr;r.excelProfit=pnl;r.closed=f.closed;r.notes=f.notes;}
   }else{
     var uid=Math.random().toString(36).slice(2,10);
-    // Tag with current portfolio — for retirement use the sub-tab (e.g. 'amit-roth')
     var portTag=ap==='retirement'?as:ap;
     positions.push({id:uid,portfolio:portTag,ticker:f.ticker.trim().toUpperCase(),excelType:f.type,strike:parseFloat(f.strike)||0,expiryDate:f.expiryDate.trim(),openDate:f.openDate.trim(),contracts:f.contracts,excelCost:cost,excelIncome:income,excelGrossValue:gross,excelCurrentValue:curr,excelProfit:pnl,closed:f.closed,notes:f.notes,manualPrice:null,rolledOver:false,closeAction:null});
   }
