@@ -742,50 +742,65 @@ function openModal(id){
   var r=positions.find(function(p){return p.id===id;});if(!r)return;
   var t=r.excelType,da='Close';
   if(t==='Short Put')da='BTC';else if(t==='Long Put'||t==='Long Call')da='STC';else if(t==='Shares')da='Sell';
-  modal={id:id,action:da,cdType:'zero',amount:'',soldAmount:'',notes:''};renderModal();
+  var ca=r.closeAction||{};
+  modal={id:id,action:da,cdType:ca.type||'zero',amount:ca.amount!=null?ca.amount:'',soldAmount:r.soldAmount!=null?r.soldAmount:'',notes:ca.notes||''};
+  renderModal();
 }
 function renderModal(){
   var m=modal;if(!m)return;
   var r=positions.find(function(p){return p.id===m.id;});if(!r)return;
-  var t=r.excelType,isShares=t==='Shares',isShortPut=t==='Short Put',isLong=t==='Long Put'||t==='Long Call',isZero=m.cdType==='zero';
+  var t=r.excelType,isShares=t==='Shares',isShortPut=t==='Short Put',isLong=t==='Long Put'||t==='Long Call';
   var at='';
-  if(isShortPut){at='<button class="mat mat-close'+(m.action==='Close'?' active':'')+'" onclick="setMA(\'Close\')">&#9940; Expire</button><button class="mat mat-btc'+(m.action==='BTC'?' active':'')+'" onclick="setMA(\'BTC\')">&#8593; Buy to Close</button>';}
-  else if(isLong){at='<button class="mat mat-stc'+(m.action==='STC'?' active':'')+'" onclick="setMA(\'STC\')">&#8595; Sell to Close</button><button class="mat mat-close'+(m.action==='Close'?' active':'')+'" onclick="setMA(\'Close\')">&#9940; Expire</button>';}
-  else if(isShares){at='<button class="mat mat-sell'+(m.action==='Sell'?' active':'')+'" onclick="setMA(\'Sell\')">&#8595; Sell Shares</button><button class="mat mat-close'+(m.action==='Close'?' active':'')+'" onclick="setMA(\'Close\')">&#9940; Other</button>';}
-  else{at='<button class="mat mat-close'+(m.action==='Close'?' active':'')+'" onclick="setMA(\'Close\')">&#9940; Close</button><button class="mat mat-btc'+(m.action==='BTC'?' active':'')+'" onclick="setMA(\'BTC\')">&#8593; Buy to Close</button><button class="mat mat-stc'+(m.action==='STC'?' active':'')+'" onclick="setMA(\'STC\')">&#8595; Sell to Close</button>';}
-  var hint=m.cdType==='credit'?'Net credit / proceeds received':m.cdType==='debit'?'Net debit / cost paid':'Zero cost \u2014 expired worthless or $0 transaction';
+  if(isShortPut){at='<button class="mat mat-close'+(m.action==='Close'?' active':'')+'" onclick="setMA('Close')">&#9940; Expire</button><button class="mat mat-btc'+(m.action==='BTC'?' active':'')+'" onclick="setMA('BTC')">&#8593; Buy to Close</button>';}
+  else if(isLong){at='<button class="mat mat-stc'+(m.action==='STC'?' active':'')+'" onclick="setMA('STC')">&#8595; Sell to Close</button><button class="mat mat-close'+(m.action==='Close'?' active':'')+'" onclick="setMA('Close')">&#9940; Expire</button>';}
+  else if(isShares){at='<button class="mat mat-sell'+(m.action==='Sell'?' active':'')+'" onclick="setMA('Sell')">&#8595; Sell Shares</button><button class="mat mat-close'+(m.action==='Close'?' active':'')+'" onclick="setMA('Close')">&#9940; Other</button>';}
+  else{at='<button class="mat mat-close'+(m.action==='Close'?' active':'')+'" onclick="setMA('Close')">&#9940; Close</button><button class="mat mat-btc'+(m.action==='BTC'?' active':'')+'" onclick="setMA('BTC')">&#8593; Buy to Close</button><button class="mat mat-stc'+(m.action==='STC'?' active':'')+'" onclick="setMA('STC')">&#8595; Sell to Close</button>';}
+  var amtColor=m.cdType==='credit'?'var(--green)':m.cdType==='debit'?'var(--red)':'var(--text3)';
+  var amtPre=m.cdType==='credit'?'+$':m.cdType==='debit'?'-$':'$';
+  var hint=m.cdType==='credit'?'Net credit received':m.cdType==='debit'?'Net debit paid':'Zero / expired worthless';
   var btnBg=m.action==='BTC'?'var(--green)':m.action==='STC'?'var(--blue)':m.action==='Sell'?'var(--orange)':'var(--black)';
   var btnLbl='Confirm '+({Close:'Close',BTC:'Buy to Close',STC:'Sell to Close',Sell:'Sell'}[m.action]||m.action);
-  var pre=m.cdType==='credit'?'+$':m.cdType==='debit'?'-$':'$0';
+  var fieldRow=''
+    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:0.2rem;">'
+    +'<div>'
+    +'<div class="modal-section-label" style="margin-bottom:0.35rem;">Transaction Value</div>'
+    +'<div class="modal-cd-tabs" style="margin-bottom:0.45rem;"><button class="mct credit'+(m.cdType==='credit'?' active':'')+'" onclick="setCD('credit')">+ Credit</button><button class="mct debit'+(m.cdType==='debit'?' active':'')+'" onclick="setCD('debit')">&minus; Debit</button><button class="mct zero'+(m.cdType==='zero'?' active':'')+'" onclick="setCD('zero')">&asymp; Zero</button></div>'
+    +'<div class="modal-amt-wrap"><span class="modal-amt-pre" style="color:'+amtColor+';">'+amtPre+'</span>'
+    +'<input class="modal-amt-input" id="modal-amt" type="number" step="0.01" min="0" value="'+m.amount+'" placeholder="0.00" oninput="modal.amount=this.value"></div>'
+    +'<div class="modal-hint">'+hint+'</div>'
+    +'</div>'
+    +'<div>'
+    +'<div class="modal-section-label" style="margin-bottom:0.35rem;">Sold <span style="font-size:0.6rem;color:var(--text3);font-weight:400;">(shows in Sold column)</span></div>'
+    +'<div style="height:2.15rem;margin-bottom:0.45rem;"></div>'
+    +'<div class="modal-amt-wrap"><span class="modal-amt-pre" style="color:var(--blue);">$</span>'
+    +'<input class="modal-amt-input" id="modal-sold" type="number" step="0.01" min="0" value="'+m.soldAmount+'" placeholder="0.00" oninput="modal.soldAmount=this.value"></div>'
+    +'<div class="modal-hint">Amount received from closing</div>'
+    +'</div>'
+    +'</div>';
   document.getElementById('modal-root').innerHTML=
     '<div class="modal-overlay" onclick="if(event.target===this)closeModal()">'
     +'<div class="modal-box"><div class="modal-title">&#9940; Close / Trade Position</div>'
     +'<div class="modal-sub">Record how this position was closed</div>'
     +'<div class="modal-pos-info"><span class="tk-dot-sm" style="background:'+(DC[r.ticker]||'#888')+'"></span>'+r.ticker+' &nbsp;|&nbsp; '+r.excelType+(r.strike>0?' &nbsp;|&nbsp; $'+r.strike:'')+(r.expiryDate?' &nbsp;|&nbsp; '+r.expiryDate:'')+'</div>'
     +'<div class="modal-section-label">Action</div><div class="modal-action-tabs" style="margin-bottom:0.9rem;">'+at+'</div>'
-    +'<div class="modal-section-label">Transaction Value</div>'
-    +'<div class="modal-cd-tabs"><button class="mct credit'+(m.cdType==='credit'?' active':'')+'" onclick="setCD(\'credit\')">+ Credit</button><button class="mct debit'+(m.cdType==='debit'?' active':'')+'" onclick="setCD(\'debit\')">&minus; Debit</button><button class="mct zero'+(m.cdType==='zero'?' active':'')+'" onclick="setCD(\'zero\')">&asymp; Zero</button></div>'
-    +'<div class="modal-amt-wrap"><span class="modal-amt-pre" style="color:'+(m.cdType==='credit'?'var(--green)':m.cdType==='debit'?'var(--red)':'var(--text3)')+'">'+pre+'</span>'
-    +'<input class="modal-amt-input" id="modal-amt" type="number" step="0.01" min="0" value="'+(isZero?'':m.amount)+'" placeholder="'+(isZero?'0 (auto)':'Enter amount')+'" '+(isZero?'disabled':'')+' oninput="modal.amount=this.value"></div>'
-    +'<div class="modal-hint">'+hint+'</div>'
-    +(m.action==='STC'||m.action==='BTC'||m.action==='Sell'?'<div class="modal-section-label" style="margin-top:0.75rem;">Sold Amount <span style="font-size:0.62rem;color:var(--text3);font-weight:500;">(what you received / paid to close)</span></div><div class="modal-amt-wrap"><span class="modal-amt-pre" style="color:var(--blue);">$</span><input class="modal-amt-input" id="modal-sold" type="number" step="0.01" min="0" value="'+m.soldAmount+'" placeholder="Enter sold amount" oninput="modal.soldAmount=this.value"></div>':'')
-    +'<div class="modal-notes-label">Notes (optional)</div>'
+    +fieldRow
+    +'<div class="modal-notes-label" style="margin-top:0.65rem;">Notes (optional)</div>'
     +'<textarea class="modal-notes" rows="2" placeholder="e.g. Expired worthless, rolled to next week..." oninput="modal.notes=this.value">'+m.notes+'</textarea>'
     +'<div class="modal-btns"><button class="modal-confirm" style="background:'+btnBg+';" onclick="confirmModal()">&#10003; '+btnLbl+'</button><button class="modal-cancel-btn" onclick="closeModal()">Cancel</button></div>'
     +'</div></div>';
 }
 function setMA(a){if(!modal)return;modal.action=a;renderModal();}
-function setCD(t){if(!modal)return;modal.cdType=t;if(t==='zero')modal.amount='';renderModal();}
+function setCD(t){if(!modal)return;modal.cdType=t;renderModal();}
 function confirmModal(){
   if(!modal)return;
   var r=positions.find(function(p){return p.id===modal.id;});if(!r)return;
-  var amt=modal.cdType==='zero'?0:parseFloat(modal.amount)||0;
+  var amt=parseFloat(modal.amount)||0;
   var signed=modal.cdType==='credit'?amt:modal.cdType==='debit'?-amt:0;
+  var soldAmt=(modal.soldAmount!==''&&modal.soldAmount!=null)?parseFloat(modal.soldAmount):null;
+  if(soldAmt!=null&&!isNaN(soldAmt)){r.soldAmount=soldAmt;}else{delete r.soldAmount;}
   r.closed=true;
-  var soldAmt=modal.soldAmount!==''?parseFloat(modal.soldAmount):null;
-  if(soldAmt!=null&&!isNaN(soldAmt))r.soldAmount=soldAmt;
   r.closeAction={action:modal.action,type:modal.cdType,amount:amt,signedAmount:signed,soldAmount:soldAmt,notes:modal.notes,date:new Date().toLocaleDateString('en-US',{month:'numeric',day:'numeric',year:'2-digit'})};
-  if(modal.cdType!=='zero'&&amt>0)r.excelProfit=(r.excelIncome||0)+signed;
+  if(amt>0)r.excelProfit=(r.excelIncome||0)+signed;
   savePositions();closeModal();rMain();
 }
 function reopenPosition(id){
