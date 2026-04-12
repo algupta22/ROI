@@ -793,6 +793,7 @@ function cs(data,isRetirement){
   var op=data.filter(function(r){return!isCl(r);});
   var ci=data.reduce(function(s,r){return s+(r.excelCost||0);},0);
   var ig=data.reduce(function(s,r){var sold=r.soldAmount!=null&&r.soldAmount!==0&&r.soldAmount!==''?r.soldAmount:null;return s+(sold!=null?(sold-(r.excelCost||0)):0);},0);
+  var totalSold=data.reduce(function(s,r){var sold=r.soldAmount!=null&&r.soldAmount!==0&&r.soldAmount!==''?r.soldAmount:null;return s+(sold!=null?sold:0);},0);
   function netInc(r){var sold=r.soldAmount!=null&&r.soldAmount!==0&&r.soldAmount!==''?r.soldAmount:null;return sold!=null?(sold-(r.excelCost||0)):0;}
   var realized=data.filter(function(r){return isCl(r);}).reduce(function(s,r){return s+netInc(r);},0);
   var unrealized=op.reduce(function(s,r){return s+netInc(r);},0);
@@ -819,7 +820,7 @@ function cs(data,isRetirement){
     var cv=hasOvrd?parseFloat(r.cvOverride):(isSP&&sp!=null?(r.strike>0&&r.strike<sp?r.strike*100:sp*100):(isST?0:(r.excelCurrentValue||0)));
     return s+cv;
   },0);
-  var beRaw=ci-ig-gv,be=Math.max(0,beRaw),pct=ci>0?Math.min(100,Math.round((ig+gv)/ci*100)):0;
+  var beRaw=ci-totalSold-gv,be=Math.max(0,beRaw),pct=ci>0?Math.min(100,Math.round((totalSold+gv)/ci*100)):0;
   return{n:data.length,op:op.length,cl:data.filter(function(r){return isCl(r);}).length,gv:gv,ci:ci,ig:ig,be:be,beRaw:beRaw,pct:pct,realized:realized,unrealized:unrealized,totalGain:realized+unrealized,twc:twc,tc:tc};
 }
 function getTickersFrom(d){return[...new Set(d.map(function(r){return r.ticker;}))].sort();}
