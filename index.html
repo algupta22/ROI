@@ -777,8 +777,8 @@ function rTable(data){
   // ── group by ticker + type ────────────────────────────────────────────────
   var groupOrder=[],groupMap={};
   filtered.forEach(function(r){
-    var gk=r.ticker+'||'+r.excelType;
-    if(!groupMap[gk]){groupMap[gk]={key:gk,ticker:r.ticker,type:r.excelType,rows:[]};groupOrder.push(gk);}
+    var gk=r.ticker;
+    if(!groupMap[gk]){groupMap[gk]={key:gk,ticker:r.ticker,rows:[]};groupOrder.push(gk);}
     groupMap[gk].rows.push(r);
   });
 
@@ -791,9 +791,9 @@ function rTable(data){
     var g=groupMap[gk];
     var expanded=expandedGroups.has(gk);
     var rows=g.rows;
-    var ticker=g.ticker,type=g.type;
-    var typeLabel=typeShort[type]||type;
-    var isSP=type==='Short Put',isST=type==='Short Put'||type==='Short Call';
+    var ticker=g.ticker;
+    // Collect unique types for display in count badge
+    var types=[...new Set(rows.map(function(r){return typeShort[r.excelType]||r.excelType;}))].join('/');
 
     // Aggregate numbers
     var totalCost=rows.reduce(function(s,r){return s+(r.excelCost||0);},0);
@@ -835,7 +835,7 @@ function rTable(data){
     }
 
     // Count badge
-    var countBadge='<span style="display:inline-flex;align-items:center;gap:3px;font-size:0.62rem;font-weight:700;background:rgba(0,0,0,0.07);border-radius:4px;padding:1px 5px;">'+count+(openCount&&closedCount?' ('+openCount+'O/'+closedCount+'C)':openCount?' open':' closed')+'</span>';
+    var countBadge='<span style="display:inline-flex;align-items:center;gap:3px;font-size:0.62rem;font-weight:700;background:rgba(0,0,0,0.07);border-radius:4px;padding:1px 5px;">'+count+(openCount&&closedCount?' ('+openCount+'O/'+closedCount+'C)':openCount?' open':' closed')+' &middot; '+types+'</span>';
 
     // Totals color
     var niColor=totalNetInc!=null?(totalNetInc>=0?'var(--green)':'var(--red)'):'var(--text3)';
@@ -862,10 +862,11 @@ function rTable(data){
     if(expanded){
       rows.forEach(function(r){
         var c=isCl(r);
+        var rIsSP=r.excelType==='Short Put',rIsST=r.excelType==='Short Put'||r.excelType==='Short Call';
         var livePI=(liveCache[r.ticker]&&liveCache[r.ticker].price!=null)?liveCache[r.ticker].price:null;
         var manPI=tickerPrices[r.ticker]!=null?tickerPrices[r.ticker]:null;
         var stockPrice=livePI!=null?livePI:(manPI!=null?manPI:null);
-        var autoCV=c?0:(isSP&&stockPrice!=null?(r.strike>0&&r.strike<stockPrice?r.strike*100:stockPrice*100):(isST?0:(r.excelCurrentValue||0)));
+        var autoCV=c?0:(rIsSP&&stockPrice!=null?(r.strike>0&&r.strike<stockPrice?r.strike*100:stockPrice*100):(rIsST?0:(r.excelCurrentValue||0)));
         var hasOvrd=r.cvOverride!=null&&r.cvOverride!=='';
         var dCV=hasOvrd?parseFloat(r.cvOverride):autoCV;
         var isExp2=r.expiryDate&&!c&&(function(){try{return new Date(r.expiryDate)<=thisFri;}catch(e){return false;}})();
@@ -889,8 +890,8 @@ function rTable(data){
         var cvCellC;
         if(cvEditingNow){
           var cvInputVal=r.cvOverride!=null?Math.abs(parseFloat(r.cvOverride)||0):Math.abs(autoCV);
-          var cvHint=isSP?'<span style="font-size:0.55rem;color:var(--yellow);">(→-ve)</span>':'';
-          cvCellC='<td class="mn"><div class="ie-wrap">'+cvHint+'<input class="ie-input w-md" id="ie_'+r.id+'_cvOverride" type="number" step="0.01" value="'+cvInputVal+'" onkeydown="ieKey(event,'+Q+r.id+Q+','+Q+'cvOverride'+Q+')" oninput="(function(){var rx=positions.find(function(p){return p.id==='+Q+r.id+Q+';});if(rx)rx.cvOverride=this.value;}).call(this)"><button class="ie-ok" onclick="(function(){var inp=document.getElementById('+Q+'ie_'+r.id+'_cvOverride'+Q+');if(!inp)return;var v=parseFloat(inp.value);if(isNaN(v))return;var rx=positions.find(function(p){return p.id==='+Q+r.id+Q+';});if(rx){rx.cvOverride='+(isSP?'(-Math.abs(v))':'v')+';savePositions();}editCell=null;rMain();})();">&#10003;</button><button class="ie-x" onclick="ieCancel()">&#10005;</button></div></td>';
+          var cvHint=rIsSP?'<span style="font-size:0.55rem;color:var(--yellow);">(→-ve)</span>':'';
+          cvCellC='<td class="mn"><div class="ie-wrap">'+cvHint+'<input class="ie-input w-md" id="ie_'+r.id+'_cvOverride" type="number" step="0.01" value="'+cvInputVal+'" onkeydown="ieKey(event,'+Q+r.id+Q+','+Q+'cvOverride'+Q+')" oninput="(function(){var rx=positions.find(function(p){return p.id==='+Q+r.id+Q+';});if(rx)rx.cvOverride=this.value;}).call(this)"><button class="ie-ok" onclick="(function(){var inp=document.getElementById('+Q+'ie_'+r.id+'_cvOverride'+Q+');if(!inp)return;var v=parseFloat(inp.value);if(isNaN(v))return;var rx=positions.find(function(p){return p.id==='+Q+r.id+Q+';});if(rx){rx.cvOverride='+(rIsSP?'(-Math.abs(v))':'v')+';savePositions();}editCell=null;rMain();})();">&#10003;</button><button class="ie-x" onclick="ieCancel()">&#10005;</button></div></td>';
         }else{
           var cvDispVal=hasOvrd?parseFloat(r.cvOverride):dCV;
           var cvFmt=fmtMoney(cvDispVal);
@@ -908,7 +909,7 @@ function rTable(data){
           var nIcon=ca&&ca.notes?'<span title="'+ca.notes+'" style="cursor:help;color:var(--text3);">&#128196;</span>':'';
           actionCellC='<div class="closed-action-cell"><div class="closed-action-line"><span class="badge bcl">'+tLbl+'</span>'+aPart+dPart+nIcon+'</div><button class="reopen-btn" onclick="reopenPosition('+Q+r.id+Q+')">&#8617; Reopen</button></div>';
         }else{
-          var lbl=type==='Short Put'?'BTC':type==='Long Put'||type==='Long Call'?'STC':type==='Shares'?'Sell':'Close';
+          var lbl=r.excelType==='Short Put'?'BTC':r.excelType==='Long Put'||r.excelType==='Long Call'?'STC':r.excelType==='Shares'?'Sell':'Close';
           actionCellC='<button class="action-btn" onclick="openModal('+Q+r.id+Q+')" title="Close">&#9940; '+lbl+'</button>';
         }
 
@@ -927,7 +928,7 @@ function rTable(data){
         html+='<td class="mn" style="color:'+(netIncC!=null?(netIncC>=0?'var(--green)':'var(--red)'):'var(--text3)')+'">'+(netIncC!=null?fmtMoneySign(netIncC):'--')+'</td>';
         html+=cvCellC;
         html+='<td>'+priceCellC+'</td>';
-        html+='<td><span class="badge '+bct(type)+'" title="'+type+'" style="opacity:0.6;">'+typeLabel+'</span></td>';
+        html+='<td><span class="badge '+bct(r.excelType)+'" title="'+r.excelType+'" style="opacity:0.6;">'+(typeShort[r.excelType]||r.excelType)+'</span></td>';
         html+='<td class="mn">'+(r.strike>0?'$'+r.strike:'--')+'</td>';
         html+='<td class="'+(isExp2?'es':'ef')+'">'+(r.expiryDate||'--')+(isExp2?' &#9888;':'')+'</td>';
         html+='<td>'+actionCellC+'</td>';
