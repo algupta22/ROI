@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-11T23:54:37.569Z",
+  "savedAt": "2026-04-12T00:14:12.800Z",
   "positions": [
     {
       "id": "d53fqivm",
@@ -20,7 +20,8 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "NVTS 4/17/2026 Put $7.50",
-      "portfolio": "amit-roth"
+      "portfolio": "amit-roth",
+      "soldAmount": 4.94
     },
     {
       "id": "cjdk49g4",
@@ -40,7 +41,8 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "NVTS 4/17/2026 Put $8.50",
-      "portfolio": "amit-roth"
+      "portfolio": "amit-roth",
+      "soldAmount": 17.94
     },
     {
       "id": "gnixhkrv",
@@ -60,7 +62,8 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "NVTS 4/17/2026 Put $9.00",
-      "portfolio": "amit-roth"
+      "portfolio": "amit-roth",
+      "soldAmount": 30.94
     },
     {
       "id": "rj36n2dh",
@@ -71,10 +74,10 @@
       "openDate": "4/8/2026",
       "contracts": 3,
       "excelCost": 0,
-      "excelIncome": 85,
-      "excelGrossValue": 85,
+      "excelIncome": 0,
+      "excelGrossValue": 0,
       "excelCurrentValue": 0,
-      "excelProfit": 77,
+      "excelProfit": 0,
       "closed": true,
       "rolledOver": false,
       "closeAction": {
@@ -87,7 +90,8 @@
       },
       "manualPrice": null,
       "notes": "NVTS 4/17/2026 Put $9.00",
-      "portfolio": "amit-roth"
+      "portfolio": "amit-roth",
+      "soldAmount": 77
     },
     {
       "id": "zysib74g",
@@ -154,7 +158,8 @@
       },
       "manualPrice": null,
       "notes": "Navitas Semiconductor CUSIP: 63942X106 2 NVTS Options Assigned",
-      "portfolio": "amit-roth"
+      "portfolio": "amit-roth",
+      "soldAmount": 964.38
     },
     {
       "id": "6ukqoci6",
