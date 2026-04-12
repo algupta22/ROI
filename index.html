@@ -358,6 +358,11 @@ td.mc{color:var(--black);font-weight:700;}td.mn{font-family:monospace;font-size:
 .pINC{background:#F0F9FF;color:#0369A1;}.pOTH{background:var(--bg4);color:var(--text3);}
 .av-pos{color:var(--green);font-weight:700;font-family:monospace;}
 .av-neg{color:var(--red);font-weight:700;font-family:monospace;}
+.grp-summary td{font-size:0.73rem;}
+.grp-summary:hover{background:#F0F0F0!important;}
+.grp-child td{font-size:0.71rem;border-bottom:1px solid #F0F0F0;}
+.grp-child:hover{background:#FAFFF9!important;}
+.grp-child:last-of-type{border-bottom:2px solid var(--border);}
 .av-del{background:none;border:none;color:#D1D5DB;cursor:pointer;padding:0.12rem 0.28rem;border-radius:4px;font-size:0.72rem;}
 .av-del:hover{background:var(--red-bg);color:var(--red);}
 .av-pg{display:flex;align-items:center;gap:0.5rem;justify-content:flex-end;padding:0.4rem 0;font-size:0.68rem;color:var(--text3);}
@@ -536,6 +541,7 @@ var ap='all',as='ret-all',typeFilter='all',ocFilter='all',expiringOnly=false,sc=
 var selectedTickers=new Set(['ALL']),editingPrice=null,dropdownOpen=false;
 var editCell=null,activeView='positions',spreadsOcFilter='open';
 var modal=null,showUpload=false,csvPreview=null,importMsg='';
+var expandedGroups=new Set();
 
 // ── UTILS ─────────────────────────────────────────────────────────────────────
 var now=new Date();
@@ -735,76 +741,206 @@ function rFiltersRow(data){
 function rTableControls(){return'<div class="controls-row"><button class="del-all-btn" onclick="deleteAll()">&#128465; Delete Visible</button><button class="upload-csv-btn" onclick="toggleUpload()">&#8593; Upload CSV</button><button class="template-dl-btn" onclick="dlTemplate()">&#11015; Template</button><button class="add-pos-btn" onclick="openAddModal()">&#43; Add Position</button></div>'+rUploadPanel();}
 
 // ── FIX 3: rTable — uses String.fromCharCode(39) for safe onclick strings ────
+function toggleGroup(gk){if(expandedGroups.has(gk))expandedGroups.delete(gk);else expandedGroups.add(gk);rMain();}
 function rTable(data){
   var filtered=getAppliedFilters(data);
   var thisFri=getThisFriday();
   var Q=String.fromCharCode(39);
   var typeShort={'Short Put':'SPUT','Long Put':'LPUT','Long Call':'LCALL','Short Call':'SCALL','Shares':'SHR'};
-  var rows=filtered.length===0?'<tr><td colspan="13" class="ec">No positions match your filters.</td></tr>':filtered.map(function(r){
-    var c=isCl(r);
-    var isST=r.excelType==='Short Put'||r.excelType==='Short Call';
-    var isSP=r.excelType==='Short Put';
-    var isEditing=editingPrice===r.id;
-    var liveP=(liveCache[r.ticker]&&liveCache[r.ticker].price!=null)?liveCache[r.ticker].price:null;
-    var manP=tickerPrices[r.ticker]!=null?tickerPrices[r.ticker]:null;
-    var stockPrice=liveP!=null?liveP:(manP!=null?manP:null);
-    var autoCV=c?0:(isSP&&stockPrice!=null?(r.strike>0&&r.strike<stockPrice?r.strike*100:stockPrice*100):(isST?0:(r.excelCurrentValue||0)));
+  var portNames={'lovelina':'Lovelina','amit':'Amit','joint':'Joint','amit-roth':'Amit Roth','lov-roth':'Lov Roth','lov-trad':'Lov Trad'};
+  var portColors={'lovelina':'#DB2877','amit':'#2563EB','joint':'#059669','amit-roth':'#7C3AED','lov-roth':'#DB2877','lov-trad':'#0891B2'};
+
+  // ── helpers reused per row ────────────────────────────────────────────────
+  function rowCV(r){
+    var c=isCl(r),isSP=r.excelType==='Short Put',isST=isSP||r.excelType==='Short Call';
+    var lP=(liveCache[r.ticker]&&liveCache[r.ticker].price!=null)?liveCache[r.ticker].price:null;
+    var mP=tickerPrices[r.ticker]!=null?tickerPrices[r.ticker]:null;
+    var sp=lP!=null?lP:(mP!=null?mP:null);
+    var auto=c?0:(isSP&&sp!=null?(r.strike>0&&r.strike<sp?r.strike*100:sp*100):(isST?0:(r.excelCurrentValue||0)));
     var hasOvrd=r.cvOverride!=null&&r.cvOverride!=='';
-    var dCV=hasOvrd?parseFloat(r.cvOverride):autoCV;
-    var isExp=r.expiryDate&&!c&&(function(){try{return new Date(r.expiryDate)<=thisFri;}catch(e){return false;}})();
-    var rowClass=r.rolledOver?'rolled':isExp?'expiring-soon':'';
-    var priceCell;
-    if(isEditing){
-      priceCell='<div class="pcell-edit-wrap"><input class="pcell-input" id="pi_'+r.id+'" type="number" step="0.01" value="'+(manP!=null?manP:'')+'" placeholder="price" onkeydown="if(event.keyCode===13)savePrice('+Q+r.id+Q+');if(event.keyCode===27)cancelEdit()"><button class="pcell-ok" onclick="savePrice('+Q+r.id+Q+')">&#10003;</button><button class="pcell-x" onclick="cancelEdit()">&#10005;</button></div>';
-    }else{
-      var pd='';
-      if(liveP!=null){pd='<span class="pcell-live">$'+liveP.toFixed(2)+'</span><span class="pcell-badge pcell-badge-live">L</span>';pd+=manP!=null?'<button class="pcell-act" onclick="clearManualPrice('+Q+r.ticker+Q+')" title="clear manual">&#10005;</button>':'<button class="pcell-act" onclick="startEdit('+Q+r.id+Q+')" title="add manual">+M</button>';}
-      else if(manP!=null){pd='<span class="pcell-manual">$'+manP+'</span><span class="pcell-badge pcell-badge-manual">M</span><button class="pcell-act" onclick="startEdit('+Q+r.id+Q+')" title="edit manual">ed</button><button class="pcell-act" onclick="clearManualPrice('+Q+r.ticker+Q+')" title="clear">&#10005;</button>';}
-      else{pd='<span class="pcell-none">--</span><button class="pcell-act" onclick="startEdit('+Q+r.id+Q+')" title="set manual price">+M</button>';}
-      priceCell='<div class="pcell">'+pd+'</div>';
+    return hasOvrd?parseFloat(r.cvOverride):auto;
+  }
+  function rowNetInc(r){
+    var sold=r.soldAmount!=null&&r.soldAmount!==0&&r.soldAmount!==''?r.soldAmount:null;
+    return sold!=null?(sold-(r.excelCost||0)):null;
+  }
+  function fmtMoney(v,allowNull){
+    if(v==null&&allowNull)return'--';
+    if(v==null)v=0;
+    return(v<0?'-$':'$')+Math.abs(v).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+  }
+  function fmtMoneySign(v){
+    if(v==null)return'--';
+    return(v>=0?'+':'-')+'$'+Math.abs(v).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+  }
+
+  // ── group by ticker + type ────────────────────────────────────────────────
+  var groupOrder=[],groupMap={};
+  filtered.forEach(function(r){
+    var gk=r.ticker+'||'+r.excelType;
+    if(!groupMap[gk]){groupMap[gk]={key:gk,ticker:r.ticker,type:r.excelType,rows:[]};groupOrder.push(gk);}
+    groupMap[gk].rows.push(r);
+  });
+
+  if(filtered.length===0)return'<div class="table-wrap"><table><thead><tr>'+buildThead(false)+'</tr></thead><tbody><tr><td colspan="14" class="ec">No positions match your filters.</td></tr></tbody></table></div>';
+
+  var portHeader=ap==='all';
+  var html='';
+
+  groupOrder.forEach(function(gk){
+    var g=groupMap[gk];
+    var expanded=expandedGroups.has(gk);
+    var rows=g.rows;
+    var ticker=g.ticker,type=g.type;
+    var typeLabel=typeShort[type]||type;
+    var isSP=type==='Short Put',isST=type==='Short Put'||type==='Short Call';
+
+    // Aggregate numbers
+    var totalCost=rows.reduce(function(s,r){return s+(r.excelCost||0);},0);
+    var totalSold=rows.reduce(function(s,r){return s+(r.soldAmount!=null&&r.soldAmount!==0&&r.soldAmount!==''?parseFloat(r.soldAmount):0);},0);
+    var hasSoldAny=rows.some(function(r){return r.soldAmount!=null&&r.soldAmount!==0&&r.soldAmount!=='';});
+    var totalNetInc=hasSoldAny?rows.reduce(function(s,r){var ni=rowNetInc(r);return s+(ni!=null?ni:0);},0):null;
+    var totalCV=rows.reduce(function(s,r){return s+rowCV(r);},0);
+    var openCount=rows.filter(function(r){return!isCl(r);}).length;
+    var closedCount=rows.filter(function(r){return isCl(r);}).length;
+    var count=rows.length;
+    var hasExp=rows.some(function(r){return r.expiryDate&&!isCl(r)&&(function(){try{return new Date(r.expiryDate)<=thisFri;}catch(e){return false;}})();});
+
+    // Price (shared per ticker)
+    var liveP=(liveCache[ticker]&&liveCache[ticker].price!=null)?liveCache[ticker].price:null;
+    var manP=tickerPrices[ticker]!=null?tickerPrices[ticker]:null;
+    var pd='';
+    if(liveP!=null){pd='<span class="pcell-live">$'+liveP.toFixed(2)+'</span><span class="pcell-badge pcell-badge-live">L</span>';}
+    else if(manP!=null){pd='<span class="pcell-manual">$'+manP+'</span><span class="pcell-badge pcell-badge-manual">M</span>';}
+    else{pd='<span class="pcell-none">--</span>';}
+
+    // Strikes summary
+    var strikes=[...new Set(rows.filter(function(r){return r.strike>0;}).map(function(r){return r.strike;}))].sort(function(a,b){return a-b;});
+    var strikeCell=strikes.length?strikes.map(function(s){return'$'+s;}).join(', '):'--';
+
+    // Expiry summary
+    var expiries=[...new Set(rows.map(function(r){return r.expiryDate||'';}).filter(Boolean))].sort();
+    var expiryCell=expiries.length?expiries.join(', '):'--';
+
+    // Summary row classes
+    var sumRowCls='grp-summary'+(hasExp?' expiring-soon':'');
+
+    // Portfolio badge (for "all" view — show if all same, else "Mixed")
+    var portBadgeHtml='';
+    if(portHeader){
+      var ports=[...new Set(rows.map(function(r){return r.portfolio||'lovelina';}))];
+      var portStr=ports.length===1?(portNames[ports[0]]||ports[0]):'Mixed';
+      var portClr=ports.length===1?(portColors[ports[0]]||'#888'):'#888';
+      portBadgeHtml='<td><span style="display:inline-flex;align-items:center;gap:0.3rem;font-size:0.65rem;font-weight:700;color:'+portClr+'"><span style="width:7px;height:7px;border-radius:50%;background:'+portClr+';flex-shrink:0;"></span>'+portStr+'</span></td>';
     }
-    // Curr Val cell with ovrd inline edit
-    var cvEditingNow=editCell&&editCell.id===r.id&&editCell.field==='cvOverride';
-    var cvCell;
-    if(cvEditingNow){
-      // For Short Put, hint user to enter positive; we negate on save
-      var cvInputVal=r.cvOverride!=null?Math.abs(parseFloat(r.cvOverride)||0):Math.abs(autoCV);
-      var cvHint=isSP?'<span style="font-size:0.58rem;color:var(--yellow);margin-left:3px;">(SP: will store as -ve)</span>':'';
-      cvCell='<td class="mn"><div class="ie-wrap">'+cvHint+'<input class="ie-input w-md" id="ie_'+r.id+'_cvOverride" type="number" step="0.01" value="'+cvInputVal+'" onkeydown="ieKey(event,'+Q+r.id+Q+','+Q+'cvOverride'+Q+')" oninput="(function(){var rx=positions.find(function(p){return p.id==='+Q+r.id+Q+';});if(rx)rx.cvOverride=this.value;}).call(this)"><button class="ie-ok" onclick="(function(){var inp=document.getElementById('+Q+'ie_'+r.id+'_cvOverride'+Q+');if(!inp)return;var v=parseFloat(inp.value);if(isNaN(v))return;var rx=positions.find(function(p){return p.id==='+Q+r.id+Q+';});if(rx){rx.cvOverride='+(isSP?'(-Math.abs(v))':'v')+';savePositions();}editCell=null;rMain();})();">&#10003;</button><button class="ie-x" onclick="ieCancel()">&#10005;</button></div></td>';
-    }else{
-      var cvDispVal=hasOvrd?parseFloat(r.cvOverride):dCV;
-      var cvFmt=cvDispVal<0?'-$'+Math.abs(cvDispVal).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2}):'$'+cvDispVal.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
-      var cvDisp=hasOvrd?'<span style="color:var(--yellow);font-family:monospace;font-weight:700;">'+cvFmt+'</span><span class="pcell-badge" style="background:var(--yellow-bg);color:var(--yellow);margin-left:2px;">ovrd</span><button class="pcell-act" onclick="(function(){var rx=positions.find(function(p){return p.id==='+Q+r.id+Q+';});if(rx){delete rx.cvOverride;}savePositions();rMain();})();" title="undo override">&#8617;</button>':'<span style="font-family:monospace;">'+fm(dCV)+'</span><button class="pcell-act" onclick="ieStart('+Q+r.id+Q+','+Q+'cvOverride'+Q+')" title="override current value">ovrd</button>';
-      cvCell='<td class="mn">'+cvDisp+'</td>';
+
+    // Count badge
+    var countBadge='<span style="display:inline-flex;align-items:center;gap:3px;font-size:0.62rem;font-weight:700;background:rgba(0,0,0,0.07);border-radius:4px;padding:1px 5px;">'+count+(openCount&&closedCount?' ('+openCount+'O/'+closedCount+'C)':openCount?' open':' closed')+'</span>';
+
+    // Totals color
+    var niColor=totalNetInc!=null?(totalNetInc>=0?'var(--green)':'var(--red)'):'var(--text3)';
+    var cvColor=totalCV<0?'var(--red)':'var(--black)';
+
+    // Summary row
+    html+='<tr class="'+sumRowCls+'" style="cursor:pointer;background:#F8F8F8;border-left:3px solid '+(DC[ticker]||'#888')+';" onclick="toggleGroup('+Q+gk+Q+')">';
+    html+='<td class="mc"><span style="font-size:0.72rem;color:var(--text3);margin-right:4px;">'+(expanded?'&#9660;':'&#9654;')+'</span><span class="chip"><span class="tk-dot-sm" style="background:'+(DC[ticker]||'#888')+'"></span>'+ticker+'</span>&nbsp;'+countBadge+'</td>';
+    if(portHeader)html+=portBadgeHtml;
+    html+='<td style="font-size:0.65rem;color:var(--text3);">'+expiryCell+'</td>';
+    html+='<td class="mn" style="font-weight:700;">'+(totalCost?fmtMoney(totalCost):'--')+'</td>';
+    html+='<td class="mn" style="color:var(--blue);font-weight:700;">'+(hasSoldAny?fmtMoney(totalSold):'--')+'</td>';
+    html+='<td class="mn" style="color:'+niColor+';font-weight:700;">'+(totalNetInc!=null?fmtMoneySign(totalNetInc):'--')+'</td>';
+    html+='<td class="mn" style="color:'+cvColor+';font-weight:700;">'+fmtMoney(totalCV)+'</td>';
+    html+='<td><div class="pcell">'+pd+'</div></td>';
+    html+='<td><span class="badge '+bct(type)+'" title="'+type+'">'+typeLabel+'</span></td>';
+    html+='<td class="mn" style="font-size:0.65rem;color:var(--text3);">'+strikeCell+'</td>';
+    html+='<td class="'+(hasExp?'es':'ef')+'" style="font-size:0.65rem;">'+expiryCell+(hasExp?' &#9888;':'')+'</td>';
+    html+='<td style="text-align:center"><button class="add-pos-btn" style="font-size:0.6rem;padding:0.18rem 0.5rem;" onclick="event.stopPropagation();openAddModal()" title="Add position">+ Add</button></td>';
+    html+='<td colspan="3"></td>';
+    html+='</tr>';
+
+    // Child rows (expanded)
+    if(expanded){
+      rows.forEach(function(r){
+        var c=isCl(r);
+        var livePI=(liveCache[r.ticker]&&liveCache[r.ticker].price!=null)?liveCache[r.ticker].price:null;
+        var manPI=tickerPrices[r.ticker]!=null?tickerPrices[r.ticker]:null;
+        var stockPrice=livePI!=null?livePI:(manPI!=null?manPI:null);
+        var autoCV=c?0:(isSP&&stockPrice!=null?(r.strike>0&&r.strike<stockPrice?r.strike*100:stockPrice*100):(isST?0:(r.excelCurrentValue||0)));
+        var hasOvrd=r.cvOverride!=null&&r.cvOverride!=='';
+        var dCV=hasOvrd?parseFloat(r.cvOverride):autoCV;
+        var isExp2=r.expiryDate&&!c&&(function(){try{return new Date(r.expiryDate)<=thisFri;}catch(e){return false;}})();
+        var childCls='grp-child'+(r.rolledOver?' rolled':isExp2?' expiring-soon':'')+(c?' cr':'');
+
+        // Price cell (child)
+        var isEditing=editingPrice===r.id;
+        var priceCellC;
+        if(isEditing){
+          priceCellC='<div class="pcell-edit-wrap"><input class="pcell-input" id="pi_'+r.id+'" type="number" step="0.01" value="'+(manPI!=null?manPI:'')+'" placeholder="price" onkeydown="if(event.keyCode===13)savePrice('+Q+r.id+Q+');if(event.keyCode===27)cancelEdit()"><button class="pcell-ok" onclick="savePrice('+Q+r.id+Q+')">&#10003;</button><button class="pcell-x" onclick="cancelEdit()">&#10005;</button></div>';
+        }else{
+          var pd2='';
+          if(livePI!=null){pd2='<span class="pcell-live">$'+livePI.toFixed(2)+'</span><span class="pcell-badge pcell-badge-live">L</span>';pd2+=manPI!=null?'<button class="pcell-act" onclick="clearManualPrice('+Q+r.ticker+Q+')" title="clear manual">&#10005;</button>':'<button class="pcell-act" onclick="startEdit('+Q+r.id+Q+')" title="add manual">+M</button>';}
+          else if(manPI!=null){pd2='<span class="pcell-manual">$'+manPI+'</span><span class="pcell-badge pcell-badge-manual">M</span><button class="pcell-act" onclick="startEdit('+Q+r.id+Q+')" title="edit">ed</button><button class="pcell-act" onclick="clearManualPrice('+Q+r.ticker+Q+')" title="clear">&#10005;</button>';}
+          else{pd2='<span class="pcell-none">--</span><button class="pcell-act" onclick="startEdit('+Q+r.id+Q+')" title="set price">+M</button>';}
+          priceCellC='<div class="pcell">'+pd2+'</div>';
+        }
+
+        // CV cell (child)
+        var cvEditingNow=editCell&&editCell.id===r.id&&editCell.field==='cvOverride';
+        var cvCellC;
+        if(cvEditingNow){
+          var cvInputVal=r.cvOverride!=null?Math.abs(parseFloat(r.cvOverride)||0):Math.abs(autoCV);
+          var cvHint=isSP?'<span style="font-size:0.55rem;color:var(--yellow);">(→-ve)</span>':'';
+          cvCellC='<td class="mn"><div class="ie-wrap">'+cvHint+'<input class="ie-input w-md" id="ie_'+r.id+'_cvOverride" type="number" step="0.01" value="'+cvInputVal+'" onkeydown="ieKey(event,'+Q+r.id+Q+','+Q+'cvOverride'+Q+')" oninput="(function(){var rx=positions.find(function(p){return p.id==='+Q+r.id+Q+';});if(rx)rx.cvOverride=this.value;}).call(this)"><button class="ie-ok" onclick="(function(){var inp=document.getElementById('+Q+'ie_'+r.id+'_cvOverride'+Q+');if(!inp)return;var v=parseFloat(inp.value);if(isNaN(v))return;var rx=positions.find(function(p){return p.id==='+Q+r.id+Q+';});if(rx){rx.cvOverride='+(isSP?'(-Math.abs(v))':'v')+';savePositions();}editCell=null;rMain();})();">&#10003;</button><button class="ie-x" onclick="ieCancel()">&#10005;</button></div></td>';
+        }else{
+          var cvDispVal=hasOvrd?parseFloat(r.cvOverride):dCV;
+          var cvFmt=fmtMoney(cvDispVal);
+          var cvDispC=hasOvrd?'<span style="color:var(--yellow);font-family:monospace;font-weight:700;">'+cvFmt+'</span><span class="pcell-badge" style="background:var(--yellow-bg);color:var(--yellow);margin-left:2px;">ovrd</span><button class="pcell-act" onclick="(function(){var rx=positions.find(function(p){return p.id==='+Q+r.id+Q+';});if(rx){delete rx.cvOverride;}savePositions();rMain();})();" title="undo">&#8617;</button>':'<span style="font-family:monospace;">'+fm(dCV)+'</span><button class="pcell-act" onclick="ieStart('+Q+r.id+Q+','+Q+'cvOverride'+Q+')" title="override">ovrd</button>';
+          cvCellC='<td class="mn">'+cvDispC+'</td>';
+        }
+
+        // Action cell
+        var actionCellC;
+        if(c){
+          var ca=r.closeAction;
+          var tLbl=ca?(ca.action+(ca.type==='credit'?' \u00b7 Cr':ca.type==='debit'?' \u00b7 Dr':' \u00b7 $0')):'Closed';
+          var aPart=ca&&ca.amount>0?'<span class="'+(ca.type==='credit'?'closed-cr':'closed-dr')+'">'+(ca.type==='credit'?'+':'-')+'$'+ca.amount.toLocaleString()+'</span>':'<span class="closed-dt">$0</span>';
+          var dPart=ca&&ca.date?'<span class="closed-dt">'+ca.date+'</span>':'';
+          var nIcon=ca&&ca.notes?'<span title="'+ca.notes+'" style="cursor:help;color:var(--text3);">&#128196;</span>':'';
+          actionCellC='<div class="closed-action-cell"><div class="closed-action-line"><span class="badge bcl">'+tLbl+'</span>'+aPart+dPart+nIcon+'</div><button class="reopen-btn" onclick="reopenPosition('+Q+r.id+Q+')">&#8617; Reopen</button></div>';
+        }else{
+          var lbl=type==='Short Put'?'BTC':type==='Long Put'||type==='Long Call'?'STC':type==='Shares'?'Sell':'Close';
+          actionCellC='<button class="action-btn" onclick="openModal('+Q+r.id+Q+')" title="Close">&#9940; '+lbl+'</button>';
+        }
+
+        var soldC=r.soldAmount!=null&&r.soldAmount!==0&&r.soldAmount!==''?r.soldAmount:null;
+        var hasSoldC=soldC!=null;
+        var netIncC=hasSoldC?(soldC-(r.excelCost||0)):null;
+        var portBadgeC='';
+        if(portHeader){var pk=r.portfolio||'lovelina';portBadgeC='<td><span style="display:inline-flex;align-items:center;gap:0.3rem;font-size:0.62rem;font-weight:600;color:'+(portColors[pk]||'#888')+';opacity:0.75"><span style="width:6px;height:6px;border-radius:50%;background:'+(portColors[pk]||'#888')+';flex-shrink:0;"></span>'+(portNames[pk]||pk)+'</span></td>';}
+
+        html+='<tr class="'+childCls+'" style="background:#FEFEFE;">';
+        html+='<td class="mc" style="padding-left:1.8rem;"><span style="color:var(--text3);font-size:0.62rem;">&#8627;</span> <span style="font-size:0.68rem;color:var(--text3);">#'+r.id.slice(-4)+'</span></td>';
+        if(portHeader)html+=portBadgeC;
+        html+='<td style="font-size:0.72rem;">'+(r.openDate||'--')+'</td>';
+        html+='<td class="mn">'+(r.excelCost?'$'+r.excelCost.toLocaleString():'--')+'</td>';
+        html+='<td class="mn" style="color:var(--blue);">'+(hasSoldC?fmtMoney(soldC):'--')+'</td>';
+        html+='<td class="mn" style="color:'+(netIncC!=null?(netIncC>=0?'var(--green)':'var(--red)'):'var(--text3)')+'">'+(netIncC!=null?fmtMoneySign(netIncC):'--')+'</td>';
+        html+=cvCellC;
+        html+='<td>'+priceCellC+'</td>';
+        html+='<td><span class="badge '+bct(type)+'" title="'+type+'" style="opacity:0.6;">'+typeLabel+'</span></td>';
+        html+='<td class="mn">'+(r.strike>0?'$'+r.strike:'--')+'</td>';
+        html+='<td class="'+(isExp2?'es':'ef')+'">'+(r.expiryDate||'--')+(isExp2?' &#9888;':'')+'</td>';
+        html+='<td>'+actionCellC+'</td>';
+        html+='<td style="text-align:center"><button class="row-edit-btn" onclick="openEditModal('+Q+r.id+Q+')" title="Edit">&#9998;</button></td>';
+        html+='<td style="text-align:center"><button class="copy-btn" onclick="copyRow('+Q+r.id+Q+')" title="Duplicate">&#10063;</button></td>';
+        html+='<td style="text-align:center"><button class="del-btn" onclick="deleteRow('+Q+r.id+Q+')">&#128465;</button></td>';
+        html+='</tr>';
+      });
     }
-    var actionCell;
-    if(c){
-      var ca=r.closeAction;
-      var tLbl=ca?(ca.action+(ca.type==='credit'?' \u00b7 Cr':ca.type==='debit'?' \u00b7 Dr':' \u00b7 $0')):'Closed';
-      var aPart=ca&&ca.amount>0?'<span class="'+(ca.type==='credit'?'closed-cr':'closed-dr')+'">'+(ca.type==='credit'?'+':'-')+'$'+ca.amount.toLocaleString()+'</span>':'<span class="closed-dt">$0</span>';
-      var dPart=ca&&ca.date?'<span class="closed-dt">'+ca.date+'</span>':'';
-      var nIcon=ca&&ca.notes?'<span title="'+ca.notes+'" style="cursor:help;color:var(--text3);">&#128196;</span>':'';
-      actionCell='<div class="closed-action-cell"><div class="closed-action-line"><span class="badge bcl">'+tLbl+'</span>'+aPart+dPart+nIcon+'</div><button class="reopen-btn" onclick="reopenPosition('+Q+r.id+Q+')">&#8617; Reopen</button></div>';
-    }else{
-      var lbl=r.excelType==='Short Put'?'BTC':r.excelType==='Long Put'||r.excelType==='Long Call'?'STC':r.excelType==='Shares'?'Sell':'Close';
-      actionCell='<button class="action-btn" onclick="openModal('+Q+r.id+Q+')" title="Close position">&#9940; '+lbl+'</button>';
-    }
-    var erb='<button class="row-edit-btn" onclick="openEditModal('+Q+r.id+Q+')" title="Edit all fields">&#9998;</button>';
-    var crb='<button class="copy-btn" onclick="copyRow('+Q+r.id+Q+')" title="Duplicate">&#10063;</button>';
-    var portNames={'lovelina':'Lovelina','amit':'Amit','joint':'Joint','amit-roth':'Amit Roth','lov-roth':'Lov Roth','lov-trad':'Lov Trad'};
-    var portColors={'lovelina':'#DB2877','amit':'#2563EB','joint':'#059669','amit-roth':'#7C3AED','lov-roth':'#DB2877','lov-trad':'#0891B2'};
-    var portKey=r.portfolio||'lovelina';
-    var portBadge=ap==='all'?'<td><span style="display:inline-flex;align-items:center;gap:0.3rem;font-size:0.65rem;font-weight:700;color:'+(portColors[portKey]||'#888')+'"><span style="width:7px;height:7px;border-radius:50%;background:'+(portColors[portKey]||'#888')+';flex-shrink:0;"></span>'+(portNames[portKey]||portKey)+'</span></td>':'';
-    var sold=r.soldAmount!=null?r.soldAmount:null;
-    var hasSold=sold!=null&&sold!==0&&sold!=='';
-    var netIncome=hasSold?(sold-(r.excelCost||0)):null;
-    var soldCell=hasSold?'<td class="mn" style="color:var(--blue);">$'+sold.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})+'</td>':'<td class="mn" style="color:var(--text3);">--</td>';
-    var netIncCell=netIncome!=null?'<td class="mn" style="color:'+(netIncome>=0?'var(--green)':'var(--red)')+';">'+(netIncome>=0?'+':'-')+'$'+Math.abs(netIncome).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})+'</td>':'<td class="mn" style="color:var(--text3);">--</td>';
-    var typeLabel=typeShort[r.excelType]||r.excelType;
-    return'<tr class="'+rowClass+(c?' cr':'')+'"><td class="mc"><span class="chip"><span class="tk-dot-sm" style="background:'+(DC[r.ticker]||'#888')+'"></span>'+r.ticker+'</span></td>'+portBadge+'<td>'+(r.openDate||'--')+'</td><td class="mn">'+(r.excelCost?'$'+r.excelCost.toLocaleString():'--')+'</td>'+soldCell+netIncCell+cvCell+'<td>'+priceCell+'</td><td><span class="badge '+bct(r.excelType)+'" title="'+r.excelType+'">'+typeLabel+'</span></td><td class="mn">'+(r.strike>0?'$'+r.strike:'--')+'</td><td class="'+ec(r.expiryDate)+'">'+(r.expiryDate||'--')+(isExp&&!c?' &#9888;':'')+'</td><td>'+actionCell+'</td><td style="text-align:center">'+erb+'</td><td style="text-align:center">'+crb+'</td><td style="text-align:center"><button class="del-btn" onclick="deleteRow('+Q+r.id+Q+')">&#128465;</button></td></tr>';
-  }).join('');
-  var portHeader=ap==='all'?'<th style="color:rgba(255,255,255,0.7);">Portfolio</th>':'';
-  return'<div class="table-wrap"><table><thead><tr><th>Ticker</th>'+portHeader+'<th>Open Date</th><th>Cost</th><th>Sold</th><th>Net Inc</th><th>Curr Val</th><th>Price</th><th>Type</th><th>Strike</th><th>Expiry</th><th>Action</th><th>Ed</th><th>Cp</th><th>Del</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
+  });
+
+  var phdr=portHeader?'<th style="color:rgba(255,255,255,0.7);">Portfolio</th>':'';
+  return'<div class="table-wrap"><table><thead><tr><th>Ticker / Group</th>'+phdr+'<th>Date / Expiry</th><th>Cost</th><th>Sold</th><th>Net Inc</th><th>Curr Val</th><th>Price</th><th>Type</th><th>Strike</th><th>Expiry</th><th>Action</th><th>Ed</th><th>Cp</th><th>Del</th></tr></thead><tbody>'+html+'</tbody></table></div>';
 }
 
 // ── CLOSE MODAL ───────────────────────────────────────────────────────────────
@@ -1665,6 +1801,7 @@ function closeGhModal(){document.getElementById('modal-root').innerHTML='';}
 
 // ── EXPOSE GLOBALS ────────────────────────────────────────────────────────────
 window.sPort=sPort;window.toggleDropdown=toggleDropdown;
+window.toggleGroup=toggleGroup;
 window.openModal=openModal;window.closeModal=closeModal;window.confirmModal=confirmModal;window.setMA=setMA;window.setCD=setCD;
 window.reopenPosition=reopenPosition;window.startEdit=startEdit;window.cancelEdit=cancelEdit;
 window.savePrice=savePrice;window.clearManualPrice=clearManualPrice;
