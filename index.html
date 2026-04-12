@@ -713,7 +713,20 @@ function getThisFriday(){var d=new Date(now);var x=5-d.getDay();d.setDate(d.getD
 function getFriday(d){var dt=new Date(d);var x=5-dt.getDay();dt.setDate(dt.getDate()+(x>=0?x:x+7));return dt;}
 function isCl(r){return r.closed===true;}
 function fm(n){return(n||n===0)?'$'+Math.abs(n).toLocaleString():'--';}
-function fp(n){return n==null?'--':(n>=0?'+':'-')+'$'+Math.abs(n).toLocaleString();}
+function fp(n){return fmtKSign(n);}
+function fmtK(v){
+  if(v==null)return'--';
+  var neg=v<0,a=Math.abs(v),s;
+  if(a>=1000000)s='$'+(a/1000000).toFixed(2).replace(/\.?0+$/,'')+'M';
+  else if(a>=10000)s='$'+(a/1000).toFixed(1).replace(/\.0$/,'')+'K';
+  else if(a>=1000)s='$'+(a/1000).toFixed(2).replace(/\.?0+$/,'')+'K';
+  else s='$'+a.toFixed(0);
+  return neg?'-'+s:s;
+}
+function fmtKSign(v){
+  if(v==null)return'--';
+  return(v>=0?'+':'-')+fmtK(Math.abs(v));
+}
 function du(s){if(!s)return 999;try{return Math.round((new Date(s)-now)/86400000);}catch(e){return 999;}}
 function ec(s){var d=du(s);return d<=4?'es':d<=30?'em':'ef';}
 function bct(t){return t==='Short Put'?'bsp':t==='Long Put'?'blp':t==='Long Call'?'blc':'bsh';}
@@ -859,19 +872,19 @@ function rCashCard(){
   // Normal display: three rows
   var initRow='<div style="display:flex;align-items:center;justify-content:space-between;margin-top:0.45rem;">'
     +'<div><div style="font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.4);margin-bottom:0.12rem;">Initial Cash</div>'
-    +'<div style="font-size:0.92rem;font-weight:800;font-family:monospace;color:rgba(255,255,255,0.65);">$'+initCash.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})+'</div></div>'
+    +'<div style="font-size:0.92rem;font-weight:800;font-family:monospace;color:rgba(255,255,255,0.65);">'+fmtK(initCash)+'</div></div>'
     +(isAll?'':'<button class="cash-edt" onclick="initCashEdit()" style="align-self:flex-end;margin-bottom:0.1rem;">edit</button>')
     +'</div>';
 
   var currRow='<div style="display:flex;align-items:center;justify-content:space-between;margin-top:0.42rem;">'
     +'<div><div style="font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.4);margin-bottom:0.12rem;">Curr Cash Balance</div>'
-    +'<div style="font-size:1.1rem;font-weight:800;font-family:monospace;color:#34D399;">$'+cash.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})+'</div></div>'
+    +'<div style="font-size:1.1rem;font-weight:800;font-family:monospace;color:#34D399;">'+fmtK(cash)+'</div></div>'
     +(isAll?'':'<button class="cash-edt" onclick="cashEdit()" style="align-self:flex-end;margin-bottom:0.1rem;">edit</button>')
     +'</div>';
 
   var diffRow='<div style="border-top:1px solid rgba(255,255,255,0.1);margin-top:0.45rem;padding-top:0.38rem;display:flex;align-items:center;justify-content:space-between;">'
     +'<span style="font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.4);">Difference</span>'
-    +'<span style="font-size:0.92rem;font-weight:800;font-family:monospace;color:'+diffColor+';">'+diffFmt+'</span>'
+    +'<span style="font-size:0.92rem;font-weight:800;font-family:monospace;color:'+diffColor+';">'+fmtKSign(diff)+'</span>'
     +'</div>';
 
   return'<div class="cash-card"><div class="cash-lbl"><span>&#128181; Cash</span></div>'
@@ -887,13 +900,13 @@ function initCashCancel(){editingInitCash=false;rMain();}
 
 // ── SUMMARY CARDS ─────────────────────────────────────────────────────────────
 function rSum(s){
-  var bc=s.beRaw<=0?'var(--green)':'var(--red)',bl=s.beRaw<=0?'&#9650; $'+Math.abs(s.beRaw).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})+' over':'&#9660; $'+s.beRaw.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})+' to go';
+  var bc=s.beRaw<=0?'var(--green)':'var(--red)',bl=s.beRaw<=0?'&#9650; '+fmtK(Math.abs(s.beRaw))+' over':'&#9660; '+fmtK(s.beRaw)+' to go';
   var consolidatedCard='<div class="scard" style="border-left:3px solid var(--black);padding:0.85rem 1rem;">'+'<div style="display:flex;flex-direction:column;gap:0.55rem;">'+'<div style="display:flex;align-items:center;justify-content:space-between;">'+'<div class="scard-label" style="color:var(--text3);margin-bottom:0;">Capital Invested</div>'+'<div class="scard-val" style="color:var(--black);font-size:1rem;margin-bottom:0;">$'+s.ci.toLocaleString()+'</div>'+'</div>'+'<div style="height:1px;background:var(--border);"></div>'+'<div style="display:flex;align-items:center;justify-content:space-between;">'+'<div class="scard-label" style="color:var(--text3);margin-bottom:0;">Income Generated</div>'+'<div class="scard-val" style="color:var(--green);font-size:1rem;margin-bottom:0;">+$'+s.ig.toLocaleString()+'</div>'+'</div>'+'<div style="height:1px;background:var(--border);"></div>'+'<div style="display:flex;align-items:center;justify-content:space-between;">'+'<div class="scard-label" style="color:var(--text3);margin-bottom:0;">Positions Value</div>'+'<div class="scard-val" style="color:var(--blue);font-size:1rem;margin-bottom:0;">$'+s.gv.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})+'</div>'+'</div>'+'<div style="height:1px;background:var(--border);"></div>'+'<div style="display:flex;align-items:center;justify-content:space-between;">'+'<div class="scard-label" style="color:var(--text3);margin-bottom:0;">&#9889; Breakeven</div>'+'<div style="font-size:0.88rem;font-weight:800;font-family:monospace;color:'+bc+';">'+bl+'</div>'+'</div>'+'<div style="background:var(--bg4);border-radius:100px;height:5px;overflow:hidden;">'+'<div style="height:100%;border-radius:100px;background:linear-gradient(90deg,var(--red),#FB923C,var(--green));width:'+s.pct+'%;"></div>'+'</div>'+'<div class="scard-sub">'+s.pct+'% of capital recovered via income + positions</div>'+'</div>'+'</div>';
     return'<div class="summary-grid">'
     +consolidatedCard
     +'<div class="gain-card"><div class="gain-title">Gains</div><div class="gain-row"><span class="gain-label">&#9989; Realized</span><span class="gain-val" style="color:'+(s.realized>=0?'var(--green)':'var(--red)')+'">'+fp(s.realized)+'</span></div><div class="gain-divider"></div><div class="gain-row"><span class="gain-label">&#9201; Unrealized</span><span class="gain-val" style="color:'+(s.unrealized>=0?'var(--green)':'var(--red)')+'">'+fp(s.unrealized)+'</span></div><div class="gain-divider"></div><div class="gain-row"><span class="gain-label" style="font-weight:800;color:var(--black);">&#931; Total</span><span class="gain-val" style="color:'+(s.totalGain>=0?'var(--green)':'var(--red)')+';font-size:1rem;">'+fp(s.totalGain)+'</span></div></div>'
-    +(function(){var cash=getPortCash(),initCash=getPortInitCash(),total=s.gv+cash,diff=total-initCash,diffColor=diff>=0?'var(--green)':'var(--red)';return'<div class="scard" style="border-left:3px solid var(--red);padding:0.85rem 1rem;"><div style="display:flex;flex-direction:column;gap:0.5rem;"><div style="display:flex;align-items:center;justify-content:space-between;"><div class="scard-label" style="color:var(--text3);margin-bottom:0;">Positions Value</div><div class="scard-val" style="color:var(--black);font-size:1rem;margin-bottom:0;">$'+s.gv.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})+'</div></div><div style="height:1px;background:var(--border);"></div><div style="display:flex;align-items:center;justify-content:space-between;"><div class="scard-label" style="color:var(--text3);margin-bottom:0;">Total Cash</div><div class="scard-val" style="color:var(--green);font-size:1rem;margin-bottom:0;">$'+cash.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})+'</div></div><div style="height:1px;background:var(--border);"></div><div style="display:flex;align-items:center;justify-content:space-between;"><div class="scard-label" style="color:var(--black);font-weight:800;margin-bottom:0;">Total Portfolio Value</div><div style="font-size:1rem;font-weight:800;font-family:monospace;color:var(--red);">$'+total.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})+'</div></div><div style="height:1px;background:var(--border);"></div><div style="display:flex;align-items:center;justify-content:space-between;"><div class="scard-label" style="color:var(--text3);margin-bottom:0;">Difference</div><div style="font-size:1rem;font-weight:800;font-family:monospace;color:'+diffColor+';">'+(diff>=0?'+':'-')+'$'+Math.abs(diff).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})+'</div></div><div class="scard-sub">'+s.op+' open &middot; '+s.cl+' closed</div></div></div>';})()
-    +'<div class="col-combo-card"><div class="col-combo-title">&#128274; Collateral</div><div class="col-combo-row"><span class="col-combo-label">This Week</span><span class="col-combo-val" style="color:#FB923C;font-size:0.88rem;">$'+s.twc.toLocaleString()+'</span></div><div class="col-combo-divider"></div><div class="col-combo-row"><span class="col-combo-label">Total Open</span><span class="col-combo-val" style="color:#FBBF24;font-size:0.88rem;">$'+s.tc.toLocaleString()+'</span></div></div>'
+    +(function(){var cash=getPortCash(),initCash=getPortInitCash(),total=s.gv+cash,diff=total-initCash,diffColor=diff>=0?'var(--green)':'var(--red)';return'<div class="scard" style="border-left:3px solid var(--red);padding:0.85rem 1rem;"><div style="display:flex;flex-direction:column;gap:0.5rem;"><div style="display:flex;align-items:center;justify-content:space-between;"><div class="scard-label" style="color:var(--text3);margin-bottom:0;">Positions Value</div><div class="scard-val" style="color:var(--black);font-size:1rem;margin-bottom:0;">'+fmtK(s.gv)+'</div></div><div style="height:1px;background:var(--border);"></div><div style="display:flex;align-items:center;justify-content:space-between;"><div class="scard-label" style="color:var(--text3);margin-bottom:0;">Total Cash</div><div class="scard-val" style="color:var(--green);font-size:1rem;margin-bottom:0;">'+fmtK(cash)+'</div></div><div style="height:1px;background:var(--border);"></div><div style="display:flex;align-items:center;justify-content:space-between;"><div class="scard-label" style="color:var(--black);font-weight:800;margin-bottom:0;">Total Portfolio Value</div><div style="font-size:1rem;font-weight:800;font-family:monospace;color:var(--red);">'+fmtK(total)+'</div></div><div style="height:1px;background:var(--border);"></div><div style="display:flex;align-items:center;justify-content:space-between;"><div class="scard-label" style="color:var(--text3);margin-bottom:0;">Difference</div><div style="font-size:1rem;font-weight:800;font-family:monospace;color:'+diffColor+';">'+(diff>=0?'+':'-')+'$'+Math.abs(diff).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})+'</div></div><div class="scard-sub">'+s.op+' open &middot; '+s.cl+' closed</div></div></div>';})()
+    +'<div class="col-combo-card"><div class="col-combo-title">&#128274; Collateral</div><div class="col-combo-row"><span class="col-combo-label">This Week</span><span class="col-combo-val" style="color:#FB923C;font-size:0.88rem;">'+fmtK(s.twc)+'</span></div><div class="col-combo-divider"></div><div class="col-combo-row"><span class="col-combo-label">Total Open</span><span class="col-combo-val" style="color:#FBBF24;font-size:0.88rem;">'+fmtK(s.tc)+'</span></div></div>'
     +rCashCard()
     +'</div>';
 }
@@ -937,6 +950,7 @@ function rTable(data){
     if(v==null)return'--';
     return(v>=0?'+':'-')+'$'+Math.abs(v).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
   }
+
 
   // ── group by ticker + type ────────────────────────────────────────────────
   var groupOrder=[],groupMap={};
