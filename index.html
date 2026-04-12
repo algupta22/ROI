@@ -814,13 +814,13 @@ function rTable(data){
     else if(manP!=null){pd='<span class="pcell-manual">$'+manP+'</span><span class="pcell-badge pcell-badge-manual">M</span>';}
     else{pd='<span class="pcell-none">--</span>';}
 
-    // Strikes summary
-    var strikes=[...new Set(rows.filter(function(r){return r.strike>0;}).map(function(r){return r.strike;}))].sort(function(a,b){return a-b;});
-    var strikeCell=strikes.length?strikes.map(function(s){return'$'+s;}).join(', '):'--';
+    // Strikes summary — just count
+    var strikeCount=rows.filter(function(r){return r.strike>0;}).length;
+    var strikeCell=strikeCount?strikeCount+' strike'+(strikeCount>1?'s':''):'--';
 
-    // Expiry summary
-    var expiries=[...new Set(rows.map(function(r){return r.expiryDate||'';}).filter(Boolean))].sort();
-    var expiryCell=expiries.length?expiries.join(', '):'--';
+    // Expiry summary — just count unique
+    var expiries=[...new Set(rows.map(function(r){return r.expiryDate||'';}).filter(Boolean))];
+    var expiryCell=expiries.length?expiries.length+' expir'+(expiries.length>1?'ies':'y'):'--';
 
     // Summary row classes
     var sumRowCls='grp-summary'+(hasExp?' expiring-soon':'');
@@ -850,7 +850,7 @@ function rTable(data){
     html+='<td class="mn" style="color:var(--blue);font-weight:700;">'+(hasSoldAny?fmtMoney(totalSold):'--')+'</td>';
     html+='<td class="mn" style="color:'+niColor+';font-weight:700;">'+(totalNetInc!=null?fmtMoneySign(totalNetInc):'--')+'</td>';
     html+='<td class="mn" style="color:'+cvColor+';font-weight:700;">'+fmtMoney(totalCV)+'</td>';
-    html+='<td><div class="pcell">'+pd+'</div></td>';
+    html+='<td style="min-width:110px;"><div class="pcell">'+pd+'</div></td>';
     html+='<td></td>';
     html+='<td class="mn" style="font-size:0.65rem;color:var(--text3);">'+strikeCell+'</td>';
     html+='<td class="'+(hasExp?'es':'ef')+'" style="font-size:0.65rem;">'+expiryCell+(hasExp?' &#9888;':'')+'</td>';
@@ -920,14 +920,14 @@ function rTable(data){
         if(portHeader){var pk=r.portfolio||'lovelina';portBadgeC='<td><span style="display:inline-flex;align-items:center;gap:0.3rem;font-size:0.62rem;font-weight:600;color:'+(portColors[pk]||'#888')+';opacity:0.75"><span style="width:6px;height:6px;border-radius:50%;background:'+(portColors[pk]||'#888')+';flex-shrink:0;"></span>'+(portNames[pk]||pk)+'</span></td>';}
 
         html+='<tr class="'+childCls+'" style="background:#FEFEFE;">';
-        html+='<td class="mc" style="padding-left:1.8rem;"><span style="color:var(--text3);font-size:0.62rem;">&#8627;</span> <span style="font-size:0.68rem;color:var(--text3);">#'+r.id.slice(-4)+'</span></td>';
+        html+='<td class="mc" style="padding-left:1.4rem;"><span style="color:var(--text3);font-size:0.6rem;margin-right:4px;">&#8627;</span><span class="chip"><span class="tk-dot-sm" style="background:'+(DC[r.ticker]||'#888')+'"></span>'+r.ticker+'</span></td>';
         if(portHeader)html+=portBadgeC;
         html+='<td style="font-size:0.72rem;">'+(r.openDate||'--')+'</td>';
         html+='<td class="mn">'+(r.excelCost?'$'+r.excelCost.toLocaleString():'--')+'</td>';
         html+='<td class="mn" style="color:var(--blue);">'+(hasSoldC?fmtMoney(soldC):'--')+'</td>';
         html+='<td class="mn" style="color:'+(netIncC!=null?(netIncC>=0?'var(--green)':'var(--red)'):'var(--text3)')+'">'+(netIncC!=null?fmtMoneySign(netIncC):'--')+'</td>';
         html+=cvCellC;
-        html+='<td>'+priceCellC+'</td>';
+        html+='<td style="min-width:110px;">'+priceCellC+'</td>';
         html+='<td><span class="badge '+bct(r.excelType)+'" title="'+r.excelType+'" style="opacity:0.6;">'+(typeShort[r.excelType]||r.excelType)+'</span></td>';
         html+='<td class="mn">'+(r.strike>0?'$'+r.strike:'--')+'</td>';
         html+='<td class="'+(isExp2?'es':'ef')+'">'+(r.expiryDate||'--')+(isExp2?' &#9888;':'')+'</td>';
@@ -941,7 +941,7 @@ function rTable(data){
   });
 
   var phdr=portHeader?'<th style="color:rgba(255,255,255,0.7);">Portfolio</th>':'';
-  return'<div class="table-wrap"><table><thead><tr><th>Ticker / Group</th>'+phdr+'<th>Date / Expiry</th><th>Cost</th><th>Sold</th><th>Net Inc</th><th>Curr Val</th><th>Price</th><th>Type</th><th>Strike</th><th>Expiry</th><th>Action</th><th>Ed</th><th>Cp</th><th>Del</th></tr></thead><tbody>'+html+'</tbody></table></div>';
+  return'<div class="table-wrap"><table><thead><tr><th>Ticker / Group</th>'+phdr+'<th>Date / Expiry</th><th>Cost</th><th>Sold</th><th>Net Inc</th><th>Curr Val</th><th style="min-width:110px;">Price</th><th>Type</th><th>Strike</th><th>Expiry</th><th>Action</th><th>Ed</th><th>Cp</th><th>Del</th></tr></thead><tbody>'+html+'</tbody></table></div>';
 }
 
 // ── CLOSE MODAL ───────────────────────────────────────────────────────────────
