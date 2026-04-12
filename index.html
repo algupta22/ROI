@@ -635,7 +635,8 @@ function cs(data,isRetirement){
     var lP=(liveCache[r.ticker]&&liveCache[r.ticker].price!=null)?liveCache[r.ticker].price:null;
     var mP=tickerPrices[r.ticker]!=null?tickerPrices[r.ticker]:null;
     var sp=lP!=null?lP:(mP!=null?mP:null);
-    var cv=isSP&&sp!=null?(r.strike>0&&r.strike<sp?r.strike*100:sp*100):(isST?0:(r.excelCurrentValue||0));
+    var hasOvrd=r.cvOverride!=null&&r.cvOverride!=='';
+    var cv=hasOvrd?parseFloat(r.cvOverride):(isSP&&sp!=null?(r.strike>0&&r.strike<sp?r.strike*100:sp*100):(isST?0:(r.excelCurrentValue||0)));
     return s+cv;
   },0);
   return{n:data.length,op:op.length,cl:data.filter(function(r){return isCl(r);}).length,gv:gv,ci:ci,ig:ig,be:be,pct:pct,realized:realized,unrealized:unrealized,totalGain:realized+unrealized,twc:twc,tc:tc};
@@ -740,31 +741,39 @@ function rTable(data){
   var filtered=getAppliedFilters(data);
   var thisFri=getThisFriday();
   var Q=String.fromCharCode(39);
-  var rows=filtered.length===0?'<tr><td colspan="17" class="ec">No positions match your filters.</td></tr>':filtered.map(function(r){
-    var c=isCl(r),p=r.excelProfit,col=collateral(r);
+  var typeShort={'Short Put':'SPUT','Long Put':'LPUT','Long Call':'LCALL','Short Call':'SCALL','Shares':'SHR'};
+  var rows=filtered.length===0?'<tr><td colspan="13" class="ec">No positions match your filters.</td></tr>':filtered.map(function(r){
+    var c=isCl(r);
     var isST=r.excelType==='Short Put'||r.excelType==='Short Call';
     var isSP=r.excelType==='Short Put';
     var isEditing=editingPrice===r.id;
     var liveP=(liveCache[r.ticker]&&liveCache[r.ticker].price!=null)?liveCache[r.ticker].price:null;
     var manP=tickerPrices[r.ticker]!=null?tickerPrices[r.ticker]:null;
     var stockPrice=liveP!=null?liveP:(manP!=null?manP:null);
-    var dCV=c?0:(isSP&&stockPrice!=null?(r.strike>0&&r.strike<stockPrice?r.strike*100:stockPrice*100):(isST?0:(r.excelCurrentValue||0)));
-    var dGV=(r.excelIncome||0)+dCV;
+    var autoCV=c?0:(isSP&&stockPrice!=null?(r.strike>0&&r.strike<stockPrice?r.strike*100:stockPrice*100):(isST?0:(r.excelCurrentValue||0)));
+    var hasOvrd=r.cvOverride!=null&&r.cvOverride!=='';
+    var dCV=hasOvrd?parseFloat(r.cvOverride):autoCV;
     var isExp=r.expiryDate&&!c&&(function(){try{return new Date(r.expiryDate)<=thisFri;}catch(e){return false;}})();
     var rowClass=r.rolledOver?'rolled':isExp?'expiring-soon':'';
     var priceCell;
     if(isEditing){
-      priceCell='<div class="pcell-edit-wrap"><input class="pcell-input" id="pi_'+r.id+'" type="number" step="0.01" value="'+(manP!=null?manP:'')+'" placeholder="Manual" onkeydown="if(event.keyCode===13)savePrice('+Q+r.id+Q+');if(event.keyCode===27)cancelEdit()"><button class="pcell-ok" onclick="savePrice('+Q+r.id+Q+')">&#10003;</button><button class="pcell-x" onclick="cancelEdit()">&#10005;</button></div>';
+      priceCell='<div class="pcell-edit-wrap"><input class="pcell-input" id="pi_'+r.id+'" type="number" step="0.01" value="'+(manP!=null?manP:'')+'" placeholder="price" onkeydown="if(event.keyCode===13)savePrice('+Q+r.id+Q+');if(event.keyCode===27)cancelEdit()"><button class="pcell-ok" onclick="savePrice('+Q+r.id+Q+')">&#10003;</button><button class="pcell-x" onclick="cancelEdit()">&#10005;</button></div>';
     }else{
       var pd='';
-      if(liveP!=null){pd='<span class="pcell-live">$'+liveP.toFixed(2)+'</span><span class="pcell-badge pcell-badge-live">Live</span>';pd+=manP!=null?'<button class="pcell-act" onclick="clearManualPrice('+Q+r.ticker+Q+')">clear manual</button>':'<button class="pcell-act" onclick="startEdit('+Q+r.id+Q+')">+manual</button>';}
-      else if(manP!=null){pd='<span class="pcell-manual">$'+manP+'</span><span class="pcell-badge pcell-badge-manual">Manual</span><button class="pcell-act" onclick="startEdit('+Q+r.id+Q+')">edit</button><button class="pcell-act" onclick="clearManualPrice('+Q+r.ticker+Q+')">&#10005;</button>';}
-      else{pd='<span class="pcell-none">--</span><button class="pcell-act" onclick="startEdit('+Q+r.id+Q+')">+manual</button>';}
+      if(liveP!=null){pd='<span class="pcell-live">$'+liveP.toFixed(2)+'</span><span class="pcell-badge pcell-badge-live">L</span>';pd+=manP!=null?'<button class="pcell-act" onclick="clearManualPrice('+Q+r.ticker+Q+')" title="clear manual">&#10005;</button>':'<button class="pcell-act" onclick="startEdit('+Q+r.id+Q+')" title="add manual">+M</button>';}
+      else if(manP!=null){pd='<span class="pcell-manual">$'+manP+'</span><span class="pcell-badge pcell-badge-manual">M</span><button class="pcell-act" onclick="startEdit('+Q+r.id+Q+')" title="edit manual">ed</button><button class="pcell-act" onclick="clearManualPrice('+Q+r.ticker+Q+')" title="clear">&#10005;</button>';}
+      else{pd='<span class="pcell-none">--</span><button class="pcell-act" onclick="startEdit('+Q+r.id+Q+')" title="set manual price">+M</button>';}
       priceCell='<div class="pcell">'+pd+'</div>';
     }
-    var colCell;
-    if(r.excelType==='Short Put'&&!c){colCell=r.rolledOver?'<div class="col-cell"><span class="rolled-badge">&#8635; Roll</span><button class="undo-btn" onclick="undoRoll('+Q+r.id+Q+')">&#8617; Undo</button></div>':'<div class="col-cell"><span class="col-val">$'+col.toLocaleString()+'</span><button class="roll-btn" onclick="markRoll('+Q+r.id+Q+')">&#8635; Roll</button></div>';}
-    else{colCell='<span style="color:var(--text3)">--</span>';}
+    // Curr Val cell with ovrd inline edit
+    var cvEditingNow=editCell&&editCell.id===r.id&&editCell.field==='cvOverride';
+    var cvCell;
+    if(cvEditingNow){
+      cvCell='<td class="mn"><div class="ie-wrap"><input class="ie-input w-md" id="ie_'+r.id+'_cvOverride" type="number" step="0.01" value="'+(r.cvOverride!=null?r.cvOverride:autoCV)+'" onkeydown="ieKey(event,'+Q+r.id+Q+','+Q+'cvOverride'+Q+')" oninput="(function(){var rx=positions.find(function(p){return p.id==='+Q+r.id+Q+';});if(rx)rx.cvOverride=this.value;}).call(this)"><button class="ie-ok" onclick="ieSave('+Q+r.id+Q+','+Q+'cvOverride'+Q+')">&#10003;</button><button class="ie-x" onclick="ieCancel()">&#10005;</button></div></td>';
+    }else{
+      var cvDisp=hasOvrd?'<span style="color:var(--yellow);font-family:monospace;font-weight:700;">$'+parseFloat(r.cvOverride).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})+'</span><span class="pcell-badge" style="background:var(--yellow-bg);color:var(--yellow);margin-left:2px;">ovrd</span><button class="pcell-act" onclick="(function(){var rx=positions.find(function(p){return p.id==='+Q+r.id+Q+';});if(rx){delete rx.cvOverride;}savePositions();rMain();})();" title="undo override">&#8617;</button>':'<span style="font-family:monospace;">'+fm(dCV)+'</span><button class="pcell-act" onclick="ieStart('+Q+r.id+Q+','+Q+'cvOverride'+Q+')" title="override current value">ovrd</button>';
+      cvCell='<td class="mn">'+cvDisp+'</td>';
+    }
     var actionCell;
     if(c){
       var ca=r.closeAction;
@@ -774,18 +783,10 @@ function rTable(data){
       var nIcon=ca&&ca.notes?'<span title="'+ca.notes+'" style="cursor:help;color:var(--text3);">&#128196;</span>':'';
       actionCell='<div class="closed-action-cell"><div class="closed-action-line"><span class="badge bcl">'+tLbl+'</span>'+aPart+dPart+nIcon+'</div><button class="reopen-btn" onclick="reopenPosition('+Q+r.id+Q+')">&#8617; Reopen</button></div>';
     }else{
-      var lbl=r.excelType==='Short Put'?'&#9940; Close / BTC':r.excelType==='Long Put'||r.excelType==='Long Call'?'&#9940; Close / STC':r.excelType==='Shares'?'&#9940; Sell Shares':'&#9940; Close';
-      actionCell='<button class="action-btn" onclick="openModal('+Q+r.id+Q+')">'+lbl+'</button>';
+      var lbl=r.excelType==='Short Put'?'BTC':r.excelType==='Long Put'||r.excelType==='Long Call'?'STC':r.excelType==='Shares'?'Sell':'Close';
+      actionCell='<button class="action-btn" onclick="openModal('+Q+r.id+Q+')" title="Close position">&#9940; '+lbl+'</button>';
     }
-    // Inline edit cell helper
-    function ieC(id,field,dv,it,wc,st){
-      if(editCell&&editCell.id===id&&editCell.field===field){
-        var cur=positions.find(function(p){return p.id===id;})[field]||'';
-        return'<div class="ie-wrap"><input class="ie-input '+wc+'" id="ie_'+id+'_'+field+'" type="'+(it||'text')+'" step="0.01" value="'+cur+'" onkeydown="ieKey(event,'+Q+id+Q+','+Q+field+Q+')" oninput="(function(){var r=positions.find(function(p){return p.id==='+Q+id+Q+';});if(r)r['+Q+field+Q+']=this.value;}).call(this)"><button class="ie-ok" onclick="ieSave('+Q+id+Q+','+Q+field+Q+')">&#10003;</button><button class="ie-x" onclick="ieCancel()">&#10005;</button></div>';
-      }
-      return'<div class="ie-cell" onclick="ieStart('+Q+id+Q+','+Q+field+Q+')"><span class="ie-val"'+(st?' style="'+st+'"':'')+'>'+dv+'</span><span class="ie-pencil">&#9998;</span></div>';
-    }
-    var erb='<button class="row-edit-btn" onclick="openEditModal('+Q+r.id+Q+')" title="Edit all fields">&#9998; Edit</button>';
+    var erb='<button class="row-edit-btn" onclick="openEditModal('+Q+r.id+Q+')" title="Edit all fields">&#9998;</button>';
     var crb='<button class="copy-btn" onclick="copyRow('+Q+r.id+Q+')" title="Duplicate">&#10063;</button>';
     var portNames={'lovelina':'Lovelina','amit':'Amit','joint':'Joint','amit-roth':'Amit Roth','lov-roth':'Lov Roth','lov-trad':'Lov Trad'};
     var portColors={'lovelina':'#DB2877','amit':'#2563EB','joint':'#059669','amit-roth':'#7C3AED','lov-roth':'#DB2877','lov-trad':'#0891B2'};
@@ -796,10 +797,11 @@ function rTable(data){
     var netIncome=hasSold?(sold-(r.excelCost||0)):null;
     var soldCell=hasSold?'<td class="mn" style="color:var(--blue);">$'+sold.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})+'</td>':'<td class="mn" style="color:var(--text3);">--</td>';
     var netIncCell=netIncome!=null?'<td class="mn" style="color:'+(netIncome>=0?'var(--green)':'var(--red)')+';">'+(netIncome>=0?'+':'-')+'$'+Math.abs(netIncome).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})+'</td>':'<td class="mn" style="color:var(--text3);">--</td>';
-    return'<tr class="'+rowClass+(c?' cr':'')+'"><td class="mc"><span class="chip"><span class="tk-dot-sm" style="background:'+(DC[r.ticker]||'#888')+'"></span>'+r.ticker+'</span></td>'+portBadge+'<td>'+(r.openDate||'--')+'</td><td class="mn">'+(r.excelCost?'$'+r.excelCost.toLocaleString():'--')+'</td>'+soldCell+netIncCell+'<td class="mn">'+fm(dCV)+'</td><td>'+priceCell+'</td><td><span class="badge '+bct(r.excelType)+'">'+r.excelType+'</span></td><td class="mn">'+(r.strike>0?'$'+r.strike:'--')+'</td><td class="'+ec(r.expiryDate)+'">'+(r.expiryDate||'--')+(isExp&&!c?' &#9888;':'')+'</td><td class="mn" style="color:'+(p>=0?'var(--green)':'var(--red)')+';font-weight:700">'+fp(p)+'</td><td>'+colCell+'</td><td>'+actionCell+'</td><td style="text-align:center">'+erb+'</td><td style="text-align:center">'+crb+'</td><td style="text-align:center"><button class="del-btn" onclick="deleteRow('+Q+r.id+Q+')">&#128465;</button></td></tr>';
+    var typeLabel=typeShort[r.excelType]||r.excelType;
+    return'<tr class="'+rowClass+(c?' cr':'')+'"><td class="mc"><span class="chip"><span class="tk-dot-sm" style="background:'+(DC[r.ticker]||'#888')+'"></span>'+r.ticker+'</span></td>'+portBadge+'<td>'+(r.openDate||'--')+'</td><td class="mn">'+(r.excelCost?'$'+r.excelCost.toLocaleString():'--')+'</td>'+soldCell+netIncCell+cvCell+'<td>'+priceCell+'</td><td><span class="badge '+bct(r.excelType)+'" title="'+r.excelType+'">'+typeLabel+'</span></td><td class="mn">'+(r.strike>0?'$'+r.strike:'--')+'</td><td class="'+ec(r.expiryDate)+'">'+(r.expiryDate||'--')+(isExp&&!c?' &#9888;':'')+'</td><td>'+actionCell+'</td><td style="text-align:center">'+erb+'</td><td style="text-align:center">'+crb+'</td><td style="text-align:center"><button class="del-btn" onclick="deleteRow('+Q+r.id+Q+')">&#128465;</button></td></tr>';
   }).join('');
   var portHeader=ap==='all'?'<th style="color:rgba(255,255,255,0.7);">Portfolio</th>':'';
-  return'<div class="table-wrap"><table><thead><tr><th>Ticker</th>'+portHeader+'<th>Open Date</th><th>Cost</th><th>Sold</th><th>Net Income</th><th>Curr Val</th><th>Price</th><th>Type</th><th>Strike</th><th>Expiry</th><th>P&L</th><th>Collateral</th><th>Close / Action</th><th>Edit</th><th>Copy</th><th>Del</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
+  return'<div class="table-wrap"><table><thead><tr><th>Ticker</th>'+portHeader+'<th>Open Date</th><th>Cost</th><th>Sold</th><th>Net Inc</th><th>Curr Val</th><th>Price</th><th>Type</th><th>Strike</th><th>Expiry</th><th>Action</th><th>Ed</th><th>Cp</th><th>Del</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
 }
 
 // ── CLOSE MODAL ───────────────────────────────────────────────────────────────
