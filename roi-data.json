@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-12T03:07:33.703Z",
+  "savedAt": "2026-04-12T03:19:49.171Z",
   "positions": [
     {
       "id": "d53fqivm",
@@ -1361,11 +1361,54 @@
       "rolledOver": false,
       "closeAction": null,
       "soldAmount": 24.95
+    },
+    {
+      "id": "2rdzarol",
+      "portfolio": "amit",
+      "ticker": "IBIT",
+      "excelType": "Short Put",
+      "strike": 40,
+      "expiryDate": "04/13",
+      "openDate": "4/11/26",
+      "contracts": 1,
+      "excelCost": 0,
+      "excelIncome": 0,
+      "excelGrossValue": 0,
+      "excelCurrentValue": 0,
+      "excelProfit": 0,
+      "closed": false,
+      "notes": "",
+      "manualPrice": null,
+      "rolledOver": false,
+      "closeAction": null,
+      "soldAmount": 24.95
+    },
+    {
+      "id": "7eabd3lr",
+      "portfolio": "amit",
+      "ticker": "IBIT",
+      "excelType": "Short Put",
+      "strike": 39.5,
+      "expiryDate": "04/13",
+      "openDate": "4/11/26",
+      "contracts": 1,
+      "excelCost": 0,
+      "excelIncome": 0,
+      "excelGrossValue": 0,
+      "excelCurrentValue": 0,
+      "excelProfit": 0,
+      "closed": false,
+      "notes": "",
+      "manualPrice": null,
+      "rolledOver": false,
+      "closeAction": null,
+      "soldAmount": 31.94
     }
   ],
   "tickerPrices": {
     "GOOGL": 298,
-    "PLTR": 129
+    "PLTR": 129,
+    "IBIT": 41.42
   },
   "activityData": {
     "act_all": [],
