@@ -851,7 +851,7 @@ function rTable(data){
     html+='<td class="mn" style="color:'+niColor+';font-weight:700;">'+(totalNetInc!=null?fmtMoneySign(totalNetInc):'--')+'</td>';
     html+='<td class="mn" style="color:'+cvColor+';font-weight:700;">'+fmtMoney(totalCV)+'</td>';
     html+='<td><div class="pcell">'+pd+'</div></td>';
-    html+='<td><span class="badge '+bct(type)+'" title="'+type+'">'+typeLabel+'</span></td>';
+    html+='<td></td>';
     html+='<td class="mn" style="font-size:0.65rem;color:var(--text3);">'+strikeCell+'</td>';
     html+='<td class="'+(hasExp?'es':'ef')+'" style="font-size:0.65rem;">'+expiryCell+(hasExp?' &#9888;':'')+'</td>';
     html+='<td style="text-align:center"><button class="add-pos-btn" style="font-size:0.6rem;padding:0.18rem 0.5rem;" onclick="event.stopPropagation();openAddModal()" title="Add position">+ Add</button></td>';
