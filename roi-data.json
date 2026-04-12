@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-12T03:19:49.171Z",
+  "savedAt": "2026-04-12T03:44:42.505Z",
   "positions": [
     {
       "id": "d53fqivm",
@@ -1286,7 +1286,7 @@
       "portfolio": "amit",
       "ticker": "IBIT",
       "excelType": "Long Put",
-      "strike": 40.5,
+      "strike": 40,
       "expiryDate": "05/01",
       "openDate": "4/11/26",
       "contracts": 1,
@@ -1299,7 +1299,8 @@
       "notes": "",
       "manualPrice": null,
       "rolledOver": false,
-      "closeAction": null
+      "closeAction": null,
+      "cvOverride": 97
     },
     {
       "id": "ktznyuip",
@@ -1319,7 +1320,8 @@
       "notes": "",
       "manualPrice": null,
       "rolledOver": false,
-      "closeAction": null
+      "closeAction": null,
+      "cvOverride": 97
     },
     {
       "id": "m8lf5745",
@@ -1339,10 +1341,41 @@
       "notes": "",
       "manualPrice": null,
       "rolledOver": false,
-      "closeAction": null
+      "closeAction": null,
+      "cvOverride": 113
     },
     {
       "id": "l9nzhk3s",
+      "portfolio": "amit",
+      "ticker": "IBIT",
+      "excelType": "Short Put",
+      "strike": 40,
+      "expiryDate": "04/11",
+      "openDate": "4/01/26",
+      "contracts": 1,
+      "excelCost": 0,
+      "excelIncome": 0,
+      "excelGrossValue": 0,
+      "excelCurrentValue": 0,
+      "excelProfit": 0,
+      "closed": true,
+      "notes": "",
+      "manualPrice": null,
+      "rolledOver": false,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": 488,
+        "notes": "",
+        "date": "4/11/26"
+      },
+      "soldAmount": 488,
+      "cvOverride": 0
+    },
+    {
+      "id": "jprsw6mk",
       "portfolio": "amit",
       "ticker": "IBIT",
       "excelType": "Short Put",
@@ -1360,7 +1393,8 @@
       "manualPrice": null,
       "rolledOver": false,
       "closeAction": null,
-      "soldAmount": 24.95
+      "soldAmount": 24.95,
+      "cvOverride": 0
     },
     {
       "id": "2rdzarol",
@@ -1381,7 +1415,8 @@
       "manualPrice": null,
       "rolledOver": false,
       "closeAction": null,
-      "soldAmount": 24.95
+      "soldAmount": 24.95,
+      "cvOverride": 0
     },
     {
       "id": "7eabd3lr",
@@ -1402,7 +1437,8 @@
       "manualPrice": null,
       "rolledOver": false,
       "closeAction": null,
-      "soldAmount": 31.94
+      "soldAmount": 31.94,
+      "cvOverride": 0
     }
   ],
   "tickerPrices": {
