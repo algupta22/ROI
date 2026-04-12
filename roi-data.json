@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-12T15:33:12.560Z",
+  "savedAt": "2026-04-12T15:50:55.548Z",
   "positions": [
     {
       "id": "d53fqivm",
@@ -352,60 +352,6 @@
       "portfolio": "lov-trad"
     },
     {
-      "id": "41cgexod",
-      "portfolio": "lovelina",
-      "ticker": "MSFT",
-      "excelType": "Short Put",
-      "strike": 375,
-      "expiryDate": "4/10",
-      "openDate": "4/11/26",
-      "contracts": 1,
-      "excelCost": 0,
-      "excelIncome": 205,
-      "excelGrossValue": 205,
-      "excelCurrentValue": 0,
-      "excelProfit": 205,
-      "closed": true,
-      "notes": "",
-      "manualPrice": null,
-      "rolledOver": false,
-      "closeAction": {
-        "action": "Close",
-        "type": "zero",
-        "amount": 0,
-        "signedAmount": 0,
-        "notes": "",
-        "date": "4/11/26"
-      }
-    },
-    {
-      "id": "e2jp3gu5",
-      "portfolio": "lovelina",
-      "ticker": "MSFT",
-      "excelType": "Short Put",
-      "strike": 375,
-      "expiryDate": "4/10",
-      "openDate": "4/11/26",
-      "contracts": 1,
-      "excelCost": 0,
-      "excelIncome": -765,
-      "excelGrossValue": -765,
-      "excelCurrentValue": 0,
-      "excelProfit": -765,
-      "closed": true,
-      "notes": "",
-      "manualPrice": null,
-      "rolledOver": false,
-      "closeAction": {
-        "action": "Close",
-        "type": "zero",
-        "amount": 0,
-        "signedAmount": 0,
-        "notes": "",
-        "date": "4/11/26"
-      }
-    },
-    {
       "id": "v40o2dsw",
       "portfolio": "lovelina",
       "ticker": "MSFT",
@@ -430,7 +376,9 @@
         "signedAmount": 0,
         "notes": "",
         "date": "4/11/26"
-      }
+      },
+      "cvOverride": -590,
+      "soldAmount": 829.93
     },
     {
       "id": "86026b92",
@@ -450,7 +398,9 @@
       "notes": "",
       "manualPrice": null,
       "rolledOver": false,
-      "closeAction": null
+      "closeAction": null,
+      "cvOverride": -750,
+      "soldAmount": 86.94
     },
     {
       "id": "w2m027ll",
@@ -1111,7 +1061,8 @@
       "notes": "",
       "manualPrice": null,
       "rolledOver": false,
-      "closeAction": null
+      "closeAction": null,
+      "cvOverride": 665
     },
     {
       "id": "bd9kenn1",
@@ -1131,27 +1082,8 @@
       "notes": "",
       "manualPrice": null,
       "rolledOver": false,
-      "closeAction": null
-    },
-    {
-      "id": "moho8u3e",
-      "portfolio": "lovelina",
-      "ticker": "GOOGL",
-      "excelType": "Short Put",
-      "strike": 295,
-      "expiryDate": "4/08",
-      "openDate": "4/11/26",
-      "contracts": 1,
-      "excelCost": 0,
-      "excelIncome": 144,
-      "excelGrossValue": 144,
-      "excelCurrentValue": 0,
-      "excelProfit": 144,
-      "closed": true,
-      "notes": "",
-      "manualPrice": null,
-      "rolledOver": false,
-      "closeAction": null
+      "closeAction": null,
+      "soldAmount": 357.81
     },
     {
       "id": "g0y8il1y",
@@ -1174,60 +1106,6 @@
       "closeAction": null
     },
     {
-      "id": "l8ywqt4v",
-      "portfolio": "lovelina",
-      "ticker": "MSFT",
-      "excelType": "Short Put",
-      "strike": 370,
-      "expiryDate": "4/08",
-      "openDate": "4/11/26",
-      "contracts": 1,
-      "excelCost": 0,
-      "excelIncome": -4,
-      "excelGrossValue": -4,
-      "excelCurrentValue": 0,
-      "excelProfit": -4,
-      "closed": true,
-      "notes": "",
-      "manualPrice": null,
-      "rolledOver": false,
-      "closeAction": {
-        "action": "BTC",
-        "type": "debit",
-        "amount": 4,
-        "signedAmount": -4,
-        "notes": "",
-        "date": "4/11/26"
-      }
-    },
-    {
-      "id": "ddfwffuk",
-      "portfolio": "lovelina",
-      "ticker": "MSFT",
-      "excelType": "Short Put",
-      "strike": 370,
-      "expiryDate": "4/08",
-      "openDate": "4/11/26",
-      "contracts": 1,
-      "excelCost": 0,
-      "excelIncome": 232,
-      "excelGrossValue": 232,
-      "excelCurrentValue": 0,
-      "excelProfit": 232,
-      "closed": true,
-      "notes": "",
-      "manualPrice": null,
-      "rolledOver": false,
-      "closeAction": {
-        "action": "Close",
-        "type": "zero",
-        "amount": 0,
-        "signedAmount": 0,
-        "notes": "",
-        "date": "4/11/26"
-      }
-    },
-    {
       "id": "uty0nrwt",
       "portfolio": "lovelina",
       "ticker": "MSFT",
@@ -1246,40 +1124,15 @@
       "manualPrice": null,
       "rolledOver": false,
       "closeAction": {
-        "action": "BTC",
-        "type": "debit",
-        "amount": 26,
-        "signedAmount": -26,
-        "notes": "",
-        "date": "4/11/26"
-      }
-    },
-    {
-      "id": "9ol7f6fv",
-      "portfolio": "lovelina",
-      "ticker": "MSFT",
-      "excelType": "Short Put",
-      "strike": 370,
-      "expiryDate": "4/06",
-      "openDate": "4/01/26",
-      "contracts": 1,
-      "excelCost": 0,
-      "excelIncome": 227,
-      "excelGrossValue": 227,
-      "excelCurrentValue": 0,
-      "excelProfit": 227,
-      "closed": true,
-      "notes": "",
-      "manualPrice": null,
-      "rolledOver": false,
-      "closeAction": {
         "action": "Close",
         "type": "zero",
         "amount": 0,
         "signedAmount": 0,
+        "soldAmount": -131.29,
         "notes": "",
-        "date": "4/11/26"
-      }
+        "date": "4/12/26"
+      },
+      "soldAmount": -131.29
     },
     {
       "id": "gtpbsmed",
