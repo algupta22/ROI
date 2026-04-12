@@ -703,7 +703,7 @@ var actUpOpen=false,actUpPreview=null,actUpMsg='';
 // ── APP STATE ─────────────────────────────────────────────────────────────────
 var ap='all',as='ret-all',typeFilter='all',ocFilter='all',expiringOnly=false,sc='ticker',sd=1;
 var selectedTickers=new Set(['ALL']),editingPrice=null,dropdownOpen=false;
-var editCell=null,activeView='positions',spreadsOcFilter='open';
+var editCell=null,activeView='positions',spreadsOcFilter='open',spreadsExpFilter='all';
 var modal=null,showUpload=false,csvPreview=null,importMsg='';
 var expandedGroups=new Set();
 
@@ -711,6 +711,7 @@ var expandedGroups=new Set();
 var now=new Date();
 function getThisFriday(){var d=new Date(now);var x=5-d.getDay();d.setDate(d.getDate()+(x>=0?x:x+7));d.setHours(23,59,59,0);return d;}
 function getFriday(d){var dt=new Date(d);var x=5-dt.getDay();dt.setDate(dt.getDate()+(x>=0?x:x+7));return dt;}
+function getNextFriday(){var d=new Date(getThisFriday());d.setDate(d.getDate()+7);return d;}
 function isCl(r){return r.closed===true;}
 function fm(n){return(n||n===0)?'$'+Math.abs(n).toLocaleString():'--';}
 function fp(n){return fmtKSign(n);}
@@ -1399,7 +1400,8 @@ function attachUploadEvents(){
 // ── SPREADS VIEW ──────────────────────────────────────────────────────────────
 function parseDate(s){if(!s)return null;try{var d=new Date(s);return isNaN(d)?null:d;}catch(e){return null;}}
 function buildSpreadPairs(data){
-  var pool=(spreadsOcFilter==='open'?data.filter(function(r){return!isCl(r);}):spreadsOcFilter==='closed'?data.filter(function(r){return isCl(r);}):data).filter(function(r){return selectedTickers.has('ALL')||selectedTickers.has(r.ticker);});
+  var thisFriSp=getThisFriday(),nextFriSp=getNextFriday();
+  var pool=(spreadsOcFilter==='open'?data.filter(function(r){return!isCl(r);}):spreadsOcFilter==='closed'?data.filter(function(r){return isCl(r);}):data).filter(function(r){return selectedTickers.has('ALL')||selectedTickers.has(r.ticker);}).filter(function(r){if(spreadsExpFilter==='this-week'){if(!r.expiryDate)return false;var d=parseDate(r.expiryDate);return d&&d<=thisFriSp;}if(spreadsExpFilter==='next-week'){if(!r.expiryDate)return false;var d=parseDate(r.expiryDate);return d&&d>thisFriSp&&d<=nextFriSp;}return true;});
   var tickers=[...new Set(pool.map(function(r){return r.ticker;}))].sort();
   var result=[];
   tickers.forEach(function(ticker){
@@ -1429,7 +1431,9 @@ function rSpreadsView(data){
   var selList=allSel?[]:tickers.filter(function(t){return selectedTickers.has(t);});
   var ddItems=tickers.map(function(t){var sel=allSel||selectedTickers.has(t);return'<div class="ticker-dd-item'+(sel?' selected':'')+'" data-ddticker="'+t+'"><div class="ticker-dd-check">'+(sel?'&#10003;':'')+'</div><span class="dd-dot" style="background:'+(DC[t]||'#888')+'"></span>'+t+'</div>';}).join('');
   var tags=allSel?'<span style="color:var(--text3);font-size:0.7rem;">All Tickers</span>':selList.map(function(t){return'<span class="sel-tag"><span style="width:6px;height:6px;border-radius:50%;background:'+(DC[t]||'#888')+';display:inline-block;flex-shrink:0;"></span>'+t+'<span class="sel-tag-x" data-xticker="'+t+'">&#10005;</span></span>';}).join('');
-  var sfb='<div class="spreads-filter-bar"><span class="filter-bar-label">&#127991; Ticker</span><div class="ticker-select-wrap" id="tkwrap"><div class="ticker-select-btn" id="tkbtn" onclick="toggleDropdown()"><div class="sel-tags">'+tags+'</div><span style="color:var(--text3);font-size:0.65rem;">&#9660;</span></div><div class="ticker-dropdown'+(dropdownOpen?' open':'')+'" id="tkdrop"><div class="ticker-dd-item'+(allSel?' selected':'')+'" data-ddticker="ALL"><div class="ticker-dd-check">'+(allSel?'&#10003;':'')+'</div><span style="font-size:0.72rem;font-weight:700;">All Tickers</span></div><div style="height:1px;background:var(--border);margin:0.25rem 0;"></div>'+ddItems+'</div></div><div class="soc-tabs">'+socs+'</div></div>';
+  var expOpts=[['all','All Expiries'],['this-week','&#9888; This Week'],['next-week','&#8680; Next Week']];
+  var exps=expOpts.map(function(o){return'<button class="soc-tab'+(spreadsExpFilter===o[0]?' active':'')+'" data-expf="'+o[0]+'" style="'+(o[0]==='this-week'&&spreadsExpFilter===o[0]?'background:var(--yellow);color:#000;':o[0]==='next-week'&&spreadsExpFilter===o[0]?'background:var(--blue);':'')+'">'+o[1]+'</button>';}).join('');
+  var sfb='<div class="spreads-filter-bar"><span class="filter-bar-label">&#127991; Ticker</span><div class="ticker-select-wrap" id="tkwrap"><div class="ticker-select-btn" id="tkbtn" onclick="toggleDropdown()"><div class="sel-tags">'+tags+'</div><span style="color:var(--text3);font-size:0.65rem;">&#9660;</span></div><div class="ticker-dropdown'+(dropdownOpen?' open':'')+'" id="tkdrop"><div class="ticker-dd-item'+(allSel?' selected':'')+'" data-ddticker="ALL"><div class="ticker-dd-check">'+(allSel?'&#10003;':'')+'</div><span style="font-size:0.72rem;font-weight:700;">All Tickers</span></div><div style="height:1px;background:var(--border);margin:0.25rem 0;"></div>'+ddItems+'</div></div><div class="soc-tabs">'+socs+'</div><div style="width:1px;background:var(--border);align-self:stretch;"></div><span class="filter-bar-label">&#128197; Expiry</span><div class="soc-tabs">'+exps+'</div></div>';
   var banner='<div class="total-collat-banner"><div><div class="tcb-label">&#128274; Total Net Collateral Required</div><div class="tcb-val">$'+total.toLocaleString()+'</div><div class="tcb-sub">(SP\u2212LP)\u00d7100 per pair \u00b7 floored at $0 per ticker</div></div><div class="tcb-breakdown"><div class="tcb-item"><div class="tcb-item-val" style="color:#EF4444;">$'+tN.toLocaleString()+'</div><div class="tcb-item-label">Naked SP</div></div><div class="tcb-item"><div class="tcb-item-val" style="color:var(--purple);">$'+tS.toLocaleString()+'</div><div class="tcb-item-label">Spread Risk</div></div></div></div>';
   var rows=groups.filter(function(g){return g.pairs.length>0||g.independentLPs.length>0;}).flatMap(function(g){
     var ticker=g.ticker,tn=netMap[ticker]||0;
@@ -1845,7 +1849,7 @@ function attachEvents(){
   document.querySelectorAll('.sel-tag-x').forEach(function(x){x.addEventListener('click',function(e){e.stopPropagation();selectedTickers.delete(x.dataset.xticker);if(!selectedTickers.size)selectedTickers=new Set(['ALL']);rMain();});});
   document.querySelectorAll('.type-tab').forEach(function(b){b.addEventListener('click',function(){typeFilter=b.dataset.typef;rMain();});});
   document.querySelectorAll('.oc-tab').forEach(function(b){b.addEventListener('click',function(){ocFilter=b.dataset.ocf;rMain();});});
-  document.querySelectorAll('.soc-tab').forEach(function(b){b.addEventListener('click',function(){spreadsOcFilter=b.dataset.soc;rMain();});});
+  document.querySelectorAll('.soc-tab').forEach(function(b){b.addEventListener('click',function(){if(b.dataset.soc)spreadsOcFilter=b.dataset.soc;if(b.dataset.expf)spreadsExpFilter=b.dataset.expf;rMain();});});
   document.querySelectorAll('.act-tab').forEach(function(b){b.addEventListener('click',function(){actFilter=b.dataset.actf;actPage=0;rMain();});});
   var ep=document.getElementById('exp-pill');if(ep)ep.addEventListener('click',function(){expiringOnly=!expiringOnly;rMain();});
   attachUploadEvents();
