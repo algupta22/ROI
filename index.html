@@ -635,7 +635,7 @@ function cs(data,isRetirement){
     var lP=(liveCache[r.ticker]&&liveCache[r.ticker].price!=null)?liveCache[r.ticker].price:null;
     var mP=tickerPrices[r.ticker]!=null?tickerPrices[r.ticker]:null;
     var sp=lP!=null?lP:(mP!=null?mP:null);
-    var cv=isSP&&sp!=null?sp*100:(isST?0:(r.excelCurrentValue||0));
+    var cv=isSP&&sp!=null?(r.strike>0&&r.strike<sp?r.strike*100:sp*100):(isST?0:(r.excelCurrentValue||0));
     return s+cv;
   },0);
   return{n:data.length,op:op.length,cl:data.filter(function(r){return isCl(r);}).length,gv:gv,ci:ci,ig:ig,be:be,pct:pct,realized:realized,unrealized:unrealized,totalGain:realized+unrealized,twc:twc,tc:tc};
@@ -748,7 +748,7 @@ function rTable(data){
     var liveP=(liveCache[r.ticker]&&liveCache[r.ticker].price!=null)?liveCache[r.ticker].price:null;
     var manP=tickerPrices[r.ticker]!=null?tickerPrices[r.ticker]:null;
     var stockPrice=liveP!=null?liveP:(manP!=null?manP:null);
-    var dCV=c?0:(isSP&&stockPrice!=null?stockPrice*100:(isST?0:(r.excelCurrentValue||0)));
+    var dCV=c?0:(isSP&&stockPrice!=null?(r.strike>0&&r.strike<stockPrice?r.strike*100:stockPrice*100):(isST?0:(r.excelCurrentValue||0)));
     var dGV=(r.excelIncome||0)+dCV;
     var isExp=r.expiryDate&&!c&&(function(){try{return new Date(r.expiryDate)<=thisFri;}catch(e){return false;}})();
     var rowClass=r.rolledOver?'rolled':isExp?'expiring-soon':'';
