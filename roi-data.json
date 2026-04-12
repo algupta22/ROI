@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-12T03:59:16.212Z",
+  "savedAt": "2026-04-12T04:21:17.972Z",
   "positions": [
     {
       "id": "d53fqivm",
@@ -1481,7 +1481,7 @@
       "rolledOver": false,
       "closeAction": null,
       "soldAmount": 39.94,
-      "cvOverride": 0
+      "cvOverride": -6
     },
     {
       "id": "d41nw7io",
