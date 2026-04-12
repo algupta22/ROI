@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-12T19:15:14.288Z",
+  "savedAt": "2026-04-12T19:32:08.590Z",
   "positions": [
     {
       "id": "d53fqivm",
@@ -937,6 +937,48 @@
       },
       "soldAmount": 883,
       "cvOverride": 0
+    },
+    {
+      "id": "o9eip2rd",
+      "portfolio": "lovelina",
+      "ticker": "PLTR",
+      "excelType": "Long Call",
+      "strike": 95,
+      "expiryDate": "03/19/2027",
+      "openDate": "4/12/26",
+      "contracts": 1,
+      "excelCost": 7700,
+      "excelIncome": 0,
+      "excelGrossValue": 0,
+      "excelCurrentValue": 0,
+      "excelProfit": -7700,
+      "closed": false,
+      "notes": "",
+      "manualPrice": null,
+      "rolledOver": false,
+      "closeAction": null,
+      "cvOverride": 4815
+    },
+    {
+      "id": "ej79jh1x",
+      "portfolio": "lovelina",
+      "ticker": "PLTR",
+      "excelType": "Long Call",
+      "strike": 110,
+      "expiryDate": "01/15/2027",
+      "openDate": "4/12/26",
+      "contracts": 1,
+      "excelCost": 6385,
+      "excelIncome": 0,
+      "excelGrossValue": 7700,
+      "excelCurrentValue": 7700,
+      "excelProfit": 1315,
+      "closed": false,
+      "notes": "",
+      "manualPrice": null,
+      "rolledOver": false,
+      "closeAction": null,
+      "cvOverride": 3685
     }
   ],
   "tickerPrices": {
