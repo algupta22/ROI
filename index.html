@@ -860,7 +860,19 @@ function rTable(data){
 
     // Child rows (expanded)
     if(expanded){
-      rows.forEach(function(r){
+      var sortedRows=rows.slice().sort(function(a,b){
+        // 1) Open before closed
+        var aC=isCl(a)?1:0,bC=isCl(b)?1:0;
+        if(aC!==bC)return aC-bC;
+        // 2) Type alphabetically
+        var aT=a.excelType||'',bT=b.excelType||'';
+        if(aT<bT)return-1;if(aT>bT)return 1;
+        // 3) Expiry date ascending (no expiry goes last)
+        var aD=a.expiryDate?new Date(a.expiryDate):new Date('9999-12-31');
+        var bD=b.expiryDate?new Date(b.expiryDate):new Date('9999-12-31');
+        return aD-bD;
+      });
+      sortedRows.forEach(function(r){
         var c=isCl(r);
         var rIsSP=r.excelType==='Short Put',rIsST=r.excelType==='Short Put'||r.excelType==='Short Call';
         var livePI=(liveCache[r.ticker]&&liveCache[r.ticker].price!=null)?liveCache[r.ticker].price:null;
