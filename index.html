@@ -860,13 +860,15 @@ function rTable(data){
 
     // Child rows (expanded)
     if(expanded){
+      var typeOrder={'Short Put':0,'Short Call':1,'Long Call':2,'Long Put':3,'Shares':4};
       var sortedRows=rows.slice().sort(function(a,b){
         // 1) Open before closed
         var aC=isCl(a)?1:0,bC=isCl(b)?1:0;
         if(aC!==bC)return aC-bC;
-        // 2) Type alphabetically
-        var aT=a.excelType||'',bT=b.excelType||'';
-        if(aT<bT)return-1;if(aT>bT)return 1;
+        // 2) Custom type order
+        var aT=(typeOrder[a.excelType]!=null?typeOrder[a.excelType]:9);
+        var bT=(typeOrder[b.excelType]!=null?typeOrder[b.excelType]:9);
+        if(aT!==bT)return aT-bT;
         // 3) Expiry date ascending (no expiry goes last)
         var aD=a.expiryDate?new Date(a.expiryDate):new Date('9999-12-31');
         var bD=b.expiryDate?new Date(b.expiryDate):new Date('9999-12-31');
