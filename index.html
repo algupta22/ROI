@@ -1020,9 +1020,9 @@ function rTable(data){
     var cvColor=totalCV<0?'var(--red)':'var(--black)';
 
     // Group breakeven: cost - netIncome - positionsValue
-    var grpBeRaw=totalCost-(totalNetInc!=null?totalNetInc:0)-totalCV;
-    var grpBeColor=grpBeRaw<=0?'var(--green)':'var(--red)';
-    var grpBeLabel=(grpBeRaw<=0?'+':'-')+'$'+Math.abs(grpBeRaw).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+    var grpBeRaw=(totalNetInc!=null?totalNetInc:0)+totalCV-totalCost;
+    var grpBeColor=grpBeRaw>=0?'var(--green)':'var(--red)';
+    var grpBeLabel=(grpBeRaw>=0?'+':'-')+'$'+Math.abs(grpBeRaw).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
 
     // Summary row
     html+='<tr class="'+sumRowCls+'" style="cursor:pointer;background:#F8F8F8;border-left:3px solid '+(DC[ticker]||'#888')+';" onclick="toggleGroup('+Q+gk+Q+')">';
