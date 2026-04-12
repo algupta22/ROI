@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-12T21:27:59.860Z",
+  "savedAt": "2026-04-12T21:31:20.903Z",
   "positions": [
     {
       "id": "d53fqivm",
@@ -1383,6 +1383,26 @@
       "excelGrossValue": 1192.11,
       "excelCurrentValue": 1192.11,
       "excelProfit": -42,
+      "closed": false,
+      "notes": "",
+      "manualPrice": null,
+      "rolledOver": false,
+      "closeAction": null
+    },
+    {
+      "id": "6nmkn7g2",
+      "portfolio": "joint",
+      "ticker": "SQQQ",
+      "excelType": "Shares",
+      "strike": 0,
+      "expiryDate": "",
+      "openDate": "4/12/26",
+      "contracts": 40,
+      "excelCost": 3247,
+      "excelIncome": 0,
+      "excelGrossValue": 2684,
+      "excelCurrentValue": 2684,
+      "excelProfit": -563,
       "closed": false,
       "notes": "",
       "manualPrice": null,
