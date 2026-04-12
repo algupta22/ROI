@@ -611,8 +611,9 @@ function cs(data,isRetirement){
   var ci=data.reduce(function(s,r){return s+(r.excelCost||0);},0);
   var ig=data.reduce(function(s,r){var sold=r.soldAmount!=null&&r.soldAmount!==0&&r.soldAmount!==''?r.soldAmount:null;return s+(sold!=null?(sold-(r.excelCost||0)):0);},0);
   var be=Math.max(0,ci-ig),pct=ci>0?Math.min(100,Math.round(ig/ci*100)):0;
-  var realized=data.filter(function(r){return isCl(r);}).reduce(function(s,r){return s+(r.excelProfit||0);},0);
-  var unrealized=op.reduce(function(s,r){return s+(r.excelProfit||0);},0);
+  function netInc(r){var sold=r.soldAmount!=null&&r.soldAmount!==0&&r.soldAmount!==''?r.soldAmount:null;return sold!=null?(sold-(r.excelCost||0)):0;}
+  var realized=data.filter(function(r){return isCl(r);}).reduce(function(s,r){return s+netInc(r);},0);
+  var unrealized=op.reduce(function(s,r){return s+netInc(r);},0);
   var thisFri=getThisFriday();
   var twc,tc;
   if(isRetirement){
