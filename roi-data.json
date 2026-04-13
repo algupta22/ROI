@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-13T03:11:40.602Z",
+  "savedAt": "2026-04-13T03:16:33.570Z",
   "positions": [
     {
       "id": "d53fqivm",
@@ -1902,7 +1902,8 @@
       "notes": "",
       "manualPrice": null,
       "rolledOver": false,
-      "closeAction": null
+      "closeAction": null,
+      "cvOverride": 171
     },
     {
       "id": "bijkmh4r",
@@ -1913,16 +1914,48 @@
       "expiryDate": "05/29",
       "openDate": "4/12/26",
       "contracts": 1,
-      "excelCost": 160,
+      "excelCost": 0,
       "excelIncome": 0,
-      "excelGrossValue": 0,
-      "excelCurrentValue": 0,
-      "excelProfit": -160,
+      "excelGrossValue": 160,
+      "excelCurrentValue": 160,
+      "excelProfit": 160,
+      "closed": true,
+      "notes": "",
+      "manualPrice": null,
+      "rolledOver": false,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": 337.55,
+        "notes": "",
+        "date": "4/12/26"
+      },
+      "cvOverride": 0,
+      "soldAmount": 337.55
+    },
+    {
+      "id": "rw8gqrvg",
+      "portfolio": "lovelina",
+      "ticker": "SOFI",
+      "excelType": "Long Put",
+      "strike": 16.5,
+      "expiryDate": "04/11",
+      "openDate": "4/12/26",
+      "contracts": 1,
+      "excelCost": 0,
+      "excelIncome": 0,
+      "excelGrossValue": 160,
+      "excelCurrentValue": 160,
+      "excelProfit": 160,
       "closed": false,
       "notes": "",
       "manualPrice": null,
       "rolledOver": false,
-      "closeAction": null
+      "closeAction": null,
+      "cvOverride": 153,
+      "soldAmount": 337.55
     },
     {
       "id": "wsa9h5te",
@@ -1942,7 +1975,8 @@
       "notes": "",
       "manualPrice": null,
       "rolledOver": false,
-      "closeAction": null
+      "closeAction": null,
+      "cvOverride": 171
     },
     {
       "id": "ynt94ze7",
@@ -2009,6 +2043,35 @@
       "closeAction": null,
       "soldAmount": 115.94,
       "cvOverride": -96
+    },
+    {
+      "id": "t0jh3lkl",
+      "portfolio": "lovelina",
+      "ticker": "SOFI",
+      "excelType": "Short Put",
+      "strike": 17,
+      "expiryDate": "04/11",
+      "openDate": "4/12/26",
+      "contracts": 1,
+      "excelCost": 0,
+      "excelIncome": 0,
+      "excelGrossValue": 0,
+      "excelCurrentValue": 0,
+      "excelProfit": 0,
+      "closed": true,
+      "notes": "",
+      "manualPrice": null,
+      "rolledOver": false,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": 237,
+        "notes": "",
+        "date": "4/12/26"
+      },
+      "soldAmount": 237
     }
   ],
   "tickerPrices": {
