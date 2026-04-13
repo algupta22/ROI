@@ -1422,7 +1422,6 @@ function calcSpreadCol(sp,lp){if(!sp)return 0;if(!lp)return sp.strike*100;return
 function rSpreadsView(data){
   var groups=buildSpreadPairs(data);
   var has=groups.some(function(g){return g.pairs.length>0||g.independentLPs.length>0;});
-  if(!has)return'<div class="ph"><strong>No put positions found</strong><br>Short puts and long puts will appear here paired by expiry.</div>';
   var portNames={'lovelina':'Lovelina','amit':'Amit','joint':'Joint','amit-roth':'Amit Roth','lov-roth':'Lov Roth','lov-trad':'Lov Trad'};
   var portColors={'lovelina':'#DB2877','amit':'#2563EB','joint':'#059669','amit-roth':'#7C3AED','lov-roth':'#DB2877','lov-trad':'#0891B2'};
   var tN=0,tS=0,netMap={};
@@ -1461,7 +1460,8 @@ function rSpreadsView(data){
       return'<tr class="indep-row"><td><span class="badge-indep">Indep LP</span></td><td class="mc"><span class="chip"><span class="tk-dot-sm" style="background:'+(DC[ticker]||'#888')+'"></span>'+ticker+'</span></td>'+portBadge+'<td colspan="2" class="empty" style="color:var(--text3);font-style:italic;">No short put paired</td><td class="div-col">\u2194</td><td class="mn" style="color:var(--blue);font-weight:700;">$'+lp.strike+'</td><td class="mn '+ec(lp.expiryDate)+'">'+(lp.expiryDate||'--')+'</td><td class="mn" style="color:var(--text3);">\u2014</td></tr>';
     }
   });
-  return sfb+'<div class="st-wrap"><table><thead><tr><th>Type</th><th>Ticker</th><th>Portfolio</th><th class="sp-hdr">SP Strike</th><th class="sp-hdr">SP Expiry</th><th class="div-hdr"></th><th class="lp-hdr">LP Strike</th><th class="lp-hdr">LP Expiry</th><th class="col-hdr">Collateral</th></tr></thead><tbody>'+rows.join('')+'</tbody></table></div>';
+  var tableBody=rows.length>0?rows.join(''):'<tr><td colspan="9" class="ec" style="padding:2rem;text-align:center;color:var(--text3);">'+(has?'No positions match the selected expiry filter.':'No put positions found. Short puts and long puts will appear here paired by expiry.')+'</td></tr>';
+  return sfb+'<div class="st-wrap"><table><thead><tr><th>Type</th><th>Ticker</th><th>Portfolio</th><th class="sp-hdr">SP Strike</th><th class="sp-hdr">SP Expiry</th><th class="div-hdr"></th><th class="lp-hdr">LP Strike</th><th class="lp-hdr">LP Expiry</th><th class="col-hdr">Collateral</th></tr></thead><tbody>'+tableBody+'</tbody></table></div>';
 }
 
 // ── ADMIN / PRICES VIEW ───────────────────────────────────────────────────────
