@@ -1541,14 +1541,16 @@ function rSpreadsView(data){
   var sfb='<div class="spreads-filter-bar"><span class="filter-bar-label">&#127991; Ticker</span><div class="ticker-select-wrap" id="tkwrap"><div class="ticker-select-btn" id="tkbtn" onclick="toggleDropdown()"><div class="sel-tags">'+tags+'</div><span style="color:var(--text3);font-size:0.65rem;">&#9660;</span></div><div class="ticker-dropdown'+(dropdownOpen?' open':'')+'" id="tkdrop"><div class="ticker-dd-item'+(allSel?' selected':'')+'" data-ddticker="ALL"><div class="ticker-dd-check">'+(allSel?'&#10003;':'')+'</div><span style="font-size:0.72rem;font-weight:700;">All Tickers</span></div><div style="height:1px;background:var(--border);margin:0.25rem 0;"></div>'+ddItems+'</div></div><div class="soc-tabs">'+socs+'</div><div style="width:1px;background:var(--border);align-self:stretch;"></div><span class="filter-bar-label">&#128197; Expiry</span><div class="soc-tabs">'+exps+'</div><div style="width:1px;background:var(--border);align-self:stretch;"></div><span class="filter-bar-label">&#127960; Type</span><div class="soc-tabs">'+stypes+'</div><div style="width:1px;background:var(--border);align-self:stretch;"></div><span class="filter-bar-label">&#128681; Risk</span><div class="soc-tabs">'+sspreads+'</div>'+collatChip+'</div>';
   // Flatten all rows, sort by SP expiry asc
   var allRows=[];
-  groups.filter(function(g){return g.pairs.length>0;}).forEach(function(g){
+  groups.filter(function(g){return g.pairs.length>0||g.independentLPs.length>0;}).forEach(function(g){
     var ticker=g.ticker;
+    // Paired rows: SPUT on left, LPUT on right (lp may be null = naked SPUT)
     g.pairs.forEach(function(pair){allRows.push({type:'pair',ticker:ticker,pair:pair,sortDate:parseDate((pair.sp&&pair.sp.expiryDate)||'')||new Date('9999-12-31')});});
-    // independentLPs not shown — only SP-led rows displayed
+    // Independent LPUTs: blank left, LPUT on right
+    g.independentLPs.forEach(function(lp){allRows.push({type:'indep',ticker:ticker,lp:lp,sortDate:parseDate(lp.expiryDate||'')||new Date('9999-12-31')});});
   });
   allRows.sort(function(a,b){return a.sortDate-b.sortDate;});
   if(spreadsSpreadFilter==='spread')allRows=allRows.filter(function(i){return i.type==='pair'&&i.pair.lp;});
-  else if(spreadsSpreadFilter==='naked')allRows=allRows.filter(function(i){return i.type==='pair'&&!i.pair.lp;});
+  else if(spreadsSpreadFilter==='naked')allRows=allRows.filter(function(i){return (i.type==='pair'&&!i.pair.lp)||(i.type==='indep');});
   var rows=allRows.map(function(item){
     var ticker=item.ticker;
     var sp=item.type==='pair'?item.pair.sp:null;
