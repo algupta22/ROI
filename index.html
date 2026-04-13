@@ -918,7 +918,7 @@ function rFiltersRow(data){
   var ot=['all','open','closed'].map(function(o){return'<button class="oc-tab'+(ocFilter===o?' active':'')+'" data-ocf="'+o+'">'+(o==='all'?'All':o==='open'?'Open':'Closed')+'</button>';}).join('');
   return'<div class="controls-row" style="margin-bottom:0.75rem;"><div class="type-tabs">'+tt+'</div><div class="oc-tabs">'+ot+'</div><button class="expiry-pill'+(expiringOnly?' active':'')+'" id="exp-pill">&#9888; Expiring This Week</button></div>';
 }
-function rTableControls(){return'<div class="controls-row"><button class="del-all-btn" onclick="deleteAll()">&#128465; Delete Visible</button><button class="upload-csv-btn" onclick="toggleUpload()">&#8593; Upload CSV</button><button class="template-dl-btn" onclick="dlTemplate()">&#11015; Template</button><button class="add-pos-btn" onclick="openAddModal()">&#43; Add Position</button></div>'+rUploadPanel();}
+function rTableControls(){return'<div class="controls-row"><button class="del-all-btn" onclick="deleteAll()">&#128465; Delete Visible</button><button class="upload-csv-btn" onclick="toggleUpload()">&#8593; Upload CSV</button><button class="template-dl-btn" onclick="dlTemplate()">&#11015; Template</button><button class="add-pos-btn" onclick="openAddModal()">&#43; Add Position</button></div>';}
 
 // ── FIX 3: rTable — uses String.fromCharCode(39) for safe onclick strings ────
 function toggleGroup(gk){if(expandedGroups.has(gk))expandedGroups.delete(gk);else expandedGroups.add(gk);rMain();}
@@ -1301,7 +1301,7 @@ function closeAddModal(){addForm=null;document.getElementById('modal-root').inne
 
 // ── CSV UPLOAD ────────────────────────────────────────────────────────────────
 function rUploadPanel(){
-  if(!showUpload)return'';
+  if(!csvPreview&&!importMsg)return'';
   var body='';
   if(csvPreview){
     var r=csvPreview.rows,e=csvPreview.errors,s=r.slice(0,5);
@@ -1323,8 +1323,8 @@ function rUploadPanel(){
   }
   return'<div class="upload-panel"><div class="upload-panel-hdr"><span class="upload-panel-title">&#8593; Upload Positions via CSV</span><button class="upload-close-x" onclick="cancelUpload()">&#10005;</button></div><div class="upload-panel-body">'+body+'</div></div>';
 }
-function toggleUpload(){showUpload=!showUpload;if(!showUpload){csvPreview=null;importMsg='';}rMain();}
-function cancelUpload(){showUpload=false;csvPreview=null;importMsg='';rMain();}
+function toggleUpload(){csvPreview=null;importMsg='';var fi=document.getElementById('csv-file-input');if(fi)fi.click();}
+function cancelUpload(){csvPreview=null;importMsg='';rMain();}
 function dlTemplate(){
   var h='Profile,Open Date,Ticker,Expiry Date,Trans Code,Amount,Type,Description';
   var ex='Joint,4/6/2026,PLTR,4/10/2026,STO,$81.94,SPUT,PLTR 4/10/2026 Put $140.00\nJoint,4/6/2026,SOFI,5/15/2026,BTO,($270.04),LPUT,SOFI 5/15/2026 Put $17.00\nJoint,4/8/2026,PLTR,4/10/2026,STC,$65.00,SPUT,PLTR 4/10/2026 Put $140.00';
@@ -1463,7 +1463,7 @@ function handleFile(file){
     if(r.error){importMsg={ok:false,text:r.error};csvPreview=null;}
     else if(!r.rows||!r.rows.length){importMsg={ok:false,text:'No rows could be parsed.'};csvPreview=null;}
     else{csvPreview=r;importMsg='';}
-    showUpload=true;rMain();
+    rMain();
   };
   reader.readAsText(file);
 }
@@ -1474,7 +1474,7 @@ function doImport(){
   positions=positions.concat(csvPreview.rows);
   savePositions();
   importMsg={ok:true,text:'Imported '+csvPreview.rows.length+' positions!'};
-  csvPreview=null;showUpload=false;rMain();
+  csvPreview=null;rMain();
 }
 function attachUploadEvents(){
   var dz=document.getElementById('drop-zone');
@@ -1971,7 +1971,7 @@ function rMain(){
     el.innerHTML=rAdminView();
     fetchAndUpdateLive([...new Set(positions.map(function(r){return r.ticker;}))].sort());
   }else if(activeView==='spreads'){
-    el.innerHTML='<div class="controls-row" style="justify-content:flex-end;"><button class="upload-csv-btn" onclick="toggleUpload()">&#8593; Upload CSV</button><button class="template-dl-btn" onclick="dlTemplate()">&#11015; Template</button></div>'+rUploadPanel()+rSpreadsView(data);
+    el.innerHTML='<div class="controls-row" style="justify-content:flex-end;"><button class="upload-csv-btn" onclick="toggleUpload()">&#8593; Upload CSV</button><button class="template-dl-btn" onclick="dlTemplate()">&#11015; Template</button></div>'+rSpreadsView(data);
   }else{
     var fd=getAppliedFilters(dispData),sf=cs(fd,isRet);
     el.innerHTML=data.length===0
@@ -1995,7 +1995,6 @@ function attachEvents(){
   document.querySelectorAll('.soc-tab').forEach(function(b){b.addEventListener('click',function(){if(b.dataset.soc)spreadsOcFilter=b.dataset.soc;if(b.dataset.expf)spreadsExpFilter=b.dataset.expf;if(b.dataset.stypef)spreadsTypeFilter=b.dataset.stypef;if(b.dataset.sspreadf)spreadsSpreadFilter=b.dataset.sspreadf;rMain();});});
   document.querySelectorAll('.act-tab').forEach(function(b){b.addEventListener('click',function(){actFilter=b.dataset.actf;actPage=0;rMain();});});
   var ep=document.getElementById('exp-pill');if(ep)ep.addEventListener('click',function(){expiringOnly=!expiringOnly;rMain();});
-  // Render upload modal if preview ready
   var uploadEl=document.getElementById('upload-modal-root');
   if(uploadEl)uploadEl.innerHTML=rUploadPanel();
   attachUploadEvents();
