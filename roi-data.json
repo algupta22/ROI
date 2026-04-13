@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-13T23:09:45.028Z",
+  "savedAt": "2026-04-13T23:19:12.730Z",
   "positions": [
     {
       "id": "d53fqivm",
@@ -1040,26 +1040,6 @@
       "notes": "METU 5/15/2026 Put $22.00"
     },
     {
-      "id": "q3lp4xur",
-      "portfolio": "lovelina",
-      "ticker": "QQQ",
-      "excelType": "Long Put",
-      "strike": 475,
-      "expiryDate": "5/29/2026",
-      "openDate": "3/30/2026",
-      "contracts": 1,
-      "excelCost": 567.04,
-      "excelIncome": 0,
-      "excelGrossValue": 567.04,
-      "excelCurrentValue": 0,
-      "excelProfit": -567.04,
-      "closed": false,
-      "rolledOver": false,
-      "closeAction": null,
-      "manualPrice": null,
-      "notes": "QQQ 5/29/2026 Put $475.00"
-    },
-    {
       "id": "lmajkzvg",
       "portfolio": "lovelina",
       "ticker": "NVDX",
@@ -1278,33 +1258,6 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "HOOD 5/1/2026 Put $74.00"
-    },
-    {
-      "id": "fbbzhhgc",
-      "portfolio": "lovelina",
-      "ticker": "QQQ",
-      "excelType": "Long Put",
-      "strike": 612,
-      "expiryDate": "3/31/2026",
-      "openDate": "3/19/2026",
-      "contracts": 1,
-      "excelCost": 2369.04,
-      "excelIncome": 0,
-      "excelGrossValue": 2369.04,
-      "excelCurrentValue": 0,
-      "excelProfit": -2369.04,
-      "closed": true,
-      "rolledOver": false,
-      "closeAction": {
-        "action": "EXP",
-        "type": "zero",
-        "amount": 0,
-        "signedAmount": 0,
-        "notes": "Auto-closed: expired",
-        "date": "3/31/2026"
-      },
-      "manualPrice": null,
-      "notes": "QQQ 3/31/2026 Put $612.00"
     },
     {
       "id": "e51tpank",
@@ -1527,26 +1480,6 @@
       "notes": "SOFI 5/15/2026 Put $19.00"
     },
     {
-      "id": "l4v8z6zs",
-      "portfolio": "lovelina",
-      "ticker": "QQQ",
-      "excelType": "Long Put",
-      "strike": 435,
-      "expiryDate": "4/30/2026",
-      "openDate": "3/2/2026",
-      "contracts": 1,
-      "excelCost": 97.04,
-      "excelIncome": 0,
-      "excelGrossValue": 97.04,
-      "excelCurrentValue": 0,
-      "excelProfit": -97.04,
-      "closed": false,
-      "rolledOver": false,
-      "closeAction": null,
-      "manualPrice": null,
-      "notes": "QQQ 4/30/2026 Put $435.00"
-    },
-    {
       "id": "4rmjz22z",
       "portfolio": "lovelina",
       "ticker": "SOFI",
@@ -1661,33 +1594,6 @@
       "notes": "ROBN 3/20/2026 Put $13.00"
     },
     {
-      "id": "ik72w1sa",
-      "portfolio": "lovelina",
-      "ticker": "QQQ",
-      "excelType": "Long Put",
-      "strike": 425,
-      "expiryDate": "3/31/2026",
-      "openDate": "2/9/2026",
-      "contracts": 1,
-      "excelCost": 42.04,
-      "excelIncome": 0,
-      "excelGrossValue": 42.04,
-      "excelCurrentValue": 0,
-      "excelProfit": -42.04,
-      "closed": true,
-      "rolledOver": false,
-      "closeAction": {
-        "action": "EXP",
-        "type": "zero",
-        "amount": 0,
-        "signedAmount": 0,
-        "notes": "Auto-closed: expired",
-        "date": "3/31/2026"
-      },
-      "manualPrice": null,
-      "notes": "QQQ 3/31/2026 Put $425.00"
-    },
-    {
       "id": "2tbk65e5",
       "portfolio": "lovelina",
       "ticker": "NVTS",
@@ -1713,33 +1619,6 @@
       },
       "manualPrice": null,
       "notes": "NVTS 1/30/2026 Put $7.00"
-    },
-    {
-      "id": "3691if2v",
-      "portfolio": "lovelina",
-      "ticker": "QQQ",
-      "excelType": "Long Put",
-      "strike": 614,
-      "expiryDate": "3/31/2026",
-      "openDate": "1/20/2026",
-      "contracts": 1,
-      "excelCost": 2019.04,
-      "excelIncome": 0,
-      "excelGrossValue": 2019.04,
-      "excelCurrentValue": 0,
-      "excelProfit": -2019.04,
-      "closed": true,
-      "rolledOver": false,
-      "closeAction": {
-        "action": "EXP",
-        "type": "zero",
-        "amount": 0,
-        "signedAmount": 0,
-        "notes": "Auto-closed: expired",
-        "date": "3/31/2026"
-      },
-      "manualPrice": null,
-      "notes": "QQQ 3/31/2026 Put $614.00"
     },
     {
       "id": "5kqe91fn",
@@ -1976,6 +1855,90 @@
       },
       "manualPrice": null,
       "notes": "PLTR 2/20/2026 Put $120.00"
+    },
+    {
+      "id": "5rp26uyv",
+      "portfolio": "lovelina",
+      "ticker": "PLTR",
+      "excelType": "Long Call",
+      "strike": 75,
+      "expiryDate": "3/19/2027",
+      "openDate": "3/31/2026",
+      "contracts": 1,
+      "excelCost": 0,
+      "excelIncome": 7891.95,
+      "excelGrossValue": 7891.95,
+      "excelCurrentValue": 0,
+      "excelProfit": 7891.95,
+      "closed": true,
+      "rolledOver": false,
+      "closeAction": {
+        "action": "STC",
+        "type": "credit",
+        "amount": 7891.95,
+        "signedAmount": 7891.95,
+        "notes": "",
+        "date": "3/31/2026"
+      },
+      "manualPrice": null,
+      "notes": "PLTR 3/19/2027 Call $75.00",
+      "soldAmount": 7891.95
+    },
+    {
+      "id": "5h9wyevd",
+      "portfolio": "lovelina",
+      "ticker": "PLTR",
+      "excelType": "Long Call",
+      "strike": 105,
+      "expiryDate": "1/15/2027",
+      "openDate": "3/23/2026",
+      "contracts": 1,
+      "excelCost": 0,
+      "excelIncome": 6641.95,
+      "excelGrossValue": 6641.95,
+      "excelCurrentValue": 0,
+      "excelProfit": 6641.95,
+      "closed": true,
+      "rolledOver": false,
+      "closeAction": {
+        "action": "STC",
+        "type": "credit",
+        "amount": 6641.95,
+        "signedAmount": 6641.95,
+        "notes": "",
+        "date": "3/23/2026"
+      },
+      "manualPrice": null,
+      "notes": "PLTR 1/15/2027 Call $105.00",
+      "soldAmount": 6641.95
+    },
+    {
+      "id": "x5ozolif",
+      "portfolio": "lovelina",
+      "ticker": "PLTR",
+      "excelType": "Long Call",
+      "strike": 87.5,
+      "expiryDate": "1/15/2027",
+      "openDate": "3/9/2026",
+      "contracts": 1,
+      "excelCost": 0,
+      "excelIncome": 7530.95,
+      "excelGrossValue": 7530.95,
+      "excelCurrentValue": 0,
+      "excelProfit": 7530.95,
+      "closed": true,
+      "rolledOver": false,
+      "closeAction": {
+        "action": "STC",
+        "type": "credit",
+        "amount": 7530.95,
+        "signedAmount": 7530.95,
+        "notes": "",
+        "date": "3/9/2026"
+      },
+      "manualPrice": null,
+      "notes": "PLTR 1/15/2027 Call $87.50",
+      "soldAmount": 7530.95
     }
   ],
   "tickerPrices": {
