@@ -1410,8 +1410,8 @@ function buildSpreadPairs(data){
   var basePool=(spreadsOcFilter==='open'?data.filter(function(r){return!isCl(r);}):spreadsOcFilter==='closed'?data.filter(function(r){return isCl(r);}):data).filter(function(r){return selectedTickers.has('ALL')||selectedTickers.has(r.ticker);});
   // SP pool: also apply expiry + type filter (short puts/calls that match the selected window)
   var spPool=basePool.filter(function(r){return(r.excelType==='Short Put'||r.excelType==='Short Call')&&expMatch(r)&&(spreadsTypeFilter==='all'||r.excelType===spreadsTypeFilter);});
-  // LP pool: apply expiry filter too so right side also respects it, no type filter (always Long Put)
-  var lpPool=basePool.filter(function(r){return r.excelType==='Long Put'&&expMatch(r);});
+  // LP pool: NO expiry filter - LPs pair with SPs regardless of their own expiry date
+  var lpPool=basePool.filter(function(r){return r.excelType==='Long Put';});
   var tickers=[...new Set(spPool.map(function(r){return r.ticker;}))].sort();
   var result=[];
   tickers.forEach(function(ticker){
