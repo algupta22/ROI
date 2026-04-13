@@ -1428,7 +1428,7 @@ function parseBrokerageCSV(text){
       strike:strike,expiryDate:expiryDate,openDate:openDate,contracts:1,
       excelCost:excelCost,excelIncome:isShortType?amt:0,
       excelGrossValue:isShortType?amt:excelCost,
-      excelCurrentValue:isShortType?0:excelCost,
+      excelCurrentValue:0,
       excelProfit:isShortType?amt:-excelCost,
       closed:isClosed,rolledOver:false,
       closeAction:closeAction,manualPrice:null,notes:desc
