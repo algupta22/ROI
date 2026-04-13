@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-13T03:16:33.570Z",
+  "savedAt": "2026-04-13T03:22:23.592Z",
   "positions": [
     {
       "id": "d53fqivm",
@@ -1914,6 +1914,27 @@
       "expiryDate": "05/29",
       "openDate": "4/12/26",
       "contracts": 1,
+      "excelCost": 160,
+      "excelIncome": 0,
+      "excelGrossValue": 160,
+      "excelCurrentValue": 160,
+      "excelProfit": 0,
+      "closed": false,
+      "notes": "",
+      "manualPrice": null,
+      "rolledOver": false,
+      "closeAction": null,
+      "cvOverride": 153
+    },
+    {
+      "id": "m9bl3f0c",
+      "portfolio": "lovelina",
+      "ticker": "SOFI",
+      "excelType": "Long Put",
+      "strike": 16.5,
+      "expiryDate": "05/29",
+      "openDate": "4/12/26",
+      "contracts": 1,
       "excelCost": 0,
       "excelIncome": 0,
       "excelGrossValue": 160,
@@ -1932,30 +1953,8 @@
         "notes": "",
         "date": "4/12/26"
       },
-      "cvOverride": 0,
-      "soldAmount": 337.55
-    },
-    {
-      "id": "rw8gqrvg",
-      "portfolio": "lovelina",
-      "ticker": "SOFI",
-      "excelType": "Long Put",
-      "strike": 16.5,
-      "expiryDate": "04/11",
-      "openDate": "4/12/26",
-      "contracts": 1,
-      "excelCost": 0,
-      "excelIncome": 0,
-      "excelGrossValue": 160,
-      "excelCurrentValue": 160,
-      "excelProfit": 160,
-      "closed": false,
-      "notes": "",
-      "manualPrice": null,
-      "rolledOver": false,
-      "closeAction": null,
-      "cvOverride": 153,
-      "soldAmount": 337.55
+      "soldAmount": 337.55,
+      "cvOverride": 0
     },
     {
       "id": "wsa9h5te",
