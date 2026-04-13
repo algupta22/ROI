@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-13T03:26:08.197Z",
+  "savedAt": "2026-04-13T03:35:35.002Z",
   "positions": [
     {
       "id": "d53fqivm",
@@ -4738,7 +4738,7 @@
     "lov-trad": 215348,
     "amit-roth": 3835,
     "lov-roth": 12559,
-    "lovelina": 2914,
+    "lovelina": 2716,
     "joint": 14.85
   },
   "initialCashBalances": {
