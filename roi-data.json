@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-13T17:48:11.276Z",
+  "savedAt": "2026-04-13T17:52:14.733Z",
   "positions": [
     {
       "id": "d53fqivm",
@@ -407,7 +407,6 @@
         "notes": "",
         "date": "4/13/26"
       },
-      "cvOverride": -750,
       "soldAmount": 86.94
     },
     {
@@ -1412,10 +1411,31 @@
       },
       "soldAmount": 883,
       "cvOverride": 0
+    },
+    {
+      "id": "2p02ebxj",
+      "portfolio": "lovelina",
+      "ticker": "GOOGL",
+      "excelType": "Short Put",
+      "strike": 310,
+      "expiryDate": "04/15",
+      "openDate": "4/13/26",
+      "contracts": 1,
+      "excelCost": 0,
+      "excelIncome": 0,
+      "excelGrossValue": 0,
+      "excelCurrentValue": 0,
+      "excelProfit": 0,
+      "closed": false,
+      "notes": "",
+      "manualPrice": null,
+      "rolledOver": false,
+      "closeAction": null,
+      "soldAmount": 47
     }
   ],
   "tickerPrices": {
-    "GOOGL": 298,
+    "GOOGL": 319.23,
     "PLTR": 129,
     "IBIT": 41.42,
     "TSLZ": 17.53
