@@ -1343,7 +1343,9 @@ function collapseQNL(t){var r=[],b='',q=0;for(var i=0;i<t.length;i++){var c=t[i]
 function parseBrokerageCSV(text){
   var lines=collapseQNL(text).split('\n').map(function(l){return l.trim();}).filter(function(l,i){return i===0||l;});
   if(lines.length<2)return{error:'Need header + data rows.'};
-  var headers=splitCSV(lines[0]).map(function(h){return h.toLowerCase().replace(/[\s_-]/g,'');});
+  var delim=lines[0].indexOf('\t')>-1?'\t':',';
+  function splitLine(line){if(delim==='\t')return line.split('\t').map(function(x){return x.trim();});return splitCSV(line);}
+  var headers=splitLine(lines[0]).map(function(h){return h.toLowerCase().replace(/[\s_-]/g,'');});
   var col={};
   headers.forEach(function(h,i){
     if(h==='profile'||h==='portfolio')col.prof=i;
@@ -1378,7 +1380,7 @@ function parseBrokerageCSV(text){
   var mapped=[],errors=[];
   for(var i=1;i<lines.length;i++){
     var line=lines[i];if(!line)continue;
-    var v=splitCSV(line);if(v.every(function(x){return!x;}))continue;
+    var v=splitLine(line);if(v.every(function(x){return!x;}))continue;
     var gv=function(vv){return function(idx){return idx!=null?(vv[idx]||'').trim():'';};};
     var gf=gv(v);
     var prof=gf(col.prof),openDate=gf(col.d),ticker=(gf(col.tk)||'').toUpperCase(),desc=gf(col.ds),tcRaw=(gf(col.tc)||'').toUpperCase(),rawAmt=gf(col.a),typeRaw=gf(col.tp);
