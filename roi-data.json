@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-13T14:15:18.274Z",
+  "savedAt": "2026-04-13T17:48:11.276Z",
   "positions": [
     {
       "id": "d53fqivm",
@@ -1067,12 +1067,20 @@
       "excelIncome": 0,
       "excelGrossValue": 1620,
       "excelCurrentValue": 1620,
-      "excelProfit": 0,
-      "closed": false,
+      "excelProfit": -1,
+      "closed": true,
       "notes": "",
       "manualPrice": null,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "STC",
+        "type": "debit",
+        "amount": 1,
+        "signedAmount": -1,
+        "soldAmount": null,
+        "notes": "",
+        "date": "4/13/26"
+      },
       "cvOverride": 665
     },
     {
@@ -1323,7 +1331,7 @@
       "manualPrice": null,
       "rolledOver": false,
       "closeAction": null,
-      "cvOverride": 169
+      "cvOverride": 159
     },
     {
       "id": "5ydyabql",
@@ -1338,14 +1346,42 @@
       "excelIncome": 0,
       "excelGrossValue": 0,
       "excelCurrentValue": 0,
+      "excelProfit": -1,
+      "closed": true,
+      "notes": "",
+      "manualPrice": null,
+      "rolledOver": false,
+      "closeAction": {
+        "action": "BTC",
+        "type": "debit",
+        "amount": 1,
+        "signedAmount": -1,
+        "soldAmount": 39.94,
+        "notes": "",
+        "date": "4/13/26"
+      },
+      "soldAmount": 39.94
+    },
+    {
+      "id": "0hnu8rh5",
+      "portfolio": "amit",
+      "ticker": "NVDA",
+      "excelType": "Short Put",
+      "strike": 180,
+      "expiryDate": "04/15",
+      "openDate": "3/11/26",
+      "contracts": 1,
+      "excelCost": 0,
+      "excelIncome": 0,
+      "excelGrossValue": 0,
+      "excelCurrentValue": 0,
       "excelProfit": 0,
       "closed": false,
       "notes": "",
       "manualPrice": null,
       "rolledOver": false,
       "closeAction": null,
-      "soldAmount": 39.94,
-      "cvOverride": -6
+      "soldAmount": 22
     },
     {
       "id": "d41nw7io",
