@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-13T05:04:12.590Z",
+  "savedAt": "2026-04-13T14:15:18.274Z",
   "positions": [
     {
       "id": "d53fqivm",
@@ -393,12 +393,20 @@
       "excelIncome": 87,
       "excelGrossValue": 87,
       "excelCurrentValue": 0,
-      "excelProfit": 87,
-      "closed": false,
+      "excelProfit": 85,
+      "closed": true,
       "notes": "",
       "manualPrice": null,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "BTC",
+        "type": "debit",
+        "amount": 2,
+        "signedAmount": -2,
+        "soldAmount": 86.94,
+        "notes": "",
+        "date": "4/13/26"
+      },
       "cvOverride": -750,
       "soldAmount": 86.94
     },
@@ -1374,9 +1382,7 @@
     "GOOGL": 298,
     "PLTR": 129,
     "IBIT": 41.42,
-    "TSLZ": 17.53,
-    "MSFT": 368.15,
-    "NVDX": 15.7
+    "TSLZ": 17.53
   },
   "activityData": {
     "act_all": [],
