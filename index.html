@@ -1300,8 +1300,8 @@ function rUploadPanel(){
   if(csvPreview){
     var r=csvPreview.rows,e=csvPreview.errors,s=r.slice(0,5);
     body='<div class="preview-wrap"><div class="preview-hdr">Preview &mdash; '+r.length+' position'+(r.length!==1?'s':'')+(e.length?' &middot; '+e.length+' error(s)':'')+'</div>'
-      +'<div class="preview-scroll"><table class="preview-table"><thead><tr><th>Ticker</th><th>Type</th><th>Strike</th><th>Expiry</th><th>Cost</th><th>Income</th></tr></thead>'
-      +'<tbody>'+s.map(function(r){return'<tr><td><strong>'+r.ticker+'</strong></td><td><span class="badge '+bct(r.excelType)+'">'+r.excelType+'</span></td><td class="mn">'+(r.strike>0?'$'+r.strike:'--')+'</td><td>'+(r.expiryDate||'--')+'</td><td class="mn">'+(r.excelCost?'$'+r.excelCost.toLocaleString():'--')+'</td><td class="mn" style="color:var(--green)">'+(r.excelIncome?'+$'+r.excelIncome.toLocaleString():'--')+'</td></tr>';}).join('')
+      +'<div class="preview-scroll"><table class="preview-table"><thead><tr><th>Ticker</th><th>Type</th><th>Strike</th><th>Expiry</th><th>Status</th><th>Cost</th><th>Sold</th></tr></thead>'
+      +'<tbody>'+s.map(function(r){return'<tr><td><strong>'+r.ticker+'</strong></td><td><span class="badge '+bct(r.excelType)+'">'+r.excelType+'</span></td><td class="mn">'+(r.strike>0?'$'+r.strike:'--')+'</td><td>'+(r.expiryDate||'--')+'</td><td>'+(r.closed?'<span style="color:var(--text3);font-size:0.65rem;">Closed</span>':'<span style="color:var(--green);font-size:0.65rem;">Open</span>')+'</td><td class="mn">'+(r.excelCost?'$'+r.excelCost.toLocaleString():'--')+'</td><td class="mn" style="color:var(--blue)">'+(r.soldAmount?'$'+r.soldAmount.toLocaleString():'--')+'</td></tr>';}).join('')
       +e.map(function(x){return'<tr><td colspan="6" class="err-cell">&#9888; '+x+'</td></tr>';}).join('')
       +'</tbody></table></div></div>'
       +'<div class="import-actions"><button class="import-btn" onclick="doImport()" '+(r.length===0?'disabled':'')+'>&#8593; Import '+r.length+' Position'+(r.length!==1?'s':'')+'</button><button class="cancel-upload-btn" onclick="cancelUpload()">Cancel</button></div>'
@@ -1309,8 +1309,8 @@ function rUploadPanel(){
   }else{
     body='<div class="drop-zone" id="drop-zone" onclick="document.getElementById(\'csv-file-input\').click()">'
       +'<div class="drop-zone-icon">&#128196;</div>'
-      +'<div class="drop-zone-title">Drop your Robinhood brokerage export here</div>'
-      +'<div class="drop-zone-sub">Activity Date &middot; Instrument &middot; Description &middot; Trans Code &middot; Amount</div>'
+      +'<div class="drop-zone-title">Drop your Joint portfolio CSV here</div>'
+      +'<div class="drop-zone-sub">Profile &middot; Open Date &middot; Ticker &middot; Trans Code &middot; Amount &middot; Type &middot; Description</div>'
       +'<button class="drop-zone-btn" onclick="event.stopPropagation();document.getElementById(\'csv-file-input\').click()">&#128193; Choose File</button>'
       +'</div>'
       +(importMsg?'<div style="margin-top:0.6rem;"><span class="'+(importMsg.ok?'import-ok':'import-err')+'">'+(importMsg.ok?'&#10003;':'&#9888;')+' '+importMsg.text+'</span></div>':'');
@@ -1320,10 +1320,10 @@ function rUploadPanel(){
 function toggleUpload(){showUpload=!showUpload;if(!showUpload){csvPreview=null;importMsg='';}rMain();}
 function cancelUpload(){showUpload=false;csvPreview=null;importMsg='';rMain();}
 function dlTemplate(){
-  var h='Activity Date,Process Date,Settle Date,Instrument,Description,Trans Code,Quantity,Price,Amount';
-  var ex='4/6/2026,4/6/2026,4/7/2026,PLTR,PLTR 4/10/2026 Put $140.00,STO,1,$0.82,$81.94\n4/6/2026,4/6/2026,4/7/2026,SOFI,SOFI 5/15/2026 Put $17.00,BTO,1,$2.70,($270.04)';
+  var h='Profile,Open Date,Ticker,Expiry Date,Trans Code,Amount,Type,Description';
+  var ex='Joint,4/6/2026,PLTR,4/10/2026,STO,$81.94,SPUT,PLTR 4/10/2026 Put $140.00\nJoint,4/6/2026,SOFI,5/15/2026,BTO,($270.04),LPUT,SOFI 5/15/2026 Put $17.00\nJoint,4/8/2026,PLTR,4/10/2026,STC,$65.00,SPUT,PLTR 4/10/2026 Put $140.00';
   var blob=new Blob([h+'\n'+ex],{type:'text/csv'});
-  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='roi_template.csv';a.click();
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='joint_template.csv';a.click();
 }
 function parseAmt(s){if(!s)return 0;var x=s.toString().trim().replace(/[$,\s]/g,'');var neg=x.startsWith('(')&&x.endsWith(')');return neg?-(parseFloat(x.replace(/[()]/g,''))||0):(parseFloat(x.replace(/[()]/g,''))||0);}
 function parseOptDesc(d){
@@ -1337,31 +1337,95 @@ function collapseQNL(t){var r=[],b='',q=0;for(var i=0;i<t.length;i++){var c=t[i]
 function parseBrokerageCSV(text){
   var lines=collapseQNL(text).split('\n').map(function(l){return l.trim();}).filter(function(l,i){return i===0||l;});
   if(lines.length<2)return{error:'Need header + data rows.'};
-  var headers=splitCSV(lines[0]).map(function(h){return h.toLowerCase().replace(/\s+/g,'');});
+  var headers=splitCSV(lines[0]).map(function(h){return h.toLowerCase().replace(/[\s_-]/g,'');});
   var col={};
   headers.forEach(function(h,i){
-    if(h.includes('activitydate')||h==='date')col.d=i;
-    else if(h.includes('instrument')||h==='symbol')col.i=i;
-    else if(h.includes('description')||h==='desc')col.ds=i;
-    else if(h.includes('transcode')||h==='action')col.tc=i;
-    else if(h==='amount'||h.includes('netamount'))col.a=i;
+    if(h==='profile'||h==='portfolio')col.prof=i;
+    else if(h==='opendate'||h==='activitydate'||h==='date')col.d=i;
+    else if(h==='ticker'||h==='instrument'||h==='symbol')col.tk=i;
+    else if(h==='expirydate'||h==='expiry')col.exp=i;
+    else if(h==='transcode'||h==='transactioncode'||h==='action')col.tc=i;
+    else if(h==='amount'||h==='netamount')col.a=i;
+    else if(h==='type')col.tp=i;
+    else if(h==='description'||h==='desc')col.ds=i;
   });
+  // Profile normalizer
+  function normProfile(s){
+    var p=(s||'').trim().toLowerCase().replace(/[\s_]+/g,'');
+    if(p==='joint')return'joint';
+    if(p==='amit'||p==='amitbrokerage')return'amit';
+    if(p==='lovelina'||p==='lov')return'lovelina';
+    if(p==='amitroth'||p==='amitira')return'amit-roth';
+    if(p==='lovroth'||p==='lovelinaroth'||p==='lovinaroth')return'lov-roth';
+    if(p==='lovtrad'||p==='lovelinatrad'||p==='lovinatrad')return'lov-trad';
+    return'joint';
+  }
+  // Type normalizer
+  function normType(s){
+    var t=(s||'').trim().toUpperCase();
+    if(t==='SPUT')return'Short Put';
+    if(t==='LPUT')return'Long Put';
+    if(t==='SCALL')return'Short Call';
+    if(t==='LCALL')return'Long Call';
+    return null;
+  }
   var mapped=[],errors=[];
   for(var i=1;i<lines.length;i++){
     var line=lines[i];if(!line)continue;
     var v=splitCSV(line);if(v.every(function(x){return!x;}))continue;
-    if(v.join('').includes('informational purposes only'))continue;
     function g(idx){return idx!=null?(v[idx]||'').trim():'';}
-    var d=g(col.d),inst=g(col.i).toUpperCase(),desc=g(col.ds),tc=g(col.tc),ra=g(col.a);
-    if(!d&&!inst&&!desc)continue;
-    var amt=parseAmt(ra),opt=parseOptDesc(desc),ticker=opt?opt.ticker:(inst||'');
-    if(!ticker)continue;
-    if(!opt){if(tc.toUpperCase()==='BUY'||tc.toUpperCase()==='SELL'){var uid4=Math.random().toString(36).slice(2,10);mapped.push({id:uid4,ticker:ticker,excelType:'Shares',strike:0,expiryDate:'',openDate:d,contracts:1,excelCost:amt<0?Math.abs(amt):0,excelIncome:amt>0?amt:0,excelGrossValue:Math.abs(amt),excelCurrentValue:Math.abs(amt),excelProfit:0,closed:false,rolledOver:false,closeAction:null,manualPrice:null,notes:desc});}continue;}
-    var isShort=tc.toUpperCase()==='STO'||(tc.toUpperCase()!=='BTO'&&tc.toUpperCase()!=='STC'&&tc.toUpperCase()!=='BTC'&&amt>0);
-    var et=opt.optionType==='Put'?(isShort?'Short Put':'Long Put'):(isShort?'Short Call':'Long Call');
-    var ec2=isShort?0:Math.abs(amt),ei=isShort?Math.abs(amt):0,cur=isShort?0:ec2,gv=ei+cur,pnl=gv-ec2;
-    var uid5=Math.random().toString(36).slice(2,10);
-    mapped.push({id:uid5,ticker:ticker,excelType:et,strike:opt.strike,expiryDate:opt.expiryDate,openDate:d,contracts:1,excelCost:ec2,excelIncome:ei,excelGrossValue:gv,excelCurrentValue:cur,excelProfit:pnl,closed:false,rolledOver:false,closeAction:null,manualPrice:null,notes:desc});
+    var prof=g(col.prof),openDate=g(col.d),ticker=(g(col.tk)||'').toUpperCase(),desc=g(col.ds),tcRaw=(g(col.tc)||'').toUpperCase(),rawAmt=g(col.a),typeRaw=g(col.tp);
+    if(!ticker){errors.push('Row '+(i+1)+': missing ticker');continue;}
+    var excelType=normType(typeRaw);
+    if(!excelType){errors.push('Row '+(i+1)+': unknown type "'+typeRaw+'"');continue;}
+    // Parse description for strike and expiry: "CDE 4/17/2026 Put $20.00"
+    var strike=0,expiryDate='';
+    var dm=desc.match(/(\d{1,2}\/\d{1,2}\/\d{2,4})/);
+    if(dm){
+      var dp=dm[1].split('/');
+      var yr=parseInt(dp[2]);
+      expiryDate=dp[0]+'/'+dp[1]+'/'+(yr>100?(yr%100).toString().padStart(2,'0'):dp[2].padStart(2,'0'));
+    }
+    var sm=desc.match(/\$([\d.]+)/);
+    if(sm)strike=parseFloat(sm[1]);
+    // Amount
+    var amt=Math.abs(parseAmt(rawAmt));
+    // Trans code → closed/open
+    var isClosed=tcRaw==='STC'||tcRaw==='BTC';
+    var isShortType=excelType==='Short Put'||excelType==='Short Call';
+    // Cost vs soldAmount based on type
+    var excelCost=0,soldAmount=null,closeAction=null;
+    if(isShortType){
+      // Short: income goes to soldAmount regardless of open/close
+      soldAmount=amt;
+    } else {
+      // Long: amount goes to cost
+      excelCost=amt;
+    }
+    if(isClosed){
+      closeAction={
+        action:tcRaw,
+        type:tcRaw==='STC'?'credit':'debit',
+        amount:amt,
+        signedAmount:tcRaw==='STC'?amt:-amt,
+        notes:'',
+        date:openDate
+      };
+    }
+    var portfolio=normProfile(prof)||'joint';
+    var uid=Math.random().toString(36).slice(2,10);
+    var pos={
+      id:uid,portfolio:portfolio,ticker:ticker,excelType:excelType,
+      strike:strike,expiryDate:expiryDate,openDate:openDate,contracts:1,
+      excelCost:excelCost,excelIncome:isShortType?amt:0,
+      excelGrossValue:isShortType?amt:excelCost,
+      excelCurrentValue:isShortType?0:excelCost,
+      excelProfit:isShortType?amt:-excelCost,
+      closed:isClosed,rolledOver:false,
+      closeAction:closeAction,manualPrice:null,notes:desc
+    };
+    if(soldAmount!=null)pos.soldAmount=soldAmount;
+    mapped.push(pos);
   }
   return{rows:mapped,errors:errors};
 }
