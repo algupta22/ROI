@@ -1397,17 +1397,18 @@ function parseBrokerageCSV(text){
     var sm=desc.match(/\$([\d.]+)/);
     if(sm)strike=parseFloat(sm[1]);
     // Amount
-    var amt=Math.abs(parseAmt(rawAmt));
+    var rawAmtVal=parseAmt(rawAmt);
+    var amt=Math.abs(rawAmtVal);
     // Trans code → closed/open
     var isClosed=tcRaw==='STC'||tcRaw==='BTC';
     var isShortType=excelType==='Short Put'||excelType==='Short Call';
     // Cost vs soldAmount based on type
     var excelCost=0,soldAmount=null,closeAction=null;
     if(isShortType){
-      // Short: income goes to soldAmount regardless of open/close
-      soldAmount=amt;
+      // Short: preserve sign from amount — negative means it was a debit (BTC)
+      soldAmount=rawAmtVal;
     } else {
-      // Long: amount goes to cost
+      // Long: amount goes to cost (always positive)
       excelCost=amt;
     }
     if(isClosed){
