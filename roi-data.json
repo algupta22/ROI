@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-13T17:52:14.733Z",
+  "savedAt": "2026-04-13T17:53:15.808Z",
   "positions": [
     {
       "id": "d53fqivm",
@@ -1431,7 +1431,8 @@
       "manualPrice": null,
       "rolledOver": false,
       "closeAction": null,
-      "soldAmount": 47
+      "soldAmount": 47,
+      "cvOverride": -48
     }
   ],
   "tickerPrices": {
