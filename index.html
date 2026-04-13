@@ -793,8 +793,9 @@ function calcSpreadCollateralThisWeek(data){
 function cs(data,isRetirement){
   var op=data.filter(function(r){return!isCl(r);});
   var ci=data.reduce(function(s,r){return s+(r.excelCost||0);},0);
-  var ig=data.reduce(function(s,r){var sold=r.soldAmount!=null&&r.soldAmount!==0&&r.soldAmount!==''?r.soldAmount:null;return s+(sold!=null?(sold-(r.excelCost||0)):0);},0);
-  var totalSold=data.reduce(function(s,r){var sold=r.soldAmount!=null&&r.soldAmount!==0&&r.soldAmount!==''?r.soldAmount:null;return s+(sold!=null?sold:0);},0);
+  var ig=data.reduce(function(s,r){var sold=getSoldCS(r);return s+(sold!=null?(sold-(r.excelCost||0)):0);},0);
+  function getSoldCS(r){if(r.soldAmount!=null&&r.soldAmount!==0&&r.soldAmount!=='')return parseFloat(r.soldAmount);if((r.excelType==='Short Put'||r.excelType==='Short Call')&&r.excelIncome)return r.excelIncome;return null;}
+  var totalSold=data.reduce(function(s,r){var sold=getSoldCS(r);return s+(sold!=null?sold:0);},0);
   function netInc(r){var sold=r.soldAmount!=null&&r.soldAmount!==0&&r.soldAmount!==''?r.soldAmount:null;return sold!=null?(sold-(r.excelCost||0)):0;}
   var realized=data.filter(function(r){return isCl(r);}).reduce(function(s,r){return s+netInc(r);},0);
   var unrealized=op.reduce(function(s,r){return s+netInc(r);},0);
@@ -939,8 +940,13 @@ function rTable(data){
     var hasOvrd=r.cvOverride!=null&&r.cvOverride!=='';
     return hasOvrd?parseFloat(r.cvOverride):auto;
   }
+  function getSold(r){
+    if(r.soldAmount!=null&&r.soldAmount!==0&&r.soldAmount!=='')return parseFloat(r.soldAmount);
+    if((r.excelType==='Short Put'||r.excelType==='Short Call')&&r.excelIncome)return r.excelIncome;
+    return null;
+  }
   function rowNetInc(r){
-    var sold=r.soldAmount!=null&&r.soldAmount!==0&&r.soldAmount!==''?r.soldAmount:null;
+    var sold=getSold(r);
     return sold!=null?(sold-(r.excelCost||0)):null;
   }
   function fmtMoney(v,allowNull){
@@ -977,8 +983,9 @@ function rTable(data){
 
     // Aggregate numbers
     var totalCost=rows.reduce(function(s,r){return s+(r.excelCost||0);},0);
-    var totalSold=rows.reduce(function(s,r){return s+(r.soldAmount!=null&&r.soldAmount!==0&&r.soldAmount!==''?parseFloat(r.soldAmount):0);},0);
-    var hasSoldAny=rows.some(function(r){return r.soldAmount!=null&&r.soldAmount!==0&&r.soldAmount!=='';});
+    function getSoldRow(r){if(r.soldAmount!=null&&r.soldAmount!==0&&r.soldAmount!=='')return parseFloat(r.soldAmount);if((r.excelType==='Short Put'||r.excelType==='Short Call')&&r.excelIncome)return r.excelIncome;return null;}
+    var totalSold=rows.reduce(function(s,r){var sold=getSoldRow(r);return s+(sold!=null?sold:0);},0);
+    var hasSoldAny=rows.some(function(r){return getSoldRow(r)!=null;});
     var totalNetInc=hasSoldAny?rows.reduce(function(s,r){var ni=rowNetInc(r);return s+(ni!=null?ni:0);},0):null;
     var totalCV=rows.reduce(function(s,r){return s+rowCV(r);},0);
     var openCount=rows.filter(function(r){return!isCl(r);}).length;
@@ -1113,7 +1120,7 @@ function rTable(data){
           actionCellC='<button class="action-btn" onclick="openModal('+Q+r.id+Q+')" title="Close">&#9940; '+lbl+'</button>';
         }
 
-        var soldC=r.soldAmount!=null&&r.soldAmount!==0&&r.soldAmount!==''?r.soldAmount:null;
+        var soldC=(function(r){if(r.soldAmount!=null&&r.soldAmount!==0&&r.soldAmount!=='')return parseFloat(r.soldAmount);if((r.excelType==='Short Put'||r.excelType==='Short Call')&&r.excelIncome)return r.excelIncome;return null;})(r);
         var hasSoldC=soldC!=null;
         var netIncC=hasSoldC?(soldC-(r.excelCost||0)):null;
         var portBadgeC='';
