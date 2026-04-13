@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-13T01:20:14.089Z",
+  "savedAt": "2026-04-13T01:42:10.053Z",
   "positions": [
     {
       "id": "d53fqivm",
@@ -1414,7 +1414,8 @@
     "GOOGL": 298,
     "PLTR": 129,
     "IBIT": 41.42,
-    "TSLZ": 17.53
+    "TSLZ": 17.53,
+    "MSFT": 368.15
   },
   "activityData": {
     "act_all": [],
