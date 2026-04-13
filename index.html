@@ -1969,7 +1969,7 @@ function rMain(){
     el.innerHTML=rAdminView();
     fetchAndUpdateLive([...new Set(positions.map(function(r){return r.ticker;}))].sort());
   }else if(activeView==='spreads'){
-    el.innerHTML=rSpreadsView(data);
+    el.innerHTML='<div class="controls-row" style="justify-content:flex-end;"><button class="upload-csv-btn" onclick="toggleUpload()">&#8593; Upload CSV</button><button class="template-dl-btn" onclick="dlTemplate()">&#11015; Template</button></div>'+rUploadPanel()+rSpreadsView(data);
   }else{
     var fd=getAppliedFilters(dispData),sf=cs(fd,isRet);
     el.innerHTML=data.length===0
