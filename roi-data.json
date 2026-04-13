@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-13T02:33:19.976Z",
+  "savedAt": "2026-04-13T02:35:18.856Z",
   "positions": [
     {
       "id": "d53fqivm",
@@ -1713,6 +1713,27 @@
       },
       "soldAmount": 436.95,
       "cvOverride": 0
+    },
+    {
+      "id": "er9jwf49",
+      "portfolio": "lovelina",
+      "ticker": "NVTS",
+      "excelType": "Short Put",
+      "strike": 8.5,
+      "expiryDate": "05/08",
+      "openDate": "4/12/26",
+      "contracts": 1,
+      "excelCost": 0,
+      "excelIncome": 0,
+      "excelGrossValue": 0,
+      "excelCurrentValue": 0,
+      "excelProfit": 0,
+      "closed": false,
+      "notes": "",
+      "manualPrice": null,
+      "rolledOver": false,
+      "closeAction": null,
+      "soldAmount": 15.94
     }
   ],
   "tickerPrices": {
