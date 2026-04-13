@@ -1373,8 +1373,9 @@ function parseBrokerageCSV(text){
   for(var i=1;i<lines.length;i++){
     var line=lines[i];if(!line)continue;
     var v=splitCSV(line);if(v.every(function(x){return!x;}))continue;
-    function g(idx){return idx!=null?(v[idx]||'').trim():'';}
-    var prof=g(col.prof),openDate=g(col.d),ticker=(g(col.tk)||'').toUpperCase(),desc=g(col.ds),tcRaw=(g(col.tc)||'').toUpperCase(),rawAmt=g(col.a),typeRaw=g(col.tp);
+    var gv=function(vv){return function(idx){return idx!=null?(vv[idx]||'').trim():'';};};
+    var gf=gv(v);
+    var prof=gf(col.prof),openDate=gf(col.d),ticker=(gf(col.tk)||'').toUpperCase(),desc=gf(col.ds),tcRaw=(gf(col.tc)||'').toUpperCase(),rawAmt=gf(col.a),typeRaw=gf(col.tp);
     if(!ticker){errors.push('Row '+(i+1)+': missing ticker');continue;}
     var excelType=normType(typeRaw);
     if(!excelType){errors.push('Row '+(i+1)+': unknown type "'+typeRaw+'"');continue;}
