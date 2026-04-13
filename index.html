@@ -1407,13 +1407,12 @@ function parseBrokerageCSV(text){
     var isPastExpiry=expiryDateObj&&expiryDateObj<today;
     var isClosed=isPastExpiry||tcRaw==='STC'||tcRaw==='BTC';
     var isShortType=excelType==='Short Put'||excelType==='Short Call';
-    // Cost vs soldAmount based on type
+    // STO/STC → SOLD column always; BTO/BTC → COST column always (regardless of type)
     var excelCost=0,soldAmount=null,closeAction=null;
-    if(isShortType){
-      // Short: preserve sign from amount — negative means it was a debit (BTC)
+    if(tcRaw==='STO'||tcRaw==='STC'){
       soldAmount=rawAmtVal;
     } else {
-      // Long: amount goes to cost (always positive)
+      // BTO or BTC → cost column (always positive)
       excelCost=amt;
     }
     if(isClosed){
@@ -1443,10 +1442,10 @@ function parseBrokerageCSV(text){
     var pos={
       id:uid,portfolio:portfolio,ticker:ticker,excelType:excelType,
       strike:strike,expiryDate:expiryDate,openDate:openDate,contracts:1,
-      excelCost:excelCost,excelIncome:isShortType?amt:0,
-      excelGrossValue:isShortType?amt:excelCost,
+      excelCost:excelCost,excelIncome:soldAmount!=null?Math.abs(soldAmount):0,
+      excelGrossValue:soldAmount!=null?Math.abs(soldAmount):excelCost,
       excelCurrentValue:0,
-      excelProfit:isShortType?amt:-excelCost,
+      excelProfit:soldAmount!=null?soldAmount:-excelCost,
       closed:isClosed,rolledOver:false,
       closeAction:closeAction,manualPrice:null,notes:desc
     };
