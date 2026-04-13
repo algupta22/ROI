@@ -1386,20 +1386,24 @@ function parseBrokerageCSV(text){
     var excelType=normType(typeRaw);
     if(!excelType){errors.push('Row '+(i+1)+': unknown type "'+typeRaw+'"');continue;}
     // Parse description for strike and expiry: "CDE 4/17/2026 Put $20.00"
-    var strike=0,expiryDate='';
+    var strike=0,expiryDate='',expiryDateObj=null;
     var dm=desc.match(/(\d{1,2}\/\d{1,2}\/\d{2,4})/);
     if(dm){
       var dp=dm[1].split('/');
       var yr=parseInt(dp[2]);
-      expiryDate=dp[0]+'/'+dp[1]+'/'+(yr>100?(yr%100).toString().padStart(2,'0'):dp[2].padStart(2,'0'));
+      var fullYr=yr<100?2000+yr:yr;
+      expiryDate=dp[0]+'/'+dp[1]+'/'+fullYr;
+      expiryDateObj=new Date(fullYr,parseInt(dp[0])-1,parseInt(dp[1]));
     }
     var sm=desc.match(/\$([\d.]+)/);
     if(sm)strike=parseFloat(sm[1]);
     // Amount
     var rawAmtVal=parseAmt(rawAmt);
     var amt=Math.abs(rawAmtVal);
-    // Trans code → closed/open
-    var isClosed=tcRaw==='STC'||tcRaw==='BTC';
+    // Always close if expiry date is in the past, regardless of trans code
+    var today=new Date();today.setHours(0,0,0,0);
+    var isPastExpiry=expiryDateObj&&expiryDateObj<today;
+    var isClosed=isPastExpiry||tcRaw==='STC'||tcRaw==='BTC';
     var isShortType=excelType==='Short Put'||excelType==='Short Call';
     // Cost vs soldAmount based on type
     var excelCost=0,soldAmount=null,closeAction=null;
@@ -1411,14 +1415,26 @@ function parseBrokerageCSV(text){
       excelCost=amt;
     }
     if(isClosed){
-      closeAction={
-        action:tcRaw,
-        type:tcRaw==='STC'?'credit':'debit',
-        amount:amt,
-        signedAmount:tcRaw==='STC'?amt:-amt,
-        notes:'',
-        date:openDate
-      };
+      if(tcRaw==='STC'||tcRaw==='BTC'){
+        closeAction={
+          action:tcRaw,
+          type:tcRaw==='STC'?'credit':'debit',
+          amount:amt,
+          signedAmount:tcRaw==='STC'?amt:-amt,
+          notes:'',
+          date:openDate
+        };
+      } else {
+        // Auto-closed due to past expiry — expired worthless
+        closeAction={
+          action:'EXP',
+          type:'zero',
+          amount:0,
+          signedAmount:0,
+          notes:'Auto-closed: expired',
+          date:expiryDate
+        };
+      }
     }
     var portfolio=normProfile(prof)||'joint';
     var uid=Math.random().toString(36).slice(2,10);
