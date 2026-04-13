@@ -585,7 +585,7 @@ td.mc{color:var(--black);font-weight:700;}td.mn{font-family:monospace;font-size:
   <div class="view-tab" data-view="admin">&#9881; Admin &#8212; Prices</div>
 </div>
 <div class="breadcrumb" id="bc"><span>All Portfolios</span></div>
-<div id="modal-root"></div>
+<div id="modal-root"></div><div id="upload-modal-root"></div>
 <input type="file" id="csv-file-input" accept=".csv,.tsv,.txt" style="display:none;">
 <input type="file" id="act-file-input" accept=".csv,.tsv,.txt" style="display:none;">
 <div class="main" id="mc"></div>
@@ -1995,6 +1995,9 @@ function attachEvents(){
   document.querySelectorAll('.soc-tab').forEach(function(b){b.addEventListener('click',function(){if(b.dataset.soc)spreadsOcFilter=b.dataset.soc;if(b.dataset.expf)spreadsExpFilter=b.dataset.expf;if(b.dataset.stypef)spreadsTypeFilter=b.dataset.stypef;if(b.dataset.sspreadf)spreadsSpreadFilter=b.dataset.sspreadf;rMain();});});
   document.querySelectorAll('.act-tab').forEach(function(b){b.addEventListener('click',function(){actFilter=b.dataset.actf;actPage=0;rMain();});});
   var ep=document.getElementById('exp-pill');if(ep)ep.addEventListener('click',function(){expiringOnly=!expiringOnly;rMain();});
+  // Render upload modal if preview ready
+  var uploadEl=document.getElementById('upload-modal-root');
+  if(uploadEl)uploadEl.innerHTML=rUploadPanel();
   attachUploadEvents();
 }
 function toggleDropdown(){dropdownOpen=!dropdownOpen;var d=document.getElementById('tkdrop');if(d)d.classList.toggle('open',dropdownOpen);}
