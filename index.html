@@ -819,7 +819,7 @@ function cs(data,isRetirement){
     var mP=tickerPrices[r.ticker]!=null?tickerPrices[r.ticker]:null;
     var sp=lP!=null?lP:(mP!=null?mP:null);
     var hasOvrd=r.cvOverride!=null&&r.cvOverride!=='';
-    var cv=hasOvrd?parseFloat(r.cvOverride):(isSP&&sp!=null?(r.strike>0&&r.strike<sp?r.strike*100:sp*100):(isST?0:(r.excelCurrentValue||0)));
+    var cv=hasOvrd?parseFloat(r.cvOverride):0;
     return s+cv;
   },0);
   var beRaw=ci-totalSold-gv,be=Math.max(0,beRaw),pct=ci>0?Math.min(100,Math.round((totalSold+gv)/ci*100)):0;
@@ -936,9 +936,8 @@ function rTable(data){
     var lP=(liveCache[r.ticker]&&liveCache[r.ticker].price!=null)?liveCache[r.ticker].price:null;
     var mP=tickerPrices[r.ticker]!=null?tickerPrices[r.ticker]:null;
     var sp=lP!=null?lP:(mP!=null?mP:null);
-    var auto=c?0:(isSP&&sp!=null?(r.strike>0&&r.strike<sp?r.strike*100:sp*100):(isST?0:(r.excelCurrentValue||0)));
     var hasOvrd=r.cvOverride!=null&&r.cvOverride!=='';
-    return hasOvrd?parseFloat(r.cvOverride):auto;
+    return hasOvrd?parseFloat(r.cvOverride):0;
   }
   function getSold(r){
     if(r.soldAmount!=null&&r.soldAmount!==0&&r.soldAmount!=='')return parseFloat(r.soldAmount);
