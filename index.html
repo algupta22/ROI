@@ -703,7 +703,7 @@ var actUpOpen=false,actUpPreview=null,actUpMsg='';
 // ── APP STATE ─────────────────────────────────────────────────────────────────
 var ap='all',as='ret-all',typeFilter='all',ocFilter='all',expiringOnly=false,sc='ticker',sd=1;
 var selectedTickers=new Set(['ALL']),editingPrice=null,dropdownOpen=false;
-var editCell=null,activeView='positions',spreadsOcFilter='open',spreadsExpFilter='all';
+var editCell=null,activeView='positions',spreadsOcFilter='open',spreadsExpFilter='all',spreadsTypeFilter='all';
 var modal=null,showUpload=false,csvPreview=null,importMsg='';
 var expandedGroups=new Set();
 
@@ -1401,7 +1401,7 @@ function attachUploadEvents(){
 function parseDate(s){if(!s)return null;try{var d=new Date(s);return isNaN(d)?null:d;}catch(e){return null;}}
 function buildSpreadPairs(data){
   var thisFriSp=getThisFriday(),nextFriSp=getNextFriday();
-  var pool=(spreadsOcFilter==='open'?data.filter(function(r){return!isCl(r);}):spreadsOcFilter==='closed'?data.filter(function(r){return isCl(r);}):data).filter(function(r){return selectedTickers.has('ALL')||selectedTickers.has(r.ticker);}).filter(function(r){if(spreadsExpFilter==='this-week'){if(!r.expiryDate)return false;var d=parseDate(r.expiryDate);return d&&d<=thisFriSp;}if(spreadsExpFilter==='next-week'){if(!r.expiryDate)return false;var d=parseDate(r.expiryDate);return d&&d>thisFriSp&&d<=nextFriSp;}return true;});
+  var pool=(spreadsOcFilter==='open'?data.filter(function(r){return!isCl(r);}):spreadsOcFilter==='closed'?data.filter(function(r){return isCl(r);}):data).filter(function(r){return selectedTickers.has('ALL')||selectedTickers.has(r.ticker);}).filter(function(r){if(spreadsExpFilter==='this-week'){if(!r.expiryDate)return false;var d=parseDate(r.expiryDate);return d&&d<=thisFriSp;}if(spreadsExpFilter==='next-week'){if(!r.expiryDate)return false;var d=parseDate(r.expiryDate);return d&&d>thisFriSp&&d<=nextFriSp;}return true;}).filter(function(r){return spreadsTypeFilter==='all'||r.excelType===spreadsTypeFilter;});
   var tickers=[...new Set(pool.map(function(r){return r.ticker;}))].sort();
   var result=[];
   tickers.forEach(function(ticker){
@@ -1426,7 +1426,10 @@ function rSpreadsView(data){
   var portColors={'lovelina':'#DB2877','amit':'#2563EB','joint':'#059669','amit-roth':'#7C3AED','lov-roth':'#DB2877','lov-trad':'#0891B2'};
   var tN=0,tS=0,netMap={};
   groups.forEach(function(g){var tn=0,ts=0;g.pairs.forEach(function(p){var c=calcSpreadCol(p.sp,p.lp);if(p.lp)ts+=c;else tn+=c;});var net=Math.max(0,tn+ts);netMap[g.ticker]=net;tN+=Math.max(0,tn);tS+=Math.max(0,ts);});
+  var retirementPorts=new Set(['amit-roth','lov-roth','lov-trad']);
   var socs=['all','open','closed'].map(function(o){return'<button class="soc-tab'+(spreadsOcFilter===o?' active':'')+'" data-soc="'+o+'">'+(o==='all'?'All':o==='open'?'Open':'Closed')+'</button>';}).join('');
+  var typeOpts=['all','Short Put','Long Put','Short Call','Long Call'];
+  var stypes=typeOpts.map(function(t){var lbl=t==='all'?'All':t==='Short Put'?'SPUT':t==='Long Put'?'LPUT':t==='Short Call'?'SCALL':'LCALL';return'<button class="soc-tab'+(spreadsTypeFilter===t?' active':'')+'" data-stypef="'+t+'">'+lbl+'</button>';}).join('');
   var tickers=getTickersFrom(data),allSel=selectedTickers.has('ALL');
   var selList=allSel?[]:tickers.filter(function(t){return selectedTickers.has(t);});
   var ddItems=tickers.map(function(t){var sel=allSel||selectedTickers.has(t);return'<div class="ticker-dd-item'+(sel?' selected':'')+'" data-ddticker="'+t+'"><div class="ticker-dd-check">'+(sel?'&#10003;':'')+'</div><span class="dd-dot" style="background:'+(DC[t]||'#888')+'"></span>'+t+'</div>';}).join('');
@@ -1435,8 +1438,8 @@ function rSpreadsView(data){
   var exps=expOpts.map(function(o){return'<button class="soc-tab'+(spreadsExpFilter===o[0]?' active':'')+'" data-expf="'+o[0]+'" style="'+(o[0]==='this-week'&&spreadsExpFilter===o[0]?'background:var(--yellow);color:#000;':o[0]==='next-week'&&spreadsExpFilter===o[0]?'background:var(--blue);':'')+'">'+o[1]+'</button>';}).join('');
   var total=Object.values(netMap).reduce(function(s,v){return s+v;},0);
   var collatChip='<div style="margin-left:auto;display:flex;align-items:center;gap:0.5rem;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:0.28rem 0.75rem;"><span style="font-size:0.62rem;font-weight:700;color:var(--text3);">&#128274; COLLATERAL</span><span style="font-size:0.78rem;font-weight:800;font-family:monospace;color:#EF4444;">$'+total.toLocaleString()+'</span><span style="width:1px;background:var(--border);align-self:stretch;"></span><span style="font-size:0.62rem;color:var(--text3);">Naked</span><span style="font-size:0.72rem;font-weight:700;font-family:monospace;color:#EF4444;">$'+tN.toLocaleString()+'</span><span style="font-size:0.62rem;color:var(--text3);">Spread</span><span style="font-size:0.72rem;font-weight:700;font-family:monospace;color:var(--purple);">$'+tS.toLocaleString()+'</span></div>';
-  var sfb='<div class="spreads-filter-bar"><span class="filter-bar-label">&#127991; Ticker</span><div class="ticker-select-wrap" id="tkwrap"><div class="ticker-select-btn" id="tkbtn" onclick="toggleDropdown()"><div class="sel-tags">'+tags+'</div><span style="color:var(--text3);font-size:0.65rem;">&#9660;</span></div><div class="ticker-dropdown'+(dropdownOpen?' open':'')+'" id="tkdrop"><div class="ticker-dd-item'+(allSel?' selected':'')+'" data-ddticker="ALL"><div class="ticker-dd-check">'+(allSel?'&#10003;':'')+'</div><span style="font-size:0.72rem;font-weight:700;">All Tickers</span></div><div style="height:1px;background:var(--border);margin:0.25rem 0;"></div>'+ddItems+'</div></div><div class="soc-tabs">'+socs+'</div><div style="width:1px;background:var(--border);align-self:stretch;"></div><span class="filter-bar-label">&#128197; Expiry</span><div class="soc-tabs">'+exps+'</div>'+collatChip+'</div>';
-  // Flatten all pairs and indep LPs across all groups into a single list, sort by SP expiry asc
+  var sfb='<div class="spreads-filter-bar"><span class="filter-bar-label">&#127991; Ticker</span><div class="ticker-select-wrap" id="tkwrap"><div class="ticker-select-btn" id="tkbtn" onclick="toggleDropdown()"><div class="sel-tags">'+tags+'</div><span style="color:var(--text3);font-size:0.65rem;">&#9660;</span></div><div class="ticker-dropdown'+(dropdownOpen?' open':'')+'" id="tkdrop"><div class="ticker-dd-item'+(allSel?' selected':'')+'" data-ddticker="ALL"><div class="ticker-dd-check">'+(allSel?'&#10003;':'')+'</div><span style="font-size:0.72rem;font-weight:700;">All Tickers</span></div><div style="height:1px;background:var(--border);margin:0.25rem 0;"></div>'+ddItems+'</div></div><div class="soc-tabs">'+socs+'</div><div style="width:1px;background:var(--border);align-self:stretch;"></div><span class="filter-bar-label">&#128197; Expiry</span><div class="soc-tabs">'+exps+'</div><div style="width:1px;background:var(--border);align-self:stretch;"></div><span class="filter-bar-label">&#127960; Type</span><div class="soc-tabs">'+stypes+'</div>'+collatChip+'</div>';
+  // Flatten all rows, sort by SP expiry asc
   var allRows=[];
   groups.filter(function(g){return g.pairs.length>0||g.independentLPs.length>0;}).forEach(function(g){
     var ticker=g.ticker;
@@ -1446,22 +1449,45 @@ function rSpreadsView(data){
   allRows.sort(function(a,b){return a.sortDate-b.sortDate;});
   var rows=allRows.map(function(item){
     var ticker=item.ticker;
-    var portKey=((item.type==='pair'?(item.pair.sp&&item.pair.sp.portfolio):item.lp.portfolio)||'lovelina');
+    var sp=item.type==='pair'?item.pair.sp:null;
+    var lp=item.type==='pair'?item.pair.lp:item.lp;
+    var portKey=((sp?sp.portfolio:lp?lp.portfolio:null)||'lovelina');
+    var isRetPort=retirementPorts.has(portKey);
     var portClr=portColors[portKey]||'#888';
     var portBadge='<td><span style="display:inline-flex;align-items:center;gap:0.3rem;font-size:0.62rem;font-weight:600;color:'+portClr+'"><span style="width:6px;height:6px;border-radius:50%;background:'+portClr+';flex-shrink:0;"></span>'+(portNames[portKey]||portKey)+'</span></td>';
+    // Stock price for ticker
+    var liveP=(liveCache[ticker]&&liveCache[ticker].price!=null)?liveCache[ticker].price:null;
+    var manP=tickerPrices[ticker]!=null?tickerPrices[ticker]:null;
+    var stockP=liveP!=null?liveP:(manP!=null?manP:null);
+    var stockPcell=stockP!=null?'<span style="font-family:monospace;font-weight:700;">$'+Number(stockP).toFixed(2)+'</span>'+(liveP!=null?'<span class="pcell-badge pcell-badge-live" style="margin-left:3px;">L</span>':'<span class="pcell-badge pcell-badge-manual" style="margin-left:3px;">M</span>'):'<span class="empty">--</span>';
     if(item.type==='pair'){
-      var pair=item.pair,sp=pair.sp,lp=pair.lp,c=calcSpreadCol(sp,lp),isN=!lp;
-      var rn=c<0,cc=isN?'var(--red)':rn?'var(--green)':'var(--purple)';
-      var cd=rn?'<span style="color:var(--green);font-size:0.62rem;">\u2212$'+Math.abs(c).toLocaleString()+' <span style="color:var(--text3);font-weight:400;">(over-hedged)</span></span>':'$'+c.toLocaleString();
-      var badge=isN?'<span class="badge-naked">Naked</span>':'<span class="badge-spread">Spread</span>';
-      return'<tr><td>'+badge+'</td><td class="mc"><span class="chip"><span class="tk-dot-sm" style="background:'+(DC[ticker]||'#888')+'"></span>'+ticker+'</span></td>'+portBadge+'<td class="mn" style="color:var(--red);font-weight:700;">$'+sp.strike+'</td><td class="mn '+ec(sp.expiryDate)+'">'+(sp.expiryDate||'--')+'</td><td class="div-col">\u2194</td><td class="mn" style="color:var(--blue);font-weight:700;">'+(lp?'$'+lp.strike:'<span class="empty">\u2014</span>')+'</td><td class="mn '+(lp?ec(lp.expiryDate):'')+'">'+(lp?lp.expiryDate:'<span class="empty">\u2014</span>')+'</td><td class="mn" style="color:'+cc+';font-weight:800;">'+cd+'</td></tr>';
+      var c,collatDisplay;
+      if(isRetPort){
+        // Retirement: collateral always SP Strike * 100, but also show hedged value
+        var retCol=sp.strike*100;
+        var hedgedCol=calcSpreadCol(sp,lp);
+        var rn2=hedgedCol<0,cc2=rn2?'var(--green)':'var(--purple)';
+        var hedgedStr=lp?(' <span style="font-size:0.58rem;color:'+cc2+';font-weight:600;">(hedged: '+(rn2?'\u2212':'')+'$'+Math.abs(hedgedCol).toLocaleString()+')</span>'):'';
+        collatDisplay='<span style="font-weight:800;font-family:monospace;color:#EF4444;">$'+retCol.toLocaleString()+'</span>'+hedgedStr;
+      } else {
+        c=calcSpreadCol(sp,lp);
+        var isN=!lp,rn=c<0,cc=isN?'var(--red)':rn?'var(--green)':'var(--purple)';
+        collatDisplay=rn?'<span style="color:var(--green);font-size:0.62rem;">\u2212$'+Math.abs(c).toLocaleString()+' <span style="color:var(--text3);font-weight:400;">(over-hedged)</span></span>':'<span style="font-weight:800;font-family:monospace;color:'+cc+';">$'+c.toLocaleString()+'</span>';
+      }
+      var badge=(!lp)?'<span class="badge-naked">Naked</span>':'<span class="badge-spread">Spread</span>';
+      // Red flags
+      var flags='';
+      if(stockP!=null&&sp.strike>stockP)flags+=' <span title="SP Strike above stock price" style="color:#EF4444;font-size:0.85rem;">\uD83D\uDEA9</span>';
+      if(lp&&sp.strike>lp.strike)flags+=' <span title="SP Strike above LP Strike" style="color:#EF4444;font-size:0.85rem;">\uD83D\uDEA9</span>';
+      var typeBadge='<span class="badge bsp" style="opacity:0.85;">SPUT</span>';
+      return'<tr>'+portBadge+'<td class="mc"><span class="chip"><span class="tk-dot-sm" style="background:'+(DC[ticker]||'#888')+'"></span>'+ticker+'</span></td><td>'+stockPcell+'</td><td>'+typeBadge+' '+badge+'</td><td class="mn" style="color:var(--red);font-weight:700;">$'+sp.strike+flags+'</td><td class="mn '+ec(sp.expiryDate)+'">'+(sp.expiryDate||'--')+'</td><td class="div-col">\u2194</td><td class="mn" style="color:var(--blue);font-weight:700;">'+(lp?'$'+lp.strike:'<span class="empty">\u2014</span>')+'</td><td class="mn '+(lp?ec(lp.expiryDate):'')+'">'+(lp?lp.expiryDate:'<span class="empty">\u2014</span>')+'</td><td class="mn">'+collatDisplay+'</td></tr>';
     } else {
-      var lp=item.lp;
-      return'<tr class="indep-row"><td><span class="badge-indep">Indep LP</span></td><td class="mc"><span class="chip"><span class="tk-dot-sm" style="background:'+(DC[ticker]||'#888')+'"></span>'+ticker+'</span></td>'+portBadge+'<td colspan="2" class="empty" style="color:var(--text3);font-style:italic;">No short put paired</td><td class="div-col">\u2194</td><td class="mn" style="color:var(--blue);font-weight:700;">$'+lp.strike+'</td><td class="mn '+ec(lp.expiryDate)+'">'+(lp.expiryDate||'--')+'</td><td class="mn" style="color:var(--text3);">\u2014</td></tr>';
+      var typeBadge2='<span class="badge blp" style="opacity:0.85;">LPUT</span>';
+      return'<tr class="indep-row">'+portBadge+'<td class="mc"><span class="chip"><span class="tk-dot-sm" style="background:'+(DC[ticker]||'#888')+'"></span>'+ticker+'</span></td><td>'+stockPcell+'</td><td>'+typeBadge2+'</td><td colspan="2" class="empty" style="color:var(--text3);font-style:italic;">No short put paired</td><td class="div-col">\u2194</td><td class="mn" style="color:var(--blue);font-weight:700;">$'+lp.strike+'</td><td class="mn '+ec(lp.expiryDate)+'">'+(lp.expiryDate||'--')+'</td><td class="mn" style="color:var(--text3);">\u2014</td></tr>';
     }
   });
-  var tableBody=rows.length>0?rows.join(''):'<tr><td colspan="9" class="ec" style="padding:2rem;text-align:center;color:var(--text3);">'+(has?'No positions match the selected expiry filter.':'No put positions found. Short puts and long puts will appear here paired by expiry.')+'</td></tr>';
-  return sfb+'<div class="st-wrap"><table><thead><tr><th>Type</th><th>Ticker</th><th>Portfolio</th><th class="sp-hdr">SP Strike</th><th class="sp-hdr">SP Expiry</th><th class="div-hdr"></th><th class="lp-hdr">LP Strike</th><th class="lp-hdr">LP Expiry</th><th class="col-hdr">Collateral</th></tr></thead><tbody>'+tableBody+'</tbody></table></div>';
+  var tableBody=rows.length>0?rows.join(''):'<tr><td colspan="10" class="ec" style="padding:2rem;text-align:center;color:var(--text3);">'+(has?'No positions match the selected filters.':'No put positions found. Short puts and long puts will appear here paired by expiry.')+'</td></tr>';
+  return sfb+'<div class="st-wrap"><table><thead><tr><th>Portfolio</th><th>Ticker</th><th>Stock Price</th><th>Type</th><th class="sp-hdr">SP Strike</th><th class="sp-hdr">SP Expiry</th><th class="div-hdr"></th><th class="lp-hdr">LP Strike</th><th class="lp-hdr">LP Expiry</th><th class="col-hdr">Collateral</th></tr></thead><tbody>'+tableBody+'</tbody></table></div>';
 }
 
 // ── ADMIN / PRICES VIEW ───────────────────────────────────────────────────────
@@ -1860,7 +1886,7 @@ function attachEvents(){
   document.querySelectorAll('.sel-tag-x').forEach(function(x){x.addEventListener('click',function(e){e.stopPropagation();selectedTickers.delete(x.dataset.xticker);if(!selectedTickers.size)selectedTickers=new Set(['ALL']);rMain();});});
   document.querySelectorAll('.type-tab').forEach(function(b){b.addEventListener('click',function(){typeFilter=b.dataset.typef;rMain();});});
   document.querySelectorAll('.oc-tab').forEach(function(b){b.addEventListener('click',function(){ocFilter=b.dataset.ocf;rMain();});});
-  document.querySelectorAll('.soc-tab').forEach(function(b){b.addEventListener('click',function(){if(b.dataset.soc)spreadsOcFilter=b.dataset.soc;if(b.dataset.expf)spreadsExpFilter=b.dataset.expf;rMain();});});
+  document.querySelectorAll('.soc-tab').forEach(function(b){b.addEventListener('click',function(){if(b.dataset.soc)spreadsOcFilter=b.dataset.soc;if(b.dataset.expf)spreadsExpFilter=b.dataset.expf;if(b.dataset.stypef)spreadsTypeFilter=b.dataset.stypef;rMain();});});
   document.querySelectorAll('.act-tab').forEach(function(b){b.addEventListener('click',function(){actFilter=b.dataset.actf;actPage=0;rMain();});});
   var ep=document.getElementById('exp-pill');if(ep)ep.addEventListener('click',function(){expiringOnly=!expiringOnly;rMain();});
   attachUploadEvents();
