@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-13T22:56:22.744Z",
+  "savedAt": "2026-04-13T23:01:36.783Z",
   "positions": [
     {
       "id": "d53fqivm",
@@ -632,26 +632,6 @@
       "notes": "PLTR 3/19/2027 Call $95.00"
     },
     {
-      "id": "bwypwy2a",
-      "portfolio": "lovelina",
-      "ticker": "QQQ",
-      "excelType": "Long Call",
-      "strike": 638,
-      "expiryDate": "5/29/2026",
-      "openDate": "3/30/2026",
-      "contracts": 1,
-      "excelCost": 119.04,
-      "excelIncome": 0,
-      "excelGrossValue": 119.04,
-      "excelCurrentValue": 0,
-      "excelProfit": -119.04,
-      "closed": false,
-      "rolledOver": false,
-      "closeAction": null,
-      "manualPrice": null,
-      "notes": "QQQ 5/29/2026 Call $638.00"
-    },
-    {
       "id": "ciczi7no",
       "portfolio": "lovelina",
       "ticker": "PLTR",
@@ -665,9 +645,17 @@
       "excelGrossValue": 7700.04,
       "excelCurrentValue": 0,
       "excelProfit": -7700.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": null,
+        "notes": "",
+        "date": "4/13/26"
+      },
       "manualPrice": null,
       "notes": "PLTR 3/19/2027 Call $75.00"
     },
@@ -709,7 +697,8 @@
       "rolledOver": false,
       "closeAction": null,
       "manualPrice": null,
-      "notes": "SOFI 1/15/2027 Call $12.00"
+      "notes": "SOFI 1/15/2027 Call $12.00",
+      "cvOverride": 673
     },
     {
       "id": "3izth634",
@@ -725,9 +714,17 @@
       "excelGrossValue": 6331.04,
       "excelCurrentValue": 0,
       "excelProfit": -6331.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": null,
+        "notes": "",
+        "date": "4/13/26"
+      },
       "manualPrice": null,
       "notes": "PLTR 1/15/2027 Call $105.00"
     },
@@ -749,27 +746,8 @@
       "rolledOver": false,
       "closeAction": null,
       "manualPrice": null,
-      "notes": "NVDX 1/15/2027 Call $10.43"
-    },
-    {
-      "id": "546qi580",
-      "portfolio": "lovelina",
-      "ticker": "QQQ",
-      "excelType": "Long Call",
-      "strike": 641,
-      "expiryDate": "4/30/2026",
-      "openDate": "3/2/2026",
-      "contracts": 1,
-      "excelCost": 630.04,
-      "excelIncome": 0,
-      "excelGrossValue": 630.04,
-      "excelCurrentValue": 0,
-      "excelProfit": -630.04,
-      "closed": false,
-      "rolledOver": false,
-      "closeAction": null,
-      "manualPrice": null,
-      "notes": "QQQ 4/30/2026 Call $641.00"
+      "notes": "NVDX 1/15/2027 Call $10.43",
+      "cvOverride": 720
     },
     {
       "id": "hiocu9ec",
@@ -789,7 +767,8 @@
       "rolledOver": false,
       "closeAction": null,
       "manualPrice": null,
-      "notes": "SOFI 1/15/2027 Call $12.00"
+      "notes": "SOFI 1/15/2027 Call $12.00",
+      "cvOverride": 673
     },
     {
       "id": "h7zo15nb",
@@ -805,9 +784,17 @@
       "excelGrossValue": 5425.04,
       "excelCurrentValue": 0,
       "excelProfit": -5425.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": null,
+        "notes": "",
+        "date": "4/13/26"
+      },
       "manualPrice": null,
       "notes": "PLTR 1/15/2027 Call $87.50"
     },
@@ -829,7 +816,8 @@
       "rolledOver": false,
       "closeAction": null,
       "manualPrice": null,
-      "notes": "SOFI 1/15/2027 Call $12.00"
+      "notes": "SOFI 1/15/2027 Call $12.00",
+      "cvOverride": 673
     }
   ],
   "tickerPrices": {
