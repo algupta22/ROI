@@ -1088,16 +1088,16 @@ function rTable(data){
     html+='<td class="mn" style="color:'+cvColor+';font-weight:700;">'+fmtMoney(totalCV)+'</td>';
     html+='<td class="mn" style="font-weight:700;color:'+grpBeColor+';">'+grpBeLabel+'</td>';
     html+='<td style="min-width:110px;"><div class="pcell">'+pd+'</div></td>';
-    html+='<td></td>';
+    html+='<td></td>';  // Type col blank
+    html+='<td class="mn" style="font-size:0.65rem;color:var(--text3);">'+strikeCell+'</td>';  // Strike col = count
     // Assn. Req. at ticker level
     html+='<td class="mn" style="font-weight:700;color:var(--red);">'+(totalAssnReq>0?'$'+totalAssnReq.toLocaleString():'--')+'</td>';
     // Collateral Blocked (editable)
     var cbDisplay=cbVal!=null?'<span style="font-family:monospace;font-weight:700;">$'+cbVal.toLocaleString()+'</span><button class="pcell-act" onclick="event.stopPropagation();(function(){var v=prompt(\'Collateral Blocked for '+ticker+':\',\''+  (cbVal||0)+'\');if(v===null)return;var n=parseFloat(v);setCollatBlocked(\''+ticker+'\',isNaN(n)?null:n);rMain();})()" style="margin-left:4px;">ed</button>':'<span style="color:var(--text3);font-size:0.65rem;">--</span><button class="pcell-act" onclick="event.stopPropagation();(function(){var v=prompt(\'Collateral Blocked for '+ticker+':\',\'0\');if(v===null)return;var n=parseFloat(v);setCollatBlocked(\''+ticker+'\',isNaN(n)?null:n);rMain();})()" style="margin-left:4px;">+set</button>';
     html+='<td class="mn" style="font-weight:700;">'+cbDisplay+'</td>';
-    // Gap
+    // Col. Gap
     var gapColor=cbGap!=null?(cbGap>=0?'var(--red)':'var(--green)'):'var(--text3)';
     html+='<td class="mn" style="font-weight:700;color:'+gapColor+'">'+(cbGap!=null?(cbGap>=0?'+':'')+cbGap.toLocaleString():'--')+'</td>';
-    html+='<td class="mn" style="font-size:0.65rem;color:var(--text3);">'+strikeCell+'</td>';
     html+='<td class="'+(hasExp?'es':'ef')+'" style="font-size:0.65rem;">'+expiryCell+(hasExp?' &#9888;':'')+'</td>';
     html+='<td style="text-align:center"><button class="add-pos-btn" style="font-size:0.6rem;padding:0.18rem 0.5rem;" onclick="event.stopPropagation();openAddModal()" title="Add position">+ Add</button></td>';
     html+='<td colspan="3"></td>';
