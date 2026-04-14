@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-14T01:05:27.345Z",
+  "savedAt": "2026-04-14T01:07:32.428Z",
   "positions": [
     {
       "id": "uspq1v6c",
@@ -646,7 +646,8 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "MSFT 4/17/2026 Put $372.50",
-      "soldAmount": 829.93
+      "soldAmount": 829.93,
+      "cvOverride": -124
     },
     {
       "id": "kq3x58ta",
@@ -1459,7 +1460,8 @@
       "rolledOver": false,
       "closeAction": null,
       "manualPrice": null,
-      "notes": "MSFT 5/15/2026 Put $375.00"
+      "notes": "MSFT 5/15/2026 Put $375.00",
+      "cvOverride": 1228
     },
     {
       "id": "f6dhb5h3",
