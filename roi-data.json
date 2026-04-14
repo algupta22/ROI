@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-14T01:35:20.998Z",
+  "savedAt": "2026-04-14T01:44:29.294Z",
   "positions": [
     {
       "id": "uspq1v6c",
@@ -534,7 +534,8 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "NVDX 4/17/2026 Put $15.00",
-      "soldAmount": 37.94
+      "soldAmount": 37.94,
+      "cvOverride": -10
     },
     {
       "id": "pf3i4a98",
@@ -1196,7 +1197,8 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "NVDX 4/17/2026 Put $14.50",
-      "soldAmount": 91.94
+      "soldAmount": 91.94,
+      "cvOverride": -8
     },
     {
       "id": "w9yoc8ce",
@@ -1555,7 +1557,8 @@
       "rolledOver": false,
       "closeAction": null,
       "manualPrice": null,
-      "notes": "NVDX 5/15/2026 Put $15.00"
+      "notes": "NVDX 5/15/2026 Put $15.00",
+      "cvOverride": 70
     },
     {
       "id": "jd3ratqo",
@@ -2077,7 +2080,8 @@
       "rolledOver": false,
       "closeAction": null,
       "manualPrice": null,
-      "notes": "NVDX 6/18/2026 Put $15.43"
+      "notes": "NVDX 6/18/2026 Put $15.43",
+      "cvOverride": 165
     },
     {
       "id": "bfkwsudh",
@@ -4693,9 +4697,17 @@
       "excelGrossValue": 340.04,
       "excelCurrentValue": 0,
       "excelProfit": -340.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": null,
+        "notes": "",
+        "date": "4/13/26"
+      },
       "manualPrice": null,
       "notes": "NVDX 6/18/2026 Put $16.43"
     },
@@ -4717,7 +4729,8 @@
       "rolledOver": false,
       "closeAction": null,
       "manualPrice": null,
-      "notes": "NVDX 1/15/2027 Call $10.43"
+      "notes": "NVDX 1/15/2027 Call $10.43",
+      "cvOverride": 720
     },
     {
       "id": "617pfv8h",
