@@ -889,9 +889,16 @@ function rCashCard(){
     +'<span style="font-size:0.92rem;font-weight:800;font-family:monospace;color:'+diffColor+';">'+fmtKSign(diff)+'</span>'
     +'</div>';
 
-  return'<div class="cash-card"><div class="cash-lbl"><span>&#128181; Cash</span></div>'
-    +initRow+currRow+diffRow
-    +'<div class="cash-sub" style="margin-top:0.35rem;">'+portLabel+(isAll?' &mdash; edit per portfolio tab':'')+'</div></div>';
+  // Collateral Blocked total and Gap
+  var totalCB=0;for(var tk in collatBlocked){if(collatBlocked[tk])totalCB+=collatBlocked[tk];}
+  var portKey2=ap==='retirement'?as:ap;
+  var portPos=positions.filter(function(r){return(ap==='all'||(r.portfolio||'lovelina')===portKey2)&&r.excelType==='Short Put'&&!isCl(r)&&r.strike>0;});
+  var totalAR=portPos.reduce(function(s,r){return s+r.strike*100;},0);
+  var colGap=totalAR>0?totalAR-totalCB:null;
+  var colGapColor=colGap!=null?(colGap>0?'#F87171':'#34D399'):'rgba(255,255,255,0.65)';
+  var cbRow='<div style="border-top:1px solid rgba(255,255,255,0.1);margin-top:0.45rem;padding-top:0.38rem;">'    +'<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.25rem;">'    +'<span style="font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.4);">Col. Blocked</span>'    +'<span style="font-size:0.88rem;font-weight:800;font-family:monospace;color:rgba(255,255,255,0.65);">'+fmtK(totalCB)+'</span>'    +'</div>'    +'<div style="display:flex;align-items:center;justify-content:space-between;">'    +'<span style="font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.4);">Col. Gap</span>'    +'<span style="font-size:0.88rem;font-weight:800;font-family:monospace;color:'+colGapColor+';">'+((colGap!=null)?fmtKSign(colGap):'--')+'</span>'    +'</div>'    +'</div>';
+
+  return'<div class="cash-card"><div class="cash-lbl"><span>&#128181; Cash</span></div>'    +initRow+currRow+diffRow+cbRow    +'<div class="cash-sub" style="margin-top:0.35rem;">'+portLabel+(isAll?' &mdash; edit per portfolio tab':'')+'</div></div>';
 }
 function cashEdit(){editingCash=true;editingInitCash=false;rMain();setTimeout(function(){var i=document.getElementById('cash-inp');if(i){i.focus();i.select();}},30);}
 function cashSave(){var i=document.getElementById('cash-inp');if(i){var v=parseFloat(i.value);if(!isNaN(v))setPortCash(v);}editingCash=false;rMain();}
@@ -2157,8 +2164,14 @@ async function ghGet(token,repo,branch,file){
   if(!txt||!txt.trim())throw new Error('GitHub returned empty response');
   var j;try{j=JSON.parse(txt);}catch(e){throw new Error('GitHub response parse failed: '+txt.slice(0,200));}
   // File content may be split across multiple lines in base64
-  var raw;try{raw=decodeURIComponent(escape(atob(j.content.replace(/\s/g,''))));}catch(e){throw new Error('Base64 decode failed: '+e.message);}
-  var data;try{data=JSON.parse(raw);}catch(e){throw new Error('Data JSON parse failed: '+e.message);}
+  var raw;try{raw=decodeURIComponent(escape(atob(j.content.replace(/\s/g,''))));}catch(e){
+    console.warn('Base64 decode failed, treating as empty:',e.message);
+    return{exists:true,sha:j.sha,data:null};
+  }
+  var data;try{data=JSON.parse(raw);}catch(e){
+    console.warn('Data JSON parse failed (corrupted file), will overwrite:',e.message);
+    return{exists:true,sha:j.sha,data:null};
+  }
   return{exists:true,sha:j.sha,data:data};
 }
 async function ghPut(token,repo,branch,file,content,sha){
@@ -2181,6 +2194,7 @@ async function ghSave(){
   try{
     if(!cfg.branch){var b=await ghDetect(token,cfg.repo);if(!b)throw new Error('Cannot find main or master branch in: '+cfg.repo+'. Check repo name in \u2699 settings.');cfg.branch=b;ghSetCfg(cfg);}
     var got=await ghGet(token,cfg.repo,cfg.branch,cfg.file);
+    // got.data may be null if existing file is corrupted — still use sha to overwrite
     await ghPut(token,cfg.repo,cfg.branch,cfg.file,ghCollect(),got.sha);
     if(sb){sb.textContent='\u2601 Save to GitHub';sb.style.background='rgba(5,150,105,0.6)';}
     setTimeout(function(){if(sb){sb.textContent='\u2601 Save to GitHub';sb.style.background='';}if(sb)sb.disabled=false;if(lb)lb.disabled=false;},2500);
