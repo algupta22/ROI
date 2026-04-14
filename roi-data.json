@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-14T00:59:23.808Z",
+  "savedAt": "2026-04-14T01:05:27.345Z",
   "positions": [
     {
       "id": "uspq1v6c",
@@ -21,7 +21,8 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "GOOGL 4/15/2026 Put $310.00",
-      "soldAmount": 46.94
+      "soldAmount": 46.94,
+      "cvOverride": -35
     },
     {
       "id": "oj8bhdti",
@@ -688,12 +689,21 @@
       "excelGrossValue": 86.94,
       "excelCurrentValue": 0,
       "excelProfit": 86.94,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": 86.94,
+        "notes": "",
+        "date": "4/13/26"
+      },
       "manualPrice": null,
       "notes": "GOOGL 4/13/2026 Put $307.50",
-      "soldAmount": 86.94
+      "soldAmount": 86.94,
+      "cvOverride": 0
     },
     {
       "id": "0drj2i4r",
@@ -1400,7 +1410,8 @@
       "rolledOver": false,
       "closeAction": null,
       "manualPrice": null,
-      "notes": "GOOGL 5/15/2026 Put $300.00"
+      "notes": "GOOGL 5/15/2026 Put $300.00",
+      "cvOverride": 570
     },
     {
       "id": "lpm9ll5c",
