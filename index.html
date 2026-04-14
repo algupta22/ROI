@@ -690,6 +690,11 @@ function loadTP(){try{return JSON.parse(localStorage.getItem(TP_KEY)||'{}');}cat
 function saveTP(p){try{localStorage.setItem(TP_KEY,JSON.stringify(p));}catch(e){}}
 var tickerPrices=loadTP();
 function setTickerPrice(t,p){if(p==null||isNaN(p)){delete tickerPrices[t];}else{tickerPrices[t]=p;}saveTP(tickerPrices);}
+var CB_KEY='roi_collat_blocked_v1';
+function loadCB(){try{return JSON.parse(localStorage.getItem(CB_KEY)||'{}');}catch(e){return{};}}
+function saveCB(){try{localStorage.setItem(CB_KEY,JSON.stringify(collatBlocked));}catch(e){}}
+var collatBlocked=loadCB();
+function setCollatBlocked(ticker,v){if(v==null||isNaN(v)){delete collatBlocked[ticker];}else{collatBlocked[ticker]=v;}saveCB();}
 
 // ── ACTIVITY ──────────────────────────────────────────────────────────────────
 var ACT_KEY='roi_activity_v1';
@@ -1067,6 +1072,10 @@ function rTable(data){
     var grpBeRaw=totalSold+totalCV-totalCost;
     var grpBeColor=grpBeRaw>=0?'var(--green)':'var(--red)';
     var grpBeLabel=(grpBeRaw>=0?'+':'-')+'$'+Math.abs(grpBeRaw).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+    // Assn. Req. = sum of (strike*100) for open SPUTs
+    var totalAssnReq=rows.filter(function(r){return r.excelType==='Short Put'&&r.strike>0&&!isCl(r);}).reduce(function(s,r){return s+r.strike*100;},0);
+    var cbVal=collatBlocked[ticker]!=null?collatBlocked[ticker]:null;
+    var cbGap=cbVal!=null&&totalAssnReq>0?totalAssnReq-cbVal:null;
 
     // Summary row
     html+='<tr class="'+sumRowCls+'" style="cursor:pointer;background:#F8F8F8;border-left:3px solid '+(DC[ticker]||'#888')+';" onclick="toggleGroup('+Q+gk+Q+')">';
@@ -1080,6 +1089,14 @@ function rTable(data){
     html+='<td class="mn" style="font-weight:700;color:'+grpBeColor+';">'+grpBeLabel+'</td>';
     html+='<td style="min-width:110px;"><div class="pcell">'+pd+'</div></td>';
     html+='<td></td>';
+    // Assn. Req. at ticker level
+    html+='<td class="mn" style="font-weight:700;color:var(--red);">'+(totalAssnReq>0?'$'+totalAssnReq.toLocaleString():'--')+'</td>';
+    // Collateral Blocked (editable)
+    var cbDisplay=cbVal!=null?'<span style="font-family:monospace;font-weight:700;">$'+cbVal.toLocaleString()+'</span><button class="pcell-act" onclick="event.stopPropagation();(function(){var v=prompt(\'Collateral Blocked for '+ticker+':\',\''+  (cbVal||0)+'\');if(v===null)return;var n=parseFloat(v);setCollatBlocked(\''+ticker+'\',isNaN(n)?null:n);rMain();})()" style="margin-left:4px;">ed</button>':'<span style="color:var(--text3);font-size:0.65rem;">--</span><button class="pcell-act" onclick="event.stopPropagation();(function(){var v=prompt(\'Collateral Blocked for '+ticker+':\',\'0\');if(v===null)return;var n=parseFloat(v);setCollatBlocked(\''+ticker+'\',isNaN(n)?null:n);rMain();})()" style="margin-left:4px;">+set</button>';
+    html+='<td class="mn" style="font-weight:700;">'+cbDisplay+'</td>';
+    // Gap
+    var gapColor=cbGap!=null?(cbGap>=0?'var(--red)':'var(--green)'):'var(--text3)';
+    html+='<td class="mn" style="font-weight:700;color:'+gapColor+'">'+(cbGap!=null?(cbGap>=0?'+':'')+cbGap.toLocaleString():'--')+'</td>';
     html+='<td class="mn" style="font-size:0.65rem;color:var(--text3);">'+strikeCell+'</td>';
     html+='<td class="'+(hasExp?'es':'ef')+'" style="font-size:0.65rem;">'+expiryCell+(hasExp?' &#9888;':'')+'</td>';
     html+='<td style="text-align:center"><button class="add-pos-btn" style="font-size:0.6rem;padding:0.18rem 0.5rem;" onclick="event.stopPropagation();openAddModal()" title="Add position">+ Add</button></td>';
@@ -1172,7 +1189,10 @@ function rTable(data){
         html+='<td></td>';
         html+='<td style="min-width:110px;">'+priceCellC+'</td>';
         html+='<td><span class="badge '+bct(r.excelType)+'" title="'+r.excelType+'" style="opacity:0.6;">'+(typeShort[r.excelType]||r.excelType)+'</span></td>';
+        var assnReq=r.excelType==='Short Put'&&r.strike>0&&!isCl(r)?(r.strike*100):null;
         html+='<td class="mn">'+(r.strike>0?'$'+r.strike:'--')+'</td>';
+        html+='<td class="mn" style="color:var(--red);font-weight:600;">'+(assnReq!=null?'$'+assnReq.toLocaleString():'--')+'</td>';
+        html+='<td></td><td></td>';
         html+='<td class="'+(isExp2?'es':'ef')+'">'+(r.expiryDate||'--')+(isExp2?' &#9888;':'')+'</td>';
         html+='<td>'+actionCellC+'</td>';
         html+='<td style="text-align:center"><button class="row-edit-btn" onclick="openEditModal('+Q+r.id+Q+')" title="Edit">&#9998;</button></td>';
@@ -1184,7 +1204,7 @@ function rTable(data){
   });
 
   var phdr=portHeader?'<th style="color:rgba(255,255,255,0.7);">Portfolio</th>':'';
-  return'<div class="table-wrap"><table><thead><tr><th>Ticker</th>'+phdr+'<th>Open Dt</th><th>Cost</th><th>Sold</th><th>Net Inc</th><th>Curr Val</th><th>Gap</th><th style="min-width:110px;">Price</th><th>Type</th><th>Strike</th><th>Expiry</th><th>Action</th><th>Ed</th><th>Cp</th><th>Del</th></tr></thead><tbody>'+html+'</tbody></table></div>';
+  return'<div class="table-wrap"><table><thead><tr><th>Ticker</th>'+phdr+'<th>Open Dt</th><th>Cost</th><th>Sold</th><th>Net Inc</th><th>Curr Val</th><th>Gap</th><th style="min-width:110px;">Price</th><th>Type</th><th>Strike</th><th style="color:#FCA5A5;">Assn. Req.</th><th style="color:#FCD34D;">Col. Blocked</th><th style="color:#6EE7B7;">Col. Gap</th><th>Expiry</th><th>Action</th><th>Ed</th><th>Cp</th><th>Del</th></tr></thead><tbody>'+html+'</tbody></table></div>';
 }
 
 // ── CLOSE MODAL ───────────────────────────────────────────────────────────────
@@ -2117,13 +2137,14 @@ function ghGetToken(){return localStorage.getItem(GH_TK)||'';}
 function ghSetToken(t){localStorage.setItem(GH_TK,t);}
 function ghGetCfg(){try{var c=JSON.parse(localStorage.getItem(GH_CF)||'{}');return{repo:c.repo||'algupta22/Ricks-Trading',branch:c.branch||'',file:c.file||'roi-data.json'};}catch(e){return{repo:'algupta22/Ricks-Trading',branch:'',file:'roi-data.json'};}}
 function ghSetCfg(c){localStorage.setItem(GH_CF,JSON.stringify(c));}
-function ghCollect(){return{version:2,savedAt:new Date().toISOString(),positions:positions,tickerPrices:tickerPrices,activityData:activityData,cashBalances:cashBalances,initialCashBalances:initialCashBalances};}
+function ghCollect(){return{version:2,savedAt:new Date().toISOString(),positions:positions,tickerPrices:tickerPrices,activityData:activityData,cashBalances:cashBalances,initialCashBalances:initialCashBalances,collatBlocked:collatBlocked};}
 function ghApply(d){
   if(!d||d.version!==2)return false;
   if(Array.isArray(d.positions))positions=d.positions;
   if(d.tickerPrices&&typeof d.tickerPrices==='object'){Object.assign(tickerPrices,d.tickerPrices);saveTP(tickerPrices);}
   if(d.activityData&&typeof d.activityData==='object'){Object.assign(activityData,d.activityData);saveAct(activityData);}
   if(d.cashBalances&&typeof d.cashBalances==='object'){Object.assign(cashBalances,d.cashBalances);saveCash();}
+  if(d.collatBlocked&&typeof d.collatBlocked==='object'){Object.assign(collatBlocked,d.collatBlocked);saveCB();}
   if(d.initialCashBalances&&typeof d.initialCashBalances==='object'){Object.assign(initialCashBalances,d.initialCashBalances);saveInitCash();}
   savePositions();return true;
 }
