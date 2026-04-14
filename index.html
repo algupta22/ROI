@@ -1384,8 +1384,7 @@ function parseBrokerageCSV(text){
   var headers=splitLine(lines[0]).map(function(h){return h.toLowerCase().replace(/[\s_-]/g,'');});
   var col={};
   headers.forEach(function(h,i){
-    if(h==='profile'||h==='portfolio')col.prof=i;
-    else if(h==='opendate'||h==='activitydate'||h==='date')col.d=i;
+    if(h==='opendate'||h==='activitydate'||h==='date')col.d=i;
     else if(h==='ticker'||h==='instrument'||h==='symbol')col.tk=i;
     else if(h==='expirydate'||h==='expiry')col.exp=i;
     else if(h==='transcode'||h==='transactioncode'||h==='action')col.tc=i;
@@ -1418,7 +1417,7 @@ function parseBrokerageCSV(text){
     var v=splitLine(line);if(v.every(function(x){return!x;}))continue;
     var gv=function(vv){return function(idx){return idx!=null?(vv[idx]||'').trim():'';};};
     var gf=gv(v);
-    var prof=gf(col.prof),openDate=gf(col.d),ticker=(gf(col.tk)||'').toUpperCase(),desc=gf(col.ds),tcRaw=(gf(col.tc)||'').toUpperCase(),rawAmt=gf(col.a);
+    var openDate=gf(col.d),ticker=(gf(col.tk)||'').toUpperCase(),desc=gf(col.ds),tcRaw=(gf(col.tc)||'').toUpperCase(),rawAmt=gf(col.a);
     if(!ticker){errors.push('Row '+(i+1)+': missing ticker');continue;}
     var excelType=deriveType(desc,tcRaw);
     if(!excelType){errors.push('Row '+(i+1)+': cannot derive type from description "'+desc+'"');continue;}
@@ -1472,10 +1471,9 @@ function parseBrokerageCSV(text){
         };
       }
     }
-    var portfolio=normProfile(prof)||'joint';
     var uid=Math.random().toString(36).slice(2,10);
     var pos={
-      id:uid,portfolio:portfolio,ticker:ticker,excelType:excelType,
+      id:uid,portfolio:null,ticker:ticker,excelType:excelType,
       strike:strike,expiryDate:expiryDate,openDate:openDate,contracts:1,
       excelCost:excelCost,excelIncome:soldAmount!=null?Math.abs(soldAmount):0,
       excelGrossValue:soldAmount!=null?Math.abs(soldAmount):excelCost,
