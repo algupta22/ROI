@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-14T01:54:37.283Z",
+  "savedAt": "2026-04-14T02:15:03.886Z",
   "positions": [
     {
       "id": "uspq1v6c",
@@ -920,7 +920,8 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "NVTS 4/17/2026 Put $8.50",
-      "soldAmount": 15.94
+      "soldAmount": 15.94,
+      "cvOverride": -6
     },
     {
       "id": "cpi28oi8",
@@ -941,7 +942,8 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "NVTS 4/17/2026 Put $8.50",
-      "soldAmount": 15.94
+      "soldAmount": 15.94,
+      "cvOverride": -6
     },
     {
       "id": "ukdv2so4",
@@ -1368,7 +1370,8 @@
       "rolledOver": false,
       "closeAction": null,
       "manualPrice": null,
-      "notes": "TSLL 5/22/2026 Put $11.00"
+      "notes": "TSLL 5/22/2026 Put $11.00",
+      "cvOverride": 134
     },
     {
       "id": "1siq7dn6",
@@ -1586,9 +1589,17 @@
       "excelGrossValue": 168.04,
       "excelCurrentValue": 0,
       "excelProfit": -168.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": null,
+        "notes": "",
+        "date": "4/13/26"
+      },
       "manualPrice": null,
       "notes": "TSLL 5/15/2026 Put $13.00"
     },
@@ -2679,16 +2690,38 @@
       "expiryDate": "5/8/2026",
       "openDate": "3/27/2026",
       "contracts": 1,
-      "excelCost": 288.08,
+      "excelCost": 144.04,
       "excelIncome": 0,
       "excelGrossValue": 288.08,
-      "excelCurrentValue": 0,
-      "excelProfit": -288.08,
+      "excelCurrentValue": 288.08,
+      "excelProfit": 144.04,
       "closed": false,
       "rolledOver": false,
       "closeAction": null,
       "manualPrice": null,
-      "notes": "NVTS 5/8/2026 Put $8.50"
+      "notes": "NVTS 5/8/2026 Put $8.50",
+      "cvOverride": 52
+    },
+    {
+      "id": "ryqhfs8k",
+      "portfolio": "lovelina",
+      "ticker": "NVTS",
+      "excelType": "Long Put",
+      "strike": 8.5,
+      "expiryDate": "5/8/2026",
+      "openDate": "3/27/2026",
+      "contracts": 1,
+      "excelCost": 144.04,
+      "excelIncome": 0,
+      "excelGrossValue": 288.08,
+      "excelCurrentValue": 288.08,
+      "excelProfit": 144.04,
+      "closed": false,
+      "rolledOver": false,
+      "closeAction": null,
+      "manualPrice": null,
+      "notes": "NVTS 5/8/2026 Put $8.50",
+      "cvOverride": 52
     },
     {
       "id": "isnfb181",
