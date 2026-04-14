@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-14T01:25:20.451Z",
+  "savedAt": "2026-04-14T01:35:20.998Z",
   "positions": [
     {
       "id": "uspq1v6c",
@@ -555,7 +555,8 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "PLTR 4/24/2026 Put $136.00",
-      "soldAmount": 899.93
+      "soldAmount": 899.93,
+      "cvOverride": -678
     },
     {
       "id": "6lm54w4z",
@@ -603,7 +604,30 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "PLTR 4/24/2026 Put $138.00",
-      "soldAmount": 1046.92
+      "soldAmount": 1046.92,
+      "cvOverride": -808
+    },
+    {
+      "id": "kiqz2osh",
+      "portfolio": "lovelina",
+      "ticker": "PLTR",
+      "excelType": "Short Put",
+      "strike": 140,
+      "expiryDate": "05/15",
+      "openDate": "4/9/2026",
+      "contracts": 1,
+      "excelCost": 0,
+      "excelIncome": 1046.92,
+      "excelGrossValue": 1046.92,
+      "excelCurrentValue": 0,
+      "excelProfit": 1046.92,
+      "closed": false,
+      "rolledOver": false,
+      "closeAction": null,
+      "manualPrice": null,
+      "notes": "PLTR 4/24/2026 Put $138.00",
+      "soldAmount": 0,
+      "cvOverride": 0
     },
     {
       "id": "gnwqq2ob",
