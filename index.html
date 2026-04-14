@@ -903,7 +903,46 @@ function rSum(s){
     +consolidatedCard
     +'<div class="gain-card"><div class="gain-title">Gains</div><div class="gain-row"><span class="gain-label">&#9989; Realized</span><span class="gain-val" style="color:'+(s.realized>=0?'var(--green)':'var(--red)')+'">'+fp(s.realized)+'</span></div><div class="gain-divider"></div><div class="gain-row"><span class="gain-label">&#9201; Unrealized</span><span class="gain-val" style="color:'+(s.unrealized>=0?'var(--green)':'var(--red)')+'">'+fp(s.unrealized)+'</span></div><div class="gain-divider"></div><div class="gain-row"><span class="gain-label" style="font-weight:800;color:var(--black);">&#931; Total</span><span class="gain-val" style="color:'+(s.totalGain>=0?'var(--green)':'var(--red)')+';font-size:1rem;">'+fp(s.totalGain)+'</span></div></div>'
     +(function(){var cash=getPortCash(),initCash=getPortInitCash(),total=s.gv+cash,diff=total-initCash,diffColor=diff>=0?'var(--green)':'var(--red)';return'<div class="scard" style="border-left:3px solid var(--red);padding:0.85rem 1rem;"><div style="display:flex;flex-direction:column;gap:0.5rem;"><div style="display:flex;align-items:center;justify-content:space-between;"><div class="scard-label" style="color:var(--text3);margin-bottom:0;">Positions Value</div><div class="scard-val" style="color:var(--black);font-size:1rem;margin-bottom:0;">'+fmtK(s.gv)+'</div></div><div style="height:1px;background:var(--border);"></div><div style="display:flex;align-items:center;justify-content:space-between;"><div class="scard-label" style="color:var(--text3);margin-bottom:0;">Total Cash</div><div class="scard-val" style="color:var(--green);font-size:1rem;margin-bottom:0;">'+fmtK(cash)+'</div></div><div style="height:1px;background:var(--border);"></div><div style="display:flex;align-items:center;justify-content:space-between;"><div class="scard-label" style="color:var(--black);font-weight:800;margin-bottom:0;">Total Portfolio Value</div><div style="font-size:1rem;font-weight:800;font-family:monospace;color:var(--red);">'+fmtK(total)+'</div></div><div style="height:1px;background:var(--border);"></div><div style="display:flex;align-items:center;justify-content:space-between;"><div class="scard-label" style="color:var(--text3);margin-bottom:0;">Difference</div><div style="font-size:1rem;font-weight:800;font-family:monospace;color:'+diffColor+';">'+(diff>=0?'+':'-')+'$'+Math.abs(diff).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})+'</div></div><div class="scard-sub">'+s.op+' open &middot; '+s.cl+' closed</div></div></div>';})()
-    +'<div class="col-combo-card"><div class="col-combo-title">&#128274; Collateral</div><div class="col-combo-row"><span class="col-combo-label">This Week</span><span class="col-combo-val" style="color:#FB923C;font-size:0.88rem;">'+fmtK(s.twc)+'</span></div><div class="col-combo-divider"></div><div class="col-combo-row"><span class="col-combo-label">Total Open</span><span class="col-combo-val" style="color:#FBBF24;font-size:0.88rem;">'+fmtK(s.tc)+'</span></div></div>'
+    +(function(){
+      var now=new Date();
+      var dow=now.getDay();
+      var monOff=dow===0?-6:1-dow;
+      var thisMon=new Date(now);thisMon.setDate(now.getDate()+monOff);thisMon.setHours(0,0,0,0);
+      var thisSun=new Date(thisMon);thisSun.setDate(thisMon.getDate()+6);thisSun.setHours(23,59,59,999);
+      var lastMon=new Date(thisMon);lastMon.setDate(thisMon.getDate()-7);
+      var lastSun=new Date(thisSun);lastSun.setDate(thisSun.getDate()-7);
+      function parseOD(s){if(!s)return null;var d=new Date(s);return isNaN(d)?null:d;}
+      function getSA(r){return r.soldAmount!=null&&r.soldAmount!==0&&r.soldAmount!==''?parseFloat(r.soldAmount):null;}
+      var portKey=ap==='retirement'?as:ap;
+      var allPos=positions.filter(function(r){return ap==='all'||(r.portfolio||'lovelina')===portKey;});
+      var thisW=0,lastW=0,mtd=0,ytd=0,realized=0;
+      allPos.forEach(function(r){
+        var sa=getSA(r);if(sa==null)return;
+        var d=parseOD(r.openDate);if(!d)return;
+        if(d>=thisMon&&d<=thisSun)thisW+=sa;
+        if(d>=lastMon&&d<=lastSun)lastW+=sa;
+        if(d.getFullYear()===now.getFullYear()&&d.getMonth()===now.getMonth())mtd+=sa;
+        if(d.getFullYear()===now.getFullYear())ytd+=sa;
+        if(isCl(r)){var sr=getSA(r);if(sr!=null)realized+=sr;}
+      });
+      var wDiff=thisW-lastW;
+      function fc(v){return(v>=0?'+':'')+v.toLocaleString(undefined,{style:'currency',currency:'USD',minimumFractionDigits:0,maximumFractionDigits:0});}
+      function fcp(v){return v>=0?'var(--green)':'var(--red)';}
+      return'<div class="col-combo-card">'
+        +'<div class="col-combo-title">&#128200; Income</div>'
+        +'<div class="col-combo-row"><span class="col-combo-label">This Week</span><span class="col-combo-val" style="color:'+fcp(thisW)+';font-size:0.85rem;">'+fc(thisW)+'</span></div>'
+        +'<div class="col-combo-divider"></div>'
+        +'<div class="col-combo-row"><span class="col-combo-label">Last Week</span><span class="col-combo-val" style="color:'+fcp(lastW)+';font-size:0.85rem;">'+fc(lastW)+'</span></div>'
+        +'<div class="col-combo-divider"></div>'
+        +'<div class="col-combo-row"><span class="col-combo-label">Wk \u0394</span><span class="col-combo-val" style="color:'+fcp(wDiff)+';font-size:0.82rem;">'+fc(wDiff)+'</span></div>'
+        +'<div class="col-combo-divider"></div>'
+        +'<div class="col-combo-row"><span class="col-combo-label">MTD</span><span class="col-combo-val" style="color:'+fcp(mtd)+';font-size:0.85rem;">'+fc(mtd)+'</span></div>'
+        +'<div class="col-combo-divider"></div>'
+        +'<div class="col-combo-row"><span class="col-combo-label">YTD</span><span class="col-combo-val" style="color:'+fcp(ytd)+';font-size:0.85rem;">'+fc(ytd)+'</span></div>'
+        +'<div class="col-combo-divider"></div>'
+        +'<div class="col-combo-row"><span class="col-combo-label">Realized</span><span class="col-combo-val" style="color:'+fcp(realized)+';font-size:0.85rem;">'+fc(realized)+'</span></div>'
+        +'</div>';
+    })()
     +rCashCard()
     +'</div>';
 }
@@ -914,7 +953,7 @@ function rFiltersRow(data){
   var tags=allSel?'<span style="color:var(--text3);font-size:0.7rem;">All</span>':selList.map(function(t){return'<span class="sel-tag"><span style="width:6px;height:6px;border-radius:50%;background:'+(DC[t]||'#888')+';display:inline-block;flex-shrink:0;"></span>'+t+'<span class="sel-tag-x" data-xticker="'+t+'">&#10005;</span></span>';}).join('');
   var tt=['all','Short Put','Long Put','Long Call','Shares'].map(function(t){return'<button class="type-tab'+(typeFilter===t?' active':'')+'" data-typef="'+t+'">'+(t==='all'?'All':t==='Short Put'?'SPUT':t==='Long Put'?'LPUT':t==='Long Call'?'LCALL':'SHR')+'</button>';}).join('');
   var ot=['all','open','closed'].map(function(o){return'<button class="oc-tab'+(ocFilter===o?' active':'')+'" data-ocf="'+o+'">'+(o==='all'?'All':o==='open'?'Open':'Closed')+'</button>';}).join('');
-  return'<div class="controls-row" style="margin-bottom:0.6rem;flex-wrap:wrap;">'    +'<div style="position:relative;flex-shrink:0;"><div class="ticker-select-btn" id="tkbtn" onclick="toggleDropdown()" style="min-width:90px;max-width:160px;"><div class="sel-tags">'+tags+'</div><span style="color:var(--text3);font-size:0.65rem;">&#9660;</span></div><div class="ticker-dropdown'+(dropdownOpen?' open':'')+'" id="tkdrop"><div class="ticker-dd-item'+(allSel?' selected':'')+'" data-ddticker="ALL"><div class="ticker-dd-check">'+(allSel?'&#10003;':'')+'</div><span style="font-size:0.72rem;font-weight:700;">All Tickers</span></div><div style="height:1px;background:var(--border);margin:0.25rem 0;"></div>'+ddItems+'</div></div>'    +'<div style="width:1px;background:var(--border);align-self:stretch;flex-shrink:0;"></div>'    +'<div class="type-tabs">'+tt+'</div>'    +'<div class="oc-tabs">'+ot+'</div>'    +'<button class="expiry-pill'+(expiringOnly?' active':'')+'" id="exp-pill">&#9888; This Week</button>'    +'<div style="margin-left:auto;display:flex;gap:0.4rem;align-items:center;">'    +'<button class="del-all-btn" onclick="deleteAll()">&#128465;</button>'    +'<button class="upload-csv-btn" onclick="toggleUpload()">&#8593; Upload CSV</button>'    +'<button class="template-dl-btn" onclick="dlTemplate()">&#11015; Template</button>'    +'<button class="add-pos-btn" onclick="openAddModal()">&#43; Add</button>'    +'</div>'    +'</div>';
+  return'<div class="controls-row" style="margin-bottom:0.6rem;flex-wrap:wrap;">'    +'<div class="ticker-select-wrap" id="tkwrap" style="flex-shrink:0;min-width:80px;max-width:150px;"><div class="ticker-select-btn" id="tkbtn" onclick="toggleDropdown()"><div class="sel-tags">'+tags+'</div><span style="color:var(--text3);font-size:0.65rem;">&#9660;</span></div><div class="ticker-dropdown'+(dropdownOpen?' open':'')+'" id="tkdrop"><div class="ticker-dd-item'+(allSel?' selected':'')+'" data-ddticker="ALL"><div class="ticker-dd-check">'+(allSel?'&#10003;':'')+'</div><span style="font-size:0.72rem;font-weight:700;">All Tickers</span></div><div style="height:1px;background:var(--border);margin:0.25rem 0;"></div>'+ddItems+'</div></div>'    +'<div style="width:1px;background:var(--border);align-self:stretch;flex-shrink:0;"></div>'    +'<div class="type-tabs">'+tt+'</div>'    +'<div class="oc-tabs">'+ot+'</div>'    +'<button class="expiry-pill'+(expiringOnly?' active':'')+'" id="exp-pill">&#9888; This Week</button>'    +'<div style="margin-left:auto;display:flex;gap:0.4rem;align-items:center;">'    +'<button class="del-all-btn" onclick="deleteAll()">&#128465;</button>'    +'<button class="upload-csv-btn" onclick="toggleUpload()">&#8593; Upload CSV</button>'    +'<button class="template-dl-btn" onclick="dlTemplate()">&#11015; Template</button>'    +'<button class="add-pos-btn" onclick="openAddModal()">&#43; Add</button>'    +'</div>'    +'</div>';
 }
 function rTableControls(){return'';}
 
