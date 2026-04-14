@@ -1498,7 +1498,7 @@ function buildSpreadPairs(data){
   // SP pool: also apply expiry + type filter (short puts/calls that match the selected window)
   var spPool=basePool.filter(function(r){return(r.excelType==='Short Put'||r.excelType==='Short Call')&&expMatch(r)&&(spreadsTypeFilter==='all'||r.excelType===spreadsTypeFilter);});
   // LP pool: NO expiry filter - LPs pair with SPs regardless of their own expiry date
-  var lpPool=basePool.filter(function(r){return r.excelType==='Long Put';});
+  var lpPool=basePool.filter(function(r){return r.excelType==='Long Put'||r.excelType==='Long Call';});
   var tickers=[...new Set([...spPool,...lpPool].map(function(r){return r.ticker;}))].sort();
   var result=[];
   tickers.forEach(function(ticker){
@@ -1508,7 +1508,9 @@ function buildSpreadPairs(data){
     var usedLPs=new Set();
     var pairs=sps.map(function(sp){
       var spD=parseDate(sp.expiryDate);
-      var cands=lps.filter(function(lp){return!usedLPs.has(lp.id)&&(!spD||!parseDate(lp.expiryDate)||parseDate(lp.expiryDate)>=spD);}).sort(function(a,b){return(parseDate(a.expiryDate)||0)-(parseDate(b.expiryDate)||0);});
+      // Match SPUT with LPUT, SCALL with LCALL
+      var matchType=sp.excelType==='Short Put'?'Long Put':'Long Call';
+      var cands=lps.filter(function(lp){return!usedLPs.has(lp.id)&&lp.excelType===matchType&&(!spD||!parseDate(lp.expiryDate)||parseDate(lp.expiryDate)>=spD);}).sort(function(a,b){return(parseDate(a.expiryDate)||0)-(parseDate(b.expiryDate)||0);});
       var m=cands[0]||null;if(m)usedLPs.add(m.id);return{sp:sp,lp:m};
     });
     result.push({ticker:ticker,pairs:pairs,independentLPs:lps.filter(function(lp){return!usedLPs.has(lp.id);})});
@@ -1585,12 +1587,12 @@ function rSpreadsView(data){
       var typeBadge='<span class="badge bsp" style="opacity:0.85;">SPUT</span>';
       return'<tr>'+portBadge+'<td class="mc"><span class="chip"><span class="tk-dot-sm" style="background:'+(DC[ticker]||'#888')+'"></span>'+ticker+'</span></td><td>'+stockPcell+'</td><td>'+typeBadge+' '+badge+'</td><td class="mn" style="color:var(--red);font-weight:700;">$'+sp.strike+flags+'</td><td class="mn '+ec(sp.expiryDate)+'">'+(sp.expiryDate||'--')+'</td><td class="div-col">\u2194</td><td class="mn" style="color:var(--blue);font-weight:700;">'+(lp?'$'+lp.strike:'<span class="empty">\u2014</span>')+'</td><td class="mn '+(lp?ec(lp.expiryDate):'')+'">'+(lp?lp.expiryDate:'<span class="empty">\u2014</span>')+'</td><td class="mn">'+collatDisplay+'</td></tr>';
     } else {
-      var typeBadge2='<span class="badge blp" style="opacity:0.85;">LPUT</span>';
+      var typeBadge2='<span class="badge '+(lp.excelType==='Long Call'?'blc':'blp')+'" style="opacity:0.85;">'+(lp.excelType==='Long Call'?'LCALL':'LPUT')+'</span>';
       return'<tr>'+portBadge+'<td class="mc"><span class="chip"><span class="tk-dot-sm" style="background:'+(DC[ticker]||'#888')+'"></span>'+ticker+'</span></td><td>'+stockPcell+'</td><td>'+typeBadge2+'</td><td class="mn empty">\u2014</td><td class="mn empty">\u2014</td><td class="div-col">\u2194</td><td class="mn" style="color:var(--blue);font-weight:700;">$'+lp.strike+'</td><td class="mn '+ec(lp.expiryDate)+'">'+(lp.expiryDate||'--')+'</td><td class="mn" style="color:var(--text3);">\u2014</td></tr>';
     }
   });
   var tableBody=rows.length>0?rows.join(''):'<tr><td colspan="10" class="ec" style="padding:2rem;text-align:center;color:var(--text3);">'+(has?'No positions match the selected filters.':'No put positions found. Short puts and long puts will appear here paired by expiry.')+'</td></tr>';
-  return sfb+'<div class="table-wrap"><table style="min-width:900px;"><thead><tr><th>Portfolio</th><th>Ticker</th><th>Stock Price</th><th>Type</th><th>SP Strike</th><th>SP Expiry</th><th></th><th>LP Strike</th><th>LP Expiry</th><th>Collateral</th></tr></thead><tbody>'+tableBody+'</tbody></table></div>';
+  return sfb+'<div class="table-wrap"><table style="min-width:900px;"><thead><tr><th>Portfolio</th><th>Ticker</th><th>Stock Price</th><th>Type</th><th>Short Strike</th><th>Short Expiry</th><th></th><th>Long Strike</th><th>Long Expiry</th><th>Collateral</th></tr></thead><tbody>'+tableBody+'</tbody></table></div>';
 }
 
 // ── ADMIN / PRICES VIEW ───────────────────────────────────────────────────────
