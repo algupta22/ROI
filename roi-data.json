@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-14T02:19:56.731Z",
+  "savedAt": "2026-04-14T02:32:14.250Z",
   "positions": [
     {
       "id": "uspq1v6c",
@@ -1781,7 +1781,134 @@
       "rolledOver": false,
       "closeAction": null,
       "manualPrice": null,
-      "notes": "METU 5/15/2026 Put $22.00"
+      "notes": "METU 5/15/2026 Put $22.00",
+      "cvOverride": 78
+    },
+    {
+      "id": "5bxoc2zj",
+      "portfolio": "lovelina",
+      "ticker": "METU",
+      "excelType": "Long Put",
+      "strike": 25,
+      "expiryDate": "5/15/2026",
+      "openDate": "3/31/2026",
+      "contracts": 1,
+      "excelCost": 0,
+      "excelIncome": 0,
+      "excelGrossValue": 330.04,
+      "excelCurrentValue": 330.04,
+      "excelProfit": 330.04,
+      "closed": false,
+      "rolledOver": false,
+      "closeAction": null,
+      "manualPrice": null,
+      "notes": "METU 5/15/2026 Put $22.00",
+      "cvOverride": 0
+    },
+    {
+      "id": "z7m7r417",
+      "portfolio": "lovelina",
+      "ticker": "METU",
+      "excelType": "Long Put",
+      "strike": 15,
+      "expiryDate": "5/15/2026",
+      "openDate": "3/31/2026",
+      "contracts": 1,
+      "excelCost": 0,
+      "excelIncome": 0,
+      "excelGrossValue": 330.04,
+      "excelCurrentValue": 330.04,
+      "excelProfit": 330.04,
+      "closed": false,
+      "rolledOver": false,
+      "closeAction": null,
+      "manualPrice": null,
+      "notes": "METU 5/15/2026 Put $22.00",
+      "cvOverride": 0
+    },
+    {
+      "id": "qoxyggxb",
+      "portfolio": "lovelina",
+      "ticker": "METU",
+      "excelType": "Long Put",
+      "strike": 15,
+      "expiryDate": "5/15/2026",
+      "openDate": "3/31/2026",
+      "contracts": 1,
+      "excelCost": 0,
+      "excelIncome": 0,
+      "excelGrossValue": 330.04,
+      "excelCurrentValue": 330.04,
+      "excelProfit": 330.04,
+      "closed": false,
+      "rolledOver": false,
+      "closeAction": null,
+      "manualPrice": null,
+      "notes": "METU 5/15/2026 Put $22.00",
+      "cvOverride": 0
+    },
+    {
+      "id": "yfbe8fho",
+      "portfolio": "lovelina",
+      "ticker": "METU",
+      "excelType": "Short Put",
+      "strike": 35,
+      "expiryDate": "5/15/2026",
+      "openDate": "3/31/2026",
+      "contracts": 1,
+      "excelCost": 0,
+      "excelIncome": 0,
+      "excelGrossValue": 330.04,
+      "excelCurrentValue": 330.04,
+      "excelProfit": 330.04,
+      "closed": false,
+      "rolledOver": false,
+      "closeAction": null,
+      "manualPrice": null,
+      "notes": "METU 5/15/2026 Put $22.00",
+      "cvOverride": 0
+    },
+    {
+      "id": "qltfwjtv",
+      "portfolio": "lovelina",
+      "ticker": "METU",
+      "excelType": "Short Put",
+      "strike": 35,
+      "expiryDate": "5/15/2026",
+      "openDate": "3/31/2026",
+      "contracts": 1,
+      "excelCost": 0,
+      "excelIncome": 0,
+      "excelGrossValue": 330.04,
+      "excelCurrentValue": 330.04,
+      "excelProfit": 330.04,
+      "closed": false,
+      "rolledOver": false,
+      "closeAction": null,
+      "manualPrice": null,
+      "notes": "METU 5/15/2026 Put $22.00",
+      "cvOverride": 0
+    },
+    {
+      "id": "8hpt6m6h",
+      "portfolio": "lovelina",
+      "ticker": "METU",
+      "excelType": "Short Put",
+      "strike": 30,
+      "expiryDate": "5/15/2026",
+      "openDate": "3/31/2026",
+      "contracts": 1,
+      "excelCost": 0,
+      "excelIncome": 0,
+      "excelGrossValue": 330.04,
+      "excelCurrentValue": 330.04,
+      "excelProfit": 330.04,
+      "closed": false,
+      "rolledOver": false,
+      "closeAction": null,
+      "manualPrice": null,
+      "notes": "METU 5/15/2026 Put $22.00",
+      "cvOverride": 0
     },
     {
       "id": "3drw31h1",
@@ -1802,7 +1929,8 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "QQQ 5/29/2026 Put $546.00",
-      "soldAmount": 1857.95
+      "soldAmount": 1857.95,
+      "cvOverride": -304
     },
     {
       "id": "piu0etti",
@@ -1877,7 +2005,8 @@
       "rolledOver": false,
       "closeAction": null,
       "manualPrice": null,
-      "notes": "QQQ 5/29/2026 Put $475.00"
+      "notes": "QQQ 5/29/2026 Put $475.00",
+      "cvOverride": 77
     },
     {
       "id": "nruqgvca",
@@ -1898,7 +2027,8 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "QQQ 5/29/2026 Call $548.00",
-      "soldAmount": 3503.95
+      "soldAmount": 3503.95,
+      "cvOverride": -7501
     },
     {
       "id": "px28c3q8",
@@ -1973,7 +2103,8 @@
       "rolledOver": false,
       "closeAction": null,
       "manualPrice": null,
-      "notes": "QQQ 5/29/2026 Call $638.00"
+      "notes": "QQQ 5/29/2026 Call $638.00",
+      "cvOverride": 785
     },
     {
       "id": "euhaxex3",
@@ -4338,7 +4469,8 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "ROBN 6/18/2026 Put $50.00",
-      "soldAmount": 2992.95
+      "soldAmount": 2992.95,
+      "cvOverride": -3230
     },
     {
       "id": "rllm2nrq",
@@ -4413,7 +4545,8 @@
       "rolledOver": false,
       "closeAction": null,
       "manualPrice": null,
-      "notes": "ROBN 6/18/2026 Put $7.00"
+      "notes": "ROBN 6/18/2026 Put $7.00",
+      "cvOverride": 43
     },
     {
       "id": "casxjxwh",
@@ -5142,9 +5275,17 @@
       "excelGrossValue": 474.95,
       "excelCurrentValue": 0,
       "excelProfit": 474.95,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": 474.95,
+        "notes": "",
+        "date": "4/13/26"
+      },
       "manualPrice": null,
       "notes": "QQQ 4/30/2026 Put $530.00",
       "soldAmount": 474.95
@@ -5163,9 +5304,17 @@
       "excelGrossValue": 97.04,
       "excelCurrentValue": 0,
       "excelProfit": -97.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": null,
+        "notes": "",
+        "date": "4/13/26"
+      },
       "manualPrice": null,
       "notes": "QQQ 4/30/2026 Put $435.00"
     },
@@ -5238,9 +5387,17 @@
       "excelGrossValue": 8052.95,
       "excelCurrentValue": 0,
       "excelProfit": 8052.95,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": 8052.95,
+        "notes": "",
+        "date": "4/13/26"
+      },
       "manualPrice": null,
       "notes": "QQQ 4/30/2026 Call $535.00",
       "soldAmount": 8052.95
@@ -5287,9 +5444,17 @@
       "excelGrossValue": 630.04,
       "excelCurrentValue": 0,
       "excelProfit": -630.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": null,
+        "notes": "",
+        "date": "4/13/26"
+      },
       "manualPrice": null,
       "notes": "QQQ 4/30/2026 Call $641.00"
     },
