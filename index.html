@@ -1353,7 +1353,6 @@ function parseBrokerageCSV(text){
     else if(h==='expirydate'||h==='expiry')col.exp=i;
     else if(h==='transcode'||h==='transactioncode'||h==='action')col.tc=i;
     else if(h==='amount'||h==='netamount')col.a=i;
-    else if(h==='type')col.tp=i;
     else if(h==='description'||h==='desc')col.ds=i;
   });
   // Profile normalizer
@@ -1367,14 +1366,14 @@ function parseBrokerageCSV(text){
     if(p==='lovtrad'||p==='lovelinatrad'||p==='lovinatrad')return'lov-trad';
     return'joint';
   }
-  // Type normalizer
-  function normType(s){
-    var t=(s||'').trim().toUpperCase();
-    if(t==='SPUT')return'Short Put';
-    if(t==='LPUT')return'Long Put';
-    if(t==='SCALL')return'Short Call';
-    if(t==='LCALL')return'Long Call';
-    return null;
+  // Derive type from description (Put/Call) + trans code (STO/BTO prefix)
+  function deriveType(desc,tc){
+    var isPut=/\bput\b/i.test(desc);
+    var isCall=/\bcall\b/i.test(desc);
+    var optType=isPut?'PUT':isCall?'CALL':null;
+    if(!optType)return null;
+    var prefix=(tc==='STO'||tc==='STC')?'S':'L'; // STO/STC=Short, BTO/BTC=Long
+    return prefix==='S'?(optType==='PUT'?'Short Put':'Short Call'):(optType==='PUT'?'Long Put':'Long Call');
   }
   var mapped=[],errors=[];
   for(var i=1;i<lines.length;i++){
@@ -1382,10 +1381,10 @@ function parseBrokerageCSV(text){
     var v=splitLine(line);if(v.every(function(x){return!x;}))continue;
     var gv=function(vv){return function(idx){return idx!=null?(vv[idx]||'').trim():'';};};
     var gf=gv(v);
-    var prof=gf(col.prof),openDate=gf(col.d),ticker=(gf(col.tk)||'').toUpperCase(),desc=gf(col.ds),tcRaw=(gf(col.tc)||'').toUpperCase(),rawAmt=gf(col.a),typeRaw=gf(col.tp);
+    var prof=gf(col.prof),openDate=gf(col.d),ticker=(gf(col.tk)||'').toUpperCase(),desc=gf(col.ds),tcRaw=(gf(col.tc)||'').toUpperCase(),rawAmt=gf(col.a);
     if(!ticker){errors.push('Row '+(i+1)+': missing ticker');continue;}
-    var excelType=normType(typeRaw);
-    if(!excelType){errors.push('Row '+(i+1)+': unknown type "'+typeRaw+'"');continue;}
+    var excelType=deriveType(desc,tcRaw);
+    if(!excelType){errors.push('Row '+(i+1)+': cannot derive type from description "'+desc+'"');continue;}
     // Parse description for strike and expiry: "CDE 4/17/2026 Put $20.00"
     var strike=0,expiryDate='',expiryDateObj=null;
     var dm=desc.match(/(\d{1,2}\/\d{1,2}\/\d{2,4})/);
