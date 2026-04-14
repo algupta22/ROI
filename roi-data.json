@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-14T01:07:32.428Z",
+  "savedAt": "2026-04-14T01:16:31.064Z",
   "positions": [
     {
       "id": "uspq1v6c",
@@ -91,7 +91,8 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "HOOD 4/24/2026 Put $69.00",
-      "soldAmount": 264.94
+      "soldAmount": 264.94,
+      "cvOverride": -199
     },
     {
       "id": "xez2udms",
@@ -139,7 +140,8 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "HOOD 4/24/2026 Put $70.00",
-      "soldAmount": 309.94
+      "soldAmount": 309.94,
+      "cvOverride": -232
     },
     {
       "id": "1cgzxw5o",
@@ -720,9 +722,17 @@
       "excelGrossValue": 187.94,
       "excelCurrentValue": 0,
       "excelProfit": 187.94,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": 187.94,
+        "notes": "",
+        "date": "4/13/26"
+      },
       "manualPrice": null,
       "notes": "HOOD 4/17/2026 Put $71.00",
       "soldAmount": 187.94
@@ -773,7 +783,8 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "HOOD 4/17/2026 Put $70.00",
-      "soldAmount": 152.94
+      "soldAmount": 152.94,
+      "cvOverride": -127
     },
     {
       "id": "gbubjtkl",
@@ -1097,9 +1108,17 @@
       "excelGrossValue": 408.94,
       "excelCurrentValue": 0,
       "excelProfit": 408.94,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": 408.94,
+        "notes": "",
+        "date": "4/13/26"
+      },
       "manualPrice": null,
       "notes": "HOOD 4/17/2026 Put $70.00",
       "soldAmount": 408.94
@@ -2412,16 +2431,59 @@
       "expiryDate": "5/1/2026",
       "openDate": "3/30/2026",
       "contracts": 1,
-      "excelCost": 2823.12,
+      "excelCost": 941,
       "excelIncome": 0,
       "excelGrossValue": 2823.12,
-      "excelCurrentValue": 0,
-      "excelProfit": -2823.12,
+      "excelCurrentValue": 2823.12,
+      "excelProfit": 1882.12,
       "closed": false,
       "rolledOver": false,
       "closeAction": null,
       "manualPrice": null,
-      "notes": "HOOD 5/1/2026 Put $73.00"
+      "notes": "HOOD 5/1/2026 Put $73.00",
+      "cvOverride": 540
+    },
+    {
+      "id": "69f8jcd8",
+      "portfolio": "lovelina",
+      "ticker": "HOOD",
+      "excelType": "Long Put",
+      "strike": 73,
+      "expiryDate": "5/1/2026",
+      "openDate": "3/30/2026",
+      "contracts": 1,
+      "excelCost": 941,
+      "excelIncome": 0,
+      "excelGrossValue": 2823.12,
+      "excelCurrentValue": 2823.12,
+      "excelProfit": 1882.12,
+      "closed": false,
+      "rolledOver": false,
+      "closeAction": null,
+      "manualPrice": null,
+      "notes": "HOOD 5/1/2026 Put $73.00",
+      "cvOverride": 540
+    },
+    {
+      "id": "ph59pbj7",
+      "portfolio": "lovelina",
+      "ticker": "HOOD",
+      "excelType": "Long Put",
+      "strike": 73,
+      "expiryDate": "5/1/2026",
+      "openDate": "3/30/2026",
+      "contracts": 1,
+      "excelCost": 941,
+      "excelIncome": 0,
+      "excelGrossValue": 2823.12,
+      "excelCurrentValue": 2823.12,
+      "excelProfit": 1882.12,
+      "closed": false,
+      "rolledOver": false,
+      "closeAction": null,
+      "manualPrice": null,
+      "notes": "HOOD 5/1/2026 Put $73.00",
+      "cvOverride": 540
     },
     {
       "id": "tjrqxzn3",
@@ -3145,9 +3207,17 @@
       "excelGrossValue": 624.04,
       "excelCurrentValue": 0,
       "excelProfit": -624.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": null,
+        "notes": "",
+        "date": "4/13/26"
+      },
       "manualPrice": null,
       "notes": "HOOD 5/1/2026 Put $74.00"
     },
@@ -3165,9 +3235,17 @@
       "excelGrossValue": 879.04,
       "excelCurrentValue": 0,
       "excelProfit": -879.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": null,
+        "notes": "",
+        "date": "4/13/26"
+      },
       "manualPrice": null,
       "notes": "HOOD 5/1/2026 Put $74.00"
     },
@@ -3502,9 +3580,17 @@
       "excelGrossValue": 700.04,
       "excelCurrentValue": 0,
       "excelProfit": -700.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": null,
+        "notes": "",
+        "date": "4/13/26"
+      },
       "manualPrice": null,
       "notes": "HOOD 5/1/2026 Put $74.00"
     },
@@ -3673,9 +3759,17 @@
       "excelGrossValue": 801.04,
       "excelCurrentValue": 0,
       "excelProfit": -801.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": null,
+        "notes": "",
+        "date": "4/13/26"
+      },
       "manualPrice": null,
       "notes": "HOOD 5/1/2026 Put $76.00"
     },
@@ -3914,9 +4008,17 @@
       "excelGrossValue": 671.04,
       "excelCurrentValue": 0,
       "excelProfit": -671.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": null,
+        "notes": "",
+        "date": "4/13/26"
+      },
       "manualPrice": null,
       "notes": "HOOD 5/1/2026 Put $77.00"
     },
