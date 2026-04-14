@@ -844,13 +844,7 @@ function getAppliedFilters(data){
 }
 
 // ── FILTER BAR HTML ───────────────────────────────────────────────────────────
-function rFilterBar(data){
-  var tickers=getTickersFrom(data),allSel=selectedTickers.has('ALL');
-  var selList=allSel?[]:tickers.filter(function(t){return selectedTickers.has(t);});
-  var ddItems=tickers.map(function(t){var sel=allSel||selectedTickers.has(t);return'<div class="ticker-dd-item'+(sel?' selected':'')+'" data-ddticker="'+t+'"><div class="ticker-dd-check">'+(sel?'&#10003;':'')+'</div><span class="dd-dot" style="background:'+(DC[t]||'#888')+'"></span>'+t+'</div>';}).join('');
-  var tags=allSel?'<span style="color:var(--text3);font-size:0.7rem;">All Tickers</span>':selList.map(function(t){return'<span class="sel-tag"><span style="width:6px;height:6px;border-radius:50%;background:'+(DC[t]||'#888')+';display:inline-block;flex-shrink:0;"></span>'+t+'<span class="sel-tag-x" data-xticker="'+t+'">&#10005;</span></span>';}).join('');
-  return'<div class="filter-bar"><span class="filter-bar-label">&#127991; Ticker</span><div class="ticker-select-wrap" id="tkwrap"><div class="ticker-select-btn" id="tkbtn" onclick="toggleDropdown()"><div class="sel-tags">'+tags+'</div><span style="color:var(--text3);font-size:0.65rem;">&#9660;</span></div><div class="ticker-dropdown'+(dropdownOpen?' open':'')+'" id="tkdrop"><div class="ticker-dd-item'+(allSel?' selected':'')+'" data-ddticker="ALL"><div class="ticker-dd-check">'+(allSel?'&#10003;':'')+'</div><span style="font-size:0.72rem;font-weight:700;">All Tickers</span></div><div style="height:1px;background:var(--border);margin:0.25rem 0;"></div>'+ddItems+'</div></div></div>';
-}
+function rFilterBar(data){return'';}
 
 // ── FIX 2: CASH CARD ──────────────────────────────────────────────────────────
 function rCashCard(){
@@ -914,11 +908,15 @@ function rSum(s){
     +'</div>';
 }
 function rFiltersRow(data){
-  var tt=['all','Short Put','Long Put','Long Call','Shares'].map(function(t){return'<button class="type-tab'+(typeFilter===t?' active':'')+'" data-typef="'+t+'">'+(t==='all'?'All':t)+'</button>';}).join('');
+  var tickers=getTickersFrom(data),allSel=selectedTickers.has('ALL');
+  var selList=allSel?[]:tickers.filter(function(t){return selectedTickers.has(t);});
+  var ddItems=tickers.map(function(t){var sel=allSel||selectedTickers.has(t);return'<div class="ticker-dd-item'+(sel?' selected':'')+'" data-ddticker="'+t+'"><div class="ticker-dd-check">'+(sel?'&#10003;':'')+'</div><span class="dd-dot" style="background:'+(DC[t]||'#888')+'"></span>'+t+'</div>';}).join('');
+  var tags=allSel?'<span style="color:var(--text3);font-size:0.7rem;">All</span>':selList.map(function(t){return'<span class="sel-tag"><span style="width:6px;height:6px;border-radius:50%;background:'+(DC[t]||'#888')+';display:inline-block;flex-shrink:0;"></span>'+t+'<span class="sel-tag-x" data-xticker="'+t+'">&#10005;</span></span>';}).join('');
+  var tt=['all','Short Put','Long Put','Long Call','Shares'].map(function(t){return'<button class="type-tab'+(typeFilter===t?' active':'')+'" data-typef="'+t+'">'+(t==='all'?'All':t==='Short Put'?'SPUT':t==='Long Put'?'LPUT':t==='Long Call'?'LCALL':'SHR')+'</button>';}).join('');
   var ot=['all','open','closed'].map(function(o){return'<button class="oc-tab'+(ocFilter===o?' active':'')+'" data-ocf="'+o+'">'+(o==='all'?'All':o==='open'?'Open':'Closed')+'</button>';}).join('');
-  return'<div class="controls-row" style="margin-bottom:0.75rem;"><div class="type-tabs">'+tt+'</div><div class="oc-tabs">'+ot+'</div><button class="expiry-pill'+(expiringOnly?' active':'')+'" id="exp-pill">&#9888; Expiring This Week</button></div>';
+  return'<div class="controls-row" style="margin-bottom:0.6rem;flex-wrap:wrap;">'    +'<div style="position:relative;flex-shrink:0;"><div class="ticker-select-btn" id="tkbtn" onclick="toggleDropdown()" style="min-width:90px;max-width:160px;"><div class="sel-tags">'+tags+'</div><span style="color:var(--text3);font-size:0.65rem;">&#9660;</span></div><div class="ticker-dropdown'+(dropdownOpen?' open':'')+'" id="tkdrop"><div class="ticker-dd-item'+(allSel?' selected':'')+'" data-ddticker="ALL"><div class="ticker-dd-check">'+(allSel?'&#10003;':'')+'</div><span style="font-size:0.72rem;font-weight:700;">All Tickers</span></div><div style="height:1px;background:var(--border);margin:0.25rem 0;"></div>'+ddItems+'</div></div>'    +'<div style="width:1px;background:var(--border);align-self:stretch;flex-shrink:0;"></div>'    +'<div class="type-tabs">'+tt+'</div>'    +'<div class="oc-tabs">'+ot+'</div>'    +'<button class="expiry-pill'+(expiringOnly?' active':'')+'" id="exp-pill">&#9888; This Week</button>'    +'<div style="margin-left:auto;display:flex;gap:0.4rem;align-items:center;">'    +'<button class="del-all-btn" onclick="deleteAll()">&#128465;</button>'    +'<button class="upload-csv-btn" onclick="toggleUpload()">&#8593; Upload CSV</button>'    +'<button class="template-dl-btn" onclick="dlTemplate()">&#11015; Template</button>'    +'<button class="add-pos-btn" onclick="openAddModal()">&#43; Add</button>'    +'</div>'    +'</div>';
 }
-function rTableControls(){return'<div class="controls-row"><button class="del-all-btn" onclick="deleteAll()">&#128465; Delete Visible</button><button class="upload-csv-btn" onclick="toggleUpload()">&#8593; Upload CSV</button><button class="template-dl-btn" onclick="dlTemplate()">&#11015; Template</button><button class="add-pos-btn" onclick="openAddModal()">&#43; Add Position</button></div>';}
+function rTableControls(){return'';}
 
 // ── FIX 3: rTable — uses String.fromCharCode(39) for safe onclick strings ────
 function toggleGroup(gk){if(expandedGroups.has(gk))expandedGroups.delete(gk);else expandedGroups.add(gk);rMain();}
