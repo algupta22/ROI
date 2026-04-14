@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-14T12:29:20.757Z",
+  "savedAt": "2026-04-14T22:23:00.215Z",
   "positions": [
     {
       "id": "uspq1v6c",
@@ -538,8 +538,7 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "NVDX 4/17/2026 Put $15.00",
-      "soldAmount": 37.94,
-      "cvOverride": -10
+      "soldAmount": 37.94
     },
     {
       "id": "pf3i4a98",
@@ -1206,13 +1205,20 @@
       "excelGrossValue": 91.94,
       "excelCurrentValue": 0,
       "excelProfit": 91.94,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": 91.94,
+        "notes": "",
+        "date": "4/14/26"
+      },
       "manualPrice": null,
       "notes": "NVDX 4/17/2026 Put $14.50",
-      "soldAmount": 91.94,
-      "cvOverride": -8
+      "soldAmount": 91.94
     },
     {
       "id": "w9yoc8ce",
@@ -55057,7 +55063,8 @@
       "rolledOver": false,
       "closeAction": null,
       "manualPrice": null,
-      "notes": "PLTR 5/29/2026 Put $130.00"
+      "notes": "PLTR 5/29/2026 Put $130.00",
+      "cvOverride": 818
     },
     {
       "id": "8a42lzp7",
@@ -55078,7 +55085,8 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "PLTR 4/17/2026 Put $139.00",
-      "soldAmount": 434.94
+      "soldAmount": 434.94,
+      "cvOverride": -463
     },
     {
       "id": "h8zgwdop",
@@ -55094,9 +55102,17 @@
       "excelGrossValue": 1140.04,
       "excelCurrentValue": 0,
       "excelProfit": -1140.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": null,
+        "notes": "",
+        "date": "4/14/26"
+      },
       "manualPrice": null,
       "notes": "PLTR 5/22/2026 Put $144.00"
     },
@@ -55118,7 +55134,105 @@
       "rolledOver": false,
       "closeAction": null,
       "manualPrice": null,
-      "notes": "PLTR 3/19/2027 Call $95.00"
+      "notes": "PLTR 3/19/2027 Call $95.00",
+      "cvOverride": 5413
+    },
+    {
+      "id": "sp14lfju",
+      "portfolio": "lovelina",
+      "ticker": "GOOGL",
+      "excelType": "Long Put",
+      "strike": 310,
+      "expiryDate": "4/15/2026",
+      "openDate": "4/14/2026",
+      "contracts": 1,
+      "excelCost": 5.04,
+      "excelIncome": 0,
+      "excelGrossValue": 5.04,
+      "excelCurrentValue": 0,
+      "excelProfit": -5.04,
+      "closed": true,
+      "rolledOver": false,
+      "closeAction": {
+        "action": "BTC",
+        "type": "debit",
+        "amount": 5.04,
+        "signedAmount": -5.04,
+        "notes": "",
+        "date": "4/14/2026"
+      },
+      "manualPrice": null,
+      "notes": "GOOGL 4/15/2026 Put $310.00"
+    },
+    {
+      "id": "nqbg48f9",
+      "portfolio": "lovelina",
+      "ticker": "NVDX",
+      "excelType": "Short Put",
+      "strike": 15.5,
+      "expiryDate": "4/24/2026",
+      "openDate": "4/14/2026",
+      "contracts": 1,
+      "excelCost": 0,
+      "excelIncome": 14.94,
+      "excelGrossValue": 14.94,
+      "excelCurrentValue": 0,
+      "excelProfit": 14.94,
+      "closed": false,
+      "rolledOver": false,
+      "closeAction": null,
+      "manualPrice": null,
+      "notes": "NVDX 4/24/2026 Put $15.50",
+      "soldAmount": 14.94,
+      "cvOverride": -20
+    },
+    {
+      "id": "wy34qlmi",
+      "portfolio": "lovelina",
+      "ticker": "NVDX",
+      "excelType": "Long Put",
+      "strike": 14.5,
+      "expiryDate": "4/17/2026",
+      "openDate": "4/14/2026",
+      "contracts": 1,
+      "excelCost": 4.04,
+      "excelIncome": 0,
+      "excelGrossValue": 4.04,
+      "excelCurrentValue": 0,
+      "excelProfit": -4.04,
+      "closed": true,
+      "rolledOver": false,
+      "closeAction": {
+        "action": "BTC",
+        "type": "debit",
+        "amount": 4.04,
+        "signedAmount": -4.04,
+        "notes": "",
+        "date": "4/14/2026"
+      },
+      "manualPrice": null,
+      "notes": "NVDX 4/17/2026 Put $14.50"
+    },
+    {
+      "id": "puota5sk",
+      "portfolio": "lovelina",
+      "ticker": "TSLL",
+      "excelType": "Short Put",
+      "strike": 10.5,
+      "expiryDate": "4/17/2026",
+      "openDate": "4/14/2026",
+      "contracts": 1,
+      "excelCost": 0,
+      "excelIncome": 14.94,
+      "excelGrossValue": 14.94,
+      "excelCurrentValue": 0,
+      "excelProfit": 14.94,
+      "closed": false,
+      "rolledOver": false,
+      "closeAction": null,
+      "manualPrice": null,
+      "notes": "TSLL 4/17/2026 Put $10.50",
+      "soldAmount": 14.94
     }
   ],
   "tickerPrices": {
@@ -57783,14 +57897,31 @@
   },
   "cashBalances": {
     "amit": 1121,
-    "lov-trad": 215348,
+    "lov-trad": 215749,
     "amit-roth": 3835,
     "lov-roth": 12559,
-    "lovelina": 2016,
+    "lovelina": 1030,
     "joint": 0
   },
   "initialCashBalances": {
     "amit-roth": 15750,
     "lov-trad": 235506
+  },
+  "collatBlocked": {
+    "GOOGL": 0,
+    "NVDX": 7,
+    "HOOD": 0,
+    "METU": 3800,
+    "MSFT": 0,
+    "NOK": 0,
+    "NVTS": 0,
+    "PATH": 2100,
+    "PLTR": 0,
+    "QQQ": 9000,
+    "ROBN": 4300,
+    "SOFI": 0,
+    "SOUN": 0,
+    "TQQQ": 0,
+    "TSLL": 0
   }
 }
