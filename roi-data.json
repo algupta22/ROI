@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-14T01:22:06.983Z",
+  "savedAt": "2026-04-14T01:25:20.451Z",
   "positions": [
     {
       "id": "uspq1v6c",
@@ -263,7 +263,8 @@
       "rolledOver": false,
       "closeAction": null,
       "manualPrice": null,
-      "notes": "PLTR 5/1/2026 Put $136.00"
+      "notes": "PLTR 5/1/2026 Put $136.00",
+      "cvOverride": 798
     },
     {
       "id": "zt8b0n3f",
@@ -311,7 +312,8 @@
       "rolledOver": false,
       "closeAction": null,
       "manualPrice": null,
-      "notes": "PLTR 5/1/2026 Put $138.00"
+      "notes": "PLTR 5/1/2026 Put $138.00",
+      "cvOverride": 915
     },
     {
       "id": "pzbuy5n1",
@@ -387,7 +389,8 @@
       "rolledOver": false,
       "closeAction": null,
       "manualPrice": null,
-      "notes": "PLTR 5/22/2026 Put $140.00"
+      "notes": "PLTR 5/22/2026 Put $140.00",
+      "cvOverride": 1450
     },
     {
       "id": "sb2fxvct",
@@ -1592,9 +1595,17 @@
       "excelGrossValue": 440.04,
       "excelCurrentValue": 0,
       "excelProfit": -440.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": null,
+        "notes": "",
+        "date": "4/13/26"
+      },
       "manualPrice": null,
       "notes": "PLTR 5/1/2026 Put $135.00"
     },
@@ -2687,9 +2698,17 @@
       "excelGrossValue": 828.04,
       "excelCurrentValue": 0,
       "excelProfit": -828.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": null,
+        "notes": "",
+        "date": "4/13/26"
+      },
       "manualPrice": null,
       "notes": "PLTR 5/8/2026 Put $135.00"
     },
@@ -2735,9 +2754,17 @@
       "excelGrossValue": 277.04,
       "excelCurrentValue": 0,
       "excelProfit": -277.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": null,
+        "notes": "",
+        "date": "4/13/26"
+      },
       "manualPrice": null,
       "notes": "PLTR 4/24/2026 Put $125.00"
     },
@@ -2810,9 +2837,17 @@
       "excelGrossValue": 1370.04,
       "excelCurrentValue": 0,
       "excelProfit": -1370.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": null,
+        "notes": "",
+        "date": "4/13/26"
+      },
       "manualPrice": null,
       "notes": "PLTR 5/15/2026 Put $145.00"
     },
@@ -3543,9 +3578,17 @@
       "excelGrossValue": 97.04,
       "excelCurrentValue": 0,
       "excelProfit": -97.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": null,
+        "notes": "",
+        "date": "4/13/26"
+      },
       "manualPrice": null,
       "notes": "PLTR 5/15/2026 Put $95.00"
     },
@@ -4074,9 +4117,17 @@
       "excelGrossValue": 69.04,
       "excelCurrentValue": 0,
       "excelProfit": -69.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": null,
+        "notes": "",
+        "date": "4/13/26"
+      },
       "manualPrice": null,
       "notes": "PLTR 5/15/2026 Put $90.00"
     },
@@ -4478,9 +4529,17 @@
       "excelGrossValue": 745.04,
       "excelCurrentValue": 0,
       "excelProfit": -745.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": null,
+        "notes": "",
+        "date": "4/13/26"
+      },
       "manualPrice": null,
       "notes": "PLTR 4/24/2026 Put $145.00"
     },
@@ -5440,9 +5499,17 @@
       "excelGrossValue": 1035.04,
       "excelCurrentValue": 0,
       "excelProfit": -1035.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": null,
+        "notes": "",
+        "date": "4/13/26"
+      },
       "manualPrice": null,
       "notes": "PLTR 4/17/2026 Put $130.00"
     },
