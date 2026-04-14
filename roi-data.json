@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-14T01:16:31.064Z",
+  "savedAt": "2026-04-14T01:22:06.983Z",
   "positions": [
     {
       "id": "uspq1v6c",
@@ -1616,7 +1616,8 @@
       "rolledOver": false,
       "closeAction": null,
       "manualPrice": null,
-      "notes": "PLTR 3/19/2027 Call $95.00"
+      "notes": "PLTR 3/19/2027 Call $95.00",
+      "cvOverride": 5140
     },
     {
       "id": "a4skjcnh",
@@ -2829,9 +2830,17 @@
       "excelGrossValue": 7700.04,
       "excelCurrentValue": 0,
       "excelProfit": -7700.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": null,
+        "notes": "",
+        "date": "4/13/26"
+      },
       "manualPrice": null,
       "notes": "PLTR 3/19/2027 Call $75.00"
     },
@@ -3406,7 +3415,8 @@
       "rolledOver": false,
       "closeAction": null,
       "manualPrice": null,
-      "notes": "PLTR 1/15/2027 Call $110.00"
+      "notes": "PLTR 1/15/2027 Call $110.00",
+      "cvOverride": 3908
     },
     {
       "id": "l96niv8g",
@@ -4516,9 +4526,17 @@
       "excelGrossValue": 6331.04,
       "excelCurrentValue": 0,
       "excelProfit": -6331.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": null,
+        "notes": "",
+        "date": "4/13/26"
+      },
       "manualPrice": null,
       "notes": "PLTR 1/15/2027 Call $105.00"
     },
@@ -5366,9 +5384,17 @@
       "excelGrossValue": 5425.04,
       "excelCurrentValue": 0,
       "excelProfit": -5425.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": null,
+        "notes": "",
+        "date": "4/13/26"
+      },
       "manualPrice": null,
       "notes": "PLTR 1/15/2027 Call $87.50"
     },
