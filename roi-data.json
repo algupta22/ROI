@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-14T01:44:29.294Z",
+  "savedAt": "2026-04-14T01:54:37.283Z",
   "positions": [
     {
       "id": "uspq1v6c",
@@ -43,7 +43,8 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "SOFI 4/24/2026 Put $17.00",
-      "soldAmount": 86.94
+      "soldAmount": 86.94,
+      "cvOverride": -62
     },
     {
       "id": "at1m685z",
@@ -243,7 +244,8 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "SOFI 4/17/2026 Put $15.50",
-      "soldAmount": 19.94
+      "soldAmount": 19.94,
+      "cvOverride": -8
     },
     {
       "id": "oqg3a1nt",
@@ -411,7 +413,8 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "SOFI 4/17/2026 Put $15.50",
-      "soldAmount": 19.94
+      "soldAmount": 19.94,
+      "cvOverride": -8
     },
     {
       "id": "zf2cst79",
@@ -459,7 +462,8 @@
       "rolledOver": false,
       "closeAction": null,
       "manualPrice": null,
-      "notes": "SOFI 5/29/2026 Put $16.50"
+      "notes": "SOFI 5/29/2026 Put $16.50",
+      "cvOverride": 124
     },
     {
       "id": "5nystvz1",
@@ -1088,9 +1092,17 @@
       "excelGrossValue": 115.94,
       "excelCurrentValue": 0,
       "excelProfit": 115.94,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": 115.94,
+        "notes": "",
+        "date": "4/13/26"
+      },
       "manualPrice": null,
       "notes": "SOFI 4/17/2026 Put $17.00",
       "soldAmount": 115.94
@@ -2120,16 +2132,38 @@
       "expiryDate": "5/15/2026",
       "openDate": "3/30/2026",
       "contracts": 1,
-      "excelCost": 540.08,
+      "excelCost": 270,
       "excelIncome": 0,
       "excelGrossValue": 540.08,
-      "excelCurrentValue": 0,
-      "excelProfit": -540.08,
+      "excelCurrentValue": 540.08,
+      "excelProfit": 270.08000000000004,
       "closed": false,
       "rolledOver": false,
       "closeAction": null,
       "manualPrice": null,
-      "notes": "SOFI 5/15/2026 Put $17.00"
+      "notes": "SOFI 5/15/2026 Put $17.00",
+      "cvOverride": 128
+    },
+    {
+      "id": "jkd9rx4k",
+      "portfolio": "lovelina",
+      "ticker": "SOFI",
+      "excelType": "Long Put",
+      "strike": 17,
+      "expiryDate": "5/15/2026",
+      "openDate": "3/30/2026",
+      "contracts": 1,
+      "excelCost": 270,
+      "excelIncome": 0,
+      "excelGrossValue": 540.08,
+      "excelCurrentValue": 540.08,
+      "excelProfit": 270.08000000000004,
+      "closed": false,
+      "rolledOver": false,
+      "closeAction": null,
+      "manualPrice": null,
+      "notes": "SOFI 5/15/2026 Put $17.00",
+      "cvOverride": 128
     },
     {
       "id": "6zuqpui9",
@@ -3744,9 +3778,17 @@
       "excelGrossValue": 236.04,
       "excelCurrentValue": 0,
       "excelProfit": -236.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": null,
+        "notes": "",
+        "date": "4/13/26"
+      },
       "manualPrice": null,
       "notes": "SOFI 5/15/2026 Put $18.00"
     },
@@ -3792,9 +3834,17 @@
       "excelGrossValue": 236.04,
       "excelCurrentValue": 0,
       "excelProfit": -236.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": null,
+        "notes": "",
+        "date": "4/13/26"
+      },
       "manualPrice": null,
       "notes": "SOFI 5/15/2026 Put $18.00"
     },
@@ -4233,7 +4283,8 @@
       "rolledOver": false,
       "closeAction": null,
       "manualPrice": null,
-      "notes": "SOFI 1/15/2027 Call $12.00"
+      "notes": "SOFI 1/15/2027 Call $12.00",
+      "cvOverride": 673
     },
     {
       "id": "tinknzxp",
@@ -4372,9 +4423,17 @@
       "excelGrossValue": 218.04,
       "excelCurrentValue": 0,
       "excelProfit": -218.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": null,
+        "notes": "",
+        "date": "4/13/26"
+      },
       "manualPrice": null,
       "notes": "SOFI 5/15/2026 Put $18.00"
     },
@@ -4884,9 +4943,17 @@
       "excelGrossValue": 233.04,
       "excelCurrentValue": 0,
       "excelProfit": -233.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": null,
+        "notes": "",
+        "date": "4/13/26"
+      },
       "manualPrice": null,
       "notes": "SOFI 5/15/2026 Put $19.00"
     },
@@ -4959,9 +5026,17 @@
       "excelGrossValue": 250.04,
       "excelCurrentValue": 0,
       "excelProfit": -250.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": null,
+        "notes": "",
+        "date": "4/13/26"
+      },
       "manualPrice": null,
       "notes": "SOFI 5/15/2026 Put $19.00"
     },
@@ -5392,9 +5467,17 @@
       "excelGrossValue": 174.04,
       "excelCurrentValue": 0,
       "excelProfit": -174.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": null,
+        "notes": "",
+        "date": "4/13/26"
+      },
       "manualPrice": null,
       "notes": "SOFI 4/17/2026 Put $18.00"
     },
@@ -5416,7 +5499,8 @@
       "rolledOver": false,
       "closeAction": null,
       "manualPrice": null,
-      "notes": "SOFI 1/15/2027 Call $12.00"
+      "notes": "SOFI 1/15/2027 Call $12.00",
+      "cvOverride": 673
     },
     {
       "id": "xu1t2abc",
@@ -5432,9 +5516,17 @@
       "excelGrossValue": 179.04,
       "excelCurrentValue": 0,
       "excelProfit": -179.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": null,
+        "notes": "",
+        "date": "4/13/26"
+      },
       "manualPrice": null,
       "notes": "SOFI 4/17/2026 Put $18.00"
     },
@@ -5870,7 +5962,8 @@
       "rolledOver": false,
       "closeAction": null,
       "manualPrice": null,
-      "notes": "SOFI 1/15/2027 Call $12.00"
+      "notes": "SOFI 1/15/2027 Call $12.00",
+      "cvOverride": 673
     },
     {
       "id": "b2bq7qzm",
