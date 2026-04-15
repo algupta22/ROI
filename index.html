@@ -879,7 +879,7 @@ function getAppliedFilters(data){
           _od=new Date(new Date().getFullYear(),parseInt(_op[0])-1,parseInt(_op[1]));
         }
       }
-      if(!_od||isNaN(_od.getTime()))return false;
+      if(!_od||isNaN(_od.getTime()))return true;// no openDate → always show
       // Normalize to midnight for clean date-only comparisons
       _od=new Date(_od.getFullYear(),_od.getMonth(),_od.getDate());
       var _now=new Date(),_today=new Date(_now.getFullYear(),_now.getMonth(),_now.getDate());
@@ -1079,7 +1079,7 @@ function toggleGroup(gk){if(expandedGroups.has(gk))expandedGroups.delete(gk);els
 function toggleHideClosed(gk){if(hiddenClosedGroups.has(gk))hiddenClosedGroups.delete(gk);else hiddenClosedGroups.add(gk);rMain();}
 function toggleHideClosedGlobal(){hideClosedRows=!hideClosedRows;rMain();}
 function rTable(data){
-  var filtered=getAppliedFilters(data);
+  var filtered=data;// data is already filtered by rMain via getAppliedFilters
   var thisFri=getThisFriday();
   var Q=String.fromCharCode(39);
   var typeShort={'Short Put':'SPUT','Long Put':'LPUT','Long Call':'LCALL','Short Call':'SCALL','Shares':'SHR'};
