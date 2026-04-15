@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-15T23:37:37.599Z",
+  "savedAt": "2026-04-15T23:48:06.547Z",
   "positions": [
     {
       "id": "uspq1v6c",
@@ -29683,14 +29683,21 @@
       "expiryDate": "4/17/2026",
       "openDate": "4/10/2026",
       "contracts": 1,
-      "excelCost": 0,
+      "excelCost": 3,
       "excelIncome": 40.94,
       "excelGrossValue": 40.94,
       "excelCurrentValue": 0,
-      "excelProfit": 40.94,
-      "closed": false,
+      "excelProfit": 37.94,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "BTC",
+        "type": "debit",
+        "amount": 3,
+        "signedAmount": -3,
+        "notes": "",
+        "date": "4/15/26"
+      },
       "manualPrice": null,
       "notes": "HIMS 4/17/2026 Put $18.50",
       "soldAmount": 40.94
@@ -29917,14 +29924,21 @@
       "expiryDate": "4/17/2026",
       "openDate": "4/9/2026",
       "contracts": 1,
-      "excelCost": 0,
+      "excelCost": 2,
       "excelIncome": 70.94,
       "excelGrossValue": 70.94,
       "excelCurrentValue": 0,
-      "excelProfit": 70.94,
-      "closed": false,
+      "excelProfit": 68.94,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "BTC",
+        "type": "debit",
+        "amount": 2,
+        "signedAmount": -2,
+        "notes": "",
+        "date": "4/15/26"
+      },
       "manualPrice": null,
       "notes": "HIMS 4/17/2026 Put $19.00",
       "soldAmount": 70.94
@@ -43559,11 +43573,19 @@
       "excelGrossValue": 370.04,
       "excelCurrentValue": 0,
       "excelProfit": -370.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "STC",
+        "type": "credit",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "",
+        "date": "4/15/26"
+      },
       "manualPrice": null,
-      "notes": "HIMS 5/15/2026 Put $17.00"
+      "notes": "HIMS 5/15/2026 Put $17.00",
+      "soldAmount": 0
     },
     {
       "id": "ydkrt7w2",
@@ -59613,6 +59635,48 @@
         "date": "4/15/26"
       },
       "soldAmount": 1000
+    },
+    {
+      "id": "38p34zaw",
+      "portfolio": "all",
+      "ticker": "HIMS",
+      "excelType": "Short Put",
+      "strike": 21,
+      "expiryDate": "04/24/2026",
+      "openDate": "4/15/26",
+      "contracts": 1,
+      "excelCost": 0,
+      "excelIncome": 0,
+      "excelGrossValue": 0,
+      "excelCurrentValue": 0,
+      "excelProfit": 0,
+      "closed": false,
+      "notes": "",
+      "manualPrice": null,
+      "rolledOver": false,
+      "closeAction": null,
+      "soldAmount": 43
+    },
+    {
+      "id": "9jogwsxt",
+      "portfolio": "all",
+      "ticker": "HIMS",
+      "excelType": "Short Put",
+      "strike": 21.5,
+      "expiryDate": "04/24/2026",
+      "openDate": "4/15/26",
+      "contracts": 1,
+      "excelCost": 0,
+      "excelIncome": 0,
+      "excelGrossValue": 0,
+      "excelCurrentValue": 0,
+      "excelProfit": 0,
+      "closed": false,
+      "notes": "",
+      "manualPrice": null,
+      "rolledOver": false,
+      "closeAction": null,
+      "soldAmount": 60
     }
   ],
   "tickerPrices": {
