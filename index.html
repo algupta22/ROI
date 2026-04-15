@@ -1303,8 +1303,12 @@ function rTable(data){
           cvCellC='<td class="mn"><div class="ie-wrap">'+cvHint+'<input class="ie-input w-md" id="ie_'+r.id+'_cvOverride" type="number" step="0.01" value="'+cvInputVal+'" onkeydown="ieKey(event,'+Q+r.id+Q+','+Q+'cvOverride'+Q+')" oninput="(function(){var rx=positions.find(function(p){return p.id==='+Q+r.id+Q+';});if(rx)rx.cvOverride=this.value;}).call(this)"><button class="ie-ok" onclick="(function(){var inp=document.getElementById('+Q+'ie_'+r.id+'_cvOverride'+Q+');if(!inp)return;var v=parseFloat(inp.value);if(isNaN(v))return;var rx=positions.find(function(p){return p.id==='+Q+r.id+Q+';});if(rx){rx.cvOverride='+(rIsSP?'(-Math.abs(v))':'v')+';savePositions();}editCell=null;rMain();})();">&#10003;</button><button class="ie-x" onclick="ieCancel()">&#10005;</button></div></td>';
         }else{
           var cvDispVal=hasOvrd?parseFloat(r.cvOverride):dCV;
+          // SPUT/SCALL are short obligations — always force negative display
+          var isShortObl=r.excelType==='Short Put'||r.excelType==='Short Call';
+          if(isShortObl&&cvDispVal!=null)cvDispVal=-Math.abs(cvDispVal);
           var cvFmt=fmtMoney(cvDispVal);
-          var cvDispC=hasOvrd?'<span style="color:var(--yellow);font-family:monospace;font-weight:700;">'+cvFmt+'</span><span class="pcell-badge" style="background:var(--yellow-bg);color:var(--yellow);margin-left:2px;">ovrd</span><button class="pcell-act" onclick="(function(){var rx=positions.find(function(p){return p.id==='+Q+r.id+Q+';});if(rx){delete rx.cvOverride;}savePositions();rMain();})();" title="undo">&#8617;</button>':'<span style="font-family:monospace;">'+fm(dCV)+'</span><button class="pcell-act" onclick="ieStart('+Q+r.id+Q+','+Q+'cvOverride'+Q+')" title="override">ovrd</button>';
+          var cvColor=isShortObl?'var(--red)':(cvDispVal>=0?'var(--black)':'var(--red)');
+          var cvDispC=hasOvrd?'<span style="color:var(--yellow);font-family:monospace;font-weight:700;">'+cvFmt+'</span><span class="pcell-badge" style="background:var(--yellow-bg);color:var(--yellow);margin-left:2px;">ovrd</span><button class="pcell-act" onclick="(function(){var rx=positions.find(function(p){return p.id==='+Q+r.id+Q+';});if(rx){delete rx.cvOverride;}savePositions();rMain();})();" title="undo">&#8617;</button>':'<span style="font-family:monospace;color:'+cvColor+';">'+fmtMoney(cvDispVal)+'</span><button class="pcell-act" onclick="ieStart('+Q+r.id+Q+','+Q+'cvOverride'+Q+')" title="override">ovrd</button>';
           cvCellC='<td class="mn">'+cvDispC+'</td>';
         }
 
