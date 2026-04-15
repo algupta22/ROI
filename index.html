@@ -720,6 +720,24 @@ function getThisFriday(){var d=new Date(now);var x=5-d.getDay();d.setDate(d.getD
 function getFriday(d){var dt=new Date(d);var x=5-dt.getDay();dt.setDate(dt.getDate()+(x>=0?x:x+7));return dt;}
 function getNextFriday(){var d=new Date(getThisFriday());d.setDate(d.getDate()+7);return d;}
 function isCl(r){return r.closed===true;}
+function parseExpiry(s){
+  if(!s)return null;
+  try{
+    var p=s.trim().split('/');
+    var d;
+    if(p.length===2){// MM/DD — assume current year
+      var yr=new Date().getFullYear();
+      d=new Date(yr+'-'+p[0].padStart(2,'0')+'-'+p[1].padStart(2,'0'));
+    } else if(p.length===3){
+      var y=parseInt(p[2]);
+      if(y<100)y+=2000;// 2-digit year
+      d=new Date(y+'-'+p[0].padStart(2,'0')+'-'+p[1].padStart(2,'0'));
+    } else {
+      d=new Date(s);
+    }
+    return isNaN(d)?null:d;
+  }catch(e){return null;}
+}
 function fm(n){return(n||n===0)?'$'+Math.abs(n).toLocaleString():'--';}
 function fp(n){return fmtKSign(n);}
 function fmtK(v){
@@ -778,7 +796,7 @@ function calcSpreadCollateral(data){
 function calcSpreadCollateralThisWeek(data){
   var thisFri=getThisFriday();
   var twSPs=data.filter(function(r){return r.excelType==='Short Put'&&!isCl(r)&&!r.rolledOver&&r.expiryDate;})
-    .filter(function(r){try{return getFriday(new Date(r.expiryDate))<=thisFri;}catch(e){return false;}});
+    .filter(function(r){var _d=parseExpiry(r.expiryDate);return _d&&getFriday(_d)<=thisFri;});
   var openLPs=data.filter(function(r){return r.excelType==='Long Put'&&!isCl(r);});
   var tickers=[...new Set(twSPs.map(function(r){return r.ticker;}))];
   var netMap={};
@@ -810,7 +828,7 @@ function cs(data,isRetirement){
   var twc,tc;
   if(isRetirement){
     twc=data.filter(function(r){return r.excelType==='Short Put'&&!isCl(r)&&!r.rolledOver&&r.expiryDate;})
-      .filter(function(r){try{return getFriday(new Date(r.expiryDate))<=thisFri;}catch(e){return false;}})
+      .filter(function(r){var _d=parseExpiry(r.expiryDate);return _d&&getFriday(_d)<=thisFri;})
       .reduce(function(s,r){return s+r.strike*100;},0);
     tc=data.filter(function(r){return r.excelType==='Short Put'&&!isCl(r)&&!r.rolledOver;})
       .reduce(function(s,r){return s+r.strike*100;},0);
@@ -840,7 +858,7 @@ function getAppliedFilters(data){
     if(ocFilter==='open'&&isCl(r))return false;
     if(ocFilter==='closed'&&!isCl(r))return false;
     if(!selectedTickers.has('ALL')&&!selectedTickers.has(r.ticker))return false;
-    if(expiringOnly){if(!r.expiryDate)return false;try{if(new Date(r.expiryDate)>thisFri)return false;}catch(e){return false;}}
+    if(expiringOnly){var _d=parseExpiry(r.expiryDate);if(!_d||_d>thisFri)return false;}
     return true;
   }).sort(function(a,b){
     var av=sc==='status'?(isCl(a)?1:0):a[sc],bv=sc==='status'?(isCl(b)?1:0):b[sc];
@@ -1032,8 +1050,8 @@ function rTable(data){
     if(!aHasOpen&&bHasOpen)return 1;
     if(aHasOpen&&bHasOpen){
       // Both have open — sort by earliest open expiry date asc
-      var aExp=ra.filter(function(r){return!isCl(r)&&r.expiryDate;}).map(function(r){return new Date(r.expiryDate);}).filter(function(d){return!isNaN(d);}).sort(function(x,y){return x-y;})[0]||new Date('9999-12-31');
-      var bExp=rb.filter(function(r){return!isCl(r)&&r.expiryDate;}).map(function(r){return new Date(r.expiryDate);}).filter(function(d){return!isNaN(d);}).sort(function(x,y){return x-y;})[0]||new Date('9999-12-31');
+      var aExp=ra.filter(function(r){return!isCl(r)&&r.expiryDate;}).map(function(r){return parseExpiry(r.expiryDate);}).filter(function(d){return d!=null;}).sort(function(x,y){return x-y;})[0]||new Date('9999-12-31');
+      var bExp=rb.filter(function(r){return!isCl(r)&&r.expiryDate;}).map(function(r){return parseExpiry(r.expiryDate);}).filter(function(d){return d!=null;}).sort(function(x,y){return x-y;})[0]||new Date('9999-12-31');
       return aExp-bExp;
     }
     // Both all-closed — sort alphabetically
@@ -1063,7 +1081,7 @@ function rTable(data){
     var openCount=rows.filter(function(r){return!isCl(r);}).length;
     var closedCount=rows.filter(function(r){return isCl(r);}).length;
     var count=rows.length;
-    var hasExp=rows.some(function(r){return r.expiryDate&&!isCl(r)&&(function(){try{return new Date(r.expiryDate)<=thisFri;}catch(e){return false;}})();});
+    var hasExp=rows.some(function(r){if(isCl(r))return false;var d=parseExpiry(r.expiryDate);return d&&d<=thisFri;});
 
     // Price (shared per ticker)
     var liveP=(liveCache[ticker]&&liveCache[ticker].price!=null)?liveCache[ticker].price:null;
@@ -1133,7 +1151,7 @@ function rTable(data){
     html+='<td class="'+(hasExp?'es':'ef')+'" style="font-size:0.65rem;">'+expiryCell+(hasExp?' &#9888;':'')+'</td>';
     var closedHidden=hiddenClosedGroups.has(gk);
     var today2=new Date(new Date().toDateString());
-    var hasClosedRows=(g.allRows||rows).some(function(r){return isCl(r)||(r.expiryDate&&(function(){try{return new Date(r.expiryDate)<today2;}catch(e){return false;}})());});
+    var hasClosedRows=(g.allRows||rows).some(function(r){return isCl(r)||(function(){var d=parseExpiry(r.expiryDate);return d&&d<today2;})();});
     var hideBtn=hasClosedRows?'<button class="row-edit-btn" style="font-size:0.58rem;margin-left:3px;" onclick="event.stopPropagation();toggleHideClosed('+Q+gk+Q+')" title="'+(closedHidden?'Show':'Hide')+' closed">&#128065; '+(closedHidden?'Show Cl.':'Hide Cl.')+'</button>':'';
     html+='<td style="text-align:center;white-space:nowrap;"><button class="add-pos-btn" style="font-size:0.6rem;padding:0.18rem 0.5rem;" onclick="event.stopPropagation();openAddModal()" title="Add position">+ Add</button>'+hideBtn+'</td>';
     html+='<td colspan="3"></td>';
@@ -1151,12 +1169,12 @@ function rTable(data){
         var bT=(typeOrder[b.excelType]!=null?typeOrder[b.excelType]:9);
         if(aT!==bT)return aT-bT;
         // 3) Expiry date ascending (no expiry goes last)
-        var aD=a.expiryDate?new Date(a.expiryDate):new Date('9999-12-31');
-        var bD=b.expiryDate?new Date(b.expiryDate):new Date('9999-12-31');
+        var aD=parseExpiry(a.expiryDate)||new Date('9999-12-31');
+        var bD=parseExpiry(b.expiryDate)||new Date('9999-12-31');
         return aD-bD;
       });
       sortedRows.forEach(function(r){
-        var isPastExp=r.expiryDate&&(function(){try{return new Date(r.expiryDate)<new Date(new Date().toDateString());}catch(e){return false;}})();
+        var isPastExp=(function(){var d=parseExpiry(r.expiryDate);return d&&d<new Date(new Date().toDateString());})();
         if((closedHidden||hideClosedRows)&&(isCl(r)||isPastExp))return;  // hidden but aggregates unchanged
         var c=isCl(r);
         var rIsSP=r.excelType==='Short Put',rIsST=r.excelType==='Short Put'||r.excelType==='Short Call';
@@ -1166,7 +1184,7 @@ function rTable(data){
         var autoCV=c?0:(rIsSP&&stockPrice!=null?(r.strike>0&&r.strike<stockPrice?r.strike*100:stockPrice*100):(rIsST?0:(r.excelCurrentValue||0)));
         var hasOvrd=r.cvOverride!=null&&r.cvOverride!=='';
         var dCV=hasOvrd?parseFloat(r.cvOverride):autoCV;
-        var isExp2=r.expiryDate&&!c&&(function(){try{return new Date(r.expiryDate)<=thisFri;}catch(e){return false;}})();
+        var isExp2=!c&&(function(){var d=parseExpiry(r.expiryDate);return d&&d<=thisFri;})();
         var childCls='grp-child'+(r.rolledOver?' rolled':isExp2?' expiring-soon':'')+(c?' cr':'');
 
         // Price cell (child)
