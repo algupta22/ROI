@@ -1133,6 +1133,19 @@ function rTable(data){
     var cbVal=collatBlocked[ticker]!=null?collatBlocked[ticker]:0;  // default 0
     var cbGap=totalAssnReq-cbVal;  // always compute, even if 0
 
+    // Check if all child rows would be hidden — if so, skip this ticker group entirely
+    var today3=new Date(new Date().toDateString());
+    var thisFri3=getThisFriday();
+    var visibleRows=rows.filter(function(r){
+      // Apply same hide logic as child row render
+      var pastExp=(function(){var d=parseExpiry(r.expiryDate);return d&&d<today3;})();
+      if((closedHidden||hideClosedRows)&&(isCl(r)||pastExp))return false;
+      // Apply expiringOnly filter at row level
+      if(expiringOnly){var d=parseExpiry(r.expiryDate);if(!d||d>thisFri3)return false;}
+      return true;
+    });
+    if(visibleRows.length===0)return;  // skip group entirely — aggregates unchanged
+
     // Summary row
     html+='<tr class="'+sumRowCls+'" style="cursor:pointer;background:#F8F8F8;border-left:3px solid '+(DC[ticker]||'#888')+';" onclick="toggleGroup('+Q+gk+Q+')">';
     html+='<td class="mc"><span style="font-size:0.72rem;color:var(--text3);margin-right:4px;">'+(expanded?'&#9660;':'&#9654;')+'</span><span class="chip"><span class="tk-dot-sm" style="background:'+(DC[ticker]||'#888')+'"></span>'+ticker+'</span></td>';
