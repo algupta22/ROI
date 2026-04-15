@@ -110,14 +110,14 @@ body{background:var(--bg);min-height:100vh;font-family:'Segoe UI',system-ui,sans
 .del-all-btn:hover{background:var(--red-bg);color:var(--red);}
 /* TABLE */
 .table-wrap{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;overflow-x:auto;margin-bottom:0.85rem;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
-table{width:100%;border-collapse:collapse;min-width:1100px;}
+table{width:100%;border-collapse:collapse;min-width:900px;}
 thead{background:var(--black);}
-th{padding:0.6rem 0.65rem;font-size:0.6rem;font-weight:700;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:0.08em;text-align:left;white-space:nowrap;cursor:pointer;user-select:none;}
+th{padding:0.5rem 0.45rem;font-size:0.58rem;font-weight:700;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:0.05em;text-align:left;white-space:nowrap;cursor:pointer;user-select:none;}
 th:hover{color:#EF4444;}
 tbody tr{border-bottom:1px solid var(--border);transition:background 0.1s;}
 tbody tr:last-child{border-bottom:none;}tbody tr:hover{background:#FAFAFA;}
 tr.cr{opacity:0.4;}tr.expiring-soon{background:#FEF2F2!important;}tr.rolled{background:#F5F3FF!important;opacity:0.75;}
-td{padding:0.5rem 0.65rem;font-size:0.73rem;color:var(--text2);white-space:nowrap;}
+td{padding:0.4rem 0.45rem;font-size:0.7rem;color:var(--text2);white-space:nowrap;}
 td.mc{color:var(--black);font-weight:700;}td.mn{font-family:monospace;font-size:0.71rem;}
 .badge{display:inline-flex;align-items:center;padding:0.1rem 0.42rem;border-radius:4px;font-size:0.58rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;}
 .bsp{background:var(--red-bg);color:var(--red);}.blp{background:var(--blue-bg);color:var(--blue);}
@@ -733,15 +733,15 @@ function parseExpiry(s){
     var d;
     if(p.length===2){// MM/DD — assume current year
       var yr=new Date().getFullYear();
-      d=new Date(yr+'-'+p[0].padStart(2,'0')+'-'+p[1].padStart(2,'0'));
+      d=new Date(yr,parseInt(p[0])-1,parseInt(p[1]));// local constructor avoids UTC shift
     } else if(p.length===3){
       var y=parseInt(p[2]);
       if(y<100)y+=2000;// 2-digit year
-      d=new Date(y+'-'+p[0].padStart(2,'0')+'-'+p[1].padStart(2,'0'));
+      d=new Date(y,parseInt(p[0])-1,parseInt(p[1]));// local constructor avoids UTC shift
     } else {
       d=new Date(s);
     }
-    return isNaN(d)?null:d;
+    return isNaN(d.getTime())?null:d;
   }catch(e){return null;}
 }
 function fm(n){return(n||n===0)?'$'+Math.abs(n).toLocaleString():'--';}
@@ -1230,12 +1230,13 @@ function rTable(data){
     html+='<td class="mn" style="color:var(--blue);font-weight:700;">'+(hasSoldAny?fmtMoney(totalSold):'--')+'</td>';
     html+='<td class="mn" style="color:'+niColor+';font-weight:700;">'+(totalNetInc!=null?fmtMoneySign(totalNetInc):'--')+'</td>';
     html+='<td class="mn" style="color:'+cvColor+';font-weight:700;">'+fmtMoney(totalCV)+'</td>';
-    html+='<td class="mn" style="font-weight:700;color:'+grpBeColor+';">'+grpBeLabel+'</td>';
-    html+='<td style="min-width:110px;"><div class="pcell">'+pd+'</div></td>';
+    html+='<td style="min-width:90px;"><div class="pcell">'+pd+'</div></td>';
     html+='<td></td>';  // Type col blank
     html+='<td class="mn" style="font-size:0.65rem;color:var(--text3);">'+strikeCell+'</td>';  // Strike col = count
     // Assn. Req. at ticker level
     html+='<td class="mn" style="font-weight:700;color:'+(totalAssnReq>0?'var(--red)':'var(--text3)')+';">'+'$'+totalAssnReq.toLocaleString()+'</td>';
+    // Coll.Val (blank at group level - shown per-row)
+    html+='<td></td>';
     // Collateral Blocked (editable)
     var cbDisplay='<span style="font-family:monospace;font-weight:700;">$'+cbVal.toLocaleString()+'</span><button class="pcell-act" onclick="event.stopPropagation();(function(){var v=prompt(\'Collateral Blocked for '+ticker+':\',\''+cbVal+'\');if(v===null)return;var n=parseFloat(v);setCollatBlocked(\''+ticker+'\',isNaN(n)?null:n);rMain();})()" style="margin-left:4px;">ed</button>';
     html+='<td class="mn" style="font-weight:700;">'+cbDisplay+'</td>';
@@ -1336,13 +1337,22 @@ function rTable(data){
         html+='<td class="mn" style="color:var(--blue);">'+(hasSoldC?fmtMoney(soldC):'--')+'</td>';
         html+='<td class="mn" style="color:'+(netIncC!=null?(netIncC>=0?'var(--green)':'var(--red)'):'var(--text3)')+'">'+(netIncC!=null?fmtMoneySign(netIncC):'--')+'</td>';
         html+=cvCellC;
-        html+='<td></td>';
-        html+='<td style="min-width:110px;">'+priceCellC+'</td>';
+        html+='<td style="min-width:90px;">'+priceCellC+'</td>';
         html+='<td><span class="badge '+bct(r.excelType)+'" title="'+r.excelType+'" style="opacity:0.6;">'+(typeShort[r.excelType]||r.excelType)+'</span></td>';
         var assnReq=r.excelType==='Short Put'&&r.strike>0&&!isCl(r)?(r.strike*100):null;
         html+='<td class="mn">'+(r.strike>0?'$'+r.strike:'--')+'</td>';
         html+='<td class="mn" style="color:var(--red);font-weight:600;">'+(assnReq!=null?'$'+assnReq.toLocaleString():'--')+'</td>';
-        html+='<td></td><td></td>';
+        // Coll.Val: for SPUT only — if strike > stockPrice use stockPrice*100 else strike*100
+        var collVal=null;
+        if(r.excelType==='Short Put'&&r.strike>0&&!isCl(r)){
+          if(stockPrice!=null){
+            collVal=r.strike>stockPrice?(stockPrice*100):(r.strike*100);
+          } else {
+            collVal=r.strike*100;// fallback if no price
+          }
+        }
+        html+='<td class="mn" style="color:var(--orange);font-weight:700;">'+(collVal!=null?'$'+collVal.toLocaleString():'--')+'</td>';
+        html+='<td></td>';
         html+='<td class="'+(isExp2?'es':'ef')+'">'+fmtExpiry(r.expiryDate)+(isExp2?' &#9888;':'')+'</td>';
         html+='<td>'+actionCellC+'</td>';
         html+='<td style="text-align:center"><button class="row-edit-btn" onclick="openEditModal('+Q+r.id+Q+')" title="Edit">&#9998;</button></td>';
@@ -1353,8 +1363,8 @@ function rTable(data){
     }
   });
 
-  var phdr=portHeader?'<th style="color:rgba(255,255,255,0.7);">Portfolio</th>':'';
-  return'<div class="table-wrap"><table><thead><tr><th>Ticker</th>'+phdr+'<th>Open Dt</th><th>Cost</th><th>Sold</th><th>Net Inc</th><th>Curr Val</th><th>Gap</th><th style="min-width:110px;">Price</th><th>Type</th><th>Strike</th><th style="color:#FCA5A5;">Assn. Req.</th><th style="color:#FCD34D;">Col. Blocked</th><th style="color:#6EE7B7;">Col. Gap</th><th>Expiry</th><th>Action</th><th>Ed</th><th>Cp</th><th>Del</th></tr></thead><tbody>'+html+'</tbody></table></div>';
+  var phdr=portHeader?'<th style="color:rgba(255,255,255,0.7);">Port.</th>':'';
+  return'<div class="table-wrap"><table><thead><tr><th>Ticker</th>'+phdr+'<th>Dt</th><th>Cost</th><th>Sold</th><th>Net</th><th>C.Val</th><th style="min-width:90px;">Price</th><th>Type</th><th>Strike</th><th style="color:#FCA5A5;">Assn.</th><th style="color:#FDBA74;">Coll.Val</th><th style="color:#FCD34D;">Col.Blk</th><th style="color:#6EE7B7;">Col.Gap</th><th>Expiry</th><th>Action</th><th></th><th></th><th></th></tr></thead><tbody>'+html+'</tbody></table></div>';
 }
 
 // ── CLOSE MODAL ───────────────────────────────────────────────────────────────
