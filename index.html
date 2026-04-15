@@ -859,8 +859,39 @@ function cs(data,isRetirement){
   return{n:data.length,op:op.length,cl:data.filter(function(r){return isCl(r);}).length,gv:gv,ci:ci,ig:ig,be:be,beRaw:beRaw,pct:pct,realized:realized,unrealized:unrealized,totalGain:realized+unrealized,twc:twc,tc:tc};
 }
 function getTickersFrom(d){return[...new Set(d.map(function(r){return r.ticker;}))].sort();}
+function parseOpenDate(s){
+  // Robustly parse openDate strings into local midnight Date objects
+  if(!s||!s.trim())return null;
+  var p=s.trim().split('/');
+  var d;
+  if(p.length===3){
+    var y=parseInt(p[2]);if(y<100)y+=2000;
+    d=new Date(y,parseInt(p[0])-1,parseInt(p[1]));
+  } else if(p.length===2){
+    d=new Date(new Date().getFullYear(),parseInt(p[0])-1,parseInt(p[1]));
+  } else {
+    return null;
+  }
+  if(isNaN(d.getTime()))return null;
+  // Return normalized to midnight local
+  return new Date(d.getFullYear(),d.getMonth(),d.getDate());
+}
+function getDateBounds(){
+  var now=new Date();
+  var today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  var todEnd=new Date(today.getFullYear(),today.getMonth(),today.getDate()+1);
+  var dow=now.getDay(),monOff=dow===0?-6:1-dow;
+  var thisMon=new Date(today.getFullYear(),today.getMonth(),today.getDate()+monOff);
+  var thisSun=new Date(thisMon.getFullYear(),thisMon.getMonth(),thisMon.getDate()+6,23,59,59,999);
+  var lastMon=new Date(thisMon.getFullYear(),thisMon.getMonth(),thisMon.getDate()-7);
+  var lastSun=new Date(thisSun.getFullYear(),thisSun.getMonth(),thisSun.getDate()-7,23,59,59,999);
+  var cmStart=new Date(now.getFullYear(),now.getMonth(),1);
+  var cmEnd=new Date(now.getFullYear(),now.getMonth()+1,0,23,59,59,999);
+  return{today:today,todEnd:todEnd,thisMon:thisMon,thisSun:thisSun,lastMon:lastMon,lastSun:lastSun,cmStart:cmStart,cmEnd:cmEnd};
+}
 function getAppliedFilters(data){
   var thisFri=getThisFriday();
+  var bounds=incomeFilter!=='all'?getDateBounds():null;
   return data.filter(function(r){
     if(typeFilter!=='all'&&r.excelType!==typeFilter)return false;
     if(ocFilter==='open'&&isCl(r))return false;
@@ -868,33 +899,14 @@ function getAppliedFilters(data){
     if(!selectedTickers.has('ALL')&&!selectedTickers.has(r.ticker))return false;
     if(expiringOnly){var _d=parseExpiry(r.expiryDate);if(!_d||_d>thisFri)return false;}
     if(incomeFilter!=='all'){
-      // Parse openDate robustly using local-time constructor (same as parseExpiry)
-      var _od=null;
-      if(r.openDate){
-        var _op=r.openDate.trim().split('/');
-        if(_op.length===3){
-          var _y=parseInt(_op[2]);if(_y<100)_y+=2000;
-          _od=new Date(_y,parseInt(_op[0])-1,parseInt(_op[1]));
-        } else if(_op.length===2){
-          _od=new Date(new Date().getFullYear(),parseInt(_op[0])-1,parseInt(_op[1]));
-        }
-      }
-      if(!_od||isNaN(_od.getTime()))return true;// no openDate → always show
-      // Normalize to midnight for clean date-only comparisons
-      _od=new Date(_od.getFullYear(),_od.getMonth(),_od.getDate());
-      var _now=new Date(),_today=new Date(_now.getFullYear(),_now.getMonth(),_now.getDate());
-      var _todEnd=new Date(_today.getTime()+86400000);
-      var _dow=_now.getDay(),_monOff=_dow===0?-6:1-_dow;
-      var _thisMon=new Date(_now.getFullYear(),_now.getMonth(),_now.getDate()+_monOff);
-      var _thisSun=new Date(_thisMon.getFullYear(),_thisMon.getMonth(),_thisMon.getDate()+6,23,59,59,999);
-      var _lastMon=new Date(_thisMon.getFullYear(),_thisMon.getMonth(),_thisMon.getDate()-7);
-      var _lastSun=new Date(_thisSun.getFullYear(),_thisSun.getMonth(),_thisSun.getDate()-7,23,59,59,999);
-      var _cmStart=new Date(_now.getFullYear(),_now.getMonth(),1);
-      var _cmEnd=new Date(_now.getFullYear(),_now.getMonth()+1,0,23,59,59,999);
-      if(incomeFilter==='today'&&(_od<_today||_od>=_todEnd))return false;
-      if(incomeFilter==='cw'&&(_od<_thisMon||_od>_thisSun))return false;
-      if(incomeFilter==='pw'&&(_od<_lastMon||_od>_lastSun))return false;
-      if(incomeFilter==='cm'&&(_od<_cmStart||_od>_cmEnd))return false;
+      var od=parseOpenDate(r.openDate);
+      // Rows with no parseable openDate are excluded when a date filter is active
+      if(!od)return false;
+      var b=bounds;
+      if(incomeFilter==='today'&&(od<b.today||od>=b.todEnd))return false;
+      if(incomeFilter==='cw'&&(od<b.thisMon||od>b.thisSun))return false;
+      if(incomeFilter==='pw'&&(od<b.lastMon||od>b.lastSun))return false;
+      if(incomeFilter==='cm'&&(od<b.cmStart||od>b.cmEnd))return false;
     }
     return true;
   }).sort(function(a,b){
