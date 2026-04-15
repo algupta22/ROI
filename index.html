@@ -932,9 +932,11 @@ function rCashCard(){
     +'</div>';
 
   // Collateral Blocked total and Gap
-  var totalCB=0;for(var tk in collatBlocked){if(collatBlocked[tk])totalCB+=collatBlocked[tk];}
   var portKey2=ap==='retirement'?as:ap;
   var portPos=positions.filter(function(r){return(ap==='all'||(r.portfolio||'lovelina')===portKey2)&&r.excelType==='Short Put'&&!isCl(r)&&r.strike>0;});
+  // Only sum collatBlocked for tickers that have open Short Puts in this portfolio
+  var portTickers={};portPos.forEach(function(r){portTickers[r.ticker]=true;});
+  var totalCB=0;for(var tk in collatBlocked){if(collatBlocked[tk]&&portTickers[tk])totalCB+=collatBlocked[tk];}
   var totalAR=portPos.reduce(function(s,r){return s+r.strike*100;},0);
   var colGap=totalAR>0?totalAR-totalCB:null;
   var colGapColor=colGap!=null?(colGap>0?'#F87171':'#34D399'):'rgba(255,255,255,0.65)';
