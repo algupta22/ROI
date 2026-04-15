@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-15T23:51:53.414Z",
+  "savedAt": "2026-04-15T23:54:45.248Z",
   "positions": [
     {
       "id": "uspq1v6c",
@@ -59704,6 +59704,50 @@
       "rolledOver": false,
       "closeAction": null,
       "soldAmount": 60
+    },
+    {
+      "id": "x6l8hjhr",
+      "portfolio": "amit",
+      "ticker": "HIMS",
+      "excelType": "Short Put",
+      "strike": 21.5,
+      "expiryDate": "04/24/2026",
+      "openDate": "4/15/26",
+      "contracts": 1,
+      "excelCost": 0,
+      "excelIncome": 0,
+      "excelGrossValue": 0,
+      "excelCurrentValue": 0,
+      "excelProfit": 0,
+      "closed": false,
+      "notes": "",
+      "manualPrice": null,
+      "rolledOver": false,
+      "closeAction": null,
+      "soldAmount": 60,
+      "cvOverride": -48
+    },
+    {
+      "id": "jihg7j3y",
+      "portfolio": "amit",
+      "ticker": "HIMS",
+      "excelType": "Short Put",
+      "strike": 21,
+      "expiryDate": "04/24/2026",
+      "openDate": "4/15/26",
+      "contracts": 1,
+      "excelCost": 0,
+      "excelIncome": 0,
+      "excelGrossValue": 0,
+      "excelCurrentValue": 0,
+      "excelProfit": 0,
+      "closed": false,
+      "notes": "",
+      "manualPrice": null,
+      "rolledOver": false,
+      "closeAction": null,
+      "soldAmount": 43,
+      "cvOverride": -40
     }
   ],
   "tickerPrices": {
