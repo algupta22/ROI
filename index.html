@@ -850,7 +850,9 @@ function cs(data,isRetirement){
     var mP=tickerPrices[r.ticker]!=null?tickerPrices[r.ticker]:null;
     var sp=lP!=null?lP:(mP!=null?mP:null);
     var hasOvrd=r.cvOverride!=null&&r.cvOverride!=='';
-    var cv=hasOvrd?parseFloat(r.cvOverride):0;
+    var isShortCs=r.excelType==='Short Put'||r.excelType==='Short Call';
+    var autoCs=isShortCs?(r.soldAmount!=null&&r.soldAmount!==''?Math.abs(parseFloat(r.soldAmount)):0):(r.excelCost||0);
+    var cv=hasOvrd?parseFloat(r.cvOverride):autoCs;
     return s+cv;
   },0);
   var beRaw=ci-totalSold-gv,be=Math.max(0,beRaw),pct=ci>0?Math.min(100,Math.round((totalSold+gv)/ci*100)):0;
@@ -1008,13 +1010,24 @@ function rTable(data){
   var portColors={'lovelina':'#DB2877','amit':'#2563EB','joint':'#059669','amit-roth':'#7C3AED','lov-roth':'#DB2877','lov-trad':'#0891B2'};
 
   // ── helpers reused per row ────────────────────────────────────────────────
+  function getDefaultCV(r){
+    // STO/STC (short types or sold-to-close) → soldAmount; BTO/BTC (long or bought) → excelCost
+    var isShort=r.excelType==='Short Put'||r.excelType==='Short Call';
+    var ca=r.closeAction;
+    var tc=ca&&ca.action?ca.action.toUpperCase():'';
+    if(isCl(r)){
+      if(tc==='STC'||tc==='EXP')return r.soldAmount!=null&&r.soldAmount!==''?Math.abs(parseFloat(r.soldAmount)):0;
+      if(tc==='BTC')return r.excelCost||0;
+      // fallback by type
+      return isShort?(r.soldAmount!=null&&r.soldAmount!==''?Math.abs(parseFloat(r.soldAmount)):0):(r.excelCost||0);
+    } else {
+      // Open: Short=STO→soldAmount, Long=BTO→excelCost
+      return isShort?(r.soldAmount!=null&&r.soldAmount!==''?Math.abs(parseFloat(r.soldAmount)):0):(r.excelCost||0);
+    }
+  }
   function rowCV(r){
-    var c=isCl(r),isSP=r.excelType==='Short Put',isST=isSP||r.excelType==='Short Call';
-    var lP=(liveCache[r.ticker]&&liveCache[r.ticker].price!=null)?liveCache[r.ticker].price:null;
-    var mP=tickerPrices[r.ticker]!=null?tickerPrices[r.ticker]:null;
-    var sp=lP!=null?lP:(mP!=null?mP:null);
     var hasOvrd=r.cvOverride!=null&&r.cvOverride!=='';
-    return hasOvrd?parseFloat(r.cvOverride):0;
+    return hasOvrd?parseFloat(r.cvOverride):getDefaultCV(r);
   }
   function getSold(r){
     if(r.soldAmount!=null&&r.soldAmount!==0&&r.soldAmount!=='')return parseFloat(r.soldAmount);
@@ -1200,9 +1213,8 @@ function rTable(data){
         var livePI=(liveCache[r.ticker]&&liveCache[r.ticker].price!=null)?liveCache[r.ticker].price:null;
         var manPI=tickerPrices[r.ticker]!=null?tickerPrices[r.ticker]:null;
         var stockPrice=livePI!=null?livePI:(manPI!=null?manPI:null);
-        var autoCV=c?0:(rIsSP&&stockPrice!=null?(r.strike>0&&r.strike<stockPrice?r.strike*100:stockPrice*100):(rIsST?0:(r.excelCurrentValue||0)));
         var hasOvrd=r.cvOverride!=null&&r.cvOverride!=='';
-        var dCV=hasOvrd?parseFloat(r.cvOverride):autoCV;
+        var dCV=hasOvrd?parseFloat(r.cvOverride):getDefaultCV(r);
         var isExp2=!c&&(function(){var d=parseExpiry(r.expiryDate);return d&&d<=thisFri;})();
         var childCls='grp-child'+(r.rolledOver?' rolled':isExp2?' expiring-soon':'')+(c?' cr':'');
 
