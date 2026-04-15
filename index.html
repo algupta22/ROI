@@ -2235,7 +2235,7 @@ function rMain(){
     var fd=getAppliedFilters(dispData),sf=cs(fd,isRet);
     el.innerHTML=data.length===0
       ?rFilterBar([])+rFiltersRow(data)+rSum(sf)+rTableControls()+'<div class="ph"><strong>'+ap+' Portfolio</strong><br>No positions yet.</div>'
-      :rFilterBar(data)+rFiltersRow(data)+rSum(sf)+rTableControls()+rTable(data);
+      :rFilterBar(data)+rFiltersRow(data)+rSum(sf)+rTableControls()+rTable(fd);
   }
   attachEvents();
 }
