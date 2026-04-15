@@ -706,7 +706,7 @@ var actPage=0,ACT_PAGE=50;
 var actUpOpen=false,actUpPreview=null,actUpMsg='';
 
 // ── APP STATE ─────────────────────────────────────────────────────────────────
-var ap='all',as='ret-all',typeFilter='all',ocFilter='all',expiringOnly=false,sc='ticker',sd=1;
+var ap='all',as='ret-all',typeFilter='all',ocFilter='all',expiringOnly=false,sc='ticker',sd=1,incomeFilter='all';
 var selectedTickers=new Set(['ALL']),editingPrice=null,dropdownOpen=false;
 var editCell=null,activeView='positions',spreadsOcFilter='open',spreadsExpFilter='all',spreadsTypeFilter='all',spreadsSpreadFilter='all',spreadsItmFilter=false;
 var modal=null,showUpload=false,csvPreview=null,importMsg='';
@@ -867,6 +867,20 @@ function getAppliedFilters(data){
     if(ocFilter==='closed'&&!isCl(r))return false;
     if(!selectedTickers.has('ALL')&&!selectedTickers.has(r.ticker))return false;
     if(expiringOnly){var _d=parseExpiry(r.expiryDate);if(!_d||_d>thisFri)return false;}
+    if(incomeFilter!=='all'){
+      var _od=r.openDate?new Date(r.openDate):null;
+      if(!_od||isNaN(_od))return false;
+      var _now=new Date(),_today=new Date(_now.toDateString());
+      var _dow=_now.getDay(),_monOff=_dow===0?-6:1-_dow;
+      var _thisMon=new Date(_now);_thisMon.setDate(_now.getDate()+_monOff);_thisMon.setHours(0,0,0,0);
+      var _thisSun=new Date(_thisMon);_thisSun.setDate(_thisMon.getDate()+6);_thisSun.setHours(23,59,59,999);
+      var _lastMon=new Date(_thisMon);_lastMon.setDate(_thisMon.getDate()-7);
+      var _lastSun=new Date(_thisSun);_lastSun.setDate(_thisSun.getDate()-7);
+      if(incomeFilter==='today'&&(_od<_today||_od>=new Date(_today.getTime()+86400000)))return false;
+      if(incomeFilter==='cw'&&(_od<_thisMon||_od>_thisSun))return false;
+      if(incomeFilter==='pw'&&(_od<_lastMon||_od>_lastSun))return false;
+      if(incomeFilter==='cm'&&(_od.getFullYear()!==_now.getFullYear()||_od.getMonth()!==_now.getMonth()))return false;
+    }
     return true;
   }).sort(function(a,b){
     var av=sc==='status'?(isCl(a)?1:0):a[sc],bv=sc==='status'?(isCl(b)?1:0):b[sc];
@@ -993,7 +1007,7 @@ function rFiltersRow(data){
   var tags=allSel?'<span style="color:var(--text3);font-size:0.7rem;">All</span>':selList.map(function(t){return'<span class="sel-tag"><span style="width:6px;height:6px;border-radius:50%;background:'+(DC[t]||'#888')+';display:inline-block;flex-shrink:0;"></span>'+t+'<span class="sel-tag-x" data-xticker="'+t+'">&#10005;</span></span>';}).join('');
   var tt=['all','Short Put','Long Put','Long Call','Shares'].map(function(t){return'<button class="type-tab'+(typeFilter===t?' active':'')+'" data-typef="'+t+'">'+(t==='all'?'All':t==='Short Put'?'SPUT':t==='Long Put'?'LPUT':t==='Long Call'?'LCALL':'SHR')+'</button>';}).join('');
   var ot=['all','open','closed'].map(function(o){return'<button class="oc-tab'+(ocFilter===o?' active':'')+'" data-ocf="'+o+'">'+(o==='all'?'All':o==='open'?'Open':'Closed')+'</button>';}).join('');
-  return'<div class="controls-row" style="margin-bottom:0.6rem;flex-wrap:wrap;">'    +'<div class="ticker-select-wrap" id="tkwrap" style="flex-shrink:0;min-width:80px;max-width:150px;"><div class="ticker-select-btn" id="tkbtn" onclick="toggleDropdown()"><div class="sel-tags">'+tags+'</div><span style="color:var(--text3);font-size:0.65rem;">&#9660;</span></div><div class="ticker-dropdown'+(dropdownOpen?' open':'')+'" id="tkdrop"><div class="ticker-dd-item'+(allSel?' selected':'')+'" data-ddticker="ALL"><div class="ticker-dd-check">'+(allSel?'&#10003;':'')+'</div><span style="font-size:0.72rem;font-weight:700;">All Tickers</span></div><div style="height:1px;background:var(--border);margin:0.25rem 0;"></div>'+ddItems+'</div></div>'    +'<div style="width:1px;background:var(--border);align-self:stretch;flex-shrink:0;"></div>'    +'<div class="type-tabs">'+tt+'</div>'    +'<div class="oc-tabs">'+ot+'</div>'    +'<button class="expiry-pill'+(expiringOnly?' active':'')+'" id="exp-pill">&#9888; This Week</button>'+'<button class="expiry-pill'+(hideClosedRows?' active':'')+'" onclick="toggleHideClosedGlobal()" style="'+(hideClosedRows?'background:var(--black);color:#fff;border-color:var(--black);':'')+'" title="Toggle closed rows">&#128065; '+(hideClosedRows?'Show Closed':'Hide Closed')+'</button>'    +'<div style="margin-left:auto;display:flex;gap:0.4rem;align-items:center;">'    +'<button class="del-all-btn" onclick="deleteAll()">&#128465;</button>'    +'<button class="upload-csv-btn" onclick="toggleUpload()">&#8593; Upload CSV</button>'    +'<button class="template-dl-btn" onclick="dlTemplate()">&#11015; Template</button>'    +'<button class="add-pos-btn" onclick="openAddModal()">&#43; Add</button>'    +'</div>'    +'</div>';
+  return'<div class="controls-row" style="margin-bottom:0.6rem;flex-wrap:wrap;">'    +'<div class="ticker-select-wrap" id="tkwrap" style="flex-shrink:0;min-width:80px;max-width:150px;"><div class="ticker-select-btn" id="tkbtn" onclick="toggleDropdown()"><div class="sel-tags">'+tags+'</div><span style="color:var(--text3);font-size:0.65rem;">&#9660;</span></div><div class="ticker-dropdown'+(dropdownOpen?' open':'')+'" id="tkdrop"><div class="ticker-dd-item'+(allSel?' selected':'')+'" data-ddticker="ALL"><div class="ticker-dd-check">'+(allSel?'&#10003;':'')+'</div><span style="font-size:0.72rem;font-weight:700;">All Tickers</span></div><div style="height:1px;background:var(--border);margin:0.25rem 0;"></div>'+ddItems+'</div></div>'    +'<div style="width:1px;background:var(--border);align-self:stretch;flex-shrink:0;"></div>'    +'<div class="type-tabs">'+tt+'</div>'    +'<div class="oc-tabs">'+ot+'</div>'    +'<button class="expiry-pill'+(expiringOnly?' active':'')+'" id="exp-pill">&#9888; This Week</button>'+'<select id="income-filter-sel" style="border:1px solid var(--border2);background:var(--bg3);border-radius:7px;padding:0.22rem 0.5rem;font-size:0.68rem;font-weight:600;color:var(--black);cursor:pointer;outline:none;height:28px;" onchange="incomeFilter=this.value;rMain()"><option value="all"'+(incomeFilter==='all'?' selected':'')+'>&#128200; All Dates</option><option value="today"'+(incomeFilter==='today'?' selected':'')+'>Today</option><option value="cw"'+(incomeFilter==='cw'?' selected':'')+'>CW - This Week</option><option value="pw"'+(incomeFilter==='pw'?' selected':'')+'>PW - Past Week</option><option value="cm"'+(incomeFilter==='cm'?' selected':'')+'>CM - This Month</option></select>'+'<button class="expiry-pill'+(hideClosedRows?' active':'')+'" onclick="toggleHideClosedGlobal()" style="'+(hideClosedRows?'background:var(--black);color:#fff;border-color:var(--black);':'')+'" title="Toggle closed rows">&#128065; '+(hideClosedRows?'Show Closed':'Hide Closed')+'</button>'    +'<div style="margin-left:auto;display:flex;gap:0.4rem;align-items:center;">'    +'<button class="del-all-btn" onclick="deleteAll()">&#128465;</button>'    +'<button class="upload-csv-btn" onclick="toggleUpload()">&#8593; Upload CSV</button>'    +'<button class="template-dl-btn" onclick="dlTemplate()">&#11015; Template</button>'    +'<button class="add-pos-btn" onclick="openAddModal()">&#43; Add</button>'    +'</div>'    +'</div>';
 }
 function rTableControls(){return'';}
 
@@ -1115,7 +1129,7 @@ function rTable(data){
     var strikeCell=strikeCount?strikeCount+' strike'+(strikeCount>1?'s':''):'--';
 
     // Expiry summary — just count unique
-    var expiries=[...new Set(rows.map(function(r){return r.expiryDate||'';}).filter(Boolean))];
+    var expiries=[...new Set(rows.filter(function(r){return!isCl(r);}).map(function(r){return r.expiryDate||'';}).filter(Boolean))];
     var expiryCell=expiries.length?expiries.length+' expir'+(expiries.length>1?'ies':'y'):'--';
 
     // Summary row classes
@@ -1268,7 +1282,8 @@ function rTable(data){
         html+='<tr class="'+childCls+'" style="background:#FEFEFE;">';
         html+='<td class="mc" style="padding-left:1.4rem;"><span style="color:var(--text3);font-size:0.6rem;margin-right:4px;">&#8627;</span><span class="chip"><span class="tk-dot-sm" style="background:'+(DC[r.ticker]||'#888')+'"></span>'+r.ticker+'</span></td>';
         if(portHeader)html+=portBadgeC;
-        html+='<td style="font-size:0.72rem;">'+(r.openDate||'--')+'</td>';
+        var dispOpenDate=r.openDate||'1/1/2026';
+        html+='<td style="font-size:0.72rem;">'+dispOpenDate+'</td>';
         html+='<td class="mn">'+(r.excelCost?'$'+r.excelCost.toLocaleString():'--')+'</td>';
         html+='<td class="mn" style="color:var(--blue);">'+(hasSoldC?fmtMoney(soldC):'--')+'</td>';
         html+='<td class="mn" style="color:'+(netIncC!=null?(netIncC>=0?'var(--green)':'var(--red)'):'var(--text3)')+'">'+(netIncC!=null?fmtMoneySign(netIncC):'--')+'</td>';
@@ -2206,7 +2221,7 @@ document.getElementById('view-nav').addEventListener('click',function(e){
   rMain();
 });
 function sPort(p){
-  ap=p;typeFilter='all';ocFilter='all';expiringOnly=false;selectedTickers=new Set(['ALL']);
+  ap=p;typeFilter='all';ocFilter='all';expiringOnly=false;incomeFilter='all';selectedTickers=new Set(['ALL']);
   showUpload=false;csvPreview=null;importMsg='';editCell=null;editingCash=false;editingInitCash=false;
   actFilter='all';actSearch='';actPage=0;actUpOpen=false;actUpPreview=null;actUpMsg='';
   document.querySelectorAll('.port-tab').forEach(function(t){t.classList.toggle('active',t.dataset.port===p);});
