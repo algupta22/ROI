@@ -861,19 +861,28 @@ function cs(data,isRetirement){
 function getTickersFrom(d){return[...new Set(d.map(function(r){return r.ticker;}))].sort();}
 function parseOpenDate(s){
   // Robustly parse openDate strings into local midnight Date objects
+  // Handles: M/D/YYYY, MM/DD/YY, M/D/YY, YYYY-MM-DD, MM-DD-YYYY
   if(!s||!s.trim())return null;
-  var p=s.trim().split('/');
-  var d;
-  if(p.length===3){
-    var y=parseInt(p[2]);if(y<100)y+=2000;
-    d=new Date(y,parseInt(p[0])-1,parseInt(p[1]));
-  } else if(p.length===2){
-    d=new Date(new Date().getFullYear(),parseInt(p[0])-1,parseInt(p[1]));
-  } else {
-    return null;
+  var str=s.trim();
+  var d=null;
+  if(str.indexOf('/')!==-1){
+    var p=str.split('/');
+    if(p.length===3){
+      var y=parseInt(p[2]);if(y<100)y+=2000;
+      d=new Date(y,parseInt(p[0])-1,parseInt(p[1]));
+    } else if(p.length===2){
+      d=new Date(new Date().getFullYear(),parseInt(p[0])-1,parseInt(p[1]));
+    }
+  } else if(str.indexOf('-')!==-1){
+    var p2=str.split('-');
+    if(p2.length===3){
+      // YYYY-MM-DD
+      if(p2[0].length===4){d=new Date(parseInt(p2[0]),parseInt(p2[1])-1,parseInt(p2[2]));}
+      // MM-DD-YYYY
+      else{d=new Date(parseInt(p2[2]),parseInt(p2[0])-1,parseInt(p2[1]));}
+    }
   }
-  if(isNaN(d.getTime()))return null;
-  // Return normalized to midnight local
+  if(!d||isNaN(d.getTime()))return null;
   return new Date(d.getFullYear(),d.getMonth(),d.getDate());
 }
 function getDateBounds(){
@@ -890,6 +899,9 @@ function getDateBounds(){
   return{today:today,todEnd:todEnd,thisMon:thisMon,thisSun:thisSun,lastMon:lastMon,lastSun:lastSun,cmStart:cmStart,cmEnd:cmEnd};
 }
 function getAppliedFilters(data){
+  // Always read incomeFilter fresh from DOM in case variable got stale
+  var sel=document.getElementById('income-filter-sel');
+  if(sel&&sel.value&&sel.value!==incomeFilter)incomeFilter=sel.value;
   var thisFri=getThisFriday();
   var bounds=incomeFilter!=='all'?getDateBounds():null;
   return data.filter(function(r){
@@ -1166,7 +1178,7 @@ function rTable(data){
     return a.localeCompare(b);
   });
 
-  if(filtered.length===0)return'<div class="table-wrap"><table><thead><tr>'+buildThead(false)+'</tr></thead><tbody><tr><td colspan="14" class="ec">No positions match your filters.</td></tr></tbody></table></div>';
+  if(filtered.length===0)return'<div class="table-wrap"><table><thead><tr><th>Ticker</th><th>Dt</th><th>Cost</th><th>Sold</th><th>Net</th><th>C.Val</th><th>Price</th><th>Type</th><th>Strike</th><th style="color:#FCA5A5;">Assn.</th><th style="color:#FDBA74;">Coll.Val</th><th style="color:#FCD34D;">Col.Blk</th><th style="color:#6EE7B7;">Col.Gap</th><th>Expiry</th><th>Action</th><th></th><th></th><th></th></tr></thead><tbody><tr><td colspan="18" class="ec">No positions match your filters.</td></tr></tbody></table></div>';
 
   var portHeader=ap==='all';
   var html='';
@@ -2248,6 +2260,9 @@ function rMain(){
     el.innerHTML=data.length===0
       ?rFilterBar([])+rFiltersRow(data)+rSum(sf)+rTableControls()+'<div class="ph"><strong>'+ap+' Portfolio</strong><br>No positions yet.</div>'
       :rFilterBar(data)+rFiltersRow(data)+rSum(sf)+rTableControls()+rTable(fd);
+    // Restore select value after innerHTML replacement (browser resets selects on re-render)
+    var sel=document.getElementById('income-filter-sel');
+    if(sel&&sel.value!==incomeFilter)sel.value=incomeFilter;
   }
   attachEvents();
 }
@@ -2360,7 +2375,10 @@ function ghGetCfg(){try{var c=JSON.parse(localStorage.getItem(GH_CF)||'{}');retu
 function ghSetCfg(c){localStorage.setItem(GH_CF,JSON.stringify(c));}
 function ghCollect(){return{version:2,savedAt:new Date().toISOString(),positions:positions,tickerPrices:tickerPrices,activityData:activityData,cashBalances:cashBalances,initialCashBalances:initialCashBalances,collatBlocked:collatBlocked};}
 function ghApply(d){
-  if(!d||d.version!==2)return false;
+  // Accept any object that contains at least positions or known data fields
+  if(!d||typeof d!=='object')return false;
+  var hasData=Array.isArray(d.positions)||d.tickerPrices||d.cashBalances||d.activityData;
+  if(!hasData)return false;
   if(Array.isArray(d.positions))positions=d.positions;
   if(d.tickerPrices&&typeof d.tickerPrices==='object'){Object.assign(tickerPrices,d.tickerPrices);saveTP(tickerPrices);}
   if(d.activityData&&typeof d.activityData==='object'){Object.assign(activityData,d.activityData);saveAct(activityData);}
@@ -2371,22 +2389,36 @@ function ghApply(d){
 }
 async function ghDetect(token,repo){for(var i=0;i<2;i++){var b=['main','master'][i];var r=await fetch('https://api.github.com/repos/'+repo+'/branches/'+b,{headers:{'Authorization':'token '+token,'Accept':'application/vnd.github.v3+json'}});if(r.ok)return b;}return null;}
 async function ghGet(token,repo,branch,file){
+  // Step 1: get file metadata (sha, size) via contents API
   var r=await fetch('https://api.github.com/repos/'+repo+'/contents/'+file+'?ref='+branch,{headers:{'Authorization':'token '+token,'Accept':'application/vnd.github.v3+json'}});
   if(r.status===404)return{exists:false,sha:null,data:null};
   var txt=await r.text();
   if(!r.ok)throw new Error('GitHub read error '+r.status+': '+txt.slice(0,300));
-  if(!txt||!txt.trim())throw new Error('GitHub returned empty response');
-  var j;try{j=JSON.parse(txt);}catch(e){throw new Error('GitHub response parse failed: '+txt.slice(0,200));}
-  // File content may be split across multiple lines in base64
-  var raw;try{raw=decodeURIComponent(escape(atob(j.content.replace(/\s/g,''))));}catch(e){
-    console.warn('Base64 decode failed, treating as empty:',e.message);
-    return{exists:true,sha:j.sha,data:null};
+  var j;try{j=JSON.parse(txt);}catch(e){throw new Error('GitHub response parse failed');}
+  var sha=j.sha;
+  var raw;
+  if(j.content){
+    // Small file — content is inline base64
+    try{
+      var b64=j.content.replace(/\s/g,'');
+      var bytes=Uint8Array.from(atob(b64),function(c){return c.charCodeAt(0);});
+      raw=new TextDecoder('utf-8').decode(bytes);
+    }catch(e){throw new Error('Failed to decode file: '+e.message);}
+  } else {
+    // Large file — use git blobs API which always returns base64
+    var br=await fetch('https://api.github.com/repos/'+repo+'/git/blobs/'+sha,{headers:{'Authorization':'token '+token,'Accept':'application/vnd.github.v3+json'}});
+    if(!br.ok)throw new Error('GitHub blob error '+br.status);
+    var bj=await br.json();
+    try{
+      var b64=bj.content.replace(/\s/g,'');
+      var bytes=Uint8Array.from(atob(b64),function(c){return c.charCodeAt(0);});
+      raw=new TextDecoder('utf-8').decode(bytes);
+    }catch(e){throw new Error('Failed to decode blob: '+e.message);}
   }
   var data;try{data=JSON.parse(raw);}catch(e){
-    console.warn('Data JSON parse failed (corrupted file), will overwrite:',e.message);
-    return{exists:true,sha:j.sha,data:null};
+    throw new Error('roi-data.json has invalid JSON. Try GitHub Save again: '+e.message);
   }
-  return{exists:true,sha:j.sha,data:data};
+  return{exists:true,sha:sha,data:data};
 }
 async function ghPut(token,repo,branch,file,content,sha){
   var jsonStr=JSON.stringify(content,null,2);
@@ -2492,7 +2524,7 @@ function restoreFromFile(inp){
   reader.onload=function(e){
     try{
       var d=JSON.parse(e.target.result);
-      if(!d||d.version!==2){alert("Not a valid ROI backup file.");inp.value="";return;}
+      if(!d||typeof d!=='object'||(!(Array.isArray(d.positions)||d.tickerPrices||d.cashBalances))){alert("Not a valid ROI backup file.");inp.value="";return;}
       if(Array.isArray(d.positions)){positions=d.positions;savePositions();}
       if(d.tickerPrices){tickerPrices=d.tickerPrices;saveTP(tickerPrices);}
       if(d.activityData){activityData=d.activityData;saveAct(activityData);}
