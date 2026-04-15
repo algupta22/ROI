@@ -712,6 +712,7 @@ var editCell=null,activeView='positions',spreadsOcFilter='open',spreadsExpFilter
 var modal=null,showUpload=false,csvPreview=null,importMsg='';
 var expandedGroups=new Set();
 var hiddenClosedGroups=new Set();
+var hideClosedRows=false;
 
 // ── UTILS ─────────────────────────────────────────────────────────────────────
 var now=new Date();
@@ -966,13 +967,14 @@ function rFiltersRow(data){
   var tags=allSel?'<span style="color:var(--text3);font-size:0.7rem;">All</span>':selList.map(function(t){return'<span class="sel-tag"><span style="width:6px;height:6px;border-radius:50%;background:'+(DC[t]||'#888')+';display:inline-block;flex-shrink:0;"></span>'+t+'<span class="sel-tag-x" data-xticker="'+t+'">&#10005;</span></span>';}).join('');
   var tt=['all','Short Put','Long Put','Long Call','Shares'].map(function(t){return'<button class="type-tab'+(typeFilter===t?' active':'')+'" data-typef="'+t+'">'+(t==='all'?'All':t==='Short Put'?'SPUT':t==='Long Put'?'LPUT':t==='Long Call'?'LCALL':'SHR')+'</button>';}).join('');
   var ot=['all','open','closed'].map(function(o){return'<button class="oc-tab'+(ocFilter===o?' active':'')+'" data-ocf="'+o+'">'+(o==='all'?'All':o==='open'?'Open':'Closed')+'</button>';}).join('');
-  return'<div class="controls-row" style="margin-bottom:0.6rem;flex-wrap:wrap;">'    +'<div class="ticker-select-wrap" id="tkwrap" style="flex-shrink:0;min-width:80px;max-width:150px;"><div class="ticker-select-btn" id="tkbtn" onclick="toggleDropdown()"><div class="sel-tags">'+tags+'</div><span style="color:var(--text3);font-size:0.65rem;">&#9660;</span></div><div class="ticker-dropdown'+(dropdownOpen?' open':'')+'" id="tkdrop"><div class="ticker-dd-item'+(allSel?' selected':'')+'" data-ddticker="ALL"><div class="ticker-dd-check">'+(allSel?'&#10003;':'')+'</div><span style="font-size:0.72rem;font-weight:700;">All Tickers</span></div><div style="height:1px;background:var(--border);margin:0.25rem 0;"></div>'+ddItems+'</div></div>'    +'<div style="width:1px;background:var(--border);align-self:stretch;flex-shrink:0;"></div>'    +'<div class="type-tabs">'+tt+'</div>'    +'<div class="oc-tabs">'+ot+'</div>'    +'<button class="expiry-pill'+(expiringOnly?' active':'')+'" id="exp-pill">&#9888; This Week</button>'    +'<div style="margin-left:auto;display:flex;gap:0.4rem;align-items:center;">'    +'<button class="del-all-btn" onclick="deleteAll()">&#128465;</button>'    +'<button class="upload-csv-btn" onclick="toggleUpload()">&#8593; Upload CSV</button>'    +'<button class="template-dl-btn" onclick="dlTemplate()">&#11015; Template</button>'    +'<button class="add-pos-btn" onclick="openAddModal()">&#43; Add</button>'    +'</div>'    +'</div>';
+  return'<div class="controls-row" style="margin-bottom:0.6rem;flex-wrap:wrap;">'    +'<div class="ticker-select-wrap" id="tkwrap" style="flex-shrink:0;min-width:80px;max-width:150px;"><div class="ticker-select-btn" id="tkbtn" onclick="toggleDropdown()"><div class="sel-tags">'+tags+'</div><span style="color:var(--text3);font-size:0.65rem;">&#9660;</span></div><div class="ticker-dropdown'+(dropdownOpen?' open':'')+'" id="tkdrop"><div class="ticker-dd-item'+(allSel?' selected':'')+'" data-ddticker="ALL"><div class="ticker-dd-check">'+(allSel?'&#10003;':'')+'</div><span style="font-size:0.72rem;font-weight:700;">All Tickers</span></div><div style="height:1px;background:var(--border);margin:0.25rem 0;"></div>'+ddItems+'</div></div>'    +'<div style="width:1px;background:var(--border);align-self:stretch;flex-shrink:0;"></div>'    +'<div class="type-tabs">'+tt+'</div>'    +'<div class="oc-tabs">'+ot+'</div>'    +'<button class="expiry-pill'+(expiringOnly?' active':'')+'" id="exp-pill">&#9888; This Week</button>'+'<button class="expiry-pill'+(hideClosedRows?' active':'')+'" onclick="toggleHideClosedGlobal()" style="'+(hideClosedRows?'background:var(--black);color:#fff;border-color:var(--black);':'')+'" title="Toggle closed rows">&#128065; '+(hideClosedRows?'Show Closed':'Hide Closed')+'</button>'    +'<div style="margin-left:auto;display:flex;gap:0.4rem;align-items:center;">'    +'<button class="del-all-btn" onclick="deleteAll()">&#128465;</button>'    +'<button class="upload-csv-btn" onclick="toggleUpload()">&#8593; Upload CSV</button>'    +'<button class="template-dl-btn" onclick="dlTemplate()">&#11015; Template</button>'    +'<button class="add-pos-btn" onclick="openAddModal()">&#43; Add</button>'    +'</div>'    +'</div>';
 }
 function rTableControls(){return'';}
 
 // ── FIX 3: rTable — uses String.fromCharCode(39) for safe onclick strings ────
 function toggleGroup(gk){if(expandedGroups.has(gk))expandedGroups.delete(gk);else expandedGroups.add(gk);rMain();}
 function toggleHideClosed(gk){if(hiddenClosedGroups.has(gk))hiddenClosedGroups.delete(gk);else hiddenClosedGroups.add(gk);rMain();}
+function toggleHideClosedGlobal(){hideClosedRows=!hideClosedRows;rMain();}
 function rTable(data){
   var filtered=getAppliedFilters(data);
   var thisFri=getThisFriday();
@@ -1136,7 +1138,7 @@ function rTable(data){
         return aD-bD;
       });
       sortedRows.forEach(function(r){
-        if(closedHidden&&isCl(r))return;  // hidden but aggregates unchanged
+        if((closedHidden||hideClosedRows)&&isCl(r))return;  // hidden but aggregates unchanged
         var c=isCl(r);
         var rIsSP=r.excelType==='Short Put',rIsST=r.excelType==='Short Put'||r.excelType==='Short Call';
         var livePI=(liveCache[r.ticker]&&liveCache[r.ticker].price!=null)?liveCache[r.ticker].price:null;
@@ -2253,7 +2255,7 @@ function closeGhModal(){document.getElementById('modal-root').innerHTML='';}
 
 // ── EXPOSE GLOBALS ────────────────────────────────────────────────────────────
 window.sPort=sPort;window.toggleDropdown=toggleDropdown;
-window.toggleGroup=toggleGroup;window.toggleHideClosed=toggleHideClosed;
+window.toggleGroup=toggleGroup;window.toggleHideClosed=toggleHideClosed;window.toggleHideClosedGlobal=toggleHideClosedGlobal;
 window.openModal=openModal;window.closeModal=closeModal;window.confirmModal=confirmModal;window.setMA=setMA;window.setCD=setCD;
 window.reopenPosition=reopenPosition;window.startEdit=startEdit;window.cancelEdit=cancelEdit;
 window.savePrice=savePrice;window.clearManualPrice=clearManualPrice;
