@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-15T23:17:56.115Z",
+  "savedAt": "2026-04-15T23:26:34.346Z",
   "positions": [
     {
       "id": "uspq1v6c",
@@ -59591,20 +59591,21 @@
       "excelIncome": 0,
       "excelGrossValue": 867,
       "excelCurrentValue": 867,
-      "excelProfit": 133,
+      "excelProfit": 0,
       "closed": true,
       "notes": "",
       "manualPrice": null,
       "rolledOver": false,
       "closeAction": {
-        "action": "STC",
-        "type": "credit",
-        "amount": 133,
-        "signedAmount": 133,
-        "soldAmount": null,
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": 1000,
         "notes": "",
         "date": "4/15/26"
-      }
+      },
+      "soldAmount": 1000
     }
   ],
   "tickerPrices": {
