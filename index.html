@@ -954,59 +954,97 @@ function initCashCancel(){editingInitCash=false;rMain();}
 // ── SUMMARY CARDS ─────────────────────────────────────────────────────────────
 function rSum(s){
   var bc=s.beRaw<=0?'var(--green)':'var(--red)',bl=s.beRaw<=0?'&#9650; '+fmtK(Math.abs(s.beRaw))+' over':'&#9660; '+fmtK(s.beRaw)+' to go';
-  var consolidatedCard='<div class="scard" style="border-left:3px solid var(--black);padding:0.85rem 1rem;">'+'<div style="display:flex;flex-direction:column;gap:0.55rem;">'+'<div style="display:flex;align-items:center;justify-content:space-between;">'+'<div class="scard-label" style="color:var(--text3);margin-bottom:0;">Capital Invested</div>'+'<div class="scard-val" style="color:var(--black);font-size:1rem;margin-bottom:0;">$'+s.ci.toLocaleString()+'</div>'+'</div>'+'<div style="height:1px;background:var(--border);"></div>'+'<div style="display:flex;align-items:center;justify-content:space-between;">'+'<div class="scard-label" style="color:var(--text3);margin-bottom:0;">Income Generated</div>'+'<div class="scard-val" style="color:var(--green);font-size:1rem;margin-bottom:0;">+$'+s.ig.toLocaleString()+'</div>'+'</div>'+'<div style="height:1px;background:var(--border);"></div>'+'<div style="display:flex;align-items:center;justify-content:space-between;">'+'<div class="scard-label" style="color:var(--text3);margin-bottom:0;">Positions Value</div>'+'<div class="scard-val" style="color:var(--blue);font-size:1rem;margin-bottom:0;">$'+s.gv.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})+'</div>'+'</div>'+'<div style="height:1px;background:var(--border);"></div>'+'<div style="display:flex;align-items:center;justify-content:space-between;">'+'<div class="scard-label" style="color:var(--text3);margin-bottom:0;">&#9889; Breakeven</div>'+'<div style="font-size:0.88rem;font-weight:800;font-family:monospace;color:'+bc+';">'+bl+'</div>'+'</div>'+'<div style="background:var(--bg4);border-radius:100px;height:5px;overflow:hidden;">'+'<div style="height:100%;border-radius:100px;background:linear-gradient(90deg,var(--red),#FB923C,var(--green));width:'+s.pct+'%;"></div>'+'</div>'+'<div class="scard-sub">'+s.pct+'% of capital recovered via income + positions</div>'+'</div>'+'</div>';
-    return'<div class="summary-grid">'
-    +consolidatedCard
-    +'<div class="gain-card"><div class="gain-title">Gains</div><div class="gain-row"><span class="gain-label">&#9989; Realized</span><span class="gain-val" style="color:'+(s.realized>=0?'var(--green)':'var(--red)')+'">'+fp(s.realized)+'</span></div><div class="gain-divider"></div><div class="gain-row"><span class="gain-label">&#9201; Unrealized</span><span class="gain-val" style="color:'+(s.unrealized>=0?'var(--green)':'var(--red)')+'">'+fp(s.unrealized)+'</span></div><div class="gain-divider"></div><div class="gain-row"><span class="gain-label" style="font-weight:800;color:var(--black);">&#931; Total</span><span class="gain-val" style="color:'+(s.totalGain>=0?'var(--green)':'var(--red)')+';font-size:1rem;">'+fp(s.totalGain)+'</span></div></div>'
-    +(function(){var cash=getPortCash(),initCash=getPortInitCash(),total=s.gv+cash,diff=total-initCash,diffColor=diff>=0?'var(--green)':'var(--red)';return'<div class="scard" style="border-left:3px solid var(--red);padding:0.85rem 1rem;"><div style="display:flex;flex-direction:column;gap:0.5rem;"><div style="display:flex;align-items:center;justify-content:space-between;"><div class="scard-label" style="color:var(--text3);margin-bottom:0;">Positions Value</div><div class="scard-val" style="color:var(--black);font-size:1rem;margin-bottom:0;">'+fmtK(s.gv)+'</div></div><div style="height:1px;background:var(--border);"></div><div style="display:flex;align-items:center;justify-content:space-between;"><div class="scard-label" style="color:var(--text3);margin-bottom:0;">Total Cash</div><div class="scard-val" style="color:var(--green);font-size:1rem;margin-bottom:0;">'+fmtK(cash)+'</div></div><div style="height:1px;background:var(--border);"></div><div style="display:flex;align-items:center;justify-content:space-between;"><div class="scard-label" style="color:var(--black);font-weight:800;margin-bottom:0;">Total Portfolio Value</div><div style="font-size:1rem;font-weight:800;font-family:monospace;color:var(--red);">'+fmtK(total)+'</div></div><div style="height:1px;background:var(--border);"></div><div style="display:flex;align-items:center;justify-content:space-between;"><div class="scard-label" style="color:var(--text3);margin-bottom:0;">Difference</div><div style="font-size:1rem;font-weight:800;font-family:monospace;color:'+diffColor+';">'+(diff>=0?'+':'-')+'$'+Math.abs(diff).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})+'</div></div><div class="scard-sub">'+s.op+' open &middot; '+s.cl+' closed</div></div></div>';})()
-    +(function(){
-      var now=new Date();
-      var tod=new Date(now.toDateString());
-      var todEnd=new Date(tod.getTime()+86400000);
-      var dow=now.getDay(),monOff=dow===0?-6:1-dow;
-      var thisMon=new Date(now);thisMon.setDate(now.getDate()+monOff);thisMon.setHours(0,0,0,0);
-      var thisSun=new Date(thisMon);thisSun.setDate(thisMon.getDate()+6);thisSun.setHours(23,59,59,999);
-      var lastMon=new Date(thisMon);lastMon.setDate(thisMon.getDate()-7);
-      var lastSun=new Date(thisSun);lastSun.setDate(thisSun.getDate()-7);
-      function parseOD(s){if(!s)return null;var d=new Date(s);return isNaN(d)?null:d;}
-      function getNI(r){var sa=r.soldAmount!=null&&r.soldAmount!==''?parseFloat(r.soldAmount):null;if(sa==null)return null;return sa-(r.excelCost||0);}
-      var portKey=ap==='retirement'?as:ap;
-      var allPos=positions.filter(function(r){return ap==='all'||(r.portfolio||'lovelina')===portKey;});
-      var todayNI=0,thisW=0,lastW=0,mtd=0,ytd=0,realized=0;
-      allPos.forEach(function(r){
-        var ni=getNI(r);if(ni==null)return;
-        var d=parseOD(r.openDate);if(!d)return;
-        if(d>=tod&&d<todEnd)todayNI+=ni;
-        if(d>=thisMon&&d<=thisSun)thisW+=ni;
-        if(d>=lastMon&&d<=lastSun)lastW+=ni;
-        if(d.getFullYear()===now.getFullYear()&&d.getMonth()===now.getMonth())mtd+=ni;
-        if(d.getFullYear()===now.getFullYear())ytd+=ni;
-        if(isCl(r))realized+=ni;
-      });
-      var wDiff=thisW-lastW;
-      var selVal=incomeFilter==='today'?todayNI:incomeFilter==='cw'?thisW:incomeFilter==='pw'?lastW:incomeFilter==='cm'?mtd:null;
-      var selLabel=incomeFilter==='today'?'Today':incomeFilter==='cw'?'CW':incomeFilter==='pw'?'PW':incomeFilter==='cm'?'CM':null;
-      function fc(v){return(v>=0?'+':'')+v.toLocaleString(undefined,{style:'currency',currency:'USD',minimumFractionDigits:0,maximumFractionDigits:0});}
-      function fcp(v){return v>=0?'var(--green)':'var(--red)';}
-      var out='<div class="col-combo-card">'
-        +'<div class="col-combo-title">&#128200; Income (Net)'+(selLabel?' &middot; <span style="color:#FBBF24;">'+selLabel+'</span>':'')+'</div>'
-        +(selLabel?'<div class="col-combo-row"><span class="col-combo-label" style="color:#FBBF24;font-weight:800;">'+selLabel+'</span><span class="col-combo-val" style="color:'+fcp(selVal)+';font-size:1rem;font-weight:900;">'+fc(selVal)+'</span></div><div class="col-combo-divider"></div>':'')
-        +'<div class="col-combo-row"><span class="col-combo-label">Today</span><span class="col-combo-val" style="color:'+fcp(todayNI)+';font-size:0.85rem;">'+fc(todayNI)+'</span></div>'
-        +'<div class="col-combo-divider"></div>'
-        +'<div class="col-combo-row"><span class="col-combo-label">CW</span><span class="col-combo-val" style="color:'+fcp(thisW)+';font-size:0.85rem;">'+fc(thisW)+'</span></div>'
-        +'<div class="col-combo-divider"></div>'
-        +'<div class="col-combo-row"><span class="col-combo-label">PW</span><span class="col-combo-val" style="color:'+fcp(lastW)+';font-size:0.85rem;">'+fc(lastW)+'</span></div>'
-        +'<div class="col-combo-divider"></div>'
-        +'<div class="col-combo-row"><span class="col-combo-label">Wk \u0394</span><span class="col-combo-val" style="color:'+fcp(wDiff)+';font-size:0.82rem;">'+fc(wDiff)+'</span></div>'
-        +'<div class="col-combo-divider"></div>'
-        +'<div class="col-combo-row"><span class="col-combo-label">CM</span><span class="col-combo-val" style="color:'+fcp(mtd)+';font-size:0.85rem;">'+fc(mtd)+'</span></div>'
-        +'<div class="col-combo-divider"></div>'
-        +'<div class="col-combo-row"><span class="col-combo-label">YTD</span><span class="col-combo-val" style="color:'+fcp(ytd)+';font-size:0.85rem;">'+fc(ytd)+'</span></div>'
-        +'<div class="col-combo-divider"></div>'
-        +'<div class="col-combo-row"><span class="col-combo-label">Realized</span><span class="col-combo-val" style="color:'+fcp(realized)+';font-size:0.85rem;">'+fc(realized)+'</span></div>'
-        +'</div>';
-      return out;
-    })()
+
+  function row2(lA,vA,cA,lB,vB,cB){
+    return '<div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-bottom:0.28rem;">'
+      +'<div><div style="font-size:0.57rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:rgba(0,0,0,0.38);margin-bottom:0.08rem;">'+lA+'</div>'
+      +'<div style="font-size:0.86rem;font-weight:800;font-family:monospace;color:'+cA+';">'+vA+'</div></div>'
+      +'<div><div style="font-size:0.57rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:rgba(0,0,0,0.38);margin-bottom:0.08rem;">'+lB+'</div>'
+      +'<div style="font-size:0.86rem;font-weight:800;font-family:monospace;color:'+cB+';">'+vB+'</div></div>'
+      +'</div>';
+  }
+  function rowDk2(lA,vA,cA,lB,vB,cB){
+    return '<div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-bottom:0.28rem;">'
+      +'<div><div style="font-size:0.57rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:rgba(255,255,255,0.4);margin-bottom:0.08rem;">'+lA+'</div>'
+      +'<div style="font-size:0.86rem;font-weight:800;font-family:monospace;color:'+cA+';">'+vA+'</div></div>'
+      +'<div><div style="font-size:0.57rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:rgba(255,255,255,0.4);margin-bottom:0.08rem;">'+lB+'</div>'
+      +'<div style="font-size:0.86rem;font-weight:800;font-family:monospace;color:'+cB+';">'+vB+'</div></div>'
+      +'</div>';
+  }
+  function div1(){return '<div style="height:1px;background:var(--border);margin:0.3rem 0;"></div>';}
+  function div1dk(){return '<div style="height:1px;background:rgba(255,255,255,0.1);margin:0.3rem 0;"></div>';}
+
+  var realCol=s.realized>=0?'var(--green)':'var(--red)';
+  var unrealCol=s.unrealized>=0?'var(--green)':'var(--red)';
+  var totalGainCol=s.totalGain>=0?'var(--green)':'var(--red)';
+
+  var capitalCard='<div class="scard" style="border-left:3px solid var(--black);padding:0.75rem 1rem;">'
+    +'<div class="scard-label" style="color:var(--text3);margin-bottom:0.4rem;">&#128188; Capital Invested</div>'
+    +row2('Invested','$'+s.ci.toLocaleString(),'var(--black)','Income Gen.','+$'+s.ig.toLocaleString(),'var(--green)')
+    +div1()
+    +row2('Realized',fp(s.realized),realCol,'Unrealized',fp(s.unrealized),unrealCol)
+    +div1()
+    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-bottom:0.3rem;">'
+    +'<div><div style="font-size:0.57rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:rgba(0,0,0,0.38);margin-bottom:0.08rem;">Total Gain</div>'
+    +'<div style="font-size:0.92rem;font-weight:800;font-family:monospace;color:'+totalGainCol+';">'+fp(s.totalGain)+'</div></div>'
+    +'<div><div style="font-size:0.57rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:rgba(0,0,0,0.38);margin-bottom:0.08rem;">&#9889; Breakeven</div>'
+    +'<div style="font-size:0.8rem;font-weight:800;font-family:monospace;color:'+bc+';">'+bl+'</div></div>'
+    +'</div>'
+    +'<div style="background:var(--bg4);border-radius:100px;height:4px;overflow:hidden;margin-top:0.05rem;">'
+    +'<div style="height:100%;border-radius:100px;background:linear-gradient(90deg,var(--red),#FB923C,var(--green));width:'+s.pct+'%;"></div></div>'
+    +'<div class="scard-sub" style="margin-top:0.22rem;">'+s.pct+'% recovered &middot; '+s.op+' open &middot; '+s.cl+' closed</div>'
+    +'</div>';
+
+  var incomeCard=(function(){
+    var now=new Date();
+    var tod=new Date(now.toDateString());
+    var todEnd=new Date(tod.getTime()+86400000);
+    var dow=now.getDay(),monOff=dow===0?-6:1-dow;
+    var thisMon=new Date(now);thisMon.setDate(now.getDate()+monOff);thisMon.setHours(0,0,0,0);
+    var thisSun=new Date(thisMon);thisSun.setDate(thisMon.getDate()+6);thisSun.setHours(23,59,59,999);
+    var lastMon=new Date(thisMon);lastMon.setDate(thisMon.getDate()-7);
+    var lastSun=new Date(thisSun);lastSun.setDate(thisSun.getDate()-7);
+    function parseOD(ss){if(!ss)return null;var d=new Date(ss);return isNaN(d)?null:d;}
+    function getNI(r){var sa=r.soldAmount!=null&&r.soldAmount!==''?parseFloat(r.soldAmount):null;if(sa==null)return null;return sa-(r.excelCost||0);}
+    var portKey=ap==='retirement'?as:ap;
+    var allPos=positions.filter(function(r){return ap==='all'||(r.portfolio||'lovelina')===portKey;});
+    var todayNI=0,thisW=0,lastW=0,mtd=0,ytd=0,realized=0;
+    allPos.forEach(function(r){
+      var ni=getNI(r);if(ni==null)return;
+      var d=parseOD(r.openDate);if(!d)return;
+      if(d>=tod&&d<todEnd)todayNI+=ni;
+      if(d>=thisMon&&d<=thisSun)thisW+=ni;
+      if(d>=lastMon&&d<=lastSun)lastW+=ni;
+      if(d.getFullYear()===now.getFullYear()&&d.getMonth()===now.getMonth())mtd+=ni;
+      if(d.getFullYear()===now.getFullYear())ytd+=ni;
+      if(isCl(r))realized+=ni;
+    });
+    var wDiff=thisW-lastW;
+    var selVal=incomeFilter==='today'?todayNI:incomeFilter==='cw'?thisW:incomeFilter==='pw'?lastW:incomeFilter==='cm'?mtd:null;
+    var selLabel=incomeFilter==='today'?'Today':incomeFilter==='cw'?'CW':incomeFilter==='pw'?'PW':incomeFilter==='cm'?'CM':null;
+    function fc(v){return(v>=0?'+':'')+v.toLocaleString(undefined,{style:'currency',currency:'USD',minimumFractionDigits:0,maximumFractionDigits:0});}
+    function fcp(v){return v>=0?'#34D399':'#F87171';}
+    var out='<div class="col-combo-card" style="padding:0.75rem 1rem;">'
+      +'<div class="col-combo-title" style="margin-bottom:0.4rem;">&#128200; Income (Net)'+(selLabel?' &middot; <span style="color:#FBBF24;">'+selLabel+'</span>':'')+'</div>'
+      +(selLabel?'<div style="display:flex;align-items:center;justify-content:space-between;background:rgba(251,191,36,0.12);border-radius:6px;padding:0.22rem 0.5rem;margin-bottom:0.35rem;"><span style="font-size:0.6rem;font-weight:700;color:#FBBF24;text-transform:uppercase;">'+selLabel+'</span><span style="font-size:0.95rem;font-weight:900;font-family:monospace;color:'+fcp(selVal)+';">'+fc(selVal)+'</span></div>':'')
+      +rowDk2('Today',fc(todayNI),fcp(todayNI),'CW',fc(thisW),fcp(thisW))
+      +div1dk()
+      +rowDk2('PW',fc(lastW),fcp(lastW),'Wk Δ',fc(wDiff),fcp(wDiff))
+      +div1dk()
+      +rowDk2('CM',fc(mtd),fcp(mtd),'YTD',fc(ytd),fcp(ytd))
+      +div1dk()
+      +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;">'
+      +'<div><div style="font-size:0.57rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:rgba(255,255,255,0.4);margin-bottom:0.08rem;">Realized</div>'
+      +'<div style="font-size:0.86rem;font-weight:800;font-family:monospace;color:'+fcp(realized)+';">'+fc(realized)+'</div></div>'
+      +'<div></div>'
+      +'</div>'
+      +'</div>';
+    return out;
+  })();
+
+  return'<div class="summary-grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">'
+    +capitalCard
+    +incomeCard
     +rCashCard()
     +'</div>';
 }
