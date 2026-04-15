@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-15T23:57:02.221Z",
+  "savedAt": "2026-04-15T23:59:58.801Z",
   "positions": [
     {
       "id": "uspq1v6c",
@@ -32421,19 +32421,11 @@
       "excelGrossValue": 895,
       "excelCurrentValue": 895,
       "excelProfit": -646,
-      "closed": true,
+      "closed": false,
       "rolledOver": false,
-      "closeAction": {
-        "action": "STC",
-        "type": "credit",
-        "amount": 0,
-        "signedAmount": 0,
-        "notes": "",
-        "date": "4/15/26"
-      },
+      "closeAction": null,
       "manualPrice": null,
-      "notes": "NVDX 1/15/2027 Call $9.43",
-      "soldAmount": 0
+      "notes": "NVDX 1/15/2027 Call $9.43"
     },
     {
       "id": "1rakpojq",
@@ -32508,10 +32500,17 @@
       "excelIncome": 0,
       "excelGrossValue": 895,
       "excelCurrentValue": 895,
-      "excelProfit": 249,
-      "closed": false,
+      "excelProfit": -646,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "credit",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "",
+        "date": "4/15/26"
+      },
       "manualPrice": null,
       "notes": "NVDX 1/15/2027 Call $9.43"
     },
