@@ -1342,16 +1342,20 @@ function rTable(data){
         var assnReq=r.excelType==='Short Put'&&r.strike>0&&!isCl(r)?(r.strike*100):null;
         html+='<td class="mn">'+(r.strike>0?'$'+r.strike:'--')+'</td>';
         html+='<td class="mn" style="color:var(--red);font-weight:600;">'+(assnReq!=null?'$'+assnReq.toLocaleString():'--')+'</td>';
-        // Coll.Val: for SPUT only — if strike > stockPrice use stockPrice*100 else strike*100
+        // Coll.Val: for SPUT/SCALL — always negative (short obligation)
+        // if strike > stockPrice use stockPrice*100, else strike*100; always shown as -ve
         var collVal=null;
-        if(r.excelType==='Short Put'&&r.strike>0&&!isCl(r)){
+        var isShortType=r.excelType==='Short Put'||r.excelType==='Short Call';
+        if(isShortType&&r.strike>0&&!isCl(r)){
+          var rawCollVal;
           if(stockPrice!=null){
-            collVal=r.strike>stockPrice?(stockPrice*100):(r.strike*100);
+            rawCollVal=r.strike>stockPrice?(stockPrice*100):(r.strike*100);
           } else {
-            collVal=r.strike*100;// fallback if no price
+            rawCollVal=r.strike*100;
           }
+          collVal=-Math.abs(rawCollVal);// always negative
         }
-        html+='<td class="mn" style="color:var(--orange);font-weight:700;">'+(collVal!=null?'$'+collVal.toLocaleString():'--')+'</td>';
+        html+='<td class="mn" style="color:var(--red);font-weight:700;">'+(collVal!=null?'-$'+Math.abs(collVal).toLocaleString():'--')+'</td>';
         html+='<td></td>';
         html+='<td class="'+(isExp2?'es':'ef')+'">'+fmtExpiry(r.expiryDate)+(isExp2?' &#9888;':'')+'</td>';
         html+='<td>'+actionCellC+'</td>';
