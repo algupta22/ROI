@@ -868,18 +868,33 @@ function getAppliedFilters(data){
     if(!selectedTickers.has('ALL')&&!selectedTickers.has(r.ticker))return false;
     if(expiringOnly){var _d=parseExpiry(r.expiryDate);if(!_d||_d>thisFri)return false;}
     if(incomeFilter!=='all'){
-      var _od=r.openDate?new Date(r.openDate):null;
-      if(!_od||isNaN(_od))return false;
-      var _now=new Date(),_today=new Date(_now.toDateString());
+      // Parse openDate robustly using local-time constructor (same as parseExpiry)
+      var _od=null;
+      if(r.openDate){
+        var _op=r.openDate.trim().split('/');
+        if(_op.length===3){
+          var _y=parseInt(_op[2]);if(_y<100)_y+=2000;
+          _od=new Date(_y,parseInt(_op[0])-1,parseInt(_op[1]));
+        } else if(_op.length===2){
+          _od=new Date(new Date().getFullYear(),parseInt(_op[0])-1,parseInt(_op[1]));
+        }
+      }
+      if(!_od||isNaN(_od.getTime()))return false;
+      // Normalize to midnight for clean date-only comparisons
+      _od=new Date(_od.getFullYear(),_od.getMonth(),_od.getDate());
+      var _now=new Date(),_today=new Date(_now.getFullYear(),_now.getMonth(),_now.getDate());
+      var _todEnd=new Date(_today.getTime()+86400000);
       var _dow=_now.getDay(),_monOff=_dow===0?-6:1-_dow;
-      var _thisMon=new Date(_now);_thisMon.setDate(_now.getDate()+_monOff);_thisMon.setHours(0,0,0,0);
-      var _thisSun=new Date(_thisMon);_thisSun.setDate(_thisMon.getDate()+6);_thisSun.setHours(23,59,59,999);
-      var _lastMon=new Date(_thisMon);_lastMon.setDate(_thisMon.getDate()-7);
-      var _lastSun=new Date(_thisSun);_lastSun.setDate(_thisSun.getDate()-7);
-      if(incomeFilter==='today'&&(_od<_today||_od>=new Date(_today.getTime()+86400000)))return false;
+      var _thisMon=new Date(_now.getFullYear(),_now.getMonth(),_now.getDate()+_monOff);
+      var _thisSun=new Date(_thisMon.getFullYear(),_thisMon.getMonth(),_thisMon.getDate()+6,23,59,59,999);
+      var _lastMon=new Date(_thisMon.getFullYear(),_thisMon.getMonth(),_thisMon.getDate()-7);
+      var _lastSun=new Date(_thisSun.getFullYear(),_thisSun.getMonth(),_thisSun.getDate()-7,23,59,59,999);
+      var _cmStart=new Date(_now.getFullYear(),_now.getMonth(),1);
+      var _cmEnd=new Date(_now.getFullYear(),_now.getMonth()+1,0,23,59,59,999);
+      if(incomeFilter==='today'&&(_od<_today||_od>=_todEnd))return false;
       if(incomeFilter==='cw'&&(_od<_thisMon||_od>_thisSun))return false;
       if(incomeFilter==='pw'&&(_od<_lastMon||_od>_lastSun))return false;
-      if(incomeFilter==='cm'&&(_od.getFullYear()!==_now.getFullYear()||_od.getMonth()!==_now.getMonth()))return false;
+      if(incomeFilter==='cm'&&(_od<_cmStart||_od>_cmEnd))return false;
     }
     return true;
   }).sort(function(a,b){
