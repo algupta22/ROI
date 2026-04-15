@@ -720,6 +720,12 @@ function getThisFriday(){var d=new Date(now);var x=5-d.getDay();d.setDate(d.getD
 function getFriday(d){var dt=new Date(d);var x=5-dt.getDay();dt.setDate(dt.getDate()+(x>=0?x:x+7));return dt;}
 function getNextFriday(){var d=new Date(getThisFriday());d.setDate(d.getDate()+7);return d;}
 function isCl(r){return r.closed===true;}
+function fmtExpiry(s){
+  if(!s)return'--';
+  var d=parseExpiry(s);
+  if(!d)return s;
+  return(d.getMonth()+1)+'/'+(d.getDate())+'/'+d.getFullYear();
+}
 function parseExpiry(s){
   if(!s)return null;
   try{
@@ -1249,7 +1255,7 @@ function rTable(data){
         html+='<td class="mn">'+(r.strike>0?'$'+r.strike:'--')+'</td>';
         html+='<td class="mn" style="color:var(--red);font-weight:600;">'+(assnReq!=null?'$'+assnReq.toLocaleString():'--')+'</td>';
         html+='<td></td><td></td>';
-        html+='<td class="'+(isExp2?'es':'ef')+'">'+(r.expiryDate||'--')+(isExp2?' &#9888;':'')+'</td>';
+        html+='<td class="'+(isExp2?'es':'ef')+'">'+fmtExpiry(r.expiryDate)+(isExp2?' &#9888;':'')+'</td>';
         html+='<td>'+actionCellC+'</td>';
         html+='<td style="text-align:center"><button class="row-edit-btn" onclick="openEditModal('+Q+r.id+Q+')" title="Edit">&#9998;</button></td>';
         html+='<td style="text-align:center"><button class="copy-btn" onclick="copyRow('+Q+r.id+Q+')" title="Duplicate">&#10063;</button></td>';
