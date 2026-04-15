@@ -1300,16 +1300,21 @@ function rTable(data){
         if(cvEditingNow){
           var cvInputVal=r.cvOverride!=null?Math.abs(parseFloat(r.cvOverride)||0):Math.abs(autoCV);
           var cvHint=rIsSP?'<span style="font-size:0.55rem;color:var(--yellow);">(→-ve)</span>':'';
-          cvCellC='<td class="mn"><div class="ie-wrap">'+cvHint+'<input class="ie-input w-md" id="ie_'+r.id+'_cvOverride" type="number" step="0.01" value="'+cvInputVal+'" onkeydown="ieKey(event,'+Q+r.id+Q+','+Q+'cvOverride'+Q+')" oninput="(function(){var rx=positions.find(function(p){return p.id==='+Q+r.id+Q+';});if(rx)rx.cvOverride=this.value;}).call(this)"><button class="ie-ok" onclick="(function(){var inp=document.getElementById('+Q+'ie_'+r.id+'_cvOverride'+Q+');if(!inp)return;var v=parseFloat(inp.value);if(isNaN(v))return;var rx=positions.find(function(p){return p.id==='+Q+r.id+Q+';});if(rx){rx.cvOverride='+(rIsSP?'(-Math.abs(v))':'v')+';savePositions();}editCell=null;rMain();})();">&#10003;</button><button class="ie-x" onclick="ieCancel()">&#10005;</button></div></td>';
+          cvCellC='<td class="mn"><div class="ie-wrap">'+cvHint+'<input class="ie-input w-md" id="ie_'+r.id+'_cvOverride" type="number" step="0.01" value="'+cvInputVal+'" onkeydown="ieKey(event,'+Q+r.id+Q+','+Q+'cvOverride'+Q+')"><button class="ie-ok" onclick="ieSave('+Q+r.id+Q+','+Q+'cvOverride'+Q+')">&#10003;</button><button class="ie-x" onclick="ieCancel()">&#10005;</button></div></td>';
         }else{
-          var cvDispVal=hasOvrd?parseFloat(r.cvOverride):dCV;
-          // SPUT/SCALL are short obligations — always force negative display
-          var isShortObl=r.excelType==='Short Put'||r.excelType==='Short Call';
-          if(isShortObl&&cvDispVal!=null)cvDispVal=-Math.abs(cvDispVal);
-          var cvFmt=fmtMoney(cvDispVal);
-          var cvColor=isShortObl?'var(--red)':(cvDispVal>=0?'var(--black)':'var(--red)');
-          var cvDispC=hasOvrd?'<span style="color:var(--yellow);font-family:monospace;font-weight:700;">'+cvFmt+'</span><span class="pcell-badge" style="background:var(--yellow-bg);color:var(--yellow);margin-left:2px;">ovrd</span><button class="pcell-act" onclick="(function(){var rx=positions.find(function(p){return p.id==='+Q+r.id+Q+';});if(rx){delete rx.cvOverride;}savePositions();rMain();})();" title="undo">&#8617;</button>':'<span style="font-family:monospace;color:'+cvColor+';">'+fmtMoney(cvDispVal)+'</span><button class="pcell-act" onclick="ieStart('+Q+r.id+Q+','+Q+'cvOverride'+Q+')" title="override">ovrd</button>';
-          cvCellC='<td class="mn">'+cvDispC+'</td>';
+          // Closed positions always show $0 for C.VAL
+          if(c){
+            cvCellC='<td class="mn"><span style="font-family:monospace;color:var(--text3);">$0</span></td>';
+          } else {
+            var cvDispVal=hasOvrd?parseFloat(r.cvOverride):dCV;
+            // SPUT/SCALL are short obligations — always force negative display
+            var isShortObl=r.excelType==='Short Put'||r.excelType==='Short Call';
+            if(isShortObl&&cvDispVal!=null)cvDispVal=-Math.abs(cvDispVal);
+            var cvFmt=fmtMoney(cvDispVal);
+            var cvColor=isShortObl?'var(--red)':(cvDispVal>=0?'var(--black)':'var(--red)');
+            var cvDispC=hasOvrd?'<span style="color:var(--yellow);font-family:monospace;font-weight:700;">'+cvFmt+'</span><span class="pcell-badge" style="background:var(--yellow-bg);color:var(--yellow);margin-left:2px;">ovrd</span><button class="pcell-act" onclick="(function(){var rx=positions.find(function(p){return p.id==='+Q+r.id+Q+';});if(rx){delete rx.cvOverride;}savePositions();rMain();})();" title="undo">&#8617;</button>':'<span style="font-family:monospace;color:'+cvColor+';">'+fmtMoney(cvDispVal)+'</span><button class="pcell-act" onclick="ieStart('+Q+r.id+Q+','+Q+'cvOverride'+Q+')" title="override">ovrd</button>';
+            cvCellC='<td class="mn">'+cvDispC+'</td>';
+          }
         }
 
         // Action cell
@@ -1359,7 +1364,7 @@ function rTable(data){
           }
           collVal=-Math.abs(rawCollVal);// always negative
         }
-        html+='<td class="mn" style="color:var(--red);font-weight:700;">'+(collVal!=null?'-$'+Math.abs(collVal).toLocaleString():'--')+'</td>';
+        html+='<td class="mn" style="color:'+(c?'var(--text3)':'var(--red)')+';font-weight:700;">'+(c?'$0':(collVal!=null?'-$'+Math.abs(collVal).toLocaleString():'--'))+'</td>';
         html+='<td></td>';
         html+='<td class="'+(isExp2?'es':'ef')+'">'+fmtExpiry(r.expiryDate)+(isExp2?' &#9888;':'')+'</td>';
         html+='<td>'+actionCellC+'</td>';
@@ -1444,7 +1449,13 @@ function confirmModal(){
 function reopenPosition(id){
   if(!confirm('Reopen this position?'))return;
   var r=positions.find(function(p){return p.id===id;});if(!r)return;
-  r.closed=false;r.closeAction=null;if(r.excelIncome)r.excelProfit=r.excelIncome;
+  r.closed=false;
+  r.closeAction=null;
+  // Clear soldAmount so net income resets
+  delete r.soldAmount;
+  if(r.excelIncome)r.excelProfit=r.excelIncome;
+  // Ensure visible even if hide-closed is on
+  hideClosedRows=false;
   savePositions();rMain();
 }
 function closeModal(){modal=null;document.getElementById('modal-root').innerHTML='';}
@@ -2252,7 +2263,22 @@ function copyRow(id){
 function ieStart(id,field){editCell={id:id,field:field};rMain();setTimeout(function(){var i=document.getElementById('ie_'+id+'_'+field);if(i){i.focus();i.select();}},30);}
 function ieSave(id,field){
   var i=document.getElementById('ie_'+id+'_'+field);
-  if(i){var r=positions.find(function(p){return p.id===id;});if(r){var v=i.value;r[field]=isNaN(parseFloat(v))||v===''?v:parseFloat(v);}}
+  if(i){
+    var r=positions.find(function(p){return p.id===id;});
+    if(r){
+      var v=i.value;
+      var parsed=parseFloat(v);
+      if(isNaN(parsed)||v===''){r[field]=v;}
+      else{
+        // For cvOverride on SPUT/SCALL always store as negative
+        if(field==='cvOverride'&&(r.excelType==='Short Put'||r.excelType==='Short Call')){
+          r[field]=-Math.abs(parsed);
+        } else {
+          r[field]=parsed;
+        }
+      }
+    }
+  }
   savePositions();editCell=null;rMain();
 }
 function ieCancel(){editCell=null;rMain();}
