@@ -711,6 +711,7 @@ var selectedTickers=new Set(['ALL']),editingPrice=null,dropdownOpen=false;
 var editCell=null,activeView='positions',spreadsOcFilter='open',spreadsExpFilter='all',spreadsTypeFilter='all',spreadsSpreadFilter='all',spreadsItmFilter=false;
 var modal=null,showUpload=false,csvPreview=null,importMsg='';
 var expandedGroups=new Set();
+var hiddenClosedGroups=new Set();
 
 // ── UTILS ─────────────────────────────────────────────────────────────────────
 var now=new Date();
@@ -971,6 +972,7 @@ function rTableControls(){return'';}
 
 // ── FIX 3: rTable — uses String.fromCharCode(39) for safe onclick strings ────
 function toggleGroup(gk){if(expandedGroups.has(gk))expandedGroups.delete(gk);else expandedGroups.add(gk);rMain();}
+function toggleHideClosed(gk){if(hiddenClosedGroups.has(gk))hiddenClosedGroups.delete(gk);else hiddenClosedGroups.add(gk);rMain();}
 function rTable(data){
   var filtered=getAppliedFilters(data);
   var thisFri=getThisFriday();
@@ -1081,8 +1083,8 @@ function rTable(data){
     var grpBeLabel=(grpBeRaw>=0?'+':'-')+'$'+Math.abs(grpBeRaw).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
     // Assn. Req. = sum of (strike*100) for open SPUTs
     var totalAssnReq=rows.filter(function(r){return r.excelType==='Short Put'&&r.strike>0&&!isCl(r);}).reduce(function(s,r){return s+r.strike*100;},0);
-    var cbVal=collatBlocked[ticker]!=null?collatBlocked[ticker]:null;
-    var cbGap=cbVal!=null&&totalAssnReq>0?totalAssnReq-cbVal:null;
+    var cbVal=collatBlocked[ticker]!=null?collatBlocked[ticker]:0;  // default 0
+    var cbGap=totalAssnReq>0?totalAssnReq-cbVal:null;
 
     // Summary row
     html+='<tr class="'+sumRowCls+'" style="cursor:pointer;background:#F8F8F8;border-left:3px solid '+(DC[ticker]||'#888')+';" onclick="toggleGroup('+Q+gk+Q+')">';
@@ -1100,13 +1102,16 @@ function rTable(data){
     // Assn. Req. at ticker level
     html+='<td class="mn" style="font-weight:700;color:var(--red);">'+(totalAssnReq>0?'$'+totalAssnReq.toLocaleString():'--')+'</td>';
     // Collateral Blocked (editable)
-    var cbDisplay=cbVal!=null?'<span style="font-family:monospace;font-weight:700;">$'+cbVal.toLocaleString()+'</span><button class="pcell-act" onclick="event.stopPropagation();(function(){var v=prompt(\'Collateral Blocked for '+ticker+':\',\''+  (cbVal||0)+'\');if(v===null)return;var n=parseFloat(v);setCollatBlocked(\''+ticker+'\',isNaN(n)?null:n);rMain();})()" style="margin-left:4px;">ed</button>':'<span style="color:var(--text3);font-size:0.65rem;">--</span><button class="pcell-act" onclick="event.stopPropagation();(function(){var v=prompt(\'Collateral Blocked for '+ticker+':\',\'0\');if(v===null)return;var n=parseFloat(v);setCollatBlocked(\''+ticker+'\',isNaN(n)?null:n);rMain();})()" style="margin-left:4px;">+set</button>';
+    var cbDisplay='<span style="font-family:monospace;font-weight:700;">$'+cbVal.toLocaleString()+'</span><button class="pcell-act" onclick="event.stopPropagation();(function(){var v=prompt(\'Collateral Blocked for '+ticker+':\',\''+cbVal+'\');if(v===null)return;var n=parseFloat(v);setCollatBlocked(\''+ticker+'\',isNaN(n)?null:n);rMain();})()" style="margin-left:4px;">ed</button>';
     html+='<td class="mn" style="font-weight:700;">'+cbDisplay+'</td>';
     // Col. Gap
     var gapColor=cbGap!=null?(cbGap>=0?'var(--red)':'var(--green)'):'var(--text3)';
     html+='<td class="mn" style="font-weight:700;color:'+gapColor+'">'+(cbGap!=null?(cbGap>=0?'+':'')+cbGap.toLocaleString():'--')+'</td>';
     html+='<td class="'+(hasExp?'es':'ef')+'" style="font-size:0.65rem;">'+expiryCell+(hasExp?' &#9888;':'')+'</td>';
-    html+='<td style="text-align:center"><button class="add-pos-btn" style="font-size:0.6rem;padding:0.18rem 0.5rem;" onclick="event.stopPropagation();openAddModal()" title="Add position">+ Add</button></td>';
+    var closedHidden=hiddenClosedGroups.has(gk);
+    var hasClosedRows=rows.some(function(r){return isCl(r);});
+    var hideBtn=hasClosedRows?'<button class="row-edit-btn" style="font-size:0.58rem;margin-left:3px;" onclick="event.stopPropagation();toggleHideClosed('+Q+gk+Q+')" title="'+(closedHidden?'Show':'Hide')+' closed">&#128065; '+(closedHidden?'Show Cl.':'Hide Cl.')+'</button>':'';
+    html+='<td style="text-align:center;white-space:nowrap;"><button class="add-pos-btn" style="font-size:0.6rem;padding:0.18rem 0.5rem;" onclick="event.stopPropagation();openAddModal()" title="Add position">+ Add</button>'+hideBtn+'</td>';
     html+='<td colspan="3"></td>';
     html+='</tr>';
 
@@ -1127,6 +1132,7 @@ function rTable(data){
         return aD-bD;
       });
       sortedRows.forEach(function(r){
+        if(closedHidden&&isCl(r))return;  // hidden but aggregates unchanged
         var c=isCl(r);
         var rIsSP=r.excelType==='Short Put',rIsST=r.excelType==='Short Put'||r.excelType==='Short Call';
         var livePI=(liveCache[r.ticker]&&liveCache[r.ticker].price!=null)?liveCache[r.ticker].price:null;
@@ -2243,7 +2249,7 @@ function closeGhModal(){document.getElementById('modal-root').innerHTML='';}
 
 // ── EXPOSE GLOBALS ────────────────────────────────────────────────────────────
 window.sPort=sPort;window.toggleDropdown=toggleDropdown;
-window.toggleGroup=toggleGroup;
+window.toggleGroup=toggleGroup;window.toggleHideClosed=toggleHideClosed;
 window.openModal=openModal;window.closeModal=closeModal;window.confirmModal=confirmModal;window.setMA=setMA;window.setCD=setCD;
 window.reopenPosition=reopenPosition;window.startEdit=startEdit;window.cancelEdit=cancelEdit;
 window.savePrice=savePrice;window.clearManualPrice=clearManualPrice;
