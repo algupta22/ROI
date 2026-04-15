@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-15T23:48:06.547Z",
+  "savedAt": "2026-04-15T23:51:53.414Z",
   "positions": [
     {
       "id": "uspq1v6c",
@@ -29961,7 +29961,8 @@
       "rolledOver": false,
       "closeAction": null,
       "manualPrice": null,
-      "notes": "HIMS 5/29/2026 Put $19.50"
+      "notes": "HIMS 5/29/2026 Put $19.50",
+      "cvOverride": 148
     },
     {
       "id": "4kbpuwrd",
@@ -32628,7 +32629,8 @@
       "rolledOver": false,
       "closeAction": null,
       "manualPrice": null,
-      "notes": "HIMS 5/15/2026 Put $20.00"
+      "notes": "HIMS 5/15/2026 Put $20.00",
+      "cvOverride": 117
     },
     {
       "id": "fxxw2q5m",
@@ -35654,11 +35656,19 @@
       "excelGrossValue": 362.04,
       "excelCurrentValue": 0,
       "excelProfit": -362.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "STC",
+        "type": "credit",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "",
+        "date": "4/15/26"
+      },
       "manualPrice": null,
-      "notes": "HIMS 5/1/2026 Put $23.00"
+      "notes": "HIMS 5/1/2026 Put $23.00",
+      "soldAmount": 0
     },
     {
       "id": "w4kx5dq7",
@@ -36244,11 +36254,19 @@
       "excelGrossValue": 360.04,
       "excelCurrentValue": 0,
       "excelProfit": -360.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "STC",
+        "type": "credit",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "",
+        "date": "4/15/26"
+      },
       "manualPrice": null,
-      "notes": "HIMS 5/1/2026 Put $24.00"
+      "notes": "HIMS 5/1/2026 Put $24.00",
+      "soldAmount": 0
     },
     {
       "id": "22czwdbu",
@@ -40929,11 +40947,19 @@
       "excelGrossValue": 295.04,
       "excelCurrentValue": 0,
       "excelProfit": -295.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "STC",
+        "type": "credit",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "",
+        "date": "4/15/26"
+      },
       "manualPrice": null,
-      "notes": "HIMS 4/24/2026 Put $25.00"
+      "notes": "HIMS 4/24/2026 Put $25.00",
+      "soldAmount": 0
     },
     {
       "id": "fnitwae4",
@@ -41940,7 +41966,8 @@
       "rolledOver": false,
       "closeAction": null,
       "manualPrice": null,
-      "notes": "HIMS 4/17/2026 Put $20.00"
+      "notes": "HIMS 4/17/2026 Put $20.00",
+      "cvOverride": 3
     },
     {
       "id": "8g5dwajw",
