@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-15T00:38:16.180Z",
+  "savedAt": "2026-04-15T00:53:03.285Z",
   "positions": [
     {
       "id": "uspq1v6c",
@@ -8003,9 +8003,17 @@
       "excelGrossValue": 82.08,
       "excelCurrentValue": 0,
       "excelProfit": -82.08,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "STC",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": null,
+        "notes": "",
+        "date": "4/14/26"
+      },
       "manualPrice": null,
       "notes": "MRVL 6/18/2026 Put $62.50"
     },
@@ -10380,7 +10388,30 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "MRVL 6/18/2026 Put $72.50",
-      "soldAmount": 537.91
+      "soldAmount": 268,
+      "cvOverride": -63
+    },
+    {
+      "id": "lvtivbfr",
+      "portfolio": "joint",
+      "ticker": "MRVL",
+      "excelType": "Short Put",
+      "strike": 72.5,
+      "expiryDate": "6/18/2026",
+      "openDate": "3/31/2026",
+      "contracts": 1,
+      "excelCost": 0,
+      "excelIncome": 537.91,
+      "excelGrossValue": 537.91,
+      "excelCurrentValue": 0,
+      "excelProfit": 537.91,
+      "closed": false,
+      "rolledOver": false,
+      "closeAction": null,
+      "manualPrice": null,
+      "notes": "MRVL 6/18/2026 Put $72.50",
+      "soldAmount": 269,
+      "cvOverride": -63
     },
     {
       "id": "ttvly8ht",
@@ -10424,9 +10455,17 @@
       "excelGrossValue": 210.08,
       "excelCurrentValue": 0,
       "excelProfit": -210.08,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": null,
+        "notes": "",
+        "date": "4/14/26"
+      },
       "manualPrice": null,
       "notes": "MRVL 6/18/2026 Put $60.00"
     },
@@ -12000,7 +12039,8 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "MRVL 6/18/2026 Put $77.50",
-      "soldAmount": 317.95
+      "soldAmount": 317.95,
+      "cvOverride": -75
     },
     {
       "id": "dianczt8",
@@ -12016,9 +12056,17 @@
       "excelGrossValue": 64.04,
       "excelCurrentValue": 0,
       "excelProfit": -64.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": null,
+        "notes": "",
+        "date": "4/14/26"
+      },
       "manualPrice": null,
       "notes": "MRVL 6/18/2026 Put $57.50"
     },
@@ -12092,9 +12140,17 @@
       "excelGrossValue": 64.04,
       "excelCurrentValue": 0,
       "excelProfit": -64.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "STC",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": null,
+        "notes": "",
+        "date": "4/14/26"
+      },
       "manualPrice": null,
       "notes": "MRVL 6/18/2026 Put $57.50"
     },
@@ -16608,7 +16664,8 @@
       "rolledOver": false,
       "closeAction": null,
       "manualPrice": null,
-      "notes": "MRVL 6/18/2026 Put $80.00"
+      "notes": "MRVL 6/18/2026 Put $80.00",
+      "cvOverride": 96
     },
     {
       "id": "uf6g2pxa",
@@ -16680,9 +16737,17 @@
       "excelGrossValue": 142.08,
       "excelCurrentValue": 0,
       "excelProfit": -142.08,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "STC",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": null,
+        "notes": "",
+        "date": "4/14/26"
+      },
       "manualPrice": null,
       "notes": "MRVL 6/18/2026 Put $52.50"
     },
@@ -25460,9 +25525,17 @@
       "excelGrossValue": 146.08,
       "excelCurrentValue": 0,
       "excelProfit": -146.08,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "STC",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": null,
+        "notes": "",
+        "date": "4/14/26"
+      },
       "manualPrice": null,
       "notes": "MRVL 6/18/2026 Put $45.00"
     },
@@ -25507,9 +25580,17 @@
       "excelGrossValue": 1017.91,
       "excelCurrentValue": 0,
       "excelProfit": 1017.91,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": 1017.91,
+        "notes": "",
+        "date": "4/14/26"
+      },
       "manualPrice": null,
       "notes": "MRVL 6/18/2026 Put $70.00",
       "soldAmount": 1017.91
@@ -26407,9 +26488,17 @@
       "excelGrossValue": 52.04,
       "excelCurrentValue": 0,
       "excelProfit": -52.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "STC",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": null,
+        "notes": "",
+        "date": "4/14/26"
+      },
       "manualPrice": null,
       "notes": "MRVL 6/18/2026 Put $42.50"
     },
@@ -26427,9 +26516,17 @@
       "excelGrossValue": 494.95,
       "excelCurrentValue": 0,
       "excelProfit": 494.95,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": 494.95,
+        "notes": "",
+        "date": "4/14/26"
+      },
       "manualPrice": null,
       "notes": "MRVL 6/18/2026 Put $67.50",
       "soldAmount": 494.95
@@ -26453,7 +26550,8 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "MRVL 6/18/2026 Put $77.50",
-      "soldAmount": 905.95
+      "soldAmount": 905.95,
+      "cvOverride": -75
     },
     {
       "id": "8kmy8nte",
@@ -26469,9 +26567,17 @@
       "excelGrossValue": 1170.04,
       "excelCurrentValue": 0,
       "excelProfit": -1170.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "STC",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": null,
+        "notes": "",
+        "date": "4/14/26"
+      },
       "manualPrice": null,
       "notes": "MRVL 6/18/2026 Put $82.50"
     },
@@ -26489,9 +26595,17 @@
       "excelGrossValue": 55.04,
       "excelCurrentValue": 0,
       "excelProfit": -55.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "STC",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": null,
+        "notes": "",
+        "date": "4/14/26"
+      },
       "manualPrice": null,
       "notes": "MRVL 6/18/2026 Put $42.50"
     },
@@ -26509,9 +26623,17 @@
       "excelGrossValue": 492.95,
       "excelCurrentValue": 0,
       "excelProfit": 492.95,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": 492.95,
+        "notes": "",
+        "date": "4/14/26"
+      },
       "manualPrice": null,
       "notes": "MRVL 6/18/2026 Put $67.50",
       "soldAmount": 492.95
@@ -26530,9 +26652,17 @@
       "excelGrossValue": 784.95,
       "excelCurrentValue": 0,
       "excelProfit": 784.95,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "soldAmount": 784.95,
+        "notes": "",
+        "date": "4/14/26"
+      },
       "manualPrice": null,
       "notes": "MRVL 6/18/2026 Put $75.00",
       "soldAmount": 784.95
@@ -26555,7 +26685,8 @@
       "rolledOver": false,
       "closeAction": null,
       "manualPrice": null,
-      "notes": "MRVL 6/18/2026 Put $80.00"
+      "notes": "MRVL 6/18/2026 Put $80.00",
+      "cvOverride": 96
     },
     {
       "id": "bc7vw2l6",
@@ -55233,6 +55364,172 @@
       "manualPrice": null,
       "notes": "TSLL 4/17/2026 Put $10.50",
       "soldAmount": 14.94
+    },
+    {
+      "id": "57i4h320",
+      "portfolio": "joint",
+      "ticker": "TSLL",
+      "excelType": "Long Call",
+      "strike": 20,
+      "expiryDate": "4/24/2026",
+      "openDate": "4/14/2026",
+      "contracts": 1,
+      "excelCost": 1.04,
+      "excelIncome": 0,
+      "excelGrossValue": 1.04,
+      "excelCurrentValue": 0,
+      "excelProfit": -1.04,
+      "closed": true,
+      "rolledOver": false,
+      "closeAction": {
+        "action": "BTC",
+        "type": "debit",
+        "amount": 1.04,
+        "signedAmount": -1.04,
+        "notes": "",
+        "date": "4/14/2026"
+      },
+      "manualPrice": null,
+      "notes": "TSLL 4/24/2026 Call $20.00"
+    },
+    {
+      "id": "8rmblbpd",
+      "portfolio": "joint",
+      "ticker": "TSLL",
+      "excelType": "Long Put",
+      "strike": 12,
+      "expiryDate": "6/18/2026",
+      "openDate": "4/14/2026",
+      "contracts": 1,
+      "excelCost": 195.04,
+      "excelIncome": 0,
+      "excelGrossValue": 195.04,
+      "excelCurrentValue": 0,
+      "excelProfit": -195.04,
+      "closed": false,
+      "rolledOver": false,
+      "closeAction": null,
+      "manualPrice": null,
+      "notes": "TSLL 6/18/2026 Put $12.00"
+    },
+    {
+      "id": "90hma8j1",
+      "portfolio": "joint",
+      "ticker": "MRVL",
+      "excelType": "Short Put",
+      "strike": 62.5,
+      "expiryDate": "6/18/2026",
+      "openDate": "4/14/2026",
+      "contracts": 1,
+      "excelCost": 0,
+      "excelIncome": 69.9,
+      "excelGrossValue": 69.9,
+      "excelCurrentValue": 0,
+      "excelProfit": 69.9,
+      "closed": true,
+      "rolledOver": false,
+      "closeAction": {
+        "action": "STC",
+        "type": "credit",
+        "amount": 69.9,
+        "signedAmount": 69.9,
+        "notes": "",
+        "date": "4/14/2026"
+      },
+      "manualPrice": null,
+      "notes": "MRVL 6/18/2026 Put $62.50",
+      "soldAmount": 69.9
+    },
+    {
+      "id": "631bqmy3",
+      "portfolio": "joint",
+      "ticker": "MRVL",
+      "excelType": "Long Put",
+      "strike": 65,
+      "expiryDate": "6/18/2026",
+      "openDate": "4/14/2026",
+      "contracts": 1,
+      "excelCost": 45,
+      "excelIncome": 0,
+      "excelGrossValue": 90.08,
+      "excelCurrentValue": 90.08,
+      "excelProfit": 45.08,
+      "closed": false,
+      "rolledOver": false,
+      "closeAction": null,
+      "manualPrice": null,
+      "notes": "MRVL 6/18/2026 Put $65.00",
+      "cvOverride": 39,
+      "soldAmount": 0
+    },
+    {
+      "id": "z1vqiw2x",
+      "portfolio": "joint",
+      "ticker": "MRVL",
+      "excelType": "Long Put",
+      "strike": 65,
+      "expiryDate": "6/18/2026",
+      "openDate": "4/14/2026",
+      "contracts": 1,
+      "excelCost": 45,
+      "excelIncome": 0,
+      "excelGrossValue": 90.08,
+      "excelCurrentValue": 90.08,
+      "excelProfit": 45.08,
+      "closed": false,
+      "rolledOver": false,
+      "closeAction": null,
+      "manualPrice": null,
+      "notes": "MRVL 6/18/2026 Put $65.00",
+      "cvOverride": 39
+    },
+    {
+      "id": "k1qkm5d9",
+      "portfolio": "joint",
+      "ticker": "NKE",
+      "excelType": "Short Put",
+      "strike": 42.5,
+      "expiryDate": "4/24/2026",
+      "openDate": "4/14/2026",
+      "contracts": 1,
+      "excelCost": 0,
+      "excelIncome": 47.94,
+      "excelGrossValue": 47.94,
+      "excelCurrentValue": 0,
+      "excelProfit": 47.94,
+      "closed": false,
+      "rolledOver": false,
+      "closeAction": null,
+      "manualPrice": null,
+      "notes": "NKE 4/24/2026 Put $42.50",
+      "soldAmount": 47.94
+    },
+    {
+      "id": "na1qy82g",
+      "portfolio": "joint",
+      "ticker": "NKE",
+      "excelType": "Long Put",
+      "strike": 41,
+      "expiryDate": "4/17/2026",
+      "openDate": "4/14/2026",
+      "contracts": 1,
+      "excelCost": 4.04,
+      "excelIncome": 0,
+      "excelGrossValue": 4.04,
+      "excelCurrentValue": 0,
+      "excelProfit": -4.04,
+      "closed": true,
+      "rolledOver": false,
+      "closeAction": {
+        "action": "BTC",
+        "type": "debit",
+        "amount": 4.04,
+        "signedAmount": -4.04,
+        "notes": "",
+        "date": "4/14/2026"
+      },
+      "manualPrice": null,
+      "notes": "NKE 4/17/2026 Put $41.00"
     }
   ],
   "tickerPrices": {
