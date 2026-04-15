@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-15T17:07:06.680Z",
+  "savedAt": "2026-04-15T23:17:56.115Z",
   "positions": [
     {
       "id": "uspq1v6c",
@@ -59577,6 +59577,34 @@
       "rolledOver": false,
       "closeAction": null,
       "soldAmount": 21
+    },
+    {
+      "id": "reykb4sb",
+      "portfolio": "lovelina",
+      "ticker": "RKLB",
+      "excelType": "Long Put",
+      "strike": 95,
+      "expiryDate": "05/01/2026",
+      "openDate": "4/15/26",
+      "contracts": 1,
+      "excelCost": 867,
+      "excelIncome": 0,
+      "excelGrossValue": 867,
+      "excelCurrentValue": 867,
+      "excelProfit": 133,
+      "closed": true,
+      "notes": "",
+      "manualPrice": null,
+      "rolledOver": false,
+      "closeAction": {
+        "action": "STC",
+        "type": "credit",
+        "amount": 133,
+        "signedAmount": 133,
+        "soldAmount": null,
+        "notes": "",
+        "date": "4/15/26"
+      }
     }
   ],
   "tickerPrices": {
