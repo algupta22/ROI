@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-15T23:26:34.346Z",
+  "savedAt": "2026-04-15T23:37:37.599Z",
   "positions": [
     {
       "id": "uspq1v6c",
@@ -29532,14 +29532,21 @@
       "expiryDate": "4/17/2026",
       "openDate": "4/10/2026",
       "contracts": 1,
-      "excelCost": 0,
+      "excelCost": 2,
       "excelIncome": 41.94,
       "excelGrossValue": 41.94,
       "excelCurrentValue": 0,
-      "excelProfit": 41.94,
-      "closed": false,
+      "excelProfit": 39.94,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "BTC",
+        "type": "debit",
+        "amount": 2,
+        "signedAmount": -2,
+        "notes": "",
+        "date": "4/15/26"
+      },
       "manualPrice": null,
       "notes": "HIMS 4/17/2026 Put $18.50",
       "soldAmount": 41.94
