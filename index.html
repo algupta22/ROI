@@ -712,7 +712,7 @@ var editCell=null,activeView='positions',spreadsOcFilter='open',spreadsExpFilter
 var modal=null,showUpload=false,csvPreview=null,importMsg='';
 var expandedGroups=new Set();
 var hiddenClosedGroups=new Set();
-var hideClosedRows=false;
+var hideClosedRows=true;
 
 // ── UTILS ─────────────────────────────────────────────────────────────────────
 var now=new Date();
@@ -1022,6 +1022,23 @@ function rTable(data){
   data.forEach(function(r){
     if(groupMap[r.ticker])groupMap[r.ticker].allRows.push(r);
   });
+  // Sort groups: tickers with open positions first (sorted by earliest open expiry asc),
+  // then tickers with no open positions (all-closed) at bottom (sorted by ticker name)
+  groupOrder.sort(function(a,b){
+    var ra=groupMap[a].rows,rb=groupMap[b].rows;
+    var aHasOpen=ra.some(function(r){return!isCl(r);});
+    var bHasOpen=rb.some(function(r){return!isCl(r);});
+    if(aHasOpen&&!bHasOpen)return -1;
+    if(!aHasOpen&&bHasOpen)return 1;
+    if(aHasOpen&&bHasOpen){
+      // Both have open — sort by earliest open expiry date asc
+      var aExp=ra.filter(function(r){return!isCl(r)&&r.expiryDate;}).map(function(r){return new Date(r.expiryDate);}).filter(function(d){return!isNaN(d);}).sort(function(x,y){return x-y;})[0]||new Date('9999-12-31');
+      var bExp=rb.filter(function(r){return!isCl(r)&&r.expiryDate;}).map(function(r){return new Date(r.expiryDate);}).filter(function(d){return!isNaN(d);}).sort(function(x,y){return x-y;})[0]||new Date('9999-12-31');
+      return aExp-bExp;
+    }
+    // Both all-closed — sort alphabetically
+    return a.localeCompare(b);
+  });
 
   if(filtered.length===0)return'<div class="table-wrap"><table><thead><tr>'+buildThead(false)+'</tr></thead><tbody><tr><td colspan="14" class="ec">No positions match your filters.</td></tr></tbody></table></div>';
 
@@ -1115,7 +1132,8 @@ function rTable(data){
     html+='<td class="mn" style="font-weight:700;color:'+gapColor+'">'+(cbGap>=0?'+':'')+cbGap.toLocaleString()+'</td>';
     html+='<td class="'+(hasExp?'es':'ef')+'" style="font-size:0.65rem;">'+expiryCell+(hasExp?' &#9888;':'')+'</td>';
     var closedHidden=hiddenClosedGroups.has(gk);
-    var hasClosedRows=(g.allRows||rows).some(function(r){return isCl(r);});
+    var today2=new Date(new Date().toDateString());
+    var hasClosedRows=(g.allRows||rows).some(function(r){return isCl(r)||(r.expiryDate&&(function(){try{return new Date(r.expiryDate)<today2;}catch(e){return false;}})());});
     var hideBtn=hasClosedRows?'<button class="row-edit-btn" style="font-size:0.58rem;margin-left:3px;" onclick="event.stopPropagation();toggleHideClosed('+Q+gk+Q+')" title="'+(closedHidden?'Show':'Hide')+' closed">&#128065; '+(closedHidden?'Show Cl.':'Hide Cl.')+'</button>':'';
     html+='<td style="text-align:center;white-space:nowrap;"><button class="add-pos-btn" style="font-size:0.6rem;padding:0.18rem 0.5rem;" onclick="event.stopPropagation();openAddModal()" title="Add position">+ Add</button>'+hideBtn+'</td>';
     html+='<td colspan="3"></td>';
@@ -1138,7 +1156,8 @@ function rTable(data){
         return aD-bD;
       });
       sortedRows.forEach(function(r){
-        if((closedHidden||hideClosedRows)&&isCl(r))return;  // hidden but aggregates unchanged
+        var isPastExp=r.expiryDate&&(function(){try{return new Date(r.expiryDate)<new Date(new Date().toDateString());}catch(e){return false;}})();
+        if((closedHidden||hideClosedRows)&&(isCl(r)||isPastExp))return;  // hidden but aggregates unchanged
         var c=isCl(r);
         var rIsSP=r.excelType==='Short Put',rIsST=r.excelType==='Short Put'||r.excelType==='Short Call';
         var livePI=(liveCache[r.ticker]&&liveCache[r.ticker].price!=null)?liveCache[r.ticker].price:null;
