@@ -1013,8 +1013,12 @@ function rTable(data){
   var groupOrder=[],groupMap={};
   filtered.forEach(function(r){
     var gk=r.ticker;
-    if(!groupMap[gk]){groupMap[gk]={key:gk,ticker:r.ticker,rows:[]};groupOrder.push(gk);}
+    if(!groupMap[gk]){groupMap[gk]={key:gk,ticker:r.ticker,rows:[],allRows:[]};groupOrder.push(gk);}
     groupMap[gk].rows.push(r);
+  });
+  // Track all positions per ticker (including those filtered out by ocFilter) for hide-closed button
+  data.forEach(function(r){
+    if(groupMap[r.ticker])groupMap[r.ticker].allRows.push(r);
   });
 
   if(filtered.length===0)return'<div class="table-wrap"><table><thead><tr>'+buildThead(false)+'</tr></thead><tbody><tr><td colspan="14" class="ec">No positions match your filters.</td></tr></tbody></table></div>';
@@ -1084,7 +1088,7 @@ function rTable(data){
     // Assn. Req. = sum of (strike*100) for open SPUTs
     var totalAssnReq=rows.filter(function(r){return r.excelType==='Short Put'&&r.strike>0&&!isCl(r);}).reduce(function(s,r){return s+r.strike*100;},0);
     var cbVal=collatBlocked[ticker]!=null?collatBlocked[ticker]:0;  // default 0
-    var cbGap=totalAssnReq>0?totalAssnReq-cbVal:null;
+    var cbGap=totalAssnReq-cbVal;  // always compute, even if 0
 
     // Summary row
     html+='<tr class="'+sumRowCls+'" style="cursor:pointer;background:#F8F8F8;border-left:3px solid '+(DC[ticker]||'#888')+';" onclick="toggleGroup('+Q+gk+Q+')">';
@@ -1100,16 +1104,16 @@ function rTable(data){
     html+='<td></td>';  // Type col blank
     html+='<td class="mn" style="font-size:0.65rem;color:var(--text3);">'+strikeCell+'</td>';  // Strike col = count
     // Assn. Req. at ticker level
-    html+='<td class="mn" style="font-weight:700;color:var(--red);">'+(totalAssnReq>0?'$'+totalAssnReq.toLocaleString():'--')+'</td>';
+    html+='<td class="mn" style="font-weight:700;color:'+(totalAssnReq>0?'var(--red)':'var(--text3)')+';">'+'$'+totalAssnReq.toLocaleString()+'</td>';
     // Collateral Blocked (editable)
     var cbDisplay='<span style="font-family:monospace;font-weight:700;">$'+cbVal.toLocaleString()+'</span><button class="pcell-act" onclick="event.stopPropagation();(function(){var v=prompt(\'Collateral Blocked for '+ticker+':\',\''+cbVal+'\');if(v===null)return;var n=parseFloat(v);setCollatBlocked(\''+ticker+'\',isNaN(n)?null:n);rMain();})()" style="margin-left:4px;">ed</button>';
     html+='<td class="mn" style="font-weight:700;">'+cbDisplay+'</td>';
     // Col. Gap
-    var gapColor=cbGap!=null?(cbGap>=0?'var(--red)':'var(--green)'):'var(--text3)';
-    html+='<td class="mn" style="font-weight:700;color:'+gapColor+'">'+(cbGap!=null?(cbGap>=0?'+':'')+cbGap.toLocaleString():'--')+'</td>';
+    var gapColor=cbGap>0?'var(--red)':cbGap<0?'var(--green)':'var(--text3)';
+    html+='<td class="mn" style="font-weight:700;color:'+gapColor+'">'+(cbGap>=0?'+':'')+cbGap.toLocaleString()+'</td>';
     html+='<td class="'+(hasExp?'es':'ef')+'" style="font-size:0.65rem;">'+expiryCell+(hasExp?' &#9888;':'')+'</td>';
     var closedHidden=hiddenClosedGroups.has(gk);
-    var hasClosedRows=rows.some(function(r){return isCl(r);});
+    var hasClosedRows=(g.allRows||rows).some(function(r){return isCl(r);});
     var hideBtn=hasClosedRows?'<button class="row-edit-btn" style="font-size:0.58rem;margin-left:3px;" onclick="event.stopPropagation();toggleHideClosed('+Q+gk+Q+')" title="'+(closedHidden?'Show':'Hide')+' closed">&#128065; '+(closedHidden?'Show Cl.':'Hide Cl.')+'</button>':'';
     html+='<td style="text-align:center;white-space:nowrap;"><button class="add-pos-btn" style="font-size:0.6rem;padding:0.18rem 0.5rem;" onclick="event.stopPropagation();openAddModal()" title="Add position">+ Add</button>'+hideBtn+'</td>';
     html+='<td colspan="3"></td>';
