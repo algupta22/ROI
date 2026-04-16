@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-16T23:09:47.455Z",
+  "savedAt": "2026-04-16T23:15:54.262Z",
   "positions": [
     {
       "id": "uspq1v6c",
@@ -42345,26 +42345,6 @@
       "soldAmount": 589.95
     },
     {
-      "id": "9cm2rqvs",
-      "portfolio": "amit",
-      "ticker": "NVTS",
-      "excelType": "Long Call",
-      "strike": 7,
-      "expiryDate": "1/15/2027",
-      "openDate": "3/11/2026",
-      "contracts": 1,
-      "excelCost": 523,
-      "excelIncome": 0,
-      "excelGrossValue": 514.04,
-      "excelCurrentValue": 514.04,
-      "excelProfit": -8.960000000000036,
-      "closed": false,
-      "rolledOver": false,
-      "closeAction": null,
-      "manualPrice": null,
-      "notes": "NVTS 1/15/2027 Call $7.00"
-    },
-    {
       "id": "79c9ledy",
       "portfolio": "amit",
       "ticker": "NVTS",
@@ -42510,12 +42490,12 @@
       "strike": 7,
       "expiryDate": "1/15/2027",
       "openDate": "3/11/2026",
-      "contracts": 1,
-      "excelCost": 513.04,
+      "contracts": 6,
+      "excelCost": 523,
       "excelIncome": 0,
-      "excelGrossValue": 513.04,
-      "excelCurrentValue": 0,
-      "excelProfit": -513.04,
+      "excelGrossValue": 690,
+      "excelCurrentValue": 690,
+      "excelProfit": 167,
       "closed": false,
       "rolledOver": false,
       "closeAction": null,
