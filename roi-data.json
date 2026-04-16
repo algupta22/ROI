@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-16T18:42:08.202Z",
+  "savedAt": "2026-04-16T18:43:48.409Z",
   "positions": [
     {
       "id": "uspq1v6c",
@@ -33490,18 +33490,26 @@
       "excelType": "Long Put",
       "strike": 515,
       "expiryDate": "5/1/2026",
-      "openDate": "3/30/2026",
+      "openDate": "4/16/26",
       "contracts": 1,
       "excelCost": 178.04,
       "excelIncome": 0,
       "excelGrossValue": 178.04,
       "excelCurrentValue": 0,
       "excelProfit": -178.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "STC",
+        "type": "credit",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "",
+        "date": "4/16/26"
+      },
       "manualPrice": null,
-      "notes": "SPY 5/1/2026 Put $515.00"
+      "notes": "SPY 5/1/2026 Put $515.00",
+      "soldAmount": 0
     },
     {
       "id": "8nnjtonq",
@@ -44473,16 +44481,23 @@
       "excelType": "Short Put",
       "strike": 611,
       "expiryDate": "4/30/2026",
-      "openDate": "3/2/2026",
+      "openDate": "4/16/26",
       "contracts": 1,
       "excelCost": 0,
       "excelIncome": 475.95,
       "excelGrossValue": 475.95,
       "excelCurrentValue": 0,
       "excelProfit": 475.95,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "BTC",
+        "type": "debit",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "",
+        "date": "4/16/26"
+      },
       "manualPrice": null,
       "notes": "SPY 4/30/2026 Put $611.00",
       "soldAmount": 475.95
@@ -44549,18 +44564,26 @@
       "excelType": "Long Put",
       "strike": 510,
       "expiryDate": "4/30/2026",
-      "openDate": "3/2/2026",
+      "openDate": "4/16/26",
       "contracts": 1,
       "excelCost": 126.04,
       "excelIncome": 0,
       "excelGrossValue": 126.04,
       "excelCurrentValue": 0,
       "excelProfit": -126.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "STC",
+        "type": "credit",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "",
+        "date": "4/16/26"
+      },
       "manualPrice": null,
-      "notes": "SPY 4/30/2026 Put $510.00"
+      "notes": "SPY 4/30/2026 Put $510.00",
+      "soldAmount": 0
     },
     {
       "id": "b4a5ce72",
