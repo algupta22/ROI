@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-16T18:29:39.127Z",
+  "savedAt": "2026-04-16T18:31:04.230Z",
   "positions": [
     {
       "id": "uspq1v6c",
@@ -39009,18 +39009,26 @@
       "excelType": "Long Put",
       "strike": 9.5,
       "expiryDate": "4/24/2026",
-      "openDate": "3/19/2026",
+      "openDate": "4/16/26",
       "contracts": 1,
       "excelCost": 160.04,
       "excelIncome": 0,
       "excelGrossValue": 160.04,
       "excelCurrentValue": 0,
       "excelProfit": -160.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "STC",
+        "type": "credit",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "",
+        "date": "4/16/26"
+      },
       "manualPrice": null,
-      "notes": "NVTS 4/24/2026 Put $9.50"
+      "notes": "NVTS 4/24/2026 Put $9.50",
+      "soldAmount": 0
     },
     {
       "id": "rmiarkn3",
@@ -41704,18 +41712,26 @@
       "excelType": "Long Put",
       "strike": 10,
       "expiryDate": "4/24/2026",
-      "openDate": "3/11/2026",
+      "openDate": "4/16/26",
       "contracts": 1,
       "excelCost": 121.04,
       "excelIncome": 0,
       "excelGrossValue": 121.04,
       "excelCurrentValue": 0,
       "excelProfit": -121.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "STC",
+        "type": "credit",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "",
+        "date": "4/16/26"
+      },
       "manualPrice": null,
-      "notes": "NVTS 4/24/2026 Put $10.00"
+      "notes": "NVTS 4/24/2026 Put $10.00",
+      "soldAmount": 0
     },
     {
       "id": "70ih8s0y",
@@ -41882,18 +41898,26 @@
       "excelType": "Long Put",
       "strike": 10,
       "expiryDate": "4/24/2026",
-      "openDate": "3/11/2026",
+      "openDate": "4/16/26",
       "contracts": 1,
       "excelCost": 130.04,
       "excelIncome": 0,
       "excelGrossValue": 130.04,
       "excelCurrentValue": 0,
       "excelProfit": -130.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "STC",
+        "type": "credit",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "",
+        "date": "4/16/26"
+      },
       "manualPrice": null,
-      "notes": "NVTS 4/24/2026 Put $10.00"
+      "notes": "NVTS 4/24/2026 Put $10.00",
+      "soldAmount": 0
     },
     {
       "id": "z1r22jv5",
@@ -44671,18 +44695,26 @@
       "excelType": "Long Put",
       "strike": 9,
       "expiryDate": "4/17/2026",
-      "openDate": "2/27/2026",
+      "openDate": "4/16/26",
       "contracts": 1,
       "excelCost": 134.04,
       "excelIncome": 0,
       "excelGrossValue": 134.04,
       "excelCurrentValue": 0,
       "excelProfit": -134.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "STC",
+        "type": "credit",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "",
+        "date": "4/16/26"
+      },
       "manualPrice": null,
-      "notes": "NVTS 4/17/2026 Put $9.00"
+      "notes": "NVTS 4/17/2026 Put $9.00",
+      "soldAmount": 0
     },
     {
       "id": "72c0tuog",
@@ -45465,18 +45497,26 @@
       "excelType": "Long Put",
       "strike": 8,
       "expiryDate": "4/17/2026",
-      "openDate": "2/23/2026",
+      "openDate": "4/16/26",
       "contracts": 1,
       "excelCost": 119.04,
       "excelIncome": 0,
       "excelGrossValue": 119.04,
       "excelCurrentValue": 0,
       "excelProfit": -119.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "STC",
+        "type": "credit",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "",
+        "date": "4/16/26"
+      },
       "manualPrice": null,
-      "notes": "NVTS 4/17/2026 Put $8.00"
+      "notes": "NVTS 4/17/2026 Put $8.00",
+      "soldAmount": 0
     },
     {
       "id": "hpm2wjd5",
