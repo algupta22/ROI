@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-16T20:28:35.197Z",
+  "savedAt": "2026-04-16T22:28:29.272Z",
   "positions": [
     {
       "id": "uspq1v6c",
@@ -60886,6 +60886,26 @@
       "rolledOver": false,
       "closeAction": null,
       "soldAmount": 35
+    },
+    {
+      "id": "9qm838hx",
+      "portfolio": "lovelina",
+      "ticker": "NFLX",
+      "excelType": "Long Put",
+      "strike": 108,
+      "expiryDate": "06/18/2026",
+      "openDate": "4/16/26",
+      "contracts": 1,
+      "excelCost": 600,
+      "excelIncome": 0,
+      "excelGrossValue": 0,
+      "excelCurrentValue": 0,
+      "excelProfit": -600,
+      "closed": false,
+      "notes": "",
+      "manualPrice": null,
+      "rolledOver": false,
+      "closeAction": null
     }
   ],
   "tickerPrices": {
