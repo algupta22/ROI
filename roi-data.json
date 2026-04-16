@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-16T17:58:40.868Z",
+  "savedAt": "2026-04-16T18:00:40.258Z",
   "positions": [
     {
       "id": "uspq1v6c",
@@ -14497,18 +14497,26 @@
       "excelType": "Long Put",
       "strike": 11.5,
       "expiryDate": "5/1/2026",
-      "openDate": "3/17/2026",
+      "openDate": "4/16/26",
       "contracts": 1,
       "excelCost": 185.04,
       "excelIncome": 0,
       "excelGrossValue": 185.04,
       "excelCurrentValue": 0,
       "excelProfit": -185.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "STC",
+        "type": "credit",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "",
+        "date": "4/16/26"
+      },
       "manualPrice": null,
-      "notes": "ONDS 5/1/2026 Put $11.50"
+      "notes": "ONDS 5/1/2026 Put $11.50",
+      "soldAmount": 0
     },
     {
       "id": "7rlve9kp",
@@ -14573,18 +14581,26 @@
       "excelType": "Long Put",
       "strike": 6,
       "expiryDate": "6/18/2026",
-      "openDate": "3/17/2026",
+      "openDate": "4/16/26",
       "contracts": 1,
       "excelCost": 44.04,
       "excelIncome": 0,
       "excelGrossValue": 44.04,
       "excelCurrentValue": 0,
       "excelProfit": -44.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "STC",
+        "type": "credit",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "",
+        "date": "4/16/26"
+      },
       "manualPrice": null,
-      "notes": "ONDS 6/18/2026 Put $6.00"
+      "notes": "ONDS 6/18/2026 Put $6.00",
+      "soldAmount": 0
     },
     {
       "id": "9muewdxc",
@@ -18399,18 +18415,26 @@
       "excelType": "Long Put",
       "strike": 11,
       "expiryDate": "6/18/2026",
-      "openDate": "3/3/2026",
+      "openDate": "4/16/26",
       "contracts": 1,
       "excelCost": 300.04,
       "excelIncome": 0,
       "excelGrossValue": 300.04,
       "excelCurrentValue": 0,
       "excelProfit": -300.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "STC",
+        "type": "credit",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "",
+        "date": "4/16/26"
+      },
       "manualPrice": null,
-      "notes": "ONDS 6/18/2026 Put $11.00"
+      "notes": "ONDS 6/18/2026 Put $11.00",
+      "soldAmount": 0
     },
     {
       "id": "6gcldhjw",
@@ -20647,18 +20671,26 @@
       "excelType": "Long Put",
       "strike": 4,
       "expiryDate": "6/18/2026",
-      "openDate": "2/20/2026",
+      "openDate": "4/16/26",
       "contracts": 1,
       "excelCost": 19.04,
       "excelIncome": 0,
       "excelGrossValue": 19.04,
       "excelCurrentValue": 0,
       "excelProfit": -19.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "STC",
+        "type": "credit",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "",
+        "date": "4/16/26"
+      },
       "manualPrice": null,
-      "notes": "ONDS 6/18/2026 Put $4.00"
+      "notes": "ONDS 6/18/2026 Put $4.00",
+      "soldAmount": 0
     },
     {
       "id": "6msd5t9p",
