@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-15T23:59:58.801Z",
+  "savedAt": "2026-04-16T00:12:35.363Z",
   "positions": [
     {
       "id": "uspq1v6c",
@@ -32414,18 +32414,26 @@
       "excelType": "Long Call",
       "strike": 9.43,
       "expiryDate": "1/15/2027",
-      "openDate": "3/31/2026",
+      "openDate": "4/15/26",
       "contracts": 1,
       "excelCost": 646,
       "excelIncome": 0,
       "excelGrossValue": 895,
       "excelCurrentValue": 895,
-      "excelProfit": -646,
-      "closed": false,
+      "excelProfit": 247,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "STC",
+        "type": "credit",
+        "amount": 893,
+        "signedAmount": 893,
+        "notes": "",
+        "date": "4/15/26"
+      },
       "manualPrice": null,
-      "notes": "NVDX 1/15/2027 Call $9.43"
+      "notes": "NVDX 1/15/2027 Call $9.43",
+      "soldAmount": 893
     },
     {
       "id": "1rakpojq",
@@ -32434,18 +32442,26 @@
       "excelType": "Long Call",
       "strike": 9.43,
       "expiryDate": "1/15/2027",
-      "openDate": "3/31/2026",
+      "openDate": "4/15/26",
       "contracts": 1,
       "excelCost": 646,
       "excelIncome": 0,
       "excelGrossValue": 895,
       "excelCurrentValue": 895,
-      "excelProfit": 249,
-      "closed": false,
+      "excelProfit": 247,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "STC",
+        "type": "credit",
+        "amount": 893,
+        "signedAmount": 893,
+        "notes": "",
+        "date": "4/15/26"
+      },
       "manualPrice": null,
-      "notes": "NVDX 1/15/2027 Call $9.43"
+      "notes": "NVDX 1/15/2027 Call $9.43",
+      "soldAmount": 893
     },
     {
       "id": "yaxd5i1q",
@@ -32454,18 +32470,26 @@
       "excelType": "Long Call",
       "strike": 9.43,
       "expiryDate": "1/15/2027",
-      "openDate": "3/31/2026",
+      "openDate": "4/15/26",
       "contracts": 1,
       "excelCost": 646,
       "excelIncome": 0,
       "excelGrossValue": 895,
       "excelCurrentValue": 895,
-      "excelProfit": 249,
-      "closed": false,
+      "excelProfit": 234,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "STC",
+        "type": "credit",
+        "amount": 880,
+        "signedAmount": 880,
+        "notes": "",
+        "date": "4/15/26"
+      },
       "manualPrice": null,
-      "notes": "NVDX 1/15/2027 Call $9.43"
+      "notes": "NVDX 1/15/2027 Call $9.43",
+      "soldAmount": 880
     },
     {
       "id": "zodwu67t",
@@ -32474,18 +32498,26 @@
       "excelType": "Long Call",
       "strike": 9.43,
       "expiryDate": "1/15/2027",
-      "openDate": "3/31/2026",
+      "openDate": "4/15/26",
       "contracts": 1,
       "excelCost": 646,
       "excelIncome": 0,
       "excelGrossValue": 895,
       "excelCurrentValue": 895,
-      "excelProfit": 249,
-      "closed": false,
+      "excelProfit": 224,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "STC",
+        "type": "credit",
+        "amount": 870,
+        "signedAmount": 870,
+        "notes": "",
+        "date": "4/15/26"
+      },
       "manualPrice": null,
-      "notes": "NVDX 1/15/2027 Call $9.43"
+      "notes": "NVDX 1/15/2027 Call $9.43",
+      "soldAmount": 870
     },
     {
       "id": "wwl3dmvp",
@@ -32494,25 +32526,26 @@
       "excelType": "Long Call",
       "strike": 9.43,
       "expiryDate": "1/15/2027",
-      "openDate": "3/31/2026",
+      "openDate": "4/15/26",
       "contracts": 1,
       "excelCost": 646,
       "excelIncome": 0,
       "excelGrossValue": 895,
       "excelCurrentValue": 895,
-      "excelProfit": -646,
+      "excelProfit": 204,
       "closed": true,
       "rolledOver": false,
       "closeAction": {
-        "action": "Close",
+        "action": "STC",
         "type": "credit",
-        "amount": 0,
-        "signedAmount": 0,
+        "amount": 850,
+        "signedAmount": 850,
         "notes": "",
         "date": "4/15/26"
       },
       "manualPrice": null,
-      "notes": "NVDX 1/15/2027 Call $9.43"
+      "notes": "NVDX 1/15/2027 Call $9.43",
+      "soldAmount": 850
     },
     {
       "id": "v1dk37b9",
