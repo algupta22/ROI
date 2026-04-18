@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-18T04:01:43.584Z",
+  "savedAt": "2026-04-18T04:25:35.264Z",
   "positions": [
     {
       "id": "uspq1v6c",
@@ -246,9 +246,16 @@
       "excelGrossValue": 19.94,
       "excelCurrentValue": 0,
       "excelProfit": 19.94,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "SOFI 4/17/2026 Put $15.50",
       "soldAmount": 19.94,
@@ -415,9 +422,16 @@
       "excelGrossValue": 19.94,
       "excelCurrentValue": 0,
       "excelProfit": 19.94,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "SOFI 4/17/2026 Put $15.50",
       "soldAmount": 19.94,
@@ -540,9 +554,16 @@
       "excelGrossValue": 37.94,
       "excelCurrentValue": 0,
       "excelProfit": 37.94,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "NVDX 4/17/2026 Put $15.00",
       "soldAmount": 37.94
@@ -681,9 +702,16 @@
       "excelGrossValue": 829.93,
       "excelCurrentValue": 0,
       "excelProfit": 829.93,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "MSFT 4/17/2026 Put $372.50",
       "soldAmount": 829.93,
@@ -816,9 +844,16 @@
       "excelGrossValue": 152.94,
       "excelCurrentValue": 0,
       "excelProfit": 152.94,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "HOOD 4/17/2026 Put $70.00",
       "soldAmount": 152.94,
@@ -942,9 +977,16 @@
       "excelGrossValue": 15.94,
       "excelCurrentValue": 0,
       "excelProfit": 15.94,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "NVTS 4/17/2026 Put $8.50",
       "soldAmount": 15.94,
@@ -964,9 +1006,16 @@
       "excelGrossValue": 15.94,
       "excelCurrentValue": 0,
       "excelProfit": 15.94,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "NVTS 4/17/2026 Put $8.50",
       "soldAmount": 15.94,
@@ -8389,9 +8438,16 @@
       "excelGrossValue": 13.94,
       "excelCurrentValue": 0,
       "excelProfit": 13.94,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "PATH 4/17/2026 Put $9.50",
       "soldAmount": 13.94
@@ -9123,9 +9179,16 @@
       "excelGrossValue": 66.94,
       "excelCurrentValue": 0,
       "excelProfit": 66.94,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "BULL 4/17/2026 Put $5.50",
       "soldAmount": 66.94
@@ -9253,9 +9316,16 @@
       "excelGrossValue": 167.9,
       "excelCurrentValue": 0,
       "excelProfit": 167.9,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "ONDS 4/17/2026 Put $10.00",
       "soldAmount": 167.9
@@ -9452,9 +9522,16 @@
       "excelGrossValue": 117.94,
       "excelCurrentValue": 0,
       "excelProfit": 117.94,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "TSLL 4/17/2026 Put $11.00",
       "soldAmount": 117.94
@@ -9500,9 +9577,16 @@
       "excelGrossValue": 117.94,
       "excelCurrentValue": 0,
       "excelProfit": 117.94,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "TSLL 4/17/2026 Put $11.00",
       "soldAmount": 117.94
@@ -9548,9 +9632,16 @@
       "excelGrossValue": 117.94,
       "excelCurrentValue": 0,
       "excelProfit": 117.94,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "TSLL 4/17/2026 Put $11.00",
       "soldAmount": 117.94
@@ -9761,9 +9852,16 @@
       "excelGrossValue": 415.82,
       "excelCurrentValue": 0,
       "excelProfit": 415.82,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "TSLL 4/17/2026 Put $11.50",
       "soldAmount": 104
@@ -9782,9 +9880,16 @@
       "excelGrossValue": 415.82,
       "excelCurrentValue": 0,
       "excelProfit": 415.82,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "TSLL 4/17/2026 Put $11.50",
       "soldAmount": 104
@@ -9803,9 +9908,16 @@
       "excelGrossValue": 415.82,
       "excelCurrentValue": 0,
       "excelProfit": 415.82,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "TSLL 4/17/2026 Put $11.50",
       "soldAmount": 104
@@ -9824,9 +9936,16 @@
       "excelGrossValue": 415.82,
       "excelCurrentValue": 0,
       "excelProfit": 415.82,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "TSLL 4/17/2026 Put $11.50",
       "soldAmount": 104
@@ -11046,9 +11165,16 @@
       "excelGrossValue": 46.04,
       "excelCurrentValue": 0,
       "excelProfit": -46.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "BAC 4/17/2026 Put $42.50"
     },
@@ -12512,9 +12638,16 @@
       "excelGrossValue": 183.95,
       "excelCurrentValue": 0,
       "excelProfit": 183.95,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "TSLL 4/17/2026 Put $15.00",
       "soldAmount": 183.95
@@ -19854,9 +19987,16 @@
       "excelGrossValue": 34.95,
       "excelCurrentValue": 0,
       "excelProfit": 34.95,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "PATH 4/17/2026 Call $14.00",
       "soldAmount": 34.95
@@ -23855,9 +23995,16 @@
       "excelGrossValue": 459.95,
       "excelCurrentValue": 0,
       "excelProfit": 459.95,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "SLV 4/17/2026 Put $62.50",
       "soldAmount": 459.95
@@ -29261,9 +29408,16 @@
       "excelGrossValue": 1219.92,
       "excelCurrentValue": 0,
       "excelProfit": 1219.92,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "PLTR 4/24/2026 Put $144.00",
       "cvOverride": 0
@@ -29379,9 +29533,16 @@
       "excelGrossValue": 14.04,
       "excelCurrentValue": 14.04,
       "excelProfit": 14.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "PLTR 5/1/2026 Put $90.00"
     },
@@ -29515,9 +29676,16 @@
       "excelGrossValue": 19.94,
       "excelCurrentValue": 0,
       "excelProfit": 19.94,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "BBAI 4/17/2026 Put $3.50",
       "soldAmount": 19.94
@@ -29536,9 +29704,16 @@
       "excelGrossValue": 19.94,
       "excelCurrentValue": 0,
       "excelProfit": 19.94,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "BBAI 4/17/2026 Put $3.50",
       "soldAmount": 19.94
@@ -30135,9 +30310,16 @@
       "excelGrossValue": 87.94,
       "excelCurrentValue": 0,
       "excelProfit": 87.94,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "USAR 4/17/2026 Put $16.50",
       "soldAmount": 87.94
@@ -30210,9 +30392,16 @@
       "excelGrossValue": 68.94,
       "excelCurrentValue": 0,
       "excelProfit": 68.94,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "BBAI 4/17/2026 Put $4.00",
       "soldAmount": 68.94
@@ -30286,9 +30475,16 @@
       "excelGrossValue": 31.94,
       "excelCurrentValue": 0,
       "excelProfit": 31.94,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "TTD 4/17/2026 Put $19.00",
       "soldAmount": 31.94
@@ -30307,9 +30503,16 @@
       "excelGrossValue": 31.94,
       "excelCurrentValue": 0,
       "excelProfit": 31.94,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "TTD 4/17/2026 Put $19.00",
       "soldAmount": 31.94
@@ -30355,9 +30558,16 @@
       "excelGrossValue": 25.94,
       "excelCurrentValue": 0,
       "excelProfit": 25.94,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "LYFT 4/17/2026 Put $13.00",
       "soldAmount": 25.94
@@ -30376,9 +30586,16 @@
       "excelGrossValue": 16.94,
       "excelCurrentValue": 0,
       "excelProfit": 16.94,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "PATH 4/17/2026 Put $9.50",
       "soldAmount": 16.94
@@ -30949,9 +31166,16 @@
       "excelGrossValue": 42.94,
       "excelCurrentValue": 0,
       "excelProfit": 42.94,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "SOFI 4/17/2026 Put $16.00",
       "soldAmount": 42.94
@@ -30970,9 +31194,16 @@
       "excelGrossValue": 103.82,
       "excelCurrentValue": 0,
       "excelProfit": 103.82,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "SOFI 4/17/2026 Put $15.50",
       "soldAmount": 103.82
@@ -30991,9 +31222,16 @@
       "excelGrossValue": 103.82,
       "excelCurrentValue": 0,
       "excelProfit": 103.82,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "SOFI 4/17/2026 Put $15.50",
       "soldAmount": 103.82
@@ -31012,9 +31250,16 @@
       "excelGrossValue": 103.82,
       "excelCurrentValue": 0,
       "excelProfit": 103.82,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "SOFI 4/17/2026 Put $15.50",
       "soldAmount": 103.82
@@ -31033,9 +31278,16 @@
       "excelGrossValue": 103.82,
       "excelCurrentValue": 0,
       "excelProfit": 103.82,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "SOFI 4/17/2026 Put $15.50",
       "soldAmount": 103.82
@@ -31081,9 +31333,16 @@
       "excelGrossValue": 43.94,
       "excelCurrentValue": 0,
       "excelProfit": 43.94,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "SOFI 4/17/2026 Put $16.00",
       "soldAmount": 43.94
@@ -31294,9 +31553,16 @@
       "excelGrossValue": 30.94,
       "excelCurrentValue": 0,
       "excelProfit": 30.94,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "RGTI 4/17/2026 Put $13.50",
       "soldAmount": 30.94
@@ -31425,9 +31691,16 @@
       "excelGrossValue": 63.9,
       "excelCurrentValue": 0,
       "excelProfit": 63.9,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "NVTS 4/17/2026 Put $9.00",
       "soldAmount": 63.9
@@ -31962,9 +32235,16 @@
       "excelGrossValue": 72.94,
       "excelCurrentValue": 0,
       "excelProfit": 72.94,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "NVDX 4/17/2026 Put $14.50",
       "soldAmount": 101
@@ -31983,9 +32263,16 @@
       "excelGrossValue": 72.94,
       "excelCurrentValue": 0,
       "excelProfit": 72.94,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "NVDX 4/17/2026 Put $14.50",
       "soldAmount": 101
@@ -32683,9 +32970,16 @@
       "excelGrossValue": 146.04,
       "excelCurrentValue": 146.04,
       "excelProfit": 0,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "NVTS 5/8/2026 Put $9.00"
     },
@@ -39619,9 +39913,16 @@
       "excelGrossValue": 0,
       "excelCurrentValue": 0,
       "excelProfit": 0,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "HIMZ1 4/17/2026 Put $2.00"
     },
@@ -39639,9 +39940,16 @@
       "excelGrossValue": 0,
       "excelCurrentValue": 0,
       "excelProfit": 0,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "HIMZ 4/17/2026 Put $2.00"
     },
@@ -39906,9 +40214,16 @@
       "excelGrossValue": 355.91,
       "excelCurrentValue": 0,
       "excelProfit": 355.91,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "HIMZ 4/17/2026 Put $4.00",
       "soldAmount": 355.91
@@ -39955,9 +40270,16 @@
       "excelGrossValue": 90.12,
       "excelCurrentValue": 0,
       "excelProfit": -90.12,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "HIMZ 4/17/2026 Put $2.00"
     },
@@ -40002,9 +40324,16 @@
       "excelGrossValue": 359.91,
       "excelCurrentValue": 0,
       "excelProfit": 359.91,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "HIMZ 4/17/2026 Put $4.00",
       "soldAmount": 359.91
@@ -40051,9 +40380,16 @@
       "excelGrossValue": 30.04,
       "excelCurrentValue": 0,
       "excelProfit": -30.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "HIMZ 4/17/2026 Put $2.00"
     },
@@ -42929,9 +43265,16 @@
       "excelGrossValue": 183.04,
       "excelCurrentValue": 0,
       "excelProfit": -183.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "HIMS 4/17/2026 Put $20.00",
       "cvOverride": 3
@@ -57392,9 +57735,16 @@
       "excelGrossValue": 72.04,
       "excelCurrentValue": 0,
       "excelProfit": -72.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "BBAI 4/17/2026 Put $4.00"
     },
@@ -57953,9 +58303,16 @@
       "excelGrossValue": 4.94,
       "excelCurrentValue": 0,
       "excelProfit": 4.94,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "NVTS 4/17/2026 Put $7.50",
       "soldAmount": 4.94
@@ -57974,9 +58331,16 @@
       "excelGrossValue": 17.94,
       "excelCurrentValue": 0,
       "excelProfit": 17.94,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "NVTS 4/17/2026 Put $8.50",
       "soldAmount": 17.94
@@ -58022,9 +58386,16 @@
       "excelGrossValue": 30.94,
       "excelCurrentValue": 0,
       "excelProfit": 30.94,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "NVTS 4/17/2026 Put $9.00",
       "soldAmount": 30.94
@@ -59437,9 +59808,16 @@
       "excelGrossValue": 120.04,
       "excelCurrentValue": 0,
       "excelProfit": -120.04,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/17/2026"
+      },
       "manualPrice": null,
       "notes": "NVTS 4/17/2026 Put $8.00"
     },
@@ -60468,11 +60846,18 @@
       "excelGrossValue": 0,
       "excelCurrentValue": 0,
       "excelProfit": 0,
-      "closed": false,
+      "closed": true,
       "notes": "",
       "manualPrice": null,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "04/17/2026"
+      },
       "soldAmount": 13
     },
     {
@@ -60489,11 +60874,18 @@
       "excelGrossValue": 0,
       "excelCurrentValue": 0,
       "excelProfit": 0,
-      "closed": false,
+      "closed": true,
       "notes": "",
       "manualPrice": null,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "04/17/2026"
+      },
       "soldAmount": 13
     },
     {
@@ -60510,11 +60902,18 @@
       "excelGrossValue": 0,
       "excelCurrentValue": 0,
       "excelProfit": 0,
-      "closed": false,
+      "closed": true,
       "notes": "",
       "manualPrice": null,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "04/17/2026"
+      },
       "soldAmount": 21
     },
     {
