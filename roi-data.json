@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-18T18:34:05.396Z",
+  "savedAt": "2026-04-18T18:36:55.602Z",
   "positions": [
     {
       "id": "8c3c3kg2",
@@ -50806,6 +50806,50 @@
       "rolledOver": false,
       "closeAction": null,
       "cvOverride": 310
+    },
+    {
+      "id": "63lp9pha",
+      "portfolio": "lovelina",
+      "ticker": "PATH",
+      "excelType": "Short Put",
+      "strike": 12,
+      "expiryDate": "1/15/27",
+      "openDate": "4/18/26",
+      "contracts": 3,
+      "excelCost": 0,
+      "excelIncome": 0,
+      "excelGrossValue": 0,
+      "excelCurrentValue": 0,
+      "excelProfit": 519,
+      "closed": false,
+      "notes": "",
+      "manualPrice": null,
+      "rolledOver": false,
+      "closeAction": null,
+      "soldAmount": 519,
+      "cvOverride": -999
+    },
+    {
+      "id": "dtulssnl",
+      "portfolio": "lovelina",
+      "ticker": "PATH",
+      "excelType": "Long Put",
+      "strike": 5,
+      "expiryDate": "1/15/27",
+      "openDate": "4/18/26",
+      "contracts": 3,
+      "excelCost": 60,
+      "excelIncome": 0,
+      "excelGrossValue": 20,
+      "excelCurrentValue": 20,
+      "excelProfit": -60,
+      "closed": false,
+      "notes": "",
+      "manualPrice": null,
+      "rolledOver": false,
+      "closeAction": null,
+      "_noMerge": true,
+      "cvOverride": 63
     }
   ],
   "tickerPrices": {
