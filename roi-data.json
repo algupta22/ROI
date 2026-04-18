@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-18T18:01:59.360Z",
+  "savedAt": "2026-04-18T18:03:01.931Z",
   "positions": [
     {
       "id": "8c3c3kg2",
@@ -50387,6 +50387,29 @@
       "closeAction": null,
       "_noMerge": true,
       "cvOverride": 110
+    },
+    {
+      "id": "cidy66mj",
+      "portfolio": "lovelina",
+      "ticker": "NVDX",
+      "excelType": "Short Put",
+      "strike": 15.5,
+      "expiryDate": "4/24",
+      "openDate": "4/18/26",
+      "contracts": 1,
+      "excelCost": 0,
+      "excelIncome": 0,
+      "excelGrossValue": 750,
+      "excelCurrentValue": 750,
+      "excelProfit": 15,
+      "closed": false,
+      "notes": "",
+      "manualPrice": null,
+      "rolledOver": false,
+      "closeAction": null,
+      "_noMerge": true,
+      "soldAmount": 15,
+      "cvOverride": -1
     },
     {
       "id": "hhiue7cf",
