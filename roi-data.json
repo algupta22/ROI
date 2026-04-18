@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-18T15:48:37.140Z",
+  "savedAt": "2026-04-18T15:58:36.833Z",
   "positions": [
     {
       "id": "8c3c3kg2",
@@ -50254,6 +50254,49 @@
       "closeAction": null,
       "cvOverride": 368,
       "_noMerge": true
+    },
+    {
+      "id": "ymgc8hhr",
+      "portfolio": "lovelina",
+      "ticker": "HOOD",
+      "excelType": "Long Put",
+      "strike": 73,
+      "expiryDate": "05/01",
+      "openDate": "4/18/26",
+      "contracts": 3,
+      "excelCost": 2823,
+      "excelIncome": 0,
+      "excelGrossValue": 941,
+      "excelCurrentValue": 941,
+      "excelProfit": -2823,
+      "closed": false,
+      "notes": "",
+      "manualPrice": null,
+      "rolledOver": false,
+      "closeAction": null,
+      "cvOverride": -156
+    },
+    {
+      "id": "57r8jxko",
+      "portfolio": "lovelina",
+      "ticker": "HOOD",
+      "excelType": "Short Put",
+      "strike": 70,
+      "expiryDate": "04/24",
+      "openDate": "4/18/26",
+      "contracts": 1,
+      "excelCost": 310,
+      "excelIncome": 0,
+      "excelGrossValue": 0,
+      "excelCurrentValue": 0,
+      "excelProfit": -310,
+      "closed": false,
+      "notes": "",
+      "manualPrice": null,
+      "rolledOver": false,
+      "closeAction": null,
+      "_noMerge": true,
+      "cvOverride": -4
     }
   ],
   "tickerPrices": {
