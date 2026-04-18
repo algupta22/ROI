@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-18T21:08:01.137Z",
+  "savedAt": "2026-04-18T21:27:05.607Z",
   "positions": [
     {
       "id": "8c3c3kg2",
@@ -50234,7 +50234,7 @@
       "cvOverride": -37
     },
     {
-      "id": "rwvra0bj",
+      "id": "iv2pw4eg",
       "portfolio": "lovelina",
       "ticker": "GOOGL",
       "excelType": "Long Put",
@@ -50246,13 +50246,14 @@
       "excelIncome": 0,
       "excelGrossValue": 368,
       "excelCurrentValue": 368,
-      "excelProfit": -590,
+      "excelProfit": -507,
       "closed": false,
       "notes": "",
       "manualPrice": null,
       "rolledOver": false,
       "closeAction": null,
-      "cvOverride": 368,
+      "soldAmount": 83,
+      "cvOverride": -37,
       "_noMerge": true
     },
     {
