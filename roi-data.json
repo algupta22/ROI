@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-18T18:24:01.315Z",
+  "savedAt": "2026-04-18T18:28:17.309Z",
   "positions": [
     {
       "id": "8c3c3kg2",
@@ -50663,19 +50663,19 @@
       "strike": 17,
       "expiryDate": "4/24",
       "openDate": "4/18/26",
-      "contracts": 2,
+      "contracts": 1,
       "excelCost": 0,
       "excelIncome": 0,
       "excelGrossValue": 102,
       "excelCurrentValue": 102,
-      "excelProfit": 174,
+      "excelProfit": 87,
       "closed": false,
       "notes": "",
       "manualPrice": null,
       "rolledOver": false,
       "closeAction": null,
       "_noMerge": true,
-      "soldAmount": 174,
+      "soldAmount": 87,
       "cvOverride": -6
     },
     {
@@ -50699,6 +50699,49 @@
       "closeAction": null,
       "_noMerge": true,
       "cvOverride": 102
+    },
+    {
+      "id": "p3ey2v75",
+      "portfolio": "lovelina",
+      "ticker": "TSLL",
+      "excelType": "Long Put",
+      "strike": 14,
+      "expiryDate": "6/18",
+      "openDate": "4/18/26",
+      "contracts": 1,
+      "excelCost": 209,
+      "excelIncome": 0,
+      "excelGrossValue": 0,
+      "excelCurrentValue": 0,
+      "excelProfit": -209,
+      "closed": false,
+      "notes": "",
+      "manualPrice": null,
+      "rolledOver": false,
+      "closeAction": null
+    },
+    {
+      "id": "ufem1ns1",
+      "portfolio": "lovelina",
+      "ticker": "TSLL",
+      "excelType": "Short Put",
+      "strike": 11,
+      "expiryDate": "4/24",
+      "openDate": "4/18/26",
+      "contracts": 1,
+      "excelCost": 0,
+      "excelIncome": 0,
+      "excelGrossValue": 209,
+      "excelCurrentValue": 209,
+      "excelProfit": 18,
+      "closed": false,
+      "notes": "",
+      "manualPrice": null,
+      "rolledOver": false,
+      "closeAction": null,
+      "_noMerge": true,
+      "soldAmount": 18,
+      "cvOverride": 8
     }
   ],
   "tickerPrices": {
@@ -50708,7 +50751,7 @@
     "TSLZ": 17.53,
     "HIMZ": 3,
     "HIMZ1": 2,
-    "TSLL": 13.11
+    "TSLL": 206
   },
   "activityData": {
     "act_all": [],
