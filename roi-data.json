@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-18T15:29:01.428Z",
+  "savedAt": "2026-04-18T15:31:15.129Z",
   "positions": [
     {
       "id": "uspq1v6c",
@@ -57915,12 +57915,12 @@
       "strike": 0,
       "expiryDate": "",
       "openDate": "4/18/26",
-      "contracts": 10,
-      "excelCost": 49480,
+      "contracts": 1,
+      "excelCost": 4948,
       "excelIncome": 0,
       "excelGrossValue": 4948,
       "excelCurrentValue": 4948,
-      "excelProfit": -49480,
+      "excelProfit": -4948,
       "closed": false,
       "notes": "",
       "manualPrice": null,
