@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-18T18:55:37.123Z",
+  "savedAt": "2026-04-18T18:58:07.441Z",
   "positions": [
     {
       "id": "8c3c3kg2",
@@ -51072,6 +51072,51 @@
       "_noMerge": true,
       "soldAmount": 3504,
       "cvOverride": 10450
+    },
+    {
+      "id": "de038g0t",
+      "portfolio": "lovelina",
+      "ticker": "ROBN",
+      "excelType": "Long Put",
+      "strike": 7,
+      "expiryDate": "6/18",
+      "openDate": "4/18/26",
+      "contracts": 1,
+      "excelCost": 0,
+      "excelIncome": 0,
+      "excelGrossValue": 0,
+      "excelCurrentValue": 0,
+      "excelProfit": 51,
+      "closed": false,
+      "notes": "",
+      "manualPrice": null,
+      "rolledOver": false,
+      "closeAction": null,
+      "soldAmount": 51,
+      "cvOverride": 1
+    },
+    {
+      "id": "tgbmhdr0",
+      "portfolio": "lovelina",
+      "ticker": "ROBN",
+      "excelType": "Short Put",
+      "strike": 50,
+      "expiryDate": "6/18",
+      "openDate": "4/18/26",
+      "contracts": 1,
+      "excelCost": 0,
+      "excelIncome": 0,
+      "excelGrossValue": 0,
+      "excelCurrentValue": 0,
+      "excelProfit": 2983,
+      "closed": false,
+      "notes": "",
+      "manualPrice": null,
+      "rolledOver": false,
+      "closeAction": null,
+      "soldAmount": 2983,
+      "_noMerge": true,
+      "cvOverride": -2285
     }
   ],
   "tickerPrices": {
