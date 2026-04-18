@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-18T18:44:48.546Z",
+  "savedAt": "2026-04-18T18:47:54.760Z",
   "positions": [
     {
       "id": "8c3c3kg2",
@@ -50918,6 +50918,28 @@
     },
     {
       "id": "2b4ztl6h",
+      "portfolio": "lovelina",
+      "ticker": "METU",
+      "excelType": "Shares",
+      "strike": 35,
+      "expiryDate": "5/15",
+      "openDate": "4/18/26",
+      "contracts": 1,
+      "excelCost": 3910,
+      "excelIncome": 0,
+      "excelGrossValue": 2,
+      "excelCurrentValue": 2,
+      "excelProfit": -3910,
+      "closed": false,
+      "notes": "",
+      "manualPrice": null,
+      "rolledOver": false,
+      "closeAction": null,
+      "_noMerge": true,
+      "cvOverride": 3193
+    },
+    {
+      "id": "7hmms5am",
       "portfolio": "lovelina",
       "ticker": "METU",
       "excelType": "Short Put",
