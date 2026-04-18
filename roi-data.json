@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-18T15:42:58.014Z",
+  "savedAt": "2026-04-18T15:48:37.140Z",
   "positions": [
     {
       "id": "8c3c3kg2",
@@ -50126,7 +50126,7 @@
       "id": "lq145fso",
       "portfolio": "lov-roth",
       "ticker": "PATH",
-      "excelType": "Long Put",
+      "excelType": "Long Call",
       "strike": 20,
       "expiryDate": "1/15/27",
       "openDate": "4/18/26",
