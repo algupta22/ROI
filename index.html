@@ -425,18 +425,26 @@ td.mc{color:var(--black);font-weight:700;}td.mn{font-family:monospace;font-size:
 .tcb-item{text-align:center;}
 .tcb-item-val{font-size:0.95rem;font-weight:800;font-family:monospace;}
 .tcb-item-label{font-size:0.6rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.06em;margin-top:0.1rem;}
-.st-wrap{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;overflow-x:auto;margin-bottom:1rem;}
-.st-wrap table{width:100%;border-collapse:collapse;min-width:900px;}
+.st-wrap{background:var(--card);border:2px solid var(--border2);border-radius:var(--r);overflow:hidden;overflow-x:auto;margin-bottom:1rem;}
+.st-wrap table{width:100%;border-collapse:separate;border-spacing:0;min-width:900px;}
 .st-wrap thead{background:var(--black);}
-.st-wrap th{padding:0.55rem 0.7rem;font-size:0.6rem;font-weight:700;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:0.08em;text-align:left;white-space:nowrap;}
-.st-wrap th.sp-hdr{background:rgba(220,38,38,0.7);}.st-wrap th.lp-hdr{background:rgba(37,99,235,0.7);}
-.st-wrap th.col-hdr{background:rgba(234,88,12,0.8);}.st-wrap th.div-hdr{background:rgba(255,255,255,0.05);width:18px;padding:0;}
-.st-wrap tbody tr{border-bottom:1px solid var(--border);transition:background 0.1s;}
-.st-wrap tbody tr:last-child{border-bottom:none;}.st-wrap tbody tr:hover{background:#FAFAFA;}
+.st-wrap th{padding:0.55rem 0.7rem;font-size:0.6rem;font-weight:700;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:0.08em;text-align:left;white-space:nowrap;border-right:1px solid rgba(255,255,255,0.15);border-bottom:2px solid rgba(255,255,255,0.2);}
+.st-wrap th:last-child{border-right:none;}
+.st-wrap th.sp-hdr{background:rgba(220,38,38,0.5);border-right:1px solid rgba(220,38,38,0.4);}
+.st-wrap th.lp-hdr{background:rgba(37,99,235,0.5);border-right:1px solid rgba(37,99,235,0.4);}
+.st-wrap th.col-hdr{background:rgba(234,88,12,0.8);}
+.st-wrap th.div-hdr{background:var(--black);width:50px;padding:0;text-align:center;border-left:4px solid #EF4444;border-right:4px solid #2563EB;}
+.st-wrap tbody tr{transition:background 0.1s;}
+.st-wrap tbody tr:last-child{border-bottom:none;}
+.st-wrap tbody tr:hover{background:#F5F8FF;}
 .st-wrap tr.indep-row{background:var(--blue-bg)!important;}
-.st-wrap td{padding:0.48rem 0.7rem;font-size:0.72rem;color:var(--text2);white-space:nowrap;}
+.st-wrap td{padding:0.48rem 0.7rem;font-size:0.72rem;color:var(--text2);white-space:nowrap;border-right:1px solid var(--border);border-bottom:1px solid var(--border);}
+.st-wrap td:last-child{border-right:none;}
 .st-wrap td.mn{font-family:monospace;font-size:0.71rem;}
-.st-wrap td.div-col{background:var(--bg4);border-left:1px solid var(--border);border-right:1px solid var(--border);text-align:center;font-size:0.58rem;font-weight:700;color:var(--text3);padding:0;}
+.st-wrap td.sp-cell{background:rgba(254,226,226,0.5);border-right:1px solid rgba(220,38,38,0.25);}
+.st-wrap td.lp-cell{background:rgba(219,234,254,0.5);border-right:1px solid rgba(37,99,235,0.25);}
+.st-wrap td.div-col{background:#111;border-left:5px solid #EF4444!important;border-right:5px solid #2563EB!important;border-bottom:1px solid #333!important;text-align:center;font-size:0.62rem;font-weight:900;color:#fff;padding:0 0.4rem;letter-spacing:0.04em;white-space:nowrap;min-width:70px;}
+.st-wrap th.div-hdr{background:#111;width:70px;padding:0 0.4rem;text-align:center;border-left:5px solid #EF4444!important;border-right:5px solid #2563EB!important;color:rgba(255,255,255,0.7);font-size:0.52rem;}
 .st-wrap td.empty{color:var(--text3);font-style:italic;font-size:0.65rem;}
 .badge-spread{background:var(--purple-bg);color:var(--purple);display:inline-flex;align-items:center;padding:0.1rem 0.42rem;border-radius:4px;font-size:0.58rem;font-weight:700;text-transform:uppercase;}
 .badge-naked{background:var(--red-bg);color:var(--red);display:inline-flex;align-items:center;padding:0.1rem 0.42rem;border-radius:4px;font-size:0.58rem;font-weight:700;text-transform:uppercase;}
@@ -446,7 +454,7 @@ td.mc{color:var(--black);font-weight:700;}td.mn{font-family:monospace;font-size:
 .soc-tab{background:transparent;border:none;color:var(--text3);padding:0.22rem 0.5rem;border-radius:6px;font-size:0.65rem;font-weight:700;cursor:pointer;text-transform:uppercase;transition:all 0.15s;}
 .soc-tab.active{background:var(--black);color:#fff;}.soc-tab:hover:not(.active){color:var(--black);}
 /* ADMIN */
-.admin-wrap{max-width:700px;}
+.admin-wrap{max-width:100%;}
 .admin-title{font-size:1rem;font-weight:800;color:var(--black);margin-bottom:0.25rem;}
 .admin-sub{font-size:0.72rem;color:var(--text3);margin-bottom:1.25rem;}
 .admin-table-wrap{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.06);margin-bottom:1rem;}
@@ -581,6 +589,7 @@ td.mc{color:var(--black);font-weight:700;}td.mn{font-family:monospace;font-size:
 <div class="view-nav" id="view-nav">
   <div class="view-tab active" data-view="positions">&#128202; Positions</div>
   <div class="view-tab" data-view="spreads">&#8597; Spreads / Risk View</div>
+  <div class="view-tab" data-view="combined">&#128279; Combined View</div>
   <div class="view-tab" data-view="activity">&#128196; Activity</div>
   <div class="view-tab" data-view="admin">&#9881; Admin &#8212; Prices</div>
 </div>
@@ -627,7 +636,64 @@ var SEED=[
 {portfolio:"lovelina",ticker:"SOFI",strike:17,expiryDate:"5/15/26",openDate:"",excelCost:218,excelProfit:-17,excelGrossValue:201,excelCurrentValue:201,excelType:"Long Put",id:"a30",manualPrice:null,rolledOver:false},
 {portfolio:"lovelina",ticker:"SOFI",strike:16,expiryDate:"4/10/26",openDate:"",excelIncome:213,excelProfit:213,excelGrossValue:213,excelCurrentValue:213,excelCost:0,excelType:"Short Put",id:"a31",manualPrice:null,rolledOver:false},
 {portfolio:"lovelina",ticker:"SOFI",strike:16.5,expiryDate:"4/10/26",openDate:"",excelIncome:93,excelProfit:93,excelGrossValue:93,excelCurrentValue:93,excelCost:0,excelType:"Short Put",id:"a32",manualPrice:null,rolledOver:false},
-{portfolio:"lovelina",ticker:"SOFI",strike:17,expiryDate:"4/10/26",openDate:"",excelIncome:99,excelProfit:99,excelGrossValue:99,excelCurrentValue:99,excelCost:0,excelType:"Short Put",id:"a33",manualPrice:null,rolledOver:false}
+{portfolio:"lovelina",ticker:"SOFI",strike:17,expiryDate:"4/10/26",openDate:"",excelIncome:99,excelProfit:99,excelGrossValue:99,excelCurrentValue:99,excelCost:0,excelType:"Short Put",id:"a33",manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"BBAI",strike:4,expiryDate:"4/24/26",openDate:"4/18/26",excelIncome:81,excelProfit:81,excelGrossValue:81,excelCurrentValue:27,excelCost:0,excelType:"Short Put",closed:false,id:"j1",contracts:3,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"HIMS",strike:21.5,expiryDate:"4/24/26",openDate:"4/18/26",excelIncome:17,excelProfit:17,excelGrossValue:17,excelCurrentValue:17,excelCost:0,excelType:"Short Put",closed:false,id:"j2",contracts:1,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"HIMS",strike:21,expiryDate:"4/24/26",openDate:"4/18/26",excelIncome:8,excelProfit:8,excelGrossValue:8,excelCurrentValue:8,excelCost:0,excelType:"Short Put",closed:false,id:"j3",contracts:1,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"LYFT",strike:14,expiryDate:"4/24/26",openDate:"4/18/26",excelCost:10,excelProfit:0,excelGrossValue:10,excelCurrentValue:10,excelType:"Long Put",closed:false,id:"j4",contracts:1,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"LYFT",strike:13.5,expiryDate:"4/24/26",openDate:"4/18/26",excelIncome:8,excelProfit:8,excelGrossValue:8,excelCurrentValue:8,excelCost:0,excelType:"Short Put",closed:false,id:"j5",contracts:1,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"NVDX",strike:16.5,expiryDate:"4/24/26",openDate:"4/18/26",excelIncome:2,excelProfit:2,excelGrossValue:2,excelCurrentValue:1,excelCost:0,excelType:"Short Put",closed:false,id:"j6",contracts:2,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"NVTS",strike:9.5,expiryDate:"4/24/26",openDate:"4/18/26",excelIncome:4,excelProfit:4,excelGrossValue:4,excelCurrentValue:4,excelCost:0,excelType:"Short Put",closed:false,id:"j7",contracts:1,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"NVTS",strike:9,expiryDate:"4/24/26",openDate:"4/18/26",excelIncome:6,excelProfit:6,excelGrossValue:6,excelCurrentValue:6,excelCost:0,excelType:"Short Put",closed:false,id:"j8",contracts:2,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"PLTR",strike:145,expiryDate:"4/24/26",openDate:"4/18/26",excelIncome:616,excelProfit:616,excelGrossValue:616,excelCurrentValue:308,excelCost:0,excelType:"Short Put",closed:false,id:"j9",contracts:2,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"PLTR",strike:144,expiryDate:"4/24/26",openDate:"4/18/26",excelIncome:267,excelProfit:267,excelGrossValue:267,excelCurrentValue:267,excelCost:0,excelType:"Short Put",closed:false,id:"j10",contracts:1,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"SMCI",strike:23,expiryDate:"4/24/26",openDate:"4/18/26",excelIncome:7,excelProfit:7,excelGrossValue:7,excelCurrentValue:7,excelCost:0,excelType:"Short Put",closed:false,id:"j11",contracts:1,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"TTD",strike:21.5,expiryDate:"4/24/26",openDate:"4/18/26",excelIncome:36,excelProfit:36,excelGrossValue:36,excelCurrentValue:36,excelCost:0,excelType:"Short Put",closed:false,id:"j12",contracts:1,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"TTD",strike:21,expiryDate:"4/24/26",openDate:"4/18/26",excelIncome:23,excelProfit:23,excelGrossValue:23,excelCurrentValue:23,excelCost:0,excelType:"Short Put",closed:false,id:"j13",contracts:1,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"USAR",strike:16,expiryDate:"4/24/26",openDate:"4/18/26",excelIncome:7,excelProfit:7,excelGrossValue:7,excelCurrentValue:7,excelCost:0,excelType:"Short Put",closed:false,id:"j14",contracts:1,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"BBAI",strike:4,expiryDate:"5/1/26",openDate:"4/18/26",excelCost:37,excelProfit:0,excelGrossValue:37,excelCurrentValue:37,excelType:"Long Put",closed:false,id:"j15",contracts:1,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"IBIT",strike:40,expiryDate:"5/1/26",openDate:"4/18/26",excelCost:60,excelProfit:0,excelGrossValue:60,excelCurrentValue:60,excelType:"Long Put",closed:false,id:"j16",contracts:2,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"LYFT",strike:14,expiryDate:"5/1/26",openDate:"4/18/26",excelCost:26,excelProfit:0,excelGrossValue:26,excelCurrentValue:26,excelType:"Long Put",closed:false,id:"j17",contracts:1,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"NVDA",strike:175,expiryDate:"5/1/26",openDate:"4/18/26",excelCost:29,excelProfit:0,excelGrossValue:29,excelCurrentValue:29,excelType:"Long Put",closed:false,id:"j18",contracts:1,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"NVDX",strike:14.5,expiryDate:"5/1/26",openDate:"4/18/26",excelCost:1,excelProfit:0,excelGrossValue:1,excelCurrentValue:1,excelType:"Long Put",closed:false,id:"j19",contracts:1,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"NVTS",strike:9.5,expiryDate:"5/1/26",openDate:"4/18/26",excelCost:28,excelProfit:0,excelGrossValue:28,excelCurrentValue:28,excelType:"Long Put",closed:false,id:"j20",contracts:2,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"PLTR",strike:90,expiryDate:"5/1/26",openDate:"4/18/26",excelCost:10,excelProfit:0,excelGrossValue:10,excelCurrentValue:10,excelType:"Long Put",closed:false,id:"j21",contracts:2,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"RGTI",strike:14,expiryDate:"5/1/26",openDate:"4/18/26",excelCost:9,excelProfit:0,excelGrossValue:9,excelCurrentValue:9,excelType:"Long Put",closed:false,id:"j22",contracts:1,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"RGTI",strike:13.5,expiryDate:"5/1/26",openDate:"4/18/26",excelCost:1,excelProfit:0,excelGrossValue:1,excelCurrentValue:1,excelType:"Long Put",closed:false,id:"j23",contracts:1,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"SMCI",strike:23,expiryDate:"5/1/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:26,excelType:"Long Put",closed:false,id:"j24",contracts:2,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"SMCI",strike:22,expiryDate:"5/1/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:9,excelType:"Long Put",closed:false,id:"j25",contracts:1,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"USAR",strike:18,expiryDate:"5/1/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:71,excelType:"Long Put",closed:false,id:"j26",contracts:1,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"NVTS",strike:9,expiryDate:"5/8/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:27,excelType:"Long Put",closed:false,id:"j27",contracts:1,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"SOFI",strike:17,expiryDate:"5/8/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:180,excelType:"Long Put",closed:false,id:"j28",contracts:4,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"BBAI",strike:4,expiryDate:"5/15/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:51,excelType:"Long Put",closed:false,id:"j29",contracts:1,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"HIMS",strike:20,expiryDate:"5/15/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:42,excelType:"Long Put",closed:false,id:"j30",contracts:1,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"IBIT",strike:39,expiryDate:"5/15/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:53,excelType:"Long Put",closed:false,id:"j31",contracts:1,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"SOFI",strike:17,expiryDate:"5/15/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:102,excelType:"Long Put",closed:false,id:"j32",contracts:2,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"TTD",strike:22.5,expiryDate:"5/15/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:235,excelType:"Long Put",closed:false,id:"j33",contracts:1,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"TTD",strike:21,expiryDate:"5/22/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:174,excelType:"Long Put",closed:false,id:"j34",contracts:1,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"HIMS",strike:19.5,expiryDate:"5/29/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:74,excelType:"Long Put",closed:false,id:"j35",contracts:1,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"PATH",strike:10,expiryDate:"5/29/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:0,cvOverride:145,excelType:"Long Put",closed:false,id:"j36",contracts:1,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"SPY",strike:703,expiryDate:"5/29/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:0,cvOverride:2050,excelType:"Long Call",closed:false,id:"j37",contracts:1,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"SPY",strike:628,expiryDate:"5/29/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:0,cvOverride:-8700,excelType:"Short Call",closed:false,id:"j38",contracts:1,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"SPY",strike:520,expiryDate:"5/29/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:0,cvOverride:37,excelType:"Long Put",closed:false,id:"j39",contracts:1,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"SPY",strike:626,expiryDate:"5/29/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:0,cvOverride:-157,excelType:"Short Put",closed:false,id:"j40",contracts:1,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"TTD",strike:20.5,expiryDate:"5/29/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:0,cvOverride:165,excelType:"Long Put",closed:false,id:"j41",contracts:1,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"BBAI",strike:6,expiryDate:"6/18/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:0,cvOverride:-16,excelType:"Short Call",closed:false,id:"j42",contracts:1,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"BBAI",strike:4,expiryDate:"6/18/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:0,cvOverride:68,excelType:"Long Put",closed:false,id:"j43",contracts:1,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"NFLU",strike:51,expiryDate:"6/18/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:0,cvOverride:1,excelType:"Long Call",closed:false,id:"j44",contracts:1,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"NVDX",strike:17.43,expiryDate:"6/18/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:0,cvOverride:190,excelType:"Long Put",closed:false,id:"j45",contracts:1,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"NVDX",strike:15.43,expiryDate:"6/18/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:0,cvOverride:330,excelType:"Long Put",closed:false,id:"j46",contracts:3,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"NVTS",strike:10,expiryDate:"6/18/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:0,cvOverride:99,excelType:"Long Put",closed:false,id:"j47",contracts:1,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"PLTR",strike:140,expiryDate:"6/18/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:0,cvOverride:950,excelType:"Long Put",closed:false,id:"j48",contracts:1,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"BBAI",strike:2,expiryDate:"6/18/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:0,cvOverride:6,excelType:"Long Put",closed:false,id:"j49",contracts:2,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"BBAI",strike:4,expiryDate:"6/18/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:0,cvOverride:-136,excelType:"Short Put",closed:false,id:"j50",contracts:2,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"BULL",strike:5.5,expiryDate:"4/24/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:0,cvOverride:-2,excelType:"Short Put",closed:false,id:"j51",contracts:1,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"BULL",strike:6,expiryDate:"4/24/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:0,cvOverride:6,excelType:"Long Put",closed:false,id:"j52",contracts:1,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"BULL",strike:7.5,expiryDate:"1/15/27",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:0,cvOverride:147,excelType:"Long Call",closed:false,id:"j53",contracts:1,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"CDE",strike:19.5,expiryDate:"4/24/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:0,cvOverride:-40,excelType:"Short Put",closed:false,id:"j54",contracts:1,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"CDE",strike:20,expiryDate:"4/24/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:0,cvOverride:-63,excelType:"Short Put",closed:false,id:"j55",contracts:1,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"CDE",strike:20.5,expiryDate:"4/24/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:0,cvOverride:-80,excelType:"Short Put",closed:false,id:"j56",contracts:1,manualPrice:null,rolledOver:false},
+{portfolio:"joint",ticker:"CDE",strike:17,expiryDate:"5/1/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:0,cvOverride:15,excelType:"Long Put",closed:false,id:"j57",contracts:1,manualPrice:null,rolledOver:false}
 ];
 
 // ── FIX 1: PERSISTENCE — data survives GitHub deploys ────────────────────────
@@ -643,7 +709,11 @@ var positions=SEED.slice();
       var d=JSON.parse(raw);
       if(Array.isArray(d)&&d.length>0){
         d.forEach(function(r){if(!r.portfolio)r.portfolio='lovelina';});
-        positions=d;savePositions();return;
+        // Always wipe joint from localStorage and reload fresh from SEED
+        var nonJoint=d.filter(function(r){return r.portfolio!=='joint';});
+        var seedJoint=SEED.filter(function(r){return r.portfolio==='joint';});
+        positions=nonJoint.concat(seedJoint);
+        savePositions();return;
       }
     }
   }catch(e){}
@@ -762,7 +832,7 @@ function fmtKSign(v){
 function du(s){if(!s)return 999;try{return Math.round((new Date(s)-now)/86400000);}catch(e){return 999;}}
 function ec(s){var d=du(s);return d<=4?'es':d<=30?'em':'ef';}
 function bct(t){return t==='Short Put'?'bsp':t==='Long Put'?'blp':t==='Long Call'?'blc':'bsh';}
-function collateral(r){return r.excelType==='Short Put'&&!isCl(r)&&!r.rolledOver?r.strike*100:0;}
+function collateral(r){return r.excelType==='Short Put'&&!isCl(r)&&!r.rolledOver?r.strike*100*(r.contracts||1):0;}
 function gd(p,s){
   if(p==='all') return positions;
   if(p==='lovelina') return positions.filter(function(r){return r.portfolio==='lovelina';});
@@ -835,9 +905,9 @@ function cs(data,isRetirement){
   if(isRetirement){
     twc=data.filter(function(r){return r.excelType==='Short Put'&&!isCl(r)&&!r.rolledOver&&r.expiryDate;})
       .filter(function(r){var _d=parseExpiry(r.expiryDate);return _d&&getFriday(_d)<=thisFri;})
-      .reduce(function(s,r){return s+r.strike*100;},0);
+      .reduce(function(s,r){return s+r.strike*100*(r.contracts||1);},0);
     tc=data.filter(function(r){return r.excelType==='Short Put'&&!isCl(r)&&!r.rolledOver;})
-      .reduce(function(s,r){return s+r.strike*100;},0);
+      .reduce(function(s,r){return s+r.strike*100*(r.contracts||1);},0);
   }else{
     twc=calcSpreadCollateralThisWeek(data);
     tc=calcSpreadCollateral(data);
@@ -856,7 +926,7 @@ function cs(data,isRetirement){
     return s+cv;
   },0);
   var beRaw=ci-totalSold-gv,be=Math.max(0,beRaw),pct=ci>0?Math.min(100,Math.round((totalSold+gv)/ci*100)):0;
-  return{n:data.length,op:op.length,cl:data.filter(function(r){return isCl(r);}).length,gv:gv,ci:ci,ig:ig,be:be,beRaw:beRaw,pct:pct,realized:realized,unrealized:unrealized,totalGain:realized+unrealized,twc:twc,tc:tc};
+  return{n:data.length,op:op.length,cl:data.filter(function(r){return isCl(r);}).length,gv:gv,ci:ci,ig:ig,be:be,beRaw:beRaw,pct:pct,realized:realized,unrealized:unrealized,totalGain:realized+unrealized,twc:twc,tc:tc,filtered:data};
 }
 function getTickersFrom(d){return[...new Set(d.map(function(r){return r.ticker;}))].sort();}
 function parseOpenDate(s){
@@ -932,14 +1002,63 @@ function getAppliedFilters(data){
 // ── FILTER BAR HTML ───────────────────────────────────────────────────────────
 function rFilterBar(data){return'';}
 
+// ── GLOBAL CV HELPER — mirrors Portf. Val column for OPEN positions only ───────
+function calcPositionCV(r){
+  // Default 0 — only override changes it
+  var isShort=r.excelType==='Short Put'||r.excelType==='Short Call';
+  var hasOvrd=r.cvOverride!=null&&r.cvOverride!=='';
+  if(hasOvrd) return isShort?-Math.abs(parseFloat(r.cvOverride)):Math.abs(parseFloat(r.cvOverride));
+  return 0;
+}
+function calcPortfolioCV(portKey){
+  var retAll=['amit-roth','lov-roth','lov-trad'];
+  return positions.filter(function(r){
+    if(isCl(r)) return false;
+    if(portKey==='all') return true;
+    if(portKey==='ret-all') return retAll.indexOf(r.portfolio||'')>=0;
+    return (r.portfolio||'lovelina')===portKey;
+  }).reduce(function(s,r){return s+calcPositionCV(r);},0);
+}
 // ── FIX 2: CASH CARD ──────────────────────────────────────────────────────────
 function rCashCard(){
   var cash=getPortCash(),initCash=getPortInitCash(),isAll=ap==='all';
   var portLabel=isAll?'Sum of all portfolios':getCashKey().replace(/-/g,' ');
-  var diff=cash-initCash;
+  var portKey2=ap==='retirement'?as:ap;
+
+  // Curr Val = sum of Portf. Val from open positions
+  var currVal=calcPortfolioCV(ap==='all'?'all':portKey2);
+
+  // Collateral Blocked (calculated early so we can use in Total)
+  var _retAll2=['amit-roth','lov-roth','lov-trad'];
+  var _portPos=positions.filter(function(r){
+    var inPort=ap==='all'
+      ||(portKey2==='ret-all'?_retAll2.indexOf(r.portfolio||'')>=0:(r.portfolio||'lovelina')===portKey2);
+    return inPort&&r.excelType==='Short Put'&&!isCl(r)&&r.strike>0;
+  });
+  var _portTickers={};_portPos.forEach(function(r){_portTickers[r.ticker]=true;});
+  var totalCB=0;for(var _tk in collatBlocked){if(collatBlocked[_tk]&&_portTickers[_tk])totalCB+=collatBlocked[_tk];}
+
+  // Real portfolio value of SPUT positions:
+  // Use min(strike, currentStockPrice) × 100 × contracts
+  // This reflects actual assignment value if stock is below strike
+  var totalSPUTVal=_portPos.reduce(function(s,r){
+    var liveP=liveCache[r.ticker]&&liveCache[r.ticker].price!=null?liveCache[r.ticker].price:null;
+    var manP=tickerPrices[r.ticker]!=null?tickerPrices[r.ticker]:null;
+    var stockP=liveP!=null?liveP:(manP!=null?manP:null);
+    // If stock price known, use min(strike, stockPrice); otherwise use strike
+    var effectiveP=stockP!=null?Math.min(r.strike,stockP):r.strike;
+    return s+effectiveP*100*(r.contracts||1);
+  },0);
+
+  // Total = Curr Val (open positions) + Curr Cash + Collateral Blocked (actual cash set aside)
+  var total=currVal+cash+totalCB;
+
+  // Gains = Total - Initial Cash
+  var diff=total-initCash;
   var diffColor=diff>=0?'#34D399':'#F87171';
-  var diffSign=diff>=0?'+':'-';
-  var diffFmt=diffSign+'$'+Math.abs(diff).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+
+  function fmtVal(v){return'$'+Math.abs(v).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});}
+  function fmtSigned(v){return(v>=0?'+':'-')+'$'+Math.abs(v).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});}
 
   if(editingCash&&!isAll){
     return'<div class="cash-card"><div class="cash-lbl">&#9998; Edit Curr Cash Balance</div>'
@@ -952,36 +1071,92 @@ function rCashCard(){
       +'<div class="cash-sub">'+portLabel+'</div></div>';
   }
 
-  // Normal display: three rows
-  var initRow='<div style="display:flex;align-items:center;justify-content:space-between;margin-top:0.45rem;">'
-    +'<div><div style="font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.4);margin-bottom:0.12rem;">Initial Cash</div>'
-    +'<div style="font-size:0.92rem;font-weight:800;font-family:monospace;color:rgba(255,255,255,0.65);">'+fmtK(initCash)+'</div></div>'
-    +(isAll?'':'<button class="cash-edt" onclick="initCashEdit()" style="align-self:flex-end;margin-bottom:0.1rem;">edit</button>')
+  function mkRow(label,val,color,editBtn){
+    return '<div style="display:flex;align-items:center;justify-content:space-between;margin-top:0.42rem;">'
+      +'<div><div style="font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.4);margin-bottom:0.1rem;">'+label+'</div>'
+      +'<div style="font-size:0.92rem;font-weight:800;font-family:monospace;color:'+color+';">'+val+'</div></div>'
+      +(editBtn||'')
+      +'</div>';
+  }
+  function mkDivider(){return '<div style="height:1px;background:rgba(255,255,255,0.1);margin-top:0.42rem;"></div>';}
+
+  // 3-column layout: Init Cash | Curr Cash | Curr Val
+  function mkCol(label,val,color,editFn){
+    return '<div>'
+      +'<div style="font-size:0.52rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:rgba(255,255,255,0.35);margin-bottom:0.12rem;">'+label+'</div>'
+      +'<div style="font-size:0.8rem;font-weight:800;font-family:monospace;color:'+color+';">'+val+'</div>'
+      +(editFn?'<button class="cash-edt" onclick="'+editFn+'" style="margin-top:0.1rem;display:block;">edit</button>':'')+'</div>';
+  }
+
+  // Warn if initial cash is 0 but we have cash/positions (likely data not restored)
+  var initCashWarning='';
+  if(initCash===0&&(cash>0||currVal>0)&&!isAll){
+    initCashWarning='<div style="background:rgba(220,38,38,0.15);border:1px solid rgba(220,38,38,0.3);border-radius:6px;padding:0.3rem 0.6rem;margin-bottom:0.35rem;display:flex;align-items:center;gap:0.4rem;">'
+      +'<span style="font-size:0.7rem;">&#9888;</span>'
+      +'<span style="font-size:0.58rem;color:#EF4444;font-weight:600;">Initial cash is $0 — please set it or restore from backup</span>'
+      +'<button class="cash-edt" onclick="initCashEdit()" style="margin-left:auto;color:#EF4444;">Set now</button>'
+      +'</div>';
+  }
+  var topRow='<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.3rem;margin-bottom:0.35rem;">'
+    +mkCol('Init.Cash',fmtVal(initCash),'rgba(255,255,255,0.65)',isAll?'':'initCashEdit()')
+    +mkCol('Curr Cash',fmtVal(cash),'#34D399',isAll?'':'cashEdit()')
+    +mkCol('Curr Val',fmtVal(currVal),'#93C5FD','')
     +'</div>';
 
-  var currRow='<div style="display:flex;align-items:center;justify-content:space-between;margin-top:0.42rem;">'
-    +'<div><div style="font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.4);margin-bottom:0.12rem;">Curr Cash Balance</div>'
-    +'<div style="font-size:1.1rem;font-weight:800;font-family:monospace;color:#34D399;">'+fmtK(cash)+'</div></div>'
-    +(isAll?'':'<button class="cash-edt" onclick="cashEdit()" style="align-self:flex-end;margin-bottom:0.1rem;">edit</button>')
+  var totalRow='<div style="margin-top:0.35rem;display:flex;align-items:center;justify-content:space-between;">'
+    +'<div style="font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.4);">Total <span style="font-size:0.5rem;opacity:0.6;">(Val+Cash+Col.Blk)</span></div>'
+    +'<div style="font-size:1.05rem;font-weight:800;font-family:monospace;color:#FCD34D;">'+fmtVal(total)+'</div>'
     +'</div>';
 
-  var diffRow='<div style="border-top:1px solid rgba(255,255,255,0.1);margin-top:0.45rem;padding-top:0.38rem;display:flex;align-items:center;justify-content:space-between;">'
-    +'<span style="font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.4);">Difference</span>'
-    +'<span style="font-size:0.92rem;font-weight:800;font-family:monospace;color:'+diffColor+';">'+fmtKSign(diff)+'</span>'
+  var diffRow='<div style="border-top:1px solid rgba(255,255,255,0.1);margin-top:0.42rem;padding-top:0.38rem;display:flex;align-items:center;justify-content:space-between;">'
+    +'<div><div style="font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.4);">Gains</div>'
+    +'<div style="font-size:0.55rem;color:rgba(255,255,255,0.3);">Total &minus; Init</div></div>'
+    +'<span style="font-size:0.92rem;font-weight:800;font-family:monospace;color:'+diffColor+';">'+fmtSigned(diff)+'</span>'
     +'</div>';
 
-  // Collateral Blocked total and Gap
-  var portKey2=ap==='retirement'?as:ap;
-  var portPos=positions.filter(function(r){return(ap==='all'||(r.portfolio||'lovelina')===portKey2)&&r.excelType==='Short Put'&&!isCl(r)&&r.strike>0;});
-  // Only sum collatBlocked for tickers that have open Short Puts in this portfolio
-  var portTickers={};portPos.forEach(function(r){portTickers[r.ticker]=true;});
-  var totalCB=0;for(var tk in collatBlocked){if(collatBlocked[tk]&&portTickers[tk])totalCB+=collatBlocked[tk];}
-  var totalAR=portPos.reduce(function(s,r){return s+r.strike*100;},0);
+  // Collateral Blocked total and Gap (reuse _portPos and totalCB calculated above)
+  var portPos=_portPos;
+  // Assn.Req. = strike × 100 × contracts (what you're obligated to buy at)
+  var totalAR=portPos.reduce(function(s,r){return s+r.strike*100*(r.contracts||1);},0);
+  // Real val = min(strike, stockPrice) × 100 × contracts (actual assignment value)
+  var totalRealVal=portPos.reduce(function(s,r){
+    var liveP=liveCache[r.ticker]&&liveCache[r.ticker].price!=null?liveCache[r.ticker].price:null;
+    var manP=tickerPrices[r.ticker]!=null?tickerPrices[r.ticker]:null;
+    var stockP=liveP!=null?liveP:(manP!=null?manP:null);
+    var effP=stockP!=null?Math.min(r.strike,stockP):r.strike;
+    return s+effP*100*(r.contracts||1);
+  },0);
   var colGap=totalAR>0?totalAR-totalCB:null;
   var colGapColor=colGap!=null?(colGap>0?'#F87171':'#34D399'):'rgba(255,255,255,0.65)';
-  var cbRow='<div style="border-top:1px solid rgba(255,255,255,0.1);margin-top:0.45rem;padding-top:0.38rem;">'    +'<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.25rem;">'    +'<span style="font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.4);">Col. Blocked</span>'    +'<span style="font-size:0.88rem;font-weight:800;font-family:monospace;color:rgba(255,255,255,0.65);">'+fmtK(totalCB)+'</span>'    +'</div>'    +'<div style="display:flex;align-items:center;justify-content:space-between;">'    +'<span style="font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.4);">Col. Gap</span>'    +'<span style="font-size:0.88rem;font-weight:800;font-family:monospace;color:'+colGapColor+';">'+((colGap!=null)?fmtKSign(colGap):'--')+'</span>'    +'</div>'    +'</div>';
+  // Show difference between obligation (strike-based) and real value (stock-price-based)
+  var assnDiff=totalRealVal-totalAR; // negative = stock below strike = at-risk
+  var assnDiffColor=assnDiff>=0?'#34D399':'#F87171';
+  // 4-column layout: Col.Blocked | Col.Gap | Assn.Req. | Real Val
+  var actReq=0; // placeholder
+  function mkCardCol(label,val,color){
+    return '<div>'
+      +'<div style="font-size:0.52rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:rgba(255,255,255,0.35);margin-bottom:0.12rem;">'+label+'</div>'
+      +'<div style="font-size:0.8rem;font-weight:800;font-family:monospace;color:'+color+';">'+val+'</div>'
+      +'</div>';
+  }
+  var cbRow='<div style="border-top:1px solid rgba(255,255,255,0.1);margin-top:0.42rem;padding-top:0.35rem;">'
+    +'<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:0.3rem;">'
+    +mkCardCol('Col.Blocked',fmtK(totalCB),'rgba(255,255,255,0.65)')
+    +mkCardCol('Col.Gap',(colGap!=null?fmtKSign(colGap):'--'),colGapColor)
+    +mkCardCol('Assn.Req.','$'+totalAR.toLocaleString(),'#FCA5A5')
+    +mkCardCol('Act.Req.','$'+actReq,'rgba(255,255,255,0.4)')
+    +'</div>'
+    +(assnDiff<0?'<div style="margin-top:0.3rem;font-size:0.55rem;color:#F87171;">&#9888; Stock below strike on '+portPos.filter(function(r){var lP=liveCache[r.ticker]&&liveCache[r.ticker].price!=null?liveCache[r.ticker].price:null;var mP=tickerPrices[r.ticker];var sP=lP!=null?lP:(mP!=null?mP:null);return sP!=null&&sP<r.strike;}).length+' SPUT(s) — real val '+fmtKSign(assnDiff)+' vs strike</div>':'')
+    +'</div>';
 
-  return'<div class="cash-card"><div class="cash-lbl"><span>&#128181; Cash</span></div>'    +initRow+currRow+diffRow+cbRow    +'<div class="cash-sub" style="margin-top:0.35rem;">'+portLabel+(isAll?' &mdash; edit per portfolio tab':'')+'</div></div>';
+  return'<div class="cash-card"><div class="cash-lbl"><span>&#128181; Cash</span></div>'
+    +initCashWarning
+    +topRow
+    +cbRow
+    +mkDivider()
+    +totalRow
+    +diffRow
+    +'<div class="cash-sub" style="margin-top:0.35rem;">'+portLabel+(isAll?' &mdash; edit per portfolio tab':'')+'</div></div>';
 }
 function cashEdit(){editingCash=true;editingInitCash=false;rMain();setTimeout(function(){var i=document.getElementById('cash-inp');if(i){i.focus();i.select();}},30);}
 function cashSave(){var i=document.getElementById('cash-inp');if(i){var v=parseFloat(i.value);if(!isNaN(v))setPortCash(v);}editingCash=false;rMain();}
@@ -1046,7 +1221,7 @@ function rSum(s){
     function parseOD(ss){if(!ss)return null;var d=new Date(ss);return isNaN(d)?null:d;}
     function getNI(r){var sa=r.soldAmount!=null&&r.soldAmount!==''?parseFloat(r.soldAmount):null;if(sa==null)return null;return sa-(r.excelCost||0);}
     var portKey=ap==='retirement'?as:ap;
-    var allPos=positions.filter(function(r){return ap==='all'||(r.portfolio||'lovelina')===portKey;});
+    var allPos=s.filtered||positions.filter(function(r){return ap==='all'||(r.portfolio||'lovelina')===portKey;});
     var todayNI=0,thisW=0,lastW=0,mtd=0,ytd=0,realized=0;
     allPos.forEach(function(r){
       var ni=getNI(r);if(ni==null)return;
@@ -1087,14 +1262,17 @@ function rSum(s){
     +rCashCard()
     +'</div>';
 }
+var tkSearch='';
+function setTkSearch(v){tkSearch=v;var d=document.getElementById('tkdrop');if(!d)return;var q=(v||'').toLowerCase();d.querySelectorAll('.ticker-dd-item[data-ddticker]').forEach(function(el){var t=el.dataset.ddticker;el.style.display=(!t||t==='ALL'||t.toLowerCase().indexOf(q)>=0||!q)?'':'none';});}
 function rFiltersRow(data){
-  var tickers=getTickersFrom(data),allSel=selectedTickers.has('ALL');
+  var allData=gd(ap,as);var tickers=getTickersFrom(allData),allSel=selectedTickers.has('ALL');
   var selList=allSel?[]:tickers.filter(function(t){return selectedTickers.has(t);});
   var ddItems=tickers.map(function(t){var sel=allSel||selectedTickers.has(t);return'<div class="ticker-dd-item'+(sel?' selected':'')+'" data-ddticker="'+t+'"><div class="ticker-dd-check">'+(sel?'&#10003;':'')+'</div><span class="dd-dot" style="background:'+(DC[t]||'#888')+'"></span>'+t+'</div>';}).join('');
   var tags=allSel?'<span style="color:var(--text3);font-size:0.7rem;">All</span>':selList.map(function(t){return'<span class="sel-tag"><span style="width:6px;height:6px;border-radius:50%;background:'+(DC[t]||'#888')+';display:inline-block;flex-shrink:0;"></span>'+t+'<span class="sel-tag-x" data-xticker="'+t+'">&#10005;</span></span>';}).join('');
-  var tt=['all','Short Put','Long Put','Long Call','Shares'].map(function(t){return'<button class="type-tab'+(typeFilter===t?' active':'')+'" data-typef="'+t+'" onclick="typeFilter=\''+t+'\';rMain();">'+(t==='all'?'All':t==='Short Put'?'SPUT':t==='Long Put'?'LPUT':t==='Long Call'?'LCALL':'SHR')+'</button>';}).join('');
+  var typeList=[['all','All'],['Short Put','SPUT'],['Long Put','LPUT'],['Long Call','LCALL'],['Short Call','SCALL'],['Shares','SHR']];
+  var tt=typeList.map(function(p){return'<button class="type-tab'+(typeFilter===p[0]?' active':'')+'" data-typef="'+p[0]+'" onclick="typeFilter=\''+p[0]+'\';rMain();">'+p[1]+'</button>';}).join('');
   var ot=['all','open','closed'].map(function(o){return'<button class="oc-tab'+(ocFilter===o?' active':'')+'" data-ocf="'+o+'" onclick="ocFilter=\''+o+'\';rMain();">'+(o==='all'?'All':o==='open'?'Open':'Closed')+'</button>';}).join('');
-  return'<div class="controls-row" style="margin-bottom:0.6rem;flex-wrap:wrap;">'    +'<div class="ticker-select-wrap" id="tkwrap" style="flex-shrink:0;min-width:80px;max-width:150px;"><div class="ticker-select-btn" id="tkbtn" onclick="toggleDropdown()"><div class="sel-tags">'+tags+'</div><span style="color:var(--text3);font-size:0.65rem;">&#9660;</span></div><div class="ticker-dropdown'+(dropdownOpen?' open':'')+'" id="tkdrop"><div class="ticker-dd-item'+(allSel?' selected':'')+'" data-ddticker="ALL"><div class="ticker-dd-check">'+(allSel?'&#10003;':'')+'</div><span style="font-size:0.72rem;font-weight:700;">All Tickers</span></div><div style="height:1px;background:var(--border);margin:0.25rem 0;"></div>'+ddItems+'</div></div>'    +'<div style="width:1px;background:var(--border);align-self:stretch;flex-shrink:0;"></div>'    +'<div class="type-tabs">'+tt+'</div>'    +'<div class="oc-tabs">'+ot+'</div>'    +'<button class="expiry-pill'+(expiringOnly?' active':'')+'" id="exp-pill">&#9888; This Week</button>'+'<select id="income-filter-sel" style="border:1px solid var(--border2);background:var(--bg3);border-radius:7px;padding:0.22rem 0.5rem;font-size:0.68rem;font-weight:600;color:var(--black);cursor:pointer;outline:none;height:28px;" onchange="incomeFilter=this.value;rMain()"><option value="all"'+(incomeFilter==='all'?' selected':'')+'>&#128200; All Dates</option><option value="today"'+(incomeFilter==='today'?' selected':'')+'>Today</option><option value="cw"'+(incomeFilter==='cw'?' selected':'')+'>CW - This Week</option><option value="pw"'+(incomeFilter==='pw'?' selected':'')+'>PW - Past Week</option><option value="cm"'+(incomeFilter==='cm'?' selected':'')+'>CM - This Month</option></select>'+'<button class="expiry-pill'+(hideClosedRows?' active':'')+'" onclick="toggleHideClosedGlobal()" style="'+(hideClosedRows?'background:var(--black);color:#fff;border-color:var(--black);':'')+'" title="Toggle closed rows">&#128065; '+(hideClosedRows?'Show Closed':'Hide Closed')+'</button>'    +'<div style="margin-left:auto;display:flex;gap:0.4rem;align-items:center;">'    +'<button class="del-all-btn" onclick="deleteAll()">&#128465;</button>'    +'<button class="upload-csv-btn" onclick="toggleUpload()">&#8593; Upload CSV</button>'    +'<button class="template-dl-btn" onclick="dlTemplate()">&#11015; Template</button>'    +'<button class="add-pos-btn" onclick="openAddModal()">&#43; Add</button>'    +'</div>'    +'</div>';
+  return'<div class="controls-row" style="margin-bottom:0.6rem;flex-wrap:wrap;">'    +'<div class="ticker-select-wrap" id="tkwrap" style="flex-shrink:0;min-width:80px;max-width:150px;"><div class="ticker-select-btn" id="tkbtn" onclick="toggleDropdown()"><div class="sel-tags">'+tags+'</div><span style="color:var(--text3);font-size:0.65rem;">&#9660;</span></div><div class="ticker-dropdown'+(dropdownOpen?' open':'')+'" id="tkdrop"><div style="padding:0.3rem 0.4rem;border-bottom:1px solid var(--border);"><input id="tk-search-inp" type="text" placeholder="&#128269; Search..." value="'+(tkSearch||'')+'" oninput="setTkSearch(this.value)" onclick="event.stopPropagation()" style="width:100%;border:1px solid var(--border2);border-radius:5px;padding:0.25rem 0.45rem;font-size:0.68rem;outline:none;color:var(--black);background:var(--bg3);"></div><div class="ticker-dd-item'+(allSel?' selected':'')+'" data-ddticker="ALL"><div class="ticker-dd-check">'+(allSel?'&#10003;':'')+'</div><span style="font-size:0.72rem;font-weight:700;">All Tickers</span></div><div style="height:1px;background:var(--border);margin:0.25rem 0;"></div>'+ddItems+'</div></div>'    +'<div style="width:1px;background:var(--border);align-self:stretch;flex-shrink:0;"></div>'    +'<div class="type-tabs">'+tt+'</div>'    +'<div class="oc-tabs">'+ot+'</div>'    +'<button class="expiry-pill'+(expiringOnly?' active':'')+'" id="exp-pill">&#9888; This Week</button>'+'<select id="income-filter-sel" style="border:1px solid var(--border2);background:var(--bg3);border-radius:7px;padding:0.22rem 0.5rem;font-size:0.68rem;font-weight:600;color:var(--black);cursor:pointer;outline:none;height:28px;" onchange="incomeFilter=this.value;rMain()"><option value="all"'+(incomeFilter==='all'?' selected':'')+'>&#128200; All Dates</option><option value="today"'+(incomeFilter==='today'?' selected':'')+'>Today</option><option value="cw"'+(incomeFilter==='cw'?' selected':'')+'>CW - This Week</option><option value="pw"'+(incomeFilter==='pw'?' selected':'')+'>PW - Past Week</option><option value="cm"'+(incomeFilter==='cm'?' selected':'')+'>CM - This Month</option></select>'+'<button class="expiry-pill'+(hideClosedRows?' active':'')+'" onclick="toggleHideClosedGlobal()" style="'+(hideClosedRows?'background:var(--black);color:#fff;border-color:var(--black);':'')+'" title="Toggle closed rows">&#128065; '+(hideClosedRows?'Show Closed':'Hide Closed')+'</button>'    +'<div style="margin-left:auto;display:flex;gap:0.4rem;align-items:center;">'    +'<button class="del-all-btn" onclick="deleteAll()">&#128465;</button>'    +'<button class="upload-csv-btn" onclick="toggleUpload()">&#8593; Upload CSV</button>'    +'<button class="template-dl-btn" onclick="dlTemplate()">&#11015; Template</button>'    +'<button class="add-pos-btn" onclick="openAddModal()">&#43; Add</button>'    +'</div>'    +'</div>';
 }
 function rTableControls(){return'';}
 
@@ -1112,23 +1290,17 @@ function rTable(data){
 
   // ── helpers reused per row ────────────────────────────────────────────────
   function getDefaultCV(r){
-    // STO/STC (short types or sold-to-close) → soldAmount; BTO/BTC (long or bought) → excelCost
-    var isShort=r.excelType==='Short Put'||r.excelType==='Short Call';
-    var ca=r.closeAction;
-    var tc=ca&&ca.action?ca.action.toUpperCase():'';
-    if(isCl(r)){
-      if(tc==='STC'||tc==='EXP')return r.soldAmount!=null&&r.soldAmount!==''?Math.abs(parseFloat(r.soldAmount)):0;
-      if(tc==='BTC')return r.excelCost||0;
-      // fallback by type
-      return isShort?(r.soldAmount!=null&&r.soldAmount!==''?Math.abs(parseFloat(r.soldAmount)):0):(r.excelCost||0);
-    } else {
-      // Open: Short=STO→soldAmount, Long=BTO→excelCost
-      return isShort?(r.soldAmount!=null&&r.soldAmount!==''?Math.abs(parseFloat(r.soldAmount)):0):(r.excelCost||0);
-    }
+    // Default is always 0 — only shows value when user manually overrides
+    return 0;
   }
   function rowCV(r){
+    if(isCl(r)) return 0;
+    if(r._cvCount>0&&r._cvSum!=null) return r._cvSum;
     var hasOvrd=r.cvOverride!=null&&r.cvOverride!=='';
-    return hasOvrd?parseFloat(r.cvOverride):getDefaultCV(r);
+    if(!hasOvrd) return getDefaultCV(r);
+    var isShort=r.excelType==='Short Put'||r.excelType==='Short Call';
+    // Enforce sign: shorts always negative, longs always positive
+    return isShort ? -Math.abs(parseFloat(r.cvOverride)) : Math.abs(parseFloat(r.cvOverride));
   }
   function getSold(r){
     if(r.soldAmount!=null&&r.soldAmount!==0&&r.soldAmount!=='')return parseFloat(r.soldAmount);
@@ -1178,7 +1350,7 @@ function rTable(data){
     return a.localeCompare(b);
   });
 
-  if(filtered.length===0)return'<div class="table-wrap"><table><thead><tr><th>Ticker</th><th>Dt</th><th>Cost</th><th>Sold</th><th>Net</th><th>C.Val</th><th>Price</th><th>Type</th><th>Strike</th><th style="color:#FCA5A5;">Assn.</th><th style="color:#FDBA74;">Coll.Val</th><th style="color:#FCD34D;">Col.Blk</th><th style="color:#6EE7B7;">Col.Gap</th><th>Expiry</th><th>Action</th><th></th><th></th><th></th></tr></thead><tbody><tr><td colspan="18" class="ec">No positions match your filters.</td></tr></tbody></table></div>';
+  if(filtered.length===0)return'<div class="table-wrap"><table><thead><tr><th>Ticker</th><th>Dt</th><th>Cost</th><th>Sold</th><th>Net</th><th>Portf. Val</th><th>Price</th><th>Type</th><th>Strike</th><th style="color:#FCA5A5;">Assn.</th><th style="color:#FDBA74;">Coll.Val</th><th style="color:#FCD34D;">Col.Blk</th><th style="color:#6EE7B7;">Col.Gap</th><th>Expiry</th><th>Action</th><th></th><th></th><th></th></tr></thead><tbody><tr><td colspan="18" class="ec">No positions match your filters.</td></tr></tbody></table></div>';
 
   var portHeader=ap==='all';
   var html='';
@@ -1197,7 +1369,24 @@ function rTable(data){
     var totalSold=rows.reduce(function(s,r){var sold=getSoldRow(r);return s+(sold!=null?sold:0);},0);
     var hasSoldAny=rows.some(function(r){return getSoldRow(r)!=null;});
     var totalNetInc=hasSoldAny?rows.reduce(function(s,r){var ni=rowNetInc(r);return s+(ni!=null?ni:0);},0):null;
-    var totalCV=rows.reduce(function(s,r){return s+rowCV(r);},0);
+    // totalCV: consolidate rows same way as child display, then sum
+    var _todayCV=new Date(new Date().toDateString());
+    var closedHiddenCV=hiddenClosedGroups.has(gk);
+    // Build merged CV map: same key as consolidation
+    var _cvMap={},_cvOrder=[];
+    rows.forEach(function(r){
+      var isPastExpCV=(function(){var d=parseExpiry(r.expiryDate);return d&&d<_todayCV;}());
+      if((closedHiddenCV||hideClosedRows)&&(isCl(r)||isPastExpCV)) return;
+      if(isCl(r)) return;
+      var key=r._noMerge?('_nm_'+r.id):(r.ticker+'|'+r.excelType+'|'+(r.strike||0)+'|'+(r.expiryDate||''));
+      var isShort=r.excelType==='Short Put'||r.excelType==='Short Call';
+      var val=r.cvOverride!=null&&r.cvOverride!==''
+        ?(isShort?-Math.abs(parseFloat(r.cvOverride)):Math.abs(parseFloat(r.cvOverride)))
+        :0;
+      if(_cvMap[key]===undefined){_cvMap[key]=val;_cvOrder.push(key);}
+      else{_cvMap[key]+=val;}
+    });
+    var totalCV=_cvOrder.reduce(function(s,k){return s+_cvMap[k];},0);
     var openCount=rows.filter(function(r){return!isCl(r);}).length;
     var closedCount=rows.filter(function(r){return isCl(r);}).length;
     var count=rows.length;
@@ -1236,14 +1425,14 @@ function rTable(data){
 
     // Totals color
     var niColor=totalNetInc!=null?(totalNetInc>=0?'var(--green)':'var(--red)'):'var(--text3)';
-    var cvColor=totalCV<0?'var(--red)':'var(--black)';
+    var cvColor=totalCV>0?'var(--black)':'var(--text3)';
 
     // Group breakeven: cost - netIncome - positionsValue
     var grpBeRaw=totalSold+totalCV-totalCost;
     var grpBeColor=grpBeRaw>=0?'var(--green)':'var(--red)';
     var grpBeLabel=(grpBeRaw>=0?'+':'-')+'$'+Math.abs(grpBeRaw).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
     // Assn. Req. = sum of (strike*100) for open SPUTs
-    var totalAssnReq=rows.filter(function(r){return r.excelType==='Short Put'&&r.strike>0&&!isCl(r);}).reduce(function(s,r){return s+r.strike*100;},0);
+    var totalAssnReq=rows.filter(function(r){return r.excelType==='Short Put'&&r.strike>0&&!isCl(r);}).reduce(function(s,r){return s+r.strike*100*(r.contracts||1);},0);
     var cbVal=collatBlocked[ticker]!=null?collatBlocked[ticker]:0;  // default 0
     var cbGap=totalAssnReq-cbVal;  // always compute, even if 0
 
@@ -1262,11 +1451,14 @@ function rTable(data){
 
     // Summary row
     html+='<tr class="'+sumRowCls+'" style="cursor:pointer;background:#F8F8F8;border-left:3px solid '+(DC[ticker]||'#888')+';" onclick="toggleGroup('+Q+gk+Q+')">';
-    html+='<td class="mc"><span style="font-size:0.72rem;color:var(--text3);margin-right:4px;">'+(expanded?'&#9660;':'&#9654;')+'</span><span class="chip"><span class="tk-dot-sm" style="background:'+(DC[ticker]||'#888')+'"></span>'+ticker+'</span></td>';
+    var _tc=rows.reduce(function(s,r){return s+(r.contracts||1);},0); // total contracts across all rows in group
+    var _sb=_tc>1?'<span style="display:inline-flex;align-items:center;background:var(--blue);color:#fff;border-radius:4px;padding:0.05rem 0.32rem;font-size:0.58rem;font-weight:800;margin-left:4px;">'+_tc+'x</span>':'';
+    var expandIcon=expanded?'&#9660; Collapse':'&#9654; Expand';
+    html+='<td class="mc"><span style="font-size:0.72rem;color:var(--red);font-weight:700;margin-right:6px;cursor:pointer;">'+(expanded?'&#9660;':'&#9654;')+'</span><span class="chip"><span class="tk-dot-sm" style="background:'+(DC[ticker]||'#888')+'"></span>'+ticker+'</span>'+_sb+'<span style="font-size:0.58rem;color:var(--text3);margin-left:6px;font-weight:600;">'+(expanded?'collapse':'click to expand')+'</span></td>';
     if(portHeader)html+=portBadgeHtml;
     html+='<td style="font-size:0.65rem;color:var(--text3);">'+expiryCell+'</td>';
     html+='<td class="mn" style="font-weight:700;">'+(totalCost?fmtMoney(totalCost):'--')+'</td>';
-    html+='<td class="mn" style="color:var(--blue);font-weight:700;">'+(hasSoldAny?fmtMoney(totalSold):'--')+'</td>';
+    html+='<td class="mn" style="color:var(--blue);font-weight:700;" class="lp-cell">'+(hasSoldAny?fmtMoney(totalSold):'--')+'</td>';
     html+='<td class="mn" style="color:'+niColor+';font-weight:700;">'+(totalNetInc!=null?fmtMoneySign(totalNetInc):'--')+'</td>';
     html+='<td class="mn" style="color:'+cvColor+';font-weight:700;">'+fmtMoney(totalCV)+'</td>';
     html+='<td style="min-width:90px;"><div class="pcell">'+pd+'</div></td>';
@@ -1295,19 +1487,47 @@ function rTable(data){
     if(expanded){
       var typeOrder={'Short Put':0,'Short Call':1,'Long Call':2,'Long Put':3,'Shares':4};
       var sortedRows=rows.slice().sort(function(a,b){
-        // 1) Open before closed
-        var aC=isCl(a)?1:0,bC=isCl(b)?1:0;
-        if(aC!==bC)return aC-bC;
-        // 2) Custom type order
+        var aC=isCl(a)?1:0,bC=isCl(b)?1:0; if(aC!==bC)return aC-bC;
         var aT=(typeOrder[a.excelType]!=null?typeOrder[a.excelType]:9);
         var bT=(typeOrder[b.excelType]!=null?typeOrder[b.excelType]:9);
         if(aT!==bT)return aT-bT;
-        // 3) Expiry date ascending (no expiry goes last)
         var aD=parseExpiry(a.expiryDate)||new Date('9999-12-31');
         var bD=parseExpiry(b.expiryDate)||new Date('9999-12-31');
         return aD-bD;
       });
+      // Consolidate: same ticker+type+strike+expiry+status → one row
+      // excelCost and soldAmount are TOTALS — sum them across merged positions
+      if(!window._rowMeta)window._rowMeta={};
+      var _cm={},_co=[];
       sortedRows.forEach(function(r){
+        // _noMerge flag (set on copied rows) prevents consolidation — each gets its own row
+        var key=r._noMerge?('_nm_'+r.id):(r.ticker+'|'+r.excelType+'|'+(r.strike||0)+'|'+(r.expiryDate||'')+'|'+(isCl(r)?'1':'0'));
+        if(!_cm[key]){
+          var b=Object.assign({},r);
+          b._ids=[r.id]; b._ctr=r.contracts||1;
+          // Track cvOverride as running sum across merged rows
+          b._cvSum=r.cvOverride!=null&&r.cvOverride!==''?parseFloat(r.cvOverride):null;
+          b._cvCount=r.cvOverride!=null&&r.cvOverride!==''?1:0;
+          _cm[key]=b; _co.push(key);
+        } else {
+          var b=_cm[key]; b._ids.push(r.id); b._ctr+=(r.contracts||1);
+          b.excelCost=(b.excelCost||0)+(r.excelCost||0);
+          if(r.soldAmount!=null&&r.soldAmount!==''){
+            b.soldAmount=(parseFloat(b.soldAmount)||0)+parseFloat(r.soldAmount);
+          }
+          // Sum cvOverride across merged rows
+          if(r.cvOverride!=null&&r.cvOverride!==''){
+            b._cvSum=(b._cvSum||0)+parseFloat(r.cvOverride);
+            b._cvCount=(b._cvCount||0)+1;
+          }
+          if(r.openDate&&b.openDate){try{var rd=new Date(r.openDate),bd=new Date(b.openDate);if(!isNaN(rd)&&!isNaN(bd)&&rd>bd)b.openDate=r.openDate;}catch(e){}}
+          else if(r.openDate){b.openDate=r.openDate;}
+        }
+      });
+      var _cr=_co.map(function(k){return _cm[k];});
+      // Populate _rowMeta for safe onclick lookup
+      _cr.forEach(function(r){window._rowMeta[r.id]={ids:r._ids,ctr:r._ctr};});
+      _cr.forEach(function(r){
         var isPastExp=(function(){var d=parseExpiry(r.expiryDate);return d&&d<new Date(new Date().toDateString());})();
         if((closedHidden||hideClosedRows)&&(isCl(r)||isPastExp))return;  // hidden but aggregates unchanged
         var c=isCl(r);
@@ -1315,8 +1535,9 @@ function rTable(data){
         var livePI=(liveCache[r.ticker]&&liveCache[r.ticker].price!=null)?liveCache[r.ticker].price:null;
         var manPI=tickerPrices[r.ticker]!=null?tickerPrices[r.ticker]:null;
         var stockPrice=livePI!=null?livePI:(manPI!=null?manPI:null);
-        var hasOvrd=r.cvOverride!=null&&r.cvOverride!=='';
-        var dCV=hasOvrd?parseFloat(r.cvOverride):getDefaultCV(r);
+        // Use _cvSum for merged rows, single cvOverride for individual rows
+        var hasOvrd=(r._cvCount>0&&r._cvSum!=null)||(r.cvOverride!=null&&r.cvOverride!=='');
+        var dCV=hasOvrd?(r._cvCount>0&&r._cvSum!=null?r._cvSum:parseFloat(r.cvOverride)):getDefaultCV(r);
         var isExp2=!c&&(function(){var d=parseExpiry(r.expiryDate);return d&&d<=thisFri;})();
         var childCls='grp-child'+(r.rolledOver?' rolled':isExp2?' expiring-soon':'')+(c?' cr':'');
 
@@ -1337,23 +1558,22 @@ function rTable(data){
         var cvEditingNow=editCell&&editCell.id===r.id&&editCell.field==='cvOverride';
         var cvCellC;
         if(cvEditingNow){
-          var cvInputVal=r.cvOverride!=null?Math.abs(parseFloat(r.cvOverride)||0):Math.abs(autoCV);
-          var cvHint=rIsSP?'<span style="font-size:0.55rem;color:var(--yellow);">(→-ve)</span>':'';
-          cvCellC='<td class="mn"><div class="ie-wrap">'+cvHint+'<input class="ie-input w-md" id="ie_'+r.id+'_cvOverride" type="number" step="0.01" value="'+cvInputVal+'" onkeydown="ieKey(event,'+Q+r.id+Q+','+Q+'cvOverride'+Q+')"><button class="ie-ok" onclick="ieSave('+Q+r.id+Q+','+Q+'cvOverride'+Q+')">&#10003;</button><button class="ie-x" onclick="ieCancel()">&#10005;</button></div></td>';
+          var cvInputVal=r.cvOverride!=null?Math.abs(parseFloat(r.cvOverride)||0):Math.abs(getDefaultCV(r));
+          var cvHint='';
+          cvCellC='<td class="mn"><div class="ie-wrap">'+cvHint+'<input class="ie-input w-md cv-override-input" id="ie_'+r.id+'_cvOverride" data-rid="'+r.id+'" type="number" step="0.01" value="'+cvInputVal+'" placeholder="0.00"><button class="ie-ok cv-save-btn" data-rid="'+r.id+'">&#10003;</button><button class="ie-x cv-cancel-btn">&#10005;</button></div></td>';
         }else{
-          // Closed positions always show $0 for C.VAL
-          if(c){
-            cvCellC='<td class="mn"><span style="font-family:monospace;color:var(--text3);">$0</span></td>';
-          } else {
-            var cvDispVal=hasOvrd?parseFloat(r.cvOverride):dCV;
-            // SPUT/SCALL are short obligations — always force negative display
-            var isShortObl=r.excelType==='Short Put'||r.excelType==='Short Call';
-            if(isShortObl&&cvDispVal!=null)cvDispVal=-Math.abs(cvDispVal);
-            var cvFmt=fmtMoney(cvDispVal);
-            var cvColor=isShortObl?'var(--red)':(cvDispVal>=0?'var(--black)':'var(--red)');
-            var cvDispC=hasOvrd?'<span style="color:var(--yellow);font-family:monospace;font-weight:700;">'+cvFmt+'</span><span class="pcell-badge" style="background:var(--yellow-bg);color:var(--yellow);margin-left:2px;">ovrd</span><button class="pcell-act" onclick="(function(){var rx=positions.find(function(p){return p.id==='+Q+r.id+Q+';});if(rx){delete rx.cvOverride;}savePositions();rMain();})();" title="undo">&#8617;</button>':'<span style="font-family:monospace;color:'+cvColor+';">'+fmtMoney(cvDispVal)+'</span><button class="pcell-act" onclick="ieStart('+Q+r.id+Q+','+Q+'cvOverride'+Q+')" title="override">ovrd</button>';
-            cvCellC='<td class="mn">'+cvDispC+'</td>';
-          }
+          // Portf. Val: simple — override > soldAmount > excelCost, always positive
+          var isShortType=r.excelType==='Short Put'||r.excelType==='Short Call';
+          // For shorts: always negative. For longs: always positive.
+          var cvDispVal=hasOvrd
+            ?(isShortType?-Math.abs(parseFloat(r.cvOverride)):Math.abs(parseFloat(r.cvOverride)))
+            :(isShortType?-Math.abs(dCV):Math.abs(dCV));
+          var cvFmt=fmtMoney(cvDispVal);
+          var cvColor=cvDispVal<0?'var(--red)':cvDispVal>0?'var(--black)':'var(--text3)';
+          var cvDispC=hasOvrd
+            ?'<span style="color:var(--yellow);font-family:monospace;font-weight:700;">'+cvFmt+'</span><span class="pcell-badge" style="background:var(--yellow-bg);color:var(--yellow);margin-left:2px;">ovrd</span><button class="pcell-act cv-undo-btn" data-rid="'+r.id+'" title="undo">&#8617; undo</button>'
+            :'<span style="font-family:monospace;color:'+cvColor+';">'+cvFmt+'</span><button class="pcell-act cv-ovrd-btn" data-rid="'+r.id+'" title="edit">edit</button>';
+          cvCellC='<td class="mn">'+cvDispC+'</td>';
         }
 
         // Action cell
@@ -1377,17 +1597,36 @@ function rTable(data){
         if(portHeader){var pk=r.portfolio||'lovelina';portBadgeC='<td><span style="display:inline-flex;align-items:center;gap:0.3rem;font-size:0.62rem;font-weight:600;color:'+(portColors[pk]||'#888')+';opacity:0.75"><span style="width:6px;height:6px;border-radius:50%;background:'+(portColors[pk]||'#888')+';flex-shrink:0;"></span>'+(portNames[pk]||pk)+'</span></td>';}
 
         html+='<tr class="'+childCls+'" style="background:#FEFEFE;">';
-        html+='<td class="mc" style="padding-left:1.4rem;"><span style="color:var(--text3);font-size:0.6rem;margin-right:4px;">&#8627;</span><span class="chip"><span class="tk-dot-sm" style="background:'+(DC[r.ticker]||'#888')+'"></span>'+r.ticker+'</span></td>';
+        var _rc=r._ctr||r.contracts||1;
+        var _rb=_rc>1?'<span style="display:inline-flex;align-items:center;background:var(--blue);color:#fff;border-radius:4px;padding:0.05rem 0.32rem;font-size:0.58rem;font-weight:800;margin-left:4px;">'+_rc+'x</span>':'';
+        html+='<td class="mc" style="padding-left:1.4rem;"><span style="color:var(--text3);font-size:0.6rem;margin-right:4px;">&#8627;</span><span class="chip"><span class="tk-dot-sm" style="background:'+(DC[r.ticker]||'#888')+'"></span>'+r.ticker+'</span>'+_rb+'</td>';
         if(portHeader)html+=portBadgeC;
         var dispOpenDate=r.openDate||'1/1/2026';
         html+='<td style="font-size:0.72rem;">'+dispOpenDate+'</td>';
-        html+='<td class="mn">'+(r.excelCost?'$'+r.excelCost.toLocaleString():'--')+'</td>';
-        html+='<td class="mn" style="color:var(--blue);">'+(hasSoldC?fmtMoney(soldC):'--')+'</td>';
+        // Cost cell — inline editable
+        var costEditingNow=editCell&&editCell.id===r.id&&editCell.field==='excelCost';
+        var costCellC;
+        if(costEditingNow){
+          costCellC='<td class="mn"><div class="ie-wrap"><input class="ie-input w-md cost-edit-input" id="ie_'+r.id+'_excelCost" data-rid="'+r.id+'" type="number" step="0.01" value="'+(r.excelCost||0)+'" placeholder="0.00"><button class="ie-ok cost-save-btn" data-rid="'+r.id+'">&#10003;</button><button class="ie-x cost-cancel-btn">&#10005;</button></div></td>';
+        }else{
+          var costFmt=r.excelCost?fmtMoney(r.excelCost):'--';
+          costCellC='<td class="mn"><span style="font-family:monospace;">'+(r.excelCost?'<span style="color:var(--text2);">'+costFmt+'</span>':'<span style="color:var(--text3);">--</span>')+'</span><button class="pcell-act cost-edit-btn" data-rid="'+r.id+'" title="edit cost" style="margin-left:3px;">edit</button></td>';
+        }
+        html+=costCellC;
+        // Sold cell — inline editable
+        var soldEditingNow=editCell&&editCell.id===r.id&&editCell.field==='soldAmount';
+        var soldCellC;
+        if(soldEditingNow){
+          soldCellC='<td class="mn"><div class="ie-wrap"><input class="ie-input w-md sold-edit-input" id="ie_'+r.id+'_soldAmount" data-rid="'+r.id+'" type="number" step="0.01" value="'+(soldC!=null?soldC:'')+'" placeholder="0.00"><button class="ie-ok sold-save-btn" data-rid="'+r.id+'">&#10003;</button><button class="ie-x sold-cancel-btn">&#10005;</button></div></td>';
+        }else{
+          soldCellC='<td class="mn"><span style="color:var(--blue);font-family:monospace;">'+(hasSoldC?fmtMoney(soldC):'<span style="color:var(--text3);">--</span>')+'</span><button class="pcell-act sold-edit-btn" data-rid="'+r.id+'" title="edit sold" style="margin-left:3px;">edit</button></td>';
+        }
+        html+=soldCellC;
         html+='<td class="mn" style="color:'+(netIncC!=null?(netIncC>=0?'var(--green)':'var(--red)'):'var(--text3)')+'">'+(netIncC!=null?fmtMoneySign(netIncC):'--')+'</td>';
         html+=cvCellC;
         html+='<td style="min-width:90px;">'+priceCellC+'</td>';
         html+='<td><span class="badge '+bct(r.excelType)+'" title="'+r.excelType+'" style="opacity:0.6;">'+(typeShort[r.excelType]||r.excelType)+'</span></td>';
-        var assnReq=r.excelType==='Short Put'&&r.strike>0&&!isCl(r)?(r.strike*100):null;
+        var assnReq=r.excelType==='Short Put'&&r.strike>0&&!isCl(r)?(r.strike*100*(r._ctr||r.contracts||1)):null;
         html+='<td class="mn">'+(r.strike>0?'$'+r.strike:'--')+'</td>';
         html+='<td class="mn" style="color:var(--red);font-weight:600;">'+(assnReq!=null?'$'+assnReq.toLocaleString():'--')+'</td>';
         // Coll.Val: for SPUT/SCALL — always negative (short obligation)
@@ -1395,11 +1634,12 @@ function rTable(data){
         var collVal=null;
         var isShortType=r.excelType==='Short Put'||r.excelType==='Short Call';
         if(isShortType&&r.strike>0&&!isCl(r)){
+          var _ctrMult=r._ctr||r.contracts||1;
           var rawCollVal;
           if(stockPrice!=null){
-            rawCollVal=r.strike>stockPrice?(stockPrice*100):(r.strike*100);
+            rawCollVal=r.strike>stockPrice?(stockPrice*100*_ctrMult):(r.strike*100*_ctrMult);
           } else {
-            rawCollVal=r.strike*100;
+            rawCollVal=r.strike*100*_ctrMult;
           }
           collVal=-Math.abs(rawCollVal);// always negative
         }
@@ -1409,21 +1649,21 @@ function rTable(data){
         html+='<td>'+actionCellC+'</td>';
         html+='<td style="text-align:center"><button class="row-edit-btn" onclick="openEditModal('+Q+r.id+Q+')" title="Edit">&#9998;</button></td>';
         html+='<td style="text-align:center"><button class="copy-btn" onclick="copyRow('+Q+r.id+Q+')" title="Duplicate">&#10063;</button></td>';
-        html+='<td style="text-align:center"><button class="del-btn" onclick="deleteRow('+Q+r.id+Q+')">&#128465;</button></td>';
+        html+='<td style="text-align:center"><button class="del-btn" onclick="deleteRowById('+Q+r.id+Q+')">&#128465;</button></td>';
         html+='</tr>';
       });
     }
   });
 
   var phdr=portHeader?'<th style="color:rgba(255,255,255,0.7);">Port.</th>':'';
-  return'<div class="table-wrap"><table><thead><tr><th>Ticker</th>'+phdr+'<th>Dt</th><th>Cost</th><th>Sold</th><th>Net</th><th>C.Val</th><th style="min-width:90px;">Price</th><th>Type</th><th>Strike</th><th style="color:#FCA5A5;">Assn.</th><th style="color:#FDBA74;">Coll.Val</th><th style="color:#FCD34D;">Col.Blk</th><th style="color:#6EE7B7;">Col.Gap</th><th>Expiry</th><th>Action</th><th></th><th></th><th></th></tr></thead><tbody>'+html+'</tbody></table></div>';
+  return'<div class="table-wrap"><table><thead><tr><th>Ticker</th>'+phdr+'<th>Dt</th><th>Cost</th><th>Sold</th><th>Net</th><th>Portf. Val</th><th style="min-width:90px;">Price</th><th>Type</th><th>Strike</th><th style="color:#FCA5A5;">Assn.</th><th style="color:#FDBA74;">Coll.Val</th><th style="color:#FCD34D;">Col.Blk</th><th style="color:#6EE7B7;">Col.Gap</th><th>Expiry</th><th>Action</th><th></th><th></th><th></th></tr></thead><tbody>'+html+'</tbody></table></div>';
 }
 
 // ── CLOSE MODAL ───────────────────────────────────────────────────────────────
 function openModal(id){
   var r=positions.find(function(p){return p.id===id;});if(!r)return;
   var t=r.excelType,da='Close';
-  if(t==='Short Put')da='BTC';else if(t==='Long Put'||t==='Long Call')da='STC';else if(t==='Shares')da='Sell';
+  if(t==='Short Put'||t==='Short Call')da='BTC';else if(t==='Long Put'||t==='Long Call')da='STC';else if(t==='Shares')da='Sell';
   var ca=r.closeAction||{};
   modal={id:id,action:da,cdType:ca.type||'zero',amount:ca.amount!=null?ca.amount:'',soldAmount:r.soldAmount!=null?r.soldAmount:'',notes:ca.notes||''};
   renderModal();
@@ -1431,59 +1671,37 @@ function openModal(id){
 function renderModal(){
   var m=modal;if(!m)return;
   var r=positions.find(function(p){return p.id===m.id;});if(!r)return;
-  var t=r.excelType,isShares=t==='Shares',isShortPut=t==='Short Put',isLong=t==='Long Put'||t==='Long Call';
+  var t=r.excelType,isShares=t==='Shares',isShort=t==='Short Put'||t==='Short Call',isLong=t==='Long Put'||t==='Long Call';
   var at='';
-  if(isShortPut){at='<button class="mat mat-close'+(m.action==='Close'?' active':'')+'" onclick="setMA(\'Close\')">&#9940; Expire</button><button class="mat mat-btc'+(m.action==='BTC'?' active':'')+'" onclick="setMA(\'BTC\')">&#8593; Buy to Close</button>';}
+  if(isShort){at='<button class="mat mat-close'+(m.action==='Close'?' active':'')+'" onclick="setMA(\'Close\')">&#9940; Expire</button><button class="mat mat-btc'+(m.action==='BTC'?' active':'')+'" onclick="setMA(\'BTC\')">&#8593; Buy to Close</button>';}
   else if(isLong){at='<button class="mat mat-stc'+(m.action==='STC'?' active':'')+'" onclick="setMA(\'STC\')">&#8595; Sell to Close</button><button class="mat mat-close'+(m.action==='Close'?' active':'')+'" onclick="setMA(\'Close\')">&#9940; Expire</button>';}
   else if(isShares){at='<button class="mat mat-sell'+(m.action==='Sell'?' active':'')+'" onclick="setMA(\'Sell\')">&#8595; Sell Shares</button><button class="mat mat-close'+(m.action==='Close'?' active':'')+'" onclick="setMA(\'Close\')">&#9940; Other</button>';}
   else{at='<button class="mat mat-close'+(m.action==='Close'?' active':'')+'" onclick="setMA(\'Close\')">&#9940; Close</button><button class="mat mat-btc'+(m.action==='BTC'?' active':'')+'" onclick="setMA(\'BTC\')">&#8593; Buy to Close</button><button class="mat mat-stc'+(m.action==='STC'?' active':'')+'" onclick="setMA(\'STC\')">&#8595; Sell to Close</button>';}
-  var amtColor=m.cdType==='credit'?'var(--green)':m.cdType==='debit'?'var(--red)':'var(--text3)';
-  var amtPre=m.cdType==='credit'?'+$':m.cdType==='debit'?'-$':'$';
-  var hint=m.cdType==='credit'?'Net credit received':m.cdType==='debit'?'Net debit paid':'Zero / expired worthless';
+  var isSTC=m.action==='STC'||m.action==='Sell',isBTC=m.action==='BTC',isExpire=m.action==='Close';
+  var amtLabel=isSTC?'Amount Received (&#10140; <strong style="color:var(--blue);">Sold</strong> column)':isBTC?'Amount Paid (&#10140; <strong>Cost</strong> column)':'Transaction Value';
+  var amtColor=isSTC?'var(--blue)':isBTC?'var(--red)':m.cdType==='credit'?'var(--green)':m.cdType==='debit'?'var(--red)':'var(--text3)';
+  var amtPre=isSTC?'+$':isBTC?'-$':m.cdType==='credit'?'+$':m.cdType==='debit'?'-$':'$';
+  var hint=isSTC?'&#128200; Credited to <b>Sold</b> column':isBTC?'&#128308; Added to <b>Cost</b> column':isExpire?'&#9940; Expired worthless — zero cash flow':'Net credit or debit';
+  var cdTabs=(!isSTC&&!isBTC)?'<div class="modal-cd-tabs" style="margin-bottom:0.45rem;"><button class="mct credit'+(m.cdType==='credit'?' active':'')+'" onclick="setCD(\'credit\')">+ Credit</button><button class="mct debit'+(m.cdType==='debit'?' active':'')+'" onclick="setCD(\'debit\')">&minus; Debit</button><button class="mct zero'+(m.cdType==='zero'?' active':'')+'" onclick="setCD(\'zero\')">&asymp; Zero</button></div>':'';
+  var amtDisabled=isExpire?'disabled style="opacity:0.4;"':'';
+  var fieldRow='<div style="margin-bottom:0.75rem;"><div class="modal-section-label" style="margin-bottom:0.35rem;">'+amtLabel+'</div>'+cdTabs+'<div class="modal-amt-wrap"><span class="modal-amt-pre" style="color:'+amtColor+';">'+amtPre+'</span><input class="modal-amt-input" id="modal-amt" type="number" step="0.01" min="0" '+amtDisabled+' value="'+(isExpire?'':m.amount)+'" placeholder="0.00" oninput="modal.amount=this.value"></div><div class="modal-hint" style="margin-top:0.3rem;">'+hint+'</div></div>';
   var btnBg=m.action==='BTC'?'var(--green)':m.action==='STC'?'var(--blue)':m.action==='Sell'?'var(--orange)':'var(--black)';
-  var btnLbl='Confirm '+({Close:'Close',BTC:'Buy to Close',STC:'Sell to Close',Sell:'Sell'}[m.action]||m.action);
-  var fieldRow=''
-    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:0.2rem;">'
-    +'<div>'
-    +'<div class="modal-section-label" style="margin-bottom:0.35rem;">Transaction Value</div>'
-    +'<div class="modal-cd-tabs" style="margin-bottom:0.45rem;"><button class="mct credit'+(m.cdType==='credit'?' active':'')+'" onclick="setCD(\'credit\')">+ Credit</button><button class="mct debit'+(m.cdType==='debit'?' active':'')+'" onclick="setCD(\'debit\')">&minus; Debit</button><button class="mct zero'+(m.cdType==='zero'?' active':'')+'" onclick="setCD(\'zero\')">&asymp; Zero</button></div>'
-    +'<div class="modal-amt-wrap"><span class="modal-amt-pre" style="color:'+amtColor+';">'+amtPre+'</span>'
-    +'<input class="modal-amt-input" id="modal-amt" type="number" step="0.01" min="0" value="'+m.amount+'" placeholder="0.00" oninput="modal.amount=this.value"></div>'
-    +'<div class="modal-hint">'+hint+'</div>'
-    +'</div>'
-    +'<div>'
-    +'<div class="modal-section-label" style="margin-bottom:0.35rem;">Sold <span style="font-size:0.6rem;color:var(--text3);font-weight:400;">(shows in Sold column)</span></div>'
-    +'<div style="height:2.15rem;margin-bottom:0.45rem;"></div>'
-    +'<div class="modal-amt-wrap"><span class="modal-amt-pre" style="color:var(--blue);">$</span>'
-    +'<input class="modal-amt-input" id="modal-sold" type="number" step="0.01" min="0" value="'+m.soldAmount+'" placeholder="0.00" oninput="modal.soldAmount=this.value"></div>'
-    +'<div class="modal-hint">Amount received from closing</div>'
-    +'</div>'
-    +'</div>';
-  document.getElementById('modal-root').innerHTML=
-    '<div class="modal-overlay" onclick="if(event.target===this)closeModal()">'
-    +'<div class="modal-box"><div class="modal-title">&#9940; Close / Trade Position</div>'
-    +'<div class="modal-sub">Record how this position was closed</div>'
-    +'<div class="modal-pos-info"><span class="tk-dot-sm" style="background:'+(DC[r.ticker]||'#888')+'"></span>'+r.ticker+' &nbsp;|&nbsp; '+r.excelType+(r.strike>0?' &nbsp;|&nbsp; $'+r.strike:'')+(r.expiryDate?' &nbsp;|&nbsp; '+r.expiryDate:'')+'</div>'
-    +'<div class="modal-section-label">Action</div><div class="modal-action-tabs" style="margin-bottom:0.9rem;">'+at+'</div>'
-    +fieldRow
-    +'<div class="modal-notes-label" style="margin-top:0.65rem;">Notes (optional)</div>'
-    +'<textarea class="modal-notes" rows="2" placeholder="e.g. Expired worthless, rolled to next week..." oninput="modal.notes=this.value">'+m.notes+'</textarea>'
-    +'<div class="modal-btns"><button class="modal-confirm" style="background:'+btnBg+';" onclick="confirmModal()">&#10003; '+btnLbl+'</button><button class="modal-cancel-btn" onclick="closeModal()">Cancel</button></div>'
-    +'</div></div>';
+  var btnLbl='Confirm '+({Close:'Expire',BTC:'Buy to Close',STC:'Sell to Close',Sell:'Sell Shares'}[m.action]||m.action);
+  document.getElementById('modal-root').innerHTML='<div class="modal-overlay" onclick="if(event.target===this)closeModal()"><div class="modal-box"><div class="modal-title">&#9940; Close Position</div><div class="modal-sub">Record how this position was closed</div><div class="modal-pos-info"><span class="tk-dot-sm" style="background:'+(DC[r.ticker]||'#888')+'"></span>'+r.ticker+' &nbsp;|&nbsp; '+r.excelType+(r.strike>0?' &nbsp;|&nbsp; $'+r.strike:'')+(r.expiryDate?' &nbsp;|&nbsp; '+r.expiryDate:'')+'</div><div class="modal-section-label">Action</div><div class="modal-action-tabs" style="margin-bottom:0.9rem;">'+at+'</div>'+fieldRow+'<div class="modal-notes-label">Notes (optional)</div><textarea class="modal-notes" rows="2" placeholder="e.g. Expired worthless, rolled to next week..." oninput="modal.notes=this.value">'+m.notes+'</textarea><div class="modal-btns"><button class="modal-confirm" style="background:'+btnBg+';" onclick="confirmModal()">&#10003; '+btnLbl+'</button><button class="modal-cancel-btn" onclick="closeModal()">Cancel</button></div></div></div>';
+  setTimeout(function(){var i=document.getElementById('modal-amt');if(i&&!i.disabled)i.focus();},80);
 }
-function setMA(a){if(!modal)return;modal.action=a;renderModal();}
+function setMA(a){if(!modal)return;modal.action=a;if(a==='BTC')modal.cdType='debit';else if(a==='STC'||a==='Sell')modal.cdType='credit';else if(a==='Close')modal.cdType='zero';renderModal();}
 function setCD(t){if(!modal)return;modal.cdType=t;renderModal();}
 function confirmModal(){
   if(!modal)return;
   var r=positions.find(function(p){return p.id===modal.id;});if(!r)return;
-  var amt=parseFloat(modal.amount)||0;
-  var signed=modal.cdType==='credit'?amt:modal.cdType==='debit'?-amt:0;
-  var soldAmt=(modal.soldAmount!==''&&modal.soldAmount!=null)?parseFloat(modal.soldAmount):null;
-  if(soldAmt!=null&&!isNaN(soldAmt)){r.soldAmount=soldAmt;}else{delete r.soldAmount;}
-  r.closed=true;
-  r.closeAction={action:modal.action,type:modal.cdType,amount:amt,signedAmount:signed,soldAmount:soldAmt,notes:modal.notes,date:new Date().toLocaleDateString('en-US',{month:'numeric',day:'numeric',year:'2-digit'})};
-  if(amt>0)r.excelProfit=(r.excelIncome||0)+signed;
-  savePositions();closeModal();rMain();
+  var action=modal.action,amt=parseFloat(modal.amount)||0;
+  var closeDate=new Date().toLocaleDateString('en-US',{month:'numeric',day:'numeric',year:'2-digit'});
+  r.openDate=closeDate;
+  if(action==='STC'||action==='Sell'){r.soldAmount=amt;r.closeAction={action:action,type:'credit',amount:amt,signedAmount:amt,notes:modal.notes,date:closeDate};r.excelProfit=amt-(r.excelCost||0);}
+  else if(action==='BTC'){r.excelCost=(r.excelCost||0)+amt;var ps=r.soldAmount!=null&&r.soldAmount!==''?parseFloat(r.soldAmount):0;r.closeAction={action:action,type:'debit',amount:amt,signedAmount:-amt,notes:modal.notes,date:closeDate};r.excelProfit=ps-r.excelCost;}
+  else{var signed=modal.cdType==='credit'?amt:modal.cdType==='debit'?-amt:0;var ps2=r.soldAmount!=null&&r.soldAmount!==''?parseFloat(r.soldAmount):0;r.closeAction={action:action,type:modal.cdType,amount:amt,signedAmount:signed,notes:modal.notes,date:closeDate};r.excelProfit=ps2-(r.excelCost||0)+signed;}
+  r.closed=true;savePositions();modal=null;document.getElementById('modal-root').innerHTML='';rMain();
 }
 function reopenPosition(id){
   if(!confirm('Reopen this position?'))return;
@@ -1508,7 +1726,26 @@ function openAddModal(){
 }
 function openEditModal(id){
   var r=positions.find(function(p){return p.id===id;});if(!r)return;
-  addForm={_editId:id,type:r.excelType||'Short Put',ticker:r.ticker||'',strike:r.strike||'',expiryDate:r.expiryDate||'',openDate:r.openDate||'',cost:r.excelCost||'',income:r.excelIncome||'',sold:r.soldAmount!=null?r.soldAmount:'',grossValue:r.excelGrossValue||'',currentValue:r.excelCurrentValue||'',profit:r.excelProfit||'',contracts:r.contracts||1,closed:r.closed||false,notes:r.notes||''};
+  var ctr=r.contracts||1;
+  // Always show PER-CONTRACT values in the edit form
+  // On save we multiply back by contracts
+  var storedCost=r.excelCost||0;
+  var storedSold=r.soldAmount!=null&&r.soldAmount!==''?parseFloat(r.soldAmount):null;
+  addForm={
+    _editId:id,
+    type:r.excelType||'Short Put',
+    ticker:r.ticker||'',
+    strike:r.strike||'',
+    expiryDate:r.expiryDate||'',
+    openDate:r.openDate||'',
+    cost: ctr>0 ? parseFloat((storedCost/ctr).toFixed(4)) : storedCost,
+    income: '',
+    sold: storedSold!=null ? (ctr>0 ? parseFloat((storedSold/ctr).toFixed(4)) : storedSold) : '',
+    currentValue:r.cvOverride!=null&&r.cvOverride!==''?Math.abs(parseFloat(r.cvOverride)||0):(r.excelCurrentValue||''),
+    contracts:ctr,
+    closed:r.closed||false,
+    notes:r.notes||''
+  };
   renderAddModal();
 }
 function renderAddModal(){
@@ -1524,12 +1761,12 @@ function renderAddModal(){
     +'<div class="modal-section-label">Position Type <span style="color:var(--red)">*</span></div>'
     +'<div class="ap-type-tabs"><button class="apt '+tbc('Short Put')+'" onclick="setAF(\'type\',\'Short Put\')">&#8595; Short Put</button><button class="apt '+tbc('Long Put')+'" onclick="setAF(\'type\',\'Long Put\')">&#8593; Long Put</button><button class="apt '+tbc('Long Call')+'" onclick="setAF(\'type\',\'Long Call\')">&#8593; Long Call</button><button class="apt '+tbc('Short Call')+'" onclick="setAF(\'type\',\'Short Call\')">&#8595; Short Call</button><button class="apt '+tbc('Shares')+'" onclick="setAF(\'type\',\'Shares\')">&#9632; Shares</button></div>'
     +'<div class="ap-grid"><div class="ap-field"><label class="ap-label">Ticker <span>*</span></label><input class="ap-input" id="af-ticker" placeholder="e.g. SOFI" value="'+f.ticker+'" oninput="addForm.ticker=this.value.toUpperCase()"></div>'
-    +'<div class="ap-field"><label class="ap-label">'+(f.type==='Shares'?'Shares':'Contracts')+' <span>*</span></label><input class="ap-input" id="af-contracts" type="number" min="1" placeholder="1" value="'+f.contracts+'" oninput="addForm.contracts=parseInt(this.value)||1"></div></div>'
+    +'<div class="ap-field"><label class="ap-label">'+(f.type==='Shares'?'Shares':'Contracts')+' <span>*</span></label><input class="ap-input" id="af-contracts" type="number" min="1" placeholder="1" value="'+f.contracts+'" oninput="addForm.contracts=parseInt(this.value)||1;renderAddModal()"></div></div>'
     +(isOpts?'<div class="ap-grid"><div class="ap-field"><label class="ap-label">Strike <span>*</span></label><input class="ap-input" id="af-strike" type="number" step="0.01" placeholder="e.g. 16.00" value="'+f.strike+'" oninput="addForm.strike=this.value"></div><div class="ap-field"><label class="ap-label">Expiry <span>*</span></label><input class="ap-input" id="af-expiry" placeholder="e.g. 4/10/26" value="'+f.expiryDate+'" oninput="addForm.expiryDate=this.value"></div></div>':'')
-    +'<div class="ap-grid"><div class="ap-field"><label class="ap-label">Open Date</label><input class="ap-input" id="af-opendate" placeholder="e.g. 4/1/26" value="'+f.openDate+'" oninput="addForm.openDate=this.value"></div><div class="ap-field"><label class="ap-label">Cost / Debit ($)</label><input class="ap-input" id="af-cost" type="number" step="0.01" placeholder="0" value="'+f.cost+'" oninput="addForm.cost=this.value;updateGross()"></div></div>'
-    +'<div class="ap-grid"><div class="ap-field"><label class="ap-label">Current Value ($)</label><input class="ap-input" id="af-curr" type="number" step="0.01" placeholder="0" value="'+(isShort?(f.currentValue!=null&&f.currentValue!==''?f.currentValue:0):(f.currentValue||f.cost||''))+'" oninput="addForm.currentValue=this.value"></div>'
+    +'<div class="ap-grid"><div class="ap-field"><label class="ap-label">Open Date</label><input class="ap-input" id="af-opendate" placeholder="e.g. 4/1/26" value="'+f.openDate+'" oninput="addForm.openDate=this.value"></div><div class="ap-field"><label class="ap-label">Cost / Debit ($) <span style="color:var(--blue);font-size:0.6rem;font-weight:600;">'+(f.contracts>1?'per contract ×'+f.contracts:'')+'</span></label><input class="ap-input" id="af-cost" type="number" step="0.01" placeholder="0" value="'+f.cost+'" oninput="addForm.cost=this.value;updateGross()"></div></div>'
+    +'<div class="ap-grid"><div class="ap-field"><label class="ap-label">Current Value ($) <span style="color:var(--blue);font-size:0.6rem;font-weight:600;">&#8594; Portf. Val column'+(isShort?' &middot; auto &#8722;ve':'')+'</span></label><input class="ap-input" id="af-curr" type="number" step="0.01" placeholder="0" value="'+(isShort?(f.currentValue!=null&&f.currentValue!==''?f.currentValue:0):(f.currentValue||f.cost||''))+'" oninput="addForm.currentValue=this.value"></div>'
     +'<div class="ap-field"></div></div>'
-    +'<div class="ap-grid"><div class="ap-field"><label class="ap-label">Sold ($) <span style="font-size:0.58rem;color:var(--text3);font-weight:400;">(maps to Sold column)</span></label><input class="ap-input" id="af-sold" type="number" step="0.01" placeholder="0.00" value="'+f.sold+'" oninput="addForm.sold=this.value"></div>'
+    +'<div class="ap-grid"><div class="ap-field"><label class="ap-label">Sold ($) <span style="color:var(--blue);font-size:0.6rem;font-weight:600;">'+(f.contracts>1?'per contract ×'+f.contracts:'(maps to Sold column)')+'</span></label><input class="ap-input" id="af-sold" type="number" step="0.01" placeholder="0.00" value="'+f.sold+'" oninput="addForm.sold=this.value"></div>'
     +'<div class="ap-field"><label class="ap-label">Status</label><select class="ap-select" onchange="addForm.closed=this.value===\'closed\'"><option value="open"'+(f.closed?'':' selected')+'>Open</option><option value="closed"'+(f.closed?' selected':'')+'>Closed</option></select></div></div>'
     +'<div class="ap-grid"><div class="ap-field"><label class="ap-label">Notes</label><input class="ap-input" id="af-notes" placeholder="Optional" value="'+f.notes+'" oninput="addForm.notes=this.value"></div><div class="ap-field"></div></div>'
     +'<div class="modal-btns" style="margin-top:0.35rem;"><button class="modal-confirm" style="background:var(--red);" onclick="saveAddModal()">&#10003; '+(f._editId?'Save Changes':'Add Position')+'</button><button class="modal-cancel-btn" onclick="closeAddModal()">Cancel</button></div>'
@@ -1561,13 +1798,55 @@ function saveAddModal(){
   var pnlInp=document.getElementById('af-pnl');
   var gross=grossInp&&grossInp.value!==''?parseFloat(grossInp.value)||(income+curr):income+curr;
   var pnl=pnlInp&&pnlInp.value!==''?parseFloat(pnlInp.value)||(gross-cost):gross-cost;
+  var numCtr=parseInt(f.contracts)||1;
+  // Edit mode: cost/income/sold are already TOTALS — don't multiply by contracts
+  // Add mode: cost/sold are per-contract — multiply by contracts
+  // cost and sold are ALWAYS per-contract — multiply by numCtr to get stored total
+  var totalCost=cost*numCtr;
+  var soldStr=String(f.sold===null||f.sold===undefined?'':f.sold).trim();
+  var soldParsed=soldStr===''?null:parseFloat(soldStr);
+  var sv=(soldParsed!=null&&!isNaN(soldParsed)&&soldParsed>0)?soldParsed:null;
+  var totalSold=sv!=null?sv*numCtr:null;
+  var totalProfit=(totalSold!=null?totalSold:0)-totalCost;
   if(f._editId){
     var r=positions.find(function(p){return p.id===f._editId;});
-    if(r){r.ticker=f.ticker.trim().toUpperCase();r.excelType=f.type;r.strike=parseFloat(f.strike)||0;r.expiryDate=f.expiryDate.trim();r.openDate=f.openDate.trim();r.contracts=f.contracts;r.excelCost=cost;r.excelIncome=income;r.excelGrossValue=gross;r.excelCurrentValue=curr;r.excelProfit=pnl;r.closed=f.closed;r.notes=f.notes;var sv=f.sold!==''?parseFloat(f.sold):null;if(sv!=null&&!isNaN(sv)){r.soldAmount=sv;}else{delete r.soldAmount;}}
+    if(r){
+      r.ticker=f.ticker.trim().toUpperCase();r.excelType=f.type;
+      r.strike=parseFloat(f.strike)||0;r.expiryDate=f.expiryDate.trim();
+      r.openDate=f.openDate.trim();r.contracts=numCtr;
+      r.excelCost=totalCost;
+      r.excelIncome=income*numCtr;
+      r.excelGrossValue=r.excelIncome+curr;
+      r.excelCurrentValue=curr;
+      r.closed=f.closed;r.notes=f.notes;
+      // Map Current Value → cvOverride (Portf. Val column); SPUT/SCALL always negative
+      var currInpVal=currInp?parseFloat(currInp.value):NaN;
+      if(!isNaN(currInpVal)&&currInpVal!==0){
+        r.cvOverride=isShort?-Math.abs(currInpVal):Math.abs(currInpVal);
+      }else if(currInpVal===0&&isShort){
+        r.cvOverride=0;
+      }else{
+        delete r.cvOverride;
+      }
+      if(totalSold!=null){r.soldAmount=totalSold;r.excelProfit=totalSold-totalCost;}else{delete r.soldAmount;r.excelProfit=r.excelIncome-totalCost;}
+    }
   }else{
     var uid=Math.random().toString(36).slice(2,10);
     var portTag=ap==='retirement'?as:ap;
-    var sv2=f.sold!==''?parseFloat(f.sold):null;var newPos={id:uid,portfolio:portTag,ticker:f.ticker.trim().toUpperCase(),excelType:f.type,strike:parseFloat(f.strike)||0,expiryDate:f.expiryDate.trim(),openDate:f.openDate.trim(),contracts:f.contracts,excelCost:cost,excelIncome:income,excelGrossValue:gross,excelCurrentValue:curr,excelProfit:pnl,closed:f.closed,notes:f.notes,manualPrice:null,rolledOver:false,closeAction:null};if(sv2!=null&&!isNaN(sv2))newPos.soldAmount=sv2;positions.push(newPos);
+    var newPos={id:uid,portfolio:portTag,ticker:f.ticker.trim().toUpperCase(),excelType:f.type,
+      strike:parseFloat(f.strike)||0,expiryDate:f.expiryDate.trim(),
+      openDate:f.openDate.trim(),contracts:numCtr,
+      excelCost:totalCost,excelIncome:income*numCtr,
+      excelGrossValue:(income+curr)*numCtr,excelCurrentValue:curr,
+      excelProfit:totalProfit,closed:f.closed,notes:f.notes,
+      manualPrice:null,rolledOver:false,closeAction:null};
+    // Map Current Value → cvOverride (Portf. Val column); SPUT/SCALL always negative
+    var _cvRaw=currInp?parseFloat(currInp.value):NaN;
+    if(!isNaN(_cvRaw)&&_cvRaw!==0){
+      newPos.cvOverride=isShort?-Math.abs(_cvRaw):Math.abs(_cvRaw);
+    }
+    if(totalSold!=null)newPos.soldAmount=totalSold;
+    positions.push(newPos);
   }
   savePositions();addForm=null;document.getElementById('modal-root').innerHTML='';rMain();
 }
@@ -1580,8 +1859,8 @@ function rUploadPanel(){
   if(csvPreview){
     var r=csvPreview.rows,e=csvPreview.errors,s=r.slice(0,5);
     body='<div class="preview-wrap"><div class="preview-hdr">Preview &mdash; '+r.length+' position'+(r.length!==1?'s':'')+(e.length?' &middot; '+e.length+' error(s)':'')+'</div>'
-      +'<div class="preview-scroll"><table class="preview-table"><thead><tr><th>Ticker</th><th>Type</th><th>Strike</th><th>Expiry</th><th>Status</th><th>Cost</th><th>Sold</th></tr></thead>'
-      +'<tbody>'+s.map(function(r){return'<tr><td><strong>'+r.ticker+'</strong></td><td><span class="badge '+bct(r.excelType)+'">'+r.excelType+'</span></td><td class="mn">'+(r.strike>0?'$'+r.strike:'--')+'</td><td>'+(r.expiryDate||'--')+'</td><td>'+(r.closed?'<span style="color:var(--text3);font-size:0.65rem;">Closed</span>':'<span style="color:var(--green);font-size:0.65rem;">Open</span>')+'</td><td class="mn">'+(r.excelCost?'$'+r.excelCost.toLocaleString():'--')+'</td><td class="mn" style="color:var(--blue)">'+(r.soldAmount?'$'+r.soldAmount.toLocaleString():'--')+'</td></tr>';}).join('')
+      +'<div class="preview-scroll"><table class="preview-table"><thead><tr><th>Ticker</th><th>Type</th><th>Strike</th><th>Expiry</th><th>Contracts</th><th>Curr. Val</th><th>Cost</th><th>Sold</th></tr></thead>'
+      +'<tbody>'+s.map(function(r){return'<tr><td><strong>'+r.ticker+'</strong></td><td><span class="badge '+bct(r.excelType)+'">'+r.excelType+'</span></td><td class="mn">'+(r.strike>0?'$'+r.strike:'--')+'</td><td>'+(r.expiryDate||'--')+'</td><td class="mn">'+(r.contracts||1)+'</td><td class="mn">'+(r.cvOverride!=null?'$'+Math.abs(r.cvOverride).toLocaleString():'--')+'</td><td class="mn">'+(r.excelCost?'$'+r.excelCost.toLocaleString():'--')+'</td><td class="mn" style="color:var(--blue)">'+(r.soldAmount?'$'+Math.abs(r.soldAmount).toLocaleString():'--')+'</td></tr>';}).join('')
       +e.map(function(x){return'<tr><td colspan="6" class="err-cell">&#9888; '+x+'</td></tr>';}).join('')
       +'</tbody></table></div></div>'
       +'<div class="import-actions"><button class="import-btn" onclick="doImport()" '+(r.length===0?'disabled':'')+'>&#8593; Import '+r.length+' Position'+(r.length!==1?'s':'')+'</button><button class="cancel-upload-btn" onclick="cancelUpload()">Cancel</button></div>'
@@ -1589,8 +1868,8 @@ function rUploadPanel(){
   }else{
     body='<div class="drop-zone" id="drop-zone" onclick="document.getElementById(\'csv-file-input\').click()">'
       +'<div class="drop-zone-icon">&#128196;</div>'
-      +'<div class="drop-zone-title">Drop your Joint portfolio CSV here</div>'
-      +'<div class="drop-zone-sub">Profile &middot; Open Date &middot; Ticker &middot; Trans Code &middot; Amount &middot; Type &middot; Description</div>'
+      +'<div class="drop-zone-title">Drop your positions CSV / TSV here</div>'
+      +'<div class="drop-zone-sub">ticker &middot; strike &middot; expiry_date &middot; num_contracts &middot; current_value &middot; cost &middot; Sold &middot; type</div>'
       +'<button class="drop-zone-btn" onclick="event.stopPropagation();document.getElementById(\'csv-file-input\').click()">&#128193; Choose File</button>'
       +'</div>'
       +(importMsg?'<div style="margin-top:0.6rem;"><span class="'+(importMsg.ok?'import-ok':'import-err')+'">'+(importMsg.ok?'&#10003;':'&#9888;')+' '+importMsg.text+'</span></div>':'');
@@ -1600,10 +1879,10 @@ function rUploadPanel(){
 function toggleUpload(){csvPreview=null;importMsg='';var fi=document.getElementById('csv-file-input');if(fi)fi.click();}
 function cancelUpload(){csvPreview=null;importMsg='';rMain();}
 function dlTemplate(){
-  var h='Profile,Open Date,Ticker,Expiry Date,Trans Code,Amount,Type,Description';
-  var ex='Joint,4/6/2026,PLTR,4/10/2026,STO,$81.94,SPUT,PLTR 4/10/2026 Put $140.00\nJoint,4/6/2026,SOFI,5/15/2026,BTO,($270.04),LPUT,SOFI 5/15/2026 Put $17.00\nJoint,4/8/2026,PLTR,4/10/2026,STC,$65.00,SPUT,PLTR 4/10/2026 Put $140.00';
+  var h='ticker,strike,expiry_date,num_contracts,current_value,cost,Sold,type';
+  var ex='PLTR,140,4/10/2026,1,65,81.94,,Short Put\nSOFI,17,5/15/2026,2,120,270.04,,Long Put\nAAPL,200,6/20/2026,3,0,450,500,Short Call';
   var blob=new Blob([h+'\n'+ex],{type:'text/csv'});
-  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='joint_template.csv';a.click();
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='positions_template.csv';a.click();
 }
 function parseAmt(s){if(!s)return 0;var x=s.toString().trim().replace(/[$,\s]/g,'');var neg=x.startsWith('(')&&x.endsWith(')');return neg?-(parseFloat(x.replace(/[()]/g,''))||0):(parseFloat(x.replace(/[()]/g,''))||0);}
 function parseOptDesc(d){
@@ -1619,108 +1898,87 @@ function parseBrokerageCSV(text){
   if(lines.length<2)return{error:'Need header + data rows.'};
   var delim=lines[0].indexOf('\t')>-1?'\t':',';
   function splitLine(line){if(delim==='\t')return line.split('\t').map(function(x){return x.trim();});return splitCSV(line);}
-  var headers=splitLine(lines[0]).map(function(h){return h.toLowerCase().replace(/[\s_-]/g,'');});
+  var headers=splitLine(lines[0]).map(function(h){return h.toLowerCase().replace(/[\s_\-]/g,'');});
   var col={};
   headers.forEach(function(h,i){
-    if(h==='opendate'||h==='activitydate'||h==='date')col.d=i;
-    else if(h==='ticker'||h==='instrument'||h==='symbol')col.tk=i;
-    else if(h==='expirydate'||h==='expiry')col.exp=i;
-    else if(h==='transcode'||h==='transactioncode'||h==='action')col.tc=i;
-    else if(h==='amount'||h==='netamount')col.a=i;
-    else if(h==='description'||h==='desc')col.ds=i;
+    if(h==='ticker'||h==='symbol'||h==='instrument')col.tk=i;
+    else if(h==='strike'||h==='strikeprice')col.st=i;
+    else if(h==='expirydate'||h==='expiry'||h==='expdate'||h==='expirationdate')col.exp=i;
+    else if(h==='numcontracts'||h==='contracts'||h==='qty'||h==='quantity')col.nc=i;
+    else if(h==='currentvalue'||h==='currval'||h==='marketvalue'||h==='mktval')col.cv=i;
+    else if(h==='cost'||h==='costbasis'||h==='premium')col.co=i;
+    else if(h==='sold'||h==='soldamount'||h==='proceeds'||h==='income')col.sl=i;
+    else if(h==='type'||h==='optiontype'||h==='positiontype')col.tp=i;
   });
-  // Profile normalizer
-  function normProfile(s){
-    var p=(s||'').trim().toLowerCase().replace(/[\s_]+/g,'');
-    if(p==='joint')return'joint';
-    if(p==='amit'||p==='amitbrokerage')return'amit';
-    if(p==='lovelina'||p==='lov')return'lovelina';
-    if(p==='amitroth'||p==='amitira')return'amit-roth';
-    if(p==='lovroth'||p==='lovelinaroth'||p==='lovinaroth')return'lov-roth';
-    if(p==='lovtrad'||p==='lovelinatrad'||p==='lovinatrad')return'lov-trad';
-    return'joint';
+  // Validate required columns
+  if(col.tk==null)return{error:'Missing required column: ticker'};
+  if(col.tp==null)return{error:'Missing required column: type'};
+  // Normalize type strings to internal excelType names
+  function normType(raw){
+    var s=(raw||'').trim().toLowerCase().replace(/[\s_\-]/g,'');
+    if(s==='shortput'||s==='sput'||s==='sp')return'Short Put';
+    if(s==='shortcall'||s==='scall'||s==='sc')return'Short Call';
+    if(s==='longput'||s==='lput'||s==='lp')return'Long Put';
+    if(s==='longcall'||s==='lcall'||s==='lc')return'Long Call';
+    return null;
   }
-  // Derive type from description (Put/Call) + trans code (STO/BTO prefix)
-  function deriveType(desc,tc){
-    var isPut=/\bput\b/i.test(desc);
-    var isCall=/\bcall\b/i.test(desc);
-    var optType=isPut?'PUT':isCall?'CALL':null;
-    if(!optType)return null;
-    var prefix=(tc==='STO'||tc==='STC')?'S':'L'; // STO/STC=Short, BTO/BTC=Long
-    return prefix==='S'?(optType==='PUT'?'Short Put':'Short Call'):(optType==='PUT'?'Long Put':'Long Call');
+  // Parse expiry date — accept M/D/YYYY, M/D/YY, YYYY-MM-DD
+  function parseExpiry(s){
+    if(!s)return'';
+    s=s.trim();
+    // ISO format: 2026-04-10
+    var iso=s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
+    if(iso)return iso[2]+'/'+iso[3]+'/'+iso[1];
+    // M/D/YY or M/D/YYYY
+    var mdy=s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/);
+    if(mdy){var yr=parseInt(mdy[3]);return mdy[1]+'/'+mdy[2]+'/'+(yr<100?2000+yr:yr);}
+    return s;
   }
+  var today=new Date();today.setHours(0,0,0,0);
   var mapped=[],errors=[];
   for(var i=1;i<lines.length;i++){
     var line=lines[i];if(!line)continue;
     var v=splitLine(line);if(v.every(function(x){return!x;}))continue;
-    var gv=function(vv){return function(idx){return idx!=null?(vv[idx]||'').trim():'';};};
-    var gf=gv(v);
-    var openDate=gf(col.d),ticker=(gf(col.tk)||'').toUpperCase(),desc=gf(col.ds),tcRaw=(gf(col.tc)||'').toUpperCase(),rawAmt=gf(col.a);
+    var gf=function(idx){return idx!=null?(v[idx]||'').trim():'';};
+    var ticker=(gf(col.tk)||'').toUpperCase();
     if(!ticker){errors.push('Row '+(i+1)+': missing ticker');continue;}
-    var excelType=deriveType(desc,tcRaw);
-    if(!excelType){errors.push('Row '+(i+1)+': cannot derive type from description "'+desc+'"');continue;}
-    // Parse description for strike and expiry: "CDE 4/17/2026 Put $20.00"
-    var strike=0,expiryDate='',expiryDateObj=null;
-    var dm=desc.match(/(\d{1,2}\/\d{1,2}\/\d{2,4})/);
-    if(dm){
-      var dp=dm[1].split('/');
-      var yr=parseInt(dp[2]);
-      var fullYr=yr<100?2000+yr:yr;
-      expiryDate=dp[0]+'/'+dp[1]+'/'+fullYr;
-      expiryDateObj=new Date(fullYr,parseInt(dp[0])-1,parseInt(dp[1]));
-    }
-    var sm=desc.match(/\$([\d.]+)/);
-    if(sm)strike=parseFloat(sm[1]);
-    // Amount
-    var rawAmtVal=parseAmt(rawAmt);
-    var amt=Math.abs(rawAmtVal);
-    // Always close if expiry date is in the past, regardless of trans code
-    var today=new Date();today.setHours(0,0,0,0);
-    var isPastExpiry=expiryDateObj&&expiryDateObj<today;
-    var isClosed=isPastExpiry||tcRaw==='STC'||tcRaw==='BTC';
-    var isShortType=excelType==='Short Put'||excelType==='Short Call';
-    // STO/STC → SOLD column always; BTO/BTC → COST column always (regardless of type)
-    var excelCost=0,soldAmount=null,closeAction=null;
-    if(tcRaw==='STO'||tcRaw==='STC'){
-      soldAmount=rawAmtVal;
-    } else {
-      // BTO or BTC → cost column (always positive)
-      excelCost=amt;
-    }
-    if(isClosed){
-      if(tcRaw==='STC'||tcRaw==='BTC'){
-        closeAction={
-          action:tcRaw,
-          type:tcRaw==='STC'?'credit':'debit',
-          amount:amt,
-          signedAmount:tcRaw==='STC'?amt:-amt,
-          notes:'',
-          date:openDate
-        };
-      } else {
-        // Auto-closed due to past expiry — expired worthless
-        closeAction={
-          action:'EXP',
-          type:'zero',
-          amount:0,
-          signedAmount:0,
-          notes:'Auto-closed: expired',
-          date:expiryDate
-        };
-      }
-    }
+    var rawType=gf(col.tp);
+    var excelType=normType(rawType);
+    if(!excelType){errors.push('Row '+(i+1)+': unrecognized type "'+rawType+'" — use Short Put, Short Call, Long Put, or Long Call');continue;}
+    var strike=col.st!=null?parseFloat(gf(col.st))||0:0;
+    var expiryDate=parseExpiry(gf(col.exp));
+    var numContracts=col.nc!=null?parseInt(gf(col.nc))||1:1;
+    var currentValue=col.cv!=null?parseFloat(gf(col.cv).replace(/[$,\s]/g,''))||0:0;
+    var costRaw=col.co!=null?gf(col.co):'';
+    var soldRaw=col.sl!=null?gf(col.sl):'';
+    // Cost: remove $ and commas; support parentheses for negatives
+    function parseNum(s){if(!s)return 0;var x=s.replace(/[$,\s]/g,'');var neg=x.startsWith('(')&&x.endsWith(')');return neg?-(parseFloat(x.replace(/[()]/g,''))||0):(parseFloat(x)||0);}
+    var costVal=Math.abs(parseNum(costRaw));
+    var soldVal=soldRaw?parseNum(soldRaw):null;
+    // Determine closed: if past expiry, or if sold column has a value for short positions
+    var expiryDateObj=null;
+    var isClosed=false;
+    var closeAction=null;
+    // excelCost: total (already per total since user enters total cost)
+    var excelCost=costVal;
+    var excelIncome=soldVal!=null?Math.abs(soldVal):0;
+    var excelProfit=excelIncome-excelCost;
+    // currentValue: negative for short positions (liability), positive for long
+    var isShort=excelType==='Short Put'||excelType==='Short Call';
+    var cvStored=currentValue!==0?(isShort?-Math.abs(currentValue):Math.abs(currentValue)):0;
     var uid=Math.random().toString(36).slice(2,10);
     var pos={
       id:uid,portfolio:null,ticker:ticker,excelType:excelType,
-      strike:strike,expiryDate:expiryDate,openDate:openDate,contracts:1,
-      excelCost:excelCost,excelIncome:soldAmount!=null?Math.abs(soldAmount):0,
-      excelGrossValue:soldAmount!=null?Math.abs(soldAmount):excelCost,
-      excelCurrentValue:0,
-      excelProfit:soldAmount!=null?soldAmount:-excelCost,
+      strike:strike,expiryDate:expiryDate,openDate:'',contracts:numContracts,
+      excelCost:excelCost,excelIncome:excelIncome,
+      excelGrossValue:excelIncome+Math.abs(cvStored),
+      excelCurrentValue:Math.abs(cvStored),
+      excelProfit:excelProfit,
       closed:isClosed,rolledOver:false,
-      closeAction:closeAction,manualPrice:null,notes:desc
+      closeAction:closeAction,manualPrice:null,notes:''
     };
-    if(soldAmount!=null)pos.soldAmount=soldAmount;
+    if(cvStored!==0)pos.cvOverride=cvStored;
+    if(soldVal!=null&&soldVal!==0)pos.soldAmount=soldVal;
     mapped.push(pos);
   }
   return{rows:mapped,errors:errors};
@@ -1802,7 +2060,7 @@ function rSpreadsView(data){
   var socs='';
   var typeOpts=[['all','All'],['Short Put','SPUT'],['Short Call','SCALL']];
   var stypes=typeOpts.map(function(t){return'<button class="soc-tab'+(spreadsTypeFilter===t[0]?' active':'')+'" data-stypef="'+t[0]+'">'+t[1]+'</button>';}).join('');
-  var spreadOpts=[['all','All'],['spread','Spread'],['naked','Naked']];
+  var spreadOpts=[['all','All'],['spread','Spread'],['naked','Naked'],['unhedged','&#128683; Unhedged LPUT']];
   var sspreads=spreadOpts.map(function(o){return'<button class="soc-tab'+(spreadsSpreadFilter===o[0]?' active':'')+'" data-sspreadf="'+o[0]+'">'+o[1]+'</button>';}).join('');
   var tickers=getTickersFrom(data),allSel=selectedTickers.has('ALL');
   var selList=allSel?[]:tickers.filter(function(t){return selectedTickers.has(t);});
@@ -1812,7 +2070,7 @@ function rSpreadsView(data){
   var exps=expOpts.map(function(o){return'<button class="soc-tab'+(spreadsExpFilter===o[0]?' active':'')+'" data-expf="'+o[0]+'" style="'+(o[0]==='this-week'&&spreadsExpFilter===o[0]?'background:var(--yellow);color:#000;':o[0]==='next-week'&&spreadsExpFilter===o[0]?'background:var(--blue);':'')+'">'+o[1]+'</button>';}).join('');
   var total=Object.values(netMap).reduce(function(s,v){return s+v;},0);
   var collatChip='<div style="margin-left:auto;display:flex;align-items:center;gap:0.5rem;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:0.28rem 0.75rem;"><span style="font-size:0.62rem;font-weight:700;color:var(--text3);">&#128274; COLLATERAL</span><span style="font-size:0.78rem;font-weight:800;font-family:monospace;color:#EF4444;">$'+total.toLocaleString()+'</span><span style="width:1px;background:var(--border);align-self:stretch;"></span><span style="font-size:0.62rem;color:var(--text3);">Naked</span><span style="font-size:0.72rem;font-weight:700;font-family:monospace;color:#EF4444;">$'+tN.toLocaleString()+'</span><span style="font-size:0.62rem;color:var(--text3);">Spread</span><span style="font-size:0.72rem;font-weight:700;font-family:monospace;color:var(--purple);">$'+tS.toLocaleString()+'</span></div>';
-  var sfb='<div class="spreads-filter-bar"><span class="filter-bar-label">&#127991; Ticker</span><div class="ticker-select-wrap" id="tkwrap"><div class="ticker-select-btn" id="tkbtn" onclick="toggleDropdown()"><div class="sel-tags">'+tags+'</div><span style="color:var(--text3);font-size:0.65rem;">&#9660;</span></div><div class="ticker-dropdown'+(dropdownOpen?' open':'')+'" id="tkdrop"><div class="ticker-dd-item'+(allSel?' selected':'')+'" data-ddticker="ALL"><div class="ticker-dd-check">'+(allSel?'&#10003;':'')+'</div><span style="font-size:0.72rem;font-weight:700;">All Tickers</span></div><div style="height:1px;background:var(--border);margin:0.25rem 0;"></div>'+ddItems+'</div></div><div style="width:1px;background:var(--border);align-self:stretch;"></div><span class="filter-bar-label">&#128197; Expiry</span><div class="soc-tabs">'+exps+'</div><div style="width:1px;background:var(--border);align-self:stretch;"></div><span class="filter-bar-label">&#127960; Type</span><div class="soc-tabs">'+stypes+'</div><div style="width:1px;background:var(--border);align-self:stretch;"></div><span class="filter-bar-label">&#128681; Risk</span><div class="soc-tabs">'+sspreads+'</div><div style="width:1px;background:var(--border);align-self:stretch;"></div><button class="soc-tab'+(spreadsItmFilter?' active':'')+'" data-sitmf="1" style="'+(spreadsItmFilter?'background:var(--red);color:#fff;':'')+'" title="Show ITM: stock ≤ SP strike or stock > SC strike">&#9888; ITM</button>'+collatChip+'</div>';
+  var sfb='<div class="spreads-filter-bar"><span class="filter-bar-label">&#127991; Ticker</span><div class="ticker-select-wrap" id="tkwrap"><div class="ticker-select-btn" id="tkbtn" onclick="toggleDropdown()"><div class="sel-tags">'+tags+'</div><span style="color:var(--text3);font-size:0.65rem;">&#9660;</span></div><div class="ticker-dropdown'+(dropdownOpen?' open':'')+'" id="tkdrop"><div style="padding:0.3rem 0.4rem;border-bottom:1px solid var(--border);"><input id="tk-search-inp" type="text" placeholder="&#128269; Search..." value="'+(typeof tkSearch!=='undefined'?tkSearch:'')+'" oninput="setTkSearch(this.value)" onclick="event.stopPropagation()" style="width:100%;border:1px solid var(--border2);border-radius:5px;padding:0.25rem 0.45rem;font-size:0.68rem;outline:none;color:var(--black);background:var(--bg3);"></div><div class="ticker-dd-item'+(allSel?' selected':'')+'" data-ddticker="ALL"><div class="ticker-dd-check">'+(allSel?'&#10003;':'')+'</div><span style="font-size:0.72rem;font-weight:700;">All Tickers</span></div><div style="height:1px;background:var(--border);margin:0.1rem 0;"></div><div style="max-height:180px;overflow-y:auto;">'+ddItems+'</div></div></div><div style="width:1px;background:var(--border);align-self:stretch;"></div><span class="filter-bar-label">&#128197; Expiry</span><div class="soc-tabs">'+exps+'</div><div style="width:1px;background:var(--border);align-self:stretch;"></div><span class="filter-bar-label">&#127960; Type</span><div class="soc-tabs">'+stypes+'</div><div style="width:1px;background:var(--border);align-self:stretch;"></div><span class="filter-bar-label">&#128681; Risk</span><div class="soc-tabs">'+sspreads+'</div><div style="width:1px;background:var(--border);align-self:stretch;"></div><button class="soc-tab'+(spreadsItmFilter?' active':'')+'" data-sitmf="1" style="'+(spreadsItmFilter?'background:var(--red);color:#fff;':'')+'" title="Show ITM: stock ≤ SP strike or stock > SC strike">&#9888; ITM</button>'+collatChip+'</div>';
   // Flatten all rows, sort by SP expiry asc
   var allRows=[];
   groups.filter(function(g){return g.pairs.length>0||g.independentLPs.length>0;}).forEach(function(g){
@@ -1825,6 +2083,7 @@ function rSpreadsView(data){
   allRows.sort(function(a,b){return a.sortDate-b.sortDate;});
   if(spreadsSpreadFilter==='spread')allRows=allRows.filter(function(i){return i.type==='pair'&&i.pair.lp;});
   else if(spreadsSpreadFilter==='naked')allRows=allRows.filter(function(i){return (i.type==='pair'&&!i.pair.lp)||(i.type==='indep');});
+  else if(spreadsSpreadFilter==='unhedged')allRows=allRows.filter(function(i){return i.type==='indep'&&i.lp&&i.lp.excelType==='Long Put';});
   if(spreadsItmFilter){allRows=allRows.filter(function(i){
     if(i.type!=='pair')return false;
     var sp=i.pair.sp;if(!sp)return false;
@@ -1869,14 +2128,23 @@ function rSpreadsView(data){
       if(stockP!=null&&sp.strike>stockP)flags+=' <span title="SP Strike above stock price" style="color:#EF4444;font-size:0.85rem;">\uD83D\uDEA9</span>';
       if(lp&&sp.strike>lp.strike)flags+=' <span title="SP Strike above LP Strike" style="color:#EF4444;font-size:0.85rem;">\uD83D\uDEA9</span>';
       var typeBadge='<span class="badge bsp" style="opacity:0.85;">SPUT</span>';
-      return'<tr>'+portBadge+'<td class="mc"><span class="chip"><span class="tk-dot-sm" style="background:'+(DC[ticker]||'#888')+'"></span>'+ticker+'</span></td><td>'+stockPcell+'</td><td>'+typeBadge+' '+badge+'</td><td class="mn" style="color:var(--red);font-weight:700;">$'+sp.strike+flags+'</td><td class="mn '+ec(sp.expiryDate)+'">'+(sp.expiryDate||'--')+'</td><td class="div-col">\u2194</td><td class="mn" style="color:var(--blue);font-weight:700;">'+(lp?'$'+lp.strike:'<span class="empty">\u2014</span>')+'</td><td class="mn '+(lp?ec(lp.expiryDate):'')+'">'+(lp?lp.expiryDate:'<span class="empty">\u2014</span>')+'</td><td class="mn">'+collatDisplay+'</td></tr>';
+      var spCtr=sp.contracts||1;
+      var lpCtr=lp?(lp.contracts||1):0;
+      var spCtrBadge='<span style="display:inline-flex;align-items:center;background:#DC2626;color:#fff;border-radius:4px;padding:0.05rem 0.28rem;font-size:0.58rem;font-weight:800;margin-left:3px;">'+spCtr+'x</span>';
+      var lpCtrBadge=lp?'<span style="display:inline-flex;align-items:center;background:#2563EB;color:#fff;border-radius:4px;padding:0.05rem 0.28rem;font-size:0.58rem;font-weight:800;margin-left:3px;">'+lpCtr+'x</span>':'';
+      return'<tr>'+portBadge+'<td class="mc"><span class="chip"><span class="tk-dot-sm" style="background:'+(DC[ticker]||'#888')+'"></span>'+ticker+'</span></td><td>'+stockPcell+'</td><td>'+typeBadge+' '+badge+'</td><td class="mn sp-cell" style="color:var(--red);font-weight:700;border-right:none;">$'+sp.strike+spCtrBadge+flags+'</td><td class="mn sp-cell '+ec(sp.expiryDate)+'" style="border-right:none;">'+(sp.expiryDate||'--')+'</td><td class="div-col" style="width:60px;font-size:0.65rem;">&#8596;</td><td class="mn" style="color:var(--blue);font-weight:700;background:rgba(37,99,235,0.05);">'+(lp?'$'+lp.strike+lpCtrBadge:'<span class="empty">\u2014</span>')+'</td><td class="mn lp-cell '+(lp?ec(lp.expiryDate):'')+'">'+(lp?lp.expiryDate:'<span class="empty">\u2014</span>')+'</td><td class="mn">'+collatDisplay+'</td></tr>';
     } else {
       var typeBadge2='<span class="badge '+(lp.excelType==='Long Call'?'blc':'blp')+'" style="opacity:0.85;">'+(lp.excelType==='Long Call'?'LCALL':'LPUT')+'</span>';
-      return'<tr>'+portBadge+'<td class="mc"><span class="chip"><span class="tk-dot-sm" style="background:'+(DC[ticker]||'#888')+'"></span>'+ticker+'</span></td><td>'+stockPcell+'</td><td>'+typeBadge2+'</td><td class="mn empty">\u2014</td><td class="mn empty">\u2014</td><td class="div-col">\u2194</td><td class="mn" style="color:var(--blue);font-weight:700;">$'+lp.strike+'</td><td class="mn '+ec(lp.expiryDate)+'">'+(lp.expiryDate||'--')+'</td><td class="mn" style="color:var(--text3);">\u2014</td></tr>';
+      var noSpB=spreadsSpreadFilter==='unhedged'?'<span style="background:#FEF2F2;color:#DC2626;border:1px solid rgba(220,38,38,0.25);border-radius:4px;padding:0.08rem 0.38rem;font-size:0.58rem;font-weight:700;margin-left:4px;">&#128683; No SPUT</span>':'<span class="badge-indep">Indep</span>';
+      var rSt=spreadsSpreadFilter==='unhedged'?'background:rgba(254,242,242,0.5);border-left:3px solid #EF4444;':'';
+      var lpCtr2=lp.contracts||1;
+      var lpCtrBadge2='<span style="display:inline-flex;align-items:center;background:#2563EB;color:#fff;border-radius:4px;padding:0.05rem 0.28rem;font-size:0.58rem;font-weight:800;margin-left:3px;">'+lpCtr2+'x</span>';
+      return'<tr style="'+rSt+'">'+portBadge+'<td class="mc"><span class="chip"><span class="tk-dot-sm" style="background:'+(DC[ticker]||'#888')+'"></span>'+ticker+'</span></td><td>'+stockPcell+'</td><td>'+typeBadge2+' '+noSpB+'</td><td class="mn empty">\u2014</td><td class="mn empty">\u2014</td><td class="div-col">\u2194</td><td class="mn" style="color:var(--blue);font-weight:700;">$'+lp.strike+lpCtrBadge2+'</td><td class="mn '+ec(lp.expiryDate)+'">'+(lp.expiryDate||'--')+'</td><td class="mn" style="color:var(--text3);">\u2014</td></tr>';
     }
   });
-  var tableBody=rows.length>0?rows.join(''):'<tr><td colspan="10" class="ec" style="padding:2rem;text-align:center;color:var(--text3);">'+(has?'No positions match the selected filters.':'No put positions found. Short puts and long puts will appear here paired by expiry.')+'</td></tr>';
-  return sfb+'<div class="table-wrap"><table style="min-width:900px;"><thead><tr><th>Portfolio</th><th>Ticker</th><th>Stock Price</th><th>Type</th><th>Short Strike</th><th>Short Expiry</th><th></th><th>Long Strike</th><th>Long Expiry</th><th>Collateral</th></tr></thead><tbody>'+tableBody+'</tbody></table></div>';
+  var uhB=spreadsSpreadFilter==='unhedged'&&rows.length>0?'<div style="background:#FEF2F2;border:1px solid rgba(220,38,38,0.2);border-radius:var(--r);padding:0.6rem 1rem;margin-bottom:0.75rem;display:flex;align-items:center;gap:0.75rem;"><span>&#128683;</span><div><div style="font-size:0.72rem;font-weight:700;color:#DC2626;">'+rows.length+' Unhedged LPUT'+(rows.length>1?'s':'')+'</div><div style="font-size:0.63rem;color:#991B1B;">No SPUT mapped. Consider selling a short put to hedge.</div></div></div>':'';
+  var tableBody=rows.length>0?rows.join(''):'<tr><td colspan="10" class="ec" style="padding:2rem;text-align:center;color:var(--text3);">'+(spreadsSpreadFilter==='unhedged'?'&#10003; All LPUTs are hedged.':has?'No positions match filters.':'No positions found.')+'</td></tr>';
+  return sfb+uhB+'<div class="st-wrap"><table style="min-width:900px;"><thead><tr><th>Portfolio</th><th>Ticker</th><th>Stock Price</th><th>Type</th><th class="sp-hdr">Short Strike</th><th class="sp-hdr">Short Expiry</th><th class="div-hdr">SHORT&#8594;LONG</th><th class="lp-hdr">Long Strike</th><th class="lp-hdr">Long Expiry</th><th>Collateral</th></tr></thead><tbody>'+tableBody+'</tbody></table></div>';
 }
 
 // ── ADMIN / PRICES VIEW ───────────────────────────────────────────────────────
@@ -1902,12 +2170,12 @@ function rAdminView(){
     var live=liveCache[t]&&liveCache[t].price!=null?liveCache[t].price:null;
     var ldsp=live!=null?'<span class="live-price">$'+live.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})+'</span> <span class="live-badge">Live</span>':'<span class="fetching-badge">Fetching...</span>';
     var mdsp=manual!=null?'<span style="font-family:monospace;font-weight:700;">$'+manual+'</span> <span class="manual-badge">Manual</span>':'<span class="no-price">\u2014</span>';
-    var act=manual!=null?manual:live;
+    var act=live!=null?live:manual;
     var adsp=act!=null?'<span style="font-family:monospace;font-weight:800;color:var(--black);">$'+Number(act).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})+'</span><span style="font-size:0.6rem;color:var(--text3);margin-left:4px;">'+(manual!=null?'(manual)':'(live)')+'</span>':'<span class="no-price">Not set</span>';
     return'<tr><td><div class="admin-ticker-cell"><span class="tk-dot-sm" style="background:'+(DC[t]||'#888')+'"></span>'+t+'</div></td><td id="lp_'+t+'">'+ldsp+'</td><td>'+mdsp+'</td><td>'+adsp+'</td>'
       +'<td><div style="display:flex;align-items:center;gap:0.4rem;"><input class="admin-price-input" id="ap_'+t+'" type="number" step="0.01" placeholder="e.g. 16.50" value="'+(manual!=null?manual:'')+'" onkeydown="if(event.key===\'Enter\')adminSavePrice(\''+t+'\')"><button class="admin-save-btn" onclick="adminSavePrice(\''+t+'\')">Save</button>'+(manual!=null?'<button class="admin-clear-btn" onclick="adminClearPrice(\''+t+'\')">Clear</button>':'')+'</div></td></tr>';
   }).join('');
-  return'<div class="admin-wrap"><div class="admin-title">&#9881; Prices Admin</div><div class="admin-sub">Live prices fetched from Yahoo Finance. Set manual price to override. Manual price always takes priority.</div><div class="admin-note">&#8505; <strong>Live prices</strong> are fetched and cached for 5 minutes. If a ticker is not on Yahoo Finance, set a manual price instead.</div><br><div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Ticker</th><th>Live Price</th><th>Manual Price</th><th>Active Price</th><th>Set Manual Price</th></tr></thead><tbody>'+rows+'</tbody></table></div><div class="admin-add-row"><span class="admin-add-label">Add ticker:</span><input class="admin-add-input" id="adm-new-ticker" placeholder="Ticker" style="width:100px;"><input class="admin-add-input" id="adm-new-price" type="number" step="0.01" placeholder="Manual price" style="width:120px;"><button class="admin-add-btn" onclick="adminAddTicker()">+ Add</button></div></div>';
+  return'<div class="admin-wrap"><div class="admin-title">&#9881; Prices Admin</div><div class="admin-sub">Live prices fetched from Yahoo Finance. Set manual price to override. Live price always takes priority. Manual used only when live is unavailable.</div><div class="admin-note">&#8505; <strong>Live prices</strong> are fetched and cached for 5 minutes. If a ticker is not on Yahoo Finance, set a manual price instead.</div><br><div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Ticker</th><th>Live Price</th><th>Manual Price</th><th>Active Price</th><th>Set Manual Price</th></tr></thead><tbody>'+rows+'</tbody></table></div><div class="admin-add-row"><span class="admin-add-label">Add ticker:</span><input class="admin-add-input" id="adm-new-ticker" placeholder="Ticker" style="width:100px;"><input class="admin-add-input" id="adm-new-price" type="number" step="0.01" placeholder="Manual price" style="width:120px;"><button class="admin-add-btn" onclick="adminAddTicker()">+ Add</button></div></div>';
 }
 function adminSavePrice(ticker){var inp=document.getElementById('ap_'+ticker);if(!inp)return;var v=parseFloat(inp.value);if(isNaN(v)||v<=0){alert('Enter a valid price > 0');return;}setTickerPrice(ticker,v);rMain();}
 function adminClearPrice(ticker){setTickerPrice(ticker,null);rMain();}
@@ -2241,6 +2509,330 @@ function attachActUpload(){
   if(fi)fi.onchange=function(e){if(e.target.files[0])actHandleFile(e.target.files[0]);fi.value='';};
 }
 
+
+// ── COMBINED VIEW ─────────────────────────────────────────────────────────────
+function rCombinedView(data){
+  var Q=String.fromCharCode(39);
+  var thisFri=getThisFriday();
+  var portNames={'lovelina':'Lovelina','amit':'Amit','joint':'Joint','amit-roth':'Amit Roth','lov-roth':'Lov Roth','lov-trad':'Lov Trad'};
+  var portColors={'lovelina':'#DB2877','amit':'#2563EB','joint':'#059669','amit-roth':'#7C3AED','lov-roth':'#DB2877','lov-trad':'#0891B2'};
+  var typeShort={'Short Put':'SPUT','Long Put':'LPUT','Long Call':'LCALL','Short Call':'SCALL','Shares':'SHR'};
+  var retirementPorts=new Set(['amit-roth','lov-roth','lov-trad']);
+  var portHeader=ap==='all';
+
+  function fmtM(v){if(v==null)return'--';return(v<0?'-$':'$')+Math.abs(v).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});}
+  function fmtMS(v){if(v==null)return'--';return(v>=0?'+':'-')+'$'+Math.abs(v).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});}
+
+  // Build spread pairs from data (same as rSpreadsView)
+  var groups=buildSpreadPairs(data);
+
+  // Build lookup: positionId -> paired LP
+  var spToLP={}, lpUsed={};
+  groups.forEach(function(g){
+    g.pairs.forEach(function(pair){
+      if(pair.sp&&pair.lp){ spToLP[pair.sp.id]=pair.lp; lpUsed[pair.lp.id]=true; }
+    });
+  });
+
+  // Group positions by ticker for collapsible rows
+  var groupOrder=[],groupMap={};
+  data.forEach(function(r){
+    var gk=r.ticker;
+    if(!groupMap[gk]){groupMap[gk]={key:gk,ticker:r.ticker,rows:[]};groupOrder.push(gk);}
+    groupMap[gk].rows.push(r);
+  });
+
+  // Sort groups: open first, then alphabetical
+  groupOrder.sort(function(a,b){
+    var ra=groupMap[a].rows,rb=groupMap[b].rows;
+    var aOpen=ra.some(function(r){return!isCl(r);}),bOpen=rb.some(function(r){return!isCl(r);});
+    if(aOpen&&!bOpen)return -1;if(!aOpen&&bOpen)return 1;
+    return a.localeCompare(b);
+  });
+
+  var html='';
+  var today0=new Date(new Date().toDateString());
+
+  groupOrder.forEach(function(gk){
+    var g=groupMap[gk];
+    var rows=g.rows;
+    var ticker=g.ticker;
+    var expanded=expandedGroups.has(gk);
+
+    // Aggregate for summary row
+    var totalCost=rows.reduce(function(s,r){return s+(r.excelCost||0);},0);
+    var totalSold=rows.reduce(function(s,r){var sv=r.soldAmount!=null&&r.soldAmount!==0&&r.soldAmount!==''?parseFloat(r.soldAmount):0;return s+sv;},0);
+    var hasSoldAny=rows.some(function(r){return r.soldAmount!=null&&r.soldAmount!==0&&r.soldAmount!=='';});
+    var closedHiddenG=hiddenClosedGroups.has(gk);
+    var totalCV=rows.reduce(function(s,r){
+      if(isCl(r))return s;
+      var pastExp=(function(){var d=parseExpiry(r.expiryDate);return d&&d<=today0;}());
+      if((closedHiddenG||hideClosedRows)&&pastExp)return s;
+      var hasOvrd=r.cvOverride!=null&&r.cvOverride!=='';
+      if(!hasOvrd)return s;
+      var isShort=r.excelType==='Short Put'||r.excelType==='Short Call';
+      return s+(isShort?-Math.abs(parseFloat(r.cvOverride)):Math.abs(parseFloat(r.cvOverride)));
+    },0);
+
+    var liveP=(liveCache[ticker]&&liveCache[ticker].price!=null)?liveCache[ticker].price:null;
+    var manP=tickerPrices[ticker]!=null?tickerPrices[ticker]:null;
+    var stockP=liveP!=null?liveP:(manP!=null?manP:null);
+    var priceTxt=stockP!=null?('$'+Number(stockP).toFixed(2)+(liveP!=null?' <span class="pcell-badge pcell-badge-live">L</span>':' <span class="pcell-badge pcell-badge-manual">M</span>')):'<span class="pcell-none">--</span>';
+    var totalAssnReq=rows.filter(function(r){return r.excelType==='Short Put'&&r.strike>0&&!isCl(r);}).reduce(function(s,r){return s+r.strike*100*(r.contracts||1);},0);
+    var cbVal=collatBlocked[ticker]!=null?collatBlocked[ticker]:0;
+    var cbGap=totalAssnReq-cbVal;
+    var _tc=rows.reduce(function(s,r){return s+(r.contracts||1);},0);
+    var _sb=_tc>1?'<span style="display:inline-flex;align-items:center;background:var(--blue);color:#fff;border-radius:4px;padding:0.05rem 0.32rem;font-size:0.58rem;font-weight:800;margin-left:4px;">'+_tc+'x</span>':'';
+    var niColor=totalSold>totalCost?'var(--green)':'var(--red)';
+    var cvColor=totalCV<0?'var(--red)':totalCV>0?'var(--black)':'var(--text3)';
+    var gapColor=cbGap>0?'var(--red)':cbGap<0?'var(--green)':'var(--text3)';
+
+    // Check visible rows
+    var visibleRows=rows.filter(function(r){
+      var pastExp=(function(){var d=parseExpiry(r.expiryDate);return d&&d<today0;}());
+      if((closedHiddenG||hideClosedRows)&&(isCl(r)||pastExp))return false;
+      return true;
+    });
+    if(visibleRows.length===0)return;
+
+    var expiries=[...new Set(rows.filter(function(r){return!isCl(r);}).map(function(r){return r.expiryDate||'';}).filter(Boolean))];
+    var expiryCell=expiries.length?expiries.length+' expir'+(expiries.length>1?'ies':'y'):'--';
+    var hasExp=rows.some(function(r){if(isCl(r))return false;var d=parseExpiry(r.expiryDate);return d&&d<=thisFri;});
+    var hasClosedRows=(g.rows||rows).some(function(r){return isCl(r)||(function(){var d=parseExpiry(r.expiryDate);return d&&d<today0;}());});
+    var hideBtn=hasClosedRows?'<button class="row-edit-btn" style="font-size:0.58rem;margin-left:3px;" onclick="event.stopPropagation();toggleHideClosed('+Q+gk+Q+')">'+(closedHiddenG?'Show Cl.':'Hide Cl.')+'</button>':'';
+
+    // Summary row (colspan for SPUT and LPUT sections blank)
+    html+='<tr class="grp-summary" style="cursor:pointer;background:#F8F8F8;border-left:3px solid '+(DC[ticker]||'#888')+';" onclick="toggleGroup('+Q+gk+Q+')">';
+    html+='<td class="mc"><span style="font-size:0.72rem;color:var(--red);font-weight:700;margin-right:6px;">'+(expanded?'&#9660;':'&#9654;')+'</span><span class="chip"><span class="tk-dot-sm" style="background:'+(DC[ticker]||'#888')+'"></span>'+ticker+'</span>'+_sb+'<span style="font-size:0.58rem;color:var(--text3);margin-left:6px;">'+(expanded?'collapse':'click to expand')+'</span></td>';
+    if(portHeader)html+='<td></td>';
+    html+='<td style="font-size:0.65rem;color:var(--text3);">'+expiryCell+'</td>';
+    html+='<td class="mn" style="font-weight:700;">'+(totalCost?fmtM(totalCost):'--')+'</td>';
+    html+='<td class="mn" style="color:var(--blue);font-weight:700;">'+(hasSoldAny?fmtM(totalSold):'--')+'</td>';
+    html+='<td class="mn" style="color:'+niColor+';font-weight:700;">'+(hasSoldAny?fmtMS(totalSold-totalCost):'--')+'</td>';
+    html+='<td class="mn" style="color:'+cvColor+';font-weight:700;">'+fmtM(totalCV)+'</td>';
+    html+='<td>'+priceTxt+'</td>';
+    html+='<td></td>'; // type
+    html+='<td class="mn" style="font-size:0.65rem;color:var(--text3);">'+(rows.filter(function(r){return r.strike>0;}).length)+' strikes</td>'; // strike
+    html+='<td class="mn" style="color:var(--red);font-weight:700;">$'+totalAssnReq.toLocaleString()+'</td>'; // assn
+    html+='<td></td>'; // coll.val
+    html+='<td class="mn" style="font-weight:700;">$'+cbVal.toLocaleString()+'<button class="pcell-act" onclick="event.stopPropagation();(function(){var v=prompt('+Q+'Collateral Blocked for '+ticker+':'+Q+','+Q+cbVal+Q+');if(v===null)return;var n=parseFloat(v);setCollatBlocked('+Q+ticker+Q+',isNaN(n)?null:n);rMain();})()" style="margin-left:4px;">ed</button></td>'; // col.blk
+    html+='<td class="mn" style="color:'+gapColor+';font-weight:700;">'+(cbGap>=0?'+':'')+cbGap.toLocaleString()+'</td>'; // col.gap
+    // SPUT section blank at group level
+    html+='<td class="sp-cell" colspan="3"></td>';
+    html+='<td class="div-col" style="width:50px;">&#9664;&#9654;</td>';
+    // LPUT section blank at group level
+    html+='<td class="lp-cell" colspan="3"></td>';
+    html+='<td>'+collatDisplayGroup(rows)+'</td>';
+    html+='<td style="text-align:center;white-space:nowrap;"><button class="add-pos-btn" style="font-size:0.6rem;padding:0.18rem 0.5rem;" onclick="event.stopPropagation();openAddModal()">+ Add</button>'+hideBtn+'</td>';
+    html+='<td colspan="3"></td>';
+    html+='</tr>';
+
+    if(!expanded)return;
+
+    // Sort child rows: open first, then by type order, then expiry
+    var typeOrder={'Short Put':0,'Short Call':1,'Long Call':2,'Long Put':3,'Shares':4};
+    var sortedRows=rows.slice().sort(function(a,b){
+      var aC=isCl(a)?1:0,bC=isCl(b)?1:0;if(aC!==bC)return aC-bC;
+      var aT=typeOrder[a.excelType]!=null?typeOrder[a.excelType]:9;
+      var bT=typeOrder[b.excelType]!=null?typeOrder[b.excelType]:9;
+      if(aT!==bT)return aT-bT;
+      return (parseExpiry(a.expiryDate)||new Date('9999-12-31'))-(parseExpiry(b.expiryDate)||new Date('9999-12-31'));
+    });
+
+    sortedRows.forEach(function(r){
+      var isPastExp=(function(){var d=parseExpiry(r.expiryDate);return d&&d<today0;}());
+      if((closedHiddenG||hideClosedRows)&&(isCl(r)||isPastExp))return;
+      var c=isCl(r);
+      var isExp2=!c&&(function(){var d=parseExpiry(r.expiryDate);return d&&d<=thisFri;}());
+      var childCls='grp-child'+(r.rolledOver?' rolled':isExp2?' expiring-soon':'')+(c?' cr':'');
+
+      var livePI=(liveCache[r.ticker]&&liveCache[r.ticker].price!=null)?liveCache[r.ticker].price:null;
+      var manPI=tickerPrices[r.ticker]!=null?tickerPrices[r.ticker]:null;
+      var stockPI=livePI!=null?livePI:(manPI!=null?manPI:null);
+
+      // Price cell
+      var pd2='';
+      if(livePI!=null){pd2='<span class="pcell-live">$'+livePI.toFixed(2)+'</span><span class="pcell-badge pcell-badge-live">L</span>'+(manPI!=null?'<button class="pcell-act" onclick="clearManualPrice('+Q+r.ticker+Q+')">&#10005;</button>':'<button class="pcell-act" onclick="startEdit('+Q+r.id+Q+')">+M</button>');}
+      else if(manPI!=null){pd2='<span class="pcell-manual">$'+manPI+'</span><span class="pcell-badge pcell-badge-manual">M</span><button class="pcell-act" onclick="startEdit('+Q+r.id+Q+')">ed</button><button class="pcell-act" onclick="clearManualPrice('+Q+r.ticker+Q+')">&#10005;</button>';}
+      else{pd2='<span class="pcell-none">--</span><button class="pcell-act" onclick="startEdit('+Q+r.id+Q+')">+M</button>';}
+      var priceCellC='<div class="pcell">'+pd2+'</div>';
+
+      // Portf.Val cell
+      var hasOvrd=r.cvOverride!=null&&r.cvOverride!=='';
+      var isShortT=r.excelType==='Short Put'||r.excelType==='Short Call';
+      var cvVal=hasOvrd?(isShortT?-Math.abs(parseFloat(r.cvOverride)):Math.abs(parseFloat(r.cvOverride))):0;
+      var cvFmt=fmtM(cvVal);
+      var cvColor2=cvVal<0?'var(--red)':cvVal>0?'var(--black)':'var(--text3)';
+      var cvEditingNow=editCell&&editCell.id===r.id&&editCell.field==='cvOverride';
+      var cvCellC;
+      if(cvEditingNow){
+        cvCellC='<td class="mn"><div class="ie-wrap"><input class="ie-input w-md cv-override-input" id="ie_'+r.id+'_cvOverride" data-rid="'+r.id+'" type="number" step="0.01" value="'+(r.cvOverride!=null?Math.abs(parseFloat(r.cvOverride)||0):0)+'" placeholder="0.00"><button class="ie-ok cv-save-btn" data-rid="'+r.id+'">&#10003;</button><button class="ie-x cv-cancel-btn">&#10005;</button></div></td>';
+      } else {
+        var cvDispC=hasOvrd
+          ?'<span style="color:var(--yellow);font-family:monospace;font-weight:700;">'+cvFmt+'</span><span class="pcell-badge" style="background:var(--yellow-bg);color:var(--yellow);margin-left:2px;">ovrd</span><button class="pcell-act cv-undo-btn" data-rid="'+r.id+'">&#8617; undo</button>'
+          :'<span style="font-family:monospace;color:'+cvColor2+';">'+cvFmt+'</span><button class="pcell-act cv-ovrd-btn" data-rid="'+r.id+'">edit</button>';
+        cvCellC='<td class="mn">'+cvDispC+'</td>';
+      }
+
+      // Action cell
+      var actionCellC;
+      if(c){
+        var ca=r.closeAction;
+        var tLbl=ca?(ca.action+(ca.type==='credit'?'\u00b7 Cr':ca.type==='debit'?'\u00b7 Dr':'\u00b7 $0')):'Closed';
+        var aPart=ca&&ca.amount>0?'<span class="'+(ca.type==='credit'?'closed-cr':'closed-dr')+'">'+(ca.type==='credit'?'+':'-')+'$'+ca.amount.toLocaleString()+'</span>':'<span class="closed-dt">$0</span>';
+        var dPart=ca&&ca.date?'<span class="closed-dt">'+ca.date+'</span>':'';
+        actionCellC='<div class="closed-action-cell"><div class="closed-action-line"><span class="badge bcl">'+tLbl+'</span>'+aPart+dPart+'</div><button class="reopen-btn" onclick="reopenPosition('+Q+r.id+Q+')">&#8617; Reopen</button></div>';
+      } else {
+        var lbl2=r.excelType==='Short Put'?'BTC':r.excelType==='Long Put'||r.excelType==='Long Call'?'STC':r.excelType==='Shares'?'Sell':'Close';
+        actionCellC='<button class="action-btn" onclick="openModal('+Q+r.id+Q+')">&#9940; '+lbl2+'</button>';
+      }
+
+      var soldC2=r.soldAmount!=null&&r.soldAmount!==0&&r.soldAmount!==''?parseFloat(r.soldAmount):null;
+      var netIncC2=soldC2!=null?(soldC2-(r.excelCost||0)):null;
+      var _rc=r.contracts||1;
+      var _rb2=_rc>1?'<span style="display:inline-flex;align-items:center;background:var(--blue);color:#fff;border-radius:4px;padding:0.05rem 0.32rem;font-size:0.58rem;font-weight:800;margin-left:4px;">'+_rc+'x</span>':'';
+      var assnReq2=r.excelType==='Short Put'&&r.strike>0&&!c?(r.strike*100*_rc):null;
+      var collVal2=null;
+      var isShortT2=r.excelType==='Short Put'||r.excelType==='Short Call';
+      if(isShortT2&&r.strike>0&&!c){
+        var rawCV2=stockPI!=null?(r.strike>stockPI?stockPI*100*_rc:r.strike*100*_rc):r.strike*100*_rc;
+        collVal2=-Math.abs(rawCV2);
+      }
+
+      // Spread info for this position
+      var pairedLP=spToLP[r.id]||null;
+      var isLPused=lpUsed[r.id]||false;
+      var isSPUT=r.excelType==='Short Put'||r.excelType==='Short Call';
+      var isLPUT=r.excelType==='Long Put'||r.excelType==='Long Call';
+
+      // Spread collateral
+      var spreadColDisplay='<span class="empty">\u2014</span>';
+      if(isSPUT){
+        var spC=pairedLP?calcSpreadCol(r,pairedLP):r.strike*100*_rc;
+        var isRetP=retirementPorts.has(r.portfolio||'');
+        if(isRetP){
+          spreadColDisplay='<span style="font-weight:800;font-family:monospace;color:#EF4444;">$'+spC.toLocaleString()+'</span>';
+        } else {
+          var isOver=spC<0,cc3=!pairedLP?'var(--red)':isOver?'var(--green)':'var(--purple)';
+          spreadColDisplay=isOver?'<span style="color:var(--green);font-size:0.62rem;">\u2212$'+Math.abs(spC).toLocaleString()+' (over)</span>':'<span style="font-family:monospace;font-weight:800;color:'+cc3+';">$'+spC.toLocaleString()+'</span>';
+        }
+      }
+
+      // Spread type badge
+      var spreadBadge='';
+      if(isSPUT){spreadBadge=pairedLP?'<span class="badge-spread">Spread</span>':'<span class="badge-naked">Naked</span>';}
+      else if(isLPUT&&!isLPused){spreadBadge='<span class="badge-indep">Indep</span>';}
+
+      // Flags
+      var flags2='';
+      if(isSPUT&&stockPI!=null&&r.strike>stockPI)flags2+=' <span title="Strike above stock" style="color:#EF4444;">&#128681;</span>';
+      if(isSPUT&&pairedLP&&r.strike>pairedLP.strike)flags2+=' <span title="SP above LP strike" style="color:#EF4444;">&#128681;</span>';
+
+      var portBadgeC='';
+      if(portHeader){var pk=r.portfolio||'lovelina';portBadgeC='<td><span style="font-size:0.62rem;font-weight:600;color:'+(portColors[pk]||'#888')+'">'+(portNames[pk]||pk)+'</span></td>';}
+
+      var rowBg=isLPUT?'background:rgba(239,246,255,0.4);':'background:#FEFEFE;';
+      html+='<tr class="'+childCls+'" style="'+rowBg+'">';
+      html+='<td class="mc" style="padding-left:1.4rem;"><span style="color:var(--text3);font-size:0.6rem;margin-right:4px;">&#8627;</span><span class="chip"><span class="tk-dot-sm" style="background:'+(DC[r.ticker]||'#888')+'"></span>'+r.ticker+'</span>'+_rb2+'</td>';
+      if(portHeader)html+=portBadgeC;
+      // For LPUT/LCALL: show minimal in common cols, full data in LP section
+      if(isLPUT){
+        // LPUT: all common cols blank — data lives in LONG LEG section only
+        html+='<td class="empty">—</td>'; // DT
+        html+='<td class="empty">—</td>'; // Cost
+        html+='<td class="empty">—</td>'; // Sold
+        html+='<td class="empty">—</td>'; // Net
+        html+='<td class="empty">—</td>'; // Portf.Val
+        html+='<td class="empty">—</td>'; // Price
+        html+='<td><span class="badge '+bct(r.excelType)+'" style="opacity:0.7;">'+(typeShort[r.excelType]||r.excelType)+'</span> '+spreadBadge+'</td>'; // Type only
+        html+='<td class="empty">—</td>'; // Strike
+        html+='<td class="empty">—</td>'; // Assn
+        html+='<td class="empty">—</td>'; // Coll.Val
+        html+='<td class="empty">—</td>'; // Col.Blk
+        html+='<td class="empty">—</td>'; // Col.Gap
+      } else {
+        html+='<td style="font-size:0.72rem;">'+(r.openDate||'--')+'</td>';
+        html+='<td class="mn">'+(r.excelCost?fmtM(r.excelCost):'--')+'</td>';
+        html+='<td class="mn" style="color:var(--blue);">'+(soldC2!=null?fmtM(soldC2):'--')+'</td>';
+        html+='<td class="mn" style="color:'+(netIncC2!=null?(netIncC2>=0?'var(--green)':'var(--red)'):'var(--text3)')+'">'+(netIncC2!=null?fmtMS(netIncC2):'--')+'</td>';
+        html+=cvCellC;
+        html+='<td style="min-width:80px;"><div class="pcell">'+priceCellC+'</div></td>';
+        html+='<td><span class="badge '+bct(r.excelType)+'" style="opacity:0.7;">'+(typeShort[r.excelType]||r.excelType)+'</span> '+spreadBadge+'</td>';
+        html+='<td class="mn">'+(r.strike>0?'$'+r.strike+flags2:'--')+'</td>';
+        html+='<td class="mn" style="color:var(--red);">'+(assnReq2!=null?'$'+assnReq2.toLocaleString():'--')+'</td>';
+        html+='<td class="mn" style="color:var(--red);">'+(collVal2!=null?'-$'+Math.abs(collVal2).toLocaleString():'--')+'</td>';
+        html+='<td class="mn">$'+cbVal.toLocaleString()+'</td>';
+        html+='<td class="mn" style="color:'+gapColor+';font-weight:700;">'+(cbGap>=0?'+':'')+cbGap.toLocaleString()+'</td>';
+      }
+
+      // SPUT section
+      if(isSPUT){
+        var spCtr2=r.contracts||1;
+        html+='<td class="mn sp-cell" style="color:var(--red);font-weight:700;">$'+r.strike+'<span style="display:inline-flex;align-items:center;background:#DC2626;color:#fff;border-radius:4px;padding:0.05rem 0.25rem;font-size:0.58rem;font-weight:800;margin-left:3px;">'+spCtr2+'x</span>'+flags2+'</td>';
+        html+='<td class="mn sp-cell '+(ec(r.expiryDate))+'">'+fmtExpiry(r.expiryDate)+'</td>';
+        html+='<td class="sp-cell">'+spreadColDisplay+'</td>';
+        html+='<td class="div-col" style="width:50px;">&#9664;&#9654;</td>';
+        if(pairedLP){
+          var lpCtr2=pairedLP.contracts||1;
+          html+='<td class="mn lp-cell" style="color:var(--blue);font-weight:700;">$'+pairedLP.strike+'<span style="display:inline-flex;align-items:center;background:#2563EB;color:#fff;border-radius:4px;padding:0.05rem 0.25rem;font-size:0.58rem;font-weight:800;margin-left:3px;">'+lpCtr2+'x</span></td>';
+          html+='<td class="mn lp-cell '+(ec(pairedLP.expiryDate))+'">'+fmtExpiry(pairedLP.expiryDate)+'</td>';
+          html+='<td class="mn lp-cell">'+(pairedLP.excelCost?fmtM(pairedLP.excelCost):'--')+'</td>';
+        } else {
+          html+='<td class="lp-cell empty">\u2014</td><td class="lp-cell empty">\u2014</td><td class="lp-cell empty">\u2014</td>';
+        }
+      } else if(isLPUT){
+        // LP row: blank on SPUT side, data on LP side
+        html+='<td class="sp-cell empty">\u2014</td><td class="sp-cell empty">\u2014</td><td class="sp-cell empty">\u2014</td>';
+        html+='<td class="div-col" style="width:50px;">&#9664;&#9654;</td>';
+        var lpCtr3=r.contracts||1;
+        html+='<td class="mn lp-cell" style="color:var(--blue);font-weight:700;">$'+r.strike+'<span style="display:inline-flex;align-items:center;background:#2563EB;color:#fff;border-radius:4px;padding:0.05rem 0.25rem;font-size:0.58rem;font-weight:800;margin-left:3px;">'+lpCtr3+'x</span></td>';
+        html+='<td class="mn lp-cell '+(ec(r.expiryDate))+'">'+fmtExpiry(r.expiryDate)+'</td>';
+        html+='<td class="mn lp-cell">'+(r.excelCost?fmtM(r.excelCost):'--')+'</td>';
+      } else {
+        // Shares or other: spans
+        html+='<td class="sp-cell empty" colspan="3">\u2014</td>';
+        html+='<td class="div-col" style="width:50px;">&#9664;&#9654;</td>';
+        html+='<td class="lp-cell empty" colspan="3">\u2014</td>';
+      }
+      html+='<td class="mn">'+spreadColDisplay+'</td>';
+      html+='<td style="text-align:center;white-space:nowrap;"><button class="row-edit-btn" onclick="openEditModal('+Q+r.id+Q+')">&#9998;</button></td>';
+      html+='<td style="text-align:center;"><button class="copy-btn" onclick="copyRow('+Q+r.id+Q+')">&#10063;</button></td>';
+      html+='<td style="text-align:center;"><button class="del-btn" onclick="deleteRowById('+Q+r.id+Q+')">&#128465;</button></td>';
+      html+='</tr>';
+    });
+  });
+
+  var phdr=portHeader?'<th style="color:rgba(255,255,255,0.7);">Port.</th>':'';
+  // Column groups: Common | Position detail | SPUT | divider | LPUT | Spread | Actions
+  var thead='<thead>'
+    +'<tr style="background:#111;">'
+    +'<th colspan="'+(portHeader?2:1)+'" style="background:#222;border-bottom:2px solid #333;">Ticker</th>'
+    +'<th colspan="9" style="background:rgba(30,30,30,1);border-bottom:2px solid #444;text-align:center;font-size:0.58rem;letter-spacing:0.1em;">&#9472; POSITION DETAILS &#9472;</th>'
+    +'<th colspan="3" class="sp-hdr" style="text-align:center;font-size:0.58rem;letter-spacing:0.1em;">&#9472; SHORT LEG &#9472;</th>'
+    +'<th class="div-hdr" style="width:50px;"></th>'
+    +'<th colspan="3" class="lp-hdr" style="text-align:center;font-size:0.58rem;letter-spacing:0.1em;">&#9472; LONG LEG &#9472;</th>'
+    +'<th colspan="4" style="background:#222;border-bottom:2px solid #333;text-align:center;font-size:0.58rem;letter-spacing:0.1em;">&#9472; ACTIONS &#9472;</th>'
+    +'</tr>'
+    +'<tr>'
+    +'<th>Ticker</th>'+phdr
+    +'<th>DT</th><th>Cost</th><th>Sold</th><th>Net</th><th>Portf.Val</th><th>Price</th><th>Type</th><th>Strike</th><th style="color:#FCA5A5;">Assn.</th><th style="color:#FDBA74;">Coll.Val</th><th style="color:#FCD34D;">Col.Blk</th><th style="color:#6EE7B7;">Col.Gap</th>'
+    +'<th class="sp-hdr">SP Strike</th><th class="sp-hdr">SP Expiry</th><th class="sp-hdr">Collateral</th>'
+    +'<th class="div-hdr">&#9664;&#9654;</th>'
+    +'<th class="lp-hdr">LP Strike</th><th class="lp-hdr">LP Expiry</th><th class="lp-hdr">LP Cost</th>'
+    +'<th>Spread Col.</th><th></th><th></th><th></th>'
+    +'</tr>'
+    +'</thead>';
+
+  var emptyState='<tr><td colspan="'+(portHeader?25:24)+'" class="ec" style="padding:2rem;text-align:center;color:var(--text3);">No positions match filters.</td></tr>';
+  return '<div class="st-wrap" style="margin-bottom:0.85rem;"><table style="min-width:1400px;">'+thead+'<tbody>'+(html||emptyState)+'</tbody></table></div>';
+}
+
+function collatDisplayGroup(rows){
+  // Collateral display for group summary — sum of spread collateral for SPUTs
+  var total=rows.filter(function(r){return(r.excelType==='Short Put'||r.excelType==='Short Call')&&!isCl(r);}).reduce(function(s,r){return s+r.strike*100*(r.contracts||1);},0);
+  return total>0?'<span style="font-family:monospace;font-weight:700;color:var(--red);">$'+total.toLocaleString()+'</span>':'<span class="empty">\u2014</span>';
+}
+
 // ── MAIN RENDER ───────────────────────────────────────────────────────────────
 function rMain(){
   var el=document.getElementById('mc');
@@ -2255,6 +2847,11 @@ function rMain(){
     fetchAndUpdateLive([...new Set(positions.map(function(r){return r.ticker;}))].sort());
   }else if(activeView==='spreads'){
     el.innerHTML='<div class="controls-row" style="justify-content:flex-end;"><button class="upload-csv-btn" onclick="toggleUpload()">&#8593; Upload CSV</button><button class="template-dl-btn" onclick="dlTemplate()">&#11015; Template</button></div>'+rSpreadsView(data);
+  }else if(activeView==='combined'){
+    var fd2=getAppliedFilters(dispData),sf2=cs(fd2,isRet);
+    el.innerHTML=rFilterBar(data)+rFiltersRow(data)+rSum(sf2)+rTableControls()+rCombinedView(fd2);
+    var sel2=document.getElementById('income-filter-sel');
+    if(sel2&&sel2.value!==incomeFilter)sel2.value=incomeFilter;
   }else{
     var fd=getAppliedFilters(dispData),sf=cs(fd,isRet);
     el.innerHTML=data.length===0
@@ -2272,7 +2869,7 @@ function attachEvents(){
       e.stopPropagation();var t=item.dataset.ddticker;
       if(t==='ALL'){selectedTickers=new Set(['ALL']);}
       else{selectedTickers.delete('ALL');if(selectedTickers.has(t))selectedTickers.delete(t);else selectedTickers.add(t);if(!selectedTickers.size)selectedTickers=new Set(['ALL']);}
-      rMain();setTimeout(function(){var d=document.getElementById('tkdrop');if(d){d.classList.add('open');dropdownOpen=true;}},10);
+      rMain();setTimeout(function(){var d=document.getElementById('tkdrop');if(d){d.classList.add('open');dropdownOpen=true;}if(typeof tkSearch!=='undefined'&&tkSearch){setTkSearch(tkSearch);}var s=document.getElementById('tk-search-inp');if(s)s.focus();},10);
     });
   });
   document.querySelectorAll('.sel-tag-x').forEach(function(x){x.addEventListener('click',function(e){e.stopPropagation();selectedTickers.delete(x.dataset.xticker);if(!selectedTickers.size)selectedTickers=new Set(['ALL']);rMain();});});
@@ -2281,11 +2878,26 @@ function attachEvents(){
   document.querySelectorAll('.soc-tab').forEach(function(b){b.addEventListener('click',function(){if(b.dataset.soc)spreadsOcFilter=b.dataset.soc;if(b.dataset.expf)spreadsExpFilter=b.dataset.expf;if(b.dataset.stypef)spreadsTypeFilter=b.dataset.stypef;if(b.dataset.sspreadf)spreadsSpreadFilter=b.dataset.sspreadf;if(b.dataset.sitmf)spreadsItmFilter=!spreadsItmFilter;rMain();});});
   document.querySelectorAll('.act-tab').forEach(function(b){b.addEventListener('click',function(){actFilter=b.dataset.actf;actPage=0;rMain();});});
   var ep=document.getElementById('exp-pill');if(ep)ep.addEventListener('click',function(){expiringOnly=!expiringOnly;rMain();});
+  document.querySelectorAll('.cv-ovrd-btn').forEach(function(btn){btn.addEventListener('click',function(e){e.stopPropagation();var id=btn.dataset.rid;if(id)ieStart(id,'cvOverride');});});
+  document.querySelectorAll('.cv-undo-btn').forEach(function(btn){btn.addEventListener('click',function(e){e.stopPropagation();var id=btn.dataset.rid;var rx=positions.find(function(p){return p.id===id;});if(rx){delete rx.cvOverride;savePositions();rMain();}});});
+  document.querySelectorAll('.cv-save-btn').forEach(function(btn){btn.addEventListener('click',function(e){e.stopPropagation();var id=btn.dataset.rid;var inp=document.getElementById('ie_'+id+'_cvOverride');if(inp){var rx=positions.find(function(p){return p.id===id;});if(rx){var v=parseFloat(inp.value);if(!isNaN(v)){rx.cvOverride=(rx.excelType==='Short Put'||rx.excelType==='Short Call')?-Math.abs(v):v;}else{delete rx.cvOverride;}savePositions();}}editCell=null;rMain();});});
+  document.querySelectorAll('.cv-cancel-btn').forEach(function(btn){btn.addEventListener('click',function(e){e.stopPropagation();editCell=null;rMain();});});
+  document.querySelectorAll('.cv-override-input').forEach(function(inp){inp.addEventListener('keydown',function(e){if(e.key==='Enter'){var s=document.querySelector('.cv-save-btn[data-rid="'+inp.dataset.rid+'"]');if(s)s.click();}if(e.key==='Escape'){editCell=null;rMain();}});setTimeout(function(){inp.focus();inp.select();},20);});
+  // ── COST inline edit listeners ─────────────────────────────────────────────
+  document.querySelectorAll('.cost-edit-btn').forEach(function(btn){btn.addEventListener('click',function(e){e.stopPropagation();var id=btn.dataset.rid;if(id)ieStart(id,'excelCost');});});
+  document.querySelectorAll('.cost-save-btn').forEach(function(btn){btn.addEventListener('click',function(e){e.stopPropagation();var id=btn.dataset.rid;var inp=document.getElementById('ie_'+id+'_excelCost');if(inp){var rx=positions.find(function(p){return p.id===id;});if(rx){var v=parseFloat(inp.value);rx.excelCost=isNaN(v)?0:v;}savePositions();}editCell=null;rMain();});});
+  document.querySelectorAll('.cost-cancel-btn').forEach(function(btn){btn.addEventListener('click',function(e){e.stopPropagation();editCell=null;rMain();});});
+  document.querySelectorAll('.cost-edit-input').forEach(function(inp){inp.addEventListener('keydown',function(e){if(e.key==='Enter'){var s=document.querySelector('.cost-save-btn[data-rid="'+inp.dataset.rid+'"]');if(s)s.click();}if(e.key==='Escape'){editCell=null;rMain();}});setTimeout(function(){inp.focus();inp.select();},20);});
+  // ── SOLD inline edit listeners ─────────────────────────────────────────────
+  document.querySelectorAll('.sold-edit-btn').forEach(function(btn){btn.addEventListener('click',function(e){e.stopPropagation();var id=btn.dataset.rid;if(id)ieStart(id,'soldAmount');});});
+  document.querySelectorAll('.sold-save-btn').forEach(function(btn){btn.addEventListener('click',function(e){e.stopPropagation();var id=btn.dataset.rid;var inp=document.getElementById('ie_'+id+'_soldAmount');if(inp){var rx=positions.find(function(p){return p.id===id;});if(rx){var v=parseFloat(inp.value);rx.soldAmount=isNaN(v)?null:v;}savePositions();}editCell=null;rMain();});});
+  document.querySelectorAll('.sold-cancel-btn').forEach(function(btn){btn.addEventListener('click',function(e){e.stopPropagation();editCell=null;rMain();});});
+  document.querySelectorAll('.sold-edit-input').forEach(function(inp){inp.addEventListener('keydown',function(e){if(e.key==='Enter'){var s=document.querySelector('.sold-save-btn[data-rid="'+inp.dataset.rid+'"]');if(s)s.click();}if(e.key==='Escape'){editCell=null;rMain();}});setTimeout(function(){inp.focus();inp.select();},20);});
   var uploadEl=document.getElementById('upload-modal-root');
   if(uploadEl)uploadEl.innerHTML=rUploadPanel();
   attachUploadEvents();
 }
-function toggleDropdown(){dropdownOpen=!dropdownOpen;var d=document.getElementById('tkdrop');if(d)d.classList.toggle('open',dropdownOpen);}
+function toggleDropdown(){dropdownOpen=!dropdownOpen;var d=document.getElementById('tkdrop');if(d)d.classList.toggle('open',dropdownOpen);if(dropdownOpen){setTimeout(function(){var s=document.getElementById('tk-search-inp');if(s)s.focus();},40);}else{tkSearch='';}}
 document.addEventListener('click',function(e){if(!e.target.closest('#tkwrap')){dropdownOpen=false;var d=document.getElementById('tkdrop');if(d)d.classList.remove('open');}});
 function startEdit(id){editingPrice=id;rMain();setTimeout(function(){var i=document.getElementById('pi_'+id);if(i){i.focus();i.select();}},50);}
 function cancelEdit(){editingPrice=null;rMain();}
@@ -2298,11 +2910,14 @@ function clearManualPrice(ticker){setTickerPrice(ticker,null);rMain();}
 function copyRow(id){
   var r=positions.find(function(p){return p.id===id;});if(!r)return;
   var uid=Math.random().toString(36).slice(2,10);
-  var copy=Object.assign({},r,{id:uid,closed:false,closeAction:null,rolledOver:false});
+  var copy=Object.assign({},r,{id:uid,closed:false,closeAction:null,rolledOver:false,_noMerge:true});
   var idx=positions.findIndex(function(p){return p.id===id;});
-  positions.splice(idx+1,0,copy);savePositions();rMain();
+  positions.splice(idx+1,0,copy);
+  // Auto-expand the group so copied row is visible immediately
+  expandedGroups.add(r.ticker);
+  savePositions();rMain();
 }
-function ieStart(id,field){editCell={id:id,field:field};rMain();setTimeout(function(){var i=document.getElementById('ie_'+id+'_'+field);if(i){i.focus();i.select();}},30);}
+function ieStart(id,field){editCell={id:id,field:field};var rx=positions.find(function(p){return p.id===id;});if(rx&&rx.ticker)expandedGroups.add(rx.ticker);rMain();setTimeout(function(){var i=document.getElementById('ie_'+id+'_'+field);if(i){i.focus();i.select();}},30);}
 function ieSave(id,field){
   var i=document.getElementById('ie_'+id+'_'+field);
   if(i){
@@ -2328,6 +2943,8 @@ function ieKey(e,id,field){if(e.key==='Enter')ieSave(id,field);if(e.key==='Escap
 function markRoll(id){var r=positions.find(function(p){return p.id===id;});if(r)r.rolledOver=true;savePositions();rMain();}
 function undoRoll(id){var r=positions.find(function(p){return p.id===id;});if(r)r.rolledOver=false;savePositions();rMain();}
 function deleteRow(id){if(confirm('Delete this position?')){positions=positions.filter(function(p){return p.id!==id;});savePositions();rMain();}}
+function deleteRows(ids){if(!ids||!ids.length)return;var msg=ids.length>1?'Delete '+ids.length+' positions?':'Delete this position?';if(confirm(msg)){var s=new Set(ids);positions=positions.filter(function(p){return!s.has(p.id);});savePositions();rMain();}}
+function deleteRowById(id){var meta=window._rowMeta&&window._rowMeta[id];deleteRows(meta?meta.ids:[id]);}
 function deleteAll(){var data=gd(ap,as);var vis=getAppliedFilters(data).map(function(r){return r.id;});if(!vis.length)return;if(confirm('Delete '+vis.length+' positions?')){positions=positions.filter(function(p){return vis.indexOf(p.id)<0;});savePositions();rMain();}}
 function openPricesModal(){
   var allT=[...new Set(positions.map(function(r){return r.ticker;}))].sort();
@@ -2494,7 +3111,7 @@ window.openModal=openModal;window.closeModal=closeModal;window.confirmModal=conf
 window.reopenPosition=reopenPosition;window.startEdit=startEdit;window.cancelEdit=cancelEdit;
 window.savePrice=savePrice;window.clearManualPrice=clearManualPrice;
 window.copyRow=copyRow;window.markRoll=markRoll;window.undoRoll=undoRoll;
-window.deleteRow=deleteRow;window.deleteAll=deleteAll;
+window.deleteRow=deleteRow;window.deleteRows=deleteRows;window.deleteRowById=deleteRowById;window.deleteAll=deleteAll;
 window.toggleUpload=toggleUpload;window.cancelUpload=cancelUpload;window.dlTemplate=dlTemplate;window.doImport=doImport;
 window.openAddModal=openAddModal;window.closeAddModal=closeAddModal;window.saveAddModal=saveAddModal;window.openEditModal=openEditModal;
 window.setAF=setAF;window.updateGross=updateGross;
@@ -2574,9 +3191,7 @@ autoExpirePositions();rBc();rMain();
     resizeTimer=setTimeout(applyMobileTopbar,120);
   });
 
-  // Prevent double-tap zoom on nav tabs only (iOS)
-  // Buttons with inline onclick handlers work on their own — intercepting them
-  // with preventDefault causes double-fire or swallowing of the click event.
+  // Prevent double-tap zoom on buttons/tabs (iOS)
   document.addEventListener('touchend',function(e){
     var t=e.target;
     if(t.classList.contains('port-tab')||t.classList.contains('sub-tab')||t.classList.contains('view-tab')){
