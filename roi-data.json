@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-19T04:23:04.130Z",
+  "savedAt": "2026-04-19T04:25:00.719Z",
   "positions": [
     {
       "id": "nnjdag6w",
@@ -29890,6 +29890,50 @@
       "closeAction": null,
       "_noMerge": true,
       "cvOverride": -80
+    },
+    {
+      "id": "nevpoemd",
+      "portfolio": "joint",
+      "ticker": "CDE",
+      "excelType": "Long Put",
+      "strike": 17,
+      "expiryDate": "5/1",
+      "openDate": "4/19/26",
+      "contracts": 1,
+      "excelCost": 0,
+      "excelIncome": 0,
+      "excelGrossValue": 15,
+      "excelCurrentValue": 15,
+      "excelProfit": 0,
+      "closed": false,
+      "notes": "",
+      "manualPrice": null,
+      "rolledOver": false,
+      "closeAction": null,
+      "_noMerge": true,
+      "cvOverride": -15
+    },
+    {
+      "id": "m17szasg",
+      "portfolio": "joint",
+      "ticker": "CDE",
+      "excelType": "Long Put",
+      "strike": 17,
+      "expiryDate": "5/1",
+      "openDate": "4/19/26",
+      "contracts": 2,
+      "excelCost": 0,
+      "excelIncome": 0,
+      "excelGrossValue": 106,
+      "excelCurrentValue": 106,
+      "excelProfit": 0,
+      "closed": false,
+      "notes": "",
+      "manualPrice": null,
+      "rolledOver": false,
+      "closeAction": null,
+      "_noMerge": true,
+      "cvOverride": 106
     }
   ],
   "tickerPrices": {
