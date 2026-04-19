@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-19T02:31:25.681Z",
+  "savedAt": "2026-04-19T03:05:06.365Z",
   "positions": [
     {
       "id": "nnjdag6w",
@@ -29728,7 +29728,7 @@
       "excelProfit": 81,
       "excelGrossValue": 81,
       "excelCurrentValue": 81,
-      "excelCost": 0,
+      "excelCost": 72,
       "excelType": "Short Put",
       "closed": false,
       "id": "j1",
