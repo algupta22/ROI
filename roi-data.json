@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-19T04:13:30.644Z",
+  "savedAt": "2026-04-19T04:16:55.931Z",
   "positions": [
     {
       "id": "nnjdag6w",
@@ -29717,6 +29717,49 @@
       "soldAmount": 2983,
       "_noMerge": true,
       "cvOverride": -2285
+    },
+    {
+      "id": "r3z9an8x",
+      "portfolio": "joint",
+      "ticker": "BBAI",
+      "excelType": "Long Put",
+      "strike": 2,
+      "expiryDate": "6/18",
+      "openDate": "4/19/26",
+      "contracts": 2,
+      "excelCost": 0,
+      "excelIncome": 0,
+      "excelGrossValue": 12,
+      "excelCurrentValue": 6,
+      "excelProfit": 0,
+      "closed": false,
+      "notes": "",
+      "manualPrice": null,
+      "rolledOver": false,
+      "closeAction": null,
+      "cvOverride": 6
+    },
+    {
+      "id": "bpl1o5q0",
+      "portfolio": "joint",
+      "ticker": "BBAI",
+      "excelType": "Long Put",
+      "strike": 4,
+      "expiryDate": "6/18",
+      "openDate": "4/19/26",
+      "contracts": 4,
+      "excelCost": 0,
+      "excelIncome": 0,
+      "excelGrossValue": 136,
+      "excelCurrentValue": 136,
+      "excelProfit": 0,
+      "closed": false,
+      "notes": "",
+      "manualPrice": null,
+      "rolledOver": false,
+      "closeAction": null,
+      "_noMerge": true,
+      "cvOverride": 136
     }
   ],
   "tickerPrices": {
