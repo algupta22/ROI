@@ -110,15 +110,15 @@ body{background:var(--bg);min-height:100vh;font-family:'Segoe UI',system-ui,sans
 .del-all-btn:hover{background:var(--red-bg);color:var(--red);}
 /* TABLE */
 .table-wrap{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;overflow-x:auto;margin-bottom:0.85rem;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
-table{width:100%;border-collapse:collapse;min-width:900px;}
+table{width:100%;border-collapse:collapse;min-width:700px;}
 thead{background:var(--black);}
-th{padding:0.5rem 0.45rem;font-size:0.58rem;font-weight:700;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:0.05em;text-align:left;white-space:nowrap;cursor:pointer;user-select:none;}
+th{padding:0.4rem 0.22rem;font-size:0.52rem;font-weight:700;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:0.03em;text-align:left;white-space:nowrap;cursor:pointer;user-select:none;}
 th:hover{color:#EF4444;}
 tbody tr{border-bottom:1px solid var(--border);transition:background 0.1s;}
 tbody tr:last-child{border-bottom:none;}tbody tr:hover{background:#FAFAFA;}
 tr.cr{opacity:0.4;}tr.expiring-soon{background:#FEF2F2!important;}tr.rolled{background:#F5F3FF!important;opacity:0.75;}
-td{padding:0.4rem 0.45rem;font-size:0.7rem;color:var(--text2);white-space:nowrap;}
-td.mc{color:var(--black);font-weight:700;}td.mn{font-family:monospace;font-size:0.71rem;}
+td{padding:0.28rem 0.22rem;font-size:0.67rem;color:var(--text2);white-space:nowrap;}
+td.mc{color:var(--black);font-weight:700;}td.mn{font-family:monospace;font-size:0.67rem;}
 .badge{display:inline-flex;align-items:center;padding:0.1rem 0.42rem;border-radius:4px;font-size:0.58rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;}
 .bsp{background:var(--red-bg);color:var(--red);}.blp{background:var(--blue-bg);color:var(--blue);}
 .blc{background:var(--green-bg);color:var(--green);}.bsh{background:var(--yellow-bg);color:var(--yellow);}
@@ -333,9 +333,9 @@ td.mc{color:var(--black);font-weight:700;}td.mn{font-family:monospace;font-size:
       radial-gradient(farthest-side at right,rgba(0,0,0,0.12),transparent) right center;
     background-repeat:no-repeat;background-attachment:local,local,scroll,scroll;
   }
-  table{min-width:900px;}
-  th{padding:0.48rem 0.5rem;font-size:0.56rem;}
-  td{padding:0.4rem 0.5rem;font-size:0.68rem;}
+  table{min-width:700px;}
+  th{padding:0.45rem 0.28rem;font-size:0.52rem;}
+  td{padding:0.38rem 0.28rem;font-size:0.67rem;}
 
   /* Spreads table */
   .st-wrap table{min-width:780px;}
@@ -602,106 +602,18 @@ td.mc{color:var(--black);font-weight:700;}td.mn{font-family:monospace;font-size:
 
 var DC={PLTR:'#7C3AED',MSFT:'#2563EB',GOOGL:'#D97706',NVDX:'#059669',SOFI:'#DB2877',TSLL:'#EA580C',NVTS:'#0891B2',METU:'#DC2626',QQQ:'#0891B2',HOOD:'#EA580C',ROBN:'#7C3AED',NOK:'#2563EB',HOOZ:'#DC2626',TSLZ:'#059669'};
 
-// ── SEED DATA (used only on very first load ever) ──────────────────────────────
-var SEED=[
-{portfolio:"lovelina",ticker:"GOOGL",strike:295,expiryDate:"4/6/26",openDate:"3/31/26",excelIncome:218,excelProfit:218,excelGrossValue:218,excelCurrentValue:218,excelCost:0,excelType:"Short Put",closed:true,id:"a1",manualPrice:null,rolledOver:false},
-{portfolio:"lovelina",ticker:"MSFT",strike:370,expiryDate:"04/08/26",openDate:"04/06/26",excelIncome:231,excelProfit:231,excelGrossValue:231,excelCurrentValue:231,excelCost:0,excelType:"Short Put",closed:false,id:"a2",manualPrice:null,rolledOver:false},
-{portfolio:"lovelina",ticker:"METU",strike:0,expiryDate:"",openDate:"",excelCost:3910,excelProfit:-1643,excelGrossValue:2267,excelCurrentValue:2267,excelType:"Shares",id:"a3",manualPrice:39.1,rolledOver:false},
-{portfolio:"lovelina",ticker:"NVDX",strike:15,expiryDate:"5/15/26",openDate:"",excelCost:195,excelProfit:8,excelGrossValue:203,excelCurrentValue:183,excelType:"Long Put",id:"a4",manualPrice:null,rolledOver:false},
-{portfolio:"lovelina",ticker:"MSFT",strike:370,expiryDate:"4/6/26",openDate:"",excelIncome:227,excelProfit:227,excelGrossValue:227,excelCurrentValue:227,excelCost:0,excelType:"Short Put",closed:true,id:"a5",manualPrice:null,rolledOver:false},
-{portfolio:"lovelina",ticker:"MSFT",strike:375,expiryDate:"5/15/26",openDate:"",excelCost:1837,excelProfit:0,excelGrossValue:1837,excelCurrentValue:1837,excelType:"Long Put",id:"a6",manualPrice:null,rolledOver:false},
-{portfolio:"lovelina",ticker:"GOOGL",strike:295,expiryDate:"04/08/26",openDate:"04/06/26",excelIncome:295,excelProfit:295,excelGrossValue:295,excelCurrentValue:295,excelCost:0,excelType:"Short Put",closed:false,id:"a7",manualPrice:null,rolledOver:false},
-{portfolio:"lovelina",ticker:"GOOGL",strike:300,expiryDate:"5/15/26",openDate:"",excelCost:1620,excelProfit:0,excelGrossValue:1620,excelCurrentValue:1620,excelType:"Long Put",id:"a8",manualPrice:null,rolledOver:false},
-{portfolio:"lovelina",ticker:"NVDX",strike:15.43,expiryDate:"6/18/26",openDate:"",excelCost:340,excelProfit:80,excelGrossValue:420,excelCurrentValue:285,excelType:"Long Put",id:"a9",manualPrice:null,rolledOver:false},
-{portfolio:"lovelina",ticker:"NVDX",strike:10.43,expiryDate:"1/15/27",openDate:"",excelCost:750,excelProfit:-185,excelGrossValue:565,excelCurrentValue:565,excelType:"Long Call",id:"a10",manualPrice:null,rolledOver:false},
-{portfolio:"lovelina",ticker:"PLTR",strike:95,expiryDate:"3/19/27",openDate:"",excelCost:7700,excelIncome:1507,excelProfit:372,excelGrossValue:8072,excelCurrentValue:6565,excelType:"Long Call",id:"a11",manualPrice:null,rolledOver:false},
-{portfolio:"lovelina",ticker:"PLTR",strike:110,expiryDate:"1/15/27",openDate:"",excelCost:5425,excelIncome:1530,excelProfit:1373,excelGrossValue:6798,excelCurrentValue:5268,excelType:"Long Call",id:"a12",manualPrice:null,rolledOver:false},
-{portfolio:"lovelina",ticker:"PLTR",strike:145,expiryDate:"5/15/26",openDate:"",excelCost:1370,excelProfit:-375,excelGrossValue:995,excelCurrentValue:995,excelType:"Long Put",id:"a13",manualPrice:null,rolledOver:false},
-{portfolio:"lovelina",ticker:"PLTR",strike:135,expiryDate:"5/8/26",openDate:"",excelCost:1035,excelProfit:-490,excelGrossValue:545,excelCurrentValue:545,excelType:"Long Put",id:"a14",manualPrice:null,rolledOver:false},
-{portfolio:"lovelina",ticker:"PLTR",strike:135,expiryDate:"5/1/26",openDate:"",excelCost:440,excelProfit:-115,excelGrossValue:325,excelCurrentValue:325,excelType:"Long Put",id:"a15",manualPrice:null,rolledOver:false},
-{portfolio:"lovelina",ticker:"PLTR",strike:140,expiryDate:"4/10/26",openDate:"",excelIncome:226,excelProfit:226,excelGrossValue:226,excelCurrentValue:226,excelCost:0,excelType:"Short Put",id:"a16",manualPrice:null,rolledOver:false},
-{portfolio:"lovelina",ticker:"PLTR",strike:139,expiryDate:"4/10/26",openDate:"",excelIncome:103,excelProfit:103,excelGrossValue:103,excelCurrentValue:103,excelCost:0,excelType:"Short Put",id:"a17",manualPrice:null,rolledOver:false},
-{portfolio:"lovelina",ticker:"TSLL",strike:13,expiryDate:"5/15/26",openDate:"",excelCost:168,excelProfit:63,excelGrossValue:231,excelCurrentValue:231,excelType:"Long Put",id:"a18",manualPrice:null,rolledOver:false},
-{portfolio:"lovelina",ticker:"TSLL",strike:0,expiryDate:"",openDate:"",excelCost:1200,excelProfit:-46,excelGrossValue:1154,excelCurrentValue:1154,excelType:"Shares",id:"a19",manualPrice:12,rolledOver:false},
-{portfolio:"lovelina",ticker:"NVTS",strike:0,expiryDate:"",openDate:"",excelCost:1786,excelProfit:-31,excelGrossValue:1755,excelCurrentValue:1755,excelType:"Shares",id:"a20",manualPrice:8,rolledOver:false},
-{portfolio:"lovelina",ticker:"NVTS",strike:8,expiryDate:"4/10/26",openDate:"",excelIncome:59,excelProfit:59,excelGrossValue:59,excelCurrentValue:59,excelCost:0,excelType:"Short Put",id:"a21",manualPrice:null,rolledOver:false},
-{portfolio:"lovelina",ticker:"NVTS",strike:8,expiryDate:"4/10/26",openDate:"",excelIncome:26,excelProfit:26,excelGrossValue:26,excelCurrentValue:26,excelCost:0,excelType:"Short Put",id:"a22",manualPrice:null,rolledOver:false},
-{portfolio:"lovelina",ticker:"NVTS",strike:8.5,expiryDate:"5/8/26",openDate:"",excelCost:144,excelProfit:-45,excelGrossValue:99,excelCurrentValue:99,excelType:"Long Put",id:"a23",manualPrice:null,rolledOver:false},
-{portfolio:"lovelina",ticker:"NVTS",strike:8.5,expiryDate:"5/8/26",openDate:"",excelCost:144,excelProfit:-45,excelGrossValue:99,excelCurrentValue:99,excelType:"Long Put",id:"a24",manualPrice:null,rolledOver:false},
-{portfolio:"lovelina",ticker:"SOFI",strike:12,expiryDate:"1/15/27",openDate:"",excelCost:780,excelProfit:-182,excelGrossValue:598,excelCurrentValue:598,excelType:"Long Call",id:"a25",manualPrice:null,rolledOver:false},
-{portfolio:"lovelina",ticker:"SOFI",strike:12,expiryDate:"1/15/27",openDate:"",excelCost:780,excelProfit:-182,excelGrossValue:598,excelCurrentValue:598,excelType:"Long Call",id:"a26",manualPrice:null,rolledOver:false},
-{portfolio:"lovelina",ticker:"SOFI",strike:12,expiryDate:"1/15/27",openDate:"",excelCost:780,excelProfit:-182,excelGrossValue:598,excelCurrentValue:598,excelType:"Long Call",id:"a27",manualPrice:null,rolledOver:false},
-{portfolio:"lovelina",ticker:"SOFI",strike:18,expiryDate:"5/15/26",openDate:"",excelCost:218,excelProfit:52,excelGrossValue:270,excelCurrentValue:270,excelType:"Long Put",id:"a28",manualPrice:null,rolledOver:false},
-{portfolio:"lovelina",ticker:"SOFI",strike:17,expiryDate:"5/15/26",openDate:"",excelCost:218,excelProfit:-17,excelGrossValue:201,excelCurrentValue:201,excelType:"Long Put",id:"a29",manualPrice:null,rolledOver:false},
-{portfolio:"lovelina",ticker:"SOFI",strike:17,expiryDate:"5/15/26",openDate:"",excelCost:218,excelProfit:-17,excelGrossValue:201,excelCurrentValue:201,excelType:"Long Put",id:"a30",manualPrice:null,rolledOver:false},
-{portfolio:"lovelina",ticker:"SOFI",strike:16,expiryDate:"4/10/26",openDate:"",excelIncome:213,excelProfit:213,excelGrossValue:213,excelCurrentValue:213,excelCost:0,excelType:"Short Put",id:"a31",manualPrice:null,rolledOver:false},
-{portfolio:"lovelina",ticker:"SOFI",strike:16.5,expiryDate:"4/10/26",openDate:"",excelIncome:93,excelProfit:93,excelGrossValue:93,excelCurrentValue:93,excelCost:0,excelType:"Short Put",id:"a32",manualPrice:null,rolledOver:false},
-{portfolio:"lovelina",ticker:"SOFI",strike:17,expiryDate:"4/10/26",openDate:"",excelIncome:99,excelProfit:99,excelGrossValue:99,excelCurrentValue:99,excelCost:0,excelType:"Short Put",id:"a33",manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"BBAI",strike:4,expiryDate:"4/24/26",openDate:"4/18/26",excelIncome:81,excelProfit:81,excelGrossValue:81,excelCurrentValue:27,excelCost:0,excelType:"Short Put",closed:false,id:"j1",contracts:3,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"HIMS",strike:21.5,expiryDate:"4/24/26",openDate:"4/18/26",excelIncome:17,excelProfit:17,excelGrossValue:17,excelCurrentValue:17,excelCost:0,excelType:"Short Put",closed:false,id:"j2",contracts:1,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"HIMS",strike:21,expiryDate:"4/24/26",openDate:"4/18/26",excelIncome:8,excelProfit:8,excelGrossValue:8,excelCurrentValue:8,excelCost:0,excelType:"Short Put",closed:false,id:"j3",contracts:1,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"LYFT",strike:14,expiryDate:"4/24/26",openDate:"4/18/26",excelCost:10,excelProfit:0,excelGrossValue:10,excelCurrentValue:10,excelType:"Long Put",closed:false,id:"j4",contracts:1,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"LYFT",strike:13.5,expiryDate:"4/24/26",openDate:"4/18/26",excelIncome:8,excelProfit:8,excelGrossValue:8,excelCurrentValue:8,excelCost:0,excelType:"Short Put",closed:false,id:"j5",contracts:1,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"NVDX",strike:16.5,expiryDate:"4/24/26",openDate:"4/18/26",excelIncome:2,excelProfit:2,excelGrossValue:2,excelCurrentValue:1,excelCost:0,excelType:"Short Put",closed:false,id:"j6",contracts:2,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"NVTS",strike:9.5,expiryDate:"4/24/26",openDate:"4/18/26",excelIncome:4,excelProfit:4,excelGrossValue:4,excelCurrentValue:4,excelCost:0,excelType:"Short Put",closed:false,id:"j7",contracts:1,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"NVTS",strike:9,expiryDate:"4/24/26",openDate:"4/18/26",excelIncome:6,excelProfit:6,excelGrossValue:6,excelCurrentValue:6,excelCost:0,excelType:"Short Put",closed:false,id:"j8",contracts:2,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"PLTR",strike:145,expiryDate:"4/24/26",openDate:"4/18/26",excelIncome:616,excelProfit:616,excelGrossValue:616,excelCurrentValue:308,excelCost:0,excelType:"Short Put",closed:false,id:"j9",contracts:2,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"PLTR",strike:144,expiryDate:"4/24/26",openDate:"4/18/26",excelIncome:267,excelProfit:267,excelGrossValue:267,excelCurrentValue:267,excelCost:0,excelType:"Short Put",closed:false,id:"j10",contracts:1,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"SMCI",strike:23,expiryDate:"4/24/26",openDate:"4/18/26",excelIncome:7,excelProfit:7,excelGrossValue:7,excelCurrentValue:7,excelCost:0,excelType:"Short Put",closed:false,id:"j11",contracts:1,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"TTD",strike:21.5,expiryDate:"4/24/26",openDate:"4/18/26",excelIncome:36,excelProfit:36,excelGrossValue:36,excelCurrentValue:36,excelCost:0,excelType:"Short Put",closed:false,id:"j12",contracts:1,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"TTD",strike:21,expiryDate:"4/24/26",openDate:"4/18/26",excelIncome:23,excelProfit:23,excelGrossValue:23,excelCurrentValue:23,excelCost:0,excelType:"Short Put",closed:false,id:"j13",contracts:1,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"USAR",strike:16,expiryDate:"4/24/26",openDate:"4/18/26",excelIncome:7,excelProfit:7,excelGrossValue:7,excelCurrentValue:7,excelCost:0,excelType:"Short Put",closed:false,id:"j14",contracts:1,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"BBAI",strike:4,expiryDate:"5/1/26",openDate:"4/18/26",excelCost:37,excelProfit:0,excelGrossValue:37,excelCurrentValue:37,excelType:"Long Put",closed:false,id:"j15",contracts:1,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"IBIT",strike:40,expiryDate:"5/1/26",openDate:"4/18/26",excelCost:60,excelProfit:0,excelGrossValue:60,excelCurrentValue:60,excelType:"Long Put",closed:false,id:"j16",contracts:2,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"LYFT",strike:14,expiryDate:"5/1/26",openDate:"4/18/26",excelCost:26,excelProfit:0,excelGrossValue:26,excelCurrentValue:26,excelType:"Long Put",closed:false,id:"j17",contracts:1,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"NVDA",strike:175,expiryDate:"5/1/26",openDate:"4/18/26",excelCost:29,excelProfit:0,excelGrossValue:29,excelCurrentValue:29,excelType:"Long Put",closed:false,id:"j18",contracts:1,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"NVDX",strike:14.5,expiryDate:"5/1/26",openDate:"4/18/26",excelCost:1,excelProfit:0,excelGrossValue:1,excelCurrentValue:1,excelType:"Long Put",closed:false,id:"j19",contracts:1,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"NVTS",strike:9.5,expiryDate:"5/1/26",openDate:"4/18/26",excelCost:28,excelProfit:0,excelGrossValue:28,excelCurrentValue:28,excelType:"Long Put",closed:false,id:"j20",contracts:2,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"PLTR",strike:90,expiryDate:"5/1/26",openDate:"4/18/26",excelCost:10,excelProfit:0,excelGrossValue:10,excelCurrentValue:10,excelType:"Long Put",closed:false,id:"j21",contracts:2,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"RGTI",strike:14,expiryDate:"5/1/26",openDate:"4/18/26",excelCost:9,excelProfit:0,excelGrossValue:9,excelCurrentValue:9,excelType:"Long Put",closed:false,id:"j22",contracts:1,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"RGTI",strike:13.5,expiryDate:"5/1/26",openDate:"4/18/26",excelCost:1,excelProfit:0,excelGrossValue:1,excelCurrentValue:1,excelType:"Long Put",closed:false,id:"j23",contracts:1,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"SMCI",strike:23,expiryDate:"5/1/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:26,excelType:"Long Put",closed:false,id:"j24",contracts:2,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"SMCI",strike:22,expiryDate:"5/1/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:9,excelType:"Long Put",closed:false,id:"j25",contracts:1,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"USAR",strike:18,expiryDate:"5/1/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:71,excelType:"Long Put",closed:false,id:"j26",contracts:1,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"NVTS",strike:9,expiryDate:"5/8/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:27,excelType:"Long Put",closed:false,id:"j27",contracts:1,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"SOFI",strike:17,expiryDate:"5/8/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:180,excelType:"Long Put",closed:false,id:"j28",contracts:4,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"BBAI",strike:4,expiryDate:"5/15/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:51,excelType:"Long Put",closed:false,id:"j29",contracts:1,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"HIMS",strike:20,expiryDate:"5/15/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:42,excelType:"Long Put",closed:false,id:"j30",contracts:1,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"IBIT",strike:39,expiryDate:"5/15/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:53,excelType:"Long Put",closed:false,id:"j31",contracts:1,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"SOFI",strike:17,expiryDate:"5/15/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:102,excelType:"Long Put",closed:false,id:"j32",contracts:2,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"TTD",strike:22.5,expiryDate:"5/15/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:235,excelType:"Long Put",closed:false,id:"j33",contracts:1,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"TTD",strike:21,expiryDate:"5/22/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:174,excelType:"Long Put",closed:false,id:"j34",contracts:1,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"HIMS",strike:19.5,expiryDate:"5/29/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:74,excelType:"Long Put",closed:false,id:"j35",contracts:1,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"PATH",strike:10,expiryDate:"5/29/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:0,cvOverride:145,excelType:"Long Put",closed:false,id:"j36",contracts:1,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"SPY",strike:703,expiryDate:"5/29/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:0,cvOverride:2050,excelType:"Long Call",closed:false,id:"j37",contracts:1,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"SPY",strike:628,expiryDate:"5/29/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:0,cvOverride:-8700,excelType:"Short Call",closed:false,id:"j38",contracts:1,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"SPY",strike:520,expiryDate:"5/29/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:0,cvOverride:37,excelType:"Long Put",closed:false,id:"j39",contracts:1,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"SPY",strike:626,expiryDate:"5/29/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:0,cvOverride:-157,excelType:"Short Put",closed:false,id:"j40",contracts:1,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"TTD",strike:20.5,expiryDate:"5/29/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:0,cvOverride:165,excelType:"Long Put",closed:false,id:"j41",contracts:1,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"BBAI",strike:6,expiryDate:"6/18/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:0,cvOverride:-16,excelType:"Short Call",closed:false,id:"j42",contracts:1,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"BBAI",strike:4,expiryDate:"6/18/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:0,cvOverride:68,excelType:"Long Put",closed:false,id:"j43",contracts:1,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"NFLU",strike:51,expiryDate:"6/18/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:0,cvOverride:1,excelType:"Long Call",closed:false,id:"j44",contracts:1,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"NVDX",strike:17.43,expiryDate:"6/18/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:0,cvOverride:190,excelType:"Long Put",closed:false,id:"j45",contracts:1,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"NVDX",strike:15.43,expiryDate:"6/18/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:0,cvOverride:330,excelType:"Long Put",closed:false,id:"j46",contracts:3,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"NVTS",strike:10,expiryDate:"6/18/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:0,cvOverride:99,excelType:"Long Put",closed:false,id:"j47",contracts:1,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"PLTR",strike:140,expiryDate:"6/18/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:0,cvOverride:950,excelType:"Long Put",closed:false,id:"j48",contracts:1,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"BBAI",strike:2,expiryDate:"6/18/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:0,cvOverride:6,excelType:"Long Put",closed:false,id:"j49",contracts:2,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"BBAI",strike:4,expiryDate:"6/18/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:0,cvOverride:-136,excelType:"Short Put",closed:false,id:"j50",contracts:2,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"BULL",strike:5.5,expiryDate:"4/24/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:0,cvOverride:-2,excelType:"Short Put",closed:false,id:"j51",contracts:1,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"BULL",strike:6,expiryDate:"4/24/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:0,cvOverride:6,excelType:"Long Put",closed:false,id:"j52",contracts:1,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"BULL",strike:7.5,expiryDate:"1/15/27",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:0,cvOverride:147,excelType:"Long Call",closed:false,id:"j53",contracts:1,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"CDE",strike:19.5,expiryDate:"4/24/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:0,cvOverride:-40,excelType:"Short Put",closed:false,id:"j54",contracts:1,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"CDE",strike:20,expiryDate:"4/24/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:0,cvOverride:-63,excelType:"Short Put",closed:false,id:"j55",contracts:1,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"CDE",strike:20.5,expiryDate:"4/24/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:0,cvOverride:-80,excelType:"Short Put",closed:false,id:"j56",contracts:1,manualPrice:null,rolledOver:false},
-{portfolio:"joint",ticker:"CDE",strike:17,expiryDate:"5/1/26",openDate:"4/18/26",excelCost:0,excelProfit:0,excelGrossValue:0,excelCurrentValue:0,cvOverride:15,excelType:"Long Put",closed:false,id:"j57",contracts:1,manualPrice:null,rolledOver:false}
-];
+
+// ── SEED DATA — empty. All data comes from GitHub Save/Load ───────────────────
+var SEED=[];
+
+
 
 // ── FIX 1: PERSISTENCE — data survives GitHub deploys ────────────────────────
 // Positions auto-save to localStorage after every change.
 // Pushing a new index.html NEVER wipes your data.
-// The SEED array above is only used the very FIRST time you open the app.
+// The SEED array above is only used the very FIRST time you open the app (empty localStorage).
 function savePositions(){try{localStorage.setItem('roi_positions_v1',JSON.stringify(positions));}catch(e){}}
-var positions=SEED.slice();
+var positions=[];
 (function(){
   try{
     var raw=localStorage.getItem('roi_positions_v1');
@@ -709,14 +621,13 @@ var positions=SEED.slice();
       var d=JSON.parse(raw);
       if(Array.isArray(d)&&d.length>0){
         d.forEach(function(r){if(!r.portfolio)r.portfolio='lovelina';});
-        // Always wipe joint from localStorage and reload fresh from SEED
-        var nonJoint=d.filter(function(r){return r.portfolio!=='joint';});
-        var seedJoint=SEED.filter(function(r){return r.portfolio==='joint';});
-        positions=nonJoint.concat(seedJoint);
-        savePositions();return;
+        positions=d; // use exactly what was saved — never overwrite with seed
+        return;
       }
     }
   }catch(e){}
+  // Only reach here on true first load (nothing in localStorage)
+  positions=SEED.slice();
   savePositions();
 })();
 var AD=[],JD=[],AR=[],LR=[],LT=[];
@@ -732,15 +643,30 @@ var cashBalances=loadCash();
 var initialCashBalances=loadInitCash();
 var editingCash=false;
 var editingInitCash=false;
+var editingCrypto=false;
+// Crypto value stored per portfolio key
+var CRYPTO_KEY='roi_crypto_v1';
+function loadCrypto(){try{return JSON.parse(localStorage.getItem(CRYPTO_KEY)||'{}');}catch(e){return{};}}
+function saveCrypto(){try{localStorage.setItem(CRYPTO_KEY,JSON.stringify(cryptoBalances));}catch(e){}}
+var cryptoBalances=loadCrypto();
+// Canonical portfolio keys — used for all-portfolio sums (excludes aggregate keys like ret-all)
+var ALL_PORT_KEYS=['lovelina','amit','joint','amit-roth','lov-roth','lov-trad'];
+var RET_PORT_KEYS=['amit-roth','lov-roth','lov-trad'];
+function getPortCrypto(){
+  if(ap==='all'){var t=0;ALL_PORT_KEYS.forEach(function(k){t+=cryptoBalances[k]||0;});return t;}
+  if(ap==='retirement'&&as==='ret-all'){var t=0;RET_PORT_KEYS.forEach(function(k){t+=cryptoBalances[k]||0;});return t;}
+  var k=ap==='retirement'?as:ap;return cryptoBalances[k]||0;
+}
+function setPortCrypto(v){var k=ap==='retirement'?as:ap;cryptoBalances[k]=v;saveCrypto();}
 function getCashKey(){return ap==='retirement'?as:ap;}
 function getPortCash(){
-  if(ap==='all'){var t=0;for(var k in cashBalances)t+=cashBalances[k]||0;return t;}
-  if(ap==='retirement'&&as==='ret-all'){return(cashBalances['amit-roth']||0)+(cashBalances['lov-roth']||0)+(cashBalances['lov-trad']||0);}
+  if(ap==='all'){var t=0;ALL_PORT_KEYS.forEach(function(k){t+=cashBalances[k]||0;});return t;}
+  if(ap==='retirement'&&as==='ret-all'){var t=0;RET_PORT_KEYS.forEach(function(k){t+=cashBalances[k]||0;});return t;}
   return cashBalances[getCashKey()]||0;
 }
 function getPortInitCash(){
-  if(ap==='all'){var t=0;for(var k in initialCashBalances)t+=initialCashBalances[k]||0;return t;}
-  if(ap==='retirement'&&as==='ret-all'){return(initialCashBalances['amit-roth']||0)+(initialCashBalances['lov-roth']||0)+(initialCashBalances['lov-trad']||0);}
+  if(ap==='all'){var t=0;ALL_PORT_KEYS.forEach(function(k){t+=initialCashBalances[k]||0;});return t;}
+  if(ap==='retirement'&&as==='ret-all'){var t=0;RET_PORT_KEYS.forEach(function(k){t+=initialCashBalances[k]||0;});return t;}
   return initialCashBalances[getCashKey()]||0;
 }
 function setPortCash(v){
@@ -764,7 +690,53 @@ var CB_KEY='roi_collat_blocked_v1';
 function loadCB(){try{return JSON.parse(localStorage.getItem(CB_KEY)||'{}');}catch(e){return{};}}
 function saveCB(){try{localStorage.setItem(CB_KEY,JSON.stringify(collatBlocked));}catch(e){}}
 var collatBlocked=loadCB();
-function setCollatBlocked(ticker,v){if(v==null||isNaN(v)){delete collatBlocked[ticker];}else{collatBlocked[ticker]=v;}saveCB();}
+function setCollatBlocked(ticker,v,portfolio){var k=portfolio?ticker+'|'+portfolio:ticker;if(v==null||isNaN(v)){delete collatBlocked[k];}else{collatBlocked[k]=v;}saveCB();}
+function getCollatBlocked(ticker,portfolio){var k=portfolio?ticker+'|'+portfolio:ticker;return collatBlocked[k]!=null?collatBlocked[k]:(collatBlocked[ticker]!=null?collatBlocked[ticker]:0);}
+
+// ── EARNINGS DATES ─────────────────────────────────────────────────────────────
+var ED_KEY='roi_earnings_dates_v1';
+function loadED(){try{return JSON.parse(localStorage.getItem(ED_KEY)||'{}');}catch(e){return{};}}
+function saveED(){try{localStorage.setItem(ED_KEY,JSON.stringify(earningsDates));}catch(e){}}
+var earningsDates=loadED();
+var ED_TTL=6*60*60*1000; // 6 hour cache for earnings
+async function fetchLiveEarnings(ticker){
+  var ed=earningsDates[ticker];
+  if(ed&&ed.liveTs&&Date.now()-ed.liveTs<ED_TTL)return ed.live||null;
+  try{
+    var url='https://query1.finance.yahoo.com/v11/finance/quoteSummary/'+ticker+'?modules=calendarEvents';
+    var proxy='https://api.allorigins.win/get?url='+encodeURIComponent(url);
+    var res=await fetch(proxy,{signal:AbortSignal.timeout(8000)});
+    var json=await res.json();
+    var contents=JSON.parse(json.contents);
+    var cal=contents&&contents.quoteSummary&&contents.quoteSummary.result&&contents.quoteSummary.result[0]&&contents.quoteSummary.result[0].calendarEvents;
+    var ts=cal&&cal.earnings&&cal.earnings.earningsDate&&cal.earnings.earningsDate[0]&&cal.earnings.earningsDate[0].raw;
+    if(ts){
+      var d=new Date(ts*1000);
+      var dateStr=(d.getMonth()+1)+'/'+(d.getDate())+'/'+d.getFullYear();
+      if(!earningsDates[ticker])earningsDates[ticker]={};
+      earningsDates[ticker].live=dateStr;earningsDates[ticker].liveTs=Date.now();
+      saveED();return dateStr;
+    }
+  }catch(e){}
+  if(earningsDates[ticker])earningsDates[ticker].liveTs=Date.now()-ED_TTL+60000;
+  saveED();return null;
+}
+function setManualEarnings(ticker,dateStr){
+  if(!earningsDates[ticker])earningsDates[ticker]={};
+  if(!dateStr){delete earningsDates[ticker].manual;}else{earningsDates[ticker].manual=dateStr;}
+  saveED();
+}
+function getActiveEarnings(ticker){
+  var ed=earningsDates[ticker]||{};
+  return ed.live||ed.manual||null;
+}
+function fmtEarningsDate(dateStr){
+  if(!dateStr)return null;
+  try{
+    var p=dateStr.split('/');
+    if(p.length===3){var d=new Date(parseInt(p[2]),parseInt(p[0])-1,parseInt(p[1]));var today=new Date();today.setHours(0,0,0,0);var diff=Math.round((d-today)/(1000*60*60*24));var label=dateStr;var color=diff<=7&&diff>=0?'var(--red)':diff<=30&&diff>=0?'var(--yellow)':'var(--text2)';return{label:label,diff:diff,color:color};}
+  }catch(e){}return{label:dateStr,diff:999,color:'var(--text2)'};
+}
 
 // ── ACTIVITY ──────────────────────────────────────────────────────────────────
 var ACT_KEY='roi_activity_v1';
@@ -776,9 +748,9 @@ var actPage=0,ACT_PAGE=50;
 var actUpOpen=false,actUpPreview=null,actUpMsg='';
 
 // ── APP STATE ─────────────────────────────────────────────────────────────────
-var ap='all',as='ret-all',typeFilter='all',ocFilter='all',expiringOnly=false,sc='ticker',sd=1,incomeFilter='all';
+var ap='all',as='ret-all',typeFilter='all',ocFilter='all',expiringOnly=false,sc='ticker',sd=1,incomeFilter='all',earningsFilter=false;
 var selectedTickers=new Set(['ALL']),editingPrice=null,dropdownOpen=false;
-var editCell=null,activeView='positions',spreadsOcFilter='open',spreadsExpFilter='all',spreadsTypeFilter='all',spreadsSpreadFilter='all',spreadsItmFilter=false;
+var editCell=null,activeView='positions',spreadsOcFilter='open',spreadsExpFilter='all',spreadsTypeFilter='all',spreadsSpreadFilter='all',spreadsItmFilter=false,spreadsMoneyFilter='all',spreadsShowFilter='all',spreadsRiskFilter='all';
 var modal=null,showUpload=false,csvPreview=null,importMsg='';
 var expandedGroups=new Set();
 var hiddenClosedGroups=new Set();
@@ -980,6 +952,7 @@ function getAppliedFilters(data){
     if(ocFilter==='closed'&&!isCl(r))return false;
     if(!selectedTickers.has('ALL')&&!selectedTickers.has(r.ticker))return false;
     if(expiringOnly){var _d=parseExpiry(r.expiryDate);if(!_d||_d>thisFri)return false;}
+    if(earningsFilter){var _ea=getActiveEarnings(r.ticker);if(!_ea){return false;}var _ef=fmtEarningsDate(_ea);if(!_ef||_ef.diff<0||_ef.diff>10)return false;}
     if(incomeFilter!=='all'){
       var od=parseOpenDate(r.openDate);
       // Rows with no parseable openDate are excluded when a date filter is active
@@ -1035,8 +1008,18 @@ function rCashCard(){
       ||(portKey2==='ret-all'?_retAll2.indexOf(r.portfolio||'')>=0:(r.portfolio||'lovelina')===portKey2);
     return inPort&&r.excelType==='Short Put'&&!isCl(r)&&r.strike>0;
   });
-  var _portTickers={};_portPos.forEach(function(r){_portTickers[r.ticker]=true;});
-  var totalCB=0;for(var _tk in collatBlocked){if(collatBlocked[_tk]&&_portTickers[_tk])totalCB+=collatBlocked[_tk];}
+  // Build set of ticker|portfolio pairs in this portfolio view
+  var _portPairs={};_portPos.forEach(function(r){_portPairs[(r.ticker)+'|'+(r.portfolio||'lovelina')]=true;});
+  // Sum C.BLK exactly as the table does: one value per unique ticker+portfolio pair
+  // For "all" view, iterate each canonical portfolio separately to avoid double-counting
+  var _seen={};
+  var totalCB=_portPos.reduce(function(s,r){
+    var p=r.portfolio||'lovelina';
+    var k=r.ticker+'|'+p;
+    if(_seen[k])return s;
+    _seen[k]=true;
+    return s+getCollatBlocked(r.ticker,p);
+  },0);
 
   // Real portfolio value of SPUT positions:
   // Use min(strike, currentStockPrice) × 100 × contracts
@@ -1050,8 +1033,10 @@ function rCashCard(){
     return s+effectiveP*100*(r.contracts||1);
   },0);
 
-  // Total = Curr Val (open positions) + Curr Cash + Collateral Blocked (actual cash set aside)
-  var total=currVal+cash+totalCB;
+  var crypto=getPortCrypto();
+
+  // Total = Curr Val + Curr Cash + Collateral Blocked + Crypto
+  var total=currVal+cash+totalCB+crypto;
 
   // Gains = Total - Initial Cash
   var diff=total-initCash;
@@ -1068,6 +1053,11 @@ function rCashCard(){
   if(editingInitCash&&!isAll){
     return'<div class="cash-card"><div class="cash-lbl">&#9998; Edit Initial Cash</div>'
       +'<div class="cash-wrap"><input class="cash-inp" id="init-cash-inp" type="number" step="0.01" value="'+initCash+'" placeholder="0.00" onkeydown="if(event.keyCode===13)initCashSave();if(event.keyCode===27)initCashCancel()"><button class="cash-ok" onclick="initCashSave()">&#10003;</button><button class="cash-x2" onclick="initCashCancel()">&#10005;</button></div>'
+      +'<div class="cash-sub">'+portLabel+'</div></div>';
+  }
+  if(editingCrypto&&!isAll){
+    return'<div class="cash-card"><div class="cash-lbl">&#9998; Edit Crypto Value</div>'
+      +'<div class="cash-wrap"><input class="cash-inp" id="crypto-inp" type="number" step="0.01" value="'+crypto+'" placeholder="0.00" onkeydown="if(event.keyCode===13)cryptoSave();if(event.keyCode===27)cryptoCancel()"><button class="cash-ok" onclick="cryptoSave()">&#10003;</button><button class="cash-x2" onclick="cryptoCancel()">&#10005;</button></div>'
       +'<div class="cash-sub">'+portLabel+'</div></div>';
   }
 
@@ -1097,14 +1087,15 @@ function rCashCard(){
       +'<button class="cash-edt" onclick="initCashEdit()" style="margin-left:auto;color:#EF4444;">Set now</button>'
       +'</div>';
   }
-  var topRow='<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.3rem;margin-bottom:0.35rem;">'
+  var topRow='<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:0.3rem;margin-bottom:0.35rem;">'
     +mkCol('Init.Cash',fmtVal(initCash),'rgba(255,255,255,0.65)',isAll?'':'initCashEdit()')
     +mkCol('Curr Cash',fmtVal(cash),'#34D399',isAll?'':'cashEdit()')
     +mkCol('Curr Val',fmtVal(currVal),'#93C5FD','')
+    +mkCol('Crypto',fmtVal(crypto),'#F59E0B',isAll?'':'cryptoEdit()')
     +'</div>';
 
   var totalRow='<div style="margin-top:0.35rem;display:flex;align-items:center;justify-content:space-between;">'
-    +'<div style="font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.4);">Total <span style="font-size:0.5rem;opacity:0.6;">(Val+Cash+Col.Blk)</span></div>'
+    +'<div style="font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.4);">Total <span style="font-size:0.5rem;opacity:0.6;">(Val+Cash+Col.Blk+Crypto)</span></div>'
     +'<div style="font-size:1.05rem;font-weight:800;font-family:monospace;color:#FCD34D;">'+fmtVal(total)+'</div>'
     +'</div>';
 
@@ -1158,12 +1149,15 @@ function rCashCard(){
     +diffRow
     +'<div class="cash-sub" style="margin-top:0.35rem;">'+portLabel+(isAll?' &mdash; edit per portfolio tab':'')+'</div></div>';
 }
-function cashEdit(){editingCash=true;editingInitCash=false;rMain();setTimeout(function(){var i=document.getElementById('cash-inp');if(i){i.focus();i.select();}},30);}
+function cashEdit(){editingCash=true;editingInitCash=false;editingCrypto=false;rMain();setTimeout(function(){var i=document.getElementById('cash-inp');if(i){i.focus();i.select();}},30);}
 function cashSave(){var i=document.getElementById('cash-inp');if(i){var v=parseFloat(i.value);if(!isNaN(v))setPortCash(v);}editingCash=false;rMain();}
 function cashCancel(){editingCash=false;rMain();}
-function initCashEdit(){editingInitCash=true;editingCash=false;rMain();setTimeout(function(){var i=document.getElementById('init-cash-inp');if(i){i.focus();i.select();}},30);}
+function initCashEdit(){editingInitCash=true;editingCash=false;editingCrypto=false;rMain();setTimeout(function(){var i=document.getElementById('init-cash-inp');if(i){i.focus();i.select();}},30);}
 function initCashSave(){var i=document.getElementById('init-cash-inp');if(i){var v=parseFloat(i.value);if(!isNaN(v))setPortInitCash(v);}editingInitCash=false;rMain();}
 function initCashCancel(){editingInitCash=false;rMain();}
+function cryptoEdit(){editingCrypto=true;editingCash=false;editingInitCash=false;rMain();setTimeout(function(){var i=document.getElementById('crypto-inp');if(i){i.focus();i.select();}},30);}
+function cryptoSave(){var i=document.getElementById('crypto-inp');if(i){var v=parseFloat(i.value);if(!isNaN(v))setPortCrypto(v);}editingCrypto=false;rMain();}
+function cryptoCancel(){editingCrypto=false;rMain();}
 
 // ── SUMMARY CARDS ─────────────────────────────────────────────────────────────
 function rSum(s){
@@ -1178,15 +1172,15 @@ function rSum(s){
       +'</div>';
   }
   function rowDk2(lA,vA,cA,lB,vB,cB){
-    return '<div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-bottom:0.28rem;">'
-      +'<div><div style="font-size:0.57rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:rgba(255,255,255,0.4);margin-bottom:0.08rem;">'+lA+'</div>'
-      +'<div style="font-size:0.86rem;font-weight:800;font-family:monospace;color:'+cA+';">'+vA+'</div></div>'
-      +'<div><div style="font-size:0.57rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:rgba(255,255,255,0.4);margin-bottom:0.08rem;">'+lB+'</div>'
-      +'<div style="font-size:0.86rem;font-weight:800;font-family:monospace;color:'+cB+';">'+vB+'</div></div>'
+    return '<div style="display:grid;grid-template-columns:1fr 1fr;gap:0.4rem;margin-bottom:0.18rem;">'
+      +'<div><div style="font-size:0.55rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:rgba(255,255,255,0.4);margin-bottom:0.05rem;">'+lA+'</div>'
+      +'<div style="font-size:0.8rem;font-weight:800;font-family:monospace;color:'+cA+';">'+vA+'</div></div>'
+      +'<div><div style="font-size:0.55rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:rgba(255,255,255,0.4);margin-bottom:0.05rem;">'+lB+'</div>'
+      +'<div style="font-size:0.8rem;font-weight:800;font-family:monospace;color:'+cB+';">'+vB+'</div></div>'
       +'</div>';
   }
   function div1(){return '<div style="height:1px;background:var(--border);margin:0.3rem 0;"></div>';}
-  function div1dk(){return '<div style="height:1px;background:rgba(255,255,255,0.1);margin:0.3rem 0;"></div>';}
+  function div1dk(){return '<div style="height:1px;background:rgba(255,255,255,0.1);margin:0.18rem 0;"></div>';}
 
   var realCol=s.realized>=0?'var(--green)':'var(--red)';
   var unrealCol=s.unrealized>=0?'var(--green)':'var(--red)';
@@ -1238,25 +1232,25 @@ function rSum(s){
     var selLabel=incomeFilter==='today'?'Today':incomeFilter==='cw'?'CW':incomeFilter==='pw'?'PW':incomeFilter==='cm'?'CM':null;
     function fc(v){return(v>=0?'+':'')+v.toLocaleString(undefined,{style:'currency',currency:'USD',minimumFractionDigits:0,maximumFractionDigits:0});}
     function fcp(v){return v>=0?'#34D399':'#F87171';}
-    var out='<div class="col-combo-card" style="padding:0.75rem 1rem;">'
-      +'<div class="col-combo-title" style="margin-bottom:0.4rem;">&#128200; Income (Net)'+(selLabel?' &middot; <span style="color:#FBBF24;">'+selLabel+'</span>':'')+'</div>'
-      +(selLabel?'<div style="display:flex;align-items:center;justify-content:space-between;background:rgba(251,191,36,0.12);border-radius:6px;padding:0.22rem 0.5rem;margin-bottom:0.35rem;"><span style="font-size:0.6rem;font-weight:700;color:#FBBF24;text-transform:uppercase;">'+selLabel+'</span><span style="font-size:0.95rem;font-weight:900;font-family:monospace;color:'+fcp(selVal)+';">'+fc(selVal)+'</span></div>':'')
+    var out='<div class="col-combo-card" style="padding:0.55rem 0.75rem;">'
+      +'<div class="col-combo-title" style="margin-bottom:0.25rem;">&#128200; Income (Net)'+(selLabel?' &middot; <span style="color:#FBBF24;">'+selLabel+'</span>':'')+'</div>'
+      +(selLabel?'<div style="display:flex;align-items:center;justify-content:space-between;background:rgba(251,191,36,0.12);border-radius:6px;padding:0.15rem 0.4rem;margin-bottom:0.2rem;"><span style="font-size:0.58rem;font-weight:700;color:#FBBF24;text-transform:uppercase;">'+selLabel+'</span><span style="font-size:0.88rem;font-weight:900;font-family:monospace;color:'+fcp(selVal)+';">'+fc(selVal)+'</span></div>':'')
       +rowDk2('Today',fc(todayNI),fcp(todayNI),'CW',fc(thisW),fcp(thisW))
       +div1dk()
       +rowDk2('PW',fc(lastW),fcp(lastW),'Wk Δ',fc(wDiff),fcp(wDiff))
       +div1dk()
       +rowDk2('CM',fc(mtd),fcp(mtd),'YTD',fc(ytd),fcp(ytd))
       +div1dk()
-      +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;">'
-      +'<div><div style="font-size:0.57rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:rgba(255,255,255,0.4);margin-bottom:0.08rem;">Realized</div>'
-      +'<div style="font-size:0.86rem;font-weight:800;font-family:monospace;color:'+fcp(realized)+';">'+fc(realized)+'</div></div>'
+      +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:0.4rem;">'
+      +'<div><div style="font-size:0.55rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:rgba(255,255,255,0.4);margin-bottom:0.05rem;">Realized</div>'
+      +'<div style="font-size:0.8rem;font-weight:800;font-family:monospace;color:'+fcp(realized)+';">'+fc(realized)+'</div></div>'
       +'<div></div>'
       +'</div>'
       +'</div>';
     return out;
   })();
 
-  return'<div class="summary-grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">'
+  return'<div class="summary-grid" style="grid-template-columns:1fr 1.1fr 1.5fr;">'
     +capitalCard
     +incomeCard
     +rCashCard()
@@ -1266,13 +1260,17 @@ var tkSearch='';
 function setTkSearch(v){tkSearch=v;var d=document.getElementById('tkdrop');if(!d)return;var q=(v||'').toLowerCase();d.querySelectorAll('.ticker-dd-item[data-ddticker]').forEach(function(el){var t=el.dataset.ddticker;el.style.display=(!t||t==='ALL'||t.toLowerCase().indexOf(q)>=0||!q)?'':'none';});}
 function rFiltersRow(data){
   var allData=gd(ap,as);var tickers=getTickersFrom(allData),allSel=selectedTickers.has('ALL');
-  var selList=allSel?[]:tickers.filter(function(t){return selectedTickers.has(t);});
-  var ddItems=tickers.map(function(t){var sel=allSel||selectedTickers.has(t);return'<div class="ticker-dd-item'+(sel?' selected':'')+'" data-ddticker="'+t+'"><div class="ticker-dd-check">'+(sel?'&#10003;':'')+'</div><span class="dd-dot" style="background:'+(DC[t]||'#888')+'"></span>'+t+'</div>';}).join('');
-  var tags=allSel?'<span style="color:var(--text3);font-size:0.7rem;">All</span>':selList.map(function(t){return'<span class="sel-tag"><span style="width:6px;height:6px;border-radius:50%;background:'+(DC[t]||'#888')+';display:inline-block;flex-shrink:0;"></span>'+t+'<span class="sel-tag-x" data-xticker="'+t+'">&#10005;</span></span>';}).join('');
+  // selList: ALL selected tickers, not just those in current portfolio
+  var selList=allSel?[]:[...selectedTickers].filter(function(t){return t!=='ALL';});
+  // tags: show all selected, dim those not in current portfolio
+  var tags=allSel?'<span style="color:var(--text3);font-size:0.7rem;">All</span>':selList.map(function(t){var inPort=tickers.indexOf(t)>=0;return'<span class="sel-tag" style="'+(inPort?'':'opacity:0.45;')+'"><span style="width:6px;height:6px;border-radius:50%;background:'+(DC[t]||'#888')+';display:inline-block;flex-shrink:0;"></span>'+t+'<span class="sel-tag-x" data-xticker="'+t+'">&#10005;</span></span>';}).join('');
+  // dropdown: current portfolio tickers first, then selected-but-absent ones greyed
+  var absentSelected=selList.filter(function(t){return tickers.indexOf(t)<0;});
+  var ddItems=tickers.map(function(t){var sel=allSel||selectedTickers.has(t);return'<div class="ticker-dd-item'+(sel?' selected':'')+'" data-ddticker="'+t+'"><div class="ticker-dd-check">'+(sel?'&#10003;':'')+'</div><span class="dd-dot" style="background:'+(DC[t]||'#888')+'"></span>'+t+'</div>';}).join('')+(absentSelected.length?'<div style="height:1px;background:var(--border);margin:0.1rem 0;"></div>'+absentSelected.map(function(t){return'<div class="ticker-dd-item selected" data-ddticker="'+t+'" style="opacity:0.45;" title="Not in this portfolio"><div class="ticker-dd-check">&#10003;</div><span class="dd-dot" style="background:'+(DC[t]||'#888')+'"></span>'+t+' <span style="font-size:0.55rem;color:var(--text3);">n/a</span></div>';}).join(''):'');
   var typeList=[['all','All'],['Short Put','SPUT'],['Long Put','LPUT'],['Long Call','LCALL'],['Short Call','SCALL'],['Shares','SHR']];
   var tt=typeList.map(function(p){return'<button class="type-tab'+(typeFilter===p[0]?' active':'')+'" data-typef="'+p[0]+'" onclick="typeFilter=\''+p[0]+'\';rMain();">'+p[1]+'</button>';}).join('');
   var ot=['all','open','closed'].map(function(o){return'<button class="oc-tab'+(ocFilter===o?' active':'')+'" data-ocf="'+o+'" onclick="ocFilter=\''+o+'\';rMain();">'+(o==='all'?'All':o==='open'?'Open':'Closed')+'</button>';}).join('');
-  return'<div class="controls-row" style="margin-bottom:0.6rem;flex-wrap:wrap;">'    +'<div class="ticker-select-wrap" id="tkwrap" style="flex-shrink:0;min-width:80px;max-width:150px;"><div class="ticker-select-btn" id="tkbtn" onclick="toggleDropdown()"><div class="sel-tags">'+tags+'</div><span style="color:var(--text3);font-size:0.65rem;">&#9660;</span></div><div class="ticker-dropdown'+(dropdownOpen?' open':'')+'" id="tkdrop"><div style="padding:0.3rem 0.4rem;border-bottom:1px solid var(--border);"><input id="tk-search-inp" type="text" placeholder="&#128269; Search..." value="'+(tkSearch||'')+'" oninput="setTkSearch(this.value)" onclick="event.stopPropagation()" style="width:100%;border:1px solid var(--border2);border-radius:5px;padding:0.25rem 0.45rem;font-size:0.68rem;outline:none;color:var(--black);background:var(--bg3);"></div><div class="ticker-dd-item'+(allSel?' selected':'')+'" data-ddticker="ALL"><div class="ticker-dd-check">'+(allSel?'&#10003;':'')+'</div><span style="font-size:0.72rem;font-weight:700;">All Tickers</span></div><div style="height:1px;background:var(--border);margin:0.25rem 0;"></div>'+ddItems+'</div></div>'    +'<div style="width:1px;background:var(--border);align-self:stretch;flex-shrink:0;"></div>'    +'<div class="type-tabs">'+tt+'</div>'    +'<div class="oc-tabs">'+ot+'</div>'    +'<button class="expiry-pill'+(expiringOnly?' active':'')+'" id="exp-pill">&#9888; This Week</button>'+'<select id="income-filter-sel" style="border:1px solid var(--border2);background:var(--bg3);border-radius:7px;padding:0.22rem 0.5rem;font-size:0.68rem;font-weight:600;color:var(--black);cursor:pointer;outline:none;height:28px;" onchange="incomeFilter=this.value;rMain()"><option value="all"'+(incomeFilter==='all'?' selected':'')+'>&#128200; All Dates</option><option value="today"'+(incomeFilter==='today'?' selected':'')+'>Today</option><option value="cw"'+(incomeFilter==='cw'?' selected':'')+'>CW - This Week</option><option value="pw"'+(incomeFilter==='pw'?' selected':'')+'>PW - Past Week</option><option value="cm"'+(incomeFilter==='cm'?' selected':'')+'>CM - This Month</option></select>'+'<button class="expiry-pill'+(hideClosedRows?' active':'')+'" onclick="toggleHideClosedGlobal()" style="'+(hideClosedRows?'background:var(--black);color:#fff;border-color:var(--black);':'')+'" title="Toggle closed rows">&#128065; '+(hideClosedRows?'Show Closed':'Hide Closed')+'</button>'    +'<div style="margin-left:auto;display:flex;gap:0.4rem;align-items:center;">'    +'<button class="del-all-btn" onclick="deleteAll()">&#128465;</button>'    +'<button class="upload-csv-btn" onclick="toggleUpload()">&#8593; Upload CSV</button>'    +'<button class="template-dl-btn" onclick="dlTemplate()">&#11015; Template</button>'    +'<button class="add-pos-btn" onclick="openAddModal()">&#43; Add</button>'    +'</div>'    +'</div>';
+  return'<div class="controls-row" style="margin-bottom:0.6rem;flex-wrap:wrap;">'    +'<div class="ticker-select-wrap" id="tkwrap" style="flex-shrink:0;min-width:80px;max-width:150px;"><div class="ticker-select-btn" id="tkbtn" onclick="toggleDropdown()"><div class="sel-tags">'+tags+'</div><span style="color:var(--text3);font-size:0.65rem;">&#9660;</span></div><div class="ticker-dropdown'+(dropdownOpen?' open':'')+'" id="tkdrop"><div style="padding:0.3rem 0.4rem;border-bottom:1px solid var(--border);"><input id="tk-search-inp" type="text" placeholder="&#128269; Search..." value="'+(tkSearch||'')+'" oninput="setTkSearch(this.value)" onclick="event.stopPropagation()" style="width:100%;border:1px solid var(--border2);border-radius:5px;padding:0.25rem 0.45rem;font-size:0.68rem;outline:none;color:var(--black);background:var(--bg3);"></div><div class="ticker-dd-item'+(allSel?' selected':'')+'" data-ddticker="ALL"><div class="ticker-dd-check">'+(allSel?'&#10003;':'')+'</div><span style="font-size:0.72rem;font-weight:700;">All Tickers</span></div><div style="height:1px;background:var(--border);margin:0.25rem 0;"></div>'+ddItems+'</div></div>'    +'<div style="width:1px;background:var(--border);align-self:stretch;flex-shrink:0;"></div>'    +'<div class="type-tabs">'+tt+'</div>'    +'<div class="oc-tabs">'+ot+'</div>'    +'<button class="expiry-pill'+(expiringOnly?' active':'')+'" id="exp-pill">&#9888; This Week</button>'+'<select id="income-filter-sel" style="border:1px solid var(--border2);background:var(--bg3);border-radius:7px;padding:0.22rem 0.5rem;font-size:0.68rem;font-weight:600;color:var(--black);cursor:pointer;outline:none;height:28px;" onchange="incomeFilter=this.value;rMain()"><option value="all"'+(incomeFilter==='all'?' selected':'')+'>&#128200; All Dates</option><option value="today"'+(incomeFilter==='today'?' selected':'')+'>Today</option><option value="cw"'+(incomeFilter==='cw'?' selected':'')+'>CW - This Week</option><option value="pw"'+(incomeFilter==='pw'?' selected':'')+'>PW - Past Week</option><option value="cm"'+(incomeFilter==='cm'?' selected':'')+'>CM - This Month</option></select>'+'<button class="expiry-pill'+(earningsFilter?' active':'')+'" onclick="earningsFilter=!earningsFilter;rMain();" style="'+(earningsFilter?'background:#DC2626;color:#fff;border-color:#DC2626;':'')+'" title="Show tickers with earnings in next 10 days">&#127988; Earnings &lt;10d</button>'+'<button class="expiry-pill'+(hideClosedRows?' active':'')+'" onclick="toggleHideClosedGlobal()" style="'+(hideClosedRows?'background:var(--black);color:#fff;border-color:var(--black);':'')+'" title="Toggle closed rows">&#128065; '+(hideClosedRows?'Show Closed':'Hide Closed')+'</button>'    +'<div style="margin-left:auto;display:flex;gap:0.4rem;align-items:center;">'    +'<button class="del-all-btn" onclick="deleteAll()">&#128465;</button>'    +'<button class="upload-csv-btn" onclick="toggleUpload()">&#8593; Upload CSV</button>'    +'<button class="template-dl-btn" onclick="dlTemplate()">&#11015; Template</button>'    +'<button class="add-pos-btn" onclick="openAddModal()">&#43; Add</button>'    +'</div>'    +'</div>';
 }
 function rTableControls(){return'';}
 
@@ -1285,7 +1283,7 @@ function rTable(data){
   var thisFri=getThisFriday();
   var Q=String.fromCharCode(39);
   var typeShort={'Short Put':'SPUT','Long Put':'LPUT','Long Call':'LCALL','Short Call':'SCALL','Shares':'SHR'};
-  var portNames={'lovelina':'Lovelina','amit':'Amit','joint':'Joint','amit-roth':'Amit Roth','lov-roth':'Lov Roth','lov-trad':'Lov Trad'};
+  var portNames={'lovelina':'L','amit':'A','joint':'J','amit-roth':'AR','lov-roth':'LR','lov-trad':'LT'};
   var portColors={'lovelina':'#DB2877','amit':'#2563EB','joint':'#059669','amit-roth':'#7C3AED','lov-roth':'#DB2877','lov-trad':'#0891B2'};
 
   // ── helpers reused per row ────────────────────────────────────────────────
@@ -1313,11 +1311,12 @@ function rTable(data){
   function fmtMoney(v,allowNull){
     if(v==null&&allowNull)return'--';
     if(v==null)v=0;
-    return(v<0?'-$':'$')+Math.abs(v).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+    var s=(v<0?'-$':'$')+Math.abs(v).toLocaleString(undefined,{minimumFractionDigits:0,maximumFractionDigits:0});
+    return s;
   }
   function fmtMoneySign(v){
     if(v==null)return'--';
-    return(v>=0?'+':'-')+'$'+Math.abs(v).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+    return(v>=0?'+':'-')+'$'+Math.abs(v).toLocaleString(undefined,{minimumFractionDigits:0,maximumFractionDigits:0});
   }
 
 
@@ -1350,7 +1349,7 @@ function rTable(data){
     return a.localeCompare(b);
   });
 
-  if(filtered.length===0)return'<div class="table-wrap"><table><thead><tr><th>Ticker</th><th>Dt</th><th>Cost</th><th>Sold</th><th>Net</th><th>Portf. Val</th><th>Price</th><th>Type</th><th>Strike</th><th style="color:#FCA5A5;">Assn.</th><th style="color:#FDBA74;">Coll.Val</th><th style="color:#FCD34D;">Col.Blk</th><th style="color:#6EE7B7;">Col.Gap</th><th>Expiry</th><th>Action</th><th></th><th></th><th></th></tr></thead><tbody><tr><td colspan="18" class="ec">No positions match your filters.</td></tr></tbody></table></div>';
+  if(filtered.length===0)return'<div class="table-wrap"><table><thead><tr><th>Ticker</th><th>Dt</th><th>Cost</th><th>Sold</th><th>Net</th><th>Val</th><th>Px</th><th>Type</th><th>Str</th><th style="color:#FCA5A5;">Assn</th><th style="color:#FDBA74;">C.Val</th><th style="color:#FCD34D;">C.Blk</th><th style="color:#6EE7B7;">Gap</th><th>Exp</th><th>Act</th></tr></thead><tbody><tr><td colspan="15" class="ec">No positions match your filters.</td></tr></tbody></table></div>';
 
   var portHeader=ap==='all';
   var html='';
@@ -1404,9 +1403,10 @@ function rTable(data){
     var strikeCount=rows.filter(function(r){return r.strike>0;}).length;
     var strikeCell=strikeCount?strikeCount+' strike'+(strikeCount>1?'s':''):'--';
 
-    // Expiry summary — just count unique
+    // Expiry summary — show nearest expiry date only
     var expiries=[...new Set(rows.filter(function(r){return!isCl(r);}).map(function(r){return r.expiryDate||'';}).filter(Boolean))];
-    var expiryCell=expiries.length?expiries.length+' expir'+(expiries.length>1?'ies':'y'):'--';
+    var sortedExp=expiries.slice().sort(function(a,b){return(parseExpiry(a)||new Date('9999'))-(parseExpiry(b)||new Date('9999'));});
+    var expiryCell=sortedExp.length?(sortedExp[0]+(sortedExp.length>1?' +'+( sortedExp.length-1):'')):'--';
 
     // Summary row classes
     var sumRowCls='grp-summary'+(hasExp?' expiring-soon':'');
@@ -1433,7 +1433,7 @@ function rTable(data){
     var grpBeLabel=(grpBeRaw>=0?'+':'-')+'$'+Math.abs(grpBeRaw).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
     // Assn. Req. = sum of (strike*100) for open SPUTs
     var totalAssnReq=rows.filter(function(r){return r.excelType==='Short Put'&&r.strike>0&&!isCl(r);}).reduce(function(s,r){return s+r.strike*100*(r.contracts||1);},0);
-    var cbVal=collatBlocked[ticker]!=null?collatBlocked[ticker]:0;  // default 0
+    var cbVal=getCollatBlocked(ticker,rows[0]&&(rows[0].portfolio||'lovelina'));  // default 0
     var cbGap=totalAssnReq-cbVal;  // always compute, even if 0
 
     // Check if all child rows would be hidden — if so, skip this ticker group entirely
@@ -1451,10 +1451,16 @@ function rTable(data){
 
     // Summary row
     html+='<tr class="'+sumRowCls+'" style="cursor:pointer;background:#F8F8F8;border-left:3px solid '+(DC[ticker]||'#888')+';" onclick="toggleGroup('+Q+gk+Q+')">';
-    var _tc=rows.reduce(function(s,r){return s+(r.contracts||1);},0); // total contracts across all rows in group
-    var _sb=_tc>1?'<span style="display:inline-flex;align-items:center;background:var(--blue);color:#fff;border-radius:4px;padding:0.05rem 0.32rem;font-size:0.58rem;font-weight:800;margin-left:4px;">'+_tc+'x</span>':'';
-    var expandIcon=expanded?'&#9660; Collapse':'&#9654; Expand';
-    html+='<td class="mc"><span style="font-size:0.72rem;color:var(--red);font-weight:700;margin-right:6px;cursor:pointer;">'+(expanded?'&#9660;':'&#9654;')+'</span><span class="chip"><span class="tk-dot-sm" style="background:'+(DC[ticker]||'#888')+'"></span>'+ticker+'</span>'+_sb+'<span style="font-size:0.58rem;color:var(--text3);margin-left:6px;font-weight:600;">'+(expanded?'collapse':'click to expand')+'</span></td>';
+    // Earnings flag — red flag if earnings within 10 days
+    var _ed=getActiveEarnings(ticker);
+    var _earningsFlag='';
+    if(_ed){var _ef=fmtEarningsDate(_ed);if(_ef&&_ef.diff>=0&&_ef.diff<=10){_earningsFlag='<span title="Earnings in '+_ef.diff+'d: '+_ed+'" style="color:#DC2626;font-size:0.8rem;margin-left:4px;cursor:help;">&#127988;</span><span style="font-size:0.58rem;color:#DC2626;font-weight:700;margin-left:2px;">'+(_ef.diff===0?'TODAY':_ef.diff+'d')+'</span>';}}
+    // Portfolio indicator — always shown, colored dot + name
+    var ports=[...new Set(rows.map(function(r){return r.portfolio||'lovelina';}))];
+    var portStr=ports.length===1?(portNames[ports[0]]||ports[0]):'Mixed';
+    var portClr2=ports.length===1?(portColors[ports[0]]||'#888'):'#888';
+    var portInline='<span style="display:inline-flex;align-items:center;gap:0.25rem;font-size:0.58rem;font-weight:700;color:'+portClr2+';margin-left:6px;background:rgba(0,0,0,0.05);border-radius:4px;padding:0.05rem 0.4rem;"><span style="width:6px;height:6px;border-radius:50%;background:'+portClr2+';flex-shrink:0;"></span>'+portStr+'</span>';
+    html+='<td class="mc"><span style="font-size:0.72rem;color:var(--red);font-weight:700;margin-right:6px;cursor:pointer;">'+(expanded?'&#9660;':'&#9654;')+'</span><span class="chip"><span class="tk-dot-sm" style="background:'+(DC[ticker]||'#888')+'"></span>'+ticker+'</span>'+_earningsFlag+portInline+'</td>';
     if(portHeader)html+=portBadgeHtml;
     html+='<td style="font-size:0.65rem;color:var(--text3);">'+expiryCell+'</td>';
     html+='<td class="mn" style="font-weight:700;">'+(totalCost?fmtMoney(totalCost):'--')+'</td>';
@@ -1469,7 +1475,8 @@ function rTable(data){
     // Coll.Val (blank at group level - shown per-row)
     html+='<td></td>';
     // Collateral Blocked (editable)
-    var cbDisplay='<span style="font-family:monospace;font-weight:700;">$'+cbVal.toLocaleString()+'</span><button class="pcell-act" onclick="event.stopPropagation();(function(){var v=prompt(\'Collateral Blocked for '+ticker+':\',\''+cbVal+'\');if(v===null)return;var n=parseFloat(v);setCollatBlocked(\''+ticker+'\',isNaN(n)?null:n);rMain();})()" style="margin-left:4px;">ed</button>';
+    var _cbPort=rows[0]&&(rows[0].portfolio||'lovelina');
+    var cbDisplay='<span style="font-family:monospace;font-weight:700;">$'+cbVal.toLocaleString()+'</span><button class="pcell-act" onclick="event.stopPropagation();(function(){var v=prompt(\'Collateral Blocked for '+ticker+':\',\''+cbVal+'\');if(v===null)return;var n=parseFloat(v);setCollatBlocked(\''+ticker+'\',isNaN(n)?null:n,\''+_cbPort+'\');rMain();})()" style="margin-left:4px;">e</button>';
     html+='<td class="mn" style="font-weight:700;">'+cbDisplay+'</td>';
     // Col. Gap
     var gapColor=cbGap>0?'var(--red)':cbGap<0?'var(--green)':'var(--text3)';
@@ -1480,7 +1487,6 @@ function rTable(data){
     var hasClosedRows=(g.allRows||rows).some(function(r){return isCl(r)||(function(){var d=parseExpiry(r.expiryDate);return d&&d<today2;})();});
     var hideBtn=hasClosedRows?'<button class="row-edit-btn" style="font-size:0.58rem;margin-left:3px;" onclick="event.stopPropagation();toggleHideClosed('+Q+gk+Q+')" title="'+(closedHidden?'Show':'Hide')+' closed">&#128065; '+(closedHidden?'Show Cl.':'Hide Cl.')+'</button>':'';
     html+='<td style="text-align:center;white-space:nowrap;"><button class="add-pos-btn" style="font-size:0.6rem;padding:0.18rem 0.5rem;" onclick="event.stopPropagation();openAddModal()" title="Add position">+ Add</button>'+hideBtn+'</td>';
-    html+='<td colspan="3"></td>';
     html+='</tr>';
 
     // Child rows (expanded)
@@ -1548,9 +1554,9 @@ function rTable(data){
           priceCellC='<div class="pcell-edit-wrap"><input class="pcell-input" id="pi_'+r.id+'" type="number" step="0.01" value="'+(manPI!=null?manPI:'')+'" placeholder="price" onkeydown="if(event.keyCode===13)savePrice('+Q+r.id+Q+');if(event.keyCode===27)cancelEdit()"><button class="pcell-ok" onclick="savePrice('+Q+r.id+Q+')">&#10003;</button><button class="pcell-x" onclick="cancelEdit()">&#10005;</button></div>';
         }else{
           var pd2='';
-          if(livePI!=null){pd2='<span class="pcell-live">$'+livePI.toFixed(2)+'</span><span class="pcell-badge pcell-badge-live">L</span>';pd2+=manPI!=null?'<button class="pcell-act" onclick="clearManualPrice('+Q+r.ticker+Q+')" title="clear manual">&#10005;</button>':'<button class="pcell-act" onclick="startEdit('+Q+r.id+Q+')" title="add manual">+M</button>';}
-          else if(manPI!=null){pd2='<span class="pcell-manual">$'+manPI+'</span><span class="pcell-badge pcell-badge-manual">M</span><button class="pcell-act" onclick="startEdit('+Q+r.id+Q+')" title="edit">ed</button><button class="pcell-act" onclick="clearManualPrice('+Q+r.ticker+Q+')" title="clear">&#10005;</button>';}
-          else{pd2='<span class="pcell-none">--</span><button class="pcell-act" onclick="startEdit('+Q+r.id+Q+')" title="set price">+M</button>';}
+          if(livePI!=null){pd2='<span class="pcell-live">$'+livePI.toFixed(2)+'</span><span class="pcell-badge pcell-badge-live">L</span>';pd2+=manPI!=null?'<button class="pcell-act" onclick="clearManualPrice('+Q+r.ticker+Q+')" title="clear manual">&#10005;</button>':'<button class="pcell-act" onclick="startEdit('+Q+r.id+Q+')" title="add manual">+m</button>';}
+          else if(manPI!=null){pd2='<span class="pcell-manual">$'+manPI+'</span><span class="pcell-badge pcell-badge-manual">M</span><button class="pcell-act" onclick="startEdit('+Q+r.id+Q+')" title="edit">e</button><button class="pcell-act" onclick="clearManualPrice('+Q+r.ticker+Q+')" title="clear">&#10005;</button>';}
+          else{pd2='<span class="pcell-none">--</span><button class="pcell-act" onclick="startEdit('+Q+r.id+Q+')" title="set price">+m</button>';}
           priceCellC='<div class="pcell">'+pd2+'</div>';
         }
 
@@ -1571,8 +1577,8 @@ function rTable(data){
           var cvFmt=fmtMoney(cvDispVal);
           var cvColor=cvDispVal<0?'var(--red)':cvDispVal>0?'var(--black)':'var(--text3)';
           var cvDispC=hasOvrd
-            ?'<span style="color:var(--yellow);font-family:monospace;font-weight:700;">'+cvFmt+'</span><span class="pcell-badge" style="background:var(--yellow-bg);color:var(--yellow);margin-left:2px;">ovrd</span><button class="pcell-act cv-undo-btn" data-rid="'+r.id+'" title="undo">&#8617; undo</button>'
-            :'<span style="font-family:monospace;color:'+cvColor+';">'+cvFmt+'</span><button class="pcell-act cv-ovrd-btn" data-rid="'+r.id+'" title="edit">edit</button>';
+            ?'<span style="color:var(--yellow);font-family:monospace;font-weight:700;">'+cvFmt+'</span><span class="pcell-badge" style="background:var(--yellow-bg);color:var(--yellow);margin-left:2px;">o</span><button class="pcell-act cv-undo-btn" data-rid="'+r.id+'" title="undo">&#8617;</button>'
+            :'<span style="font-family:monospace;color:'+cvColor+';">'+cvFmt+'</span><button class="pcell-act cv-ovrd-btn" data-rid="'+r.id+'" title="edit">e</button>';
           cvCellC='<td class="mn">'+cvDispC+'</td>';
         }
 
@@ -1580,13 +1586,13 @@ function rTable(data){
         var actionCellC;
         if(c){
           var ca=r.closeAction;
-          var tLbl=ca?(ca.action+(ca.type==='credit'?' \u00b7 Cr':ca.type==='debit'?' \u00b7 Dr':' \u00b7 $0')):'Closed';
+          var tLbl=ca?('C'+(ca.type==='credit'?' Cr':ca.type==='debit'?' Dr':' $0')):'C';
           var aPart=ca&&ca.amount>0?'<span class="'+(ca.type==='credit'?'closed-cr':'closed-dr')+'">'+(ca.type==='credit'?'+':'-')+'$'+ca.amount.toLocaleString()+'</span>':'<span class="closed-dt">$0</span>';
           var dPart=ca&&ca.date?'<span class="closed-dt">'+ca.date+'</span>':'';
           var nIcon=ca&&ca.notes?'<span title="'+ca.notes+'" style="cursor:help;color:var(--text3);">&#128196;</span>':'';
           actionCellC='<div class="closed-action-cell"><div class="closed-action-line"><span class="badge bcl">'+tLbl+'</span>'+aPart+dPart+nIcon+'</div><button class="reopen-btn" onclick="reopenPosition('+Q+r.id+Q+')">&#8617; Reopen</button></div>';
         }else{
-          var lbl=r.excelType==='Short Put'?'BTC':r.excelType==='Long Put'||r.excelType==='Long Call'?'STC':r.excelType==='Shares'?'Sell':'Close';
+          var lbl=r.excelType==='Short Put'?'C':r.excelType==='Long Put'||r.excelType==='Long Call'?'C':r.excelType==='Shares'?'C':'C';
           actionCellC='<button class="action-btn" onclick="openModal('+Q+r.id+Q+')" title="Close">&#9940; '+lbl+'</button>';
         }
 
@@ -1610,7 +1616,7 @@ function rTable(data){
           costCellC='<td class="mn"><div class="ie-wrap"><input class="ie-input w-md cost-edit-input" id="ie_'+r.id+'_excelCost" data-rid="'+r.id+'" type="number" step="0.01" value="'+(r.excelCost||0)+'" placeholder="0.00"><button class="ie-ok cost-save-btn" data-rid="'+r.id+'">&#10003;</button><button class="ie-x cost-cancel-btn">&#10005;</button></div></td>';
         }else{
           var costFmt=r.excelCost?fmtMoney(r.excelCost):'--';
-          costCellC='<td class="mn"><span style="font-family:monospace;">'+(r.excelCost?'<span style="color:var(--text2);">'+costFmt+'</span>':'<span style="color:var(--text3);">--</span>')+'</span><button class="pcell-act cost-edit-btn" data-rid="'+r.id+'" title="edit cost" style="margin-left:3px;">edit</button></td>';
+          costCellC='<td class="mn"><span style="font-family:monospace;">'+(r.excelCost?'<span style="color:var(--text2);">'+costFmt+'</span>':'<span style="color:var(--text3);">--</span>')+'</span><button class="pcell-act cost-edit-btn" data-rid="'+r.id+'" title="edit cost" style="margin-left:3px;">e</button></td>';
         }
         html+=costCellC;
         // Sold cell — inline editable
@@ -1619,7 +1625,7 @@ function rTable(data){
         if(soldEditingNow){
           soldCellC='<td class="mn"><div class="ie-wrap"><input class="ie-input w-md sold-edit-input" id="ie_'+r.id+'_soldAmount" data-rid="'+r.id+'" type="number" step="0.01" value="'+(soldC!=null?soldC:'')+'" placeholder="0.00"><button class="ie-ok sold-save-btn" data-rid="'+r.id+'">&#10003;</button><button class="ie-x sold-cancel-btn">&#10005;</button></div></td>';
         }else{
-          soldCellC='<td class="mn"><span style="color:var(--blue);font-family:monospace;">'+(hasSoldC?fmtMoney(soldC):'<span style="color:var(--text3);">--</span>')+'</span><button class="pcell-act sold-edit-btn" data-rid="'+r.id+'" title="edit sold" style="margin-left:3px;">edit</button></td>';
+          soldCellC='<td class="mn"><span style="color:var(--blue);font-family:monospace;">'+(hasSoldC?fmtMoney(soldC):'<span style="color:var(--text3);">--</span>')+'</span><button class="pcell-act sold-edit-btn" data-rid="'+r.id+'" title="edit sold" style="margin-left:3px;">e</button></td>';
         }
         html+=soldCellC;
         html+='<td class="mn" style="color:'+(netIncC!=null?(netIncC>=0?'var(--green)':'var(--red)'):'var(--text3)')+'">'+(netIncC!=null?fmtMoneySign(netIncC):'--')+'</td>';
@@ -1646,17 +1652,14 @@ function rTable(data){
         html+='<td class="mn" style="color:'+(c?'var(--text3)':'var(--red)')+';font-weight:700;">'+(c?'$0':(collVal!=null?'-$'+Math.abs(collVal).toLocaleString():'--'))+'</td>';
         html+='<td></td>';
         html+='<td class="'+(isExp2?'es':'ef')+'">'+fmtExpiry(r.expiryDate)+(isExp2?' &#9888;':'')+'</td>';
-        html+='<td>'+actionCellC+'</td>';
-        html+='<td style="text-align:center"><button class="row-edit-btn" onclick="openEditModal('+Q+r.id+Q+')" title="Edit">&#9998;</button></td>';
-        html+='<td style="text-align:center"><button class="copy-btn" onclick="copyRow('+Q+r.id+Q+')" title="Duplicate">&#10063;</button></td>';
-        html+='<td style="text-align:center"><button class="del-btn" onclick="deleteRowById('+Q+r.id+Q+')">&#128465;</button></td>';
+        html+='<td style="white-space:nowrap;"><div style="display:flex;align-items:center;gap:2px;">'+actionCellC+'<button class="del-btn" onclick="deleteRowById('+Q+r.id+Q+')" title="Delete" style="padding:0.1rem 0.22rem;font-size:0.68rem;">&#128465;</button><button class="row-edit-btn" onclick="openEditModal('+Q+r.id+Q+')" title="Edit" style="padding:0.14rem 0.3rem;font-size:0.6rem;">&#9998;</button><button class="copy-btn" onclick="copyRow('+Q+r.id+Q+')" title="Copy" style="padding:0.1rem 0.22rem;font-size:0.68rem;">&#10063;</button></div></td>';
         html+='</tr>';
       });
     }
   });
 
   var phdr=portHeader?'<th style="color:rgba(255,255,255,0.7);">Port.</th>':'';
-  return'<div class="table-wrap"><table><thead><tr><th>Ticker</th>'+phdr+'<th>Dt</th><th>Cost</th><th>Sold</th><th>Net</th><th>Portf. Val</th><th style="min-width:90px;">Price</th><th>Type</th><th>Strike</th><th style="color:#FCA5A5;">Assn.</th><th style="color:#FDBA74;">Coll.Val</th><th style="color:#FCD34D;">Col.Blk</th><th style="color:#6EE7B7;">Col.Gap</th><th>Expiry</th><th>Action</th><th></th><th></th><th></th></tr></thead><tbody>'+html+'</tbody></table></div>';
+  return'<div class="table-wrap"><table><thead><tr><th>Ticker</th>'+phdr+'<th>Dt</th><th>Cost</th><th>Sold</th><th>Net</th><th>Val</th><th style="min-width:55px;">Px</th><th>Type</th><th>Str</th><th style="color:#FCA5A5;">Assn</th><th style="color:#FDBA74;">C.Val</th><th style="color:#FCD34D;">C.Blk</th><th style="color:#6EE7B7;">Gap</th><th>Exp</th><th>Act</th></tr></thead><tbody>'+html+'</tbody></table></div>';
 }
 
 // ── CLOSE MODAL ───────────────────────────────────────────────────────────────
@@ -1855,26 +1858,32 @@ function closeAddModal(){addForm=null;document.getElementById('modal-root').inne
 // ── CSV UPLOAD ────────────────────────────────────────────────────────────────
 function rUploadPanel(){
   if(!csvPreview&&!importMsg)return'';
+  var _pn={'lovelina':'Lovelina','amit':'Amit','joint':'Joint','amit-roth':'Amit Roth','lov-roth':'Lov Roth','lov-trad':'Lov Trad'};
+  var _pc={'lovelina':'#DB2877','amit':'#2563EB','joint':'#059669','amit-roth':'#7C3AED','lov-roth':'#DB2877','lov-trad':'#0891B2'};
+  var portTag=ap==='retirement'?as:ap;
+  var portLabel=_pn[portTag]||portTag;
+  var portClr=_pc[portTag]||'#888';
+  var portChip='<span style="display:inline-flex;align-items:center;gap:0.3rem;font-size:0.72rem;font-weight:800;color:'+portClr+';background:rgba(0,0,0,0.06);border-radius:5px;padding:0.1rem 0.5rem;margin-left:4px;"><span style="width:8px;height:8px;border-radius:50%;background:'+portClr+';flex-shrink:0;"></span>'+portLabel+'</span>';
   var body='';
   if(csvPreview){
     var r=csvPreview.rows,e=csvPreview.errors,s=r.slice(0,5);
-    body='<div class="preview-wrap"><div class="preview-hdr">Preview &mdash; '+r.length+' position'+(r.length!==1?'s':'')+(e.length?' &middot; '+e.length+' error(s)':'')+'</div>'
+    body='<div class="preview-wrap"><div class="preview-hdr">Preview &mdash; '+r.length+' position'+(r.length!==1?'s':'')+' &rarr; '+portChip+(e.length?' &middot; '+e.length+' error(s)':'')+'</div>'
       +'<div class="preview-scroll"><table class="preview-table"><thead><tr><th>Ticker</th><th>Type</th><th>Strike</th><th>Expiry</th><th>Contracts</th><th>Curr. Val</th><th>Cost</th><th>Sold</th></tr></thead>'
       +'<tbody>'+s.map(function(r){return'<tr><td><strong>'+r.ticker+'</strong></td><td><span class="badge '+bct(r.excelType)+'">'+r.excelType+'</span></td><td class="mn">'+(r.strike>0?'$'+r.strike:'--')+'</td><td>'+(r.expiryDate||'--')+'</td><td class="mn">'+(r.contracts||1)+'</td><td class="mn">'+(r.cvOverride!=null?'$'+Math.abs(r.cvOverride).toLocaleString():'--')+'</td><td class="mn">'+(r.excelCost?'$'+r.excelCost.toLocaleString():'--')+'</td><td class="mn" style="color:var(--blue)">'+(r.soldAmount?'$'+Math.abs(r.soldAmount).toLocaleString():'--')+'</td></tr>';}).join('')
       +e.map(function(x){return'<tr><td colspan="6" class="err-cell">&#9888; '+x+'</td></tr>';}).join('')
       +'</tbody></table></div></div>'
-      +'<div class="import-actions"><button class="import-btn" onclick="doImport()" '+(r.length===0?'disabled':'')+'>&#8593; Import '+r.length+' Position'+(r.length!==1?'s':'')+'</button><button class="cancel-upload-btn" onclick="cancelUpload()">Cancel</button></div>'
+      +'<div class="import-actions"><button class="import-btn" onclick="doImport()" '+(r.length===0?'disabled':'')+'>&#8593; Import '+r.length+' Position'+(r.length!==1?'s':'')+' into '+portLabel+'</button><button class="cancel-upload-btn" onclick="cancelUpload()">Cancel</button></div>'
       +(importMsg?'<div style="margin-top:0.6rem;"><span class="'+(importMsg.ok?'import-ok':'import-err')+'">'+(importMsg.ok?'&#10003;':'&#9888;')+' '+importMsg.text+'</span></div>':'');
   }else{
     body='<div class="drop-zone" id="drop-zone" onclick="document.getElementById(\'csv-file-input\').click()">'
       +'<div class="drop-zone-icon">&#128196;</div>'
-      +'<div class="drop-zone-title">Drop your positions CSV / TSV here</div>'
+      +'<div class="drop-zone-title">Upload into '+portChip+'</div>'
       +'<div class="drop-zone-sub">ticker &middot; strike &middot; expiry_date &middot; num_contracts &middot; current_value &middot; cost &middot; Sold &middot; type</div>'
       +'<button class="drop-zone-btn" onclick="event.stopPropagation();document.getElementById(\'csv-file-input\').click()">&#128193; Choose File</button>'
       +'</div>'
       +(importMsg?'<div style="margin-top:0.6rem;"><span class="'+(importMsg.ok?'import-ok':'import-err')+'">'+(importMsg.ok?'&#10003;':'&#9888;')+' '+importMsg.text+'</span></div>':'');
   }
-  return'<div class="upload-panel"><div class="upload-panel-hdr"><span class="upload-panel-title">&#8593; Upload Positions via CSV</span><button class="upload-close-x" onclick="cancelUpload()">&#10005;</button></div><div class="upload-panel-body">'+body+'</div></div>';
+  return'<div class="upload-panel"><div class="upload-panel-hdr"><span class="upload-panel-title">&#8593; Upload Positions via CSV &rarr; '+portChip+'</span><button class="upload-close-x" onclick="cancelUpload()">&#10005;</button></div><div class="upload-panel-body">'+body+'</div></div>';
 }
 function toggleUpload(){csvPreview=null;importMsg='';var fi=document.getElementById('csv-file-input');if(fi)fi.click();}
 function cancelUpload(){csvPreview=null;importMsg='';rMain();}
@@ -1920,6 +1929,7 @@ function parseBrokerageCSV(text){
     if(s==='shortcall'||s==='scall'||s==='sc')return'Short Call';
     if(s==='longput'||s==='lput'||s==='lp')return'Long Put';
     if(s==='longcall'||s==='lcall'||s==='lc')return'Long Call';
+    if(s==='shares'||s==='shr'||s==='stock'||s==='equity')return'Shares';
     return null;
   }
   // Parse expiry date — accept M/D/YYYY, M/D/YY, YYYY-MM-DD
@@ -1967,17 +1977,19 @@ function parseBrokerageCSV(text){
     var isShort=excelType==='Short Put'||excelType==='Short Call';
     var cvStored=currentValue!==0?(isShort?-Math.abs(currentValue):Math.abs(currentValue)):0;
     var uid=Math.random().toString(36).slice(2,10);
+    var isShares=excelType==='Shares';
     var pos={
       id:uid,portfolio:null,ticker:ticker,excelType:excelType,
-      strike:strike,expiryDate:expiryDate,openDate:'',contracts:numContracts,
+      strike:isShares?0:strike,expiryDate:isShares?'':expiryDate,openDate:'',contracts:numContracts,
       excelCost:excelCost,excelIncome:excelIncome,
       excelGrossValue:excelIncome+Math.abs(cvStored),
       excelCurrentValue:Math.abs(cvStored),
       excelProfit:excelProfit,
       closed:isClosed,rolledOver:false,
-      closeAction:closeAction,manualPrice:null,notes:''
+      closeAction:closeAction,manualPrice:isShares?strike:null,notes:''
     };
-    if(cvStored!==0)pos.cvOverride=cvStored;
+    if(isShares&&currentValue!==0)pos.cvOverride=Math.abs(currentValue);
+    else if(cvStored!==0)pos.cvOverride=cvStored;
     if(soldVal!=null&&soldVal!==0)pos.soldAmount=soldVal;
     mapped.push(pos);
   }
@@ -1998,10 +2010,11 @@ function handleFile(file){
 function doImport(){
   if(!csvPreview||!csvPreview.rows.length)return;
   var portTag=ap==='retirement'?as:ap;
-  csvPreview.rows.forEach(function(r){if(!r.portfolio)r.portfolio=portTag;});
+  csvPreview.rows.forEach(function(r){r.portfolio=portTag;});
   positions=positions.concat(csvPreview.rows);
   savePositions();
-  importMsg={ok:true,text:'Imported '+csvPreview.rows.length+' positions!'};
+  var portNames={'lovelina':'Lovelina','amit':'Amit','joint':'Joint','amit-roth':'Amit Roth','lov-roth':'Lov Roth','lov-trad':'Lov Trad'};
+  importMsg={ok:true,text:'Imported '+csvPreview.rows.length+' positions into '+( portNames[portTag]||portTag)+'!'};
   csvPreview=null;rMain();
 }
 function attachUploadEvents(){
@@ -2024,27 +2037,64 @@ function buildSpreadPairs(data){
     if(spreadsExpFilter==='next-week'){if(!r.expiryDate)return false;var d=parseDate(r.expiryDate);return d&&d>thisFriSp&&d<=nextFriSp;}
     return true;
   }
-  // Base pool: open/closed + ticker filter only (no expiry/type filter yet)
   var basePool=data.filter(function(r){return!isCl(r);}).filter(function(r){return selectedTickers.has('ALL')||selectedTickers.has(r.ticker);});
-  // SP pool: also apply expiry + type filter (short puts/calls that match the selected window)
-  var spPool=basePool.filter(function(r){return(r.excelType==='Short Put'||r.excelType==='Short Call')&&expMatch(r)&&(spreadsTypeFilter==='all'||r.excelType===spreadsTypeFilter);});
-  // LP pool: NO expiry filter - LPs pair with SPs regardless of their own expiry date
+  // Short/Shares pool: SPUT, SCALL (with expiry filter), Shares (no expiry filter)
+  var spPool=basePool.filter(function(r){
+    if(r.excelType==='Shares')return spreadsTypeFilter==='all'||spreadsTypeFilter==='Shares';
+    return(r.excelType==='Short Put'||r.excelType==='Short Call')&&expMatch(r)&&(spreadsTypeFilter==='all'||r.excelType===spreadsTypeFilter);
+  });
   var lpPool=basePool.filter(function(r){return r.excelType==='Long Put'||r.excelType==='Long Call';});
-  var tickers=[...new Set([...spPool,...lpPool].map(function(r){return r.ticker;}))].sort();
+  // Group by ticker+portfolio so positions never cross-pair across portfolios
+  var groupKeys=[...new Set([...spPool,...lpPool].map(function(r){return r.ticker+'|'+(r.portfolio||'');}))].sort();
   var result=[];
-  tickers.forEach(function(ticker){
-    var sps=spPool.filter(function(r){return r.ticker===ticker;}).sort(function(a,b){return(parseDate(a.expiryDate)||0)-(parseDate(b.expiryDate)||0);});
-    var lps=lpPool.filter(function(r){return r.ticker===ticker;}).sort(function(a,b){return(parseDate(a.expiryDate)||0)-(parseDate(b.expiryDate)||0);});
-    if(!sps.length&&!lps.length)return;
-    var usedLPs=new Set();
-    var pairs=sps.map(function(sp){
-      var spD=parseDate(sp.expiryDate);
-      // Match SPUT with LPUT, SCALL with LCALL
-      var matchType=sp.excelType==='Short Put'?'Long Put':'Long Call';
-      var cands=lps.filter(function(lp){return!usedLPs.has(lp.id)&&lp.excelType===matchType&&(!spD||!parseDate(lp.expiryDate)||parseDate(lp.expiryDate)>=spD);}).sort(function(a,b){return(parseDate(a.expiryDate)||0)-(parseDate(b.expiryDate)||0);});
-      var m=cands[0]||null;if(m)usedLPs.add(m.id);return{sp:sp,lp:m};
+  groupKeys.forEach(function(gk){
+    var parts=gk.split('|');var ticker=parts[0],portfolio=parts[1];
+    var sps=spPool.filter(function(r){return r.ticker===ticker&&(r.portfolio||'')=== portfolio;}).sort(function(a,b){
+      // SPUTs/SCALLs first (by expiry asc), Shares last
+      var aS=a.excelType==='Shares'?1:0,bS=b.excelType==='Shares'?1:0;
+      if(aS!==bS)return aS-bS;
+      return(parseDate(a.expiryDate)||0)-(parseDate(b.expiryDate)||0);
     });
-    result.push({ticker:ticker,pairs:pairs,independentLPs:lps.filter(function(lp){return!usedLPs.has(lp.id);})});
+    var lps=lpPool.filter(function(r){return r.ticker===ticker&&(r.portfolio||'')=== portfolio;}).sort(function(a,b){
+      // Highest strike first — most protective LPUT goes to SPUT first, then Shares
+      if(b.strike!==a.strike)return b.strike-a.strike;
+      return(parseDate(a.expiryDate)||0)-(parseDate(b.expiryDate)||0);
+    });
+    if(!sps.length&&!lps.length)return;
+    // Expand into slots — Shares: floor(qty/100) slots each representing 100 shares; options: 1 slot per contract
+    var spSlots=[];
+    sps.forEach(function(sp){
+      if(sp.excelType==='Shares'){
+        // Always 1 display row per shares position (represents the whole holding)
+        // The 100sh=1contract equivalence is noted in the display, not in slot count
+        spSlots.push(sp);
+      } else {
+        var n=sp.contracts||1;
+        for(var i=0;i<n;i++)spSlots.push(sp);
+      }
+    });
+    // LP slots keyed by type
+    var lpSlotsMap={'Long Put':[],'Long Call':[]};
+    lps.forEach(function(lp){var n=lp.contracts||1;for(var i=0;i<n;i++)lpSlotsMap[lp.excelType].push(lp);});
+    // Pair each slot with next available LP of matching type
+    // Priority: SPUT→LPUT first, SCALL→LCALL first, then Shares→LPUT with remainder
+    var lpIdxMap={'Long Put':0,'Long Call':0};
+    var pairs=spSlots.map(function(sp){
+      var matchType=sp.excelType==='Short Call'?'Long Call':'Long Put';
+      var pool=lpSlotsMap[matchType];
+      var idx=lpIdxMap[matchType];
+      var lp=idx<pool.length?pool[idx]:null;
+      if(lp)lpIdxMap[matchType]++;
+      return{sp:sp,lp:lp};
+    });
+    // Remaining unmatched LPs stay independent
+    // Remaining slots after consumption — one row per slot, no deduplication
+    var independentLPs=[];
+    ['Long Put','Long Call'].forEach(function(t){
+      var pool=lpSlotsMap[t];var used=lpIdxMap[t];
+      for(var i=used;i<pool.length;i++){independentLPs.push(pool[i]);}
+    });
+    result.push({ticker:ticker,portfolio:portfolio,pairs:pairs,independentLPs:independentLPs});
   });
   return result;
 }
@@ -2052,25 +2102,54 @@ function calcSpreadCol(sp,lp){if(!sp)return 0;if(!lp)return sp.strike*100;return
 function rSpreadsView(data){
   var groups=buildSpreadPairs(data);
   var has=groups.some(function(g){return g.pairs.length>0||g.independentLPs.length>0;});
-  var portNames={'lovelina':'Lovelina','amit':'Amit','joint':'Joint','amit-roth':'Amit Roth','lov-roth':'Lov Roth','lov-trad':'Lov Trad'};
+  var portNames={'lovelina':'L','amit':'A','joint':'J','amit-roth':'AR','lov-roth':'LR','lov-trad':'LT'};
   var portColors={'lovelina':'#DB2877','amit':'#2563EB','joint':'#059669','amit-roth':'#7C3AED','lov-roth':'#DB2877','lov-trad':'#0891B2'};
   var tN=0,tS=0,netMap={};
   groups.forEach(function(g){var tn=0,ts=0;g.pairs.forEach(function(p){var c=calcSpreadCol(p.sp,p.lp);if(p.lp)ts+=c;else tn+=c;});var net=Math.max(0,tn+ts);netMap[g.ticker]=net;tN+=Math.max(0,tn);tS+=Math.max(0,ts);});
   var retirementPorts=new Set(['amit-roth','lov-roth','lov-trad']);
-  var socs='';
-  var typeOpts=[['all','All'],['Short Put','SPUT'],['Short Call','SCALL']];
-  var stypes=typeOpts.map(function(t){return'<button class="soc-tab'+(spreadsTypeFilter===t[0]?' active':'')+'" data-stypef="'+t[0]+'">'+t[1]+'</button>';}).join('');
-  var spreadOpts=[['all','All'],['spread','Spread'],['naked','Naked'],['unhedged','&#128683; Unhedged LPUT']];
-  var sspreads=spreadOpts.map(function(o){return'<button class="soc-tab'+(spreadsSpreadFilter===o[0]?' active':'')+'" data-sspreadf="'+o[0]+'">'+o[1]+'</button>';}).join('');
+  // ── Ticker dropdown — same as positions tab ──────────────────────────────
   var tickers=getTickersFrom(data),allSel=selectedTickers.has('ALL');
-  var selList=allSel?[]:tickers.filter(function(t){return selectedTickers.has(t);});
-  var ddItems=tickers.map(function(t){var sel=allSel||selectedTickers.has(t);return'<div class="ticker-dd-item'+(sel?' selected':'')+'" data-ddticker="'+t+'"><div class="ticker-dd-check">'+(sel?'&#10003;':'')+'</div><span class="dd-dot" style="background:'+(DC[t]||'#888')+'"></span>'+t+'</div>';}).join('');
-  var tags=allSel?'<span style="color:var(--text3);font-size:0.7rem;">All Tickers</span>':selList.map(function(t){return'<span class="sel-tag"><span style="width:6px;height:6px;border-radius:50%;background:'+(DC[t]||'#888')+';display:inline-block;flex-shrink:0;"></span>'+t+'<span class="sel-tag-x" data-xticker="'+t+'">&#10005;</span></span>';}).join('');
-  var expOpts=[['all','All Expiries'],['this-week','&#9888; This Week'],['next-week','&#8680; Next Week']];
-  var exps=expOpts.map(function(o){return'<button class="soc-tab'+(spreadsExpFilter===o[0]?' active':'')+'" data-expf="'+o[0]+'" style="'+(o[0]==='this-week'&&spreadsExpFilter===o[0]?'background:var(--yellow);color:#000;':o[0]==='next-week'&&spreadsExpFilter===o[0]?'background:var(--blue);':'')+'">'+o[1]+'</button>';}).join('');
+  var selList=allSel?[]:[...selectedTickers].filter(function(t){return t!=='ALL';});
+  var absentSel=selList.filter(function(t){return tickers.indexOf(t)<0;});
+  var ddItems=tickers.map(function(t){var sel=allSel||selectedTickers.has(t);return'<div class="ticker-dd-item'+(sel?' selected':'')+'" data-ddticker="'+t+'"><div class="ticker-dd-check">'+(sel?'&#10003;':'')+'</div><span class="dd-dot" style="background:'+(DC[t]||'#888')+'"></span>'+t+'</div>';}).join('')+(absentSel.length?'<div style="height:1px;background:var(--border);margin:0.1rem 0;"></div>'+absentSel.map(function(t){return'<div class="ticker-dd-item selected" data-ddticker="'+t+'" style="opacity:0.45;"><div class="ticker-dd-check">&#10003;</div><span class="dd-dot" style="background:'+(DC[t]||'#888')+'"></span>'+t+' <span style="font-size:0.55rem;color:var(--text3);">n/a</span></div>';}).join(''):'');
+  var tags=allSel?'<span style="color:var(--text3);font-size:0.7rem;">All</span>':selList.map(function(t){var inPort=tickers.indexOf(t)>=0;return'<span class="sel-tag" style="'+(inPort?'':'opacity:0.45;')+'"><span style="width:6px;height:6px;border-radius:50%;background:'+(DC[t]||'#888')+';display:inline-block;flex-shrink:0;"></span>'+t+'<span class="sel-tag-x" data-xticker="'+t+'">&#10005;</span></span>';}).join('');
   var total=Object.values(netMap).reduce(function(s,v){return s+v;},0);
-  var collatChip='<div style="margin-left:auto;display:flex;align-items:center;gap:0.5rem;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:0.28rem 0.75rem;"><span style="font-size:0.62rem;font-weight:700;color:var(--text3);">&#128274; COLLATERAL</span><span style="font-size:0.78rem;font-weight:800;font-family:monospace;color:#EF4444;">$'+total.toLocaleString()+'</span><span style="width:1px;background:var(--border);align-self:stretch;"></span><span style="font-size:0.62rem;color:var(--text3);">Naked</span><span style="font-size:0.72rem;font-weight:700;font-family:monospace;color:#EF4444;">$'+tN.toLocaleString()+'</span><span style="font-size:0.62rem;color:var(--text3);">Spread</span><span style="font-size:0.72rem;font-weight:700;font-family:monospace;color:var(--purple);">$'+tS.toLocaleString()+'</span></div>';
-  var sfb='<div class="spreads-filter-bar"><span class="filter-bar-label">&#127991; Ticker</span><div class="ticker-select-wrap" id="tkwrap"><div class="ticker-select-btn" id="tkbtn" onclick="toggleDropdown()"><div class="sel-tags">'+tags+'</div><span style="color:var(--text3);font-size:0.65rem;">&#9660;</span></div><div class="ticker-dropdown'+(dropdownOpen?' open':'')+'" id="tkdrop"><div style="padding:0.3rem 0.4rem;border-bottom:1px solid var(--border);"><input id="tk-search-inp" type="text" placeholder="&#128269; Search..." value="'+(typeof tkSearch!=='undefined'?tkSearch:'')+'" oninput="setTkSearch(this.value)" onclick="event.stopPropagation()" style="width:100%;border:1px solid var(--border2);border-radius:5px;padding:0.25rem 0.45rem;font-size:0.68rem;outline:none;color:var(--black);background:var(--bg3);"></div><div class="ticker-dd-item'+(allSel?' selected':'')+'" data-ddticker="ALL"><div class="ticker-dd-check">'+(allSel?'&#10003;':'')+'</div><span style="font-size:0.72rem;font-weight:700;">All Tickers</span></div><div style="height:1px;background:var(--border);margin:0.1rem 0;"></div><div style="max-height:180px;overflow-y:auto;">'+ddItems+'</div></div></div><div style="width:1px;background:var(--border);align-self:stretch;"></div><span class="filter-bar-label">&#128197; Expiry</span><div class="soc-tabs">'+exps+'</div><div style="width:1px;background:var(--border);align-self:stretch;"></div><span class="filter-bar-label">&#127960; Type</span><div class="soc-tabs">'+stypes+'</div><div style="width:1px;background:var(--border);align-self:stretch;"></div><span class="filter-bar-label">&#128681; Risk</span><div class="soc-tabs">'+sspreads+'</div><div style="width:1px;background:var(--border);align-self:stretch;"></div><button class="soc-tab'+(spreadsItmFilter?' active':'')+'" data-sitmf="1" style="'+(spreadsItmFilter?'background:var(--red);color:#fff;':'')+'" title="Show ITM: stock ≤ SP strike or stock > SC strike">&#9888; ITM</button>'+collatChip+'</div>';
+  var collatChip='<div style="display:flex;align-items:center;gap:0.5rem;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:0.28rem 0.75rem;"><span style="font-size:0.62rem;font-weight:700;color:var(--text3);">&#128274; COLLAT</span><span style="font-size:0.78rem;font-weight:800;font-family:monospace;color:#EF4444;">$'+total.toLocaleString()+'</span><span style="width:1px;background:var(--border);align-self:stretch;"></span><span style="font-size:0.62rem;color:var(--text3);">Naked</span><span style="font-size:0.72rem;font-weight:700;font-family:monospace;color:#EF4444;">$'+tN.toLocaleString()+'</span><span style="font-size:0.62rem;color:var(--text3);">Spread</span><span style="font-size:0.72rem;font-weight:700;font-family:monospace;color:var(--purple);">$'+tS.toLocaleString()+'</span></div>';
+  // ── Spreads filter bar — matches positions tab style ─────────────────────
+  var typeOpts=[['all','All'],['Short Put','SPUT'],['Short Call','SCALL'],['Shares','SHR']];
+  var stypes=typeOpts.map(function(t){return'<button class="type-tab'+(spreadsTypeFilter===t[0]?' active':'')+'" onclick="spreadsTypeFilter=\''+t[0]+'\';rMain();">'+t[1]+'</button>';}).join('');
+  var expOpts=[['all','All'],['this-week','⚠ This Wk'],['next-week','→ Next Wk']];
+  var exps=expOpts.map(function(o){return'<button class="expiry-pill'+(spreadsExpFilter===o[0]?' active':'')+'" onclick="spreadsExpFilter=\''+o[0]+'\';rMain();" style="'+(o[0]==='this-week'&&spreadsExpFilter===o[0]?'background:var(--yellow);color:#000;border-color:var(--yellow);':o[0]==='next-week'&&spreadsExpFilter===o[0]?'background:var(--blue);color:#fff;border-color:var(--blue);':'')+'">'+o[1]+'</button>';}).join('');
+  // Show filter: All / Naked / No SPUT/SHR
+  var showOpts=[['all','All'],['naked','Naked'],['no-short','No SPUT/SHR']];
+  var sshow=showOpts.map(function(o){return'<button class="expiry-pill'+(spreadsShowFilter===o[0]?' active':'')+'" onclick="spreadsShowFilter=\''+o[0]+'\';rMain();" style="'+(spreadsShowFilter===o[0]&&o[0]!=='all'?'background:#7C3AED;color:#fff;border-color:#7C3AED;':'')+'">'+o[1]+'</button>';}).join('');
+  // Money filter: All / ITM / ATM
+  var moneyOpts=[['all','All'],['itm','ITM'],['atm','ATM']];
+  var smoney=moneyOpts.map(function(o){return'<button class="expiry-pill'+(spreadsMoneyFilter===o[0]?' active':'')+'" onclick="spreadsMoneyFilter=\''+o[0]+'\';rMain();" style="'+(spreadsMoneyFilter===o[0]&&o[0]==='itm'?'background:var(--red);color:#fff;border-color:var(--red);':spreadsMoneyFilter===o[0]&&o[0]==='atm'?'background:var(--yellow);color:#000;border-color:var(--yellow);':'')+'">'+o[1]+'</button>';}).join('');
+  // Risk filter: All / UHedge (over-hedged) / OHedge (other way)
+  var riskOpts=[['all','All'],['uhedge','UHedge'],['ohedge','OHedge']];
+  var srisk=riskOpts.map(function(o){return'<button class="expiry-pill'+(spreadsRiskFilter===o[0]?' active':'')+'" onclick="spreadsRiskFilter=\''+o[0]+'\';rMain();" style="'+(spreadsRiskFilter===o[0]&&o[0]!=='all'?'background:#EF4444;color:#fff;border-color:#EF4444;':'')+'">'+o[1]+'</button>';}).join('');
+  var sfb='<div class="controls-row" style="margin-bottom:0.6rem;flex-wrap:wrap;gap:0.4rem;">'
+    // Ticker selector — identical to positions tab
+    +'<div class="ticker-select-wrap" id="tkwrap" style="flex-shrink:0;min-width:80px;max-width:150px;"><div class="ticker-select-btn" id="tkbtn" onclick="toggleDropdown()"><div class="sel-tags">'+tags+'</div><span style="color:var(--text3);font-size:0.65rem;">&#9660;</span></div><div class="ticker-dropdown'+(dropdownOpen?' open':'')+'" id="tkdrop"><div style="padding:0.3rem 0.4rem;border-bottom:1px solid var(--border);"><input id="tk-search-inp" type="text" placeholder="&#128269; Search..." value="'+(typeof tkSearch!=='undefined'?tkSearch:'')+'" oninput="setTkSearch(this.value)" onclick="event.stopPropagation()" style="width:100%;border:1px solid var(--border2);border-radius:5px;padding:0.25rem 0.45rem;font-size:0.68rem;outline:none;color:var(--black);background:var(--bg3);"></div><div class="ticker-dd-item'+(allSel?' selected':'')+'" data-ddticker="ALL"><div class="ticker-dd-check">'+(allSel?'&#10003;':'')+'</div><span style="font-size:0.72rem;font-weight:700;">All Tickers</span></div><div style="height:1px;background:var(--border);margin:0.1rem 0;"></div><div style="max-height:180px;overflow-y:auto;">'+ddItems+'</div></div></div>'
+    +'<div style="width:1px;background:var(--border);align-self:stretch;flex-shrink:0;"></div>'
+    // Type tabs
+    +'<div class="type-tabs">'+stypes+'</div>'
+    +'<div style="width:1px;background:var(--border);align-self:stretch;flex-shrink:0;"></div>'
+    // Expiry pills
+    +exps
+    +'<div style="width:1px;background:var(--border);align-self:stretch;flex-shrink:0;"></div>'
+    // Show filter
+    +'<span style="font-size:0.62rem;font-weight:700;color:var(--text3);white-space:nowrap;">Show</span>'+sshow
+    +'<div style="width:1px;background:var(--border);align-self:stretch;flex-shrink:0;"></div>'
+    // Money filter
+    +'<span style="font-size:0.62rem;font-weight:700;color:var(--text3);white-space:nowrap;">Money</span>'+smoney
+    +'<div style="width:1px;background:var(--border);align-self:stretch;flex-shrink:0;"></div>'
+    // Risk filter
+    +'<span style="font-size:0.62rem;font-weight:700;color:var(--text3);white-space:nowrap;">Risk</span>'+srisk
+    // Collateral chip right-aligned
+    +'<div style="margin-left:auto;">'+collatChip+'</div>'
+    +'</div>';
   // Flatten all rows, sort by SP expiry asc
   var allRows=[];
   groups.filter(function(g){return g.pairs.length>0||g.independentLPs.length>0;}).forEach(function(g){
@@ -2082,8 +2161,36 @@ function rSpreadsView(data){
   });
   allRows.sort(function(a,b){return a.sortDate-b.sortDate;});
   if(spreadsSpreadFilter==='spread')allRows=allRows.filter(function(i){return i.type==='pair'&&i.pair.lp;});
-  else if(spreadsSpreadFilter==='naked')allRows=allRows.filter(function(i){return (i.type==='pair'&&!i.pair.lp)||(i.type==='indep');});
+  else if(spreadsSpreadFilter==='naked')allRows=allRows.filter(function(i){return i.type==='pair'&&!i.pair.lp;});
   else if(spreadsSpreadFilter==='unhedged')allRows=allRows.filter(function(i){return i.type==='indep'&&i.lp&&i.lp.excelType==='Long Put';});
+  // Show filter: Naked = SPUT/SHR with no LPUT paired; No SPUT/SHR = LPUT with no pair
+  if(spreadsShowFilter==='naked')allRows=allRows.filter(function(i){return i.type==='pair'&&!i.pair.lp;});
+  else if(spreadsShowFilter==='no-short')allRows=allRows.filter(function(i){return i.type==='indep';});
+  // Money filter: ITM / ATM (within 5% of strike)
+  if(spreadsMoneyFilter!=='all'){allRows=allRows.filter(function(i){
+    var ticker=i.ticker;
+    var lP=(liveCache[ticker]&&liveCache[ticker].price!=null)?liveCache[ticker].price:null;
+    var mP=tickerPrices[ticker]!=null?tickerPrices[ticker]:null;
+    var stockP=lP!=null?lP:(mP!=null?mP:null);
+    if(stockP==null)return false;
+    var sp=i.type==='pair'?i.pair.sp:null;
+    if(!sp)return false;
+    var isITM=(sp.excelType==='Short Put'&&stockP<=sp.strike)||(sp.excelType==='Short Call'&&stockP>sp.strike);
+    var pct=Math.abs(stockP-sp.strike)/sp.strike;
+    var isATM=!isITM&&pct<=0.05;
+    if(spreadsMoneyFilter==='itm')return isITM;
+    if(spreadsMoneyFilter==='atm')return isATM;
+    return true;
+  });}
+  // Risk filter: UHedge = more LPUT contracts than SPUT (over-hedged); OHedge = fewer LPUT than SPUT but >0
+  if(spreadsRiskFilter!=='all'){allRows=allRows.filter(function(i){
+    if(i.type!=='pair'||!i.pair.lp)return false;
+    var spC=i.pair.sp?(i.pair.sp.contracts||1):1;
+    var lpC=i.pair.lp?(i.pair.lp.contracts||1):0;
+    if(spreadsRiskFilter==='uhedge')return lpC>spC;
+    if(spreadsRiskFilter==='ohedge')return lpC>0&&lpC<spC;
+    return true;
+  });}
   if(spreadsItmFilter){allRows=allRows.filter(function(i){
     if(i.type!=='pair')return false;
     var sp=i.pair.sp;if(!sp)return false;
@@ -2125,26 +2232,51 @@ function rSpreadsView(data){
       var badge=(!lp)?'<span class="badge-naked">Naked</span>':'<span class="badge-spread">Spread</span>';
       // Red flags
       var flags='';
-      if(stockP!=null&&sp.strike>stockP)flags+=' <span title="SP Strike above stock price" style="color:#EF4444;font-size:0.85rem;">\uD83D\uDEA9</span>';
-      if(lp&&sp.strike>lp.strike)flags+=' <span title="SP Strike above LP Strike" style="color:#EF4444;font-size:0.85rem;">\uD83D\uDEA9</span>';
-      var typeBadge='<span class="badge bsp" style="opacity:0.85;">SPUT</span>';
-      var spCtr=sp.contracts||1;
-      var lpCtr=lp?(lp.contracts||1):0;
-      var spCtrBadge='<span style="display:inline-flex;align-items:center;background:#DC2626;color:#fff;border-radius:4px;padding:0.05rem 0.28rem;font-size:0.58rem;font-weight:800;margin-left:3px;">'+spCtr+'x</span>';
-      var lpCtrBadge=lp?'<span style="display:inline-flex;align-items:center;background:#2563EB;color:#fff;border-radius:4px;padding:0.05rem 0.28rem;font-size:0.58rem;font-weight:800;margin-left:3px;">'+lpCtr+'x</span>':'';
-      return'<tr>'+portBadge+'<td class="mc"><span class="chip"><span class="tk-dot-sm" style="background:'+(DC[ticker]||'#888')+'"></span>'+ticker+'</span></td><td>'+stockPcell+'</td><td>'+typeBadge+' '+badge+'</td><td class="mn sp-cell" style="color:var(--red);font-weight:700;border-right:none;">$'+sp.strike+spCtrBadge+flags+'</td><td class="mn sp-cell '+ec(sp.expiryDate)+'" style="border-right:none;">'+(sp.expiryDate||'--')+'</td><td class="div-col" style="width:60px;font-size:0.65rem;">&#8596;</td><td class="mn" style="color:var(--blue);font-weight:700;background:rgba(37,99,235,0.05);">'+(lp?'$'+lp.strike+lpCtrBadge:'<span class="empty">\u2014</span>')+'</td><td class="mn lp-cell '+(lp?ec(lp.expiryDate):'')+'">'+(lp?lp.expiryDate:'<span class="empty">\u2014</span>')+'</td><td class="mn">'+collatDisplay+'</td></tr>';
+      var isShares=sp.excelType==='Shares';
+      if(!isShares&&stockP!=null&&sp.strike>stockP)flags+=' <span title="SP Strike above stock price" style="color:#EF4444;font-size:0.85rem;">\uD83D\uDEA9</span>';
+      if(!isShares&&lp&&sp.strike>lp.strike)flags+=' <span title="SP Strike above LP Strike" style="color:#EF4444;font-size:0.85rem;">\uD83D\uDEA9</span>';
+      // Left side type badge
+      var spTypeLabel=isShares?'SHR':sp.excelType==='Short Call'?'SCALL':'SPUT';
+      var spTypeCls=isShares?'blc':sp.excelType==='Short Call'?'bsh':'bsp';
+      var spTypeBadgeCell='<span class="badge '+spTypeCls+'" style="opacity:0.9;">'+spTypeLabel+'</span>';
+      // Left side strike/qty display
+      var spStrikeDisplay=isShares
+        ?(function(){var qty=Math.round((sp.excelCost||0)/(sp.manualPrice||tickerPrices[sp.ticker]||stockP||1));var eqCtr=Math.max(1,Math.floor(qty/100));return'<span style="font-family:monospace;font-weight:700;color:var(--green);">'+qty+' sh</span><span style="font-size:0.58rem;color:var(--text3);margin-left:3px;">(≈'+eqCtr+'x)</span>';}())
+        :'$'+sp.strike;
+      // Left side expiry display
+      var spExpiryDisplay=isShares?'<span style="color:var(--text3);">hold</span>':(sp.expiryDate||'--');
+      var spExpiryClass=isShares?'':'mn sp-cell '+ec(sp.expiryDate);
+      var lpTypeLabel=lp?(lp.excelType==='Long Call'?'LCALL':'LPUT'):'';
+      var lpTypeBadgeCell=lp?'<span class="badge '+(lp.excelType==='Long Call'?'blc':'blp')+'" style="opacity:0.9;">'+lpTypeLabel+'</span>':'<span class="empty">\u2014</span>';
+      var spCtr=1;
+      var lpCtr=lp?1:0;
+      var nakedWarning='';
+      var rowStyle=(!lp&&sp)?'border-left:3px solid #F97316;background:rgba(255,247,237,0.5);':(isShares?'background:rgba(5,150,105,0.03);':'');
+      var spCtrBadge='<span style="display:inline-flex;align-items:center;background:'+(isShares?'#059669':'#DC2626')+';color:#fff;border-radius:4px;padding:0.05rem 0.28rem;font-size:0.58rem;font-weight:800;margin-left:3px;">1x</span>';
+      var lpCtrBadge=lp?'<span style="display:inline-flex;align-items:center;background:#2563EB;color:#fff;border-radius:4px;padding:0.05rem 0.28rem;font-size:0.58rem;font-weight:800;margin-left:3px;">1x</span>':'';
+      // Collateral: Shares have no collateral requirement (they ARE the collateral)
+      var collatDisplay2=isShares?(function(){
+        if(!lp)return'<span style="color:var(--green);font-size:0.62rem;">&#10003; Covered</span>';
+        var qty=Math.round((sp.excelCost||0)/(sp.manualPrice||tickerPrices[sp.ticker]||stockP||1));
+        var hedgeFloor=lp.strike*100;
+        var net=qty-hedgeFloor;
+        var netColor=net>0?'var(--yellow)':'var(--green)';
+        return'<span style="font-family:monospace;font-weight:700;color:'+netColor+';">$'+Math.abs(net).toLocaleString()+'</span><span style="font-size:0.58rem;color:var(--text3);margin-left:3px;">('+qty+' \u2212 $'+hedgeFloor+')</span>';
+      }()):collatDisplay;
+      return'<tr style="'+rowStyle+'">'+portBadge+'<td class="mc"><span class="chip"><span class="tk-dot-sm" style="background:'+(DC[ticker]||'#888')+'"></span>'+ticker+'</span></td><td>'+stockPcell+'</td><td class="mn sp-cell" style="color:'+(isShares?'var(--green)':'var(--red)')+';font-weight:700;border-right:none;">'+spStrikeDisplay+spCtrBadge+flags+nakedWarning+'</td><td class="'+spExpiryClass+'" style="border-right:none;">'+spExpiryDisplay+'</td><td class="mn sp-cell" style="border-right:none;">'+spTypeBadgeCell+'</td><td class="div-col" style="width:60px;font-size:0.65rem;">&#8596;</td><td class="mn" style="color:var(--blue);font-weight:700;background:rgba(37,99,235,0.05);">'+(lp?'$'+lp.strike+lpCtrBadge:'<span class="empty">\u2014</span>')+'</td><td class="mn lp-cell '+(lp?ec(lp.expiryDate):'')+'">'+(lp?lp.expiryDate:'<span class="empty">\u2014</span>')+'</td><td class="mn" style="background:rgba(37,99,235,0.03);">'+lpTypeBadgeCell+'</td><td class="mn">'+collatDisplay2+'</td></tr>';
     } else {
       var typeBadge2='<span class="badge '+(lp.excelType==='Long Call'?'blc':'blp')+'" style="opacity:0.85;">'+(lp.excelType==='Long Call'?'LCALL':'LPUT')+'</span>';
       var noSpB=spreadsSpreadFilter==='unhedged'?'<span style="background:#FEF2F2;color:#DC2626;border:1px solid rgba(220,38,38,0.25);border-radius:4px;padding:0.08rem 0.38rem;font-size:0.58rem;font-weight:700;margin-left:4px;">&#128683; No SPUT</span>':'<span class="badge-indep">Indep</span>';
       var rSt=spreadsSpreadFilter==='unhedged'?'background:rgba(254,242,242,0.5);border-left:3px solid #EF4444;':'';
-      var lpCtr2=lp.contracts||1;
+      var lpCtr2=1;
       var lpCtrBadge2='<span style="display:inline-flex;align-items:center;background:#2563EB;color:#fff;border-radius:4px;padding:0.05rem 0.28rem;font-size:0.58rem;font-weight:800;margin-left:3px;">'+lpCtr2+'x</span>';
-      return'<tr style="'+rSt+'">'+portBadge+'<td class="mc"><span class="chip"><span class="tk-dot-sm" style="background:'+(DC[ticker]||'#888')+'"></span>'+ticker+'</span></td><td>'+stockPcell+'</td><td>'+typeBadge2+' '+noSpB+'</td><td class="mn empty">\u2014</td><td class="mn empty">\u2014</td><td class="div-col">\u2194</td><td class="mn" style="color:var(--blue);font-weight:700;">$'+lp.strike+lpCtrBadge2+'</td><td class="mn '+ec(lp.expiryDate)+'">'+(lp.expiryDate||'--')+'</td><td class="mn" style="color:var(--text3);">\u2014</td></tr>';
+      var lpTypeBadge2='<span class="badge '+(lp.excelType==='Long Call'?'blc':'blp')+'" style="opacity:0.9;">'+(lp.excelType==='Long Call'?'LCALL':'LPUT')+'</span>';
+      return'<tr style="'+rSt+'">'+portBadge+'<td class="mc"><span class="chip"><span class="tk-dot-sm" style="background:'+(DC[ticker]||'#888')+'"></span>'+ticker+'</span></td><td>'+stockPcell+'</td><td class="mn empty">\u2014</td><td class="mn empty">\u2014</td><td class="mn empty">\u2014</td><td class="div-col">\u2194</td><td class="mn" style="color:var(--blue);font-weight:700;">$'+lp.strike+lpCtrBadge2+'</td><td class="mn '+ec(lp.expiryDate)+'">'+(lp.expiryDate||'--')+'</td><td class="mn">'+lpTypeBadge2+'</td><td class="mn" style="color:var(--text3);">\u2014</td></tr>';
     }
   });
   var uhB=spreadsSpreadFilter==='unhedged'&&rows.length>0?'<div style="background:#FEF2F2;border:1px solid rgba(220,38,38,0.2);border-radius:var(--r);padding:0.6rem 1rem;margin-bottom:0.75rem;display:flex;align-items:center;gap:0.75rem;"><span>&#128683;</span><div><div style="font-size:0.72rem;font-weight:700;color:#DC2626;">'+rows.length+' Unhedged LPUT'+(rows.length>1?'s':'')+'</div><div style="font-size:0.63rem;color:#991B1B;">No SPUT mapped. Consider selling a short put to hedge.</div></div></div>':'';
-  var tableBody=rows.length>0?rows.join(''):'<tr><td colspan="10" class="ec" style="padding:2rem;text-align:center;color:var(--text3);">'+(spreadsSpreadFilter==='unhedged'?'&#10003; All LPUTs are hedged.':has?'No positions match filters.':'No positions found.')+'</td></tr>';
-  return sfb+uhB+'<div class="st-wrap"><table style="min-width:900px;"><thead><tr><th>Portfolio</th><th>Ticker</th><th>Stock Price</th><th>Type</th><th class="sp-hdr">Short Strike</th><th class="sp-hdr">Short Expiry</th><th class="div-hdr">SHORT&#8594;LONG</th><th class="lp-hdr">Long Strike</th><th class="lp-hdr">Long Expiry</th><th>Collateral</th></tr></thead><tbody>'+tableBody+'</tbody></table></div>';
+  var tableBody=rows.length>0?rows.join(''):'<tr><td colspan="11" class="ec" style="padding:2rem;text-align:center;color:var(--text3);">'+(spreadsSpreadFilter==='unhedged'?'&#10003; All LPUTs are hedged.':has?'No positions match filters.':'No positions found.')+'</td></tr>';
+  return sfb+uhB+'<div class="st-wrap"><table style="min-width:1000px;"><thead><tr><th>Portfolio</th><th>Ticker</th><th>Stock Price</th><th class="sp-hdr">Short Strike</th><th class="sp-hdr">Short Expiry</th><th class="sp-hdr">Short Type</th><th class="div-hdr">SHORT&#8594;LONG</th><th class="lp-hdr">Long Strike</th><th class="lp-hdr">Long Expiry</th><th class="lp-hdr">Long Type</th><th>Collateral</th></tr></thead><tbody>'+tableBody+'</tbody></table></div>';
 }
 
 // ── ADMIN / PRICES VIEW ───────────────────────────────────────────────────────
@@ -2159,31 +2291,107 @@ async function fetchLivePrice(ticker){
     var contents=JSON.parse(json.contents);
     var meta=contents&&contents.chart&&contents.chart.result&&contents.chart.result[0]&&contents.chart.result[0].meta;
     var price=meta?(meta.regularMarketPrice!=null?meta.regularMarketPrice:meta.previousClose!=null?meta.previousClose:null):null;
-    if(price!=null){liveCache[ticker]={price:price,ts:Date.now()};return price;}
+    if(price!=null){
+      liveCache[ticker]={price:price,ts:Date.now()};
+      // Auto-copy live price into manual so it persists
+      tickerPrices[ticker]=price;saveTP(tickerPrices);
+    }
+    // Extract earnings timestamp from same response and auto-copy to manual
+    var ets=meta&&(meta.earningsTimestamp||meta.earningsTimestampStart||null);
+    if(ets){
+      var ed=new Date(ets*1000);
+      var dateStr=(ed.getMonth()+1)+'/'+(ed.getDate())+'/'+ed.getFullYear();
+      if(!earningsDates[ticker])earningsDates[ticker]={};
+      earningsDates[ticker].live=dateStr;
+      earningsDates[ticker].manual=dateStr; // auto-copy live to manual
+      earningsDates[ticker].liveTs=Date.now();
+      saveED();
+    }
+    return price;
   }catch(e){}
   return null;
 }
 function rAdminView(){
   var allT=[...new Set(positions.map(function(r){return r.ticker;}).concat(Object.keys(tickerPrices)))].sort();
+  // Sort: tickers with earnings date first (asc by date), then no-earnings tickers (alpha)
+  allT.sort(function(a,b){
+    var ea=getActiveEarnings(a),eb=getActiveEarnings(b);
+    var da=ea?fmtEarningsDate(ea):null,db=eb?fmtEarningsDate(eb):null;
+    var hasA=da&&da.diff>=0,hasB=db&&db.diff>=0;
+    if(hasA&&hasB)return da.diff-db.diff;
+    if(hasA&&!hasB)return -1;
+    if(!hasA&&hasB)return 1;
+    return a.localeCompare(b);
+  });
   var rows=allT.map(function(t){
     var manual=tickerPrices[t]!=null?tickerPrices[t]:null;
     var live=liveCache[t]&&liveCache[t].price!=null?liveCache[t].price:null;
-    var ldsp=live!=null?'<span class="live-price">$'+live.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})+'</span> <span class="live-badge">Live</span>':'<span class="fetching-badge">Fetching...</span>';
-    var mdsp=manual!=null?'<span style="font-family:monospace;font-weight:700;">$'+manual+'</span> <span class="manual-badge">Manual</span>':'<span class="no-price">\u2014</span>';
+    var ldsp=live!=null?'<span class="live-price">$'+live.toFixed(2)+'</span> <span class="live-badge">L</span>':'<span class="fetching-badge">—</span>';
+    var mdsp=manual!=null?'<span style="font-family:monospace;font-weight:700;">$'+manual+'</span> <span class="manual-badge">M</span>':'<span class="no-price">\u2014</span>';
     var act=live!=null?live:manual;
-    var adsp=act!=null?'<span style="font-family:monospace;font-weight:800;color:var(--black);">$'+Number(act).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})+'</span><span style="font-size:0.6rem;color:var(--text3);margin-left:4px;">'+(manual!=null?'(manual)':'(live)')+'</span>':'<span class="no-price">Not set</span>';
+    var adsp=act!=null?'<span style="font-family:monospace;font-weight:800;color:var(--black);">$'+Number(act).toFixed(2)+'</span><span style="font-size:0.6rem;color:var(--text3);margin-left:3px;">'+(live!=null?'L':'M')+'</span>':'<span class="no-price">—</span>';
+    // Earnings date
+    var ed=earningsDates[t]||{};
+    var eLive=ed.live||null;
+    var eManual=ed.manual||null;
+    var eActive=eLive||eManual||null;
+    var eFmt=eActive?fmtEarningsDate(eActive):null;
+    var eDaysLabel=eFmt?(eFmt.diff>=0&&eFmt.diff<=365?'<span style="font-size:0.58rem;color:'+eFmt.color+';font-weight:700;margin-left:3px;">'+(eFmt.diff===0?'TODAY':eFmt.diff===1?'tmrw':eFmt.diff+'d')+'</span>':''):'';
+    var eSrcBadge=eLive?'<span class="live-badge" style="margin-left:3px;">L</span>':(eManual?'<span class="manual-badge" style="margin-left:3px;">M</span>':'');
+    var eDisplay=eActive?'<span style="font-family:monospace;font-weight:700;color:'+(eFmt?eFmt.color:'var(--text2)')+';" id="ed_'+t+'">'+eActive+'</span>'+eDaysLabel+eSrcBadge:'<span class="no-price" id="ed_'+t+'">\u2014</span>';
+    var eClearBtn=eManual?'<button class="admin-clear-btn" onclick="setManualEarnings(\''+t+'\',null);rMain();">Clear</button>':'';
+    var eEditRow='<div style="display:flex;align-items:center;gap:0.4rem;"><input class="admin-price-input" id="edt_'+t+'" type="date" style="width:130px;" value="'+(eManual?adminDateToInput(eManual):'')+'"><button class="admin-save-btn" onclick="adminSaveEarnings(\''+t+'\')">Save</button>'+eClearBtn+'</div>';
     return'<tr><td><div class="admin-ticker-cell"><span class="tk-dot-sm" style="background:'+(DC[t]||'#888')+'"></span>'+t+'</div></td><td id="lp_'+t+'">'+ldsp+'</td><td>'+mdsp+'</td><td>'+adsp+'</td>'
-      +'<td><div style="display:flex;align-items:center;gap:0.4rem;"><input class="admin-price-input" id="ap_'+t+'" type="number" step="0.01" placeholder="e.g. 16.50" value="'+(manual!=null?manual:'')+'" onkeydown="if(event.key===\'Enter\')adminSavePrice(\''+t+'\')"><button class="admin-save-btn" onclick="adminSavePrice(\''+t+'\')">Save</button>'+(manual!=null?'<button class="admin-clear-btn" onclick="adminClearPrice(\''+t+'\')">Clear</button>':'')+'</div></td></tr>';
+      +'<td><div style="display:flex;align-items:center;gap:0.4rem;"><input class="admin-price-input" id="ap_'+t+'" type="number" step="0.01" placeholder="e.g. 16.50" value="'+(manual!=null?manual:'')+'" onkeydown="if(event.key===\'Enter\')adminSavePrice(\''+t+'\')"><button class="admin-save-btn" onclick="adminSavePrice(\''+t+'\')">Save</button>'+(manual!=null?'<button class="admin-clear-btn" onclick="adminClearPrice(\''+t+'\')">Clear</button>':'')+'</div></td>'
+      +'<td>'+eDisplay+'</td>'
+      +'<td>'+eEditRow+'</td>'
+      +'</tr>';
   }).join('');
-  return'<div class="admin-wrap"><div class="admin-title">&#9881; Prices Admin</div><div class="admin-sub">Live prices fetched from Yahoo Finance. Set manual price to override. Live price always takes priority. Manual used only when live is unavailable.</div><div class="admin-note">&#8505; <strong>Live prices</strong> are fetched and cached for 5 minutes. If a ticker is not on Yahoo Finance, set a manual price instead.</div><br><div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Ticker</th><th>Live Price</th><th>Manual Price</th><th>Active Price</th><th>Set Manual Price</th></tr></thead><tbody>'+rows+'</tbody></table></div><div class="admin-add-row"><span class="admin-add-label">Add ticker:</span><input class="admin-add-input" id="adm-new-ticker" placeholder="Ticker" style="width:100px;"><input class="admin-add-input" id="adm-new-price" type="number" step="0.01" placeholder="Manual price" style="width:120px;"><button class="admin-add-btn" onclick="adminAddTicker()">+ Add</button></div></div>';
+  // Fetch earnings live in background
+  setTimeout(function(){fetchAllEarnings(allT);},100);
+  return'<div class="admin-wrap"><div class="admin-title">&#9881; Prices &amp; Earnings Admin</div><div class="admin-sub">Live prices and earnings dates fetched from Yahoo Finance. Manual overrides take effect when live data is unavailable.</div><div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Ticker</th><th>Live Price</th><th>Manual Price</th><th>Active Price</th><th>Set Manual Price</th><th style="color:#FCD34D;">Next Earnings</th><th style="color:#FCD34D;">Set Earnings</th></tr></thead><tbody>'+rows+'</tbody></table></div><div class="admin-add-row"><span class="admin-add-label">Add ticker:</span><input class="admin-add-input" id="adm-new-ticker" placeholder="Ticker" style="width:100px;"><input class="admin-add-input" id="adm-new-price" type="number" step="0.01" placeholder="Manual price" style="width:120px;"><button class="admin-add-btn" onclick="adminAddTicker()">+ Add</button></div></div>';
+}
+function adminDateToInput(dateStr){
+  // Convert M/D/YYYY to YYYY-MM-DD for date input
+  try{var p=dateStr.split('/');if(p.length===3)return p[2]+'-'+String(p[0]).padStart(2,'0')+'-'+String(p[1]).padStart(2,'0');}catch(e){}return '';
+}
+function adminSaveEarnings(ticker){
+  var inp=document.getElementById('edt_'+ticker);if(!inp)return;
+  var v=inp.value;// YYYY-MM-DD
+  if(!v){setManualEarnings(ticker,null);rMain();return;}
+  try{var p=v.split('-');var ds=(parseInt(p[1]))+'/'+parseInt(p[2])+'/'+p[0];setManualEarnings(ticker,ds);rMain();}catch(e){alert('Invalid date');}
+}
+async function fetchAllEarnings(tickers){
+  await Promise.all(tickers.map(async function(t){
+    await fetchLivePrice(t); // earnings now extracted inside fetchLivePrice
+    var ed=earningsDates[t]||{};
+    var active=ed.live||ed.manual||null;
+    var el=document.getElementById('ed_'+t);
+    if(el){
+      if(active){
+        var eFmt=fmtEarningsDate(active);
+        var dLabel=eFmt.diff>=0&&eFmt.diff<=365?(eFmt.diff===0?' TODAY':eFmt.diff===1?' tmrw':' '+eFmt.diff+'d'):'';
+        var src=ed.live?'<span class="live-badge" style="margin-left:3px;">L</span>':'<span class="manual-badge" style="margin-left:3px;">M</span>';
+        el.innerHTML='<span style="font-family:monospace;font-weight:700;color:'+eFmt.color+';">'+active+'</span><span style="font-size:0.58rem;font-weight:700;color:'+eFmt.color+';">'+dLabel+'</span>'+src;
+      } else {
+        el.innerHTML='<span class="no-price">\u2014</span>';
+      }
+    }
+  }));
 }
 function adminSavePrice(ticker){var inp=document.getElementById('ap_'+ticker);if(!inp)return;var v=parseFloat(inp.value);if(isNaN(v)||v<=0){alert('Enter a valid price > 0');return;}setTickerPrice(ticker,v);rMain();}
 function adminClearPrice(ticker){setTickerPrice(ticker,null);rMain();}
 function adminAddTicker(){var t=((document.getElementById('adm-new-ticker')||{value:''}).value||'').trim().toUpperCase();var p=parseFloat((document.getElementById('adm-new-price')||{value:''}).value||'');if(!t){alert('Enter a ticker symbol.');return;}if(!isNaN(p)&&p>0)setTickerPrice(t,p);fetchAndUpdateLive([t]);rMain();}
 async function fetchAndUpdateLive(tickers){
   await Promise.all(tickers.map(async function(t){
-    var p=await fetchLivePrice(t);var el=document.getElementById('lp_'+t);
-    if(el)el.innerHTML=p!=null?'<span class="live-price">$'+p.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})+'</span> <span class="live-badge">Live</span>':'<span class="no-price">Not available</span>';
+    var p=await fetchLivePrice(t);
+    var el=document.getElementById('lp_'+t);
+    if(el)el.innerHTML=p!=null?'<span class="live-price">$'+p.toFixed(2)+'</span> <span class="live-badge">L</span>':'<span class="no-price">—</span>';
+    // Refresh manual input field with the live price that was auto-saved
+    if(p!=null){var inp=document.getElementById('ap_'+t);if(inp)inp.value=p;}
+    // Refresh earnings input if live earnings were fetched
+    var ed=earningsDates[t]||{};
+    if(ed.manual){var einp=document.getElementById('edt_'+t);if(einp)einp.value=adminDateToInput(ed.manual);}
   }));
 }
 
@@ -2514,7 +2722,7 @@ function attachActUpload(){
 function rCombinedView(data){
   var Q=String.fromCharCode(39);
   var thisFri=getThisFriday();
-  var portNames={'lovelina':'Lovelina','amit':'Amit','joint':'Joint','amit-roth':'Amit Roth','lov-roth':'Lov Roth','lov-trad':'Lov Trad'};
+  var portNames={'lovelina':'L','amit':'A','joint':'J','amit-roth':'AR','lov-roth':'LR','lov-trad':'LT'};
   var portColors={'lovelina':'#DB2877','amit':'#2563EB','joint':'#059669','amit-roth':'#7C3AED','lov-roth':'#DB2877','lov-trad':'#0891B2'};
   var typeShort={'Short Put':'SPUT','Long Put':'LPUT','Long Call':'LCALL','Short Call':'SCALL','Shares':'SHR'};
   var retirementPorts=new Set(['amit-roth','lov-roth','lov-trad']);
@@ -2579,10 +2787,9 @@ function rCombinedView(data){
     var stockP=liveP!=null?liveP:(manP!=null?manP:null);
     var priceTxt=stockP!=null?('$'+Number(stockP).toFixed(2)+(liveP!=null?' <span class="pcell-badge pcell-badge-live">L</span>':' <span class="pcell-badge pcell-badge-manual">M</span>')):'<span class="pcell-none">--</span>';
     var totalAssnReq=rows.filter(function(r){return r.excelType==='Short Put'&&r.strike>0&&!isCl(r);}).reduce(function(s,r){return s+r.strike*100*(r.contracts||1);},0);
-    var cbVal=collatBlocked[ticker]!=null?collatBlocked[ticker]:0;
+    var cbVal=getCollatBlocked(ticker,rows[0]&&(rows[0].portfolio||'lovelina'));
     var cbGap=totalAssnReq-cbVal;
     var _tc=rows.reduce(function(s,r){return s+(r.contracts||1);},0);
-    var _sb=_tc>1?'<span style="display:inline-flex;align-items:center;background:var(--blue);color:#fff;border-radius:4px;padding:0.05rem 0.32rem;font-size:0.58rem;font-weight:800;margin-left:4px;">'+_tc+'x</span>':'';
     var niColor=totalSold>totalCost?'var(--green)':'var(--red)';
     var cvColor=totalCV<0?'var(--red)':totalCV>0?'var(--black)':'var(--text3)';
     var gapColor=cbGap>0?'var(--red)':cbGap<0?'var(--green)':'var(--text3)';
@@ -2596,14 +2803,22 @@ function rCombinedView(data){
     if(visibleRows.length===0)return;
 
     var expiries=[...new Set(rows.filter(function(r){return!isCl(r);}).map(function(r){return r.expiryDate||'';}).filter(Boolean))];
-    var expiryCell=expiries.length?expiries.length+' expir'+(expiries.length>1?'ies':'y'):'--';
+    var sortedExp2=expiries.slice().sort(function(a,b){return(parseExpiry(a)||new Date('9999'))-(parseExpiry(b)||new Date('9999'));});
+    var expiryCell=sortedExp2.length?(sortedExp2[0]+(sortedExp2.length>1?' +'+(sortedExp2.length-1):'')):'--';
     var hasExp=rows.some(function(r){if(isCl(r))return false;var d=parseExpiry(r.expiryDate);return d&&d<=thisFri;});
     var hasClosedRows=(g.rows||rows).some(function(r){return isCl(r)||(function(){var d=parseExpiry(r.expiryDate);return d&&d<today0;}());});
     var hideBtn=hasClosedRows?'<button class="row-edit-btn" style="font-size:0.58rem;margin-left:3px;" onclick="event.stopPropagation();toggleHideClosed('+Q+gk+Q+')">'+(closedHiddenG?'Show Cl.':'Hide Cl.')+'</button>':'';
 
     // Summary row (colspan for SPUT and LPUT sections blank)
     html+='<tr class="grp-summary" style="cursor:pointer;background:#F8F8F8;border-left:3px solid '+(DC[ticker]||'#888')+';" onclick="toggleGroup('+Q+gk+Q+')">';
-    html+='<td class="mc"><span style="font-size:0.72rem;color:var(--red);font-weight:700;margin-right:6px;">'+(expanded?'&#9660;':'&#9654;')+'</span><span class="chip"><span class="tk-dot-sm" style="background:'+(DC[ticker]||'#888')+'"></span>'+ticker+'</span>'+_sb+'<span style="font-size:0.58rem;color:var(--text3);margin-left:6px;">'+(expanded?'collapse':'click to expand')+'</span></td>';
+    var ports2=[...new Set(rows.map(function(r){return r.portfolio||'lovelina';}))];
+    var portStr2=ports2.length===1?(portNames[ports2[0]]||ports2[0]):'Mixed';
+    var portClr3=ports2.length===1?(portColors[ports2[0]]||'#888'):'#888';
+    var portInline2='<span style="display:inline-flex;align-items:center;gap:0.25rem;font-size:0.58rem;font-weight:700;color:'+portClr3+';margin-left:6px;background:rgba(0,0,0,0.05);border-radius:4px;padding:0.05rem 0.4rem;"><span style="width:6px;height:6px;border-radius:50%;background:'+portClr3+';flex-shrink:0;"></span>'+portStr2+'</span>';
+    var _ed2=getActiveEarnings(ticker);
+    var _ef2='';
+    if(_ed2){var _fmt2=fmtEarningsDate(_ed2);if(_fmt2&&_fmt2.diff>=0&&_fmt2.diff<=10){_ef2='<span title="Earnings in '+_fmt2.diff+'d: '+_ed2+'" style="color:#DC2626;font-size:0.8rem;margin-left:4px;cursor:help;">&#127988;</span><span style="font-size:0.58rem;color:#DC2626;font-weight:700;margin-left:2px;">'+(_fmt2.diff===0?'TODAY':_fmt2.diff+'d')+'</span>';}}
+    html+='<td class="mc"><span style="font-size:0.72rem;color:var(--red);font-weight:700;margin-right:6px;">'+(expanded?'&#9660;':'&#9654;')+'</span><span class="chip"><span class="tk-dot-sm" style="background:'+(DC[ticker]||'#888')+'"></span>'+ticker+'</span>'+_ef2+portInline2+'</td>';
     if(portHeader)html+='<td></td>';
     html+='<td style="font-size:0.65rem;color:var(--text3);">'+expiryCell+'</td>';
     html+='<td class="mn" style="font-weight:700;">'+(totalCost?fmtM(totalCost):'--')+'</td>';
@@ -2615,7 +2830,8 @@ function rCombinedView(data){
     html+='<td class="mn" style="font-size:0.65rem;color:var(--text3);">'+(rows.filter(function(r){return r.strike>0;}).length)+' strikes</td>'; // strike
     html+='<td class="mn" style="color:var(--red);font-weight:700;">$'+totalAssnReq.toLocaleString()+'</td>'; // assn
     html+='<td></td>'; // coll.val
-    html+='<td class="mn" style="font-weight:700;">$'+cbVal.toLocaleString()+'<button class="pcell-act" onclick="event.stopPropagation();(function(){var v=prompt('+Q+'Collateral Blocked for '+ticker+':'+Q+','+Q+cbVal+Q+');if(v===null)return;var n=parseFloat(v);setCollatBlocked('+Q+ticker+Q+',isNaN(n)?null:n);rMain();})()" style="margin-left:4px;">ed</button></td>'; // col.blk
+    var _cbPort2=rows[0]&&(rows[0].portfolio||'lovelina');
+    html+='<td class="mn" style="font-weight:700;">$'+cbVal.toLocaleString()+'<button class="pcell-act" onclick="event.stopPropagation();(function(){var v=prompt('+Q+'Collateral Blocked for '+ticker+':'+Q+','+Q+cbVal+Q+');if(v===null)return;var n=parseFloat(v);setCollatBlocked('+Q+ticker+Q+',isNaN(n)?null:n,'+Q+_cbPort2+Q+');rMain();})()" style="margin-left:4px;">ed</button></td>'; // col.blk
     html+='<td class="mn" style="color:'+gapColor+';font-weight:700;">'+(cbGap>=0?'+':'')+cbGap.toLocaleString()+'</td>'; // col.gap
     // SPUT section blank at group level
     html+='<td class="sp-cell" colspan="3"></td>';
@@ -2846,7 +3062,7 @@ function rMain(){
     el.innerHTML=rAdminView();
     fetchAndUpdateLive([...new Set(positions.map(function(r){return r.ticker;}))].sort());
   }else if(activeView==='spreads'){
-    el.innerHTML='<div class="controls-row" style="justify-content:flex-end;"><button class="upload-csv-btn" onclick="toggleUpload()">&#8593; Upload CSV</button><button class="template-dl-btn" onclick="dlTemplate()">&#11015; Template</button></div>'+rSpreadsView(data);
+    el.innerHTML=rSpreadsView(data);
   }else if(activeView==='combined'){
     var fd2=getAppliedFilters(dispData),sf2=cs(fd2,isRet);
     el.innerHTML=rFilterBar(data)+rFiltersRow(data)+rSum(sf2)+rTableControls()+rCombinedView(fd2);
@@ -2972,7 +3188,7 @@ document.getElementById('view-nav').addEventListener('click',function(e){
   rMain();
 });
 function sPort(p){
-  ap=p;typeFilter='all';ocFilter='all';expiringOnly=false;incomeFilter='all';selectedTickers=new Set(['ALL']);
+  ap=p;
   showUpload=false;csvPreview=null;importMsg='';editCell=null;editingCash=false;editingInitCash=false;
   actFilter='all';actSearch='';actPage=0;actUpOpen=false;actUpPreview=null;actUpMsg='';
   document.querySelectorAll('.port-tab').forEach(function(t){t.classList.toggle('active',t.dataset.port===p);});
@@ -2990,18 +3206,19 @@ function ghGetToken(){return localStorage.getItem(GH_TK)||'';}
 function ghSetToken(t){localStorage.setItem(GH_TK,t);}
 function ghGetCfg(){try{var c=JSON.parse(localStorage.getItem(GH_CF)||'{}');return{repo:c.repo||'algupta22/Ricks-Trading',branch:c.branch||'',file:c.file||'roi-data.json'};}catch(e){return{repo:'algupta22/Ricks-Trading',branch:'',file:'roi-data.json'};}}
 function ghSetCfg(c){localStorage.setItem(GH_CF,JSON.stringify(c));}
-function ghCollect(){return{version:2,savedAt:new Date().toISOString(),positions:positions,tickerPrices:tickerPrices,activityData:activityData,cashBalances:cashBalances,initialCashBalances:initialCashBalances,collatBlocked:collatBlocked};}
+function ghCollect(){return{version:2,savedAt:new Date().toISOString(),positions:positions,tickerPrices:tickerPrices,earningsDates:earningsDates,activityData:activityData,cashBalances:cashBalances,initialCashBalances:initialCashBalances,collatBlocked:collatBlocked,cryptoBalances:cryptoBalances};}
 function ghApply(d){
-  // Accept any object that contains at least positions or known data fields
   if(!d||typeof d!=='object')return false;
   var hasData=Array.isArray(d.positions)||d.tickerPrices||d.cashBalances||d.activityData;
   if(!hasData)return false;
   if(Array.isArray(d.positions))positions=d.positions;
   if(d.tickerPrices&&typeof d.tickerPrices==='object'){Object.assign(tickerPrices,d.tickerPrices);saveTP(tickerPrices);}
+  if(d.earningsDates&&typeof d.earningsDates==='object'){Object.assign(earningsDates,d.earningsDates);saveED();}
   if(d.activityData&&typeof d.activityData==='object'){Object.assign(activityData,d.activityData);saveAct(activityData);}
   if(d.cashBalances&&typeof d.cashBalances==='object'){Object.assign(cashBalances,d.cashBalances);saveCash();}
   if(d.collatBlocked&&typeof d.collatBlocked==='object'){Object.assign(collatBlocked,d.collatBlocked);saveCB();}
   if(d.initialCashBalances&&typeof d.initialCashBalances==='object'){Object.assign(initialCashBalances,d.initialCashBalances);saveInitCash();}
+  if(d.cryptoBalances&&typeof d.cryptoBalances==='object'){Object.assign(cryptoBalances,d.cryptoBalances);saveCrypto();}
   savePositions();return true;
 }
 async function ghDetect(token,repo){for(var i=0;i<2;i++){var b=['main','master'][i];var r=await fetch('https://api.github.com/repos/'+repo+'/branches/'+b,{headers:{'Authorization':'token '+token,'Accept':'application/vnd.github.v3+json'}});if(r.ok)return b;}return null;}
@@ -3119,6 +3336,7 @@ window.ieStart=ieStart;window.ieSave=ieSave;window.ieCancel=ieCancel;window.ieKe
 window.openPricesModal=openPricesModal;window.savePricesModal=savePricesModal;window.closePricesModal=closePricesModal;
 window.clearTickerPrice=clearTickerPrice;window.addTickerPrice=addTickerPrice;
 window.adminSavePrice=adminSavePrice;window.adminClearPrice=adminClearPrice;window.adminAddTicker=adminAddTicker;
+window.adminSaveEarnings=adminSaveEarnings;
 window.actSort=actSort;window.actSearchChange=actSearchChange;window.actSetPage=actSetPage;window.actSetFilter=actSetFilter;
 window.actToggleUpload=actToggleUpload;window.actCancelUpload=actCancelUpload;window.actClearAll=actClearAll;window.actDeleteRow=actDeleteRow;window.actDoImport=actDoImport;
 window.cashEdit=cashEdit;window.cashSave=cashSave;window.cashCancel=cashCancel;
