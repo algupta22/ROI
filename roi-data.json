@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-20T04:34:19.861Z",
+  "savedAt": "2026-04-20T04:40:19.360Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -6671,7 +6671,7 @@
     "amit-roth": 16068,
     "lov-trad": 385610,
     "lov-roth": 19565,
-    "lovelina": 44797,
+    "lovelina": 37033,
     "amit": 33723,
     "joint": 23505
   },
@@ -6697,5 +6697,9 @@
     "CDE": 500,
     "MRVL": 1000,
     "PATH": 2100
+  },
+  "cryptoBalances": {
+    "lovelina": 8442,
+    "amit": 43417
   }
 }
