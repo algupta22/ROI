@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-20T05:22:07.282Z",
+  "savedAt": "2026-04-20T05:53:02.018Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -1378,8 +1378,8 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": -43,
-      "soldAmount": 26
+      "soldAmount": 60,
+      "cvOverride": -17
     },
     {
       "id": "bw2db359",
@@ -1400,8 +1400,8 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": -35,
-      "soldAmount": 27
+      "soldAmount": 43,
+      "cvOverride": -8
     },
     {
       "id": "ivfzp8j8",
@@ -1422,7 +1422,7 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": 120
+      "cvOverride": 10
     },
     {
       "id": "63kxkr7m",
@@ -1443,8 +1443,8 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": -42,
-      "soldAmount": 34
+      "soldAmount": 50,
+      "cvOverride": -8
     },
     {
       "id": "pncosy0g",
@@ -1465,8 +1465,8 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": -63,
-      "soldAmount": 61
+      "soldAmount": 64,
+      "cvOverride": -2
     },
     {
       "id": "zwqln55b",
@@ -1487,8 +1487,8 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": -23,
-      "soldAmount": 19
+      "soldAmount": 27,
+      "cvOverride": -4
     },
     {
       "id": "hu2ohs04",
@@ -1509,8 +1509,8 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": -53,
-      "soldAmount": 47
+      "soldAmount": 49.3,
+      "cvOverride": -6
     },
     {
       "id": "tzouqzz7",
@@ -1575,8 +1575,8 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": -33,
-      "soldAmount": 26
+      "soldAmount": 40,
+      "cvOverride": -7
     },
     {
       "id": "ishe7299",
@@ -1641,8 +1641,8 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": -72,
-      "soldAmount": 65
+      "soldAmount": 79,
+      "cvOverride": -7
     },
     {
       "id": "kse9g73p",
@@ -1684,7 +1684,7 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": 567
+      "cvOverride": 60
     },
     {
       "id": "vgwez8a6",
@@ -1705,7 +1705,7 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": 115
+      "cvOverride": 26
     },
     {
       "id": "t9duvc9r",
@@ -1726,7 +1726,7 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": 1121
+      "cvOverride": 29
     },
     {
       "id": "o40pd1vc",
@@ -1747,7 +1747,7 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": 144
+      "cvOverride": 1
     },
     {
       "id": "zkn1h09b",
@@ -1768,7 +1768,7 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": 252
+      "cvOverride": 28
     },
     {
       "id": "fs1l3mcp",
@@ -1810,7 +1810,7 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": 173
+      "cvOverride": 9
     },
     {
       "id": "a266tksi",
@@ -1831,7 +1831,7 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": 151
+      "cvOverride": 1
     },
     {
       "id": "g051hth2",
@@ -1852,7 +1852,7 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": 479
+      "cvOverride": 26
     },
     {
       "id": "2ursu7nl",
@@ -1873,7 +1873,7 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": 258
+      "cvOverride": 9
     },
     {
       "id": "wqac2p5c",
@@ -1894,7 +1894,7 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": 316
+      "cvOverride": 71
     },
     {
       "id": "osk98zfp",
@@ -1915,7 +1915,7 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": 119
+      "cvOverride": 27
     },
     {
       "id": "3qyctrm3",
@@ -1936,7 +1936,7 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": 594
+      "cvOverride": 180
     },
     {
       "id": "4oqhrg6n",
@@ -1978,7 +1978,7 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": 237
+      "cvOverride": 42
     },
     {
       "id": "m3la2fxg",
@@ -1999,7 +1999,7 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": 229
+      "cvOverride": 53
     },
     {
       "id": "gxo9u6jf",
@@ -2020,7 +2020,7 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": 304
+      "cvOverride": 102
     },
     {
       "id": "mtypjmsb",
@@ -2083,7 +2083,7 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": 286
+      "cvOverride": 74
     },
     {
       "id": "0v330br0",
@@ -2094,7 +2094,7 @@
       "expiryDate": "5/29/2026",
       "openDate": "",
       "contracts": 1,
-      "excelCost": 170,
+      "excelCost": 120,
       "excelIncome": 0,
       "excelGrossValue": 25,
       "excelCurrentValue": 25,
@@ -2104,7 +2104,7 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": 25
+      "cvOverride": 145
     },
     {
       "id": "zl9tvod5",
@@ -2115,7 +2115,7 @@
       "expiryDate": "5/29/2026",
       "openDate": "",
       "contracts": 1,
-      "excelCost": 3957,
+      "excelCost": 139,
       "excelIncome": 0,
       "excelGrossValue": 1907,
       "excelCurrentValue": 1907,
@@ -2125,7 +2125,7 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": 1907
+      "cvOverride": 2046
     },
     {
       "id": "oqskcsac",
@@ -2146,8 +2146,8 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": -5613,
-      "soldAmount": -3087
+      "soldAmount": -3087,
+      "cvOverride": -8710
     },
     {
       "id": "az8x0uev",
@@ -2168,7 +2168,7 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": 351
+      "cvOverride": 37
     },
     {
       "id": "e46dsgea",
@@ -2189,8 +2189,8 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": -1944,
-      "soldAmount": 1787
+      "soldAmount": 2101,
+      "cvOverride": -157
     },
     {
       "id": "513yp4y6",
@@ -2275,7 +2275,7 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": 69
+      "cvOverride": 1
     },
     {
       "id": "7riydpu4",
@@ -2296,7 +2296,7 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": 30
+      "cvOverride": 190
     },
     {
       "id": "26z2xvsl",
@@ -2317,7 +2317,7 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": 606.99
+      "cvOverride": 330
     },
     {
       "id": "yu2sn8h4",
@@ -2380,7 +2380,7 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": 64
+      "cvOverride": 668
     },
     {
       "id": "pek46k4j",
@@ -2401,7 +2401,7 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": 14
+      "cvOverride": 1
     },
     {
       "id": "53xb94ym",
@@ -2422,8 +2422,8 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": -118,
-      "soldAmount": -465
+      "soldAmount": -465,
+      "cvOverride": -583
     },
     {
       "id": "ilmzyyse",
@@ -2444,8 +2444,8 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": -49,
-      "soldAmount": -294
+      "soldAmount": -294,
+      "cvOverride": -343
     },
     {
       "id": "dfifk9ds",
@@ -2466,8 +2466,8 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": -290,
-      "soldAmount": 289
+      "soldAmount": 291,
+      "cvOverride": -1
     },
     {
       "id": "uulueldf",
@@ -2488,8 +2488,8 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": -318,
-      "soldAmount": 301
+      "soldAmount": 335,
+      "cvOverride": -1
     },
     {
       "id": "v15p99y4",
@@ -2510,8 +2510,8 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": -704,
-      "soldAmount": 648
+      "soldAmount": 648,
+      "cvOverride": -56
     },
     {
       "id": "qgi45bz2",
@@ -2532,7 +2532,7 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": 199
+      "cvOverride": 2
     },
     {
       "id": "s6pz1wbe",
@@ -2553,8 +2553,8 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": -762,
-      "soldAmount": -1798
+      "soldAmount": 3317,
+      "cvOverride": -2555
     },
     {
       "id": "wztefh88",
@@ -2575,8 +2575,8 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": -694,
-      "soldAmount": -1276
+      "soldAmount": 2659,
+      "cvOverride": -1965
     },
     {
       "id": "tsf00jh8",
@@ -2629,7 +2629,7 @@
       "expiryDate": "1/15/2027",
       "openDate": "",
       "contracts": 1,
-      "excelCost": 1417,
+      "excelCost": 1415,
       "excelIncome": 0,
       "excelGrossValue": 177,
       "excelCurrentValue": 177,
@@ -2639,7 +2639,7 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": 177
+      "cvOverride": 1238
     },
     {
       "id": "b41k7go3",
@@ -2660,7 +2660,7 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": 1389
+      "cvOverride": 2660
     },
     {
       "id": "7wq50lx5",
@@ -2681,7 +2681,7 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": 197
+      "cvOverride": 613
     },
     {
       "id": "2bpnhwjm",
@@ -2702,7 +2702,7 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": 80
+      "cvOverride": 3900
     },
     {
       "id": "36y17204",
@@ -2723,7 +2723,7 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": 9.99
+      "cvOverride": 5715
     },
     {
       "id": "fnsltz80",
@@ -2744,7 +2744,7 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": 280
+      "cvOverride": 370
     },
     {
       "id": "izg1meyg",
@@ -2765,7 +2765,7 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": 563
+      "cvOverride": 1140
     },
     {
       "id": "lv1mqxnz",
@@ -2776,7 +2776,7 @@
       "expiryDate": "1/15/2027",
       "openDate": "",
       "contracts": 2,
-      "excelCost": 2663,
+      "excelCost": 1516,
       "excelIncome": 0,
       "excelGrossValue": 573,
       "excelCurrentValue": 573,
@@ -2786,7 +2786,7 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": 573
+      "cvOverride": 2090
     },
     {
       "id": "ctm0edrx",
@@ -2807,7 +2807,7 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": 312
+      "cvOverride": 488
     },
     {
       "id": "j68mz4pk",
@@ -2828,7 +2828,7 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": 252
+      "cvOverride": 578
     },
     {
       "id": "enbtr580",
@@ -3910,7 +3910,7 @@
       "closeAction": null,
       "manualPrice": 20.27,
       "notes": "",
-      "cvOverride": 1922
+      "cvOverride": 1914
     },
     {
       "id": "90muigih",
@@ -3994,7 +3994,7 @@
       "closeAction": null,
       "manualPrice": 33.34,
       "notes": "",
-      "cvOverride": 2804
+      "cvOverride": 2795
     },
     {
       "id": "tqjzytwg",
@@ -4036,7 +4036,7 @@
       "closeAction": null,
       "manualPrice": 21.14,
       "notes": "",
-      "cvOverride": 9480
+      "cvOverride": 9420
     },
     {
       "id": "5fkqwpa9",
