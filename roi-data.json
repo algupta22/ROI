@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-20T23:11:34.074Z",
+  "savedAt": "2026-04-20T23:15:44.396Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -793,26 +793,20 @@
       "excelType": "Short Put",
       "strike": 15.5,
       "expiryDate": "4/24",
-      "openDate": "4/20/26",
+      "openDate": "4/18/26",
       "contracts": 1,
-      "excelCost": 5,
+      "excelCost": 0,
       "excelIncome": 0,
       "excelGrossValue": 1,
       "excelCurrentValue": 1,
-      "excelProfit": 10,
-      "closed": true,
+      "excelProfit": 15,
+      "closed": false,
       "notes": "",
       "manualPrice": null,
       "rolledOver": false,
-      "closeAction": {
-        "action": "BTC",
-        "type": "debit",
-        "amount": 5,
-        "signedAmount": -5,
-        "notes": "",
-        "date": "4/20/26"
-      },
+      "closeAction": null,
       "_noMerge": true,
+      "cvOverride": -1,
       "soldAmount": 15
     },
     {
