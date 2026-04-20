@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-20T04:43:05.436Z",
+  "savedAt": "2026-04-20T04:58:31.196Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -6672,7 +6672,7 @@
     "lov-trad": 385610,
     "lov-roth": 19565,
     "lovelina": 37033,
-    "amit": 33723,
+    "amit": 76740,
     "joint": 23505
   },
   "collatBlocked": {
@@ -6696,7 +6696,18 @@
     "SLV": 2150,
     "CDE": 500,
     "MRVL": 1000,
-    "PATH": 2100
+    "PATH": 2100,
+    "PLTR|amit": 11400,
+    "TSLL|amit": 1000,
+    "ROBN|amit": 7900,
+    "PATH|amit": 0,
+    "NVDX|amit": 14,
+    "BBAI|amit": 0,
+    "QQQ|lovelina": 9000,
+    "ROBN|lovelina": 4300,
+    "PATH|lovelina": 2100,
+    "NVDX|lovelina": 7,
+    "METU|lovelina": 3800
   },
   "cryptoBalances": {
     "lovelina": 8442,
