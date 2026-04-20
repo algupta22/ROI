@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-20T04:26:57.798Z",
+  "savedAt": "2026-04-20T04:34:19.861Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -6664,7 +6664,7 @@
     "lov-trad": 379570,
     "amit-roth": 7246,
     "lov-roth": 12622,
-    "lovelina": 1087,
+    "lovelina": 888.99,
     "joint": 530
   },
   "initialCashBalances": {
@@ -6673,28 +6673,29 @@
     "lov-roth": 19565,
     "lovelina": 44797,
     "amit": 33723,
-    "joint": 8138
+    "joint": 23505
   },
   "collatBlocked": {
     "GOOGL": 0,
-    "NVDX": 14,
+    "NVDX": 7,
     "HOOD": 0,
     "METU": 3800,
     "MSFT": 0,
     "NOK": 0,
     "NVTS": 0,
-    "PLTR": 11400,
+    "PLTR": 0,
     "QQQ": 9000,
-    "ROBN": 7900,
+    "ROBN": 4300,
     "SOFI": 0,
     "SOUN": 0,
     "TQQQ": 0,
-    "TSLL": 200,
+    "TSLL": 0,
     "BBAI": 400,
     "SPY": 10600,
     "HIMS": 300,
     "SLV": 2150,
     "CDE": 500,
-    "MRVL": 1000
+    "MRVL": 1000,
+    "PATH": 2100
   }
 }
