@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-20T04:03:08.764Z",
+  "savedAt": "2026-04-20T04:20:18.083Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -3873,13 +3873,13 @@
   ],
   "tickerPrices": {
     "GOOGL": 319.23,
-    "PLTR": 147,
+    "PLTR": 146.39,
     "IBIT": 43.94,
     "TSLZ": 13.16,
-    "HIMZ": 3,
+    "HIMZ": 41.81,
     "HIMZ1": 3,
-    "TSLL": 13.87,
-    "ROBN": 28,
+    "TSLL": 13.9,
+    "ROBN": 28.51,
     "NVTS": 12,
     "BBAI": 3.82,
     "HIMS": 28.82,
@@ -3906,7 +3906,10 @@
     "SMST": 33.5,
     "SPXS": 31.07,
     "SQQQ": 56.39,
-    "USAR": 19.95
+    "USAR": 19.95,
+    "SLV": 72.45,
+    "MRVL": 148.29,
+    "ONDS": 9.79
   },
   "earningsDates": {
     "TSLL": {
@@ -3996,6 +3999,12 @@
     },
     "SMST": {
       "manual": "5/5/2026"
+    },
+    "ONDS": {
+      "manual": "5/21/2026"
+    },
+    "MRVL": {
+      "manual": "5/28/2026"
     }
   },
   "activityData": {
