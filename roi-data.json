@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-20T05:55:23.117Z",
+  "savedAt": "2026-04-20T16:26:46.920Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -937,30 +937,60 @@
       "notes": "",
       "manualPrice": null,
       "rolledOver": false,
-      "closeAction": null
+      "closeAction": null,
+      "cvOverride": 239
     },
     {
       "id": "ufem1ns1",
       "portfolio": "lovelina",
       "ticker": "TSLL",
       "excelType": "Short Put",
-      "strike": 11,
+      "strike": 12.5,
       "expiryDate": "4/24",
-      "openDate": "4/18/26",
+      "openDate": "4/20/26",
       "contracts": 1,
       "excelCost": 0,
       "excelIncome": 0,
+      "excelGrossValue": 0,
+      "excelCurrentValue": 0,
+      "excelProfit": 36,
+      "closed": false,
+      "notes": "",
+      "manualPrice": null,
+      "rolledOver": false,
+      "closeAction": {
+        "action": "BTC",
+        "type": "debit",
+        "amount": 8,
+        "signedAmount": -8,
+        "notes": "",
+        "date": "4/20/26"
+      },
+      "_noMerge": true,
+      "soldAmount": 36,
+      "cvOverride": -43
+    },
+    {
+      "id": "7lc3snl2",
+      "portfolio": "lovelina",
+      "ticker": "TSLL",
+      "excelType": "Short Put",
+      "strike": 11,
+      "expiryDate": "4/24",
+      "openDate": "4/20/26",
+      "contracts": 1,
+      "excelCost": 8,
+      "excelIncome": 0,
       "excelGrossValue": 209,
       "excelCurrentValue": 209,
-      "excelProfit": 18,
+      "excelProfit": 10,
       "closed": false,
       "notes": "",
       "manualPrice": null,
       "rolledOver": false,
       "closeAction": null,
       "_noMerge": true,
-      "soldAmount": 18,
-      "cvOverride": 8
+      "soldAmount": 18
     },
     {
       "id": "8pp1cu1s",
@@ -1467,6 +1497,29 @@
       "notes": "",
       "soldAmount": 64,
       "cvOverride": -2
+    },
+    {
+      "id": "mwyygg70",
+      "portfolio": "amit",
+      "ticker": "NVDX",
+      "excelType": "Short Put",
+      "strike": 17,
+      "expiryDate": "4/24/2026",
+      "openDate": "",
+      "contracts": 1,
+      "excelCost": 0,
+      "excelIncome": 0,
+      "excelGrossValue": 2,
+      "excelCurrentValue": 2,
+      "excelProfit": 15,
+      "closed": false,
+      "rolledOver": false,
+      "closeAction": null,
+      "manualPrice": null,
+      "notes": "",
+      "soldAmount": 15,
+      "cvOverride": -2,
+      "_noMerge": true
     },
     {
       "id": "zwqln55b",
@@ -4138,9 +4191,10 @@
     "SPXS": 31.07,
     "SQQQ": 56.39,
     "USAR": 19.95,
-    "SLV": 72.45,
+    "SLV": 73.63,
     "MRVL": 148.29,
-    "ONDS": 9.79
+    "ONDS": 10,
+    "NFLX": 93
   },
   "earningsDates": {
     "TSLL": {
