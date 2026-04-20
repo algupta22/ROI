@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-20T23:06:54.532Z",
+  "savedAt": "2026-04-20T23:11:34.074Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -592,28 +592,20 @@
       "excelType": "Long Put",
       "strike": 15.43,
       "expiryDate": "6/18",
-      "openDate": "4/20/26",
+      "openDate": "4/18/26",
       "contracts": 1,
       "excelCost": 372,
       "excelIncome": 0,
       "excelGrossValue": 110,
       "excelCurrentValue": 110,
-      "excelProfit": -266,
-      "closed": true,
+      "excelProfit": -372,
+      "closed": false,
       "notes": "",
       "manualPrice": null,
       "rolledOver": false,
-      "closeAction": {
-        "action": "STC",
-        "type": "credit",
-        "amount": 106,
-        "signedAmount": 106,
-        "notes": "",
-        "date": "4/20/26"
-      },
+      "closeAction": null,
       "_noMerge": true,
-      "cvOverride": 110,
-      "soldAmount": 106
+      "cvOverride": 110
     },
     {
       "id": "6x3pzinc",
