@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-20T05:12:23.598Z",
+  "savedAt": "2026-04-20T05:22:07.282Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -1356,8 +1356,8 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": -9,
-      "soldAmount": -72
+      "soldAmount": -72,
+      "cvOverride": -81
     },
     {
       "id": "ihacief9",
@@ -1531,8 +1531,8 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": -1954,
-      "soldAmount": 1338
+      "soldAmount": 2570,
+      "cvOverride": -617
     },
     {
       "id": "phywllxo",
@@ -1553,8 +1553,8 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": -953,
-      "soldAmount": 686
+      "soldAmount": 1220,
+      "cvOverride": -267
     },
     {
       "id": "x2v3emga",
@@ -1663,7 +1663,7 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": 10
+      "cvOverride": 37
     },
     {
       "id": "itk9256o",
@@ -1789,7 +1789,7 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": 20
+      "cvOverride": 10
     },
     {
       "id": "tqcg2uo2",
@@ -1957,7 +1957,7 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": 41
+      "cvOverride": 51
     },
     {
       "id": "l7zyn9k3",
@@ -2232,8 +2232,8 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": -169,
-      "soldAmount": 153
+      "soldAmount": 185,
+      "cvOverride": -16
     },
     {
       "id": "dd5e8prm",
@@ -2254,7 +2254,7 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": 12
+      "cvOverride": 68
     },
     {
       "id": "n2r9up39",
@@ -2359,7 +2359,7 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": 675
+      "cvOverride": 950
     },
     {
       "id": "l2vk9mzm",
@@ -2597,7 +2597,7 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": 85
+      "cvOverride": 33
     },
     {
       "id": "y5w3zgjx",
@@ -2618,7 +2618,7 @@
       "closeAction": null,
       "manualPrice": null,
       "notes": "",
-      "cvOverride": 169
+      "cvOverride": 136
     },
     {
       "id": "grfksas1",
