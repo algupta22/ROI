@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-20T04:20:18.083Z",
+  "savedAt": "2026-04-20T04:26:57.798Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -6689,9 +6689,12 @@
     "SOFI": 0,
     "SOUN": 0,
     "TQQQ": 0,
-    "TSLL": 0,
+    "TSLL": 200,
     "BBAI": 400,
     "SPY": 10600,
-    "HIMS": 300
+    "HIMS": 300,
+    "SLV": 2150,
+    "CDE": 500,
+    "MRVL": 1000
   }
 }
