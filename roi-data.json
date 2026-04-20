@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-20T19:58:06.333Z",
+  "savedAt": "2026-04-20T21:40:01.756Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -7050,5 +7050,17 @@
   "cryptoBalances": {
     "lovelina": 8442,
     "amit": 43417
+  },
+  "cryptoDetail": {
+    "amit": {
+      "btc": 44243,
+      "eth": 0,
+      "others": 0
+    },
+    "lovelina": {
+      "btc": 4190,
+      "eth": 2669,
+      "others": 1014
+    }
   }
 }
