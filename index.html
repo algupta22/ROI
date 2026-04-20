@@ -55,7 +55,7 @@ body{background:var(--bg);min-height:100vh;font-family:'Segoe UI',system-ui,sans
 .view-nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 1.2rem;display:flex;gap:0;}
 .view-tab{display:flex;align-items:center;gap:0.35rem;padding:0 1rem;height:36px;font-size:0.72rem;font-weight:700;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;transition:all 0.15s;white-space:nowrap;text-transform:uppercase;letter-spacing:0.04em;}
 .view-tab:hover{color:var(--black);}.view-tab.active{color:var(--red);border-bottom-color:var(--red);}
-.main{padding:0.85rem 1.2rem;}
+.main{padding:0.55rem 1.2rem;}
 /* FILTER BAR */
 .filter-bar{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:0.55rem 0.9rem;margin-bottom:0.85rem;display:flex;align-items:center;gap:0.65rem;flex-wrap:wrap;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
 .filter-bar-label{font-size:0.62rem;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;white-space:nowrap;}
@@ -73,7 +73,7 @@ body{background:var(--bg);min-height:100vh;font-family:'Segoe UI',system-ui,sans
 .sel-tag{background:var(--red-bg);border:1px solid rgba(220,38,38,0.25);color:var(--red);padding:0.12rem 0.45rem;border-radius:12px;font-size:0.63rem;font-weight:700;display:flex;align-items:center;gap:0.3rem;}
 .sel-tag-x{cursor:pointer;opacity:0.6;font-size:0.58rem;}.sel-tag-x:hover{opacity:1;}
 /* SUMMARY */
-.summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:0.75rem;margin-bottom:0.85rem;}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:0.6rem;margin-bottom:0.6rem;}
 .scard{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:0.85rem 1rem;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
 .scard-label{font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.3rem;}
 .scard-val{font-size:1.2rem;font-weight:800;font-family:monospace;line-height:1;margin-bottom:0.12rem;}
@@ -749,6 +749,8 @@ var actUpOpen=false,actUpPreview=null,actUpMsg='';
 
 // ── APP STATE ─────────────────────────────────────────────────────────────────
 var ap='all',as='ret-all',typeFilter='all',ocFilter='all',expiringOnly=false,sc='ticker',sd=1,incomeFilter='all',earningsFilter=false;
+var tickerSortOverride=null; // null=default sort, 'asc'=A→Z, 'desc'=Z→A
+function toggleTickerSort(){if(tickerSortOverride===null)tickerSortOverride='asc';else if(tickerSortOverride==='asc')tickerSortOverride='desc';else tickerSortOverride=null;rMain();}
 var selectedTickers=new Set(['ALL']),editingPrice=null,dropdownOpen=false;
 var editCell=null,activeView='positions',spreadsOcFilter='open',spreadsExpFilter='all',spreadsTypeFilter='all',spreadsSpreadFilter='all',spreadsItmFilter=false,spreadsMoneyFilter='all',spreadsShowFilter='all',spreadsRiskFilter='all';
 var modal=null,showUpload=false,csvPreview=null,importMsg='';
@@ -1001,17 +1003,52 @@ function rCashCard(){
   // Curr Val = sum of Portf. Val from open positions
   var currVal=calcPortfolioCV(ap==='all'?'all':portKey2);
 
+  // Retirement portfolio keys
+  var RET_KEYS=['amit-roth','lov-roth','lov-trad'];
+
+  // ── Retirement Portfolio Value ────────────────────────────────────────────
+  // Compute retirement total (Val+Cash+ColBlk+Crypto) for the relevant scope
+  function calcRetPortTotal(retKeys){
+    var retCV=retKeys.reduce(function(s,k){return s+calcPortfolioCV(k);},0);
+    var retCash=retKeys.reduce(function(s,k){return s+(cashBalances[k]||0);},0);
+    var retCrypto=retKeys.reduce(function(s,k){return s+(cryptoBalances[k]||0);},0);
+    // Collateral blocked for retirement ports
+    var retPos=positions.filter(function(r){return retKeys.indexOf(r.portfolio||'')>=0&&r.excelType==='Short Put'&&!isCl(r)&&r.strike>0;});
+    var _seenR={};
+    var retCB=retPos.reduce(function(s,r){var p=r.portfolio||'lovelina';var k=r.ticker+'|'+p;if(_seenR[k])return s;_seenR[k]=true;return s+getCollatBlocked(r.ticker,p);},0);
+    return retCV+retCash+retCB+retCrypto;
+  }
+
+  // Determine which retirement context we're in
+  var retLabel=null,retTotal=null,retInitCash=0;
+  if(ap==='all'){
+    retLabel='All Retirement';
+    retTotal=calcRetPortTotal(RET_KEYS);
+    retInitCash=RET_KEYS.reduce(function(s,k){return s+(initialCashBalances[k]||0);},0);
+  } else if(ap==='retirement'){
+    var subKeys=as==='ret-all'?RET_KEYS:as==='amit-roth'?['amit-roth']:as==='lov-roth'?['lov-roth']:as==='lov-trad'?['lov-trad']:[];
+    var subLabels={'ret-all':'All Retirement','amit-roth':'Amit Roth','lov-roth':'Lov Roth','lov-trad':'Lov Trad'};
+    retLabel=subLabels[as]||as;
+    retTotal=calcRetPortTotal(subKeys);
+    retInitCash=subKeys.reduce(function(s,k){return s+(initialCashBalances[k]||0);},0);
+  } else if(ap==='amit'){
+    retLabel='Amit Roth IRA';
+    retTotal=calcRetPortTotal(['amit-roth']);
+    retInitCash=initialCashBalances['amit-roth']||0;
+  } else if(ap==='lovelina'){
+    retLabel='Lov Roth + Trad IRA';
+    retTotal=calcRetPortTotal(['lov-roth','lov-trad']);
+    retInitCash=(initialCashBalances['lov-roth']||0)+(initialCashBalances['lov-trad']||0);
+  }
+  var showRetSection=retTotal!=null;
+
   // Collateral Blocked (calculated early so we can use in Total)
-  var _retAll2=['amit-roth','lov-roth','lov-trad'];
+  var _retAll2=RET_KEYS;
   var _portPos=positions.filter(function(r){
     var inPort=ap==='all'
       ||(portKey2==='ret-all'?_retAll2.indexOf(r.portfolio||'')>=0:(r.portfolio||'lovelina')===portKey2);
     return inPort&&r.excelType==='Short Put'&&!isCl(r)&&r.strike>0;
   });
-  // Build set of ticker|portfolio pairs in this portfolio view
-  var _portPairs={};_portPos.forEach(function(r){_portPairs[(r.ticker)+'|'+(r.portfolio||'lovelina')]=true;});
-  // Sum C.BLK exactly as the table does: one value per unique ticker+portfolio pair
-  // For "all" view, iterate each canonical portfolio separately to avoid double-counting
   var _seen={};
   var totalCB=_portPos.reduce(function(s,r){
     var p=r.portfolio||'lovelina';
@@ -1021,26 +1058,32 @@ function rCashCard(){
     return s+getCollatBlocked(r.ticker,p);
   },0);
 
-  // Real portfolio value of SPUT positions:
-  // Use min(strike, currentStockPrice) × 100 × contracts
-  // This reflects actual assignment value if stock is below strike
   var totalSPUTVal=_portPos.reduce(function(s,r){
     var liveP=liveCache[r.ticker]&&liveCache[r.ticker].price!=null?liveCache[r.ticker].price:null;
     var manP=tickerPrices[r.ticker]!=null?tickerPrices[r.ticker]:null;
     var stockP=liveP!=null?liveP:(manP!=null?manP:null);
-    // If stock price known, use min(strike, stockPrice); otherwise use strike
     var effectiveP=stockP!=null?Math.min(r.strike,stockP):r.strike;
     return s+effectiveP*100*(r.contracts||1);
   },0);
 
   var crypto=getPortCrypto();
-
-  // Total = Curr Val + Curr Cash + Collateral Blocked + Crypto
   var total=currVal+cash+totalCB+crypto;
-
-  // Gains = Total - Initial Cash
   var diff=total-initCash;
   var diffColor=diff>=0?'#34D399':'#F87171';
+
+  // Non-retirement total (only meaningful on All view)
+  var nonRetTotal=null,nonRetLabel=null;
+  if(ap==='all'){
+    var NON_RET_KEYS=['lovelina','amit','joint'];
+    var nrCV=NON_RET_KEYS.reduce(function(s,k){return s+calcPortfolioCV(k);},0);
+    var nrCash=NON_RET_KEYS.reduce(function(s,k){return s+(cashBalances[k]||0);},0);
+    var nrCrypto=NON_RET_KEYS.reduce(function(s,k){return s+(cryptoBalances[k]||0);},0);
+    var nrPos=positions.filter(function(r){return NON_RET_KEYS.indexOf(r.portfolio||'lovelina')>=0&&r.excelType==='Short Put'&&!isCl(r)&&r.strike>0;});
+    var _seenNR={};
+    var nrCB=nrPos.reduce(function(s,r){var p=r.portfolio||'lovelina';var k=r.ticker+'|'+p;if(_seenNR[k])return s;_seenNR[k]=true;return s+getCollatBlocked(r.ticker,p);},0);
+    nonRetTotal=nrCV+nrCash+nrCB+nrCrypto;
+    nonRetLabel='Excl. Retirement';
+  }
 
   function fmtVal(v){return'$'+Math.abs(v).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});}
   function fmtSigned(v){return(v>=0?'+':'-')+'$'+Math.abs(v).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});}
@@ -1061,16 +1104,9 @@ function rCashCard(){
       +'<div class="cash-sub">'+portLabel+'</div></div>';
   }
 
-  function mkRow(label,val,color,editBtn){
-    return '<div style="display:flex;align-items:center;justify-content:space-between;margin-top:0.42rem;">'
-      +'<div><div style="font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.4);margin-bottom:0.1rem;">'+label+'</div>'
-      +'<div style="font-size:0.92rem;font-weight:800;font-family:monospace;color:'+color+';">'+val+'</div></div>'
-      +(editBtn||'')
-      +'</div>';
-  }
   function mkDivider(){return '<div style="height:1px;background:rgba(255,255,255,0.1);margin-top:0.42rem;"></div>';}
 
-  // 3-column layout: Init Cash | Curr Cash | Curr Val
+  // 4-column top row
   function mkCol(label,val,color,editFn){
     return '<div>'
       +'<div style="font-size:0.52rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:rgba(255,255,255,0.35);margin-bottom:0.12rem;">'+label+'</div>'
@@ -1078,7 +1114,7 @@ function rCashCard(){
       +(editFn?'<button class="cash-edt" onclick="'+editFn+'" style="margin-top:0.1rem;display:block;">edit</button>':'')+'</div>';
   }
 
-  // Warn if initial cash is 0 but we have cash/positions (likely data not restored)
+  // Warn if initial cash is 0
   var initCashWarning='';
   if(initCash===0&&(cash>0||currVal>0)&&!isAll){
     initCashWarning='<div style="background:rgba(220,38,38,0.15);border:1px solid rgba(220,38,38,0.3);border-radius:6px;padding:0.3rem 0.6rem;margin-bottom:0.35rem;display:flex;align-items:center;gap:0.4rem;">'
@@ -1087,29 +1123,17 @@ function rCashCard(){
       +'<button class="cash-edt" onclick="initCashEdit()" style="margin-left:auto;color:#EF4444;">Set now</button>'
       +'</div>';
   }
-  var topRow='<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:0.3rem;margin-bottom:0.35rem;">'
+
+  var topRow='<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:0.3rem;margin-bottom:0.28rem;">'
     +mkCol('Init.Cash',fmtVal(initCash),'rgba(255,255,255,0.65)',isAll?'':'initCashEdit()')
     +mkCol('Curr Cash',fmtVal(cash),'#34D399',isAll?'':'cashEdit()')
     +mkCol('Curr Val',fmtVal(currVal),'#93C5FD','')
     +mkCol('Crypto',fmtVal(crypto),'#F59E0B',isAll?'':'cryptoEdit()')
     +'</div>';
 
-  var totalRow='<div style="margin-top:0.35rem;display:flex;align-items:center;justify-content:space-between;">'
-    +'<div style="font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.4);">Total <span style="font-size:0.5rem;opacity:0.6;">(Val+Cash+Col.Blk+Crypto)</span></div>'
-    +'<div style="font-size:1.05rem;font-weight:800;font-family:monospace;color:#FCD34D;">'+fmtVal(total)+'</div>'
-    +'</div>';
-
-  var diffRow='<div style="border-top:1px solid rgba(255,255,255,0.1);margin-top:0.42rem;padding-top:0.38rem;display:flex;align-items:center;justify-content:space-between;">'
-    +'<div><div style="font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.4);">Gains</div>'
-    +'<div style="font-size:0.55rem;color:rgba(255,255,255,0.3);">Total &minus; Init</div></div>'
-    +'<span style="font-size:0.92rem;font-weight:800;font-family:monospace;color:'+diffColor+';">'+fmtSigned(diff)+'</span>'
-    +'</div>';
-
-  // Collateral Blocked total and Gap (reuse _portPos and totalCB calculated above)
+  // Collateral row
   var portPos=_portPos;
-  // Assn.Req. = strike × 100 × contracts (what you're obligated to buy at)
   var totalAR=portPos.reduce(function(s,r){return s+r.strike*100*(r.contracts||1);},0);
-  // Real val = min(strike, stockPrice) × 100 × contracts (actual assignment value)
   var totalRealVal=portPos.reduce(function(s,r){
     var liveP=liveCache[r.ticker]&&liveCache[r.ticker].price!=null?liveCache[r.ticker].price:null;
     var manP=tickerPrices[r.ticker]!=null?tickerPrices[r.ticker]:null;
@@ -1119,18 +1143,16 @@ function rCashCard(){
   },0);
   var colGap=totalAR>0?totalAR-totalCB:null;
   var colGapColor=colGap!=null?(colGap>0?'#F87171':'#34D399'):'rgba(255,255,255,0.65)';
-  // Show difference between obligation (strike-based) and real value (stock-price-based)
-  var assnDiff=totalRealVal-totalAR; // negative = stock below strike = at-risk
+  var assnDiff=totalRealVal-totalAR;
   var assnDiffColor=assnDiff>=0?'#34D399':'#F87171';
-  // 4-column layout: Col.Blocked | Col.Gap | Assn.Req. | Real Val
-  var actReq=0; // placeholder
+  var actReq=0;
   function mkCardCol(label,val,color){
     return '<div>'
       +'<div style="font-size:0.52rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:rgba(255,255,255,0.35);margin-bottom:0.12rem;">'+label+'</div>'
       +'<div style="font-size:0.8rem;font-weight:800;font-family:monospace;color:'+color+';">'+val+'</div>'
       +'</div>';
   }
-  var cbRow='<div style="border-top:1px solid rgba(255,255,255,0.1);margin-top:0.42rem;padding-top:0.35rem;">'
+  var cbRow='<div style="border-top:1px solid rgba(255,255,255,0.1);margin-top:0.3rem;padding-top:0.28rem;">'
     +'<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:0.3rem;">'
     +mkCardCol('Col.Blocked',fmtK(totalCB),'rgba(255,255,255,0.65)')
     +mkCardCol('Col.Gap',(colGap!=null?fmtKSign(colGap):'--'),colGapColor)
@@ -1140,14 +1162,61 @@ function rCashCard(){
     +(assnDiff<0?'<div style="margin-top:0.3rem;font-size:0.55rem;color:#F87171;">&#9888; Stock below strike on '+portPos.filter(function(r){var lP=liveCache[r.ticker]&&liveCache[r.ticker].price!=null?liveCache[r.ticker].price:null;var mP=tickerPrices[r.ticker];var sP=lP!=null?lP:(mP!=null?mP:null);return sP!=null&&sP<r.strike;}).length+' SPUT(s) — real val '+fmtKSign(assnDiff)+' vs strike</div>':'')
     +'</div>';
 
-  return'<div class="cash-card"><div class="cash-lbl"><span>&#128181; Cash</span></div>'
+  var totalRow='<div style="margin-top:0.28rem;display:flex;align-items:center;justify-content:space-between;">'
+    +'<div style="font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.4);">Total <span style="font-size:0.5rem;opacity:0.6;">(Val+Cash+Col.Blk+Crypto)</span></div>'
+    +'<div style="font-size:1.05rem;font-weight:800;font-family:monospace;color:#FCD34D;">'+fmtVal(total)+'</div>'
+    +'</div>';
+
+  var diffRow='<div style="border-top:1px solid rgba(255,255,255,0.1);margin-top:0.3rem;padding-top:0.28rem;display:flex;align-items:center;justify-content:space-between;">'
+    +'<div><div style="font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.4);">Gains</div>'
+    +'<div style="font-size:0.55rem;color:rgba(255,255,255,0.3);">Total &minus; Init</div></div>'
+    +'<span style="font-size:0.92rem;font-weight:800;font-family:monospace;color:'+diffColor+';">'+fmtSigned(diff)+'</span>'
+    +'</div>';
+
+  // ── Retirement Portfolio Value section ──────────────────────────────────────
+  var retSection='';
+  if(showRetSection){
+    var retGains=retTotal-retInitCash;
+    var retGainsColor=retGains>=0?'#34D399':'#F87171';
+    retSection='<div style="height:1px;background:rgba(255,255,255,0.1);margin-top:0.3rem;"></div>'
+      +'<div style="margin-top:0.3rem;">'
+      +'<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.2rem;">'
+      +'<div style="display:flex;align-items:center;gap:0.4rem;">'
+      +'<span style="font-size:0.6rem;font-weight:800;text-transform:uppercase;letter-spacing:0.07em;color:rgba(255,255,255,0.5);">&#127981; Retr. Portf. Val</span>'
+      +'<span style="font-size:0.58rem;font-weight:600;color:rgba(255,255,255,0.3);">'+retLabel+'</span>'
+      +'</div>'
+      +'<div style="text-align:right;">'
+      +'<div style="font-size:1.0rem;font-weight:800;font-family:monospace;color:#A78BFA;">'+fmtVal(retTotal)+'</div>'
+      +(retInitCash>0?'<div style="font-size:0.58rem;font-family:monospace;color:'+retGainsColor+';">'+fmtSigned(retGains)+'</div>':'')
+      +'</div>'
+      +'</div>'
+      +'</div>';
+  }
+
+  // ── Non-retirement total row (All view only) ─────────────────────────────────
+  var nonRetRow='';
+  if(nonRetTotal!=null){
+    nonRetRow='<div style="border-top:1px solid rgba(255,255,255,0.08);margin-top:0.22rem;padding-top:0.2rem;display:flex;align-items:center;justify-content:space-between;">'
+      +'<div style="font-size:0.55rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:rgba(255,255,255,0.3);">Total <span style="color:rgba(255,255,255,0.45);font-style:italic;">Excl. Retirement</span></div>'
+      +'<div style="font-size:0.88rem;font-weight:800;font-family:monospace;color:rgba(255,255,255,0.5);">'+fmtVal(nonRetTotal)+'</div>'
+      +'</div>';
+  }
+
+  // Header label — shows "Retr. Portf. Val" tag in top-right when retirement data is shown
+  var headerLabel='<div class="cash-lbl"><span>&#128181; Cash</span>'
+    +(showRetSection?'<span style="font-size:0.58rem;font-weight:700;color:#A78BFA;background:rgba(167,139,250,0.15);border:1px solid rgba(167,139,250,0.3);border-radius:4px;padding:0.1rem 0.4rem;margin-left:auto;">&#127981; Retr. Portf. Val</span>':'')
+    +'</div>';
+
+  return'<div class="cash-card">'+headerLabel
     +initCashWarning
     +topRow
     +cbRow
     +mkDivider()
     +totalRow
     +diffRow
-    +'<div class="cash-sub" style="margin-top:0.35rem;">'+portLabel+(isAll?' &mdash; edit per portfolio tab':'')+'</div></div>';
+    +retSection
+    +nonRetRow
+    +'<div class="cash-sub" style="margin-top:0.25rem;">'+portLabel+(isAll?' &mdash; edit per portfolio tab':'')+'</div></div>';
 }
 function cashEdit(){editingCash=true;editingInitCash=false;editingCrypto=false;rMain();setTimeout(function(){var i=document.getElementById('cash-inp');if(i){i.focus();i.select();}},30);}
 function cashSave(){var i=document.getElementById('cash-inp');if(i){var v=parseFloat(i.value);if(!isNaN(v))setPortCash(v);}editingCash=false;rMain();}
@@ -1164,46 +1233,23 @@ function rSum(s){
   var bc=s.beRaw<=0?'var(--green)':'var(--red)',bl=s.beRaw<=0?'&#9650; '+fmtK(Math.abs(s.beRaw))+' over':'&#9660; '+fmtK(s.beRaw)+' to go';
 
   function row2(lA,vA,cA,lB,vB,cB){
-    return '<div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-bottom:0.28rem;">'
-      +'<div><div style="font-size:0.57rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:rgba(0,0,0,0.38);margin-bottom:0.08rem;">'+lA+'</div>'
-      +'<div style="font-size:0.86rem;font-weight:800;font-family:monospace;color:'+cA+';">'+vA+'</div></div>'
-      +'<div><div style="font-size:0.57rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:rgba(0,0,0,0.38);margin-bottom:0.08rem;">'+lB+'</div>'
-      +'<div style="font-size:0.86rem;font-weight:800;font-family:monospace;color:'+cB+';">'+vB+'</div></div>'
-      +'</div>';
-  }
-  function rowDk2(lA,vA,cA,lB,vB,cB){
     return '<div style="display:grid;grid-template-columns:1fr 1fr;gap:0.4rem;margin-bottom:0.18rem;">'
-      +'<div><div style="font-size:0.55rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:rgba(255,255,255,0.4);margin-bottom:0.05rem;">'+lA+'</div>'
-      +'<div style="font-size:0.8rem;font-weight:800;font-family:monospace;color:'+cA+';">'+vA+'</div></div>'
-      +'<div><div style="font-size:0.55rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:rgba(255,255,255,0.4);margin-bottom:0.05rem;">'+lB+'</div>'
-      +'<div style="font-size:0.8rem;font-weight:800;font-family:monospace;color:'+cB+';">'+vB+'</div></div>'
+      +'<div><div style="font-size:0.52rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:rgba(0,0,0,0.35);margin-bottom:0.04rem;">'+lA+'</div>'
+      +'<div style="font-size:0.75rem;font-weight:800;font-family:monospace;color:'+cA+';">'+vA+'</div></div>'
+      +'<div><div style="font-size:0.52rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:rgba(0,0,0,0.35);margin-bottom:0.04rem;">'+lB+'</div>'
+      +'<div style="font-size:0.75rem;font-weight:800;font-family:monospace;color:'+cB+';">'+vB+'</div></div>'
       +'</div>';
   }
-  function div1(){return '<div style="height:1px;background:var(--border);margin:0.3rem 0;"></div>';}
-  function div1dk(){return '<div style="height:1px;background:rgba(255,255,255,0.1);margin:0.18rem 0;"></div>';}
+  function div1(){return '<div style="height:1px;background:var(--border);margin:0.18rem 0;"></div>';}
+  function div1dk(){return '<div style="height:1px;background:rgba(255,255,255,0.1);margin:0.15rem 0;"></div>';}
 
   var realCol=s.realized>=0?'var(--green)':'var(--red)';
   var unrealCol=s.unrealized>=0?'var(--green)':'var(--red)';
   var totalGainCol=s.totalGain>=0?'var(--green)':'var(--red)';
 
-  var capitalCard='<div class="scard" style="border-left:3px solid var(--black);padding:0.75rem 1rem;">'
-    +'<div class="scard-label" style="color:var(--text3);margin-bottom:0.4rem;">&#128188; Capital Invested</div>'
-    +row2('Invested','$'+s.ci.toLocaleString(),'var(--black)','Income Gen.','+$'+s.ig.toLocaleString(),'var(--green)')
-    +div1()
-    +row2('Realized',fp(s.realized),realCol,'Unrealized',fp(s.unrealized),unrealCol)
-    +div1()
-    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-bottom:0.3rem;">'
-    +'<div><div style="font-size:0.57rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:rgba(0,0,0,0.38);margin-bottom:0.08rem;">Total Gain</div>'
-    +'<div style="font-size:0.92rem;font-weight:800;font-family:monospace;color:'+totalGainCol+';">'+fp(s.totalGain)+'</div></div>'
-    +'<div><div style="font-size:0.57rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:rgba(0,0,0,0.38);margin-bottom:0.08rem;">&#9889; Breakeven</div>'
-    +'<div style="font-size:0.8rem;font-weight:800;font-family:monospace;color:'+bc+';">'+bl+'</div></div>'
-    +'</div>'
-    +'<div style="background:var(--bg4);border-radius:100px;height:4px;overflow:hidden;margin-top:0.05rem;">'
-    +'<div style="height:100%;border-radius:100px;background:linear-gradient(90deg,var(--red),#FB923C,var(--green));width:'+s.pct+'%;"></div></div>'
-    +'<div class="scard-sub" style="margin-top:0.22rem;">'+s.pct+'% recovered &middot; '+s.op+' open &middot; '+s.cl+' closed</div>'
-    +'</div>';
-
-  var incomeCard=(function(){
+  // ── Income data inline ──────────────────────────────────────────────────────
+  var todayNI=0,thisW=0,lastW=0;
+  (function(){
     var now=new Date();
     var tod=new Date(now.toDateString());
     var todEnd=new Date(tod.getTime()+86400000);
@@ -1216,43 +1262,43 @@ function rSum(s){
     function getNI(r){var sa=r.soldAmount!=null&&r.soldAmount!==''?parseFloat(r.soldAmount):null;if(sa==null)return null;return sa-(r.excelCost||0);}
     var portKey=ap==='retirement'?as:ap;
     var allPos=s.filtered||positions.filter(function(r){return ap==='all'||(r.portfolio||'lovelina')===portKey;});
-    var todayNI=0,thisW=0,lastW=0,mtd=0,ytd=0,realized=0;
     allPos.forEach(function(r){
       var ni=getNI(r);if(ni==null)return;
       var d=parseOD(r.openDate);if(!d)return;
       if(d>=tod&&d<todEnd)todayNI+=ni;
       if(d>=thisMon&&d<=thisSun)thisW+=ni;
       if(d>=lastMon&&d<=lastSun)lastW+=ni;
-      if(d.getFullYear()===now.getFullYear()&&d.getMonth()===now.getMonth())mtd+=ni;
-      if(d.getFullYear()===now.getFullYear())ytd+=ni;
-      if(isCl(r))realized+=ni;
     });
-    var wDiff=thisW-lastW;
-    var selVal=incomeFilter==='today'?todayNI:incomeFilter==='cw'?thisW:incomeFilter==='pw'?lastW:incomeFilter==='cm'?mtd:null;
-    var selLabel=incomeFilter==='today'?'Today':incomeFilter==='cw'?'CW':incomeFilter==='pw'?'PW':incomeFilter==='cm'?'CM':null;
-    function fc(v){return(v>=0?'+':'')+v.toLocaleString(undefined,{style:'currency',currency:'USD',minimumFractionDigits:0,maximumFractionDigits:0});}
-    function fcp(v){return v>=0?'#34D399':'#F87171';}
-    var out='<div class="col-combo-card" style="padding:0.55rem 0.75rem;">'
-      +'<div class="col-combo-title" style="margin-bottom:0.25rem;">&#128200; Income (Net)'+(selLabel?' &middot; <span style="color:#FBBF24;">'+selLabel+'</span>':'')+'</div>'
-      +(selLabel?'<div style="display:flex;align-items:center;justify-content:space-between;background:rgba(251,191,36,0.12);border-radius:6px;padding:0.15rem 0.4rem;margin-bottom:0.2rem;"><span style="font-size:0.58rem;font-weight:700;color:#FBBF24;text-transform:uppercase;">'+selLabel+'</span><span style="font-size:0.88rem;font-weight:900;font-family:monospace;color:'+fcp(selVal)+';">'+fc(selVal)+'</span></div>':'')
-      +rowDk2('Today',fc(todayNI),fcp(todayNI),'CW',fc(thisW),fcp(thisW))
-      +div1dk()
-      +rowDk2('PW',fc(lastW),fcp(lastW),'Wk Δ',fc(wDiff),fcp(wDiff))
-      +div1dk()
-      +rowDk2('CM',fc(mtd),fcp(mtd),'YTD',fc(ytd),fcp(ytd))
-      +div1dk()
-      +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:0.4rem;">'
-      +'<div><div style="font-size:0.55rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:rgba(255,255,255,0.4);margin-bottom:0.05rem;">Realized</div>'
-      +'<div style="font-size:0.8rem;font-weight:800;font-family:monospace;color:'+fcp(realized)+';">'+fc(realized)+'</div></div>'
-      +'<div></div>'
-      +'</div>'
-      +'</div>';
-    return out;
   })();
+  function fc(v){return(v>=0?'+':'')+v.toLocaleString(undefined,{style:'currency',currency:'USD',minimumFractionDigits:0,maximumFractionDigits:0});}
+  function fcp(v){return v>=0?'var(--green)':'var(--red)';}
 
-  return'<div class="summary-grid" style="grid-template-columns:1fr 1.1fr 1.5fr;">'
+  var capitalCard='<div class="scard" style="border-left:3px solid var(--black);padding:0.55rem 0.75rem;">'
+    +'<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.25rem;">'
+    +'<div class="scard-label" style="color:var(--text3);font-size:0.56rem;margin:0;">&#128188; Capital Invested</div>'
+    +'<div style="display:flex;gap:0.5rem;">'
+    +'<div style="text-align:right;"><div style="font-size:0.48rem;font-weight:700;text-transform:uppercase;color:rgba(0,0,0,0.3);letter-spacing:0.06em;">Today</div><div style="font-size:0.7rem;font-weight:800;font-family:monospace;color:'+fcp(todayNI)+';">'+fc(todayNI)+'</div></div>'
+    +'<div style="text-align:right;"><div style="font-size:0.48rem;font-weight:700;text-transform:uppercase;color:rgba(0,0,0,0.3);letter-spacing:0.06em;">CW</div><div style="font-size:0.7rem;font-weight:800;font-family:monospace;color:'+fcp(thisW)+';">'+fc(thisW)+'</div></div>'
+    +'<div style="text-align:right;"><div style="font-size:0.48rem;font-weight:700;text-transform:uppercase;color:rgba(0,0,0,0.3);letter-spacing:0.06em;">PW</div><div style="font-size:0.7rem;font-weight:800;font-family:monospace;color:'+fcp(lastW)+';">'+fc(lastW)+'</div></div>'
+    +'</div>'
+    +'</div>'
+    +row2('Invested','$'+s.ci.toLocaleString(),'var(--black)','Income Gen.','+$'+s.ig.toLocaleString(),'var(--green)')
+    +div1()
+    +row2('Realized',fp(s.realized),realCol,'Unrealized',fp(s.unrealized),unrealCol)
+    +div1()
+    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:0.4rem;margin-bottom:0.15rem;">'
+    +'<div><div style="font-size:0.52rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:rgba(0,0,0,0.35);margin-bottom:0.04rem;">Total Gain</div>'
+    +'<div style="font-size:0.78rem;font-weight:800;font-family:monospace;color:'+totalGainCol+';">'+fp(s.totalGain)+'</div></div>'
+    +'<div><div style="font-size:0.52rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:rgba(0,0,0,0.35);margin-bottom:0.04rem;">&#9889; Breakeven</div>'
+    +'<div style="font-size:0.68rem;font-weight:800;font-family:monospace;color:'+bc+';">'+bl+'</div></div>'
+    +'</div>'
+    +'<div style="background:var(--bg4);border-radius:100px;height:3px;overflow:hidden;margin-top:0.08rem;">'
+    +'<div style="height:100%;border-radius:100px;background:linear-gradient(90deg,var(--red),#FB923C,var(--green));width:'+s.pct+'%;"></div></div>'
+    +'<div class="scard-sub" style="margin-top:0.14rem;font-size:0.55rem;">'+s.pct+'% recovered &middot; '+s.op+' open &middot; '+s.cl+' closed</div>'
+    +'</div>';
+
+  return'<div class="summary-grid" style="grid-template-columns:1fr 2fr;margin-bottom:0.55rem;">'
     +capitalCard
-    +incomeCard
     +rCashCard()
     +'</div>';
 }
@@ -1270,7 +1316,7 @@ function rFiltersRow(data){
   var typeList=[['all','All'],['Short Put','SPUT'],['Long Put','LPUT'],['Long Call','LCALL'],['Short Call','SCALL'],['Shares','SHR']];
   var tt=typeList.map(function(p){return'<button class="type-tab'+(typeFilter===p[0]?' active':'')+'" data-typef="'+p[0]+'" onclick="typeFilter=\''+p[0]+'\';rMain();">'+p[1]+'</button>';}).join('');
   var ot=['all','open','closed'].map(function(o){return'<button class="oc-tab'+(ocFilter===o?' active':'')+'" data-ocf="'+o+'" onclick="ocFilter=\''+o+'\';rMain();">'+(o==='all'?'All':o==='open'?'Open':'Closed')+'</button>';}).join('');
-  return'<div class="controls-row" style="margin-bottom:0.6rem;flex-wrap:wrap;">'    +'<div class="ticker-select-wrap" id="tkwrap" style="flex-shrink:0;min-width:80px;max-width:150px;"><div class="ticker-select-btn" id="tkbtn" onclick="toggleDropdown()"><div class="sel-tags">'+tags+'</div><span style="color:var(--text3);font-size:0.65rem;">&#9660;</span></div><div class="ticker-dropdown'+(dropdownOpen?' open':'')+'" id="tkdrop"><div style="padding:0.3rem 0.4rem;border-bottom:1px solid var(--border);"><input id="tk-search-inp" type="text" placeholder="&#128269; Search..." value="'+(tkSearch||'')+'" oninput="setTkSearch(this.value)" onclick="event.stopPropagation()" style="width:100%;border:1px solid var(--border2);border-radius:5px;padding:0.25rem 0.45rem;font-size:0.68rem;outline:none;color:var(--black);background:var(--bg3);"></div><div class="ticker-dd-item'+(allSel?' selected':'')+'" data-ddticker="ALL"><div class="ticker-dd-check">'+(allSel?'&#10003;':'')+'</div><span style="font-size:0.72rem;font-weight:700;">All Tickers</span></div><div style="height:1px;background:var(--border);margin:0.25rem 0;"></div>'+ddItems+'</div></div>'    +'<div style="width:1px;background:var(--border);align-self:stretch;flex-shrink:0;"></div>'    +'<div class="type-tabs">'+tt+'</div>'    +'<div class="oc-tabs">'+ot+'</div>'    +'<button class="expiry-pill'+(expiringOnly?' active':'')+'" id="exp-pill">&#9888; This Week</button>'+'<select id="income-filter-sel" style="border:1px solid var(--border2);background:var(--bg3);border-radius:7px;padding:0.22rem 0.5rem;font-size:0.68rem;font-weight:600;color:var(--black);cursor:pointer;outline:none;height:28px;" onchange="incomeFilter=this.value;rMain()"><option value="all"'+(incomeFilter==='all'?' selected':'')+'>&#128200; All Dates</option><option value="today"'+(incomeFilter==='today'?' selected':'')+'>Today</option><option value="cw"'+(incomeFilter==='cw'?' selected':'')+'>CW - This Week</option><option value="pw"'+(incomeFilter==='pw'?' selected':'')+'>PW - Past Week</option><option value="cm"'+(incomeFilter==='cm'?' selected':'')+'>CM - This Month</option></select>'+'<button class="expiry-pill'+(earningsFilter?' active':'')+'" onclick="earningsFilter=!earningsFilter;rMain();" style="'+(earningsFilter?'background:#DC2626;color:#fff;border-color:#DC2626;':'')+'" title="Show tickers with earnings in next 10 days">&#127988; Earnings &lt;10d</button>'+'<button class="expiry-pill'+(hideClosedRows?' active':'')+'" onclick="toggleHideClosedGlobal()" style="'+(hideClosedRows?'background:var(--black);color:#fff;border-color:var(--black);':'')+'" title="Toggle closed rows">&#128065; '+(hideClosedRows?'Show Closed':'Hide Closed')+'</button>'    +'<div style="margin-left:auto;display:flex;gap:0.4rem;align-items:center;">'    +'<button class="del-all-btn" onclick="deleteAll()">&#128465;</button>'    +'<button class="upload-csv-btn" onclick="toggleUpload()">&#8593; Upload CSV</button>'    +'<button class="template-dl-btn" onclick="dlTemplate()">&#11015; Template</button>'    +'<button class="add-pos-btn" onclick="openAddModal()">&#43; Add</button>'    +'</div>'    +'</div>';
+  return'<div class="controls-row" style="margin-bottom:0.6rem;flex-wrap:wrap;">'    +'<div class="ticker-select-wrap" id="tkwrap" style="flex-shrink:0;min-width:80px;max-width:150px;"><div class="ticker-select-btn" id="tkbtn" onclick="toggleDropdown()"><div class="sel-tags">'+tags+'</div><span style="color:var(--text3);font-size:0.65rem;">&#9660;</span></div><div class="ticker-dropdown'+(dropdownOpen?' open':'')+'" id="tkdrop"><div style="padding:0.3rem 0.4rem;border-bottom:1px solid var(--border);"><input id="tk-search-inp" type="text" placeholder="&#128269; Search..." value="'+(tkSearch||'')+'" oninput="setTkSearch(this.value)" onclick="event.stopPropagation()" style="width:100%;border:1px solid var(--border2);border-radius:5px;padding:0.25rem 0.45rem;font-size:0.68rem;outline:none;color:var(--black);background:var(--bg3);"></div><div class="ticker-dd-item'+(allSel?' selected':'')+'" data-ddticker="ALL"><div class="ticker-dd-check">'+(allSel?'&#10003;':'')+'</div><span style="font-size:0.72rem;font-weight:700;">All Tickers</span></div><div style="height:1px;background:var(--border);margin:0.25rem 0;"></div>'+ddItems+'</div></div>'    +'<div style="width:1px;background:var(--border);align-self:stretch;flex-shrink:0;"></div>'    +'<div class="type-tabs">'+tt+'</div>'    +'<div class="oc-tabs">'+ot+'</div>'    +'<button class="expiry-pill'+(expiringOnly?' active':'')+'" id="exp-pill">&#9888; This Week</button>'+'<select id="income-filter-sel" style="border:1px solid var(--border2);background:var(--bg3);border-radius:7px;padding:0.22rem 0.5rem;font-size:0.68rem;font-weight:600;color:var(--black);cursor:pointer;outline:none;height:28px;" onchange="incomeFilter=this.value;rMain()"><option value="all"'+(incomeFilter==='all'?' selected':'')+'>&#128200; All Dates</option><option value="today"'+(incomeFilter==='today'?' selected':'')+'>Today</option><option value="cw"'+(incomeFilter==='cw'?' selected':'')+'>CW - This Week</option><option value="pw"'+(incomeFilter==='pw'?' selected':'')+'>PW - Past Week</option><option value="cm"'+(incomeFilter==='cm'?' selected':'')+'>CM - This Month</option></select>'+'<button class="expiry-pill'+(earningsFilter?' active':'')+'" onclick="earningsFilter=!earningsFilter;rMain();" style="'+(earningsFilter?'background:#DC2626;color:#fff;border-color:#DC2626;':'')+'" title="Show tickers with earnings in next 10 days">&#127988; Earnings &lt;10d</button>'+'<button class="expiry-pill'+(hideClosedRows?' active':'')+'" onclick="toggleHideClosedGlobal()" style="'+(hideClosedRows?'background:var(--black);color:#fff;border-color:var(--black);':'')+'" title="Toggle closed rows">&#128065; '+(hideClosedRows?'Show Closed':'Hide Closed')+'</button>'    +'<button class="expiry-pill'+(tickerSortOverride?' active':'')+'" onclick="toggleTickerSort()" style="'+(tickerSortOverride==='asc'?'background:#2563EB;color:#fff;border-color:#2563EB;':tickerSortOverride==='desc'?'background:#7C3AED;color:#fff;border-color:#7C3AED;':'')+'" title="Sort by ticker">'+(tickerSortOverride==='asc'?'&#9651; A&#8594;Z':tickerSortOverride==='desc'?'&#9661; Z&#8594;A':'&#9651;&#9661; Ticker')+'</button>'    +'<div style="margin-left:auto;display:flex;gap:0.4rem;align-items:center;">'    +'<button class="del-all-btn" onclick="deleteAll()">&#128465;</button>'    +'<button class="upload-csv-btn" onclick="toggleUpload()">&#8593; Upload CSV</button>'    +'<button class="template-dl-btn" onclick="dlTemplate()">&#11015; Template</button>'    +'<button class="add-pos-btn" onclick="openAddModal()">&#43; Add</button>'    +'</div>'    +'</div>';
 }
 function rTableControls(){return'';}
 
@@ -1333,21 +1379,26 @@ function rTable(data){
   });
   // Sort groups: tickers with open positions first (sorted by earliest open expiry asc),
   // then tickers with no open positions (all-closed) at bottom (sorted by ticker name)
-  groupOrder.sort(function(a,b){
-    var ra=groupMap[a].rows,rb=groupMap[b].rows;
-    var aHasOpen=ra.some(function(r){return!isCl(r);});
-    var bHasOpen=rb.some(function(r){return!isCl(r);});
-    if(aHasOpen&&!bHasOpen)return -1;
-    if(!aHasOpen&&bHasOpen)return 1;
-    if(aHasOpen&&bHasOpen){
-      // Both have open — sort by earliest open expiry date asc
-      var aExp=ra.filter(function(r){return!isCl(r)&&r.expiryDate;}).map(function(r){return parseExpiry(r.expiryDate);}).filter(function(d){return d!=null;}).sort(function(x,y){return x-y;})[0]||new Date('9999-12-31');
-      var bExp=rb.filter(function(r){return!isCl(r)&&r.expiryDate;}).map(function(r){return parseExpiry(r.expiryDate);}).filter(function(d){return d!=null;}).sort(function(x,y){return x-y;})[0]||new Date('9999-12-31');
-      return aExp-bExp;
-    }
-    // Both all-closed — sort alphabetically
-    return a.localeCompare(b);
-  });
+  // If tickerSortOverride is set, sort purely alphabetically instead.
+  if(tickerSortOverride){
+    groupOrder.sort(function(a,b){return tickerSortOverride==='asc'?a.localeCompare(b):b.localeCompare(a);});
+  }else{
+    groupOrder.sort(function(a,b){
+      var ra=groupMap[a].rows,rb=groupMap[b].rows;
+      var aHasOpen=ra.some(function(r){return!isCl(r);});
+      var bHasOpen=rb.some(function(r){return!isCl(r);});
+      if(aHasOpen&&!bHasOpen)return -1;
+      if(!aHasOpen&&bHasOpen)return 1;
+      if(aHasOpen&&bHasOpen){
+        // Both have open — sort by earliest open expiry date asc
+        var aExp=ra.filter(function(r){return!isCl(r)&&r.expiryDate;}).map(function(r){return parseExpiry(r.expiryDate);}).filter(function(d){return d!=null;}).sort(function(x,y){return x-y;})[0]||new Date('9999-12-31');
+        var bExp=rb.filter(function(r){return!isCl(r)&&r.expiryDate;}).map(function(r){return parseExpiry(r.expiryDate);}).filter(function(d){return d!=null;}).sort(function(x,y){return x-y;})[0]||new Date('9999-12-31');
+        return aExp-bExp;
+      }
+      // Both all-closed — sort alphabetically
+      return a.localeCompare(b);
+    });
+  }
 
   if(filtered.length===0)return'<div class="table-wrap"><table><thead><tr><th>Ticker</th><th>Dt</th><th>Cost</th><th>Sold</th><th>Net</th><th>Val</th><th>Px</th><th>Type</th><th>Str</th><th style="color:#FCA5A5;">Assn</th><th style="color:#FDBA74;">C.Val</th><th style="color:#FCD34D;">C.Blk</th><th style="color:#6EE7B7;">Gap</th><th>Exp</th><th>Act</th></tr></thead><tbody><tr><td colspan="15" class="ec">No positions match your filters.</td></tr></tbody></table></div>';
 
@@ -2133,6 +2184,9 @@ function rSpreadsView(data){
     // Ticker selector — identical to positions tab
     +'<div class="ticker-select-wrap" id="tkwrap" style="flex-shrink:0;min-width:80px;max-width:150px;"><div class="ticker-select-btn" id="tkbtn" onclick="toggleDropdown()"><div class="sel-tags">'+tags+'</div><span style="color:var(--text3);font-size:0.65rem;">&#9660;</span></div><div class="ticker-dropdown'+(dropdownOpen?' open':'')+'" id="tkdrop"><div style="padding:0.3rem 0.4rem;border-bottom:1px solid var(--border);"><input id="tk-search-inp" type="text" placeholder="&#128269; Search..." value="'+(typeof tkSearch!=='undefined'?tkSearch:'')+'" oninput="setTkSearch(this.value)" onclick="event.stopPropagation()" style="width:100%;border:1px solid var(--border2);border-radius:5px;padding:0.25rem 0.45rem;font-size:0.68rem;outline:none;color:var(--black);background:var(--bg3);"></div><div class="ticker-dd-item'+(allSel?' selected':'')+'" data-ddticker="ALL"><div class="ticker-dd-check">'+(allSel?'&#10003;':'')+'</div><span style="font-size:0.72rem;font-weight:700;">All Tickers</span></div><div style="height:1px;background:var(--border);margin:0.1rem 0;"></div><div style="max-height:180px;overflow-y:auto;">'+ddItems+'</div></div></div>'
     +'<div style="width:1px;background:var(--border);align-self:stretch;flex-shrink:0;"></div>'
+    // Ticker sort button
+    +'<button class="expiry-pill'+(tickerSortOverride?' active':'')+'" onclick="toggleTickerSort()" style="'+(tickerSortOverride==='asc'?'background:#2563EB;color:#fff;border-color:#2563EB;':tickerSortOverride==='desc'?'background:#7C3AED;color:#fff;border-color:#7C3AED;':'')+'" title="Sort by ticker">'+(tickerSortOverride==='asc'?'&#9651; A&#8594;Z':tickerSortOverride==='desc'?'&#9661; Z&#8594;A':'&#9651;&#9661; Ticker')+'</button>'
+    +'<div style="width:1px;background:var(--border);align-self:stretch;flex-shrink:0;"></div>'
     // Type tabs
     +'<div class="type-tabs">'+stypes+'</div>'
     +'<div style="width:1px;background:var(--border);align-self:stretch;flex-shrink:0;"></div>'
@@ -2150,7 +2204,7 @@ function rSpreadsView(data){
     // Collateral chip right-aligned
     +'<div style="margin-left:auto;">'+collatChip+'</div>'
     +'</div>';
-  // Flatten all rows, sort by SP expiry asc
+  // Flatten all rows, sort by SP expiry asc — or by ticker if override set
   var allRows=[];
   groups.filter(function(g){return g.pairs.length>0||g.independentLPs.length>0;}).forEach(function(g){
     var ticker=g.ticker;
@@ -2159,7 +2213,11 @@ function rSpreadsView(data){
     // Independent LPUTs: blank left, LPUT on right
     g.independentLPs.forEach(function(lp){allRows.push({type:'indep',ticker:ticker,lp:lp,sortDate:parseDate(lp.expiryDate||'')||new Date('9999-12-31')});});
   });
-  allRows.sort(function(a,b){return a.sortDate-b.sortDate;});
+  if(tickerSortOverride){
+    allRows.sort(function(a,b){return tickerSortOverride==='asc'?a.ticker.localeCompare(b.ticker):b.ticker.localeCompare(a.ticker);});
+  }else{
+    allRows.sort(function(a,b){return a.sortDate-b.sortDate;});
+  }
   if(spreadsSpreadFilter==='spread')allRows=allRows.filter(function(i){return i.type==='pair'&&i.pair.lp;});
   else if(spreadsSpreadFilter==='naked')allRows=allRows.filter(function(i){return i.type==='pair'&&!i.pair.lp;});
   else if(spreadsSpreadFilter==='unhedged')allRows=allRows.filter(function(i){return i.type==='indep'&&i.lp&&i.lp.excelType==='Long Put';});
@@ -2750,13 +2808,17 @@ function rCombinedView(data){
     groupMap[gk].rows.push(r);
   });
 
-  // Sort groups: open first, then alphabetical
-  groupOrder.sort(function(a,b){
-    var ra=groupMap[a].rows,rb=groupMap[b].rows;
-    var aOpen=ra.some(function(r){return!isCl(r);}),bOpen=rb.some(function(r){return!isCl(r);});
-    if(aOpen&&!bOpen)return -1;if(!aOpen&&bOpen)return 1;
-    return a.localeCompare(b);
-  });
+  // Sort groups: open first, then alphabetical — or by ticker if override set
+  if(tickerSortOverride){
+    groupOrder.sort(function(a,b){return tickerSortOverride==='asc'?a.localeCompare(b):b.localeCompare(a);});
+  }else{
+    groupOrder.sort(function(a,b){
+      var ra=groupMap[a].rows,rb=groupMap[b].rows;
+      var aOpen=ra.some(function(r){return!isCl(r);}),bOpen=rb.some(function(r){return!isCl(r);});
+      if(aOpen&&!bOpen)return -1;if(!aOpen&&bOpen)return 1;
+      return a.localeCompare(b);
+    });
+  }
 
   var html='';
   var today0=new Date(new Date().toDateString());
@@ -3322,7 +3384,7 @@ function ghSaveSettings(){
 function closeGhModal(){document.getElementById('modal-root').innerHTML='';}
 
 // ── EXPOSE GLOBALS ────────────────────────────────────────────────────────────
-window.sPort=sPort;window.toggleDropdown=toggleDropdown;
+window.sPort=sPort;window.toggleDropdown=toggleDropdown;window.toggleTickerSort=toggleTickerSort;
 window.toggleGroup=toggleGroup;window.toggleHideClosed=toggleHideClosed;window.toggleHideClosedGlobal=toggleHideClosedGlobal;
 window.openModal=openModal;window.closeModal=closeModal;window.confirmModal=confirmModal;window.setMA=setMA;window.setCD=setCD;
 window.reopenPosition=reopenPosition;window.startEdit=startEdit;window.cancelEdit=cancelEdit;
