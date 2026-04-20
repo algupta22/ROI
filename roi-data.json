@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-20T04:58:31.196Z",
+  "savedAt": "2026-04-20T04:59:54.583Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -6707,7 +6707,8 @@
     "ROBN|lovelina": 4300,
     "PATH|lovelina": 2100,
     "NVDX|lovelina": 7,
-    "METU|lovelina": 3800
+    "METU|lovelina": 3800,
+    "TSLL|joint": 200
   },
   "cryptoBalances": {
     "lovelina": 8442,
