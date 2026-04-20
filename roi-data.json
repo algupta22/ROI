@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-20T23:40:19.957Z",
+  "savedAt": "2026-04-20T23:47:25.493Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -598,14 +598,22 @@
       "excelIncome": 0,
       "excelGrossValue": 110,
       "excelCurrentValue": 110,
-      "excelProfit": -372,
-      "closed": false,
+      "excelProfit": -266,
+      "closed": true,
       "notes": "",
       "manualPrice": null,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "STC",
+        "type": "credit",
+        "amount": 106,
+        "signedAmount": 106,
+        "notes": "",
+        "date": "4/20/26"
+      },
       "_noMerge": true,
-      "cvOverride": 110
+      "cvOverride": 110,
+      "soldAmount": 106
     },
     {
       "id": "6x3pzinc",
@@ -795,19 +803,27 @@
       "expiryDate": "4/24",
       "openDate": "4/18/26",
       "contracts": 1,
-      "excelCost": 0,
+      "excelCost": 5,
       "excelIncome": 0,
       "excelGrossValue": 1,
       "excelCurrentValue": 1,
-      "excelProfit": 15,
-      "closed": false,
+      "excelProfit": 10,
+      "closed": true,
       "notes": "",
       "manualPrice": null,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "BTC",
+        "type": "debit",
+        "amount": 5,
+        "signedAmount": -5,
+        "notes": "",
+        "date": "4/20/26"
+      },
       "_noMerge": true,
       "cvOverride": -1,
-      "soldAmount": 15
+      "soldAmount": 15,
+      "originalOpenCost": 0
     },
     {
       "id": "47tikqnv",
