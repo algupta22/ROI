@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-20T03:05:58.789Z",
+  "savedAt": "2026-04-20T03:10:24.634Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -3979,14 +3979,17 @@
   "tickerPrices": {
     "GOOGL": 319.23,
     "PLTR": 147,
-    "IBIT": 41.42,
-    "TSLZ": 17.53,
+    "IBIT": 43.94,
+    "TSLZ": 13.16,
     "HIMZ": 3,
     "HIMZ1": 3,
     "TSLL": 13.87,
     "ROBN": 28,
     "NVTS": 12,
-    "BBAI": 3.82
+    "BBAI": 3.82,
+    "HIMS": 28.82,
+    "HOOD": 90.75,
+    "MSFT": 422.79
   },
   "activityData": {
     "act_all": [],
