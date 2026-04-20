@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-20T03:54:26.195Z",
+  "savedAt": "2026-04-20T04:03:08.764Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -3907,6 +3907,96 @@
     "SPXS": 31.07,
     "SQQQ": 56.39,
     "USAR": 19.95
+  },
+  "earningsDates": {
+    "TSLL": {
+      "manual": "4/22/2026",
+      "liveTs": 1776632153836
+    },
+    "BBAI": {
+      "manual": "5/12/2026"
+    },
+    "BULL": {
+      "manual": "5/21/2026"
+    },
+    "CDE": {
+      "manual": "5/6/2026"
+    },
+    "CELH": {
+      "manual": "5/28/2026"
+    },
+    "GOOGL": {
+      "manual": "4/29/2026"
+    },
+    "HIMS": {
+      "manual": "5/4/2026"
+    },
+    "HIMZ": {
+      "manual": "5/4/2026"
+    },
+    "HIMZ1": {
+      "manual": "5/4/2026"
+    },
+    "HOOD": {
+      "manual": "4/28/2026"
+    },
+    "LYFT": {
+      "manual": "5/6/2026"
+    },
+    "METU": {
+      "manual": "5/29/2026"
+    },
+    "MSFT": {
+      "manual": "4/30/2026"
+    },
+    "NFLU": {
+      "manual": "7/16/2026"
+    },
+    "NKE": {
+      "manual": "6/25/2026"
+    },
+    "NVDA": {
+      "manual": "5/20/2026"
+    },
+    "NVDX": {
+      "manual": "5/20/2026"
+    },
+    "NVTS": {
+      "manual": "5/7/2026"
+    },
+    "PATH": {
+      "manual": "6/3/2026"
+    },
+    "PLTR": {
+      "manual": "5/4/2026"
+    },
+    "USAR": {
+      "manual": "5/6/2026"
+    },
+    "ROBN": {
+      "manual": "4/28/2026"
+    },
+    "RGTI": {
+      "manual": "5/11/2026"
+    },
+    "SMCI": {
+      "manual": "5/5/2026"
+    },
+    "SMCZ": {
+      "manual": "5/5/2026"
+    },
+    "SOFI": {
+      "manual": "4/29/2026"
+    },
+    "TTD": {
+      "manual": "5/14/2026"
+    },
+    "TSLZ": {
+      "manual": "4/22/2026"
+    },
+    "SMST": {
+      "manual": "5/5/2026"
+    }
   },
   "activityData": {
     "act_all": [],
