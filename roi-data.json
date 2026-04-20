@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-20T21:42:18.649Z",
+  "savedAt": "2026-04-20T23:06:54.532Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -616,28 +616,6 @@
       "soldAmount": 106
     },
     {
-      "id": "v9w5tq0b",
-      "portfolio": "lovelina",
-      "ticker": "NVDX",
-      "excelType": "Long Put",
-      "strike": 17.43,
-      "expiryDate": "6/18",
-      "openDate": "4/18/26",
-      "contracts": 1,
-      "excelCost": 200,
-      "excelIncome": 0,
-      "excelGrossValue": 110,
-      "excelCurrentValue": 110,
-      "excelProfit": -200,
-      "closed": false,
-      "notes": "",
-      "manualPrice": null,
-      "rolledOver": false,
-      "closeAction": null,
-      "_noMerge": true,
-      "cvOverride": 183
-    },
-    {
       "id": "6x3pzinc",
       "portfolio": "lovelina",
       "ticker": "PLTR",
@@ -823,7 +801,7 @@
       "excelType": "Short Put",
       "strike": 15.5,
       "expiryDate": "4/24",
-      "openDate": "4/18/26",
+      "openDate": "4/20/26",
       "contracts": 1,
       "excelCost": 5,
       "excelIncome": 0,
@@ -834,18 +812,25 @@
       "notes": "",
       "manualPrice": null,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "BTC",
+        "type": "debit",
+        "amount": 5,
+        "signedAmount": -5,
+        "notes": "",
+        "date": "4/20/26"
+      },
       "_noMerge": true,
       "soldAmount": 15
     },
     {
-      "id": "g699xe4t",
+      "id": "47tikqnv",
       "portfolio": "lovelina",
       "ticker": "NVDX",
       "excelType": "Short Put",
       "strike": 17,
       "expiryDate": "4/24",
-      "openDate": "4/18/26",
+      "openDate": "4/20/26",
       "contracts": 1,
       "excelCost": 0,
       "excelIncome": 0,
@@ -859,7 +844,7 @@
       "closeAction": null,
       "_noMerge": true,
       "soldAmount": 16,
-      "cvOverride": -18
+      "cvOverride": 0
     },
     {
       "id": "hhiue7cf",
@@ -4205,6 +4190,26 @@
       "manualPrice": 42.27,
       "notes": "",
       "cvOverride": 11145
+    },
+    {
+      "id": "0dsxt01g",
+      "portfolio": "lovelina",
+      "ticker": "NVDX",
+      "excelType": "Long Put",
+      "strike": 17.43,
+      "expiryDate": "06/18/2026",
+      "openDate": "4/20/26",
+      "contracts": 1,
+      "excelCost": 200,
+      "excelIncome": 0,
+      "excelGrossValue": 0,
+      "excelCurrentValue": 0,
+      "excelProfit": -200,
+      "closed": false,
+      "notes": "",
+      "manualPrice": null,
+      "rolledOver": false,
+      "closeAction": null
     }
   ],
   "tickerPrices": {
