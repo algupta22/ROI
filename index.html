@@ -51,7 +51,7 @@ body{background:var(--bg);min-height:100vh;font-family:'Segoe UI',system-ui,sans
 .sub-tab{display:flex;align-items:center;gap:0.4rem;padding:0 0.9rem;height:34px;font-size:0.67rem;font-weight:600;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;transition:all 0.15s;white-space:nowrap;text-transform:uppercase;}
 .sub-tab:hover{color:var(--black);}.sub-tab.active{color:var(--red);border-bottom-color:var(--red);}
 .owner-badge{background:var(--bg4);border:1px solid var(--border);border-radius:3px;padding:1px 5px;font-size:0.62rem;color:var(--text3);}
-.breadcrumb{padding:0.4rem 1.2rem;font-size:0.68rem;color:var(--text3);display:flex;align-items:center;gap:0.35rem;background:var(--bg2);border-bottom:1px solid var(--border);}
+.breadcrumb{padding:0.4rem 1.2rem;font-size:0.68rem;color:var(--text3);display:flex;align-items:center;gap:0.35rem;background:var(--bg2);border-bottom:1px solid var(--border);position:relative;}
 .view-nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 1.2rem;display:flex;gap:0;}
 .view-tab{display:flex;align-items:center;gap:0.35rem;padding:0 1rem;height:36px;font-size:0.72rem;font-weight:700;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;transition:all 0.15s;white-space:nowrap;text-transform:uppercase;letter-spacing:0.04em;}
 .view-tab:hover{color:var(--black);}.view-tab.active{color:var(--red);border-bottom-color:var(--red);}
@@ -587,7 +587,8 @@ td.mc{color:var(--black);font-weight:700;}td.mn{font-family:monospace;font-size:
   <div class="sub-tab" data-sub="lov-trad"><span class="owner-badge">Lovelina</span>Traditional IRA</div>
 </div>
 <div class="view-nav" id="view-nav">
-  <div class="view-tab active" data-view="positions">&#128202; Positions</div>
+  <div class="view-tab active" data-view="positions">&#128200; Summary</div>
+  <div class="view-tab" data-view="poslist">&#128202; Positions</div>
   <div class="view-tab" data-view="spreads">&#8597; Spreads / Risk View</div>
   <div class="view-tab" data-view="combined">&#128279; Combined View</div>
   <div class="view-tab" data-view="activity">&#128196; Activity</div>
@@ -620,8 +621,17 @@ var positions=[];
     if(raw){
       var d=JSON.parse(raw);
       if(Array.isArray(d)&&d.length>0){
-        d.forEach(function(r){if(!r.portfolio)r.portfolio='lovelina';});
-        positions=d; // use exactly what was saved — never overwrite with seed
+        d.forEach(function(r){
+          if(!r.portfolio)r.portfolio='lovelina';
+          // Fix: Shares with partialSells but no full closeAction should be open
+          if(r.excelType==='Shares'&&r.closed===true&&r.partialSells&&r.partialSells.length&&!r.closeAction){
+            r.closed=false;
+          }
+          // Fix: Shares with soldAmount and closed=true but were meant to be partial sells
+          // (legacy data from old confirmModal that set soldAmount without partialSells)
+          // — leave these alone, they are genuinely closed full sells
+        });
+        positions=d;
         return;
       }
     }
@@ -649,15 +659,40 @@ var CRYPTO_KEY='roi_crypto_v1';
 function loadCrypto(){try{return JSON.parse(localStorage.getItem(CRYPTO_KEY)||'{}');}catch(e){return{};}}
 function saveCrypto(){try{localStorage.setItem(CRYPTO_KEY,JSON.stringify(cryptoBalances));}catch(e){}}
 var cryptoBalances=loadCrypto();
-// Canonical portfolio keys — used for all-portfolio sums (excludes aggregate keys like ret-all)
-var ALL_PORT_KEYS=['lovelina','amit','joint','amit-roth','lov-roth','lov-trad'];
-var RET_PORT_KEYS=['amit-roth','lov-roth','lov-trad'];
+
+// ── CRYPTO DETAIL STORAGE ─────────────────────────────────────────────────────
+// Stores per-person, per-coin breakdown: {amit:{btc,eth,others}, lovelina:{btc,eth,others}}
+var CRYPTO_DETAIL_KEY='roi_crypto_detail_v1';
+function loadCryptoDetail(){
+  try{
+    var d=JSON.parse(localStorage.getItem(CRYPTO_DETAIL_KEY)||'{}');
+    // Ensure structure
+    ['amit','lovelina'].forEach(function(p){
+      if(!d[p])d[p]={btc:0,eth:0,others:0};
+      ['btc','eth','others'].forEach(function(c){if(!d[p][c])d[p][c]=0;});
+    });
+    return d;
+  }catch(e){return{amit:{btc:0,eth:0,others:0},lovelina:{btc:0,eth:0,others:0}};}
+}
+function saveCryptoDetail(){try{localStorage.setItem(CRYPTO_DETAIL_KEY,JSON.stringify(cryptoDetail));}catch(e){}}
+var cryptoDetail=loadCryptoDetail();
+// Sum a person's crypto detail into a total
+function cryptoDetailTotal(person){var d=cryptoDetail[person]||{};return(d.btc||0)+(d.eth||0)+(d.others||0);}
+// Override getPortCrypto to use detail totals when available
 function getPortCrypto(){
-  if(ap==='all'){var t=0;ALL_PORT_KEYS.forEach(function(k){t+=cryptoBalances[k]||0;});return t;}
-  if(ap==='retirement'&&as==='ret-all'){var t=0;RET_PORT_KEYS.forEach(function(k){t+=cryptoBalances[k]||0;});return t;}
-  var k=ap==='retirement'?as:ap;return cryptoBalances[k]||0;
+  // Use detail totals for amit and lovelina; fall back to cryptoBalances for others
+  function personTotal(k){
+    if(k==='amit'||k==='lovelina')return cryptoDetailTotal(k);
+    return cryptoBalances[k]||0;
+  }
+  if(ap==='all'){var t=0;ALL_PORT_KEYS.forEach(function(k){t+=personTotal(k);});return t;}
+  if(ap==='retirement'&&as==='ret-all'){var t=0;RET_PORT_KEYS.forEach(function(k){t+=personTotal(k);});return t;}
+  var k=ap==='retirement'?as:ap;return personTotal(k);
 }
 function setPortCrypto(v){var k=ap==='retirement'?as:ap;cryptoBalances[k]=v;saveCrypto();}
+var cryptoEditingField=null; // {person, coin} or null
+var ALL_PORT_KEYS=['lovelina','amit','joint','amit-roth','lov-roth','lov-trad'];
+var RET_PORT_KEYS=['amit-roth','lov-roth','lov-trad'];
 function getCashKey(){return ap==='retirement'?as:ap;}
 function getPortCash(){
   if(ap==='all'){var t=0;ALL_PORT_KEYS.forEach(function(k){t+=cashBalances[k]||0;});return t;}
@@ -752,6 +787,9 @@ var ap='all',as='ret-all',typeFilter='all',ocFilter='all',expiringOnly=false,sc=
 var tickerSortOverride=null; // null=default sort, 'asc'=A→Z, 'desc'=Z→A
 function toggleTickerSort(){if(tickerSortOverride===null)tickerSortOverride='asc';else if(tickerSortOverride==='asc')tickerSortOverride='desc';else tickerSortOverride=null;rMain();}
 var selectedTickers=new Set(['ALL']),editingPrice=null,dropdownOpen=false;
+var bcDropdownOpen=false,bcTkSearch='';
+function bcToggleDropdown(){bcDropdownOpen=!bcDropdownOpen;var d=document.getElementById('bc-tkdrop');if(d)d.classList.toggle('open',bcDropdownOpen);if(bcDropdownOpen){setTimeout(function(){var s=document.getElementById('bc-tk-search');if(s)s.focus();},40);}else{bcTkSearch='';}}
+function bcSetTkSearch(v){bcTkSearch=v;var d=document.getElementById('bc-tkdrop');if(!d)return;var q=(v||'').toLowerCase();d.querySelectorAll('.ticker-dd-item[data-ddticker]').forEach(function(el){var t=el.dataset.ddticker;el.style.display=(!t||t==='ALL'||t.toLowerCase().indexOf(q)>=0||!q)?'':'none';});}
 var editCell=null,activeView='positions',spreadsOcFilter='open',spreadsExpFilter='all',spreadsTypeFilter='all',spreadsSpreadFilter='all',spreadsItmFilter=false,spreadsMoneyFilter='all',spreadsShowFilter='all',spreadsRiskFilter='all';
 var modal=null,showUpload=false,csvPreview=null,importMsg='';
 var expandedGroups=new Set();
@@ -763,7 +801,12 @@ var now=new Date();
 function getThisFriday(){var d=new Date(now);var x=5-d.getDay();d.setDate(d.getDate()+(x>=0?x:x+7));d.setHours(23,59,59,0);return d;}
 function getFriday(d){var dt=new Date(d);var x=5-dt.getDay();dt.setDate(dt.getDate()+(x>=0?x:x+7));return dt;}
 function getNextFriday(){var d=new Date(getThisFriday());d.setDate(d.getDate()+7);return d;}
-function isCl(r){return r.closed===true;}
+function isCl(r){
+  if(r.closed!==true)return false;
+  // A Shares position with only partialSells (no full closeAction) should remain open
+  if(r.excelType==='Shares'&&r.partialSells&&r.partialSells.length&&!r.closeAction)return false;
+  return true;
+}
 function fmtExpiry(s){
   if(!s)return'--';
   var d=parseExpiry(s);
@@ -977,6 +1020,12 @@ function getAppliedFilters(data){
 // ── FILTER BAR HTML ───────────────────────────────────────────────────────────
 function rFilterBar(data){return'';}
 
+// Helper: filter positions by selected tickers (respects global selectedTickers)
+function tkFilter(pos){
+  if(selectedTickers.has('ALL'))return pos;
+  return pos.filter(function(r){return selectedTickers.has(r.ticker);});
+}
+
 // ── GLOBAL CV HELPER — mirrors Portf. Val column for OPEN positions only ───────
 function calcPositionCV(r){
   // Default 0 — only override changes it
@@ -987,136 +1036,102 @@ function calcPositionCV(r){
 }
 function calcPortfolioCV(portKey){
   var retAll=['amit-roth','lov-roth','lov-trad'];
-  return positions.filter(function(r){
+  var pos=positions.filter(function(r){
     if(isCl(r)) return false;
     if(portKey==='all') return true;
     if(portKey==='ret-all') return retAll.indexOf(r.portfolio||'')>=0;
     return (r.portfolio||'lovelina')===portKey;
-  }).reduce(function(s,r){return s+calcPositionCV(r);},0);
-}
-// ── FIX 2: CASH CARD ──────────────────────────────────────────────────────────
-function rCashCard(){
-  var cash=getPortCash(),initCash=getPortInitCash(),isAll=ap==='all';
-  var portLabel=isAll?'Sum of all portfolios':getCashKey().replace(/-/g,' ');
-  var portKey2=ap==='retirement'?as:ap;
-
-  // Curr Val = sum of Portf. Val from open positions
-  var currVal=calcPortfolioCV(ap==='all'?'all':portKey2);
-
-  // Retirement portfolio keys
-  var RET_KEYS=['amit-roth','lov-roth','lov-trad'];
-
-  // ── Retirement Portfolio Value ────────────────────────────────────────────
-  // Compute retirement total (Val+Cash+ColBlk+Crypto) for the relevant scope
-  function calcRetPortTotal(retKeys){
-    var retCV=retKeys.reduce(function(s,k){return s+calcPortfolioCV(k);},0);
-    var retCash=retKeys.reduce(function(s,k){return s+(cashBalances[k]||0);},0);
-    var retCrypto=retKeys.reduce(function(s,k){return s+(cryptoBalances[k]||0);},0);
-    // Collateral blocked for retirement ports
-    var retPos=positions.filter(function(r){return retKeys.indexOf(r.portfolio||'')>=0&&r.excelType==='Short Put'&&!isCl(r)&&r.strike>0;});
-    var _seenR={};
-    var retCB=retPos.reduce(function(s,r){var p=r.portfolio||'lovelina';var k=r.ticker+'|'+p;if(_seenR[k])return s;_seenR[k]=true;return s+getCollatBlocked(r.ticker,p);},0);
-    return retCV+retCash+retCB+retCrypto;
-  }
-
-  // Determine which retirement context we're in
-  var retLabel=null,retTotal=null,retInitCash=0;
-  if(ap==='all'){
-    retLabel='All Retirement';
-    retTotal=calcRetPortTotal(RET_KEYS);
-    retInitCash=RET_KEYS.reduce(function(s,k){return s+(initialCashBalances[k]||0);},0);
-  } else if(ap==='retirement'){
-    var subKeys=as==='ret-all'?RET_KEYS:as==='amit-roth'?['amit-roth']:as==='lov-roth'?['lov-roth']:as==='lov-trad'?['lov-trad']:[];
-    var subLabels={'ret-all':'All Retirement','amit-roth':'Amit Roth','lov-roth':'Lov Roth','lov-trad':'Lov Trad'};
-    retLabel=subLabels[as]||as;
-    retTotal=calcRetPortTotal(subKeys);
-    retInitCash=subKeys.reduce(function(s,k){return s+(initialCashBalances[k]||0);},0);
-  } else if(ap==='amit'){
-    retLabel='Amit Roth IRA';
-    retTotal=calcRetPortTotal(['amit-roth']);
-    retInitCash=initialCashBalances['amit-roth']||0;
-  } else if(ap==='lovelina'){
-    retLabel='Lov Roth + Trad IRA';
-    retTotal=calcRetPortTotal(['lov-roth','lov-trad']);
-    retInitCash=(initialCashBalances['lov-roth']||0)+(initialCashBalances['lov-trad']||0);
-  }
-  var showRetSection=retTotal!=null;
-
-  // Collateral Blocked (calculated early so we can use in Total)
-  var _retAll2=RET_KEYS;
-  var _portPos=positions.filter(function(r){
-    var inPort=ap==='all'
-      ||(portKey2==='ret-all'?_retAll2.indexOf(r.portfolio||'')>=0:(r.portfolio||'lovelina')===portKey2);
-    return inPort&&r.excelType==='Short Put'&&!isCl(r)&&r.strike>0;
   });
+  return tkFilter(pos).reduce(function(s,r){return s+calcPositionCV(r);},0);
+}
+// ── FIX 2: CASH CARD (non-retirement only) ────────────────────────────────────
+function rCashCard(){
+  var isAll=ap==='all';
+  var portKey2=ap==='retirement'?as:ap;
+  var RET_KEYS=['amit-roth','lov-roth','lov-trad'];
+  var NON_RET_KEYS=['lovelina','amit','joint'];
+
+  // ── On the "All" view this card shows NON-RETIREMENT only ────────────────
+  // Retirement lives entirely in the Retirement Card (card 3).
+  // On specific portfolio tabs (lovelina/amit/joint/retirement) show that scope as-is.
+
+  var effectiveKeys; // which portfolio keys to sum
+  if(isAll){
+    effectiveKeys=NON_RET_KEYS;
+  } else if(ap==='retirement'){
+    effectiveKeys=as==='ret-all'?RET_KEYS:as==='amit-roth'?['amit-roth']:as==='lov-roth'?['lov-roth']:['lov-trad'];
+  } else {
+    effectiveKeys=[portKey2];
+  }
+
+  // Cash & init cash scoped to effectiveKeys
+  var cash=effectiveKeys.reduce(function(s,k){return s+(cashBalances[k]||0);},0);
+  var initCash=effectiveKeys.reduce(function(s,k){return s+(initialCashBalances[k]||0);},0);
+  // Crypto: use detail totals for amit/lovelina, fallback for others
+  var crypto=effectiveKeys.reduce(function(s,k){
+    if(k==='amit'||k==='lovelina')return s+cryptoDetailTotal(k);
+    return s+(cryptoBalances[k]||0);
+  },0);
+  var currVal=effectiveKeys.reduce(function(s,k){return s+calcPortfolioCV(k);},0);
+
+  var portLabel=isAll?'Excl. Retirement (Lovelina, Amit, Joint)':getCashKey().replace(/-/g,' ');
+
+  // Collateral Blocked — scoped to effectiveKeys + ticker filter
+  var _portPos=tkFilter(positions.filter(function(r){
+    var pk=r.portfolio||'lovelina';
+    return effectiveKeys.indexOf(pk)>=0&&r.excelType==='Short Put'&&!isCl(r)&&r.strike>0;
+  }));
   var _seen={};
   var totalCB=_portPos.reduce(function(s,r){
-    var p=r.portfolio||'lovelina';
-    var k=r.ticker+'|'+p;
-    if(_seen[k])return s;
-    _seen[k]=true;
+    var p=r.portfolio||'lovelina';var k=r.ticker+'|'+p;
+    if(_seen[k])return s;_seen[k]=true;
     return s+getCollatBlocked(r.ticker,p);
   },0);
 
-  var totalSPUTVal=_portPos.reduce(function(s,r){
-    var liveP=liveCache[r.ticker]&&liveCache[r.ticker].price!=null?liveCache[r.ticker].price:null;
-    var manP=tickerPrices[r.ticker]!=null?tickerPrices[r.ticker]:null;
-    var stockP=liveP!=null?liveP:(manP!=null?manP:null);
-    var effectiveP=stockP!=null?Math.min(r.strike,stockP):r.strike;
-    return s+effectiveP*100*(r.contracts||1);
-  },0);
-
-  var crypto=getPortCrypto();
-  var total=currVal+cash+totalCB+crypto;
+  // Crypto only makes sense in the total when no ticker filter is active
+  var tkActive=!selectedTickers.has('ALL');
+  var cryptoForTotal=tkActive?0:crypto;
+  var total=currVal+cash+totalCB+cryptoForTotal;
   var diff=total-initCash;
   var diffColor=diff>=0?'#34D399':'#F87171';
-
-  // Non-retirement total (only meaningful on All view)
-  var nonRetTotal=null,nonRetLabel=null;
-  if(ap==='all'){
-    var NON_RET_KEYS=['lovelina','amit','joint'];
-    var nrCV=NON_RET_KEYS.reduce(function(s,k){return s+calcPortfolioCV(k);},0);
-    var nrCash=NON_RET_KEYS.reduce(function(s,k){return s+(cashBalances[k]||0);},0);
-    var nrCrypto=NON_RET_KEYS.reduce(function(s,k){return s+(cryptoBalances[k]||0);},0);
-    var nrPos=positions.filter(function(r){return NON_RET_KEYS.indexOf(r.portfolio||'lovelina')>=0&&r.excelType==='Short Put'&&!isCl(r)&&r.strike>0;});
-    var _seenNR={};
-    var nrCB=nrPos.reduce(function(s,r){var p=r.portfolio||'lovelina';var k=r.ticker+'|'+p;if(_seenNR[k])return s;_seenNR[k]=true;return s+getCollatBlocked(r.ticker,p);},0);
-    nonRetTotal=nrCV+nrCash+nrCB+nrCrypto;
-    nonRetLabel='Excl. Retirement';
-  }
 
   function fmtVal(v){return'$'+Math.abs(v).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});}
   function fmtSigned(v){return(v>=0?'+':'-')+'$'+Math.abs(v).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});}
 
-  if(editingCash&&!isAll){
+  var canEdit=!isAll&&ap!=='retirement';
+
+  if(editingCash&&canEdit){
     return'<div class="cash-card"><div class="cash-lbl">&#9998; Edit Curr Cash Balance</div>'
       +'<div class="cash-wrap"><input class="cash-inp" id="cash-inp" type="number" step="0.01" value="'+cash+'" placeholder="0.00" onkeydown="if(event.keyCode===13)cashSave();if(event.keyCode===27)cashCancel()"><button class="cash-ok" onclick="cashSave()">&#10003;</button><button class="cash-x2" onclick="cashCancel()">&#10005;</button></div>'
       +'<div class="cash-sub">'+portLabel+'</div></div>';
   }
-  if(editingInitCash&&!isAll){
+  if(editingInitCash&&canEdit){
     return'<div class="cash-card"><div class="cash-lbl">&#9998; Edit Initial Cash</div>'
       +'<div class="cash-wrap"><input class="cash-inp" id="init-cash-inp" type="number" step="0.01" value="'+initCash+'" placeholder="0.00" onkeydown="if(event.keyCode===13)initCashSave();if(event.keyCode===27)initCashCancel()"><button class="cash-ok" onclick="initCashSave()">&#10003;</button><button class="cash-x2" onclick="initCashCancel()">&#10005;</button></div>'
       +'<div class="cash-sub">'+portLabel+'</div></div>';
   }
-  if(editingCrypto&&!isAll){
+  if(editingCrypto&&canEdit){
     return'<div class="cash-card"><div class="cash-lbl">&#9998; Edit Crypto Value</div>'
       +'<div class="cash-wrap"><input class="cash-inp" id="crypto-inp" type="number" step="0.01" value="'+crypto+'" placeholder="0.00" onkeydown="if(event.keyCode===13)cryptoSave();if(event.keyCode===27)cryptoCancel()"><button class="cash-ok" onclick="cryptoSave()">&#10003;</button><button class="cash-x2" onclick="cryptoCancel()">&#10005;</button></div>'
       +'<div class="cash-sub">'+portLabel+'</div></div>';
   }
 
   function mkDivider(){return '<div style="height:1px;background:rgba(255,255,255,0.1);margin-top:0.42rem;"></div>';}
-
-  // 4-column top row
   function mkCol(label,val,color,editFn){
     return '<div>'
       +'<div style="font-size:0.52rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:rgba(255,255,255,0.35);margin-bottom:0.12rem;">'+label+'</div>'
       +'<div style="font-size:0.8rem;font-weight:800;font-family:monospace;color:'+color+';">'+val+'</div>'
       +(editFn?'<button class="cash-edt" onclick="'+editFn+'" style="margin-top:0.1rem;display:block;">edit</button>':'')+'</div>';
   }
+  function mkCardCol(label,val,color){
+    return '<div>'
+      +'<div style="font-size:0.52rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:rgba(255,255,255,0.35);margin-bottom:0.12rem;">'+label+'</div>'
+      +'<div style="font-size:0.8rem;font-weight:800;font-family:monospace;color:'+color+';">'+val+'</div>'
+      +'</div>';
+  }
 
-  // Warn if initial cash is 0
   var initCashWarning='';
-  if(initCash===0&&(cash>0||currVal>0)&&!isAll){
+  if(initCash===0&&(cash>0||currVal>0)&&canEdit){
     initCashWarning='<div style="background:rgba(220,38,38,0.15);border:1px solid rgba(220,38,38,0.3);border-radius:6px;padding:0.3rem 0.6rem;margin-bottom:0.35rem;display:flex;align-items:center;gap:0.4rem;">'
       +'<span style="font-size:0.7rem;">&#9888;</span>'
       +'<span style="font-size:0.58rem;color:#EF4444;font-weight:600;">Initial cash is $0 — please set it or restore from backup</span>'
@@ -1124,17 +1139,14 @@ function rCashCard(){
       +'</div>';
   }
 
-  var topRow='<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:0.3rem;margin-bottom:0.28rem;">'
-    +mkCol('Init.Cash',fmtVal(initCash),'rgba(255,255,255,0.65)',isAll?'':'initCashEdit()')
-    +mkCol('Curr Cash',fmtVal(cash),'#34D399',isAll?'':'cashEdit()')
+  var topRow='<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.3rem;margin-bottom:0.28rem;">'
+    +mkCol('Init.Cash',fmtVal(initCash),'rgba(255,255,255,0.65)',canEdit?'initCashEdit()':'')
+    +mkCol('Curr Cash',fmtVal(cash),'#34D399',canEdit?'cashEdit()':'')
     +mkCol('Curr Val',fmtVal(currVal),'#93C5FD','')
-    +mkCol('Crypto',fmtVal(crypto),'#F59E0B',isAll?'':'cryptoEdit()')
     +'</div>';
 
-  // Collateral row
-  var portPos=_portPos;
-  var totalAR=portPos.reduce(function(s,r){return s+r.strike*100*(r.contracts||1);},0);
-  var totalRealVal=portPos.reduce(function(s,r){
+  var totalAR=_portPos.reduce(function(s,r){return s+r.strike*100*(r.contracts||1);},0);
+  var totalRealVal=_portPos.reduce(function(s,r){
     var liveP=liveCache[r.ticker]&&liveCache[r.ticker].price!=null?liveCache[r.ticker].price:null;
     var manP=tickerPrices[r.ticker]!=null?tickerPrices[r.ticker]:null;
     var stockP=liveP!=null?liveP:(manP!=null?manP:null);
@@ -1144,14 +1156,7 @@ function rCashCard(){
   var colGap=totalAR>0?totalAR-totalCB:null;
   var colGapColor=colGap!=null?(colGap>0?'#F87171':'#34D399'):'rgba(255,255,255,0.65)';
   var assnDiff=totalRealVal-totalAR;
-  var assnDiffColor=assnDiff>=0?'#34D399':'#F87171';
   var actReq=0;
-  function mkCardCol(label,val,color){
-    return '<div>'
-      +'<div style="font-size:0.52rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:rgba(255,255,255,0.35);margin-bottom:0.12rem;">'+label+'</div>'
-      +'<div style="font-size:0.8rem;font-weight:800;font-family:monospace;color:'+color+';">'+val+'</div>'
-      +'</div>';
-  }
   var cbRow='<div style="border-top:1px solid rgba(255,255,255,0.1);margin-top:0.3rem;padding-top:0.28rem;">'
     +'<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:0.3rem;">'
     +mkCardCol('Col.Blocked',fmtK(totalCB),'rgba(255,255,255,0.65)')
@@ -1159,11 +1164,11 @@ function rCashCard(){
     +mkCardCol('Assn.Req.','$'+totalAR.toLocaleString(),'#FCA5A5')
     +mkCardCol('Act.Req.','$'+actReq,'rgba(255,255,255,0.4)')
     +'</div>'
-    +(assnDiff<0?'<div style="margin-top:0.3rem;font-size:0.55rem;color:#F87171;">&#9888; Stock below strike on '+portPos.filter(function(r){var lP=liveCache[r.ticker]&&liveCache[r.ticker].price!=null?liveCache[r.ticker].price:null;var mP=tickerPrices[r.ticker];var sP=lP!=null?lP:(mP!=null?mP:null);return sP!=null&&sP<r.strike;}).length+' SPUT(s) — real val '+fmtKSign(assnDiff)+' vs strike</div>':'')
+    +(assnDiff<0?'<div style="margin-top:0.3rem;font-size:0.55rem;color:#F87171;">&#9888; Stock below strike on '+_portPos.filter(function(r){var lP=liveCache[r.ticker]&&liveCache[r.ticker].price!=null?liveCache[r.ticker].price:null;var mP=tickerPrices[r.ticker];var sP=lP!=null?lP:(mP!=null?mP:null);return sP!=null&&sP<r.strike;}).length+' SPUT(s) — real val '+fmtKSign(assnDiff)+' vs strike</div>':'')
     +'</div>';
 
   var totalRow='<div style="margin-top:0.28rem;display:flex;align-items:center;justify-content:space-between;">'
-    +'<div style="font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.4);">Total <span style="font-size:0.5rem;opacity:0.6;">(Val+Cash+Col.Blk+Crypto)</span></div>'
+    +'<div style="font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.4);">Total <span style="font-size:0.5rem;opacity:0.6;">'+(tkActive?'(Val+Cash+Col.Blk)':'(Val+Cash+Col.Blk+Crypto)')+'</span></div>'
     +'<div style="font-size:1.05rem;font-weight:800;font-family:monospace;color:#FCD34D;">'+fmtVal(total)+'</div>'
     +'</div>';
 
@@ -1173,61 +1178,393 @@ function rCashCard(){
     +'<span style="font-size:0.92rem;font-weight:800;font-family:monospace;color:'+diffColor+';">'+fmtSigned(diff)+'</span>'
     +'</div>';
 
-  // ── Retirement Portfolio Value section ──────────────────────────────────────
-  var retSection='';
-  if(showRetSection){
-    var retGains=retTotal-retInitCash;
-    var retGainsColor=retGains>=0?'#34D399':'#F87171';
-    retSection='<div style="height:1px;background:rgba(255,255,255,0.1);margin-top:0.3rem;"></div>'
-      +'<div style="margin-top:0.3rem;">'
-      +'<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.2rem;">'
-      +'<div style="display:flex;align-items:center;gap:0.4rem;">'
-      +'<span style="font-size:0.6rem;font-weight:800;text-transform:uppercase;letter-spacing:0.07em;color:rgba(255,255,255,0.5);">&#127981; Retr. Portf. Val</span>'
-      +'<span style="font-size:0.58rem;font-weight:600;color:rgba(255,255,255,0.3);">'+retLabel+'</span>'
-      +'</div>'
-      +'<div style="text-align:right;">'
-      +'<div style="font-size:1.0rem;font-weight:800;font-family:monospace;color:#A78BFA;">'+fmtVal(retTotal)+'</div>'
-      +(retInitCash>0?'<div style="font-size:0.58rem;font-family:monospace;color:'+retGainsColor+';">'+fmtSigned(retGains)+'</div>':'')
-      +'</div>'
-      +'</div>'
-      +'</div>';
-  }
+  var tkLabel=tkActive?'<span style="font-size:0.55rem;font-weight:700;color:#FCD34D;background:rgba(252,211,77,0.15);border:1px solid rgba(252,211,77,0.3);border-radius:4px;padding:0.08rem 0.4rem;margin-left:auto;">&#127991; '+[...selectedTickers].join(', ')+'</span>':'';
 
-  // ── Non-retirement total row (All view only) ─────────────────────────────────
-  var nonRetRow='';
-  if(nonRetTotal!=null){
-    nonRetRow='<div style="border-top:1px solid rgba(255,255,255,0.08);margin-top:0.22rem;padding-top:0.2rem;display:flex;align-items:center;justify-content:space-between;">'
-      +'<div style="font-size:0.55rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:rgba(255,255,255,0.3);">Total <span style="color:rgba(255,255,255,0.45);font-style:italic;">Excl. Retirement</span></div>'
-      +'<div style="font-size:0.88rem;font-weight:800;font-family:monospace;color:rgba(255,255,255,0.5);">'+fmtVal(nonRetTotal)+'</div>'
-      +'</div>';
-  }
-
-  // Header label — shows "Retr. Portf. Val" tag in top-right when retirement data is shown
-  var headerLabel='<div class="cash-lbl"><span>&#128181; Cash</span>'
-    +(showRetSection?'<span style="font-size:0.58rem;font-weight:700;color:#A78BFA;background:rgba(167,139,250,0.15);border:1px solid rgba(167,139,250,0.3);border-radius:4px;padding:0.1rem 0.4rem;margin-left:auto;">&#127981; Retr. Portf. Val</span>':'')
-    +'</div>';
-
-  return'<div class="cash-card">'+headerLabel
+  return'<div class="cash-card"><div class="cash-lbl"><span>&#128181; Portfolio Value</span>'
+    +(isAll?'<span style="font-size:0.58rem;font-weight:700;color:rgba(255,255,255,0.4);margin-left:auto;">Excl. Retirement</span>':'')
+    +tkLabel
+    +'</div>'
     +initCashWarning
     +topRow
     +cbRow
     +mkDivider()
     +totalRow
     +diffRow
-    +retSection
-    +nonRetRow
-    +'<div class="cash-sub" style="margin-top:0.25rem;">'+portLabel+(isAll?' &mdash; edit per portfolio tab':'')+'</div></div>';
+    +'<div class="cash-sub" style="margin-top:0.25rem;">'+portLabel+(canEdit?' &mdash; edit per portfolio tab':'')+'</div></div>';
 }
-function cashEdit(){editingCash=true;editingInitCash=false;editingCrypto=false;rMain();setTimeout(function(){var i=document.getElementById('cash-inp');if(i){i.focus();i.select();}},30);}
-function cashSave(){var i=document.getElementById('cash-inp');if(i){var v=parseFloat(i.value);if(!isNaN(v))setPortCash(v);}editingCash=false;rMain();}
-function cashCancel(){editingCash=false;rMain();}
-function initCashEdit(){editingInitCash=true;editingCash=false;editingCrypto=false;rMain();setTimeout(function(){var i=document.getElementById('init-cash-inp');if(i){i.focus();i.select();}},30);}
-function initCashSave(){var i=document.getElementById('init-cash-inp');if(i){var v=parseFloat(i.value);if(!isNaN(v))setPortInitCash(v);}editingInitCash=false;rMain();}
-function initCashCancel(){editingInitCash=false;rMain();}
-function cryptoEdit(){editingCrypto=true;editingCash=false;editingInitCash=false;rMain();setTimeout(function(){var i=document.getElementById('crypto-inp');if(i){i.focus();i.select();}},30);}
-function cryptoSave(){var i=document.getElementById('crypto-inp');if(i){var v=parseFloat(i.value);if(!isNaN(v))setPortCrypto(v);}editingCrypto=false;rMain();}
-function cryptoCancel(){editingCrypto=false;rMain();}
 
+  // Curr Val = sum of Portf. Val from open positions (non-ret scope only)
+  var currVal=calcPortfolioCV(ap==='all'?'all':portKey2);
+
+  // Collateral Blocked
+  var _portPos=positions.filter(function(r){
+    var inPort=ap==='all'
+      ||(portKey2==='ret-all'?RET_KEYS.indexOf(r.portfolio||'')>=0:(r.portfolio||'lovelina')===portKey2);
+    return inPort&&r.excelType==='Short Put'&&!isCl(r)&&r.strike>0;
+  });
+  var _seen={};
+
+
+// ── RETIREMENT CARD ───────────────────────────────────────────────────────────
+function rRetirementCard(){
+  var RET_KEYS=['amit-roth','lov-roth','lov-trad'];
+
+  function calcRetPortTotal(retKeys){
+    var retCV=retKeys.reduce(function(s,k){return s+calcPortfolioCV(k);},0);
+    var retCash=retKeys.reduce(function(s,k){return s+(cashBalances[k]||0);},0);
+    var retCrypto=retKeys.reduce(function(s,k){return s+(cryptoBalances[k]||0);},0);
+    var retPos=tkFilter(positions.filter(function(r){return retKeys.indexOf(r.portfolio||'')>=0&&r.excelType==='Short Put'&&!isCl(r)&&r.strike>0;}));
+    var _seenR={};
+    var retCB=retPos.reduce(function(s,r){var p=r.portfolio||'lovelina';var k=r.ticker+'|'+p;if(_seenR[k])return s;_seenR[k]=true;return s+getCollatBlocked(r.ticker,p);},0);
+    return retCV+retCash+retCB+retCrypto;
+  }
+
+  // Determine scope
+  var subKeys,retLabel,retInitCash;
+  if(ap==='all'){
+    subKeys=RET_KEYS;retLabel='All Retirement';
+    retInitCash=RET_KEYS.reduce(function(s,k){return s+(initialCashBalances[k]||0);},0);
+  } else if(ap==='retirement'){
+    var subLabels={'ret-all':'All Retirement','amit-roth':'Amit Roth','lov-roth':'Lov Roth','lov-trad':'Lov Trad'};
+    subKeys=as==='ret-all'?RET_KEYS:as==='amit-roth'?['amit-roth']:as==='lov-roth'?['lov-roth']:as==='lov-trad'?['lov-trad']:[];
+    retLabel=subLabels[as]||as;
+    retInitCash=subKeys.reduce(function(s,k){return s+(initialCashBalances[k]||0);},0);
+  } else if(ap==='amit'){
+    subKeys=['amit-roth'];retLabel='Amit Roth IRA';
+    retInitCash=initialCashBalances['amit-roth']||0;
+  } else if(ap==='lovelina'){
+    subKeys=['lov-roth','lov-trad'];retLabel='Lov Roth + Trad IRA';
+    retInitCash=(initialCashBalances['lov-roth']||0)+(initialCashBalances['lov-trad']||0);
+  } else {
+    // joint — no retirement context, show all retirement as overview
+    subKeys=RET_KEYS;retLabel='All Retirement (overview)';
+    retInitCash=RET_KEYS.reduce(function(s,k){return s+(initialCashBalances[k]||0);},0);
+  }
+
+  var retTotal=calcRetPortTotal(subKeys);
+  var retGains=retTotal-retInitCash;
+  var retGainsColor=retGains>=0?'#34D399':'#F87171';
+
+  function fmtVal(v){return'$'+Math.abs(v).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});}
+  function fmtSigned(v){return(v>=0?'+':'-')+'$'+Math.abs(v).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});}
+  function mkCol(label,val,color){
+    return '<div>'
+      +'<div style="font-size:0.52rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:rgba(255,255,255,0.35);margin-bottom:0.12rem;">'+label+'</div>'
+      +'<div style="font-size:0.8rem;font-weight:800;font-family:monospace;color:'+color+';">'+val+'</div>'
+      +'</div>';
+  }
+
+  // Per-account breakdown
+  var acctRows='';
+  var acctDefs=[
+    {key:'amit-roth',label:'Amit Roth'},
+    {key:'lov-roth',label:'Lov Roth'},
+    {key:'lov-trad',label:'Lov Trad'}
+  ];
+  acctDefs.forEach(function(a){
+    var tot=calcRetPortTotal([a.key]);
+    var init=initialCashBalances[a.key]||0;
+    var gain=tot-init;
+    var gainColor=gain>=0?'#34D399':'#F87171';
+    var portCV=calcPortfolioCV(a.key);
+    var portCash=cashBalances[a.key]||0;
+    // Count open SPUTs
+    var sputs=tkFilter(positions.filter(function(r){return r.portfolio===a.key&&r.excelType==='Short Put'&&!isCl(r);})).length;
+    acctRows+='<div style="display:flex;align-items:center;justify-content:space-between;padding:0.22rem 0;border-bottom:1px solid rgba(255,255,255,0.07);">'
+      +'<div style="display:flex;align-items:center;gap:0.4rem;">'
+      +'<span style="font-size:0.62rem;font-weight:700;color:rgba(255,255,255,0.7);">'+a.label+'</span>'
+      +(sputs?'<span style="font-size:0.55rem;background:rgba(220,38,38,0.25);color:#FCA5A5;border-radius:3px;padding:0.06rem 0.35rem;font-weight:700;">'+sputs+' SPUT</span>':'')
+      +'</div>'
+      +'<div style="text-align:right;">'
+      +'<div style="font-size:0.82rem;font-weight:800;font-family:monospace;color:#A78BFA;">'+fmtVal(tot)+'</div>'
+      +(init>0?'<div style="font-size:0.57rem;font-family:monospace;color:'+gainColor+';">'+fmtSigned(gain)+'</div>':'')
+      +'</div>'
+      +'</div>';
+  });
+
+  // Retirement-specific KPIs
+  var retPos=tkFilter(positions.filter(function(r){return RET_KEYS.indexOf(r.portfolio||'')>=0;}));
+  var retOpenSPUTs=retPos.filter(function(r){return r.excelType==='Short Put'&&!isCl(r);});
+  var retCollat=retOpenSPUTs.reduce(function(s,r){return s+r.strike*100*(r.contracts||1);},0);
+  var retRealized=retPos.filter(function(r){return isCl(r);}).reduce(function(s,r){
+    var sold=r.soldAmount!=null&&r.soldAmount!==''?parseFloat(r.soldAmount):0;
+    return s+(sold-(r.excelCost||0));
+  },0);
+  var retUnrealized=retPos.filter(function(r){return!isCl(r);}).reduce(function(s,r){
+    var sold=r.soldAmount!=null&&r.soldAmount!==''?parseFloat(r.soldAmount):0;
+    return s+(sold-(r.excelCost||0));
+  },0);
+  var retTotalIncome=retRealized+retUnrealized;
+
+  // ITM check
+  var itmCount=retOpenSPUTs.filter(function(r){
+    var lP=liveCache[r.ticker]&&liveCache[r.ticker].price!=null?liveCache[r.ticker].price:null;
+    var mP=tickerPrices[r.ticker];var sP=lP!=null?lP:(mP!=null?mP:null);
+    return sP!=null&&sP<r.strike;
+  }).length;
+
+  var kpiRow='<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:0.3rem;margin-bottom:0.28rem;">'
+    +mkCol('Total Value',fmtVal(retTotal),'#A78BFA')
+    +mkCol('Collateral','$'+retCollat.toLocaleString(),'#FCA5A5')
+    +mkCol('Net Income',fmtSigned(retTotalIncome),retTotalIncome>=0?'#34D399':'#F87171')
+    +mkCol('ITM SPUTs',itmCount>0?itmCount+' &#9888;':itmCount+'',itmCount>0?'#F87171':'rgba(255,255,255,0.5)')
+    +'</div>';
+
+  var gainsRow='<div style="border-top:1px solid rgba(255,255,255,0.1);margin-top:0.3rem;padding-top:0.28rem;display:flex;align-items:center;justify-content:space-between;">'
+    +'<div><div style="font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.4);">Retirement Gains</div>'
+    +'<div style="font-size:0.55rem;color:rgba(255,255,255,0.3);">Total &minus; Init Cash</div></div>'
+    +'<span style="font-size:0.92rem;font-weight:800;font-family:monospace;color:'+retGainsColor+';">'+fmtSigned(retGains)+'</span>'
+    +'</div>';
+
+  return'<div class="cash-card" style="background:linear-gradient(135deg,#1a1040 0%,#111 60%);">'
+    +'<div class="cash-lbl"><span>&#127981; Retirement Portfolios</span>'
+    +'<span style="font-size:0.58rem;font-weight:700;color:#A78BFA;background:rgba(167,139,250,0.15);border:1px solid rgba(167,139,250,0.3);border-radius:4px;padding:0.1rem 0.4rem;margin-left:auto;">'+retLabel+'</span>'
+    +'</div>'
+    +kpiRow
+    +'<div style="margin-bottom:0.3rem;">'+acctRows+'</div>'
+    +gainsRow
+    +'</div>';
+}
+
+
+// ── CRYPTO CARD ───────────────────────────────────────────────────────────────
+function rCryptoCard(){
+  var ef=cryptoEditingField;
+  var coinNames={btc:'BTC',eth:'ETH',others:'Others'};
+  var coinColors={btc:'#F7931A',eth:'#627EEA',others:'var(--text3)'};
+
+  var amitD=cryptoDetail['amit']||{btc:0,eth:0,others:0};
+  var lovD=cryptoDetail['lovelina']||{btc:0,eth:0,others:0};
+  var amitTotal=cryptoDetailTotal('amit');
+  var lovTotal=cryptoDetailTotal('lovelina');
+  var grandTotal=amitTotal+lovTotal;
+
+  function fmtV(v){return'$'+(v||0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});}
+  function div1(){return '<div style="height:1px;background:var(--border);margin:0.16rem 0;"></div>';}
+  function lbl(t){return '<div style="font-size:0.52rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:rgba(0,0,0,0.35);margin-bottom:0.04rem;">'+t+'</div>';}
+
+  function coinCell(person,coin){
+    var d=person==='amit'?amitD:lovD;
+    var val=d[coin]||0;
+    var isEditing=ef&&ef.person===person&&ef.coin===coin;
+    var editKey=person+'_'+coin;
+    if(isEditing){
+      return'<div>'+lbl(coinNames[coin])
+        +'<div style="display:flex;align-items:center;gap:0.2rem;">'
+        +'<input id="cd_'+editKey+'" type="number" step="0.01" value="'+val+'" style="width:72px;border:1px solid var(--red);border-radius:4px;padding:0.1rem 0.28rem;font-size:0.7rem;font-family:monospace;outline:none;color:var(--black);background:#fff;" onkeydown="if(event.keyCode===13)cryptoDetailSave(this.dataset.p,this.dataset.c);if(event.keyCode===27)cryptoDetailCancel()" data-p="'+person+'" data-c="'+coin+'">'
+        +'<button onclick="cryptoDetailSave(this.dataset.p,this.dataset.c)" data-p="'+person+'" data-c="'+coin+'" style="background:var(--green);border:none;color:#fff;cursor:pointer;font-size:0.6rem;font-weight:700;padding:0.08rem 0.28rem;border-radius:3px;">&#10003;</button>'
+        +'<button onclick="cryptoDetailCancel()" style="background:transparent;border:none;color:var(--text3);cursor:pointer;font-size:0.7rem;">&#10005;</button>'
+        +'</div></div>';
+    }
+    return'<div>'+lbl(coinNames[coin])
+      +'<div style="font-size:0.75rem;font-weight:800;font-family:monospace;color:'+coinColors[coin]+';">'+fmtV(val)+'</div>'
+      +'<button onclick="cryptoDetailEdit(this.dataset.p,this.dataset.c)" data-p="'+person+'" data-c="'+coin+'" style="background:none;border:none;cursor:pointer;font-size:0.6rem;color:var(--text3);padding:0;text-decoration:underline;text-decoration-style:dashed;display:block;">edit</button>'
+      +'</div>';
+  }
+
+  function personSection(person,label,color,total){
+    return'<div style="margin-bottom:0.12rem;">'
+      +'<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.1rem;">'
+      +'<span style="font-size:0.58rem;font-weight:800;text-transform:uppercase;letter-spacing:0.07em;color:'+color+';">'+label+'</span>'
+      +'<span style="font-size:0.7rem;font-weight:800;font-family:monospace;color:'+color+';">'+fmtV(total)+'</span>'
+      +'</div>'
+      +'<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.35rem;">'
+      +coinCell(person,'btc')+coinCell(person,'eth')+coinCell(person,'others')
+      +'</div>'
+      +'</div>';
+  }
+
+  var header='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.22rem;">'
+    +'<div class="scard-label" style="color:var(--text3);font-size:0.56rem;margin:0;">&#129689; Crypto Holdings</div>'
+    +'<div style="display:flex;gap:0.5rem;">'
+    +'<div style="text-align:right;"><div style="font-size:0.48rem;font-weight:700;text-transform:uppercase;color:rgba(0,0,0,0.3);letter-spacing:0.06em;">Amit</div><div style="font-size:0.7rem;font-weight:800;font-family:monospace;color:'+(amitTotal>0?'#F7931A':'var(--text3)')+';">'+fmtV(amitTotal)+'</div></div>'
+    +'<div style="text-align:right;"><div style="font-size:0.48rem;font-weight:700;text-transform:uppercase;color:rgba(0,0,0,0.3);letter-spacing:0.06em;">Lovelina</div><div style="font-size:0.7rem;font-weight:800;font-family:monospace;color:'+(lovTotal>0?'#F7931A':'var(--text3)')+';">'+fmtV(lovTotal)+'</div></div>'
+    +'</div>'
+    +'</div>';
+
+  var grandRow='<div style="display:grid;grid-template-columns:1fr 1fr;gap:0.4rem;margin-bottom:0.08rem;">'
+    +'<div>'+lbl('Grand Total')
+    +'<div style="font-size:0.78rem;font-weight:800;font-family:monospace;color:'+(grandTotal>0?'#F7931A':'var(--text3)')+';">'+fmtV(grandTotal)+'</div></div>'
+    +'<div></div></div>';
+
+  return'<div class="scard" style="border-left:3px solid #F7931A;padding:0.55rem 0.75rem;">'
+    +header
+    +personSection('amit','Amit','#2563EB',amitTotal)
+    +div1()
+    +personSection('lovelina','Lovelina','#DB2877',lovTotal)
+    +div1()
+    +grandRow
+    +'<div class="scard-sub" style="margin-top:0.1rem;font-size:0.55rem;">Flows into Portfolio Value totals</div>'
+    +'</div>';
+}
+
+function cryptoDetailEdit(person,coin){cryptoEditingField={person:person,coin:coin};rMain();setTimeout(function(){var i=document.getElementById('cd_'+person+'_'+coin);if(i){i.focus();i.select();}},30);}
+function cryptoDetailSave(person,coin){
+  var i=document.getElementById('cd_'+person+'_'+coin);
+  if(i){var v=parseFloat(i.value);if(!isNaN(v)&&v>=0){if(!cryptoDetail[person])cryptoDetail[person]={btc:0,eth:0,others:0};cryptoDetail[person][coin]=v;saveCryptoDetail();}}
+  cryptoEditingField=null;rMain();
+}
+function cryptoDetailCancel(){cryptoEditingField=null;rMain();}
+window.cryptoDetailEdit=cryptoDetailEdit;
+window.cryptoDetailSave=cryptoDetailSave;
+window.cryptoDetailCancel=cryptoDetailCancel;
+
+// ── WEEKLY INCOME CARD ────────────────────────────────────────────────────────
+function rWeeklyIncomeCard(){
+  var now2=new Date();
+  var tod=new Date(now2.getFullYear(),now2.getMonth(),now2.getDate());
+  var dow=now2.getDay();
+  // Week: Monday 00:00 → Sunday 23:59
+  var monOff=dow===0?-6:1-dow;
+  var thisMon=new Date(tod);thisMon.setDate(tod.getDate()+monOff);thisMon.setHours(0,0,0,0);
+  var thisSunEnd=new Date(thisMon);thisSunEnd.setDate(thisMon.getDate()+6);thisSunEnd.setHours(23,59,59,999);
+  var lastMon=new Date(thisMon);lastMon.setDate(thisMon.getDate()-7);
+  var lastSunEnd=new Date(thisSunEnd);lastSunEnd.setDate(thisSunEnd.getDate()-7);
+
+  function parseOD(s){if(!s)return null;var p=s.split('/');if(p.length===3){var y=parseInt(p[2]);if(y<100)y+=2000;return new Date(y,parseInt(p[0])-1,parseInt(p[1]));}return null;}
+
+  function getOpenIncome(r){
+    var sa=r.soldAmount!=null&&r.soldAmount!==''?parseFloat(r.soldAmount):null;
+    if(sa!=null&&!isNaN(sa))return sa; // sold amount (premium received or shares sold)
+    // No sold yet — cost paid is negative income (money spent this week)
+    return -(r.excelCost||0);
+  }
+  function getCloseIncome(r){
+    if(!r.closeAction||r.closeAction.signedAmount==null)return 0;
+    return r.closeAction.signedAmount; // positive=credit, negative=debit
+  }
+  // All-time net per position: sold - cost + close
+  function getAllTimeNI(r){
+    var sa=r.soldAmount!=null&&r.soldAmount!==''?parseFloat(r.soldAmount):0;
+    var ca=r.closeAction&&r.closeAction.signedAmount!=null?r.closeAction.signedAmount:0;
+    return sa-(r.excelCost||0)+ca;
+  }
+
+  var ports=[
+    {key:'lovelina', label:'Lovelina', color:'#DB2877'},
+    {key:'amit',     label:'Amit',     color:'#2563EB'},
+    {key:'joint',    label:'Joint',    color:'#059669'},
+    {key:'amit-roth',label:'A.Roth',   color:'#7C3AED'},
+    {key:'lov-roth', label:'L.Roth',   color:'#9333EA'},
+    {key:'lov-trad', label:'L.Trad',   color:'#0891B2'}
+  ];
+
+  var portStats={};
+  var grandCW=0,grandPW=0,grandTotal=0;
+  ports.forEach(function(p){
+    var cw=0,pw=0,total=0,openCount=0;
+    tkFilter(positions.filter(function(r){return(r.portfolio||'lovelina')===p.key;})).forEach(function(r){
+      var od=parseOD(r.openDate);
+      var cd=r.closeAction&&r.closeAction.date?parseOD(r.closeAction.date):null;
+      var ca=r.closeAction||null;
+      var isClosed=isCl(r);
+
+      // Partial sells on open share positions — attribute each by its own sale date
+      if(!isClosed&&r.partialSells&&r.partialSells.length){
+        r.partialSells.forEach(function(ps){
+          var psd=parseOD(ps.date);
+          if(psd&&psd>=thisMon&&psd<=thisSunEnd) cw+=ps.amount;
+          if(psd&&psd>=lastMon&&psd<=lastSunEnd) pw+=ps.amount;
+          total+=ps.amount-ps.cost;
+        });
+        if(!isCl(r))openCount++;
+        return;
+      }
+
+      // Sold amount: for closed → close date; for open → open date
+      var soldDate=isClosed?cd:od;
+      if(isClosed){
+        // Closed position: all income is from closeAction (credit/debit on close date)
+        // soldAmount is already captured in closeAction.signedAmount for STC/Sell
+        var ci=getCloseIncome(r);
+        if(cd&&cd>=thisMon&&cd<=thisSunEnd) cw+=ci;
+        if(cd&&cd>=lastMon&&cd<=lastSunEnd) pw+=ci;
+      } else {
+        // Open position: income is soldAmount (premium) attributed to open date
+        var soldInc=getOpenIncome(r);
+        if(od&&od>=thisMon&&od<=thisSunEnd) cw+=soldInc;
+        if(od&&od>=lastMon&&od<=lastSunEnd) pw+=soldInc;
+      }
+      total+=getAllTimeNI(r);
+      if(!isCl(r))openCount++;
+    });
+    portStats[p.key]={cw:cw,pw:pw,total:total,openCount:openCount};
+    grandCW+=cw;grandPW+=pw;grandTotal+=total;
+  });
+
+  // KPIs across ALL positions
+  var allOpenSPUTs=tkFilter(positions.filter(function(r){return r.excelType==='Short Put'&&!isCl(r);}));
+  var expThisWeek=allOpenSPUTs.filter(function(r){var d=parseExpiry(r.expiryDate);return d&&d>=thisMon&&d<=thisSunEnd;}).length;
+  var itmCount=allOpenSPUTs.filter(function(r){
+    var lP=liveCache[r.ticker]&&liveCache[r.ticker].price!=null?liveCache[r.ticker].price:null;
+    var mP=tickerPrices[r.ticker];var sP=lP!=null?lP:(mP!=null?mP:null);
+    return sP!=null&&sP<r.strike;
+  }).length;
+  var wowVal=grandCW-grandPW;
+  var wowColor=wowVal>=0?'var(--green)':'var(--red)';
+  var wowSign=wowVal>=0?'+':'';
+
+  function fc(v){return(v>=0?'+':'-')+'$'+Math.abs(v).toLocaleString(undefined,{maximumFractionDigits:0});}
+  function fcp(v){return v>=0?'var(--green)':'var(--red)';}
+  function div1(){return '<div style="height:1px;background:var(--border);margin:0.16rem 0;"></div>';}
+  function lbl(t){return '<div style="font-size:0.48rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:rgba(0,0,0,0.3);margin-bottom:0.03rem;">'+t+'</div>';}
+  function val(v,color){return '<div style="font-size:0.7rem;font-weight:800;font-family:monospace;color:'+color+';">'+v+'</div>';}
+
+  // Header: title + grand CW + grand PW
+  var header='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.22rem;">'
+    +'<div class="scard-label" style="color:var(--text3);font-size:0.56rem;margin:0;">&#128197; This Week Income</div>'
+    +'<div style="display:flex;gap:0.5rem;">'
+    +'<div style="text-align:right;"><div style="font-size:0.48rem;font-weight:700;text-transform:uppercase;color:rgba(0,0,0,0.3);letter-spacing:0.06em;">CW</div><div style="font-size:0.7rem;font-weight:800;font-family:monospace;color:'+fcp(grandCW)+';">'+fc(grandCW)+'</div></div>'
+    +'<div style="text-align:right;"><div style="font-size:0.48rem;font-weight:700;text-transform:uppercase;color:rgba(0,0,0,0.3);letter-spacing:0.06em;">PW</div><div style="font-size:0.7rem;font-weight:800;font-family:monospace;color:'+fcp(grandPW)+';">'+fc(grandPW)+'</div></div>'
+    +'</div>'
+    +'</div>';
+
+  // Column header
+  var colHdr='<div style="display:grid;grid-template-columns:1.1fr 1fr 1fr 0.6fr;gap:0.25rem;margin-bottom:0.1rem;">'
+    +'<div>'+lbl('Portfolio')+'</div>'
+    +'<div>'+lbl('CW')+'</div>'
+    +'<div>'+lbl('PW')+'</div>'
+    +'<div>'+lbl('Open')+'</div>'
+    +'</div>';
+
+  // Split into non-ret and ret groups with a tiny divider label
+  var nonRetKeys=['lovelina','amit','joint'];
+  var retKeys=['amit-roth','lov-roth','lov-trad'];
+
+  function portRow(p){
+    var st=portStats[p.key];
+    return '<div style="display:grid;grid-template-columns:1.1fr 1fr 1fr 0.6fr;gap:0.25rem;margin-bottom:0.1rem;align-items:center;">'
+      +'<div style="font-size:0.65rem;font-weight:800;color:'+p.color+';white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+p.label+'</div>'
+      +'<div style="font-size:0.68rem;font-weight:800;font-family:monospace;color:'+fcp(st.cw)+';">'+fc(st.cw)+'</div>'
+      +'<div style="font-size:0.68rem;font-weight:800;font-family:monospace;color:'+fcp(st.pw)+';">'+fc(st.pw)+'</div>'
+      +'<div style="font-size:0.62rem;color:var(--text3);font-weight:600;">'+st.openCount+'</div>'
+      +'</div>';
+  }
+
+  var nonRetRows=ports.filter(function(p){return nonRetKeys.indexOf(p.key)>=0;}).map(portRow).join('');
+  var retRows=ports.filter(function(p){return retKeys.indexOf(p.key)>=0;}).map(portRow).join('');
+
+  var retLabel='<div style="font-size:0.48rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:rgba(124,58,237,0.6);margin:0.12rem 0 0.08rem;">&#127981; Retirement</div>';
+
+  // KPI footer row
+  var kpiRow='<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:0.25rem;margin-top:0.04rem;">'
+    +'<div>'+lbl('WoW')+val(wowSign+'$'+Math.abs(wowVal).toLocaleString(undefined,{maximumFractionDigits:0}),wowColor)+'</div>'
+    +'<div>'+lbl('All-Time')+val(fc(grandTotal),fcp(grandTotal))+'</div>'
+    +'<div>'+lbl('Exp.Wk')+val(expThisWeek>0?expThisWeek+' &#9888;':expThisWeek+'',expThisWeek>0?'var(--red)':'var(--text3)')+'</div>'
+    +'<div>'+lbl('ITM')+val(itmCount>0?itmCount+' &#9888;':itmCount+'',itmCount>0?'var(--red)':'var(--text3)')+'</div>'
+    +'</div>';
+
+  return'<div class="scard" style="border-left:3px solid var(--red);padding:0.55rem 0.75rem;">'
+    +header
+    +colHdr
+    +nonRetRows
+    +div1()
+    +retLabel
+    +retRows
+    +div1()
+    +kpiRow
+    +'</div>';
+}
 // ── SUMMARY CARDS ─────────────────────────────────────────────────────────────
 function rSum(s){
   var bc=s.beRaw<=0?'var(--green)':'var(--red)',bl=s.beRaw<=0?'&#9650; '+fmtK(Math.abs(s.beRaw))+' over':'&#9660; '+fmtK(s.beRaw)+' to go';
@@ -1259,12 +1596,30 @@ function rSum(s){
     var lastMon=new Date(thisMon);lastMon.setDate(thisMon.getDate()-7);
     var lastSun=new Date(thisSun);lastSun.setDate(thisSun.getDate()-7);
     function parseOD(ss){if(!ss)return null;var d=new Date(ss);return isNaN(d)?null:d;}
-    function getNI(r){var sa=r.soldAmount!=null&&r.soldAmount!==''?parseFloat(r.soldAmount):null;if(sa==null)return null;return sa-(r.excelCost||0);}
+    function getNI(r){
+      var sa=r.soldAmount!=null&&r.soldAmount!==''?parseFloat(r.soldAmount):null;
+      if(sa!=null)return sa-(r.excelCost||0);
+      // No sold — cost is the income (negative, money spent)
+      return -(r.excelCost||0);
+    }
     var portKey=ap==='retirement'?as:ap;
     var allPos=s.filtered||positions.filter(function(r){return ap==='all'||(r.portfolio||'lovelina')===portKey;});
     allPos.forEach(function(r){
+      // Partial sells on open Shares — attribute each by its sale date
+      if(!isCl(r)&&r.partialSells&&r.partialSells.length){
+        r.partialSells.forEach(function(ps){
+          var psd=parseOD(ps.date);if(!psd)return;
+          var psni=ps.amount-ps.cost;
+          if(psd>=tod&&psd<todEnd)todayNI+=psni;
+          if(psd>=thisMon&&psd<=thisSun)thisW+=psni;
+          if(psd>=lastMon&&psd<=lastSun)lastW+=psni;
+        });
+        return;
+      }
       var ni=getNI(r);if(ni==null)return;
-      var d=parseOD(r.openDate);if(!d)return;
+      // Use close date for closed positions, open date for open ones
+      var d=isCl(r)&&r.closeAction&&r.closeAction.date?parseOD(r.closeAction.date):parseOD(r.openDate);
+      if(!d)return;
       if(d>=tod&&d<todEnd)todayNI+=ni;
       if(d>=thisMon&&d<=thisSun)thisW+=ni;
       if(d>=lastMon&&d<=lastSun)lastW+=ni;
@@ -1275,7 +1630,7 @@ function rSum(s){
 
   var capitalCard='<div class="scard" style="border-left:3px solid var(--black);padding:0.55rem 0.75rem;">'
     +'<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.25rem;">'
-    +'<div class="scard-label" style="color:var(--text3);font-size:0.56rem;margin:0;">&#128188; Capital Invested</div>'
+    +'<div class="scard-label" style="color:var(--text3);font-size:0.56rem;margin:0;">&#128188; Capital Invested'+((!selectedTickers.has('ALL'))?' <span style="font-size:0.52rem;color:var(--red);font-weight:700;">&#127991; '+[...selectedTickers].join(', ')+'</span>':'')+'</div>'
     +'<div style="display:flex;gap:0.5rem;">'
     +'<div style="text-align:right;"><div style="font-size:0.48rem;font-weight:700;text-transform:uppercase;color:rgba(0,0,0,0.3);letter-spacing:0.06em;">Today</div><div style="font-size:0.7rem;font-weight:800;font-family:monospace;color:'+fcp(todayNI)+';">'+fc(todayNI)+'</div></div>'
     +'<div style="text-align:right;"><div style="font-size:0.48rem;font-weight:700;text-transform:uppercase;color:rgba(0,0,0,0.3);letter-spacing:0.06em;">CW</div><div style="font-size:0.7rem;font-weight:800;font-family:monospace;color:'+fcp(thisW)+';">'+fc(thisW)+'</div></div>'
@@ -1297,9 +1652,13 @@ function rSum(s){
     +'<div class="scard-sub" style="margin-top:0.14rem;font-size:0.55rem;">'+s.pct+'% recovered &middot; '+s.op+' open &middot; '+s.cl+' closed</div>'
     +'</div>';
 
-  return'<div class="summary-grid" style="grid-template-columns:1fr 2fr;margin-bottom:0.55rem;">'
+  return'<div style="display:grid;grid-template-columns:1fr 1.5fr 1.2fr;gap:0.6rem;margin-bottom:0.55rem;">'
     +capitalCard
     +rCashCard()
+    +rWeeklyIncomeCard()
+    +rCryptoCard()
+    +rRetirementCard()
+    +'<div></div>'
     +'</div>';
 }
 var tkSearch='';
@@ -1644,7 +2003,20 @@ function rTable(data){
           actionCellC='<div class="closed-action-cell"><div class="closed-action-line"><span class="badge bcl">'+tLbl+'</span>'+aPart+dPart+nIcon+'</div><button class="reopen-btn" onclick="reopenPosition('+Q+r.id+Q+')">&#8617; Reopen</button></div>';
         }else{
           var lbl=r.excelType==='Short Put'?'C':r.excelType==='Long Put'||r.excelType==='Long Call'?'C':r.excelType==='Shares'?'C':'C';
-          actionCellC='<button class="action-btn" onclick="openModal('+Q+r.id+Q+')" title="Close">&#9940; '+lbl+'</button>';
+          // For open Shares with partial sells — show each partial sell like a closed-action line
+          if(r.excelType==='Shares'&&r.partialSells&&r.partialSells.length){
+            var psLines=r.partialSells.map(function(ps){
+              return '<div class="closed-action-line" style="margin-bottom:1px;">'
+                +'<span class="badge bcl">C Cr</span>'
+                +'<span class="closed-cr">+$'+ps.amount.toLocaleString()+'</span>'
+                +'<span class="closed-dt">'+ps.date+'</span>'
+                +(ps.notes?'<span title="'+ps.notes+'" style="cursor:help;color:var(--text3);">&#128196;</span>':'')
+                +'</div>';
+            }).join('');
+            actionCellC='<div class="closed-action-cell">'+psLines+'<button class="action-btn" style="margin-top:2px;" onclick="openModal('+Q+r.id+Q+')" title="Sell more">&#9940; C</button></div>';
+          } else {
+            actionCellC='<button class="action-btn" onclick="openModal('+Q+r.id+Q+')" title="Close">&#9940; '+lbl+'</button>';
+          }
         }
 
         var soldC=(function(r){if(r.soldAmount!=null&&r.soldAmount!==0&&r.soldAmount!=='')return parseFloat(r.soldAmount);return null;})(r);
@@ -1738,7 +2110,18 @@ function renderModal(){
   var hint=isSTC?'&#128200; Credited to <b>Sold</b> column':isBTC?'&#128308; Added to <b>Cost</b> column':isExpire?'&#9940; Expired worthless — zero cash flow':'Net credit or debit';
   var cdTabs=(!isSTC&&!isBTC)?'<div class="modal-cd-tabs" style="margin-bottom:0.45rem;"><button class="mct credit'+(m.cdType==='credit'?' active':'')+'" onclick="setCD(\'credit\')">+ Credit</button><button class="mct debit'+(m.cdType==='debit'?' active':'')+'" onclick="setCD(\'debit\')">&minus; Debit</button><button class="mct zero'+(m.cdType==='zero'?' active':'')+'" onclick="setCD(\'zero\')">&asymp; Zero</button></div>':'';
   var amtDisabled=isExpire?'disabled style="opacity:0.4;"':'';
-  var fieldRow='<div style="margin-bottom:0.75rem;"><div class="modal-section-label" style="margin-bottom:0.35rem;">'+amtLabel+'</div>'+cdTabs+'<div class="modal-amt-wrap"><span class="modal-amt-pre" style="color:'+amtColor+';">'+amtPre+'</span><input class="modal-amt-input" id="modal-amt" type="number" step="0.01" min="0" '+amtDisabled+' value="'+(isExpire?'':m.amount)+'" placeholder="0.00" oninput="modal.amount=this.value"></div><div class="modal-hint" style="margin-top:0.3rem;">'+hint+'</div></div>';
+  var sharesQtyRow='';
+  if(isShares&&m.action==='Sell'){
+    var totalShares=(r.contracts||1)*100;
+    var defaultQty=m.sharesQty!=null?m.sharesQty:totalShares;
+    sharesQtyRow='<div style="margin-bottom:0.65rem;">'
+      +'<div class="modal-section-label" style="margin-bottom:0.3rem;">Shares to Sell <span style="font-weight:400;color:var(--text3);font-size:0.7rem;">(total: '+totalShares+')</span></div>'
+      +'<div class="modal-amt-wrap"><input class="modal-amt-input" id="modal-shares-qty" type="number" step="1" min="1" max="'+totalShares+'" value="'+defaultQty+'" placeholder="'+totalShares+'" oninput="modal.sharesQty=parseInt(this.value)||'+totalShares+'">'
+      +'<span style="font-size:0.72rem;color:var(--text3);">shares</span></div>'
+      +'<div class="modal-hint" style="margin-top:0.25rem;">&#9432; Selling fewer than '+totalShares+' splits the position — remainder stays open</div>'
+      +'</div>';
+  }
+  var fieldRow='<div style="margin-bottom:0.75rem;"><div class="modal-section-label" style="margin-bottom:0.35rem;">'+amtLabel+'</div>'+cdTabs+'<div class="modal-amt-wrap"><span class="modal-amt-pre" style="color:'+amtColor+';">'+amtPre+'</span><input class="modal-amt-input" id="modal-amt" type="number" step="0.01" min="0" '+amtDisabled+' value="'+(isExpire?'':m.amount)+'" placeholder="0.00" oninput="modal.amount=this.value"></div><div class="modal-hint" style="margin-top:0.3rem;">'+hint+'</div></div>'+sharesQtyRow;
   var btnBg=m.action==='BTC'?'var(--green)':m.action==='STC'?'var(--blue)':m.action==='Sell'?'var(--orange)':'var(--black)';
   var btnLbl='Confirm '+({Close:'Expire',BTC:'Buy to Close',STC:'Sell to Close',Sell:'Sell Shares'}[m.action]||m.action);
   document.getElementById('modal-root').innerHTML='<div class="modal-overlay" onclick="if(event.target===this)closeModal()"><div class="modal-box"><div class="modal-title">&#9940; Close Position</div><div class="modal-sub">Record how this position was closed</div><div class="modal-pos-info"><span class="tk-dot-sm" style="background:'+(DC[r.ticker]||'#888')+'"></span>'+r.ticker+' &nbsp;|&nbsp; '+r.excelType+(r.strike>0?' &nbsp;|&nbsp; $'+r.strike:'')+(r.expiryDate?' &nbsp;|&nbsp; '+r.expiryDate:'')+'</div><div class="modal-section-label">Action</div><div class="modal-action-tabs" style="margin-bottom:0.9rem;">'+at+'</div>'+fieldRow+'<div class="modal-notes-label">Notes (optional)</div><textarea class="modal-notes" rows="2" placeholder="e.g. Expired worthless, rolled to next week..." oninput="modal.notes=this.value">'+m.notes+'</textarea><div class="modal-btns"><button class="modal-confirm" style="background:'+btnBg+';" onclick="confirmModal()">&#10003; '+btnLbl+'</button><button class="modal-cancel-btn" onclick="closeModal()">Cancel</button></div></div></div>';
@@ -1751,21 +2134,68 @@ function confirmModal(){
   var r=positions.find(function(p){return p.id===modal.id;});if(!r)return;
   var action=modal.action,amt=parseFloat(modal.amount)||0;
   var closeDate=new Date().toLocaleDateString('en-US',{month:'numeric',day:'numeric',year:'2-digit'});
-  r.openDate=closeDate;
-  if(action==='STC'||action==='Sell'){r.soldAmount=amt;r.closeAction={action:action,type:'credit',amount:amt,signedAmount:amt,notes:modal.notes,date:closeDate};r.excelProfit=amt-(r.excelCost||0);}
-  else if(action==='BTC'){r.excelCost=(r.excelCost||0)+amt;var ps=r.soldAmount!=null&&r.soldAmount!==''?parseFloat(r.soldAmount):0;r.closeAction={action:action,type:'debit',amount:amt,signedAmount:-amt,notes:modal.notes,date:closeDate};r.excelProfit=ps-r.excelCost;}
-  else{var signed=modal.cdType==='credit'?amt:modal.cdType==='debit'?-amt:0;var ps2=r.soldAmount!=null&&r.soldAmount!==''?parseFloat(r.soldAmount):0;r.closeAction={action:action,type:modal.cdType,amount:amt,signedAmount:signed,notes:modal.notes,date:closeDate};r.excelProfit=ps2-(r.excelCost||0)+signed;}
-  r.closed=true;savePositions();modal=null;document.getElementById('modal-root').innerHTML='';rMain();
+
+  if(action==='Sell'&&r.excelType==='Shares'){
+    var totalShares=(r.contracts||1)*100;
+    var sellShares=modal.sharesQty!=null?Math.min(Math.max(1,modal.sharesQty),totalShares):totalShares;
+    var isPartial=sellShares<totalShares;
+    if(isPartial){
+      // Keep position OPEN — store partial sell in partialSells array
+      if(!r.partialSells)r.partialSells=[];
+      var soldRatio=sellShares/totalShares;
+      var soldCost=Math.round((r.excelCost||0)*soldRatio*100)/100;
+      r.partialSells.push({date:closeDate,shares:sellShares,amount:amt,cost:soldCost,notes:modal.notes||''});
+      // Update remaining cost and contracts
+      r.excelCost=Math.round(((r.excelCost||0)-soldCost)*100)/100;
+      r.contracts=Math.max(1,Math.round((totalShares-sellShares)/100));
+      // Explicitly keep open — clear any legacy closed flag
+      r.closed=false;
+      r.closeAction=null;
+      // soldAmount = total of all partial sells so far (for income tracking)
+      r.soldAmount=(r.partialSells||[]).reduce(function(s,ps){return s+ps.amount;},0)||null;
+    } else {
+      // Full sell — close in place
+      r.soldAmount=amt;
+      r.closeAction={action:'Sell',type:'credit',amount:amt,signedAmount:amt,notes:modal.notes,date:closeDate};
+      r.excelProfit=amt-(r.excelCost||0);
+      r.closed=true;
+    }
+  } else if(action==='STC'){
+    r.soldAmount=amt;r.closeAction={action:action,type:'credit',amount:amt,signedAmount:amt,notes:modal.notes,date:closeDate};r.excelProfit=amt-(r.excelCost||0);
+    r.closed=true;
+  } else if(action==='BTC'){
+    r.excelCost=(r.excelCost||0)+amt;var ps=r.soldAmount!=null&&r.soldAmount!==''?parseFloat(r.soldAmount):0;r.closeAction={action:action,type:'debit',amount:amt,signedAmount:-amt,notes:modal.notes,date:closeDate};r.excelProfit=ps-r.excelCost;
+    r.closed=true;
+  } else {
+    var signed=modal.cdType==='credit'?amt:modal.cdType==='debit'?-amt:0;var ps2=r.soldAmount!=null&&r.soldAmount!==''?parseFloat(r.soldAmount):0;r.closeAction={action:action,type:modal.cdType,amount:amt,signedAmount:signed,notes:modal.notes,date:closeDate};r.excelProfit=ps2-(r.excelCost||0)+signed;
+    r.closed=true;
+  }
+  savePositions();modal=null;document.getElementById('modal-root').innerHTML='';rMain();
 }
 function reopenPosition(id){
-  if(!confirm('Reopen this position?'))return;
   var r=positions.find(function(p){return p.id===id;});if(!r)return;
+  // For Shares: ask if this was a partial sell that should be kept as income history
+  if(r.excelType==='Shares'&&r.closeAction&&r.closeAction.action==='Sell'&&r.soldAmount){
+    var keepAsPartial=confirm('Convert the $'+r.soldAmount+' sale on '+r.closeAction.date+' to a partial sell record and reopen the position?\n\nOK = Keep sale as partial sell history (position stays open)\nCancel = Full reopen (clears all sale data)');
+    if(keepAsPartial){
+      // Convert closeAction to a partialSell entry
+      if(!r.partialSells)r.partialSells=[];
+      var soldAmt=parseFloat(r.soldAmount)||0;
+      // Estimate cost of sold portion proportionally (we don't know original contracts, use current)
+      r.partialSells.push({date:r.closeAction.date,shares:(r.contracts||1)*100,amount:soldAmt,cost:r.excelCost||0,notes:'Converted from close action'});
+      r.closed=false;
+      r.closeAction=null;
+      delete r.soldAmount;
+      hideClosedRows=false;
+      savePositions();rMain();
+      return;
+    }
+  }
+  if(!confirm('Reopen this position?'))return;
   r.closed=false;
   r.closeAction=null;
-  // Clear soldAmount so net income resets
   delete r.soldAmount;
   if(r.excelIncome)r.excelProfit=r.excelIncome;
-  // Ensure visible even if hide-closed is on
   hideClosedRows=false;
   savePositions();rMain();
 }
@@ -3130,16 +3560,19 @@ function rMain(){
     el.innerHTML=rFilterBar(data)+rFiltersRow(data)+rSum(sf2)+rTableControls()+rCombinedView(fd2);
     var sel2=document.getElementById('income-filter-sel');
     if(sel2&&sel2.value!==incomeFilter)sel2.value=incomeFilter;
-  }else{
+  }else if(activeView==='poslist'){
     var fd=getAppliedFilters(dispData),sf=cs(fd,isRet);
     el.innerHTML=data.length===0
-      ?rFilterBar([])+rFiltersRow(data)+rSum(sf)+rTableControls()+'<div class="ph"><strong>'+ap+' Portfolio</strong><br>No positions yet.</div>'
-      :rFilterBar(data)+rFiltersRow(data)+rSum(sf)+rTableControls()+rTable(fd);
-    // Restore select value after innerHTML replacement (browser resets selects on re-render)
+      ?rFiltersRow(data)+'<div class="ph"><strong>'+ap+' Portfolio</strong><br>No positions yet.</div>'
+      :rFiltersRow(data)+rTableControls()+rTable(fd);
     var sel=document.getElementById('income-filter-sel');
     if(sel&&sel.value!==incomeFilter)sel.value=incomeFilter;
+  }else{
+    // Summary tab — cards only
+    el.innerHTML=rSum(cs(dispData,isRet));
   }
   attachEvents();
+  rBc();
 }
 function attachEvents(){
   document.querySelectorAll('.ticker-dd-item').forEach(function(item){
@@ -3176,7 +3609,10 @@ function attachEvents(){
   attachUploadEvents();
 }
 function toggleDropdown(){dropdownOpen=!dropdownOpen;var d=document.getElementById('tkdrop');if(d)d.classList.toggle('open',dropdownOpen);if(dropdownOpen){setTimeout(function(){var s=document.getElementById('tk-search-inp');if(s)s.focus();},40);}else{tkSearch='';}}
-document.addEventListener('click',function(e){if(!e.target.closest('#tkwrap')){dropdownOpen=false;var d=document.getElementById('tkdrop');if(d)d.classList.remove('open');}});
+document.addEventListener('click',function(e){
+  if(!e.target.closest('#tkwrap')){dropdownOpen=false;var d=document.getElementById('tkdrop');if(d)d.classList.remove('open');}
+  if(!e.target.closest('#bc-tkwrap')){bcDropdownOpen=false;var d2=document.getElementById('bc-tkdrop');if(d2)d2.classList.remove('open');}
+});
 function startEdit(id){editingPrice=id;rMain();setTimeout(function(){var i=document.getElementById('pi_'+id);if(i){i.focus();i.select();}},50);}
 function cancelEdit(){editingPrice=null;rMain();}
 function savePrice(id){
@@ -3239,9 +3675,69 @@ function rBc(){
   var el=document.getElementById('bc');
   var sl={'ret-all':'All Retirement','amit-roth':'Amit - Roth IRA','lov-roth':'Lovelina - Roth IRA','lov-trad':'Lovelina - Traditional IRA'};
   var pl={all:'All Portfolios',amit:'Amit',lovelina:'Lovelina',joint:'Joint',retirement:'Retirement'};
-  if(ap==='all')el.innerHTML='<span>All Portfolios</span>';
-  else if(ap==='retirement')el.innerHTML='<span style="color:var(--text3)">All</span> &rsaquo; <span style="color:var(--text3)">Retirement</span> &rsaquo; <span style="color:var(--red)">'+sl[as]+'</span>';
-  else el.innerHTML='<span style="color:var(--text3)">All</span> &rsaquo; <span style="color:var(--red)">'+pl[ap]+'</span>';
+  var crumb='';
+  if(ap==='all')crumb='<span>All Portfolios</span>';
+  else if(ap==='retirement')crumb='<span style="color:var(--text3)">All</span> &rsaquo; <span style="color:var(--text3)">Retirement</span> &rsaquo; <span style="color:var(--red)">'+sl[as]+'</span>';
+  else crumb='<span style="color:var(--text3)">All</span> &rsaquo; <span style="color:var(--red)">'+pl[ap]+'</span>';
+
+  // Ticker filter — same logic as rFiltersRow, shared selectedTickers global
+  var allData=gd(ap,as);
+  var tickers=getTickersFrom(allData);
+  var allSel=selectedTickers.has('ALL');
+  var selList=allSel?[]:[...selectedTickers].filter(function(t){return t!=='ALL';});
+  var absentSel=selList.filter(function(t){return tickers.indexOf(t)<0;});
+
+  var tags=allSel
+    ?'<span style="font-size:0.68rem;color:var(--text3);font-weight:600;">All Tickers</span>'
+    :selList.map(function(t){
+        var inPort=tickers.indexOf(t)>=0;
+        return'<span style="display:inline-flex;align-items:center;gap:0.25rem;background:var(--red-bg);border:1px solid rgba(220,38,38,0.2);color:var(--red);padding:0.08rem 0.35rem;border-radius:10px;font-size:0.62rem;font-weight:700;'+(inPort?'':'opacity:0.5;')+'"><span style="width:5px;height:5px;border-radius:50%;background:'+(DC[t]||'#888')+';display:inline-block;flex-shrink:0;"></span>'+t+'<span class="bc-tag-x" data-xticker="'+t+'" style="cursor:pointer;opacity:0.6;font-size:0.56rem;margin-left:1px;">&#10005;</span></span>';
+      }).join('');
+
+  var ddItems=tickers.map(function(t){
+    var sel=allSel||selectedTickers.has(t);
+    return'<div class="ticker-dd-item'+(sel?' selected':'')+'" data-ddticker="'+t+'" id="bc-dd-'+t+'"><div class="ticker-dd-check">'+(sel?'&#10003;':'')+'</div><span class="dd-dot" style="background:'+(DC[t]||'#888')+'"></span>'+t+'</div>';
+  }).join('')+(absentSel.length?'<div style="height:1px;background:var(--border);margin:0.1rem 0;"></div>'+absentSel.map(function(t){return'<div class="ticker-dd-item selected" data-ddticker="'+t+'" style="opacity:0.45;" title="Not in this portfolio"><div class="ticker-dd-check">&#10003;</div><span class="dd-dot" style="background:'+(DC[t]||'#888')+'"></span>'+t+' <span style="font-size:0.55rem;color:var(--text3);">n/a</span></div>';}).join(''):'');
+
+  el.innerHTML=crumb
+    +'<div style="position:absolute;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:0.5rem;">'
+    +'<span style="font-size:0.6rem;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.07em;">&#127991; Ticker</span>'
+    +'<div class="ticker-select-wrap" id="bc-tkwrap" style="min-width:160px;max-width:400px;">'
+      +'<div class="ticker-select-btn" id="bc-tkbtn" onclick="bcToggleDropdown()" style="min-height:26px;padding:0.18rem 0.55rem;gap:0.35rem;">'
+        +'<div class="sel-tags" style="gap:0.25rem;">'+tags+'</div>'
+        +'<span style="color:var(--text3);font-size:0.6rem;">&#9660;</span>'
+      +'</div>'
+      +'<div class="ticker-dropdown'+(bcDropdownOpen?' open':'')+'" id="bc-tkdrop" style="min-width:140px;">'
+        +'<div style="padding:0.28rem 0.4rem;border-bottom:1px solid var(--border);">'
+          +'<input id="bc-tk-search" type="text" placeholder="&#128269; Search..." value="'+(bcTkSearch||'')+'" oninput="bcSetTkSearch(this.value)" onclick="event.stopPropagation()" style="width:100%;border:1px solid var(--border2);border-radius:5px;padding:0.22rem 0.4rem;font-size:0.67rem;outline:none;color:var(--black);background:var(--bg3);">'
+        +'</div>'
+        +'<div class="ticker-dd-item'+(allSel?' selected':'')+'" data-ddticker="ALL" id="bc-dd-ALL"><div class="ticker-dd-check">'+(allSel?'&#10003;':'')+'</div><span style="font-size:0.72rem;font-weight:700;">All Tickers</span></div>'
+        +'<div style="height:1px;background:var(--border);margin:0.1rem 0;"></div>'
+        +ddItems
+      +'</div>'
+    +'</div>'
+    +'</div>';
+
+  // Attach dropdown item click events
+  el.querySelectorAll('.ticker-dd-item').forEach(function(item){
+    item.addEventListener('click',function(e){
+      e.stopPropagation();
+      var t=item.dataset.ddticker;
+      if(t==='ALL'){selectedTickers=new Set(['ALL']);}
+      else{selectedTickers.delete('ALL');if(selectedTickers.has(t))selectedTickers.delete(t);else selectedTickers.add(t);if(!selectedTickers.size)selectedTickers=new Set(['ALL']);}
+      rMain();rBc();
+      setTimeout(function(){var d=document.getElementById('bc-tkdrop');if(d){d.classList.add('open');bcDropdownOpen=true;}if(bcTkSearch)bcSetTkSearch(bcTkSearch);var s=document.getElementById('bc-tk-search');if(s)s.focus();},10);
+    });
+  });
+  // Attach tag X click events
+  el.querySelectorAll('.bc-tag-x').forEach(function(x){
+    x.addEventListener('click',function(e){
+      e.stopPropagation();
+      selectedTickers.delete(x.dataset.xticker);
+      if(!selectedTickers.size)selectedTickers=new Set(['ALL']);
+      rMain();rBc();
+    });
+  });
 }
 document.getElementById('view-nav').addEventListener('click',function(e){
   var t=e.target.closest('.view-tab');if(!t)return;
@@ -3268,7 +3764,7 @@ function ghGetToken(){return localStorage.getItem(GH_TK)||'';}
 function ghSetToken(t){localStorage.setItem(GH_TK,t);}
 function ghGetCfg(){try{var c=JSON.parse(localStorage.getItem(GH_CF)||'{}');return{repo:c.repo||'algupta22/Ricks-Trading',branch:c.branch||'',file:c.file||'roi-data.json'};}catch(e){return{repo:'algupta22/Ricks-Trading',branch:'',file:'roi-data.json'};}}
 function ghSetCfg(c){localStorage.setItem(GH_CF,JSON.stringify(c));}
-function ghCollect(){return{version:2,savedAt:new Date().toISOString(),positions:positions,tickerPrices:tickerPrices,earningsDates:earningsDates,activityData:activityData,cashBalances:cashBalances,initialCashBalances:initialCashBalances,collatBlocked:collatBlocked,cryptoBalances:cryptoBalances};}
+function ghCollect(){return{version:2,savedAt:new Date().toISOString(),positions:positions,tickerPrices:tickerPrices,earningsDates:earningsDates,activityData:activityData,cashBalances:cashBalances,initialCashBalances:initialCashBalances,collatBlocked:collatBlocked,cryptoBalances:cryptoBalances,cryptoDetail:cryptoDetail};}
 function ghApply(d){
   if(!d||typeof d!=='object')return false;
   var hasData=Array.isArray(d.positions)||d.tickerPrices||d.cashBalances||d.activityData;
@@ -3281,6 +3777,7 @@ function ghApply(d){
   if(d.collatBlocked&&typeof d.collatBlocked==='object'){Object.assign(collatBlocked,d.collatBlocked);saveCB();}
   if(d.initialCashBalances&&typeof d.initialCashBalances==='object'){Object.assign(initialCashBalances,d.initialCashBalances);saveInitCash();}
   if(d.cryptoBalances&&typeof d.cryptoBalances==='object'){Object.assign(cryptoBalances,d.cryptoBalances);saveCrypto();}
+  if(d.cryptoDetail&&typeof d.cryptoDetail==='object'){Object.assign(cryptoDetail,d.cryptoDetail);saveCryptoDetail();}
   savePositions();return true;
 }
 async function ghDetect(token,repo){for(var i=0;i<2;i++){var b=['main','master'][i];var r=await fetch('https://api.github.com/repos/'+repo+'/branches/'+b,{headers:{'Authorization':'token '+token,'Accept':'application/vnd.github.v3+json'}});if(r.ok)return b;}return null;}
@@ -3406,7 +3903,7 @@ window.initCashEdit=initCashEdit;window.initCashSave=initCashSave;window.initCas
 window.ghSave=ghSave;window.ghLoad=ghLoad;window.ghConfigure=ghConfigure;window.ghSaveSettings=ghSaveSettings;window.closeGhModal=closeGhModal;
 
 function backupToFile(){
-  var d={version:2,savedAt:new Date().toISOString(),positions:positions,tickerPrices:tickerPrices,activityData:activityData,cashBalances:cashBalances,initialCashBalances:initialCashBalances};
+  var d={version:2,savedAt:new Date().toISOString(),positions:positions,tickerPrices:tickerPrices,activityData:activityData,cashBalances:cashBalances,initialCashBalances:initialCashBalances,cryptoDetail:cryptoDetail};
   var blob=new Blob([JSON.stringify(d,null,2)],{type:"application/json"});
   var url=URL.createObjectURL(blob);
   var a=document.createElement("a");
