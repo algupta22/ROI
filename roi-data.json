@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-21T03:28:10.145Z",
+  "savedAt": "2026-04-21T03:41:51.751Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -1401,13 +1401,13 @@
       "excelType": "Long Put",
       "strike": 17,
       "expiryDate": "5/15",
-      "openDate": "4/18/26",
+      "openDate": "4/20/26",
       "contracts": 2,
-      "excelCost": 20,
+      "excelCost": 10,
       "excelIncome": 0,
       "excelGrossValue": 2,
       "excelCurrentValue": 2,
-      "excelProfit": -20,
+      "excelProfit": -10,
       "closed": false,
       "notes": "",
       "manualPrice": null,
