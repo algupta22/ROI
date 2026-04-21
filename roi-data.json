@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-21T01:32:17.016Z",
+  "savedAt": "2026-04-21T02:45:14.050Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -1160,18 +1160,19 @@
       "strike": 8.5,
       "expiryDate": "5/8",
       "openDate": "4/18/26",
-      "contracts": 0.8,
-      "excelCost": 732,
+      "contracts": 1,
+      "excelCost": 915,
       "excelIncome": 0,
-      "excelGrossValue": 732,
-      "excelCurrentValue": 732,
-      "excelProfit": 0,
+      "excelGrossValue": 915,
+      "excelCurrentValue": 915,
+      "excelProfit": -915,
       "closed": false,
       "notes": "",
       "manualPrice": null,
       "rolledOver": false,
       "closeAction": null,
-      "_noMerge": true
+      "_noMerge": true,
+      "cvOverride": 915
     },
     {
       "id": "qp1uocrg",
@@ -4477,20 +4478,12 @@
       "excelIncome": 260,
       "excelGrossValue": 183,
       "excelCurrentValue": 260,
-      "excelProfit": 77,
-      "soldAmount": 260,
-      "closed": true,
+      "excelProfit": 260,
+      "closed": false,
       "notes": "Partial sell: 0.2 of 1 shares",
       "manualPrice": null,
       "rolledOver": false,
-      "closeAction": {
-        "action": "Sell",
-        "type": "credit",
-        "amount": 260,
-        "signedAmount": 260,
-        "notes": "",
-        "date": "4/20/26"
-      },
+      "closeAction": null,
       "_partialSell": true,
       "_parentId": "nwn29xby"
     }
