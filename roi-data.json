@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-21T00:11:05.447Z",
+  "savedAt": "2026-04-21T01:26:44.452Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -1160,19 +1160,18 @@
       "strike": 8.5,
       "expiryDate": "5/8",
       "openDate": "4/18/26",
-      "contracts": 1,
-      "excelCost": 950,
+      "contracts": 0.8,
+      "excelCost": 732,
       "excelIncome": 0,
-      "excelGrossValue": 1220,
-      "excelCurrentValue": 1220,
-      "excelProfit": -950,
+      "excelGrossValue": 732,
+      "excelCurrentValue": 732,
+      "excelProfit": 0,
       "closed": false,
       "notes": "",
       "manualPrice": null,
       "rolledOver": false,
       "closeAction": null,
-      "_noMerge": true,
-      "cvOverride": 1220
+      "_noMerge": true
     },
     {
       "id": "qp1uocrg",
@@ -4420,6 +4419,36 @@
       "closeAction": null,
       "_noMerge": true,
       "cvOverride": 168
+    },
+    {
+      "id": "84pt2l08",
+      "portfolio": "lovelina",
+      "ticker": "NVTS",
+      "excelType": "Shares",
+      "strike": 0,
+      "expiryDate": "",
+      "openDate": "4/20/26",
+      "contracts": 0.2,
+      "excelCost": 183,
+      "excelIncome": 260,
+      "excelGrossValue": 183,
+      "excelCurrentValue": 260,
+      "excelProfit": 77,
+      "soldAmount": 260,
+      "closed": true,
+      "notes": "Partial sell: 0.2 of 1 shares",
+      "manualPrice": null,
+      "rolledOver": false,
+      "closeAction": {
+        "action": "Sell",
+        "type": "credit",
+        "amount": 260,
+        "signedAmount": 260,
+        "notes": "",
+        "date": "4/20/26"
+      },
+      "_partialSell": true,
+      "_parentId": "nwn29xby"
     }
   ],
   "tickerPrices": {
