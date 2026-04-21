@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-21T03:01:43.163Z",
+  "savedAt": "2026-04-21T03:05:58.802Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -1161,7 +1161,7 @@
       "expiryDate": "5/8",
       "openDate": "4/18/26",
       "contracts": 1,
-      "excelCost": 915,
+      "excelCost": 732,
       "excelIncome": 0,
       "excelGrossValue": 915,
       "excelCurrentValue": 915,
@@ -1172,7 +1172,17 @@
       "rolledOver": false,
       "closeAction": null,
       "_noMerge": true,
-      "cvOverride": 915
+      "cvOverride": 915,
+      "partialSells": [
+        {
+          "date": "4/20/26",
+          "shares": 20,
+          "amount": 260,
+          "cost": 183,
+          "notes": ""
+        }
+      ],
+      "soldAmount": 260
     },
     {
       "id": "qp1uocrg",
