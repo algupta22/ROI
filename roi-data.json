@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-21T03:15:11.162Z",
+  "savedAt": "2026-04-21T03:22:55.486Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -1372,6 +1372,35 @@
       "excelGrossValue": 2,
       "excelCurrentValue": 2,
       "excelProfit": -118,
+      "closed": true,
+      "notes": "",
+      "manualPrice": null,
+      "rolledOver": false,
+      "closeAction": {
+        "action": "Close",
+        "type": "debit",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "",
+        "date": "4/20/26"
+      },
+      "_noMerge": true,
+      "cvOverride": 2
+    },
+    {
+      "id": "8ogqa1v8",
+      "portfolio": "lovelina",
+      "ticker": "METU",
+      "excelType": "Long Put",
+      "strike": 17,
+      "expiryDate": "5/15",
+      "openDate": "4/18/26",
+      "contracts": 2,
+      "excelCost": 20,
+      "excelIncome": 0,
+      "excelGrossValue": 2,
+      "excelCurrentValue": 2,
+      "excelProfit": -20,
       "closed": false,
       "notes": "",
       "manualPrice": null,
