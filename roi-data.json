@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-21T04:10:26.488Z",
+  "savedAt": "2026-04-21T04:14:48.005Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -266,13 +266,21 @@
       "excelIncome": 0,
       "excelGrossValue": 0,
       "excelCurrentValue": 0,
-      "excelProfit": -5245,
-      "closed": false,
+      "excelProfit": 136.9399999999996,
+      "closed": true,
       "notes": "",
       "manualPrice": null,
       "rolledOver": false,
-      "closeAction": null,
-      "cvOverride": 5395
+      "closeAction": {
+        "action": "Sell",
+        "type": "credit",
+        "amount": 5381.94,
+        "signedAmount": 5381.94,
+        "notes": "",
+        "date": "4/21/26"
+      },
+      "cvOverride": 5395,
+      "soldAmount": 5381.94
     },
     {
       "id": "mir6qw3w",
