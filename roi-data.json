@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-21T00:01:24.739Z",
+  "savedAt": "2026-04-21T00:09:29.503Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -1090,8 +1090,7 @@
         "date": "4/20/26"
       },
       "_noMerge": true,
-      "soldAmount": 36,
-      "cvOverride": -43
+      "soldAmount": 36
     },
     {
       "id": "7lc3snl2",
@@ -1100,20 +1099,29 @@
       "excelType": "Short Put",
       "strike": 11,
       "expiryDate": "4/24",
-      "openDate": "4/20/26",
+      "openDate": "4/18/26",
       "contracts": 1,
-      "excelCost": 8,
+      "excelCost": 4,
       "excelIncome": 0,
       "excelGrossValue": 209,
       "excelCurrentValue": 209,
-      "excelProfit": 10,
+      "excelProfit": 14,
       "closed": true,
       "notes": "",
       "manualPrice": null,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "BTC",
+        "type": "debit",
+        "amount": 4,
+        "signedAmount": -4,
+        "notes": "",
+        "date": "4/20/26"
+      },
       "_noMerge": true,
-      "soldAmount": 18
+      "cvOverride": -209,
+      "soldAmount": 18,
+      "originalOpenCost": 0
     },
     {
       "id": "8pp1cu1s",
@@ -1128,13 +1136,21 @@
       "excelIncome": 0,
       "excelGrossValue": 0,
       "excelCurrentValue": 0,
-      "excelProfit": -288,
-      "closed": false,
+      "excelProfit": -262,
+      "closed": true,
       "notes": "",
       "manualPrice": null,
       "rolledOver": false,
-      "closeAction": null,
-      "cvOverride": 42
+      "closeAction": {
+        "action": "STC",
+        "type": "credit",
+        "amount": 26,
+        "signedAmount": 26,
+        "notes": "",
+        "date": "4/20/26"
+      },
+      "cvOverride": 42,
+      "soldAmount": 26
     },
     {
       "id": "nwn29xby",
@@ -1150,6 +1166,50 @@
       "excelGrossValue": 1220,
       "excelCurrentValue": 1220,
       "excelProfit": -950,
+      "closed": false,
+      "notes": "",
+      "manualPrice": null,
+      "rolledOver": false,
+      "closeAction": null,
+      "_noMerge": true,
+      "cvOverride": 1220
+    },
+    {
+      "id": "qp1uocrg",
+      "portfolio": "lovelina",
+      "ticker": "NVTS",
+      "excelType": "Long Put",
+      "strike": 11.5,
+      "expiryDate": "4/24",
+      "openDate": "4/20/26",
+      "contracts": 1,
+      "excelCost": 0,
+      "excelIncome": 0,
+      "excelGrossValue": 0,
+      "excelCurrentValue": 0,
+      "excelProfit": 17,
+      "closed": false,
+      "notes": "",
+      "manualPrice": null,
+      "rolledOver": false,
+      "closeAction": null,
+      "_noMerge": true,
+      "soldAmount": 17
+    },
+    {
+      "id": "vmtetyzq",
+      "portfolio": "lovelina",
+      "ticker": "NVTS",
+      "excelType": "Long Put",
+      "strike": 9,
+      "expiryDate": "6/18",
+      "openDate": "4/20/26",
+      "contracts": 1,
+      "excelCost": 300,
+      "excelIncome": 0,
+      "excelGrossValue": 1220,
+      "excelCurrentValue": 1220,
+      "excelProfit": -300,
       "closed": false,
       "notes": "",
       "manualPrice": null,
