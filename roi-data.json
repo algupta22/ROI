@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-21T03:22:55.486Z",
+  "savedAt": "2026-04-21T03:24:30.106Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -527,16 +527,23 @@
       "expiryDate": "04/24",
       "openDate": "4/18/26",
       "contracts": 1,
-      "excelCost": 0,
+      "excelCost": 2,
       "excelIncome": 0,
       "excelGrossValue": 1,
       "excelCurrentValue": 1,
-      "excelProfit": 265,
-      "closed": false,
+      "excelProfit": 263,
+      "closed": true,
       "notes": "",
       "manualPrice": null,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "BTC",
+        "type": "debit",
+        "amount": 2,
+        "signedAmount": -2,
+        "notes": "",
+        "date": "4/20/26"
+      },
       "_noMerge": true,
       "cvOverride": -4,
       "soldAmount": 265
