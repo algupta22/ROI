@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-23T04:02:59.692Z",
+  "savedAt": "2026-04-23T23:25:50.718Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -2392,9 +2392,16 @@
       "excelGrossValue": 60,
       "excelCurrentValue": 60,
       "excelProfit": 23,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/22/2026"
+      },
       "manualPrice": null,
       "notes": "",
       "cvOverride": -60,
@@ -4803,9 +4810,16 @@
       "excelGrossValue": 490,
       "excelCurrentValue": 490,
       "excelProfit": 25,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/22"
+      },
       "manualPrice": null,
       "notes": "",
       "cvOverride": -490,
@@ -4826,9 +4840,16 @@
       "excelGrossValue": 490,
       "excelCurrentValue": 490,
       "excelProfit": 15,
-      "closed": false,
+      "closed": true,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "4/22"
+      },
       "manualPrice": null,
       "notes": "",
       "cvOverride": -490,
