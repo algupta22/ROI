@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-24T04:00:03.181Z",
+  "savedAt": "2026-04-24T12:09:29.764Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -5475,6 +5475,7 @@
     "HIMZ1": 3,
     "TSLL": 13.9,
     "ROBN": 28.51,
+    "NVTS": 12,
     "BBAI": 3.82,
     "HIMS": 28.82,
     "HOOD": 90.75,
@@ -8278,7 +8279,6 @@
     "MSFT": 0,
     "NOK": 0,
     "NVTS": 0,
-    "PATH": 2100,
     "PLTR": 0,
     "QQQ": 9000,
     "ROBN": 4300,
@@ -8292,6 +8292,7 @@
     "SLV": 2150,
     "CDE": 500,
     "MRVL": 1000,
+    "PATH": 2100,
     "PLTR|amit": 11400,
     "TSLL|amit": 1000,
     "ROBN|amit": 7900,
