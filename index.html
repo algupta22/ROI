@@ -835,9 +835,7 @@ td.mc{color:var(--black);font-weight:700;}td.mn{font-family:monospace;font-size:
 </div>
 <div class="view-nav" id="view-nav">
   <div class="view-tab active" data-view="positions">&#128200; Summary</div>
-  <div class="view-tab" data-view="poslist">&#128202; Positions</div>
   <div class="view-tab" data-view="spreads">&#8597; Spreads / Risk View</div>
-  <div class="view-tab" data-view="activity">&#128196; Activity</div>
   <div class="view-tab" data-view="putladder">&#128308; Put Ladders</div>
   <div class="view-tab" data-view="growth">&#128640; Growth</div>
   <div class="view-tab" data-view="admin">&#9881; Admin &#8212; Prices</div>
@@ -4308,6 +4306,15 @@ function autoExpireLadderSPs() {
         changed = true;
       }
     });
+    
+    // Auto-close ladder if long put is closed AND all short puts are closed (or no short puts)
+    if (!l.closed && (l.longPutClosed || l.noLongPut)) {
+      var allShortsClosed = (l.shortPuts || []).every(function(sp) { return sp.closed; });
+      if (l.shortPuts.length === 0 || allShortsClosed) {
+        l.closed = true;
+        changed = true;
+      }
+    }
   });
   if (changed) save();
 }
@@ -4558,8 +4565,9 @@ function renderLadders() {
     html += '</div>';
     html += '</div>';
     
-    // Render ladder cards for this ticker (only if expanded)
-    if (tickerExpanded) {
+    // Render ladder cards for this ticker (only if expanded AND not viewing all retirement combined)
+    var isAllRetirement = (typeof ap !== 'undefined' && ap === 'retirement' && (typeof as === 'undefined' || as === 'ret-all'));
+    if (tickerExpanded && !isAllRetirement) {
       html += laddersForTicker.map(function(l) { return renderLadderCard(l); }).join('');
     }
   });
@@ -4702,54 +4710,114 @@ function lp_field(label, val) {
 }
 
 function renderShortPutsSection(l) {
-  var rows = '';
-  var sps = l.shortPuts || [];
-  if (!sps.length) {
-    rows = '<div class="empty-sp">No short puts opened yet — click "+ Short Put" to add one.</div>';
-  } else {
-    rows = '<div class="sp-table-wrap"><table class="sp-table">' +
-      '<thead><tr>' +
-        '<th></th><th>Status</th><th>Strike</th><th>Expiry</th><th>#</th><th>Received</th><th title="BTC debit paid">Debit (BTC)</th><th>Net</th><th>Opened</th><th></th>' +
-      '</tr></thead><tbody>';
-    sps.forEach(function(sp, i) {
-      var dl = daysLeft(sp.expiry);
-      var dteStr = sp.closed ? '—' : (dl != null ? dl + 'd' : '--');
-      var debit  = sp.btcDebit  || 0;
-      var net = (sp.received || 0) - debit - (sp.buybackCost || 0);
-      var cts = sp.contracts || l.contracts || 1;
-      var collat = (!l.noLongPut && l.longStrike)
-        ? Math.max(0, sp.strike - l.longStrike) * 100 * cts
-        : sp.strike * 100 * cts;
-      var statusBadge = sp.closed
-        ? '<span class="badge-closed-sp">' + (sp.closeReason === 'expired' ? 'Expired' : sp.closeReason === 'buyback' ? 'Bought Back' : 'Closed') + '</span>'
-        : '<span class="badge-open">Open</span>';
-      var closeBtn = sp.closed ? '' : '<button class="sp-close-link" onclick="openCloseShortPut(\'' + l.id + '\',\'' + sp.id + '\')">Close</button>';
-      var editBtn  = '<button class="sp-edit-btn" onclick="openEditShortPut(\'' + l.id + '\',\'' + sp.id + '\')" title="Edit">&#9998;</button>';
-      var copyBtn  = '<button class="sp-copy-btn" onclick="copyShortPut(\'' + l.id + '\',\'' + sp.id + '\')" title="Copy & re-open">&#10697;</button>';
-      var moveBtn  = '<button class="sp-move-btn" onclick="openMoveShortPut(event,\'' + l.id + '\',\'' + sp.id + '\')" title="Move to another ladder">&#8645;</button>';
-      var delBtn   = '<button class="sp-del-btn" onclick="deleteShortPut(\'' + l.id + '\',\'' + sp.id + '\')" title="Delete">&#10005;</button>';
-      var credit = sp.received || 0;
-      var creditCell = credit > 0 ? '<span class="stc-val">+' + fmt(credit) + '</span>' : '<span style="color:var(--text3);">—</span>';
-      var debitCell  = debit  > 0 ? '<span class="btc-val">-' + fmt(debit)  + '</span>' : '<span style="color:var(--text3);">—</span>';
-      rows +=
-        '<tr draggable="true" data-spid="' + sp.id + '" data-lid="' + l.id + '"' + (sp.closed ? ' style="opacity:0.6;"' : '') + '>' +
-        '<td style="cursor:grab;color:var(--text3);padding:0 0.2rem;">&#8942;&#8942;</td>' +
-        '<td>' + statusBadge + '</td>' +
-        '<td class="mn" style="font-weight:700;">$' + sp.strike + '</td>' +
-        '<td class="mn ' + (sp.closed?'':expiryClass(sp.expiry)) + '">' + fmtDate(sp.expiry) + '</td>' +
-        '<td class="mn">' + cts + '</td>' +
-        '<td class="mn pos-val">' + fmt(sp.received) + '</td>' +
-        '<td class="mn">' + debitCell + '</td>' +
-        '<td class="mn ' + (net >= 0 ? 'pos-val' : 'neg-val') + '">' + fmtSign(net) + '</td>' +
-        '<td class="mn" style="color:var(--text3);">' + (sp.openDate || '--') + '</td>' +
-        '<td style="display:flex;align-items:center;gap:0.15rem;">' + editBtn + moveBtn + copyBtn + closeBtn + delBtn + '</td>' +
-        '</tr>';
+  // Combine short puts and STC transactions into one table
+  var allTransactions = [];
+  
+  // Add all short puts (which now includes STC, BTC, and SPUT)
+  (l.shortPuts || []).forEach(function(sp) {
+    var displayType = sp.posType === 'STC' ? 'LPUT' : (sp.posType === 'BTC' ? 'BTC' : 'SPUT');
+    allTransactions.push({
+      type: displayType,
+      id: sp.id,
+      status: sp.closed ? (sp.closeReason === 'expired' ? 'Expired' : sp.closeReason === 'buyback' ? 'Bought Back' : sp.closeReason === 'sold' ? 'Sold' : 'Closed') : 'Open',
+      isClosed: sp.closed,
+      strike: sp.strike,
+      expiry: sp.expiry,
+      contracts: sp.contracts || l.contracts || 1,
+      received: sp.received || 0,
+      debit: (sp.btcDebit || 0) + (sp.buybackCost || 0),
+      openDate: sp.openDate,
+      rawData: sp
     });
-    rows += '</tbody></table></div>';
+  });
+  
+  // Add STC transaction if long put was closed and matches criteria
+  if (l.longPutClosed && l.longCloseAmount && !l.noLongPut) {
+    allTransactions.push({
+      type: 'LPUT',
+      id: 'stc-' + l.id,
+      status: 'Closed',
+      isClosed: true,
+      strike: l.stcStrike || l.longStrike,  // Use STC's strike if available, else long put strike
+      expiry: l.stcExpiry || l.longExpiry,  // Use STC's expiry if available, else long put expiry
+      contracts: l.contracts || 1,
+      received: l.longCloseAmount,
+      debit: 0,
+      openDate: l.longCloseDate || l.openDate,
+      rawData: null // No edit/delete for STC
+    });
   }
-  return '<div class="sp-section" data-lid="' + l.id + '">' +
-    rows +
-  '</div>';
+  
+  if (!allTransactions.length) {
+    return '<div class="sp-section" data-lid="' + l.id + '">' +
+      '<div class="empty-sp">No short puts opened yet — click "+ Short Put" to add one.</div>' +
+      '</div>';
+  }
+  
+  // Sort by expiry date (earliest first)
+  allTransactions.sort(function(a, b) {
+    var dateA = normExpiry(a.expiry);
+    var dateB = normExpiry(b.expiry);
+    if (!dateA) return 1;
+    if (!dateB) return -1;
+    return dateA - dateB;
+  });
+  
+  var rows = '<div class="sp-table-wrap"><table class="sp-table">' +
+    '<thead><tr>' +
+      '<th></th><th>Type</th><th>Status</th><th>Strike</th><th>Expiry</th><th>#</th><th>Received</th><th title="BTC debit paid">Debit (BTC)</th><th>Opened</th><th></th>' +
+    '</tr></thead><tbody>';
+  
+  allTransactions.forEach(function(t) {
+    var statusBadge = t.isClosed
+      ? '<span class="badge-closed-sp">' + t.status + '</span>'
+      : '<span class="badge-open">' + t.status + '</span>';
+    
+    var typeBadge = t.type === 'LPUT'
+      ? '<span style="background:#EDE9FE;color:#7C3AED;border:1px solid #C4B5FD;border-radius:4px;padding:0.08rem 0.38rem;font-size:0.62rem;font-weight:700;">LPUT</span>'
+      : '<span style="background:#FEF3C7;color:#D97706;border:1px solid #FDE68A;border-radius:4px;padding:0.08rem 0.38rem;font-size:0.62rem;font-weight:700;">SPUT</span>';
+    
+    var creditCell = t.received > 0 ? '<span class="stc-val">+' + fmt(t.received) + '</span>' : '<span style="color:var(--text3);">—</span>';
+    var debitCell = t.debit > 0 ? '<span class="btc-val">-' + fmt(t.debit) + '</span>' : '<span style="color:var(--text3);">—</span>';
+    
+    var actionButtons = '';
+    if (t.rawData) {
+      // All transactions with rawData get full action buttons
+      var closeBtn = '';
+      if (t.type === 'SPUT' && !t.isClosed) {
+        closeBtn = '<button class="sp-close-link" onclick="openCloseShortPut(\'' + l.id + '\',\'' + t.id + '\')">Close</button>';
+      } else if (t.type === 'LPUT' && t.isClosed) {
+        closeBtn = '<button class="reopen-btn" style="font-size:0.65rem;padding:0.2rem 0.5rem;" onclick="reopenLongPut(\'' + l.id + '\')">↩ Reopen</button>';
+      }
+      
+      var editBtn  = '<button class="sp-edit-btn" onclick="openEditShortPut(\'' + l.id + '\',\'' + t.id + '\')" title="Edit">&#9998;</button>';
+      var copyBtn  = '<button class="sp-copy-btn" onclick="copyShortPut(\'' + l.id + '\',\'' + t.id + '\')" title="Copy & re-open">&#10697;</button>';
+      var moveBtn  = '<button class="sp-move-btn" onclick="openMoveShortPut(event,\'' + l.id + '\',\'' + t.id + '\')" title="Move to another ladder">&#8645;</button>';
+      var delBtn   = '<button class="sp-del-btn" onclick="deleteShortPut(\'' + l.id + '\',\'' + t.id + '\')" title="Delete">&#10005;</button>';
+      actionButtons = editBtn + moveBtn + copyBtn + closeBtn + delBtn;
+    }
+    
+    var draggable = t.rawData ? ' draggable="true" data-spid="' + t.id + '" data-lid="' + l.id + '"' : '';
+    var grabHandle = t.rawData ? '<td style="cursor:grab;color:var(--text3);padding:0 0.2rem;">&#8942;&#8942;</td>' : '<td></td>';
+    
+    rows +=
+      '<tr' + draggable + (t.isClosed ? ' style="opacity:0.6;"' : '') + '>' +
+      grabHandle +
+      '<td>' + typeBadge + '</td>' +
+      '<td>' + statusBadge + '</td>' +
+      '<td class="mn" style="font-weight:700;">$' + t.strike + '</td>' +
+      '<td class="mn ' + (t.isClosed?'':expiryClass(t.expiry)) + '">' + fmtDate(t.expiry) + '</td>' +
+      '<td class="mn">' + t.contracts + '</td>' +
+      '<td class="mn">' + creditCell + '</td>' +
+      '<td class="mn">' + debitCell + '</td>' +
+      '<td class="mn" style="color:var(--text3);">' + (t.openDate || '--') + '</td>' +
+      '<td style="display:flex;align-items:center;gap:0.15rem;">' + actionButtons + '</td>' +
+      '</tr>';
+  });
+  
+  rows += '</tbody></table></div>';
+  
+  return '<div class="sp-section" data-lid="' + l.id + '">' + rows + '</div>';
 }
 
 // Toggle ticker group expand/collapse
@@ -5215,9 +5283,7 @@ function reopenLadder(ladderId) {
 function openEditLadder(ladderId) {
   var l = getLadder(ladderId);
   if (!l) return;
-  var closeBtn = l.longPutClosed 
-    ? '' 
-    : '<button class="modal-action-btn" onclick="closeModal();openCloseLongPut(\'' + ladderId + '\')">Close Long Put</button>';
+  
   document.getElementById('modal-root').innerHTML =
     '<div class="modal-overlay" onclick="if(event.target===this)closeModal()">' +
     '<div class="modal-box">' +
@@ -5239,7 +5305,8 @@ function openEditLadder(ladderId) {
       '<div class="mf"><label class="mf-label">Notes (optional)</label><input class="mf-input" id="el-notes" placeholder="Notes" value="' + (l.notes||'').replace(/"/g,"&quot;") + '"></div>' +
       '<div class="modal-btns">' +
         '<button class="modal-cancel" onclick="closeModal()">Cancel</button>' +
-        closeBtn +
+        '<button class="modal-action-btn" onclick="closeModal();openCloseLongPut(\'' + ladderId + '\')">Close Long Put</button>' +
+        '<button class="modal-action-btn" style="background:#D1FAE5;color:#059669;border-color:#BBF7D0;" onclick="closeModal();reopenLongPut(\'' + ladderId + '\')">↩ Reopen</button>' +
         '<button class="modal-confirm blue-btn" onclick="saveEditLadder(\'' + ladderId + '\')">Save Changes</button>' +
       '</div>' +
     '</div></div>';
@@ -5445,6 +5512,10 @@ function parseRobinhoodCSV(text) {
     } else if (transCode === 'BTC') {
       posType = 'BTC'; // closing a short — debit paid
     }
+    
+    // Store the option type so we can filter puts vs calls
+    var isPut = parsed.optionType === 'put';
+    var isCall = parsed.optionType === 'call';
 
     // Use actual transaction amount (includes fees/commissions)
     var totalPremium = Math.abs(amount) > 0 ? Math.abs(amount) : Math.abs(price) * 100 * quantity;
@@ -5581,133 +5652,73 @@ function commitCSVImport() {
   });
 
   var imported = 0;
+  
   checked.forEach(function(i) {
     var r = rows[i];
     if (!r) return;
+    
+    // Skip calls - only import puts in Put Ladders
+    if (r.posType === 'LCALL' || r.posType === 'SCALL') return;
+    if ((r.posType === 'STC' || r.posType === 'BTC') && r.optionType !== 'put') return;
 
     if (r.posType === 'LPUT') {
-      // Each BTO long put = its own ladder (dedup: same ticker+strike+expiry+openDate)
-      var l = ladders.find(function(x){
-        return x.ticker === r.ticker && !x.noLongPut &&
-               x.longStrike == r.strike && x.longExpiry === r.expiry &&
-               x.openDate === r.openDate;
-      });
-      if (!l) {
-        l = { id: uid(), ticker: r.ticker, contracts: r.contracts, longStrike: r.strike, longPremium: r.premium, longExpiry: r.expiry, openDate: r.openDate, notes: '', position: null, noLongPut: false, shortPuts: [], closed: false };
-        ladders.unshift(l);
-        expandedIds.add(l.id);
+      // BTO = Create a new ladder with long put on left side
+      var l = { 
+        id: uid(), 
+        ticker: r.ticker, 
+        contracts: r.contracts, 
+        longStrike: r.strike, 
+        longPremium: r.premium, 
+        longExpiry: r.expiry, 
+        openDate: r.openDate, 
+        notes: '', 
+        position: null, 
+        noLongPut: false, 
+        shortPuts: [], 
+        closed: false 
+      };
+      ladders.unshift(l);
+      expandedIds.add(l.id);
+      imported++;
+    } else if (r.posType === 'SPUT' || r.posType === 'STC' || r.posType === 'BTC') {
+      // Everything else = Create/find a ladder and add to right side
+      var targetLadder = ladders.find(function(x){ return x.ticker === r.ticker; });
+      
+      if (!targetLadder) {
+        // No ladder exists for this ticker, create a "No Long Put" one
+        targetLadder = { 
+          id: uid(), 
+          ticker: r.ticker, 
+          contracts: r.contracts || 1, 
+          longStrike: null, 
+          longPremium: null, 
+          longExpiry: null, 
+          openDate: r.openDate, 
+          notes: '', 
+          position: null, 
+          noLongPut: true, 
+          shortPuts: [], 
+          closed: false 
+        };
+        ladders.unshift(targetLadder);
+        expandedIds.add(targetLadder.id);
       }
-    } else if (r.posType === 'SPUT') {
-      // Short put → find the ladder with the CLOSEST long put expiry >= sp.expiry
-      var spExpDt = normExpiry(r.expiry);
-      var bestTarget = null, bestDiff = Infinity;
-      ladders.forEach(function(x) {
-        if (x.ticker !== r.ticker || x.closed) return;
-        if (x.noLongPut) { if (!bestTarget) bestTarget = x; return; }
-        var lpDt = normExpiry(x.longExpiry);
-        if (lpDt && spExpDt && lpDt >= spExpDt) {
-          var diff = lpDt - spExpDt;
-          if (diff < bestDiff) { bestDiff = diff; bestTarget = x; }
-        }
-      });
-      if (!bestTarget) {
-        // fallback: any open ladder for this ticker
-        bestTarget = ladders.find(function(x){ return x.ticker === r.ticker && !x.closed; });
-      }
-      if (!bestTarget) {
-        bestTarget = { id: uid(), ticker: r.ticker, contracts: r.contracts, longStrike: null, longPremium: null, longExpiry: null, openDate: r.openDate, notes: '', position: null, noLongPut: true, shortPuts: [], closed: false };
-        ladders.unshift(bestTarget);
-        expandedIds.add(bestTarget.id);
-      }
-      var dup = (bestTarget.shortPuts||[]).find(function(sp){
-        return sp.strike == r.strike && sp.expiry === r.expiry && sp.openDate === r.openDate;
-      });
-      if (!dup) {
-        var sp = { id: uid(), strike: r.strike, contracts: r.contracts, received: r.totalPremium, expiry: r.expiry, openDate: r.openDate, closed: false };
-        bestTarget.shortPuts.push(sp);
-      }
-    } else if (r.posType === 'STC') {
-      // STC = Sell To Close a Long Put → credit to LP's longCloseAmount
-      var stcDate = r.openDate;
-      var stcBest = null, stcBestDiff = Infinity;
-      ladders.forEach(function(x) {
-        if (x.ticker !== r.ticker || x.noLongPut) return;
-        if (x.longStrike == r.strike) {
-          var d = Math.abs((new Date(x.openDate||0)) - (new Date(stcDate||0)));
-          if (d < stcBestDiff) { stcBestDiff = d; stcBest = x; }
-        }
-      });
-      if (!stcBest) stcBest = ladders.find(function(x){ return x.ticker === r.ticker; });
-      if (stcBest) {
-        stcBest.longPutClosed = true;
-        stcBest.longCloseAmount = (stcBest.longCloseAmount || 0) + Math.abs(r.totalPremium);
-      }
-    } else if (r.posType === 'BTC') {
-      // BTC = Buy To Close a Short Put → btcDebit on matching SP (string expiry match)
-      var btcMatched = false;
-      ladders.forEach(function(x) {
-        if (x.ticker !== r.ticker) return;
-        (x.shortPuts || []).forEach(function(sp) {
-          if (sp.strike == r.strike && sp.expiry === r.expiry) {
-            sp.btcDebit = (sp.btcDebit || 0) + Math.abs(r.totalPremium);
-            sp.closed = true;
-            sp.closeReason = sp.closeReason || 'buyback';
-            btcMatched = true;
-          }
-        });
-      });
-      if (!btcMatched) {
-        // No existing SP — create one with btcDebit, attach to best ladder
-        var btcTarget = null, btcBestDiff = Infinity;
-        ladders.forEach(function(x) {
-          if (x.ticker !== r.ticker) return;
-          var d = Math.abs((new Date(x.openDate||0)) - (new Date(r.openDate||0)));
-          if (d < btcBestDiff) { btcBestDiff = d; btcTarget = x; }
-        });
-        if (!btcTarget) {
-          btcTarget = { id: uid(), ticker: r.ticker, contracts: r.contracts, longStrike: null, longPremium: null, longExpiry: null, openDate: r.openDate, notes: '', position: null, noLongPut: true, shortPuts: [], closed: false };
-          ladders.unshift(btcTarget);
-          expandedIds.add(btcTarget.id);
-        }
-        if (btcTarget) {
-          if (!btcTarget.shortPuts) btcTarget.shortPuts = [];
-          var existSp = btcTarget.shortPuts.find(function(sp){ return sp.strike == r.strike && sp.expiry === r.expiry; });
-          if (existSp) {
-            existSp.btcDebit = (existSp.btcDebit || 0) + Math.abs(r.totalPremium);
-            existSp.closed = true;
-            existSp.closeReason = existSp.closeReason || 'buyback';
-          } else {
-            btcTarget.shortPuts.push({ id: uid(), strike: r.strike, contracts: r.contracts, received: 0, expiry: r.expiry, openDate: r.openDate, closed: true, closeReason: 'buyback', btcDebit: Math.abs(r.totalPremium) });
-          }
-        }
-      }
-    }
-    imported++;
-  });
-
-  // Post-import merge: combine BTC-only SPs with matching STO-only SPs
-  ladders.forEach(function(l) {
-    var sps = l.shortPuts;
-    if (!sps || !sps.length) return;
-    var changed = true;
-    while (changed) {
-      changed = false;
-      for (var i = 0; i < sps.length; i++) {
-        var btcSp = sps[i];
-        if (!btcSp.btcDebit || btcSp.received > 0) continue;
-        for (var j = 0; j < sps.length; j++) {
-          if (i === j) continue;
-          var stoSp = sps[j];
-          if (stoSp.strike != btcSp.strike || stoSp.expiry !== btcSp.expiry) continue;
-          if (!(stoSp.received > 0)) continue;
-          stoSp.btcDebit = (stoSp.btcDebit || 0) + btcSp.btcDebit;
-          stoSp.closed = true;
-          stoSp.closeReason = stoSp.closeReason || 'buyback';
-          sps.splice(i, 1);
-          changed = true; break;
-        }
-        if (changed) break;
-      }
+      
+      // Add this transaction as a row on the right side
+      var sp = { 
+        id: uid(), 
+        strike: r.strike, 
+        contracts: r.contracts || targetLadder.contracts || 1, 
+        received: r.posType === 'STC' || r.posType === 'SPUT' ? Math.abs(r.totalPremium) : 0,
+        btcDebit: r.posType === 'BTC' ? Math.abs(r.totalPremium) : 0,
+        expiry: r.expiry, 
+        openDate: r.openDate, 
+        closed: r.posType === 'STC' || r.posType === 'BTC',
+        closeReason: r.posType === 'STC' ? 'sold' : (r.posType === 'BTC' ? 'buyback' : null),
+        posType: r.posType  // Store the original type
+      };
+      targetLadder.shortPuts.push(sp);
+      imported++;
     }
   });
 
@@ -5735,9 +5746,27 @@ function save() {
 // ── RELOAD PUT LADDER FOR CURRENT PORTFOLIO ───────────────────────────────────
 function plReloadForPortfolio() {
   try {
-    var raw = localStorage.getItem(lsKey(plGetPortKey()));
-    ladders = (raw && JSON.parse(raw)) || [];
-    if (!Array.isArray(ladders)) ladders = [];
+    var portKey = plGetPortKey();
+    
+    // If viewing ALL RETIREMENT, aggregate from all retirement sub-portfolios
+    if (typeof ap !== 'undefined' && ap === 'retirement' && (typeof as === 'undefined' || as === 'ret-all')) {
+      var allRetirementLadders = [];
+      var retirementKeys = ['self_roth', 'spouse_roth', 'spouse_ira'];
+      retirementKeys.forEach(function(key) {
+        try {
+          var raw = localStorage.getItem(lsKey(key));
+          var subLadders = (raw && JSON.parse(raw)) || [];
+          if (Array.isArray(subLadders)) {
+            allRetirementLadders = allRetirementLadders.concat(subLadders);
+          }
+        } catch(e) {}
+      });
+      ladders = allRetirementLadders;
+    } else {
+      var raw = localStorage.getItem(lsKey(portKey));
+      ladders = (raw && JSON.parse(raw)) || [];
+      if (!Array.isArray(ladders)) ladders = [];
+    }
   } catch(e) { ladders = []; }
   expandedIds = new Set();
   plTickerSearch = '';
@@ -5763,9 +5792,26 @@ var callLadders = [];
       if (ap === 'retirement') return subMap[typeof as !== 'undefined' ? as : 'ret-all'] || 'retirement';
       return portMap[ap] || ap;
     })();
-    var raw = localStorage.getItem('roi_callladder_' + portKey);
-    callLadders = (raw && JSON.parse(raw)) || [];
-    if (!Array.isArray(callLadders)) callLadders = [];
+    
+    // If viewing ALL RETIREMENT, aggregate from all retirement sub-portfolios
+    if (typeof ap !== 'undefined' && ap === 'retirement' && (typeof as === 'undefined' || as === 'ret-all')) {
+      var allRetirementCalls = [];
+      var retirementKeys = ['self_roth', 'spouse_roth', 'spouse_ira'];
+      retirementKeys.forEach(function(key) {
+        try {
+          var raw = localStorage.getItem('roi_callladder_' + key);
+          var subCalls = (raw && JSON.parse(raw)) || [];
+          if (Array.isArray(subCalls)) {
+            allRetirementCalls = allRetirementCalls.concat(subCalls);
+          }
+        } catch(e) {}
+      });
+      callLadders = allRetirementCalls;
+    } else {
+      var raw = localStorage.getItem('roi_callladder_' + portKey);
+      callLadders = (raw && JSON.parse(raw)) || [];
+      if (!Array.isArray(callLadders)) callLadders = [];
+    }
   } catch(e) { callLadders = []; }
 })();
 
@@ -6071,7 +6117,9 @@ function renderCallTickerGroup(ticker, laddersForTicker) {
   html += '</div>';
   html += '</div>';
   
-  if (tickerExpanded) {
+  // Only show individual ladder cards if expanded AND not viewing all retirement combined
+  var isAllRetirement = (typeof ap !== 'undefined' && ap === 'retirement' && (typeof as === 'undefined' || as === 'ret-all'));
+  if (tickerExpanded && !isAllRetirement) {
     html += laddersForTicker.map(function(l) { return renderCallLadderCard(l); }).join('');
   }
   
@@ -6174,50 +6222,111 @@ function renderCallLadderCard(l) {
 }
 
 function renderShortCallsSection(l) {
-  if (!l.shortCalls || !l.shortCalls.length) {
+  // Combine short calls and STC transactions into one table
+  var allTransactions = [];
+  
+  // Add all short calls as SCALL type
+  (l.shortCalls || []).forEach(function(sc) {
+    allTransactions.push({
+      type: 'SCALL',
+      id: sc.id,
+      status: sc.closed ? (sc.closeReason === 'expired' ? 'Expired' : sc.closeReason === 'buyback' ? 'Bought Back' : 'Closed') : 'Open',
+      isClosed: sc.closed,
+      strike: sc.strike,
+      expiry: sc.expiry,
+      contracts: sc.contracts || l.contracts || 1,
+      received: sc.received || 0,
+      debit: (sc.btcDebit || 0) + (sc.buybackCost || 0),
+      openDate: sc.openDate,
+      rawData: sc
+    });
+  });
+  
+  // Add STC transaction if long call was closed and matches criteria
+  if (l.longCallClosed && l.longCloseAmount && !l.noLongCall) {
+    allTransactions.push({
+      type: 'LCALL',
+      id: 'stc-' + l.id,
+      status: 'Closed',
+      isClosed: true,
+      strike: l.stcStrike || l.longStrike,  // Use STC's strike if available
+      expiry: l.stcExpiry || l.longExpiry,  // Use STC's expiry if available
+      contracts: l.contracts || 1,
+      received: l.longCloseAmount,
+      debit: 0,
+      openDate: l.longCloseDate || l.openDate,
+      rawData: null
+    });
+  }
+  
+  if (!allTransactions.length) {
     return '<div class="sp-empty">No short calls opened yet — click "+ Short Call" to add one.</div>';
   }
+  
+  // Sort by expiry date (earliest first)
+  allTransactions.sort(function(a, b) {
+    var dateA = normExpiry(a.expiry);
+    var dateB = normExpiry(b.expiry);
+    if (!dateA) return 1;
+    if (!dateB) return -1;
+    return dateA - dateB;
+  });
+  
   var rows = '<div class="sp-table-wrap"><table class="sp-table"><thead><tr>' +
     '<th style="width:20px;"></th>' +
+    '<th style="width:60px;">Type</th>' +
     '<th style="width:70px;">Status</th>' +
     '<th>Strike</th>' +
     '<th>Expiry</th>' +
     '<th>#</th>' +
-    '<th>STO ▲</th>' +
-    '<th>BTC ▼</th>' +
-    '<th>Net</th>' +
+    '<th>Received</th>' +
+    '<th title="BTC debit paid">Debit (BTC)</th>' +
     '<th>Opened</th>' +
     '<th style="width:165px;">Actions</th>' +
   '</tr></thead><tbody>';
-  l.shortCalls.forEach(function(sc) {
-    var cts = sc.contracts || l.contracts || 1;
-    var debit = (sc.btcDebit || 0) + (sc.buybackCost || 0);
-    var net = (sc.received || 0) - debit;
-    var statusBadge = sc.closed
-      ? '<span class="badge-closed-sp">' + (sc.closeReason === 'expired' ? 'Expired' : sc.closeReason === 'buyback' ? 'Bought Back' : 'Closed') + '</span>'
-      : '<span class="badge-open">Open</span>';
-    var closeBtn = sc.closed ? '' : '<button class="sp-close-link" onclick="openCloseShortCall(\'' + l.id + '\',\'' + sc.id + '\')">Close</button>';
-    var editBtn  = '<button class="sp-edit-btn" onclick="openEditShortCall(\'' + l.id + '\',\'' + sc.id + '\')" title="Edit">&#9998;</button>';
-    var copyBtn  = '<button class="sp-copy-btn" onclick="copyShortCall(\'' + l.id + '\',\'' + sc.id + '\')" title="Copy & re-open">&#10697;</button>';
-    var moveBtn  = '<button class="sp-move-btn" onclick="openMoveShortCall(event,\'' + l.id + '\',\'' + sc.id + '\')" title="Move to another ladder">&#8645;</button>';
-    var delBtn   = '<button class="sp-del-btn" onclick="deleteShortCall(\'' + l.id + '\',\'' + sc.id + '\')" title="Delete">&#10005;</button>';
-    var credit = sc.received || 0;
-    var creditCell = credit > 0 ? '<span class="stc-val">+' + fmt(credit) + '</span>' : '<span style="color:var(--text3);">—</span>';
-    var debitCell  = debit  > 0 ? '<span class="btc-val">-' + fmt(debit)  + '</span>' : '<span style="color:var(--text3);">—</span>';
+  
+  allTransactions.forEach(function(t) {
+    var statusBadge = t.isClosed
+      ? '<span class="badge-closed-sp">' + t.status + '</span>'
+      : '<span class="badge-open">' + t.status + '</span>';
+    
+    var typeBadge = t.type === 'LCALL'
+      ? '<span style="background:#DBEAFE;color:#2563EB;border:1px solid #BFDBFE;border-radius:4px;padding:0.08rem 0.38rem;font-size:0.62rem;font-weight:700;">LCALL</span>'
+      : '<span style="background:#FEF3C7;color:#D97706;border:1px solid #FDE68A;border-radius:4px;padding:0.08rem 0.38rem;font-size:0.62rem;font-weight:700;">SCALL</span>';
+    
+    var creditCell = t.received > 0 ? '<span class="stc-val">+' + fmt(t.received) + '</span>' : '<span style="color:var(--text3);">—</span>';
+    var debitCell = t.debit > 0 ? '<span class="btc-val">-' + fmt(t.debit) + '</span>' : '<span style="color:var(--text3);">—</span>';
+    
+    var actionButtons = '';
+    if (t.type === 'SCALL' && t.rawData) {
+      var closeBtn = t.isClosed ? '' : '<button class="sp-close-link" onclick="openCloseShortCall(\'' + l.id + '\',\'' + t.id + '\')">Close</button>';
+      var editBtn  = '<button class="sp-edit-btn" onclick="openEditShortCall(\'' + l.id + '\',\'' + t.id + '\')" title="Edit">&#9998;</button>';
+      var copyBtn  = '<button class="sp-copy-btn" onclick="copyShortCall(\'' + l.id + '\',\'' + t.id + '\')" title="Copy & re-open">&#10697;</button>';
+      var moveBtn  = '<button class="sp-move-btn" onclick="openMoveShortCall(event,\'' + l.id + '\',\'' + t.id + '\')" title="Move to another ladder">&#8645;</button>';
+      var delBtn   = '<button class="sp-del-btn" onclick="deleteShortCall(\'' + l.id + '\',\'' + t.id + '\')" title="Delete">&#10005;</button>';
+      actionButtons = editBtn + moveBtn + copyBtn + closeBtn + delBtn;
+    } else if (t.type === 'LCALL') {
+      actionButtons = '<button class="reopen-btn" style="font-size:0.65rem;padding:0.2rem 0.5rem;" onclick="reopenLongCall(\'' + l.id + '\')">↩ Reopen</button>';
+    }
+    
+    var draggable = t.type === 'SCALL' ? ' draggable="true" data-scid="' + t.id + '" data-clid="' + l.id + '"' : '';
+    var grabHandle = t.type === 'SCALL' ? '<td style="cursor:grab;color:var(--text3);padding:0 0.2rem;">&#8942;&#8942;</td>' : '<td></td>';
+    
     rows +=
-      '<tr draggable="true" data-scid="' + sc.id + '" data-clid="' + l.id + '"' + (sc.closed ? ' style="opacity:0.6;"' : '') + '>' +
-      '<td style="cursor:grab;color:var(--text3);padding:0 0.2rem;">&#8942;&#8942;</td>' +
+      '<tr' + draggable + (t.isClosed ? ' style="opacity:0.6;"' : '') + '>' +
+      grabHandle +
+      '<td>' + typeBadge + '</td>' +
       '<td>' + statusBadge + '</td>' +
-      '<td class="mn" style="font-weight:700;">$' + sc.strike + '</td>' +
-      '<td class="mn ' + (sc.closed?'':expiryClass(sc.expiry)) + '">' + fmtDate(sc.expiry) + '</td>' +
-      '<td class="mn">' + cts + '</td>' +
-      '<td class="mn pos-val">' + fmt(sc.received) + '</td>' +
+      '<td class="mn" style="font-weight:700;">$' + t.strike + '</td>' +
+      '<td class="mn ' + (t.isClosed?'':expiryClass(t.expiry)) + '">' + fmtDate(t.expiry) + '</td>' +
+      '<td class="mn">' + t.contracts + '</td>' +
+      '<td class="mn">' + creditCell + '</td>' +
       '<td class="mn">' + debitCell + '</td>' +
-      '<td class="mn ' + (net >= 0 ? 'pos-val' : 'neg-val') + '">' + fmtSign(net) + '</td>' +
-      '<td class="mn" style="color:var(--text3);">' + (sc.openDate || '--') + '</td>' +
-      '<td style="display:flex;align-items:center;gap:0.15rem;">' + editBtn + moveBtn + copyBtn + closeBtn + delBtn + '</td>' +
+      '<td class="mn" style="color:var(--text3);">' + (t.openDate || '--') + '</td>' +
+      '<td style="display:flex;align-items:center;gap:0.15rem;">' + actionButtons + '</td>' +
       '</tr>';
   });
+  
   rows += '</tbody></table></div>';
   return '<div class="sp-section" data-clid="' + l.id + '">' + rows + '</div>';
 }
@@ -6237,10 +6346,117 @@ function reopenLongCall(id) { alert('Reopen Long Call - Coming soon'); }
 function reopenCallLadder(id) { alert('Reopen Call Ladder - Coming soon'); }
 function openAddShortCallToLadder(id) { alert('Add Short Call - Coming soon'); }
 function openCloseShortCall(lid, scid) { alert('Close Short Call - Coming soon'); }
-function openEditShortCall(lid, scid) { alert('Edit Short Call - Coming soon'); }
-function copyShortCall(lid, scid) { alert('Copy Short Call - Coming soon'); }
-function openMoveShortCall(event, lid, scid) { alert('Move Short Call - Coming soon'); }
-function deleteShortCall(lid, scid) { alert('Delete Short Call - Coming soon'); }
+function openEditShortCall(lid, scid) {
+  var l = callLadders.find(function(x){ return x.id === lid; });
+  var sc = l && (l.shortCalls||[]).find(function(s){return s.id===scid;});
+  if (!sc) return;
+  
+  var html = '<div class="modal-overlay" onclick="if(event.target===this)closeModal()">' +
+    '<div class="modal-box">' +
+      '<div class="modal-title">&#9998; Edit Short Call</div>' +
+      '<div class="modal-sub"><strong>' + l.ticker + '</strong> · $' + sc.strike + ' exp ' + (sc.expiry||'') + '</div>' +
+      '<div class="mf-row">' +
+        '<div class="mf"><label class="mf-label">Strike *</label><input class="mf-input" id="esc-strike" type="number" value="' + sc.strike + '"></div>' +
+        '<div class="mf"><label class="mf-label">Contracts *</label><input class="mf-input" id="esc-contracts" type="number" value="' + (sc.contracts||l.contracts||1) + '"></div>' +
+      '</div>' +
+      '<div class="mf-row">' +
+        '<div class="mf"><label class="mf-label">Expiry (MM/DD/YYYY) *</label><input class="mf-input" id="esc-expiry" value="' + (sc.expiry||'') + '"></div>' +
+        '<div class="mf"><label class="mf-label">Opened Date</label><input class="mf-input" id="esc-opendate" value="' + (sc.openDate||'') + '"></div>' +
+      '</div>' +
+      '<div class="mf"><label class="mf-label">Received (STO Credit $)</label><input class="mf-input" id="esc-received" type="number" value="' + (sc.received||0) + '"></div>' +
+      '<div class="modal-btns">' +
+        '<button class="modal-cancel" onclick="closeModal()">Cancel</button>' +
+        '<button class="modal-confirm blue-btn" onclick="saveEditShortCall(\'' + lid + '\',\'' + scid + '\')">Save Changes</button>' +
+      '</div>' +
+    '</div></div>';
+  document.getElementById('modal-root').innerHTML = html;
+}
+
+function saveEditShortCall(lid, scid) {
+  var l = callLadders.find(function(x){ return x.id === lid; });
+  var sc = l && (l.shortCalls||[]).find(function(s){return s.id===scid;});
+  if (!sc) return;
+  
+  sc.strike = parseFloat(document.getElementById('esc-strike').value);
+  sc.contracts = parseInt(document.getElementById('esc-contracts').value) || l.contracts || 1;
+  sc.expiry = document.getElementById('esc-expiry').value.trim();
+  sc.openDate = document.getElementById('esc-opendate').value.trim();
+  sc.received = parseFloat(document.getElementById('esc-received').value) || 0;
+  
+  saveCallLadders(); closeModal(); growthRender();
+}
+
+function copyShortCall(lid, scid) {
+  var l = callLadders.find(function(x){ return x.id === lid; });
+  var sc = l && (l.shortCalls||[]).find(function(s){return s.id===scid;});
+  if (!sc) return;
+  
+  var copy = {
+    id: uid(),
+    strike: sc.strike,
+    contracts: sc.contracts || l.contracts || 1,
+    received: sc.received || 0,
+    expiry: sc.expiry,
+    openDate: sc.openDate,
+    closed: false
+  };
+  l.shortCalls.push(copy);
+  saveCallLadders(); growthRender();
+}
+
+function openMoveShortCall(event, lid, scid) {
+  event.stopPropagation();
+  var fromLadder = callLadders.find(function(x){ return x.id === lid; });
+  var sc = fromLadder && (fromLadder.shortCalls||[]).find(function(s){return s.id===scid;});
+  if (!sc) return;
+  
+  var targets = callLadders.filter(function(l){ return l.id !== lid; });
+  if (!targets.length) { alert('No other ladders to move to'); return; }
+  
+  var opts = targets.map(function(l){
+    var label = l.ticker + ' - ' + (l.noLongCall ? 'No Long Call' : '$' + l.longStrike + ' exp ' + (l.longExpiry||''));
+    return '<option value="' + l.id + '">' + label + '</option>';
+  }).join('');
+  
+  var html = '<div class="modal-overlay" onclick="if(event.target===this)closeModal()">' +
+    '<div class="modal-box">' +
+      '<div class="modal-title">Move Short Call</div>' +
+      '<div class="modal-sub">Move $' + sc.strike + ' short call from <strong>' + fromLadder.ticker + '</strong></div>' +
+      '<div class="mf"><label class="mf-label">Move to ladder:</label>' +
+        '<select class="mf-input" id="move-target-lid">' + opts + '</select>' +
+      '</div>' +
+      '<div class="modal-btns">' +
+        '<button class="modal-cancel" onclick="closeModal()">Cancel</button>' +
+        '<button class="modal-confirm blue-btn" onclick="confirmMoveShortCall(\'' + lid + '\',\'' + scid + '\')">Move</button>' +
+      '</div>' +
+    '</div></div>';
+  document.getElementById('modal-root').innerHTML = html;
+}
+
+function confirmMoveShortCall(fromLid, scid) {
+  var toLid = document.getElementById('move-target-lid').value;
+  if (!toLid) return;
+  
+  var fromL = callLadders.find(function(x){ return x.id === fromLid; });
+  var toL = callLadders.find(function(x){ return x.id === toLid; });
+  if (!fromL || !toL) return;
+  
+  var sc = (fromL.shortCalls||[]).find(function(s){return s.id===scid;});
+  if (!sc) return;
+  
+  fromL.shortCalls = fromL.shortCalls.filter(function(s){return s.id!==scid;});
+  toL.shortCalls.push(sc);
+  
+  saveCallLadders(); closeModal(); growthRender();
+}
+
+function deleteShortCall(lid, scid) {
+  var l = callLadders.find(function(x){ return x.id === lid; });
+  if (!l) return;
+  if (!confirm('Delete this short call entry?')) return;
+  l.shortCalls = (l.shortCalls||[]).filter(function(sc){return sc.id!==scid;});
+  saveCallLadders(); growthRender();
+}
 
 
 function toggleCallTickerGroup(ticker) {
@@ -6253,7 +6469,34 @@ function toggleCallTickerGroup(ticker) {
   growthRender();
 }
 
-function autoExpireCallLadderCalls() {}
+function autoExpireCallLadderCalls() {
+  if (typeof callLadders === 'undefined') return;
+  var now = new Date();
+  var changed = false;
+  callLadders.forEach(function(l) {
+    (l.shortCalls || []).forEach(function(sc) {
+      if (sc.closed) return;
+      var expDt = normExpiry(sc.expiry);
+      if (expDt && expDt < now) {
+        sc.closed = true;
+        sc.closeReason = 'expired';
+        sc.closeDate = sc.expiry;
+        sc.buybackCost = 0;
+        changed = true;
+      }
+    });
+    
+    // Auto-close ladder if long call is closed AND all short calls are closed (or no short calls)
+    if (!l.closed && (l.longCallClosed || l.noLongCall)) {
+      var allShortsClosed = (l.shortCalls || []).every(function(sc) { return sc.closed; });
+      if (l.shortCalls.length === 0 || allShortsClosed) {
+        l.closed = true;
+        changed = true;
+      }
+    }
+  });
+  if (changed) saveCallLadders();
+}
 function openAddShortCallNew() { alert('Add Short Call - Coming soon'); }
 function openAddLongCallNew() { alert('Add Long Call - Coming soon'); }
 function openAddShortCallForTicker(ticker) { alert('Add Short Call for ' + ticker + ' - Coming soon'); }
@@ -6428,6 +6671,10 @@ function commitCallCSVImport() {
   checked.forEach(function(i) {
     var r = rows[i];
     if (!r) return;
+    
+    // Skip puts - only import calls in Growth/Call Ladders
+    if (r.posType === 'LPUT' || r.posType === 'SPUT') return;
+    if ((r.posType === 'STC' || r.posType === 'BTC') && r.optionType !== 'call') return;
 
     if (r.posType === 'LCALL') {
       var l = callLadders.find(function(x){
@@ -6477,6 +6724,10 @@ function commitCallCSVImport() {
     var r = rows[i];
     if (!r) return;
     
+    // Skip puts - only import calls in Growth/Call Ladders
+    if (r.posType === 'LPUT' || r.posType === 'SPUT') return;
+    if ((r.posType === 'STC' || r.posType === 'BTC') && r.optionType !== 'call') return;
+    
     if (r.posType === 'STC') {
       var stcDate = r.openDate;
       var stcBest = null, stcBestDiff = Infinity;
@@ -6487,10 +6738,37 @@ function commitCallCSVImport() {
           if (d < stcBestDiff) { stcBestDiff = d; stcBest = x; }
         }
       });
-      if (stcBest) {
+      
+      // If no matching ladder found, create a "No Long Call" ladder for this STC
+      if (!stcBest) {
+        stcBest = { 
+          id: uid(), 
+          ticker: r.ticker, 
+          contracts: r.contracts, 
+          longStrike: null, 
+          longPremium: null, 
+          longExpiry: null, 
+          openDate: stcDate, 
+          notes: 'STC without matching BTO', 
+          position: null, 
+          noLongCall: true, 
+          shortCalls: [], 
+          closed: true,
+          longCallClosed: true,
+          longCloseAmount: r.totalPremium,
+          longCloseDate: stcDate,
+          stcStrike: r.strike,
+          stcExpiry: r.expiry
+        };
+        callLadders.unshift(stcBest);
+        growthExpandedIds.add(stcBest.id);
+        imported++;
+      } else {
         stcBest.longCloseAmount = (stcBest.longCloseAmount||0) + r.totalPremium;
         stcBest.longCloseDate = stcDate;
         stcBest.longCallClosed = true;
+        stcBest.stcStrike = r.strike;
+        stcBest.stcExpiry = r.expiry;
         imported++;
       }
     } else if (r.posType === 'BTC') {
@@ -6552,9 +6830,26 @@ function deleteVisibleCallLadders() {
 function growthReloadForPortfolio() {
   try {
     var portKey = plGetPortKey();
-    var raw = localStorage.getItem('roi_callladder_' + portKey);
-    callLadders = (raw && JSON.parse(raw)) || [];
-    if (!Array.isArray(callLadders)) callLadders = [];
+    
+    // If viewing ALL RETIREMENT, aggregate from all retirement sub-portfolios
+    if (typeof ap !== 'undefined' && ap === 'retirement' && (typeof as === 'undefined' || as === 'ret-all')) {
+      var allRetirementCalls = [];
+      var retirementKeys = ['self_roth', 'spouse_roth', 'spouse_ira'];
+      retirementKeys.forEach(function(key) {
+        try {
+          var raw = localStorage.getItem('roi_callladder_' + key);
+          var subCalls = (raw && JSON.parse(raw)) || [];
+          if (Array.isArray(subCalls)) {
+            allRetirementCalls = allRetirementCalls.concat(subCalls);
+          }
+        } catch(e) {}
+      });
+      callLadders = allRetirementCalls;
+    } else {
+      var raw = localStorage.getItem('roi_callladder_' + portKey);
+      callLadders = (raw && JSON.parse(raw)) || [];
+      if (!Array.isArray(callLadders)) callLadders = [];
+    }
   } catch(e) { callLadders = []; }
   growthExpandedIds = new Set();
   growthTickerSearch = '';
