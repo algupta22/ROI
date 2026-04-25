@@ -838,6 +838,7 @@ td.mc{color:var(--black);font-weight:700;}td.mn{font-family:monospace;font-size:
   <div class="view-tab" data-view="spreads">&#8597; Spreads / Risk View</div>
   <div class="view-tab" data-view="putladder">&#128308; Put Ladders</div>
   <div class="view-tab" data-view="growth">&#128640; Growth</div>
+  <div class="view-tab" data-view="shares">&#128176; Shares</div>
   <div class="view-tab" data-view="admin">&#9881; Admin &#8212; Prices</div>
 </div>
 <div class="breadcrumb" id="bc"><span>All Portfolios</span></div>
@@ -3491,6 +3492,14 @@ function rMain(){
     ].join('');
     growthReloadForPortfolio();
     return;
+  }else if(activeView==='shares'){
+    el.innerHTML = [
+      '<div id="shares-summary-strip"></div>',
+      '<div id="shares-controls"></div>',
+      '<div id="shares-root"></div>'
+    ].join('');
+    sharesReloadForPortfolio();
+    return;
   }else if(activeView==='poslist'){
     var fd=getAppliedFilters(dispData),sf=cs(fd,isRet);
     el.innerHTML=data.length===0
@@ -3689,6 +3698,7 @@ document.getElementById('view-nav').addEventListener('click',function(e){
   document.querySelectorAll('.view-tab').forEach(function(v){v.classList.toggle('active',v.dataset.view===activeView);});
   if(activeView==='putladder'&&document.getElementById('ladders-root'))plReloadForPortfolio();
   if(activeView==='growth'&&document.getElementById('growth-root'))growthReloadForPortfolio();
+  if(activeView==='shares'&&document.getElementById('shares-root'))sharesReloadForPortfolio();
   rMain();
 });
 function sPort(p){
@@ -3700,8 +3710,8 @@ function sPort(p){
   if(p==='retirement'){as='ret-all';document.querySelectorAll('.sub-tab').forEach(function(t){t.classList.toggle('active',t.dataset.sub===as);});}
   autoExpirePositions();rBc();rMain();
 }
-document.getElementById('port-nav').addEventListener('click',function(e){var t=e.target.closest('.port-tab');if(t){sPort(t.dataset.port);if(activeView==='putladder')plReloadForPortfolio();}});
-document.getElementById('sub-nav').addEventListener('click',function(e){var t=e.target.closest('.sub-tab');if(!t)return;as=t.dataset.sub;document.querySelectorAll('.sub-tab').forEach(function(s){s.classList.toggle('active',s.dataset.sub===as);});autoExpirePositions();rBc();if(activeView==='putladder'){plReloadForPortfolio();}else{rMain();}});
+document.getElementById('port-nav').addEventListener('click',function(e){var t=e.target.closest('.port-tab');if(t){sPort(t.dataset.port);if(activeView==='putladder')plReloadForPortfolio();if(activeView==='shares')sharesReloadForPortfolio();}});
+document.getElementById('sub-nav').addEventListener('click',function(e){var t=e.target.closest('.sub-tab');if(!t)return;as=t.dataset.sub;document.querySelectorAll('.sub-tab').forEach(function(s){s.classList.toggle('active',s.dataset.sub===as);});autoExpirePositions();rBc();if(activeView==='putladder'){plReloadForPortfolio();}else if(activeView==='shares'){sharesReloadForPortfolio();}else{rMain();}});
 document.getElementById('topbar-date').textContent=new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
 
 // ── GITHUB SYNC ───────────────────────────────────────────────────────────────
@@ -4098,6 +4108,38 @@ function daysLeft(dateStr) {
   var today = new Date(); today.setHours(0,0,0,0);
   return Math.round((d - today) / 86400000);
 }
+
+function isLadderExpired(l) {
+  // A ladder is expired if:
+  // 1. It's closed, OR
+  // 2. The long put expiry is in the past, OR
+  // 3. All short puts have expired (no open short puts with future expiry)
+  
+  if (l.closed) return true;
+  
+  // Check long put expiry
+  if (l.longExpiry && !l.noLongPut) {
+    var dl = daysLeft(l.longExpiry);
+    if (dl !== null && dl < 0) return true;
+  }
+  
+  // Check if any short puts are still active (not expired)
+  var hasActiveShortPut = false;
+  (l.shortPuts || []).forEach(function(sp) {
+    if (!sp.closed && sp.expiry) {
+      var spDl = daysLeft(sp.expiry);
+      if (spDl !== null && spDl >= 0) {
+        hasActiveShortPut = true;
+      }
+    }
+  });
+  
+  // If no long put and no active short puts, consider expired
+  if (l.noLongPut && !hasActiveShortPut) return true;
+  
+  return false;
+}
+
 function parseDate(s) {
   if (!s) return null;
   try {
@@ -4238,8 +4280,8 @@ function renderControls() {
       '<div style="width:1px;height:20px;background:var(--border);flex-shrink:0;"></div>',
       '<div class="filter-pill">',
         '<button class="fp-btn' + (filterMode === 'all' ? ' active' : '') + '" data-filter="all" onclick="plSetFilter(this,\'all\')">All</button>',
-        '<button class="fp-btn' + (filterMode === 'open' ? ' active' : '') + '" data-filter="open" onclick="plSetFilter(this,\'open\')">Open</button>',
-        '<button class="fp-btn' + (filterMode === 'closed' ? ' active' : '') + '" data-filter="closed" onclick="plSetFilter(this,\'closed\')">Closed</button>',
+        '<button class="fp-btn' + (filterMode === 'expired' ? ' active' : '') + '" data-filter="expired" onclick="plSetFilter(this,\'expired\')">Expired</button>',
+        '<button class="fp-btn' + (filterMode === 'not_expired' ? ' active' : '') + '" data-filter="not_expired" onclick="plSetFilter(this,\'not_expired\')">Not Expired</button>',
       '</div>',
       '<input id="pl-ticker-search" type="text" placeholder="&#128269; Filter ticker..." oninput="plTickerSearch=this.value.toUpperCase().trim();render();" style="display:none;">',
       '<div style="width:1px;height:20px;background:var(--border);flex-shrink:0;"></div>',
@@ -4327,6 +4369,8 @@ function renderSummary() {
     if (!allSel && !selectedTickers.has(l.ticker)) return false;
     if (filterMode === 'open' && l.closed) return false;
     if (filterMode === 'closed' && !l.closed) return false;
+    if (filterMode === 'expired' && !isLadderExpired(l)) return false;
+    if (filterMode === 'not_expired' && isLadderExpired(l)) return false;
     return true;
   });
   var totalLongCost = 0, totalIncome = 0, totalCollat = 0, openCount = 0, closedCount = 0;
@@ -4407,6 +4451,8 @@ function renderLadders() {
   var visible = ladders.filter(function(l) {
     if (filterMode === 'open' && l.closed) return false;
     if (filterMode === 'closed' && !l.closed) return false;
+    if (filterMode === 'expired' && !isLadderExpired(l)) return false;
+    if (filterMode === 'not_expired' && isLadderExpired(l)) return false;
     if (!allSel && !selectedTickers.has(l.ticker)) return false;
     return true;
   });
@@ -4886,8 +4932,8 @@ function openMoveShortPut(event, fromLid, spId) {
   document.querySelectorAll('.sp-move-dropdown').forEach(function(d){ d.remove(); });
   var fromL = getLadder(fromLid);
   if (!fromL) return;
-  var targets = ladders.filter(function(l){ return l.ticker === fromL.ticker && l.id !== fromLid && !l.closed; });
-  if (!targets.length) { alert('No other open ' + fromL.ticker + ' ladders to move to.'); return; }
+  var targets = ladders.filter(function(l){ return l.ticker === fromL.ticker && l.id !== fromLid; });
+  if (!targets.length) { alert('No other ' + fromL.ticker + ' ladders to move to.'); return; }
   var dd = document.createElement('div');
   dd.className = 'sp-move-dropdown';
   dd.style.top = (event.clientY + 4) + 'px';
@@ -4899,7 +4945,8 @@ function openMoveShortPut(event, fromLid, spId) {
   targets.forEach(function(t) {
     var item = document.createElement('div');
     item.className = 'sp-move-dropdown-item';
-    item.innerHTML = '<span style="font-size:0.75rem;">&#8645;</span> LP $' + (t.longStrike||'?') + ' exp ' + fmtDate(t.longExpiry||'');
+    var statusBadge = t.closed ? '<span style="font-size:0.6rem;color:var(--text3);margin-left:0.3rem;">(Closed)</span>' : '';
+    item.innerHTML = '<span style="font-size:0.75rem;">&#8645;</span> LP $' + (t.longStrike||'?') + ' exp ' + fmtDate(t.longExpiry||'') + statusBadge;
     item.addEventListener('click', function() { dd.remove(); moveShortPutTo(fromLid, spId, t.id); });
     dd.appendChild(item);
   });
@@ -5244,6 +5291,8 @@ function deleteVisibleLadders() {
   var toDelete = ladders.filter(function(l) {
     if (filterMode === 'open' && l.closed) return false;
     if (filterMode === 'closed' && !l.closed) return false;
+    if (filterMode === 'expired' && !isLadderExpired(l)) return false;
+    if (filterMode === 'not_expired' && isLadderExpired(l)) return false;
     if (!allSel && !selectedTickers.has(l.ticker)) return false;
     return true;
   });
@@ -5436,6 +5485,606 @@ function copyShortPut(ladderId, spId) {
         '<button class="modal-confirm green-btn" onclick="saveShortPut(\'' + ladderId + '\')">Add Short Put</button>' +
       '</div>' +
     '</div></div>';
+}
+
+
+// ── SHARES (STOCK + COVERED CALLS) ───────────────────────────────────────────
+var sharePositions = [];
+(function() {
+  try {
+    var portKey = (function() {
+      if (typeof ap === 'undefined') return 'joint';
+      var portMap = { 'amit':'self', 'lovelina':'spouse', 'joint':'joint', 'retirement':'retirement' };
+      var subMap  = { 'amit-roth':'self_roth', 'lov-roth':'spouse_roth', 'lov-trad':'spouse_ira', 'ret-all':'retirement' };
+      if (ap === 'retirement') return subMap[typeof as !== 'undefined' ? as : 'ret-all'] || 'retirement';
+      return portMap[ap] || ap;
+    })();
+    
+    // If viewing ALL RETIREMENT, aggregate from all retirement sub-portfolios
+    if (typeof ap !== 'undefined' && ap === 'retirement' && (typeof as === 'undefined' || as === 'ret-all')) {
+      var allRetirementShares = [];
+      var retirementKeys = ['self_roth', 'spouse_roth', 'spouse_ira'];
+      retirementKeys.forEach(function(key) {
+        try {
+          var raw = localStorage.getItem('roi_shares_' + key);
+          var subShares = (raw && JSON.parse(raw)) || [];
+          if (Array.isArray(subShares)) {
+            allRetirementShares = allRetirementShares.concat(subShares);
+          }
+        } catch(e) {}
+      });
+      sharePositions = allRetirementShares;
+    } else {
+      var raw = localStorage.getItem('roi_shares_' + portKey);
+      sharePositions = (raw && JSON.parse(raw)) || [];
+      if (!Array.isArray(sharePositions)) sharePositions = [];
+    }
+  } catch(e) { sharePositions = []; }
+})();
+
+// ── SHARES STATE ──────────────────────────────────────────────────────────────
+var sharesFilterMode = 'all';
+var sharesTickerSearch = '';
+var sharesExpandedIds = new Set();
+var sharesTickerWeekFilters = {};
+
+function saveSharePositions() {
+  try { localStorage.setItem('roi_shares_' + plGetPortKey(), JSON.stringify(sharePositions)); } catch(e) {}
+}
+
+function sharesReloadForPortfolio() {
+  try {
+    var portKey = plGetPortKey();
+    
+    // If viewing ALL RETIREMENT, aggregate from all retirement sub-portfolios
+    if (typeof ap !== 'undefined' && ap === 'retirement' && (typeof as === 'undefined' || as === 'ret-all')) {
+      var allRetirementShares = [];
+      var retirementKeys = ['self_roth', 'spouse_roth', 'spouse_ira'];
+      retirementKeys.forEach(function(key) {
+        try {
+          var raw = localStorage.getItem('roi_shares_' + key);
+          var subShares = (raw && JSON.parse(raw)) || [];
+          if (Array.isArray(subShares)) {
+            allRetirementShares = allRetirementShares.concat(subShares);
+          }
+        } catch(e) {}
+      });
+      sharePositions = allRetirementShares;
+    } else {
+      var raw = localStorage.getItem('roi_shares_' + portKey);
+      sharePositions = (raw && JSON.parse(raw)) || [];
+      if (!Array.isArray(sharePositions)) sharePositions = [];
+    }
+  } catch(e) { sharePositions = []; }
+  sharesExpandedIds = new Set();
+  sharesTickerSearch = '';
+  sharePositions.forEach(function(s) { if (!s.closed) sharesExpandedIds.add(s.id); });
+  var sharesTickers = [...new Set(sharePositions.map(function(s) { return s.ticker; }))];
+  sharesTickers.forEach(function(t) { sharesExpandedIds.add('ticker-' + t); });
+  sharesRender();
+}
+
+// ── SHARES RENDER FUNCTIONS ───────────────────────────────────────────────────
+function sharesRender() {
+  sharesRenderSummary();
+  sharesRenderControls();
+  sharesRenderPositions();
+}
+
+function sharesRenderSummary() {
+  var root = document.getElementById('shares-summary-strip');
+  if (!root) return;
+  
+  var filtered = sharePositions.filter(function(s) {
+    if (!s) return false;
+    if (sharesTickerSearch && s.ticker !== sharesTickerSearch) return false;
+    if (sharesFilterMode === 'open' && s.closed) return false;
+    if (sharesFilterMode === 'closed' && !s.closed) return false;
+    return true;
+  });
+  
+  var totalSharesCount = 0;
+  var totalInvested = 0;
+  var totalCallSTO = 0;
+  var totalCallBTC = 0;
+  
+  filtered.forEach(function(s) {
+    totalSharesCount += s.shares || 0;
+    totalInvested += (s.shares || 0) * (s.costBasis || 0);
+    (s.coveredCalls || []).forEach(function(cc) {
+      totalCallSTO += cc.received || 0;
+      totalCallBTC += cc.btcPaid || 0;
+    });
+  });
+  
+  var callNet = totalCallSTO - totalCallBTC;
+  var totalIncomeReceived = totalCallSTO;
+  var gap = totalInvested - totalIncomeReceived;
+  var netPL = callNet - totalInvested;
+  var pct = totalInvested > 0 ? Math.min(Math.round(totalIncomeReceived / totalInvested * 100), 100) : 0;
+  
+  root.style.cssText = 'display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0.5rem;margin-bottom:0.75rem;';
+  root.innerHTML =
+    scardBreakdown('Summary', [
+      { label: 'Invested', value: '-' + fmt(totalInvested), color: '#DC2626' },
+      { label: 'Income', value: totalIncomeReceived > 0 ? '+' + fmt(totalIncomeReceived) : '—', color: '#059669' },
+      { label: 'Gap', value: fmtSign(-gap), color: gap <= 0 ? '#059669' : '#DC2626', isBold: true }
+    ]) +
+    scardBreakdown('Stock Shares', [
+      { label: 'Shares', value: totalSharesCount.toLocaleString(), color: 'var(--black)' },
+      { label: 'Cost', value: '-' + fmt(totalInvested), color: '#DC2626' },
+      { label: 'Avg', value: totalSharesCount > 0 ? '$' + (totalInvested / totalSharesCount).toFixed(2) : '—', color: 'var(--text2)' }
+    ]) +
+    scardBreakdown('Covered Call', [
+      { label: 'STO', value: '+' + fmt(totalCallSTO), color: '#059669' },
+      { label: 'BTC', value: totalCallBTC > 0 ? '-' + fmt(totalCallBTC) : '—', color: '#DC2626' },
+      { label: 'Net', value: fmtSign(callNet), color: callNet >= 0 ? '#059669' : '#DC2626', isBold: true }
+    ]) +
+    scard('Net P&L', fmtSign(netPL), netPL >= 0 ? 'in profit ▲' : 'in loss ▼', netPL >= 0 ? 'pos-val' : 'neg-val') +
+    scard('Covered', pct + '%', 'of cost recovered', pct >= 100 ? 'pos-val' : pct >= 50 ? '' : 'neg-val');
+}
+
+function sharesRenderControls() {
+  var root = document.getElementById('shares-controls');
+  if (!root) return;
+  
+  var tickers = [...new Set(sharePositions.map(function(s) { return s.ticker; }))].sort();
+  
+  root.innerHTML = [
+    '<div class="action-bar" style="margin-bottom:0.65rem;">',
+      '<span style="font-size:0.82rem;font-weight:900;color:var(--black);letter-spacing:0.02em;">&#128176; Share Positions</span>',
+      '<div style="width:1px;height:20px;background:var(--border);flex-shrink:0;"></div>',
+      '<div class="ticker-select-wrap" style="min-width:80px;max-width:150px;">',
+        '<select class="ticker-select-btn" style="border:1px solid var(--border);border-radius:7px;padding:0.35rem 0.6rem;font-size:0.68rem;background:white;color:var(--black);cursor:pointer;outline:none;" onchange="sharesTickerSearch=this.value;sharesRender()">',
+          '<option value="">All Tickers</option>',
+          tickers.map(function(t) { return '<option value="' + t + '"' + (sharesTickerSearch === t ? ' selected' : '') + '>' + t + '</option>'; }).join(''),
+        '</select>',
+      '</div>',
+      '<div style="width:1px;height:20px;background:var(--border);flex-shrink:0;"></div>',
+      '<button class="add-btn" onclick="openAddCoveredCallNew()">&#43; Covered Call</button>',
+      '<button class="add-btn" style="background:var(--blue);" onclick="openAddSharePosition()">&#43; Add Shares</button>',
+      '<label class="add-btn" style="background:var(--purple);cursor:pointer;">&#8613; Import CSV',
+        '<input type="file" id="shares-csv-upload" accept=".csv" style="display:none;" onchange="handleSharesCSVUpload(event)">',
+      '</label>',
+      '<div style="width:1px;height:20px;background:var(--border);flex-shrink:0;"></div>',
+      '<div class="filter-pill">',
+        '<button class="fp-btn' + (sharesFilterMode === 'all' ? ' active' : '') + '" onclick="sharesFilterMode=\'all\';sharesRender()">ALL</button>',
+        '<button class="fp-btn' + (sharesFilterMode === 'open' ? ' active' : '') + '" onclick="sharesFilterMode=\'open\';sharesRender()">OPEN</button>',
+        '<button class="fp-btn' + (sharesFilterMode === 'closed' ? ' active' : '') + '" onclick="sharesFilterMode=\'closed\';sharesRender()">CLOSED</button>',
+      '</div>',
+    '</div>'
+  ].join('');
+}
+
+function sharesRenderPositions() {
+  var root = document.getElementById('shares-root');
+  if (!root) return;
+  
+  var filtered = sharePositions.filter(function(s) {
+    if (!s) return false;
+    if (sharesTickerSearch && s.ticker !== sharesTickerSearch) return false;
+    if (sharesFilterMode === 'open' && s.closed) return false;
+    if (sharesFilterMode === 'closed' && !s.closed) return false;
+    return true;
+  });
+  
+  var byTicker = {};
+  filtered.forEach(function(s) {
+    if (!byTicker[s.ticker]) byTicker[s.ticker] = [];
+    byTicker[s.ticker].push(s);
+  });
+  
+  var tickers = Object.keys(byTicker).sort();
+  if (tickers.length === 0) {
+    root.innerHTML = '<div class="empty-state"><div class="empty-icon">📊</div>' +
+      '<div class="empty-text">No share positions found</div>' +
+      '<div class="empty-sub">— add your first share position to start tracking.</div></div>';
+    return;
+  }
+  
+  var html = '';
+  var isAllRetirement = (typeof ap !== 'undefined' && ap === 'retirement' && (typeof as === 'undefined' || as === 'ret-all'));
+  
+  tickers.forEach(function(ticker) {
+    var positions = byTicker[ticker];
+    var tickerExpanded = sharesExpandedIds.has('ticker-' + ticker);
+    
+    var totalShares = 0;
+    var totalInvested = 0;
+    var totalCallIncome = 0;
+    
+    positions.forEach(function(s) {
+      totalShares += s.shares || 0;
+      totalInvested += (s.shares || 0) * (s.costBasis || 0);
+      (s.coveredCalls || []).forEach(function(cc) {
+        if (!cc.closed) totalCallIncome += cc.received || 0;
+        else totalCallIncome -= (cc.btcPaid || 0);
+      });
+    });
+    
+    html += '<div class="ticker-group">';
+    html += '<div class="ticker-header" onclick="toggleSharesTicker(\'' + ticker + '\')">';
+    html += '<div class="ticker-left">';
+    html += '<span class="ticker-chevron">' + (tickerExpanded ? '▼' : '▶') + '</span>';
+    html += '<span class="ticker-name">' + ticker + '</span>';
+    html += '<span class="ticker-badge">' + positions.length + ' position' + (positions.length !== 1 ? 's' : '') + '</span>';
+    html += '</div>';
+    html += '<div class="ticker-summary">';
+    html += '<div class="ts-item"><span class="ts-label">Shares:</span><span class="ts-val">' + totalShares + '</span></div>';
+    html += '<div class="ts-item"><span class="ts-label">Invested:</span><span class="ts-val">$' + totalInvested.toFixed(2) + '</span></div>';
+    html += '<div class="ts-item"><span class="ts-label">Call Income:</span><span class="ts-val ' + (totalCallIncome >= 0 ? 'green' : 'red') + '">+$' + totalCallIncome.toFixed(2) + '</span></div>';
+    html += '</div>';
+    html += '</div>';
+    
+    if (tickerExpanded && !isAllRetirement) {
+      html += positions.map(function(s) { return renderSharePositionCard(s); }).join('');
+    }
+    
+    html += '</div>';
+  });
+  
+  root.innerHTML = html;
+}
+
+function renderSharePositionCard(s) {
+  var totalCost = (s.shares || 0) * (s.costBasis || 0);
+  var callIncome = 0;
+  var callBTC = 0;
+  (s.coveredCalls || []).forEach(function(cc) {
+    callIncome += cc.received || 0;
+    callBTC += cc.btcPaid || 0;
+  });
+  var netCallIncome = callIncome - callBTC;
+  var netPosition = netCallIncome - totalCost;
+  
+  var html = '<div class="ladder-card" data-lid="' + s.id + '">';
+  
+  // Left side - Stock Position
+  html += '<div class="long-put-panel">';
+  html += '<div class="lpp-header">';
+  html += '<div class="lpp-title"><span class="status-dot ' + (s.closed ? 'gray' : 'blue') + '"></span> STOCK POSITION</div>';
+  html += '<div class="lpp-actions">';
+  html += '<button class="icon-btn" title="Edit" onclick="openEditSharePosition(\'' + s.id + '\')">✏️ Edit</button>';
+  if (!s.closed) {
+    html += '<button class="icon-btn red" title="Close" onclick="closeSharePosition(\'' + s.id + '\')">✕ Close</button>';
+  } else {
+    html += '<button class="icon-btn" title="Reopen" onclick="reopenSharePosition(\'' + s.id + '\')">↩ Reopen</button>';
+  }
+  html += '</div>';
+  html += '</div>';
+  
+  html += '<div class="lpp-body">';
+  html += '<div class="lpp-row"><span class="lpp-label">Shares</span><span class="lpp-val"><strong>' + (s.shares || 0).toLocaleString() + '</strong></span></div>';
+  html += '<div class="lpp-row"><span class="lpp-label">Cost Basis</span><span class="lpp-val">$' + (s.costBasis || 0).toFixed(2) + '/share</span></div>';
+  html += '<div class="lpp-row"><span class="lpp-label">Total Cost</span><span class="lpp-val red"><strong>-$' + totalCost.toFixed(2) + '</strong></span></div>';
+  if (s.purchaseDate) {
+    html += '<div class="lpp-row"><span class="lpp-label">Purchase Date</span><span class="lpp-val">' + s.purchaseDate + '</span></div>';
+  }
+  html += '<div class="lpp-divider"></div>';
+  html += '<div class="lpp-row"><span class="lpp-label">Call Income</span><span class="lpp-val ' + (netCallIncome >= 0 ? 'green' : 'red') + '"><strong>+$' + netCallIncome.toFixed(2) + '</strong></span></div>';
+  html += '<div class="lpp-row"><span class="lpp-label">Net P&L</span><span class="lpp-val ' + (netPosition >= 0 ? 'green' : 'red') + '"><strong>' + (netPosition >= 0 ? '+' : '') + '$' + netPosition.toFixed(2) + '</strong></span></div>';
+  html += '</div>';
+  html += '</div>';
+  
+  // Right side - Covered Calls
+  html += '<div class="short-puts-panel">';
+  html += '<div class="spp-header">';
+  html += '<div class="spp-title">COVERED CALLS</div>';
+  html += '<button class="add-sp-btn green-btn" onclick="openAddCoveredCall(\'' + s.id + '\')">+ Covered Call</button>';
+  html += '</div>';
+  
+  var calls = (s.coveredCalls || []).sort(function(a, b) {
+    if (!a.expiry) return 1;
+    if (!b.expiry) return -1;
+    return new Date(a.expiry) - new Date(b.expiry);
+  });
+  
+  if (calls.length === 0) {
+    html += '<div class="empty-sp">No covered calls yet — sell calls to generate income</div>';
+  } else {
+    html += '<table class="sp-table">';
+    html += '<thead><tr>';
+    html += '<th>TYPE</th><th>STATUS</th><th>STRIKE</th><th>EXPIRY</th><th>#</th><th>RECEIVED</th><th>DEBIT (BTC)</th><th>OPENED</th><th></th>';
+    html += '</tr></thead><tbody>';
+    
+    calls.forEach(function(cc) {
+      html += '<tr class="' + (cc.closed ? 'closed-row' : '') + '" draggable="true">';
+      html += '<td><span class="type-badge blue">SCALL</span></td>';
+      html += '<td><span class="status-badge ' + (cc.closed ? 'gray' : 'green') + '">' + (cc.closed ? 'SOLD' : 'OPEN') + '</span></td>';
+      html += '<td><strong>$' + (cc.strike || 0) + '</strong></td>';
+      html += '<td>' + (cc.expiry || '—') + '</td>';
+      html += '<td>' + (cc.contracts || 0) + '</td>';
+      html += '<td class="green"><strong>+$' + (cc.received || 0).toFixed(2) + '</strong></td>';
+      html += '<td>' + (cc.btcPaid ? '<span class="red"><strong>-$' + cc.btcPaid.toFixed(2) + '</strong></span>' : '—') + '</td>';
+      html += '<td>' + (cc.openDate || '—') + '</td>';
+      html += '<td class="sp-actions">';
+      html += '<button class="action-btn" title="Edit" onclick="openEditCoveredCall(\'' + s.id + '\',\'' + cc.id + '\')">✏️</button>';
+      html += '<button class="action-btn" title="Copy" onclick="copyCoveredCall(\'' + s.id + '\',\'' + cc.id + '\')">📋</button>';
+      if (!cc.closed) {
+        html += '<button class="action-btn close-btn" title="Close" onclick="closeCoveredCall(\'' + s.id + '\',\'' + cc.id + '\')">Close</button>';
+      }
+      html += '<button class="action-btn delete-btn" title="Delete" onclick="deleteCoveredCall(\'' + s.id + '\',\'' + cc.id + '\')">🗑️</button>';
+      html += '</td>';
+      html += '</tr>';
+    });
+    
+    html += '</tbody></table>';
+  }
+  
+  html += '</div>';
+  html += '</div>';
+  
+  return html;
+}
+
+function toggleSharesTicker(ticker) {
+  var key = 'ticker-' + ticker;
+  if (sharesExpandedIds.has(key)) {
+    sharesExpandedIds.delete(key);
+  } else {
+    sharesExpandedIds.add(key);
+  }
+  sharesRender();
+}
+
+function openAddSharePosition() {
+  var html = '<div class="modal-overlay" onclick="if(event.target===this)closeModal()">' +
+    '<div class="modal-box">' +
+      '<div class="modal-title">➕ Add Share Position</div>' +
+      '<div class="mf"><label class="mf-label">Ticker *</label><input class="mf-input" id="asp-ticker"></div>' +
+      '<div class="mf-row">' +
+        '<div class="mf"><label class="mf-label">Shares *</label><input class="mf-input" id="asp-shares" type="number"></div>' +
+        '<div class="mf"><label class="mf-label">Cost Basis ($) *</label><input class="mf-input" id="asp-basis" type="number" step="0.01"></div>' +
+      '</div>' +
+      '<div class="mf"><label class="mf-label">Purchase Date (MM/DD/YYYY)</label><input class="mf-input" id="asp-date"></div>' +
+      '<div class="modal-btns">' +
+        '<button class="modal-cancel" onclick="closeModal()">Cancel</button>' +
+        '<button class="modal-confirm green-btn" onclick="saveAddSharePosition()">Add Position</button>' +
+      '</div>' +
+    '</div></div>';
+  document.getElementById('modal-root').innerHTML = html;
+}
+
+function saveAddSharePosition() {
+  var ticker = document.getElementById('asp-ticker').value.trim().toUpperCase();
+  var shares = parseInt(document.getElementById('asp-shares').value);
+  var costBasis = parseFloat(document.getElementById('asp-basis').value);
+  var purchaseDate = document.getElementById('asp-date').value.trim();
+  
+  if (!ticker || !shares || !costBasis) {
+    alert('Please fill in ticker, shares, and cost basis');
+    return;
+  }
+  
+  sharePositions.push({
+    id: uid(),
+    ticker: ticker,
+    shares: shares,
+    costBasis: costBasis,
+    purchaseDate: purchaseDate,
+    coveredCalls: [],
+    closed: false
+  });
+  
+  saveSharePositions();
+  closeModal();
+  sharesRender();
+}
+
+function openEditSharePosition(sid) {
+  var s = sharePositions.find(function(x) { return x.id === sid; });
+  if (!s) return;
+  
+  var html = '<div class="modal-overlay" onclick="if(event.target===this)closeModal()">' +
+    '<div class="modal-box">' +
+      '<div class="modal-title">✏️ Edit Share Position</div>' +
+      '<div class="modal-sub"><strong>' + s.ticker + '</strong></div>' +
+      '<div class="mf-row">' +
+        '<div class="mf"><label class="mf-label">Shares *</label><input class="mf-input" id="esp-shares" type="number" value="' + s.shares + '"></div>' +
+        '<div class="mf"><label class="mf-label">Cost Basis ($) *</label><input class="mf-input" id="esp-basis" type="number" step="0.01" value="' + s.costBasis + '"></div>' +
+      '</div>' +
+      '<div class="mf"><label class="mf-label">Purchase Date (MM/DD/YYYY)</label><input class="mf-input" id="esp-date" value="' + (s.purchaseDate || '') + '"></div>' +
+      '<div class="modal-btns">' +
+        '<button class="modal-cancel" onclick="closeModal()">Cancel</button>' +
+        '<button class="modal-confirm blue-btn" onclick="saveEditSharePosition(\'' + sid + '\')">Save Changes</button>' +
+      '</div>' +
+    '</div></div>';
+  document.getElementById('modal-root').innerHTML = html;
+}
+
+function saveEditSharePosition(sid) {
+  var s = sharePositions.find(function(x) { return x.id === sid; });
+  if (!s) return;
+  
+  s.shares = parseInt(document.getElementById('esp-shares').value);
+  s.costBasis = parseFloat(document.getElementById('esp-basis').value);
+  s.purchaseDate = document.getElementById('esp-date').value.trim();
+  
+  saveSharePositions();
+  closeModal();
+  sharesRender();
+}
+
+function closeSharePosition(sid) {
+  if (!confirm('Close this share position?')) return;
+  var s = sharePositions.find(function(x) { return x.id === sid; });
+  if (!s) return;
+  s.closed = true;
+  saveSharePositions();
+  sharesRender();
+}
+
+function reopenSharePosition(sid) {
+  var s = sharePositions.find(function(x) { return x.id === sid; });
+  if (!s) return;
+  s.closed = false;
+  saveSharePositions();
+  sharesRender();
+}
+
+function openAddCoveredCall(sid) {
+  var s = sharePositions.find(function(x) { return x.id === sid; });
+  if (!s) return;
+  
+  var html = '<div class="modal-overlay" onclick="if(event.target===this)closeModal()">' +
+    '<div class="modal-box">' +
+      '<div class="modal-title">➕ Add Covered Call</div>' +
+      '<div class="modal-sub"><strong>' + s.ticker + '</strong> · ' + s.shares + ' shares</div>' +
+      '<div class="mf-row">' +
+        '<div class="mf"><label class="mf-label">Strike *</label><input class="mf-input" id="acc-strike" type="number" step="0.01"></div>' +
+        '<div class="mf"><label class="mf-label">Contracts *</label><input class="mf-input" id="acc-contracts" type="number" value="1"></div>' +
+      '</div>' +
+      '<div class="mf-row">' +
+        '<div class="mf"><label class="mf-label">Expiry (MM/DD/YYYY) *</label><input class="mf-input" id="acc-expiry"></div>' +
+        '<div class="mf"><label class="mf-label">Opened Date</label><input class="mf-input" id="acc-opendate"></div>' +
+      '</div>' +
+      '<div class="mf"><label class="mf-label">Received (STO Credit $) *</label><input class="mf-input" id="acc-received" type="number" step="0.01"></div>' +
+      '<div class="modal-btns">' +
+        '<button class="modal-cancel" onclick="closeModal()">Cancel</button>' +
+        '<button class="modal-confirm green-btn" onclick="saveAddCoveredCall(\'' + sid + '\')">Add Call</button>' +
+      '</div>' +
+    '</div></div>';
+  document.getElementById('modal-root').innerHTML = html;
+}
+
+function saveAddCoveredCall(sid) {
+  var s = sharePositions.find(function(x) { return x.id === sid; });
+  if (!s) return;
+  
+  var strike = parseFloat(document.getElementById('acc-strike').value);
+  var contracts = parseInt(document.getElementById('acc-contracts').value);
+  var expiry = document.getElementById('acc-expiry').value.trim();
+  var openDate = document.getElementById('acc-opendate').value.trim();
+  var received = parseFloat(document.getElementById('acc-received').value);
+  
+  if (!strike || !contracts || !expiry || !received) {
+    alert('Please fill in strike, contracts, expiry, and received amount');
+    return;
+  }
+  
+  if (!s.coveredCalls) s.coveredCalls = [];
+  s.coveredCalls.push({
+    id: uid(),
+    strike: strike,
+    contracts: contracts,
+    expiry: expiry,
+    openDate: openDate,
+    received: received,
+    btcPaid: 0,
+    closed: false
+  });
+  
+  saveSharePositions();
+  closeModal();
+  sharesRender();
+}
+
+function openEditCoveredCall(sid, ccid) {
+  var s = sharePositions.find(function(x) { return x.id === sid; });
+  var cc = s && (s.coveredCalls || []).find(function(c) { return c.id === ccid; });
+  if (!cc) return;
+  
+  var html = '<div class="modal-overlay" onclick="if(event.target===this)closeModal()">' +
+    '<div class="modal-box">' +
+      '<div class="modal-title">✏️ Edit Covered Call</div>' +
+      '<div class="modal-sub"><strong>' + s.ticker + '</strong> · $' + cc.strike + ' exp ' + (cc.expiry || '') + '</div>' +
+      '<div class="mf-row">' +
+        '<div class="mf"><label class="mf-label">Strike *</label><input class="mf-input" id="ecc-strike" type="number" step="0.01" value="' + cc.strike + '"></div>' +
+        '<div class="mf"><label class="mf-label">Contracts *</label><input class="mf-input" id="ecc-contracts" type="number" value="' + cc.contracts + '"></div>' +
+      '</div>' +
+      '<div class="mf-row">' +
+        '<div class="mf"><label class="mf-label">Expiry (MM/DD/YYYY) *</label><input class="mf-input" id="ecc-expiry" value="' + (cc.expiry || '') + '"></div>' +
+        '<div class="mf"><label class="mf-label">Opened Date</label><input class="mf-input" id="ecc-opendate" value="' + (cc.openDate || '') + '"></div>' +
+      '</div>' +
+      '<div class="mf"><label class="mf-label">Received (STO Credit $)</label><input class="mf-input" id="ecc-received" type="number" step="0.01" value="' + cc.received + '"></div>' +
+      '<div class="mf"><label class="mf-label">BTC Paid ($)</label><input class="mf-input" id="ecc-btc" type="number" step="0.01" value="' + (cc.btcPaid || 0) + '"></div>' +
+      '<div class="modal-btns">' +
+        '<button class="modal-cancel" onclick="closeModal()">Cancel</button>' +
+        '<button class="modal-confirm blue-btn" onclick="saveEditCoveredCall(\'' + sid + '\',\'' + ccid + '\')">Save Changes</button>' +
+      '</div>' +
+    '</div></div>';
+  document.getElementById('modal-root').innerHTML = html;
+}
+
+function saveEditCoveredCall(sid, ccid) {
+  var s = sharePositions.find(function(x) { return x.id === sid; });
+  var cc = s && (s.coveredCalls || []).find(function(c) { return c.id === ccid; });
+  if (!cc) return;
+  
+  cc.strike = parseFloat(document.getElementById('ecc-strike').value);
+  cc.contracts = parseInt(document.getElementById('ecc-contracts').value);
+  cc.expiry = document.getElementById('ecc-expiry').value.trim();
+  cc.openDate = document.getElementById('ecc-opendate').value.trim();
+  cc.received = parseFloat(document.getElementById('ecc-received').value);
+  cc.btcPaid = parseFloat(document.getElementById('ecc-btc').value) || 0;
+  
+  saveSharePositions();
+  closeModal();
+  sharesRender();
+}
+
+function closeCoveredCall(sid, ccid) {
+  var html = '<div class="modal-overlay" onclick="if(event.target===this)closeModal()">' +
+    '<div class="modal-box">' +
+      '<div class="modal-title">Close Covered Call</div>' +
+      '<div class="modal-sub">Enter BTC (Buy to Close) amount paid:</div>' +
+      '<div class="mf"><label class="mf-label">BTC Paid ($)</label><input class="mf-input" id="ccc-btc" type="number" step="0.01"></div>' +
+      '<div class="modal-btns">' +
+        '<button class="modal-cancel" onclick="closeModal()">Cancel</button>' +
+        '<button class="modal-confirm red-btn" onclick="saveCloseCoveredCall(\'' + sid + '\',\'' + ccid + '\')">Close Call</button>' +
+      '</div>' +
+    '</div></div>';
+  document.getElementById('modal-root').innerHTML = html;
+}
+
+function saveCloseCoveredCall(sid, ccid) {
+  var s = sharePositions.find(function(x) { return x.id === sid; });
+  var cc = s && (s.coveredCalls || []).find(function(c) { return c.id === ccid; });
+  if (!cc) return;
+  
+  cc.btcPaid = parseFloat(document.getElementById('ccc-btc').value) || 0;
+  cc.closed = true;
+  
+  saveSharePositions();
+  closeModal();
+  sharesRender();
+}
+
+function copyCoveredCall(sid, ccid) {
+  var s = sharePositions.find(function(x) { return x.id === sid; });
+  var cc = s && (s.coveredCalls || []).find(function(c) { return c.id === ccid; });
+  if (!cc) return;
+  
+  var copy = {
+    id: uid(),
+    strike: cc.strike,
+    contracts: cc.contracts,
+    expiry: cc.expiry,
+    openDate: cc.openDate,
+    received: cc.received,
+    btcPaid: 0,
+    closed: false
+  };
+  s.coveredCalls.push(copy);
+  saveSharePositions();
+  sharesRender();
+}
+
+function openAddCoveredCallNew() {
+  alert('Please select a share position first, then use the + Covered Call button on that position card.');
+}
+
+function handleSharesCSVUpload(event) {
+  alert('Shares CSV import - Coming soon!');
+}
+
+function deleteCoveredCall(sid, ccid) {
+  if (!confirm('Delete this covered call?')) return;
+  var s = sharePositions.find(function(x) { return x.id === sid; });
+  if (!s) return;
+  s.coveredCalls = (s.coveredCalls || []).filter(function(c) { return c.id !== ccid; });
+  saveSharePositions();
+  sharesRender();
 }
 
 
@@ -6338,7 +6987,91 @@ function toggleCallExpand(id) {
 }
 
 // Placeholder functions for Call ladder actions
-function openEditCallLadder(id) { alert('Edit Call Ladder - Coming soon'); }
+function openEditCallLadder(id) {
+  var l = callLadders.find(function(x){ return x.id === id; });
+  if (!l) return;
+  
+  var html = '<div class="modal-overlay" onclick="if(event.target===this)closeModal()">' +
+    '<div class="modal-box">' +
+      '<div class="modal-title">&#9998; Edit Call Ladder</div>' +
+      '<div class="modal-sub"><strong>' + l.ticker + '</strong></div>' +
+      '<div class="mf"><label class="mf-label">Ticker *</label><input class="mf-input" id="ecl-ticker" value="' + l.ticker + '"></div>' +
+      '<div class="mf"><label class="mf-label">Contracts *</label><input class="mf-input" id="ecl-contracts" type="number" value="' + (l.contracts||1) + '"></div>' +
+      '<hr style="border:none;border-top:1px solid var(--border);margin:0.75rem 0;">' +
+      '<div style="font-size:0.7rem;font-weight:700;color:var(--text2);margin-bottom:0.5rem;">LONG CALL (Optional)</div>' +
+      '<div class="mf-row">' +
+        '<div class="mf"><label class="mf-label">Strike</label><input class="mf-input" id="ecl-strike" type="number" step="0.01" value="' + (l.longStrike||'') + '"></div>' +
+        '<div class="mf"><label class="mf-label">Premium (per contract)</label><input class="mf-input" id="ecl-premium" type="number" step="0.01" value="' + (l.longPremium||'') + '"></div>' +
+      '</div>' +
+      '<div class="mf-row">' +
+        '<div class="mf"><label class="mf-label">Expiry (MM/DD/YYYY)</label><input class="mf-input" id="ecl-expiry" value="' + (l.longExpiry||'') + '"></div>' +
+        '<div class="mf"><label class="mf-label">Opened Date</label><input class="mf-input" id="ecl-opendate" value="' + (l.openDate||'') + '"></div>' +
+      '</div>' +
+      '<div class="mf"><label class="mf-label">Notes</label><textarea class="mf-input" id="ecl-notes" rows="2">' + (l.notes||'') + '</textarea></div>' +
+      '<div class="modal-btns">' +
+        '<button class="modal-cancel" onclick="closeModal()">Cancel</button>' +
+        (l.longCallClosed ? '<button class="modal-confirm green-btn" onclick="reopenLongCall(\'' + id + '\');closeModal()">Reopen</button>' : '<button class="modal-confirm red-btn" onclick="closeLongCall(\'' + id + '\')">Close</button>') +
+        '<button class="modal-confirm blue-btn" onclick="saveEditCallLadder(\'' + id + '\')">Save Changes</button>' +
+      '</div>' +
+    '</div></div>';
+  document.getElementById('modal-root').innerHTML = html;
+}
+
+function saveEditCallLadder(id) {
+  var l = callLadders.find(function(x){ return x.id === id; });
+  if (!l) return;
+  
+  l.ticker = document.getElementById('ecl-ticker').value.trim().toUpperCase();
+  l.contracts = parseInt(document.getElementById('ecl-contracts').value) || 1;
+  
+  var strike = document.getElementById('ecl-strike').value.trim();
+  var premium = document.getElementById('ecl-premium').value.trim();
+  var expiry = document.getElementById('ecl-expiry').value.trim();
+  
+  if (strike && premium && expiry) {
+    l.longStrike = parseFloat(strike);
+    l.longPremium = parseFloat(premium);
+    l.longExpiry = expiry;
+    l.noLongCall = false;
+  } else if (!strike && !premium && !expiry) {
+    l.noLongCall = true;
+  }
+  
+  l.openDate = document.getElementById('ecl-opendate').value.trim();
+  l.notes = document.getElementById('ecl-notes').value.trim();
+  
+  saveCallLadders();
+  closeModal();
+  growthRender();
+}
+
+function closeLongCall(id) {
+  var amount = prompt('Enter STC (Sell to Close) credit received ($):');
+  if (amount === null) return;
+  
+  var l = callLadders.find(function(x){ return x.id === id; });
+  if (!l) return;
+  
+  l.longCallClosed = true;
+  l.longCloseAmount = parseFloat(amount) || 0;
+  l.longCloseDate = new Date().toLocaleDateString('en-US');
+  
+  saveCallLadders();
+  closeModal();
+  growthRender();
+}
+
+function reopenLongCall(id) {
+  var l = callLadders.find(function(x){ return x.id === id; });
+  if (!l) return;
+  
+  l.longCallClosed = false;
+  l.longCloseAmount = 0;
+  l.longCloseDate = '';
+  
+  saveCallLadders();
+  growthRender();
+}
 function deleteCallLadder(id) { alert('Delete Call Ladder - Coming soon'); }
 function openAddLongCallToLadder(id) { alert('Add Long Call - Coming soon'); }
 function openCloseLongCall(id) { alert('Close Long Call - Coming soon'); }
@@ -6348,8 +7081,9 @@ function openAddShortCallToLadder(id) { alert('Add Short Call - Coming soon'); }
 function openCloseShortCall(lid, scid) { alert('Close Short Call - Coming soon'); }
 function openEditShortCall(lid, scid) {
   var l = callLadders.find(function(x){ return x.id === lid; });
+  if (!l) { alert('Ladder not found'); return; }
   var sc = l && (l.shortCalls||[]).find(function(s){return s.id===scid;});
-  if (!sc) return;
+  if (!sc) { alert('Short call not found'); return; }
   
   var html = '<div class="modal-overlay" onclick="if(event.target===this)closeModal()">' +
     '<div class="modal-box">' +
@@ -6374,8 +7108,9 @@ function openEditShortCall(lid, scid) {
 
 function saveEditShortCall(lid, scid) {
   var l = callLadders.find(function(x){ return x.id === lid; });
+  if (!l) { alert('Ladder not found during save'); return; }
   var sc = l && (l.shortCalls||[]).find(function(s){return s.id===scid;});
-  if (!sc) return;
+  if (!sc) { alert('Short call not found during save'); return; }
   
   sc.strike = parseFloat(document.getElementById('esc-strike').value);
   sc.contracts = parseInt(document.getElementById('esc-contracts').value) || l.contracts || 1;
