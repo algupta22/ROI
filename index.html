@@ -74,7 +74,7 @@ body{background:var(--bg);min-height:100vh;font-family:'Segoe UI',system-ui,sans
 .sel-tag-x{cursor:pointer;opacity:0.6;font-size:0.58rem;}.sel-tag-x:hover{opacity:1;}
 /* SUMMARY */
 .summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:0.6rem;margin-bottom:0.6rem;}
-.scard{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:0.85rem 1rem;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
+.scard{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:0.6rem 1.1rem;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
 .scard-label{font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.3rem;}
 .scard-val{font-size:1.2rem;font-weight:800;font-family:monospace;line-height:1;margin-bottom:0.12rem;}
 .scard-sub{font-size:0.6rem;color:var(--text3);}
@@ -557,6 +557,253 @@ td.mc{color:var(--black);font-weight:700;}td.mn{font-family:monospace;font-size:
 .bk-btn{display:inline-flex;align-items:center;gap:0.3rem;border-radius:7px;padding:0.22rem 0.65rem;font-size:0.63rem;font-weight:700;cursor:pointer;white-space:nowrap;border:1px solid transparent;}
 .bk-dl{background:rgba(217,119,6,0.35);color:#FCD34D;border-color:rgba(217,119,6,0.5);}.bk-dl:hover{background:rgba(217,119,6,0.55);}
 .bk-ul{background:rgba(124,58,237,0.35);color:#C4B5FD;border-color:rgba(124,58,237,0.5);}.bk-ul:hover{background:rgba(124,58,237,0.55);}
+.wv-wrap{padding:0 0 2rem;}
+.wv-portfolio-filter{display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:0.55rem 0.9rem;margin-bottom:0.85rem;}
+.wv-pf-label{font-size:0.62rem;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;white-space:nowrap;}
+.wv-pf-btn{background:transparent;border:1px solid var(--border2);color:var(--text3);padding:0.2rem 0.55rem;border-radius:6px;font-size:0.65rem;font-weight:700;cursor:pointer;transition:all 0.15s;}
+.wv-pf-btn.active{background:var(--black);color:#fff;border-color:var(--black);}
+.wv-week-block{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:1rem;}
+.wv-week-hdr{background:var(--black);padding:0.6rem 1rem;display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;gap:0.75rem;}
+.wv-week-label{font-size:0.8rem;font-weight:800;color:#fff;letter-spacing:0.03em;display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;}
+.wv-week-badge{font-size:0.6rem;font-weight:700;padding:0.1rem 0.45rem;border-radius:4px;text-transform:uppercase;flex-shrink:0;}
+.wv-badge-current{background:rgba(239,68,68,0.35);color:#FCA5A5;}
+.wv-badge-past{background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.5);}
+.wv-week-stats{display:flex;gap:1.1rem;align-items:center;flex-shrink:0;}
+.wv-stat-item{text-align:right;}
+.wv-stat-lbl{font-size:0.52rem;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.08em;}
+.wv-stat-val{font-size:0.78rem;font-weight:800;font-family:monospace;}
+.wv-chevron{font-size:0.72rem;color:rgba(255,255,255,0.4);transition:transform 0.2s;flex-shrink:0;}
+.wv-chevron.open{transform:rotate(180deg);}
+.wv-body{border-top:1px solid rgba(255,255,255,0.08);}
+.wv-section{padding:0.75rem 1rem 0.6rem;}
+.wv-section:not(:last-child){border-bottom:1px solid var(--border);}
+.wv-section-title{font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text3);margin-bottom:0.55rem;display:flex;align-items:center;gap:0.4rem;}
+.wv-dot{display:inline-block;width:6px;height:6px;border-radius:50%;}
+.wv-snapshot-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:0.5rem;margin-bottom:0.4rem;}
+.wv-snap-card{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:0.6rem 0.75rem;}
+.wv-snap-lbl{font-size:0.55rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);margin-bottom:0.18rem;}
+.wv-snap-val{font-size:0.95rem;font-weight:800;font-family:monospace;color:var(--black);}
+.wv-snap-sub{font-size:0.57rem;color:var(--text3);margin-top:0.06rem;}
+.wv-save-snap-bar{background:var(--bg3);border-top:1px solid var(--border);padding:0.5rem 1rem;display:flex;align-items:center;gap:0.6rem;flex-wrap:wrap;}
+.wv-save-snap-btn{display:inline-flex;align-items:center;gap:0.3rem;background:var(--red);color:#fff;border:none;padding:0.26rem 0.7rem;border-radius:6px;font-size:0.65rem;font-weight:700;cursor:pointer;}
+.wv-snap-note{font-size:0.62rem;color:var(--text3);}
+.wv-mini-tbl{width:100%;border-collapse:collapse;font-size:0.67rem;}
+.wv-mini-tbl th{font-size:0.55rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--text3);padding:0.2rem 0.4rem;text-align:left;border-bottom:1px solid var(--border);}
+.wv-mini-tbl td{padding:0.26rem 0.4rem;color:var(--text2);border-bottom:1px solid var(--bg4);white-space:nowrap;}
+.wv-mini-tbl tr:last-child td{border-bottom:none;}
+.wv-mini-tbl td.mn{font-family:monospace;}
+.wv-mini-tbl td.pos{color:var(--green);font-weight:700;font-family:monospace;}
+.wv-mini-tbl td.neg{color:var(--red);font-weight:700;font-family:monospace;}
+.wv-snap-saved-badge{background:var(--green-bg);color:var(--green);border:1px solid rgba(5,150,105,0.25);border-radius:5px;padding:0.15rem 0.5rem;font-size:0.62rem;font-weight:700;}
+
+/* ── PUT LADDER ── */
+/* TOP ACTION BAR */
+.action-bar{display:flex;align-items:center;gap:0.5rem;margin-bottom:1rem;flex-wrap:wrap;}
+.add-btn{display:inline-flex;align-items:center;gap:0.32rem;background:var(--red);color:#fff;border:none;padding:0.3rem 0.85rem;border-radius:7px;font-size:0.68rem;font-weight:700;cursor:pointer;white-space:nowrap;}
+.add-btn:hover{background:var(--red2);}
+.add-btn[style*='purple']:hover{background:#6D28D9;}
+.filter-pill{display:flex;gap:2px;background:var(--bg2);border:1px solid var(--border);border-radius:9px;padding:3px;}
+.fp-btn{background:transparent;border:none;color:var(--text3);padding:0.22rem 0.6rem;border-radius:6px;font-size:0.63rem;font-weight:700;cursor:pointer;transition:all 0.15s;text-transform:uppercase;}
+.fp-btn.active{background:var(--black);color:#fff;}.fp-btn:hover:not(.active){color:var(--black);}
+
+/* LADDER CARD */
+.ladder-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);margin-bottom:1rem;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
+.ladder-hdr{background:var(--black);padding:0.75rem 1rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;cursor:pointer;user-select:none;}
+.ladder-hdr:hover{background:#1a1a1a;}
+.lh-left{display:flex;align-items:center;gap:0.75rem;}
+.lh-ticker{font-size:1rem;font-weight:900;color:#fff;letter-spacing:0.04em;}
+.lh-badge-open{background:rgba(5,150,105,0.25);color:#34D399;border:1px solid rgba(52,211,153,0.3);padding:0.1rem 0.5rem;border-radius:12px;font-size:0.6rem;font-weight:700;text-transform:uppercase;}
+.lh-badge-closed{background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.4);border:1px solid rgba(255,255,255,0.15);padding:0.1rem 0.5rem;border-radius:12px;font-size:0.6rem;font-weight:700;text-transform:uppercase;}
+.lh-expiry{font-size:0.62rem;color:rgba(255,255,255,0.45);font-family:monospace;}
+.lh-stats{display:flex;gap:1.2rem;flex-wrap:wrap;}
+.lh-stat{text-align:center;}
+.lh-stat-val{font-size:0.88rem;font-weight:800;font-family:monospace;line-height:1;}
+.lh-stat-lbl{font-size:0.52rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.07em;margin-top:0.1rem;}
+.lh-right{display:flex;align-items:center;gap:0.5rem;}
+.hdr-btn{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.6);padding:0.18rem 0.55rem;border-radius:5px;font-size:0.6rem;font-weight:700;cursor:pointer;white-space:nowrap;transition:all 0.15s;}
+.hdr-btn:hover{background:rgba(255,255,255,0.18);color:#fff;}
+.hdr-btn.red{background:rgba(220,38,38,0.2);border-color:rgba(220,38,38,0.35);color:#FCA5A5;}.hdr-btn.red:hover{background:rgba(220,38,38,0.35);}
+.chevron{color:rgba(255,255,255,0.4);font-size:0.7rem;transition:transform 0.2s;}
+.chevron.open{transform:rotate(90deg);}
+
+/* ── REDESIGNED LADDER CARD ──────────────────────────────────────────────── */
+.ladder-card{background:var(--card);border:1px solid var(--border);border-radius:12px;margin-bottom:0.65rem;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.07);}
+.ladder-card.lc-closed{opacity:0.6;}
+
+/* Top strip — ticker + stats + actions all in one row */
+.ladder-hdr{padding:0.5rem 0.85rem;display:flex;align-items:center;gap:0.75rem;cursor:pointer;user-select:none;border-bottom:1px solid var(--border);background:var(--bg2);}
+.ladder-hdr:hover{background:var(--bg3);}
+.lh-left{display:flex;align-items:center;gap:0.5rem;flex-shrink:0;}
+.lh-ticker{font-size:0.95rem;font-weight:900;color:var(--black);letter-spacing:0.03em;}
+.lh-badge-open{background:#DCFCE7;color:#15803D;border:1px solid #BBF7D0;padding:0.08rem 0.45rem;border-radius:10px;font-size:0.55rem;font-weight:700;text-transform:uppercase;}
+.lh-badge-closed{background:var(--bg4);color:var(--text3);border:1px solid var(--border);padding:0.08rem 0.45rem;border-radius:10px;font-size:0.55rem;font-weight:700;text-transform:uppercase;}
+.lh-expiry{font-size:0.6rem;color:var(--text3);font-family:monospace;background:var(--bg4);padding:0.1rem 0.4rem;border-radius:4px;}
+.lh-stats{display:flex;gap:0;flex:1;justify-content:center;flex-wrap:wrap;}
+.lh-stat{text-align:center;padding:0 0.7rem;border-right:1px solid var(--border);}
+.lh-stat:last-child{border-right:none;}
+.lh-stat-val{font-size:0.8rem;font-weight:800;font-family:monospace;line-height:1.2;}
+.lh-stat-lbl{font-size:0.5rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;}
+.lh-right{display:flex;align-items:center;gap:0.35rem;flex-shrink:0;}
+.hdr-btn{background:var(--bg3);border:1px solid var(--border);color:var(--text2);padding:0.15rem 0.5rem;border-radius:5px;font-size:0.58rem;font-weight:700;cursor:pointer;white-space:nowrap;transition:all 0.15s;}
+.hdr-btn:hover{background:var(--bg4);color:var(--black);}
+.hdr-btn.red{background:#FEF2F2;border-color:rgba(220,38,38,0.25);color:var(--red);}.hdr-btn.red:hover{background:#FEE2E2;}
+.chevron{color:var(--text3);font-size:0.6rem;transition:transform 0.2s;}
+.chevron.open{transform:rotate(90deg);}
+
+/* SPLIT BODY LAYOUT */
+.ladder-body{display:grid;grid-template-columns:auto 1fr;min-height:0;}
+
+/* Long put — compact left sidebar strip */
+.lp-panel{background:linear-gradient(135deg,#EFF6FF 0%,#F8FAFF 100%);border-right:1px solid #BFDBFE;padding:0.55rem 0.85rem;display:flex;flex-direction:column;gap:0.4rem;min-width:0;width:340px;}
+.lp-panel-title{font-size:0.55rem;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:#3B82F6;display:flex;align-items:center;justify-content:space-between;}
+.lp-panel-actions{display:flex;gap:0.25rem;}
+.lp-edit-btn{background:#EFF6FF;border:1px solid #BFDBFE;color:#2563EB;padding:0.12rem 0.4rem;border-radius:4px;font-size:0.55rem;font-weight:700;cursor:pointer;}
+.lp-edit-btn:hover{background:#DBEAFE;}
+.lp-del-btn{background:#FEF2F2;border:1px solid rgba(220,38,38,0.2);color:var(--red);padding:0.12rem 0.35rem;border-radius:4px;font-size:0.55rem;font-weight:700;cursor:pointer;}
+.lp-del-btn:hover{background:#FEE2E2;}
+
+/* Fields in a 2-col grid — compact */
+.lp-fields-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.3rem 0.6rem;}
+.lp-field{display:flex;flex-direction:column;gap:0.02rem;}
+.lp-field-label{font-size:0.5rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#60A5FA;}
+.lp-field-val{font-size:0.78rem;font-weight:800;font-family:monospace;color:var(--black);line-height:1.1;}
+
+/* Progress inline */
+.lp-progress-row{display:flex;align-items:center;gap:0.4rem;}
+.lp-progress-track{flex:1;background:#DBEAFE;border-radius:100px;height:4px;overflow:hidden;position:relative;}
+.lp-progress-fill{height:100%;border-radius:100px;transition:width 0.4s ease;position:absolute;left:0;top:0;}
+.lp-progress-pct{font-size:0.6rem;font-weight:800;font-family:monospace;flex-shrink:0;min-width:32px;text-align:right;}
+
+.lp-close-btn{background:#FEF2F2;border:1px solid rgba(220,38,38,0.25);color:var(--red);padding:0.18rem 0.5rem;border-radius:5px;font-size:0.58rem;font-weight:700;cursor:pointer;white-space:nowrap;width:100%;text-align:center;}
+.lp-close-btn:hover{background:#FEE2E2;}
+.lp-closed-tag{font-size:0.58rem;color:var(--text3);background:var(--bg4);border:1px solid var(--border);border-radius:4px;padding:0.15rem 0.45rem;font-weight:600;text-align:center;}
+
+.sp-panel{display:flex;flex-direction:column;min-width:0;}
+.sp-section{padding:0 0.85rem 0.6rem;flex:1;}
+.sp-section-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.45rem;}
+.sp-section-label{font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);display:flex;align-items:center;gap:0.35rem;}
+.sp-add-btn{display:inline-flex;align-items:center;gap:0.25rem;background:var(--green-bg);border:1px solid rgba(5,150,105,0.3);color:var(--green);padding:0.15rem 0.5rem;border-radius:5px;font-size:0.58rem;font-weight:700;cursor:pointer;}
+.sp-add-btn:hover{background:rgba(5,150,105,0.12);}
+.sp-table-wrap{overflow-x:auto;}
+.sp-table{width:100%;border-collapse:collapse;min-width:420px;}
+.sp-table thead{background:var(--bg4);}
+.sp-table th{padding:0.3rem 0.55rem;font-size:0.52rem;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;text-align:left;white-space:nowrap;border-bottom:1px solid var(--border);}
+.sp-table tbody tr{border-bottom:1px solid var(--border);transition:background 0.1s;}
+.sp-table tbody tr:last-child{border-bottom:none;}
+.sp-table tbody tr:hover{background:var(--bg3);}
+.sp-table td{padding:0.32rem 0.55rem;font-size:0.68rem;color:var(--text2);white-space:nowrap;}
+.sp-table td.mn{font-family:monospace;font-size:0.68rem;}
+.badge-sp{background:var(--red-bg);color:var(--red);padding:0.06rem 0.35rem;border-radius:4px;font-size:0.55rem;font-weight:700;text-transform:uppercase;}
+.badge-open{background:var(--green-bg);color:var(--green);padding:0.06rem 0.35rem;border-radius:4px;font-size:0.55rem;font-weight:700;text-transform:uppercase;}
+.badge-closed-sp{background:var(--bg4);color:var(--text3);padding:0.06rem 0.35rem;border-radius:4px;font-size:0.55rem;font-weight:700;text-transform:uppercase;}
+.badge-collat{background:var(--orange-bg);color:var(--orange);padding:0.06rem 0.35rem;border-radius:4px;font-size:0.55rem;font-weight:700;text-transform:uppercase;}
+.pos-val{color:var(--green);font-weight:700;}
+.neg-val{color:var(--red);font-weight:700;}
+.sp-close-link{background:none;border:none;color:var(--text3);cursor:pointer;font-size:0.58rem;text-decoration:underline;text-decoration-style:dashed;padding:0;}
+.sp-close-link:hover{color:var(--red);}
+.sp-edit-btn{background:none;border:none;color:#93C5FD;cursor:pointer;padding:0.1rem 0.28rem;border-radius:4px;font-size:0.72rem;transition:all 0.15s;}
+.sp-edit-btn:hover{background:var(--blue-bg);color:var(--blue);}
+.sp-move-btn{background:none;border:none;color:#A78BFA;cursor:pointer;padding:0.1rem 0.28rem;border-radius:4px;font-size:0.72rem;transition:all 0.15s;}
+.sp-move-btn:hover{background:#F5F3FF;color:#7C3AED;}
+.sp-move-dropdown{position:fixed;z-index:999;background:#fff;border:1px solid var(--border);border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,0.15);min-width:200px;padding:0.3rem 0;}
+.sp-move-dropdown-item{padding:0.35rem 0.85rem;font-size:0.68rem;font-weight:600;cursor:pointer;color:var(--black);display:flex;align-items:center;gap:0.4rem;}
+.sp-move-dropdown-item:hover{background:var(--bg3);}
+.sp-table tbody tr.sp-dragging{opacity:0.4;}
+.sp-table tbody tr.drag-over td{background:#EFF6FF!important;border-top:2px solid #3B82F6;}
+.stc-val{color:#059669;font-weight:700;font-family:monospace;}
+.btc-val{color:#DC2626;font-weight:700;font-family:monospace;}
+.sp-copy-btn{background:none;border:none;color:#A78BFA;cursor:pointer;padding:0.1rem 0.28rem;border-radius:4px;font-size:0.72rem;transition:all 0.15s;}
+.sp-copy-btn:hover{background:var(--purple-bg);color:var(--purple);}
+.sp-del-btn{background:none;border:none;color:#D1D5DB;cursor:pointer;padding:0.1rem 0.28rem;border-radius:4px;font-size:0.72rem;transition:all 0.15s;}
+.sp-del-btn:hover{background:var(--red-bg);color:var(--red);}
+.empty-sp{color:var(--text3);font-size:0.68rem;font-style:italic;padding:0.5rem 0.55rem;}
+.collat-note{background:var(--orange-bg);border-top:1px solid rgba(234,88,12,0.15);padding:0.3rem 0.85rem;font-size:0.6rem;color:var(--orange);display:flex;align-items:center;gap:0.35rem;}
+.lp-info-row,.lp-chip,.lp-chip-label,.lp-chip-val,.progress-banner,.pb-row,.pb-stat,.pb-val,.pb-lbl,.prog-labels,.prog-lbl-txt,.be-marker,.be-label{display:none;}
+@media(max-width:760px){.ladder-body{grid-template-columns:1fr;}.lp-panel{width:auto;border-right:none;border-bottom:1px solid #BFDBFE;}}
+.sp-section-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.55rem;}
+.sp-section-label{font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);display:flex;align-items:center;gap:0.35rem;}
+.sp-add-btn{display:inline-flex;align-items:center;gap:0.25rem;background:var(--green-bg);border:1px solid rgba(5,150,105,0.3);color:var(--green);padding:0.18rem 0.55rem;border-radius:5px;font-size:0.6rem;font-weight:700;cursor:pointer;}
+.sp-add-btn:hover{background:rgba(5,150,105,0.12);}
+.sp-table-wrap{overflow-x:auto;}
+.sp-table{width:100%;border-collapse:collapse;min-width:420px;}
+.sp-table thead{background:var(--bg4);}
+.sp-table th{padding:0.38rem 0.6rem;font-size:0.55rem;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;text-align:left;white-space:nowrap;border-bottom:1px solid var(--border);}
+.sp-table tbody tr{border-bottom:1px solid var(--border);transition:background 0.1s;}
+.sp-table tbody tr:last-child{border-bottom:none;}
+.sp-table tbody tr:hover{background:var(--bg3);}
+.sp-table td{padding:0.38rem 0.6rem;font-size:0.7rem;color:var(--text2);white-space:nowrap;}
+.sp-table td.mn{font-family:monospace;font-size:0.7rem;}
+.badge-sp{background:var(--red-bg);color:var(--red);padding:0.08rem 0.38rem;border-radius:4px;font-size:0.58rem;font-weight:700;text-transform:uppercase;}
+.badge-open{background:var(--green-bg);color:var(--green);padding:0.08rem 0.38rem;border-radius:4px;font-size:0.58rem;font-weight:700;text-transform:uppercase;}
+.badge-closed-sp{background:var(--bg4);color:var(--text3);padding:0.08rem 0.38rem;border-radius:4px;font-size:0.58rem;font-weight:700;text-transform:uppercase;}
+.badge-collat{background:var(--orange-bg);color:var(--orange);padding:0.08rem 0.38rem;border-radius:4px;font-size:0.58rem;font-weight:700;text-transform:uppercase;}
+.pos-val{color:var(--green);font-weight:700;}
+.neg-val{color:var(--red);font-weight:700;}
+.sp-close-link{background:none;border:none;color:var(--text3);cursor:pointer;font-size:0.6rem;text-decoration:underline;text-decoration-style:dashed;padding:0;}
+.sp-close-link:hover{color:var(--red);}
+.sp-edit-btn{background:none;border:none;color:#93C5FD;cursor:pointer;padding:0.12rem 0.3rem;border-radius:4px;font-size:0.75rem;transition:all 0.15s;}
+.sp-edit-btn:hover{background:var(--blue-bg);color:var(--blue);}
+.sp-copy-btn{background:none;border:none;color:#A78BFA;cursor:pointer;padding:0.12rem 0.3rem;border-radius:4px;font-size:0.75rem;transition:all 0.15s;}
+.sp-copy-btn:hover{background:var(--purple-bg);color:var(--purple);}
+.sp-del-btn{background:none;border:none;color:#D1D5DB;cursor:pointer;padding:0.12rem 0.3rem;border-radius:4px;font-size:0.75rem;transition:all 0.15s;}
+.sp-del-btn:hover{background:var(--red-bg);color:var(--red);}
+.empty-sp{color:var(--text3);font-size:0.7rem;font-style:italic;padding:0.5rem 0.6rem;}
+.collat-note{background:var(--orange-bg);border-top:1px solid rgba(234,88,12,0.2);padding:0.35rem 1rem;font-size:0.63rem;color:var(--orange);display:flex;align-items:center;gap:0.4rem;}
+/* hide old chips/banner */
+.lp-info-row,.lp-chip,.lp-chip-label,.lp-chip-val,.progress-banner,.pb-row,.pb-stat,.pb-val,.pb-lbl,.prog-labels,.prog-lbl-txt,.be-marker,.be-label{display:none;}
+@media(max-width:760px){.ladder-body{grid-template-columns:1fr;}.lp-panel{border-right:none;border-bottom:1px solid var(--border);}}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:1000;display:flex;align-items:center;justify-content:center;}
+.modal-box{background:#fff;border-radius:14px;padding:1.5rem;width:400px;max-width:94vw;max-height:90vh;overflow-y:auto;box-shadow:0 16px 48px rgba(0,0,0,0.22);}
+.modal-title{font-size:0.92rem;font-weight:800;color:var(--black);margin-bottom:0.18rem;}
+.modal-sub{font-size:0.68rem;color:var(--text3);margin-bottom:1rem;}
+.mf{display:flex;flex-direction:column;gap:0.22rem;margin-bottom:0.75rem;}
+.mf-label{font-size:0.63rem;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.07em;}
+.mf-label span{color:var(--red);margin-left:2px;}
+.mf-input,.mf-select{border:1px solid var(--border2);border-radius:7px;padding:0.42rem 0.65rem;font-size:0.8rem;color:var(--black);outline:none;background:#fff;width:100%;}
+.mf-input:focus,.mf-select:focus{border-color:var(--red);}
+.mf-row{display:grid;grid-template-columns:1fr 1fr;gap:0.65rem;}
+.mf-hint{font-size:0.6rem;color:var(--text3);margin-top:0.18rem;}
+.mf-collat-box{background:var(--orange-bg);border:1px solid rgba(234,88,12,0.25);border-radius:7px;padding:0.5rem 0.75rem;font-size:0.72rem;color:var(--orange);font-weight:700;font-family:monospace;margin-bottom:0.75rem;}
+.modal-btns{display:flex;gap:0.5rem;margin-top:0.5rem;}
+.modal-confirm{flex:1;background:var(--red);color:#fff;border:none;padding:0.55rem;border-radius:8px;font-size:0.75rem;font-weight:700;cursor:pointer;}
+.modal-confirm:hover{background:var(--red2);}
+.modal-confirm.green-btn{background:var(--green);}.modal-confirm.green-btn:hover{background:#047857;}
+.modal-confirm.blue-btn{background:var(--blue);}.modal-confirm.blue-btn:hover{background:#1d4ed8;}
+.modal-cancel{background:transparent;color:var(--text3);border:1px solid var(--border);padding:0.55rem 0.9rem;border-radius:8px;font-size:0.72rem;font-weight:600;cursor:pointer;}
+.modal-cancel:hover{color:var(--red);}
+.modal-action-btn{background:var(--orange-bg);color:var(--orange);border:1px solid rgba(234,88,12,0.3);padding:0.55rem 0.9rem;border-radius:8px;font-size:0.72rem;font-weight:700;cursor:pointer;transition:all 0.15s;}
+.modal-action-btn:hover{background:var(--orange);color:#fff;border-color:var(--orange);}
+.modal-divider{height:1px;background:var(--border);margin:0.75rem 0;}
+.modal-section-lbl{font-size:0.62rem;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem;}
+.radio-group{display:flex;gap:4px;margin-bottom:0.75rem;}
+.radio-btn{flex:1;text-align:center;padding:0.35rem;border-radius:6px;font-size:0.68rem;font-weight:700;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text3);transition:all 0.15s;}
+.radio-btn.active-close{background:var(--black);border-color:var(--black);color:#fff;}
+.radio-btn.active-expire{background:var(--green);border-color:var(--green);color:#fff;}
+.radio-btn.active-buyback{background:var(--orange);border-color:var(--orange);color:#fff;}
+
+/* SUMMARY STRIP (empty state) */
+.empty-state{background:var(--bg2);border:2px dashed var(--border2);border-radius:var(--r);padding:2.5rem;text-align:center;color:var(--text3);}
+.empty-state strong{display:block;color:var(--black);font-size:0.85rem;margin-bottom:0.35rem;}
+
+/* PORTFOLIO SUMMARY CARDS */
+.summary-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0.6rem;margin-bottom:1rem;}
+.scard{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:0.75rem 0.9rem;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
+.sc-label{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text3);margin-bottom:0.2rem;}
+.sc-val{font-size:1.1rem;font-weight:800;font-family:monospace;line-height:1;margin-bottom:0.1rem;}
+.sc-sub{font-size:0.58rem;color:var(--text3);}
+
+@media(max-width:640px){
+  .main{padding:0.6rem 0.65rem;}
+  .lh-stats{gap:0.75rem;}
+  .pb-row{gap:0.75rem;}
+  .modal-box{border-radius:18px 18px 0 0;width:100%;max-width:100%;position:fixed;bottom:0;}
+  .modal-overlay{align-items:flex-end;}
+  .mf-row{grid-template-columns:1fr;}
+  .summary-strip{grid-template-columns:1fr 1fr;}
+}
+
 </style>
 </head>
 <body>
@@ -590,8 +837,9 @@ td.mc{color:var(--black);font-weight:700;}td.mn{font-family:monospace;font-size:
   <div class="view-tab active" data-view="positions">&#128200; Summary</div>
   <div class="view-tab" data-view="poslist">&#128202; Positions</div>
   <div class="view-tab" data-view="spreads">&#8597; Spreads / Risk View</div>
-  <div class="view-tab" data-view="combined">&#128279; Combined View</div>
   <div class="view-tab" data-view="activity">&#128196; Activity</div>
+  <div class="view-tab" data-view="weekly">&#128197; Weekly Review</div>
+  <div class="view-tab" data-view="putladder">&#128308; Put Ladders</div>
   <div class="view-tab" data-view="admin">&#9881; Admin &#8212; Prices</div>
 </div>
 <div class="breadcrumb" id="bc"><span>All Portfolios</span></div>
@@ -2638,10 +2886,14 @@ function rSpreadsView(data){
   var allRows=[];
   groups.filter(function(g){return g.pairs.length>0||g.independentLPs.length>0;}).forEach(function(g){
     var ticker=g.ticker;
-    // Paired rows: SPUT on left, LPUT on right (lp may be null = naked SPUT)
-    g.pairs.forEach(function(pair){allRows.push({type:'pair',ticker:ticker,pair:pair,sortDate:parseDate((pair.sp&&pair.sp.expiryDate)||'')||new Date('9999-12-31')});});
-    // Independent LPUTs: blank left, LPUT on right
-    g.independentLPs.forEach(function(lp){allRows.push({type:'indep',ticker:ticker,lp:lp,sortDate:parseDate(lp.expiryDate||'')||new Date('9999-12-31')});});
+    g.pairs.forEach(function(pair){
+      // Only show left side if Short Put (not Short Call)
+      if(pair.sp&&pair.sp.excelType==='Short Call')return;
+      var lpToShow=(pair.lp&&pair.lp.excelType==='Long Put')?pair.lp:null;
+      allRows.push({type:'pair',ticker:ticker,pair:{sp:pair.sp,lp:lpToShow},sortDate:parseDate((pair.sp&&pair.sp.expiryDate)||'')||new Date('9999-12-31')});
+    });
+    // Independent LPUTs only — exclude Long Call
+    g.independentLPs.filter(function(lp){return lp.excelType==='Long Put';}).forEach(function(lp){allRows.push({type:'indep',ticker:ticker,lp:lp,sortDate:parseDate(lp.expiryDate||'')||new Date('9999-12-31')});});
   });
   if(tickerSortOverride){
     allRows.sort(function(a,b){return tickerSortOverride==='asc'?a.ticker.localeCompare(b.ticker):b.ticker.localeCompare(a.ticker);});
@@ -2890,7 +3142,9 @@ function setActRows(rows){activityData[getActKey()]=rows;saveAct(activityData);}
 function parseBrokerageForActivity(text){
   var lines=collapseQNL(text).split('\n').map(function(l){return l.trim();});
   if(lines.length<2)return{error:'Need header + data rows.'};
-  var headers=splitCSV(lines[0]).map(function(h){return h.toLowerCase().replace(/\s+/g,'');});
+  var delim=lines[0].indexOf('\t')>=0?'\t':',';
+  function splitLine(line){return delim==='\t'?line.split('\t').map(function(x){return x.trim();}):splitCSV(line);}
+  var headers=splitLine(lines[0]).map(function(h){return h.toLowerCase().replace(/\s+/g,'');});
   var col={};
   headers.forEach(function(h,i){
     if(h.includes('activitydate')||h==='date')col.d=i;
@@ -2904,7 +3158,7 @@ function parseBrokerageForActivity(text){
   var rows=[];
   for(var ri=1;ri<lines.length;ri++){
     var line=lines[ri];if(!line)continue;
-    var v=splitCSV(line);if(v.every(function(x){return!x;}))continue;
+    var v=splitLine(line);if(v.every(function(x){return!x;}))continue;
     if(v.join('').includes('informational purposes only'))continue;
     function g(idx){return idx!=null?(v[idx]||'').trim():'';}
     var d=g(col.d),inst=g(col.i).toUpperCase(),desc=g(col.ds),tc=g(col.tc).toUpperCase(),qty=g(col.q),price=g(col.p),rawAmt=g(col.a);
@@ -3206,340 +3460,6 @@ function attachActUpload(){
 }
 
 
-// ── COMBINED VIEW ─────────────────────────────────────────────────────────────
-function rCombinedView(data){
-  var Q=String.fromCharCode(39);
-  var thisFri=getThisFriday();
-  var portNames={'lovelina':'L','amit':'A','joint':'J','amit-roth':'AR','lov-roth':'LR','lov-trad':'LT'};
-  var portColors={'lovelina':'#DB2877','amit':'#2563EB','joint':'#059669','amit-roth':'#7C3AED','lov-roth':'#DB2877','lov-trad':'#0891B2'};
-  var typeShort={'Short Put':'SPUT','Long Put':'LPUT','Long Call':'LCALL','Short Call':'SCALL','Shares':'SHR'};
-  var retirementPorts=new Set(['amit-roth','lov-roth','lov-trad']);
-  var portHeader=ap==='all';
-
-  function fmtM(v){if(v==null)return'--';return(v<0?'-$':'$')+Math.abs(v).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});}
-  function fmtMS(v){if(v==null)return'--';return(v>=0?'+':'-')+'$'+Math.abs(v).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});}
-
-  // Build spread pairs from data (same as rSpreadsView)
-  var groups=buildSpreadPairs(data);
-
-  // Build lookup: positionId -> paired LP
-  var spToLP={}, lpUsed={};
-  groups.forEach(function(g){
-    g.pairs.forEach(function(pair){
-      if(pair.sp&&pair.lp){ spToLP[pair.sp.id]=pair.lp; lpUsed[pair.lp.id]=true; }
-    });
-  });
-
-  // Group positions by ticker for collapsible rows
-  var groupOrder=[],groupMap={};
-  data.forEach(function(r){
-    var gk=r.ticker;
-    if(!groupMap[gk]){groupMap[gk]={key:gk,ticker:r.ticker,rows:[]};groupOrder.push(gk);}
-    groupMap[gk].rows.push(r);
-  });
-
-  // Sort groups: open first, then alphabetical — or by ticker if override set
-  if(tickerSortOverride){
-    groupOrder.sort(function(a,b){return tickerSortOverride==='asc'?a.localeCompare(b):b.localeCompare(a);});
-  }else{
-    groupOrder.sort(function(a,b){
-      var ra=groupMap[a].rows,rb=groupMap[b].rows;
-      var aOpen=ra.some(function(r){return!isCl(r);}),bOpen=rb.some(function(r){return!isCl(r);});
-      if(aOpen&&!bOpen)return -1;if(!aOpen&&bOpen)return 1;
-      return a.localeCompare(b);
-    });
-  }
-
-  var html='';
-  var today0=new Date(new Date().toDateString());
-
-  groupOrder.forEach(function(gk){
-    var g=groupMap[gk];
-    var rows=g.rows;
-    var ticker=g.ticker;
-    var expanded=expandedGroups.has(gk);
-
-    // Aggregate for summary row
-    var totalCost=rows.reduce(function(s,r){return s+(r.excelCost||0);},0);
-    var totalSold=rows.reduce(function(s,r){var sv=r.soldAmount!=null&&r.soldAmount!==0&&r.soldAmount!==''?parseFloat(r.soldAmount):0;return s+sv;},0);
-    var hasSoldAny=rows.some(function(r){return r.soldAmount!=null&&r.soldAmount!==0&&r.soldAmount!=='';});
-    var closedHiddenG=hiddenClosedGroups.has(gk);
-    var totalCV=rows.reduce(function(s,r){
-      if(isCl(r))return s;
-      var pastExp=(function(){var d=parseExpiry(r.expiryDate);return d&&d<=today0;}());
-      if((closedHiddenG||hideClosedRows)&&pastExp)return s;
-      var hasOvrd=r.cvOverride!=null&&r.cvOverride!=='';
-      if(!hasOvrd)return s;
-      var isShort=r.excelType==='Short Put'||r.excelType==='Short Call';
-      return s+(isShort?-Math.abs(parseFloat(r.cvOverride)):Math.abs(parseFloat(r.cvOverride)));
-    },0);
-
-    var liveP=(liveCache[ticker]&&liveCache[ticker].price!=null)?liveCache[ticker].price:null;
-    var manP=tickerPrices[ticker]!=null?tickerPrices[ticker]:null;
-    var stockP=liveP!=null?liveP:(manP!=null?manP:null);
-    var priceTxt=stockP!=null?('$'+Number(stockP).toFixed(2)+(liveP!=null?' <span class="pcell-badge pcell-badge-live">L</span>':' <span class="pcell-badge pcell-badge-manual">M</span>')):'<span class="pcell-none">--</span>';
-    var totalAssnReq=rows.filter(function(r){return r.excelType==='Short Put'&&r.strike>0&&!isCl(r);}).reduce(function(s,r){return s+r.strike*100*(r.contracts||1);},0);
-    var cbVal=getCollatBlocked(ticker,rows[0]&&(rows[0].portfolio||'lovelina'));
-    var cbGap=totalAssnReq-cbVal;
-    var _tc=rows.reduce(function(s,r){return s+(r.contracts||1);},0);
-    var niColor=totalSold>totalCost?'var(--green)':'var(--red)';
-    var cvColor=totalCV<0?'var(--red)':totalCV>0?'var(--black)':'var(--text3)';
-    var gapColor=cbGap>0?'var(--red)':cbGap<0?'var(--green)':'var(--text3)';
-
-    // Check visible rows
-    var visibleRows=rows.filter(function(r){
-      var pastExp=(function(){var d=parseExpiry(r.expiryDate);return d&&d<today0;}());
-      if((closedHiddenG||hideClosedRows)&&(isCl(r)||pastExp))return false;
-      return true;
-    });
-    if(visibleRows.length===0)return;
-
-    var expiries=[...new Set(rows.filter(function(r){return!isCl(r);}).map(function(r){return r.expiryDate||'';}).filter(Boolean))];
-    var sortedExp2=expiries.slice().sort(function(a,b){return(parseExpiry(a)||new Date('9999'))-(parseExpiry(b)||new Date('9999'));});
-    var expiryCell=sortedExp2.length?(sortedExp2[0]+(sortedExp2.length>1?' +'+(sortedExp2.length-1):'')):'--';
-    var hasExp=rows.some(function(r){if(isCl(r))return false;var d=parseExpiry(r.expiryDate);return d&&d<=thisFri;});
-    var hasClosedRows=(g.rows||rows).some(function(r){return isCl(r)||(function(){var d=parseExpiry(r.expiryDate);return d&&d<today0;}());});
-    var hideBtn=hasClosedRows?'<button class="row-edit-btn" style="font-size:0.58rem;margin-left:3px;" onclick="event.stopPropagation();toggleHideClosed('+Q+gk+Q+')">'+(closedHiddenG?'Show Cl.':'Hide Cl.')+'</button>':'';
-
-    // Summary row (colspan for SPUT and LPUT sections blank)
-    html+='<tr class="grp-summary" style="cursor:pointer;background:#F8F8F8;border-left:3px solid '+(DC[ticker]||'#888')+';" onclick="toggleGroup('+Q+gk+Q+')">';
-    var ports2=[...new Set(rows.map(function(r){return r.portfolio||'lovelina';}))];
-    var portStr2=ports2.length===1?(portNames[ports2[0]]||ports2[0]):'Mixed';
-    var portClr3=ports2.length===1?(portColors[ports2[0]]||'#888'):'#888';
-    var portInline2='<span style="display:inline-flex;align-items:center;gap:0.25rem;font-size:0.58rem;font-weight:700;color:'+portClr3+';margin-left:6px;background:rgba(0,0,0,0.05);border-radius:4px;padding:0.05rem 0.4rem;"><span style="width:6px;height:6px;border-radius:50%;background:'+portClr3+';flex-shrink:0;"></span>'+portStr2+'</span>';
-    var _ed2=getActiveEarnings(ticker);
-    var _ef2='';
-    if(_ed2){var _fmt2=fmtEarningsDate(_ed2);if(_fmt2&&_fmt2.diff>=0&&_fmt2.diff<=10){_ef2='<span title="Earnings in '+_fmt2.diff+'d: '+_ed2+'" style="color:#DC2626;font-size:0.8rem;margin-left:4px;cursor:help;">&#127988;</span><span style="font-size:0.58rem;color:#DC2626;font-weight:700;margin-left:2px;">'+(_fmt2.diff===0?'TODAY':_fmt2.diff+'d')+'</span>';}}
-    html+='<td class="mc"><span style="font-size:0.72rem;color:var(--red);font-weight:700;margin-right:6px;">'+(expanded?'&#9660;':'&#9654;')+'</span><span class="chip"><span class="tk-dot-sm" style="background:'+(DC[ticker]||'#888')+'"></span>'+ticker+'</span>'+_ef2+portInline2+'</td>';
-    if(portHeader)html+='<td></td>';
-    html+='<td style="font-size:0.65rem;color:var(--text3);">'+expiryCell+'</td>';
-    html+='<td class="mn" style="font-weight:700;">'+(totalCost?fmtM(totalCost):'--')+'</td>';
-    html+='<td class="mn" style="color:var(--blue);font-weight:700;">'+(hasSoldAny?fmtM(totalSold):'--')+'</td>';
-    html+='<td class="mn" style="color:'+niColor+';font-weight:700;">'+(hasSoldAny?fmtMS(totalSold-totalCost):'--')+'</td>';
-    html+='<td class="mn" style="color:'+cvColor+';font-weight:700;">'+fmtM(totalCV)+'</td>';
-    html+='<td>'+priceTxt+'</td>';
-    html+='<td></td>'; // type
-    html+='<td class="mn" style="font-size:0.65rem;color:var(--text3);">'+(rows.filter(function(r){return r.strike>0;}).length)+' strikes</td>'; // strike
-    html+='<td class="mn" style="color:var(--red);font-weight:700;">$'+totalAssnReq.toLocaleString()+'</td>'; // assn
-    html+='<td></td>'; // coll.val
-    var _cbPort2=rows[0]&&(rows[0].portfolio||'lovelina');
-    html+='<td class="mn" style="font-weight:700;">$'+cbVal.toLocaleString()+'<button class="pcell-act" onclick="event.stopPropagation();(function(){var v=prompt('+Q+'Collateral Blocked for '+ticker+':'+Q+','+Q+cbVal+Q+');if(v===null)return;var n=parseFloat(v);setCollatBlocked('+Q+ticker+Q+',isNaN(n)?null:n,'+Q+_cbPort2+Q+');rMain();})()" style="margin-left:4px;">ed</button></td>'; // col.blk
-    html+='<td class="mn" style="color:'+gapColor+';font-weight:700;">'+(cbGap>=0?'+':'')+cbGap.toLocaleString()+'</td>'; // col.gap
-    // SPUT section blank at group level
-    html+='<td class="sp-cell" colspan="3"></td>';
-    html+='<td class="div-col" style="width:50px;">&#9664;&#9654;</td>';
-    // LPUT section blank at group level
-    html+='<td class="lp-cell" colspan="3"></td>';
-    html+='<td>'+collatDisplayGroup(rows)+'</td>';
-    html+='<td style="text-align:center;white-space:nowrap;"><button class="add-pos-btn" style="font-size:0.6rem;padding:0.18rem 0.5rem;" onclick="event.stopPropagation();openAddModal()">+ Add</button>'+hideBtn+'</td>';
-    html+='<td colspan="3"></td>';
-    html+='</tr>';
-
-    if(!expanded)return;
-
-    // Sort child rows: open first, then by type order, then expiry
-    var typeOrder={'Short Put':0,'Short Call':1,'Long Call':2,'Long Put':3,'Shares':4};
-    var sortedRows=rows.slice().sort(function(a,b){
-      var aC=isCl(a)?1:0,bC=isCl(b)?1:0;if(aC!==bC)return aC-bC;
-      var aT=typeOrder[a.excelType]!=null?typeOrder[a.excelType]:9;
-      var bT=typeOrder[b.excelType]!=null?typeOrder[b.excelType]:9;
-      if(aT!==bT)return aT-bT;
-      return (parseExpiry(a.expiryDate)||new Date('9999-12-31'))-(parseExpiry(b.expiryDate)||new Date('9999-12-31'));
-    });
-
-    sortedRows.forEach(function(r){
-      var isPastExp=(function(){var d=parseExpiry(r.expiryDate);return d&&d<today0;}());
-      if((closedHiddenG||hideClosedRows)&&(isCl(r)||isPastExp))return;
-      var c=isCl(r);
-      var isExp2=!c&&(function(){var d=parseExpiry(r.expiryDate);return d&&d<=thisFri;}());
-      var childCls='grp-child'+(r.rolledOver?' rolled':isExp2?' expiring-soon':'')+(c?' cr':'');
-
-      var livePI=(liveCache[r.ticker]&&liveCache[r.ticker].price!=null)?liveCache[r.ticker].price:null;
-      var manPI=tickerPrices[r.ticker]!=null?tickerPrices[r.ticker]:null;
-      var stockPI=livePI!=null?livePI:(manPI!=null?manPI:null);
-
-      // Price cell
-      var pd2='';
-      if(livePI!=null){pd2='<span class="pcell-live">$'+livePI.toFixed(2)+'</span><span class="pcell-badge pcell-badge-live">L</span>'+(manPI!=null?'<button class="pcell-act" onclick="clearManualPrice('+Q+r.ticker+Q+')">&#10005;</button>':'<button class="pcell-act" onclick="startEdit('+Q+r.id+Q+')">+M</button>');}
-      else if(manPI!=null){pd2='<span class="pcell-manual">$'+manPI+'</span><span class="pcell-badge pcell-badge-manual">M</span><button class="pcell-act" onclick="startEdit('+Q+r.id+Q+')">ed</button><button class="pcell-act" onclick="clearManualPrice('+Q+r.ticker+Q+')">&#10005;</button>';}
-      else{pd2='<span class="pcell-none">--</span><button class="pcell-act" onclick="startEdit('+Q+r.id+Q+')">+M</button>';}
-      var priceCellC='<div class="pcell">'+pd2+'</div>';
-
-      // Portf.Val cell
-      var hasOvrd=r.cvOverride!=null&&r.cvOverride!=='';
-      var isShortT=r.excelType==='Short Put'||r.excelType==='Short Call';
-      var cvVal=hasOvrd?(isShortT?-Math.abs(parseFloat(r.cvOverride)):Math.abs(parseFloat(r.cvOverride))):0;
-      var cvFmt=fmtM(cvVal);
-      var cvColor2=cvVal<0?'var(--red)':cvVal>0?'var(--black)':'var(--text3)';
-      var cvEditingNow=editCell&&editCell.id===r.id&&editCell.field==='cvOverride';
-      var cvCellC;
-      if(cvEditingNow){
-        cvCellC='<td class="mn"><div class="ie-wrap"><input class="ie-input w-md cv-override-input" id="ie_'+r.id+'_cvOverride" data-rid="'+r.id+'" type="number" step="0.01" value="'+(r.cvOverride!=null?Math.abs(parseFloat(r.cvOverride)||0):0)+'" placeholder="0.00"><button class="ie-ok cv-save-btn" data-rid="'+r.id+'">&#10003;</button><button class="ie-x cv-cancel-btn">&#10005;</button></div></td>';
-      } else {
-        var cvDispC=hasOvrd
-          ?'<span style="color:var(--yellow);font-family:monospace;font-weight:700;">'+cvFmt+'</span><span class="pcell-badge" style="background:var(--yellow-bg);color:var(--yellow);margin-left:2px;">ovrd</span><button class="pcell-act cv-undo-btn" data-rid="'+r.id+'">&#8617; undo</button>'
-          :'<span style="font-family:monospace;color:'+cvColor2+';">'+cvFmt+'</span><button class="pcell-act cv-ovrd-btn" data-rid="'+r.id+'">edit</button>';
-        cvCellC='<td class="mn">'+cvDispC+'</td>';
-      }
-
-      // Action cell
-      var actionCellC;
-      if(c){
-        var ca=r.closeAction;
-        var tLbl=ca?(ca.action+(ca.type==='credit'?'\u00b7 Cr':ca.type==='debit'?'\u00b7 Dr':'\u00b7 $0')):'Closed';
-        var aPart=ca&&ca.amount>0?'<span class="'+(ca.type==='credit'?'closed-cr':'closed-dr')+'">'+(ca.type==='credit'?'+':'-')+'$'+ca.amount.toLocaleString()+'</span>':'<span class="closed-dt">$0</span>';
-        var dPart=ca&&ca.date?'<span class="closed-dt">'+ca.date+'</span>':'';
-        actionCellC='<div class="closed-action-cell"><div class="closed-action-line"><span class="badge bcl">'+tLbl+'</span>'+aPart+dPart+'</div><button class="reopen-btn" onclick="reopenPosition('+Q+r.id+Q+')">&#8617; Reopen</button></div>';
-      } else {
-        var lbl2=r.excelType==='Short Put'?'BTC':r.excelType==='Long Put'||r.excelType==='Long Call'?'STC':r.excelType==='Shares'?'Sell':'Close';
-        actionCellC='<button class="action-btn" onclick="openModal('+Q+r.id+Q+')">&#9940; '+lbl2+'</button>';
-      }
-
-      var soldC2=r.soldAmount!=null&&r.soldAmount!==0&&r.soldAmount!==''?parseFloat(r.soldAmount):null;
-      var netIncC2=soldC2!=null?(soldC2-(r.excelCost||0)):null;
-      var _rc=r.contracts||1;
-      var _rb2=_rc>1?'<span style="display:inline-flex;align-items:center;background:var(--blue);color:#fff;border-radius:4px;padding:0.05rem 0.32rem;font-size:0.58rem;font-weight:800;margin-left:4px;">'+_rc+'x</span>':'';
-      var assnReq2=r.excelType==='Short Put'&&r.strike>0&&!c?(r.strike*100*_rc):null;
-      var collVal2=null;
-      var isShortT2=r.excelType==='Short Put'||r.excelType==='Short Call';
-      if(isShortT2&&r.strike>0&&!c){
-        var rawCV2=stockPI!=null?(r.strike>stockPI?stockPI*100*_rc:r.strike*100*_rc):r.strike*100*_rc;
-        collVal2=-Math.abs(rawCV2);
-      }
-
-      // Spread info for this position
-      var pairedLP=spToLP[r.id]||null;
-      var isLPused=lpUsed[r.id]||false;
-      var isSPUT=r.excelType==='Short Put'||r.excelType==='Short Call';
-      var isLPUT=r.excelType==='Long Put'||r.excelType==='Long Call';
-
-      // Spread collateral
-      var spreadColDisplay='<span class="empty">\u2014</span>';
-      if(isSPUT){
-        var spC=pairedLP?calcSpreadCol(r,pairedLP):r.strike*100*_rc;
-        var isRetP=retirementPorts.has(r.portfolio||'');
-        if(isRetP){
-          spreadColDisplay='<span style="font-weight:800;font-family:monospace;color:#EF4444;">$'+spC.toLocaleString()+'</span>';
-        } else {
-          var isOver=spC<0,cc3=!pairedLP?'var(--red)':isOver?'var(--green)':'var(--purple)';
-          spreadColDisplay=isOver?'<span style="color:var(--green);font-size:0.62rem;">\u2212$'+Math.abs(spC).toLocaleString()+' (over)</span>':'<span style="font-family:monospace;font-weight:800;color:'+cc3+';">$'+spC.toLocaleString()+'</span>';
-        }
-      }
-
-      // Spread type badge
-      var spreadBadge='';
-      if(isSPUT){spreadBadge=pairedLP?'<span class="badge-spread">Spread</span>':'<span class="badge-naked">Naked</span>';}
-      else if(isLPUT&&!isLPused){spreadBadge='<span class="badge-indep">Indep</span>';}
-
-      // Flags
-      var flags2='';
-      if(isSPUT&&stockPI!=null&&r.strike>stockPI)flags2+=' <span title="Strike above stock" style="color:#EF4444;">&#128681;</span>';
-      if(isSPUT&&pairedLP&&r.strike>pairedLP.strike)flags2+=' <span title="SP above LP strike" style="color:#EF4444;">&#128681;</span>';
-
-      var portBadgeC='';
-      if(portHeader){var pk=r.portfolio||'lovelina';portBadgeC='<td><span style="font-size:0.62rem;font-weight:600;color:'+(portColors[pk]||'#888')+'">'+(portNames[pk]||pk)+'</span></td>';}
-
-      var rowBg=isLPUT?'background:rgba(239,246,255,0.4);':'background:#FEFEFE;';
-      html+='<tr class="'+childCls+'" style="'+rowBg+'">';
-      html+='<td class="mc" style="padding-left:1.4rem;"><span style="color:var(--text3);font-size:0.6rem;margin-right:4px;">&#8627;</span><span class="chip"><span class="tk-dot-sm" style="background:'+(DC[r.ticker]||'#888')+'"></span>'+r.ticker+'</span>'+_rb2+'</td>';
-      if(portHeader)html+=portBadgeC;
-      // For LPUT/LCALL: show minimal in common cols, full data in LP section
-      if(isLPUT){
-        // LPUT: all common cols blank — data lives in LONG LEG section only
-        html+='<td class="empty">—</td>'; // DT
-        html+='<td class="empty">—</td>'; // Cost
-        html+='<td class="empty">—</td>'; // Sold
-        html+='<td class="empty">—</td>'; // Net
-        html+='<td class="empty">—</td>'; // Portf.Val
-        html+='<td class="empty">—</td>'; // Price
-        html+='<td><span class="badge '+bct(r.excelType)+'" style="opacity:0.7;">'+(typeShort[r.excelType]||r.excelType)+'</span> '+spreadBadge+'</td>'; // Type only
-        html+='<td class="empty">—</td>'; // Strike
-        html+='<td class="empty">—</td>'; // Assn
-        html+='<td class="empty">—</td>'; // Coll.Val
-        html+='<td class="empty">—</td>'; // Col.Blk
-        html+='<td class="empty">—</td>'; // Col.Gap
-      } else {
-        html+='<td style="font-size:0.72rem;">'+(r.openDate||'--')+'</td>';
-        html+='<td class="mn">'+(r.excelCost?fmtM(r.excelCost):'--')+'</td>';
-        html+='<td class="mn" style="color:var(--blue);">'+(soldC2!=null?fmtM(soldC2):'--')+'</td>';
-        html+='<td class="mn" style="color:'+(netIncC2!=null?(netIncC2>=0?'var(--green)':'var(--red)'):'var(--text3)')+'">'+(netIncC2!=null?fmtMS(netIncC2):'--')+'</td>';
-        html+=cvCellC;
-        html+='<td style="min-width:80px;"><div class="pcell">'+priceCellC+'</div></td>';
-        html+='<td><span class="badge '+bct(r.excelType)+'" style="opacity:0.7;">'+(typeShort[r.excelType]||r.excelType)+'</span> '+spreadBadge+'</td>';
-        html+='<td class="mn">'+(r.strike>0?'$'+r.strike+flags2:'--')+'</td>';
-        html+='<td class="mn" style="color:var(--red);">'+(assnReq2!=null?'$'+assnReq2.toLocaleString():'--')+'</td>';
-        html+='<td class="mn" style="color:var(--red);">'+(collVal2!=null?'-$'+Math.abs(collVal2).toLocaleString():'--')+'</td>';
-        html+='<td class="mn">$'+cbVal.toLocaleString()+'</td>';
-        html+='<td class="mn" style="color:'+gapColor+';font-weight:700;">'+(cbGap>=0?'+':'')+cbGap.toLocaleString()+'</td>';
-      }
-
-      // SPUT section
-      if(isSPUT){
-        var spCtr2=r.contracts||1;
-        html+='<td class="mn sp-cell" style="color:var(--red);font-weight:700;">$'+r.strike+'<span style="display:inline-flex;align-items:center;background:#DC2626;color:#fff;border-radius:4px;padding:0.05rem 0.25rem;font-size:0.58rem;font-weight:800;margin-left:3px;">'+spCtr2+'x</span>'+flags2+'</td>';
-        html+='<td class="mn sp-cell '+(ec(r.expiryDate))+'">'+fmtExpiry(r.expiryDate)+'</td>';
-        html+='<td class="sp-cell">'+spreadColDisplay+'</td>';
-        html+='<td class="div-col" style="width:50px;">&#9664;&#9654;</td>';
-        if(pairedLP){
-          var lpCtr2=pairedLP.contracts||1;
-          html+='<td class="mn lp-cell" style="color:var(--blue);font-weight:700;">$'+pairedLP.strike+'<span style="display:inline-flex;align-items:center;background:#2563EB;color:#fff;border-radius:4px;padding:0.05rem 0.25rem;font-size:0.58rem;font-weight:800;margin-left:3px;">'+lpCtr2+'x</span></td>';
-          html+='<td class="mn lp-cell '+(ec(pairedLP.expiryDate))+'">'+fmtExpiry(pairedLP.expiryDate)+'</td>';
-          html+='<td class="mn lp-cell">'+(pairedLP.excelCost?fmtM(pairedLP.excelCost):'--')+'</td>';
-        } else {
-          html+='<td class="lp-cell empty">\u2014</td><td class="lp-cell empty">\u2014</td><td class="lp-cell empty">\u2014</td>';
-        }
-      } else if(isLPUT){
-        // LP row: blank on SPUT side, data on LP side
-        html+='<td class="sp-cell empty">\u2014</td><td class="sp-cell empty">\u2014</td><td class="sp-cell empty">\u2014</td>';
-        html+='<td class="div-col" style="width:50px;">&#9664;&#9654;</td>';
-        var lpCtr3=r.contracts||1;
-        html+='<td class="mn lp-cell" style="color:var(--blue);font-weight:700;">$'+r.strike+'<span style="display:inline-flex;align-items:center;background:#2563EB;color:#fff;border-radius:4px;padding:0.05rem 0.25rem;font-size:0.58rem;font-weight:800;margin-left:3px;">'+lpCtr3+'x</span></td>';
-        html+='<td class="mn lp-cell '+(ec(r.expiryDate))+'">'+fmtExpiry(r.expiryDate)+'</td>';
-        html+='<td class="mn lp-cell">'+(r.excelCost?fmtM(r.excelCost):'--')+'</td>';
-      } else {
-        // Shares or other: spans
-        html+='<td class="sp-cell empty" colspan="3">\u2014</td>';
-        html+='<td class="div-col" style="width:50px;">&#9664;&#9654;</td>';
-        html+='<td class="lp-cell empty" colspan="3">\u2014</td>';
-      }
-      html+='<td class="mn">'+spreadColDisplay+'</td>';
-      html+='<td style="text-align:center;white-space:nowrap;"><button class="row-edit-btn" onclick="openEditModal('+Q+r.id+Q+')">&#9998;</button></td>';
-      html+='<td style="text-align:center;"><button class="copy-btn" onclick="copyRow('+Q+r.id+Q+')">&#10063;</button></td>';
-      html+='<td style="text-align:center;"><button class="del-btn" onclick="deleteRowById('+Q+r.id+Q+')">&#128465;</button></td>';
-      html+='</tr>';
-    });
-  });
-
-  var phdr=portHeader?'<th style="color:rgba(255,255,255,0.7);">Port.</th>':'';
-  // Column groups: Common | Position detail | SPUT | divider | LPUT | Spread | Actions
-  var thead='<thead>'
-    +'<tr style="background:#111;">'
-    +'<th colspan="'+(portHeader?2:1)+'" style="background:#222;border-bottom:2px solid #333;">Ticker</th>'
-    +'<th colspan="9" style="background:rgba(30,30,30,1);border-bottom:2px solid #444;text-align:center;font-size:0.58rem;letter-spacing:0.1em;">&#9472; POSITION DETAILS &#9472;</th>'
-    +'<th colspan="3" class="sp-hdr" style="text-align:center;font-size:0.58rem;letter-spacing:0.1em;">&#9472; SHORT LEG &#9472;</th>'
-    +'<th class="div-hdr" style="width:50px;"></th>'
-    +'<th colspan="3" class="lp-hdr" style="text-align:center;font-size:0.58rem;letter-spacing:0.1em;">&#9472; LONG LEG &#9472;</th>'
-    +'<th colspan="4" style="background:#222;border-bottom:2px solid #333;text-align:center;font-size:0.58rem;letter-spacing:0.1em;">&#9472; ACTIONS &#9472;</th>'
-    +'</tr>'
-    +'<tr>'
-    +'<th>Ticker</th>'+phdr
-    +'<th>DT</th><th>Cost</th><th>Sold</th><th>Net</th><th>Portf.Val</th><th>Price</th><th>Type</th><th>Strike</th><th style="color:#FCA5A5;">Assn.</th><th style="color:#FDBA74;">Coll.Val</th><th style="color:#FCD34D;">Col.Blk</th><th style="color:#6EE7B7;">Col.Gap</th>'
-    +'<th class="sp-hdr">SP Strike</th><th class="sp-hdr">SP Expiry</th><th class="sp-hdr">Collateral</th>'
-    +'<th class="div-hdr">&#9664;&#9654;</th>'
-    +'<th class="lp-hdr">LP Strike</th><th class="lp-hdr">LP Expiry</th><th class="lp-hdr">LP Cost</th>'
-    +'<th>Spread Col.</th><th></th><th></th><th></th>'
-    +'</tr>'
-    +'</thead>';
-
-  var emptyState='<tr><td colspan="'+(portHeader?25:24)+'" class="ec" style="padding:2rem;text-align:center;color:var(--text3);">No positions match filters.</td></tr>';
-  return '<div class="st-wrap" style="margin-bottom:0.85rem;"><table style="min-width:1400px;">'+thead+'<tbody>'+(html||emptyState)+'</tbody></table></div>';
-}
-
-function collatDisplayGroup(rows){
-  // Collateral display for group summary — sum of spread collateral for SPUTs
-  var total=rows.filter(function(r){return(r.excelType==='Short Put'||r.excelType==='Short Call')&&!isCl(r);}).reduce(function(s,r){return s+r.strike*100*(r.contracts||1);},0);
-  return total>0?'<span style="font-family:monospace;font-weight:700;color:var(--red);">$'+total.toLocaleString()+'</span>':'<span class="empty">\u2014</span>';
-}
 
 // ── MAIN RENDER ───────────────────────────────────────────────────────────────
 function rMain(){
@@ -3550,16 +3470,21 @@ function rMain(){
   var s=cs(dispData,isRet);
   if(activeView==='activity'){
     el.innerHTML=rActivityView();attachEvents();attachActUpload();return;
+  }else if(activeView==='weekly'){
+    el.innerHTML=rWeeklyView();attachEvents();return;
   }else if(activeView==='admin'){
     el.innerHTML=rAdminView();
     fetchAndUpdateLive([...new Set(positions.map(function(r){return r.ticker;}))].sort());
   }else if(activeView==='spreads'){
     el.innerHTML=rSpreadsView(data);
-  }else if(activeView==='combined'){
-    var fd2=getAppliedFilters(dispData),sf2=cs(fd2,isRet);
-    el.innerHTML=rFilterBar(data)+rFiltersRow(data)+rSum(sf2)+rTableControls()+rCombinedView(fd2);
-    var sel2=document.getElementById('income-filter-sel');
-    if(sel2&&sel2.value!==incomeFilter)sel2.value=incomeFilter;
+  }else if(activeView==='putladder'){
+    el.innerHTML = [
+      '<div id="summary-strip"></div>',
+      '<div id="pl-controls"></div>',
+      '<div id="ladders-root"></div>'
+    ].join('');
+    plReloadForPortfolio();
+    return;
   }else if(activeView==='poslist'){
     var fd=getAppliedFilters(dispData),sf=cs(fd,isRet);
     el.innerHTML=data.length===0
@@ -3680,9 +3605,18 @@ function rBc(){
   else if(ap==='retirement')crumb='<span style="color:var(--text3)">All</span> &rsaquo; <span style="color:var(--text3)">Retirement</span> &rsaquo; <span style="color:var(--red)">'+sl[as]+'</span>';
   else crumb='<span style="color:var(--text3)">All</span> &rsaquo; <span style="color:var(--red)">'+pl[ap]+'</span>';
 
-  // Ticker filter — same logic as rFiltersRow, shared selectedTickers global
-  var allData=gd(ap,as);
-  var tickers=getTickersFrom(allData);
+  // Ticker filter — use ladders data when in Put Ladders view, otherwise use positions data
+  var allData, tickers;
+  if (typeof activeView !== 'undefined' && activeView === 'putladder') {
+    // Use ladders for Put Ladders view
+    tickers = [...new Set((ladders || []).map(function(l) { return l.ticker; }))].sort();
+    console.log('rBc() - Using ladders for ticker dropdown, tickers:', tickers);
+  } else {
+    // Use positions for other views
+    allData = gd(ap,as);
+    tickers = getTickersFrom(allData);
+    console.log('rBc() - Using positions for ticker dropdown, tickers:', tickers);
+  }
   var allSel=selectedTickers.has('ALL');
   var selList=allSel?[]:[...selectedTickers].filter(function(t){return t!=='ALL';});
   var absentSel=selList.filter(function(t){return tickers.indexOf(t)<0;});
@@ -3725,7 +3659,7 @@ function rBc(){
       var t=item.dataset.ddticker;
       if(t==='ALL'){selectedTickers=new Set(['ALL']);}
       else{selectedTickers.delete('ALL');if(selectedTickers.has(t))selectedTickers.delete(t);else selectedTickers.add(t);if(!selectedTickers.size)selectedTickers=new Set(['ALL']);}
-      rMain();rBc();
+      rMain();rBc();if(typeof activeView!=='undefined'&&activeView==='putladder')render();
       setTimeout(function(){var d=document.getElementById('bc-tkdrop');if(d){d.classList.add('open');bcDropdownOpen=true;}if(bcTkSearch)bcSetTkSearch(bcTkSearch);var s=document.getElementById('bc-tk-search');if(s)s.focus();},10);
     });
   });
@@ -3735,7 +3669,7 @@ function rBc(){
       e.stopPropagation();
       selectedTickers.delete(x.dataset.xticker);
       if(!selectedTickers.size)selectedTickers=new Set(['ALL']);
-      rMain();rBc();
+      rMain();rBc();if(typeof activeView!=='undefined'&&activeView==='putladder')render();
     });
   });
 }
@@ -3743,6 +3677,7 @@ document.getElementById('view-nav').addEventListener('click',function(e){
   var t=e.target.closest('.view-tab');if(!t)return;
   activeView=t.dataset.view;
   document.querySelectorAll('.view-tab').forEach(function(v){v.classList.toggle('active',v.dataset.view===activeView);});
+  if(activeView==='putladder'&&document.getElementById('ladders-root'))plReloadForPortfolio();
   rMain();
 });
 function sPort(p){
@@ -3754,8 +3689,8 @@ function sPort(p){
   if(p==='retirement'){as='ret-all';document.querySelectorAll('.sub-tab').forEach(function(t){t.classList.toggle('active',t.dataset.sub===as);});}
   autoExpirePositions();rBc();rMain();
 }
-document.getElementById('port-nav').addEventListener('click',function(e){var t=e.target.closest('.port-tab');if(t)sPort(t.dataset.port);});
-document.getElementById('sub-nav').addEventListener('click',function(e){var t=e.target.closest('.sub-tab');if(!t)return;as=t.dataset.sub;document.querySelectorAll('.sub-tab').forEach(function(s){s.classList.toggle('active',s.dataset.sub===as);});autoExpirePositions();rBc();rMain();});
+document.getElementById('port-nav').addEventListener('click',function(e){var t=e.target.closest('.port-tab');if(t){sPort(t.dataset.port);if(activeView==='putladder')plReloadForPortfolio();}});
+document.getElementById('sub-nav').addEventListener('click',function(e){var t=e.target.closest('.sub-tab');if(!t)return;as=t.dataset.sub;document.querySelectorAll('.sub-tab').forEach(function(s){s.classList.toggle('active',s.dataset.sub===as);});autoExpirePositions();rBc();if(activeView==='putladder'){plReloadForPortfolio();}else{rMain();}});
 document.getElementById('topbar-date').textContent=new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
 
 // ── GITHUB SYNC ───────────────────────────────────────────────────────────────
@@ -3898,6 +3833,15 @@ window.adminSavePrice=adminSavePrice;window.adminClearPrice=adminClearPrice;wind
 window.adminSaveEarnings=adminSaveEarnings;
 window.actSort=actSort;window.actSearchChange=actSearchChange;window.actSetPage=actSetPage;window.actSetFilter=actSetFilter;
 window.actToggleUpload=actToggleUpload;window.actCancelUpload=actCancelUpload;window.actClearAll=actClearAll;window.actDeleteRow=actDeleteRow;window.actDoImport=actDoImport;
+function cashEdit(){editingCash=true;editingInitCash=false;editingCrypto=false;rMain();setTimeout(function(){var i=document.getElementById('cash-inp');if(i){i.focus();i.select();}},30);}
+function cashSave(){var i=document.getElementById('cash-inp');if(i){var v=parseFloat(i.value);if(!isNaN(v))setPortCash(v);}editingCash=false;rMain();}
+function cashCancel(){editingCash=false;rMain();}
+function initCashEdit(){editingInitCash=true;editingCash=false;editingCrypto=false;rMain();setTimeout(function(){var i=document.getElementById('init-cash-inp');if(i){i.focus();i.select();}},30);}
+function initCashSave(){var i=document.getElementById('init-cash-inp');if(i){var v=parseFloat(i.value);if(!isNaN(v))setPortInitCash(v);}editingInitCash=false;rMain();}
+function initCashCancel(){editingInitCash=false;rMain();}
+function cryptoEdit(){editingCrypto=true;editingCash=false;editingInitCash=false;rMain();setTimeout(function(){var i=document.getElementById('crypto-inp');if(i){i.focus();i.select();}},30);}
+function cryptoSave(){var i=document.getElementById('crypto-inp');if(i){var v=parseFloat(i.value);if(!isNaN(v))setPortCrypto(v);}editingCrypto=false;rMain();}
+function cryptoCancel(){editingCrypto=false;rMain();}
 window.cashEdit=cashEdit;window.cashSave=cashSave;window.cashCancel=cashCancel;
 window.initCashEdit=initCashEdit;window.initCashSave=initCashSave;window.initCashCancel=initCashCancel;
 window.ghSave=ghSave;window.ghLoad=ghLoad;window.ghConfigure=ghConfigure;window.ghSaveSettings=ghSaveSettings;window.closeGhModal=closeGhModal;
@@ -3933,6 +3877,88 @@ function restoreFromFile(inp){
 window.backupToFile=backupToFile;window.restoreFromFile=restoreFromFile;
 
 autoExpirePositions();rBc();rMain();
+
+// ── WEEKLY VIEW ───────────────────────────────────────────────────────────────
+var WV_SNAP_KEY='roi_weekly_snapshots_v1';
+function wvLoadSnaps(){try{return JSON.parse(localStorage.getItem(WV_SNAP_KEY)||'{}');}catch(e){return{};}}
+function wvSaveSnaps(){try{localStorage.setItem(WV_SNAP_KEY,JSON.stringify(wvSnaps));}catch(e){}}
+var wvSnaps=wvLoadSnaps();
+var wvExpandedWeeks=new Set();
+var wvPortFilter='all';
+function wvGetMonday(d){var dt=new Date(d);var day=dt.getDay();var diff=day===0?-6:1-day;dt.setDate(dt.getDate()+diff);dt.setHours(0,0,0,0);return dt;}
+function wvGetFriday(d){var mon=wvGetMonday(d);var fri=new Date(mon);fri.setDate(fri.getDate()+4);return fri;}
+function wvWeekKey(d){var mon=wvGetMonday(d);return mon.getFullYear()+'-'+String(mon.getMonth()+1).padStart(2,'0')+'-'+String(mon.getDate()).padStart(2,'0');}
+function wvWeekLabel(monDate){var months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];var fri=new Date(monDate);fri.setDate(fri.getDate()+4);return months[monDate.getMonth()]+' '+monDate.getDate()+' \u2013 '+months[fri.getMonth()]+' '+fri.getDate()+', '+fri.getFullYear();}
+function wvParseDate(s){if(!s||!s.trim())return null;var str=s.trim();try{if(str.indexOf('/')!==-1){var p=str.split('/');if(p.length===3){var y=parseInt(p[2]);if(y<100)y+=2000;return new Date(y,parseInt(p[0])-1,parseInt(p[1]));}if(p.length===2){return new Date(new Date().getFullYear(),parseInt(p[0])-1,parseInt(p[1]));}}if(str.indexOf('-')!==-1){var p2=str.split('-');if(p2.length===3){if(p2[0].length===4)return new Date(parseInt(p2[0]),parseInt(p2[1])-1,parseInt(p2[2]));return new Date(parseInt(p2[2]),parseInt(p2[0])-1,parseInt(p2[1]));}}}catch(e){}return null;}
+function wvFmt(v){if(v==null)return'--';var neg=v<0;var a=Math.abs(v);return(neg?'-$':'$')+a.toLocaleString(undefined,{minimumFractionDigits:0,maximumFractionDigits:0});}
+function wvFmtSign(v){if(v==null)return'--';return(v>=0?'+':'-')+'$'+Math.abs(v).toLocaleString(undefined,{minimumFractionDigits:0,maximumFractionDigits:0});}
+function wvGetPositions(){var RET_KEYS=['amit-roth','lov-roth','lov-trad'];if(wvPortFilter==='all')return positions;if(wvPortFilter==='retirement')return positions.filter(function(r){return RET_KEYS.indexOf(r.portfolio||'')>=0;});return positions.filter(function(r){return(r.portfolio||'lovelina')===wvPortFilter;});}
+function wvGetAllWeeks(){var weekSet={};weekSet[wvWeekKey(new Date())]=true;var allPos=wvGetPositions();allPos.forEach(function(r){var od=wvParseDate(r.openDate);if(od)weekSet[wvWeekKey(od)]=true;var ca=r.closeAction;if(ca&&ca.date){var cd=wvParseDate(ca.date);if(cd)weekSet[wvWeekKey(cd)]=true;}});Object.keys(wvSnaps).forEach(function(k){weekSet[k]=true;});return Object.keys(weekSet).sort(function(a,b){return b.localeCompare(a);});}
+function wvKeyToMonday(key){var p=key.split('-');return new Date(parseInt(p[0]),parseInt(p[1])-1,parseInt(p[2]));}
+function wvComputeSnapshot(wk){
+  var mon=wvKeyToMonday(wk);var fri=wvGetFriday(mon);fri.setHours(23,59,59,999);
+  var allPos=wvGetPositions();
+  var opened=allPos.filter(function(r){var od=wvParseDate(r.openDate);return od&&od>=mon&&od<=fri;});
+  var closed=allPos.filter(function(r){if(!r.closeAction||!r.closeAction.date)return false;var cd=wvParseDate(r.closeAction.date);return cd&&cd>=mon&&cd<=fri;});
+  var openedIncome=opened.reduce(function(s,r){var sa=r.soldAmount!=null&&r.soldAmount!==''?parseFloat(r.soldAmount):0;return s+(sa-(r.excelCost||0));},0);
+  var closedIncome=closed.reduce(function(s,r){return s+((r.closeAction&&r.closeAction.signedAmount)||0);},0);
+  return{wk:wk,mon:mon,fri:fri,opened:opened,closed:closed,openedIncome:openedIncome,closedIncome:closedIncome,totalIncome:openedIncome+closedIncome,savedSnap:wvSnaps[wk]||null};
+}
+function wvSaveSnapshot(wk){
+  var snap=wvComputeSnapshot(wk);
+  var allPos=wvGetPositions();
+  var openCount=allPos.filter(function(r){return!isCl(r);}).length;
+  var totalCollat=calcSpreadCollateral(allPos.filter(function(r){return!isCl(r);}));
+  wvSnaps[wk]={savedAt:new Date().toISOString(),openPositions:openCount,collateral:totalCollat,cash:getPortCash(),income:snap.totalIncome,openedCount:snap.opened.length,closedCount:snap.closed.length};
+  wvSaveSnaps();rMain();
+}
+function wvToggleWeek(key){if(wvExpandedWeeks.has(key))wvExpandedWeeks.delete(key);else wvExpandedWeeks.add(key);rMain();}
+function rWeeklyView(){
+  var today=new Date();var currentWk=wvWeekKey(today);
+  if(wvExpandedWeeks.size===0)wvExpandedWeeks.add(currentWk);
+  var weeks=wvGetAllWeeks();
+  var portNames={'all':'All Portfolios','lovelina':'Lovelina','amit':'Amit','joint':'Joint','retirement':'Retirement'};
+  var pfBtns=Object.keys(portNames).map(function(p){return'<button class="wv-pf-btn'+(wvPortFilter===p?' active':'')+'" onclick="wvPortFilter=\''+p+'\';rMain();">'+portNames[p]+'</button>';}).join('');
+  var pfBar='<div class="wv-portfolio-filter"><span class="wv-pf-label">&#127991; Portfolio</span>'+pfBtns+'</div>';
+  if(!weeks.length){return pfBar+'<div style="text-align:center;padding:3rem 1rem;color:var(--text3);">No weekly data yet.</div>';}
+  var typeShortWV={'Short Put':'SPUT','Long Put':'LPUT','Long Call':'LCALL','Short Call':'SCALL','Shares':'SHR'};
+  var bctWV=function(t){return t==='Short Put'?'bsp':t==='Long Put'?'blp':t==='Long Call'?'blc':'bsh';};
+  var html='';
+  weeks.forEach(function(wk){
+    var snap=wvComputeSnapshot(wk);
+    var label=wvWeekLabel(snap.mon);
+    var isCurrent=wk===currentWk;
+    var expanded=wvExpandedWeeks.has(wk);
+    var badge=isCurrent?'<span class="wv-week-badge wv-badge-current">&#9679; Current</span>':'<span class="wv-week-badge wv-badge-past">Past</span>';
+    var incColor=snap.totalIncome>=0?'#34D399':'#F87171';
+    var stats='<div class="wv-week-stats"><div class="wv-stat-item"><div class="wv-stat-lbl">Income</div><div class="wv-stat-val" style="color:'+incColor+';">'+wvFmtSign(snap.totalIncome)+'</div></div><div class="wv-stat-item"><div class="wv-stat-lbl">Opened</div><div class="wv-stat-val" style="color:#93C5FD;">'+snap.opened.length+'</div></div><div class="wv-stat-item"><div class="wv-stat-lbl">Closed</div><div class="wv-stat-val" style="color:#FCA5A5;">'+snap.closed.length+'</div></div></div>';
+    html+='<div class="wv-week-block"><div class="wv-week-hdr" onclick="wvToggleWeek(\''+wk+'\')"><div class="wv-week-label">&#128197; '+label+' '+badge+'</div>'+stats+'<span class="wv-chevron'+(expanded?' open':'')+'">'+(expanded?'&#9660;':'&#9654;')+'</span></div>';
+    if(expanded){
+      html+='<div class="wv-body">';
+      // Snapshot
+      html+='<div class="wv-section"><div class="wv-section-title"><span class="wv-dot" style="background:#FCD34D;"></span>Account Snapshot</div>';
+      var sv=snap.savedSnap;var allPos2=wvGetPositions();var liveOpen=allPos2.filter(function(r){return!isCl(r);}).length;var liveCollat=calcSpreadCollateral(allPos2.filter(function(r){return!isCl(r);}));var liveCash=getPortCash();
+      html+='<div class="wv-snapshot-grid"><div class="wv-snap-card"><div class="wv-snap-lbl">Open Positions</div><div class="wv-snap-val">'+(sv?sv.openPositions:liveOpen)+'</div><div class="wv-snap-sub">'+(sv?'saved':'live')+'</div></div><div class="wv-snap-card"><div class="wv-snap-lbl">Collateral</div><div class="wv-snap-val">'+wvFmt(sv?sv.collateral:liveCollat)+'</div></div><div class="wv-snap-card"><div class="wv-snap-lbl">Cash</div><div class="wv-snap-val">'+wvFmt(sv?sv.cash:liveCash)+'</div></div><div class="wv-snap-card"><div class="wv-snap-lbl">Week Income</div><div class="wv-snap-val" style="color:'+(snap.totalIncome>=0?'var(--green)':'var(--red)')+';">'+wvFmtSign(snap.totalIncome)+'</div></div></div>';
+      if(sv){var savedDate=sv.savedAt?new Date(sv.savedAt).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):'';html+='<div class="wv-save-snap-bar"><span class="wv-snap-saved-badge">&#10003; Saved '+savedDate+'</span><button class="wv-save-snap-btn" onclick="event.stopPropagation();wvSaveSnapshot(\''+wk+'\')">&#8635; Update</button></div>';}
+      else{html+='<div class="wv-save-snap-bar"><button class="wv-save-snap-btn" onclick="event.stopPropagation();wvSaveSnapshot(\''+wk+'\')">&#128190; Save Snapshot</button><span class="wv-snap-note">Records a point-in-time snapshot</span></div>';}
+      html+='</div>';
+      // Opened
+      html+='<div class="wv-section"><div class="wv-section-title"><span class="wv-dot" style="background:#34D399;"></span>Positions Opened <span style="color:var(--text3);font-weight:400;">('+snap.opened.length+')</span></div>';
+      if(!snap.opened.length){html+='<div style="color:var(--text3);font-size:0.68rem;">No positions opened this week.</div>';}
+      else{html+='<div style="overflow-x:auto;"><table class="wv-mini-tbl"><thead><tr><th>Ticker</th><th>Type</th><th>Strike</th><th>Expiry</th><th>Opened</th><th>Cost</th><th>Sold</th><th>Net</th></tr></thead><tbody>';snap.opened.forEach(function(r){var sold=r.soldAmount!=null&&r.soldAmount!==''?parseFloat(r.soldAmount):null;var net=sold!=null?(sold-(r.excelCost||0)):null;html+='<tr><td style="font-weight:700;">'+r.ticker+'</td><td><span class="badge '+bctWV(r.excelType)+'" style="font-size:0.55rem;">'+(typeShortWV[r.excelType]||r.excelType)+'</span></td><td class="mn">'+(r.strike>0?'$'+r.strike:'--')+'</td><td class="mn '+(r.expiryDate?ec(r.expiryDate):'')+'">'+(r.expiryDate||'--')+'</td><td class="mn">'+(r.openDate||'--')+'</td><td class="mn">'+(r.excelCost?wvFmt(r.excelCost):'--')+'</td><td class="mn" style="color:var(--blue);">'+(sold!=null?wvFmt(sold):'--')+'</td><td class="mn '+(net!=null?(net>=0?'pos':'neg'):'')+'\">'+(net!=null?wvFmtSign(net):'--')+'</td></tr>';});html+='</tbody></table></div>';}
+      html+='</div>';
+      // Closed
+      html+='<div class="wv-section"><div class="wv-section-title"><span class="wv-dot" style="background:#F87171;"></span>Positions Closed <span style="color:var(--text3);font-weight:400;">('+snap.closed.length+')</span></div>';
+      if(!snap.closed.length){html+='<div style="color:var(--text3);font-size:0.68rem;">No positions closed this week.</div>';}
+      else{html+='<div style="overflow-x:auto;"><table class="wv-mini-tbl"><thead><tr><th>Ticker</th><th>Type</th><th>Strike</th><th>Action</th><th>Close Date</th><th>Amount</th><th>P&amp;L</th></tr></thead><tbody>';snap.closed.forEach(function(r){var ca=r.closeAction||{};var amt=ca.signedAmount||0;var pnl=amt-(r.excelCost||0);html+='<tr><td style="font-weight:700;">'+r.ticker+'</td><td><span class="badge '+bctWV(r.excelType)+'" style="font-size:0.55rem;">'+(typeShortWV[r.excelType]||r.excelType)+'</span></td><td class="mn">'+(r.strike>0?'$'+r.strike:'--')+'</td><td>'+(ca.action||'Closed')+'</td><td class="mn">'+(ca.date||'--')+'</td><td class="mn '+(amt>=0?'pos':'neg')+'">'+wvFmtSign(amt)+'</td><td class="mn '+(pnl>=0?'pos':'neg')+'">'+wvFmtSign(pnl)+'</td></tr>';});html+='</tbody></table></div>';}
+      html+='</div></div>';
+    }
+    html+='</div>';
+  });
+  return pfBar+'<div class="wv-wrap">'+html+'</div>';
+}
+window.wvToggleWeek=wvToggleWeek;
+window.wvSaveSnapshot=wvSaveSnapshot;
 
 // ── MOBILE RESPONSIVE HELPERS ─────────────────────────────────────────────────
 (function(){
@@ -3977,6 +4003,1750 @@ autoExpirePositions();rBc();rMain();
     }
   },{passive:false});
 })();
+
+// ── PUT LADDER JS ────────────────────────────────────────────────────────────
+
+function plSetFilter(el) {
+  filterMode = el.dataset.filter || 'all';
+  document.querySelectorAll('.fp-btn').forEach(function(b){ b.classList.remove('active'); });
+  el.classList.add('active');
+  render();
+}
+// ── PUT LADDER STORAGE ────────────────────────────────────────────────────────
+// Maps index.html portfolio selection to put-ladder storage keys
+function plGetPortKey() {
+  // ap and as are index.html globals
+  if (typeof ap === 'undefined') return 'joint';
+  var portMap = { 'amit':'self', 'lovelina':'spouse', 'joint':'joint', 'retirement':'retirement' };
+  var subMap  = { 'amit-roth':'self_roth', 'lov-roth':'spouse_roth', 'lov-trad':'spouse_ira', 'ret-all':'retirement' };
+  if (ap === 'retirement') return subMap[typeof as !== 'undefined' ? as : 'ret-all'] || 'retirement';
+  return portMap[ap] || ap;
+}
+var ladders = [];
+(function() {
+  try {
+    var portKey = (function() {
+      if (typeof ap === 'undefined') return 'joint';
+      var portMap = { 'amit':'self', 'lovelina':'spouse', 'joint':'joint', 'retirement':'retirement' };
+      var subMap  = { 'amit-roth':'self_roth', 'lov-roth':'spouse_roth', 'lov-trad':'spouse_ira', 'ret-all':'retirement' };
+      if (ap === 'retirement') return subMap[typeof as !== 'undefined' ? as : 'ret-all'] || 'retirement';
+      return portMap[ap] || ap;
+    })();
+    var raw = localStorage.getItem('roi_putladder_' + portKey);
+    ladders = (raw && JSON.parse(raw)) || [];
+    if (!Array.isArray(ladders)) ladders = [];
+  } catch(e) { ladders = []; }
+})();
+
+// ── STATE ─────────────────────────────────────────────────────────────────────
+var filterMode = 'all';
+var plTickerSearch = '';
+var expandedIds = new Set();
+var tickerWeekFilters = {}; // Tracks week filter per ticker: { 'PLTR': 'all', 'WMT': 'cw', etc }
+ladders.forEach(function(l) { 
+  if (!l.closed) expandedIds.add(l.id); 
+});
+// Expand all ticker groups by default
+var tickers = [...new Set(ladders.map(function(l) { return l.ticker; }))];
+tickers.forEach(function(t) { expandedIds.add('ticker-' + t); });
+
+function setTickerWeekFilter(ticker, filter) {
+  tickerWeekFilters[ticker] = filter;
+  render();
+}
+
+function setFilter(el, f) {
+  filterMode = f;
+  document.querySelectorAll('.fp-btn').forEach(function(b) { b.classList.remove('active'); });
+  el.classList.add('active');
+  render();
+}
+function plSetFilter(el, f) {
+  filterMode = f || el.dataset.filter || 'all';
+  document.querySelectorAll('.fp-btn').forEach(function(b) { b.classList.remove('active'); });
+  el.classList.add('active');
+  render();
+}
+
+// ── UTILS ─────────────────────────────────────────────────────────────────────
+function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
+function fmt(n) {
+  if (n == null || isNaN(n)) return '--';
+  var neg = n < 0, a = Math.abs(n);
+  var s = a >= 1000 ? '$' + a.toLocaleString('en-US', {maximumFractionDigits:0}) : '$' + a.toFixed(2);
+  return neg ? '-' + s : s;
+}
+function fmtSign(n) {
+  if (n == null || isNaN(n)) return '--';
+  return (n >= 0 ? '+' : '') + fmt(n);
+}
+function daysLeft(dateStr) {
+  if (!dateStr) return null;
+  var d = parseDate(dateStr);
+  if (!d) return null;
+  var today = new Date(); today.setHours(0,0,0,0);
+  return Math.round((d - today) / 86400000);
+}
+function parseDate(s) {
+  if (!s) return null;
+  try {
+    var p = s.split('/');
+    if (p.length === 3) { var y = parseInt(p[2]); if (y < 100) y += 2000; return new Date(y, parseInt(p[0])-1, parseInt(p[1])); }
+    if (p.length === 2) { return new Date(new Date().getFullYear(), parseInt(p[0])-1, parseInt(p[1])); }
+    return new Date(s);
+  } catch(e) { return null; }
+}
+function fmtDate(s) {
+  if (!s) return '--';
+  var d = parseDate(s);
+  if (!d || isNaN(d)) return s;
+  return (d.getMonth()+1) + '/' + d.getDate() + '/' + d.getFullYear();
+}
+function expiryClass(dateStr) {
+  var dl = daysLeft(dateStr);
+  if (dl == null) return '';
+  if (dl <= 4) return 'neg-val';
+  if (dl <= 14) return 'pos-val'; // yellow would work too but using green for readability
+  return '';
+}
+
+// ── COMPUTE LADDER STATS ──────────────────────────────────────────────────────
+function calcLadder(l) {
+  var longCost = l.noLongPut || !l.longPremium ? 0 : l.longPremium * 100 * (l.contracts || 1);
+  // If long put was closed/sold, add back the proceeds as income
+  var lpCloseCredit = (l.longPutClosed || l.closed) && l.longCloseAmount ? l.longCloseAmount : 0;
+  var totalIncome = lpCloseCredit;
+  (l.shortPuts || []).forEach(function(sp) {
+    var debit = sp.btcDebit || 0;
+    if (sp.closed) {
+      totalIncome += (sp.received || 0) - debit - (sp.buybackCost || 0);
+    } else {
+      totalIncome += (sp.received || 0) - debit;
+    }
+  });
+  var remaining = longCost - totalIncome;
+  var profit = totalIncome - longCost;
+  var pct = longCost > 0 ? Math.min(Math.max(totalIncome / longCost, 0), 1) : 0;
+  // collateral: if spread, max(0, short - long) * 100 * contracts; if no long put, full short strike
+  var activeSP = (l.shortPuts || []).filter(function(sp) { return !sp.closed; });
+  var totalCollat = 0;
+  activeSP.forEach(function(sp) {
+    var cts = sp.contracts || l.contracts || 1;
+    if (!l.noLongPut && l.longStrike) {
+      // spread: collateral = max(0, shortStrike - longStrike) * 100 * contracts
+      totalCollat += Math.max(0, sp.strike - l.longStrike) * 100 * cts;
+    } else {
+      // no long put: full cash-secured = short strike * 100 * contracts
+      totalCollat += sp.strike * 100 * cts;
+    }
+  });
+  return { longCost: longCost, totalIncome: totalIncome, remaining: remaining, profit: profit, pct: pct, collat: totalCollat };
+}
+
+// ── RENDER ────────────────────────────────────────────────────────────────────
+// Put Ladders ticker dropdown functions
+function plToggleDropdown() {
+  var d = document.getElementById('pl-tkdrop');
+  if (!d) return;
+  if (d.classList.contains('open')) {
+    d.classList.remove('open');
+    dropdownOpen = false;
+  } else {
+    d.classList.add('open');
+    dropdownOpen = true;
+    setTimeout(function() {
+      var s = document.getElementById('pl-tk-search-inp');
+      if (s) s.focus();
+    }, 10);
+  }
+}
+
+function plSetTkSearch(v) {
+  var d = document.getElementById('pl-tkdrop');
+  if (!d) return;
+  var q = (v || '').toLowerCase();
+  d.querySelectorAll('.ticker-dd-item[data-ddticker]').forEach(function(el) {
+    var t = el.dataset.ddticker;
+    el.style.display = (!t || t === 'ALL' || t.toLowerCase().indexOf(q) >= 0 || !q) ? '' : 'none';
+  });
+}
+
+function renderControls() {
+  var controlsDiv = document.getElementById('pl-controls');
+  console.log('renderControls - controlsDiv exists?', !!controlsDiv);
+  if (!controlsDiv) return;
+  
+  // Build ticker list from ladders
+  var ladderTickers = [...new Set(ladders.map(function(l) { return l.ticker; }))].sort();
+  console.log('renderControls - ladders count:', ladders.length);
+  console.log('renderControls - ladder tickers:', ladderTickers);
+  console.log('renderControls - ladders:', ladders.map(function(l) { return l.ticker + ' (' + (l.closed ? 'closed' : 'open') + ')'; }));
+  
+  var allSel = typeof selectedTickers === 'undefined' || selectedTickers.has('ALL');
+  var selList = allSel ? [] : [...selectedTickers].filter(function(t) { return t !== 'ALL'; });
+  var tags = allSel 
+    ? '<span style="color:var(--text3);font-size:0.7rem;">All Tickers</span>'
+    : selList.map(function(t) {
+        return '<span class="sel-tag"><span style="width:6px;height:6px;border-radius:50%;background:' + (DC[t] || '#888') + ';display:inline-block;flex-shrink:0;"></span>' + t + '<span class="sel-tag-x" data-xticker="' + t + '">&#10005;</span></span>';
+      }).join('');
+  var ddItems = ladderTickers.map(function(t) {
+    var sel = allSel || selectedTickers.has(t);
+    return '<div class="ticker-dd-item' + (sel ? ' selected' : '') + '" data-ddticker="' + t + '"><div class="ticker-dd-check">' + (sel ? '&#10003;' : '') + '</div><span class="dd-dot" style="background:' + (DC[t] || '#888') + '"></span>' + t + '</div>';
+  }).join('');
+  
+  console.log('renderControls - ddItems HTML:', ddItems);
+  console.log('renderControls - ddItems length:', ddItems.length);
+  
+  controlsDiv.innerHTML = [
+    '<div class="action-bar" style="margin-bottom:0.65rem;">',
+      '<span style="font-size:0.82rem;font-weight:900;color:var(--black);letter-spacing:0.02em;">&#128203; Put Ladders</span>',
+      '<div style="width:1px;height:20px;background:var(--border);flex-shrink:0;"></div>',
+      '<div class="ticker-select-wrap" id="pl-tkwrap" style="min-width:80px;max-width:150px;">',
+        '<div class="ticker-select-btn" id="pl-tkbtn" onclick="plToggleDropdown()">',
+          '<div class="sel-tags">' + tags + '</div>',
+          '<span style="color:var(--text3);font-size:0.65rem;">&#9660;</span>',
+        '</div>',
+        '<div class="ticker-dropdown' + (dropdownOpen ? ' open' : '') + '" id="pl-tkdrop">',
+          '<div style="padding:0.3rem 0.4rem;border-bottom:1px solid var(--border);">',
+            '<input id="pl-tk-search-inp" type="text" placeholder="&#128269; Search..." oninput="plSetTkSearch(this.value)" onclick="event.stopPropagation()" style="width:100%;border:1px solid var(--border2);border-radius:5px;padding:0.25rem 0.45rem;font-size:0.68rem;outline:none;color:var(--black);background:var(--bg3);">',
+          '</div>',
+          '<div class="ticker-dd-item' + (allSel ? ' selected' : '') + '" data-ddticker="ALL">',
+            '<div class="ticker-dd-check">' + (allSel ? '&#10003;' : '') + '</div>',
+            '<span style="font-size:0.72rem;font-weight:700;">All Tickers</span>',
+          '</div>',
+          '<div style="height:1px;background:var(--border);margin:0.25rem 0;"></div>',
+          ddItems,
+        '</div>',
+      '</div>',
+      '<div style="width:1px;height:20px;background:var(--border);flex-shrink:0;"></div>',
+      '<button class="add-btn" onclick="openAddShortPutNew()">&#43; Short Put</button>',
+      '<button class="add-btn" style="background:var(--blue);" onclick="openAddLongPutNew()">&#43; Long Put</button>',
+      '<label class="add-btn" style="background:var(--purple);cursor:pointer;">&#8613; Import CSV',
+        '<input type="file" id="csv-upload" accept=".csv" style="display:none;" onchange="handleCSVUpload(event)">',
+      '</label>',
+      '<div style="width:1px;height:20px;background:var(--border);flex-shrink:0;"></div>',
+      '<div class="filter-pill">',
+        '<button class="fp-btn' + (filterMode === 'all' ? ' active' : '') + '" data-filter="all" onclick="plSetFilter(this,\'all\')">All</button>',
+        '<button class="fp-btn' + (filterMode === 'open' ? ' active' : '') + '" data-filter="open" onclick="plSetFilter(this,\'open\')">Open</button>',
+        '<button class="fp-btn' + (filterMode === 'closed' ? ' active' : '') + '" data-filter="closed" onclick="plSetFilter(this,\'closed\')">Closed</button>',
+      '</div>',
+      '<input id="pl-ticker-search" type="text" placeholder="&#128269; Filter ticker..." oninput="plTickerSearch=this.value.toUpperCase().trim();render();" style="display:none;">',
+      '<div style="width:1px;height:20px;background:var(--border);flex-shrink:0;"></div>',
+      '<button class="add-btn" style="background:#7F1D1D;color:#FCA5A5;border:1px solid #991B1B;" onclick="deleteVisibleLadders()" title="Delete all currently visible ladders">&#128465; Delete Visible</button>',
+    '</div>'
+  ].join('');
+  
+  console.log('renderControls - About to set innerHTML, HTML length:', controlsDiv.innerHTML.length);
+  console.log('renderControls - Full HTML:', controlsDiv.innerHTML.substring(0, 500));
+  
+  // Re-attach event listeners after HTML update
+  setTimeout(function() {
+    // Click outside to close
+    document.addEventListener('click', function(e) {
+      var tkwrap = document.getElementById('pl-tkwrap');
+      var tkdrop = document.getElementById('pl-tkdrop');
+      if (tkdrop && !tkwrap.contains(e.target)) {
+        tkdrop.classList.remove('open');
+        dropdownOpen = false;
+      }
+    });
+    
+    document.querySelectorAll('#pl-tkdrop .ticker-dd-item').forEach(function(item){
+      item.addEventListener('click',function(e){
+        e.stopPropagation();var t=item.dataset.ddticker;
+        if(t==='ALL'){selectedTickers=new Set(['ALL']);}
+        else{selectedTickers.delete('ALL');if(selectedTickers.has(t))selectedTickers.delete(t);else selectedTickers.add(t);if(!selectedTickers.size)selectedTickers=new Set(['ALL']);}
+        render();
+        setTimeout(function(){var d=document.getElementById('pl-tkdrop');if(d){d.classList.add('open');dropdownOpen=true;}},10);
+      });
+    });
+    document.querySelectorAll('.sel-tag-x').forEach(function(x){
+      x.addEventListener('click',function(e){
+        e.stopPropagation();selectedTickers.delete(x.dataset.xticker);
+        if(!selectedTickers.size)selectedTickers=new Set(['ALL']);render();
+      });
+    });
+  }, 0);
+}
+
+function render() {
+  autoExpireLadderSPs();
+  renderControls();
+  renderSummary();
+  renderLadders();
+  rBc(); // Update breadcrumb ticker dropdown after ladders are loaded
+  setTimeout(attachDragDrop, 0);
+}
+
+// Auto-expire ladder short puts whose expiry date has passed
+function autoExpireLadderSPs() {
+  if (typeof ladders === 'undefined') return;
+  var now = new Date();
+  var changed = false;
+  ladders.forEach(function(l) {
+    (l.shortPuts || []).forEach(function(sp) {
+      if (sp.closed) return;
+      var expDt = normExpiry(sp.expiry);
+      if (expDt && expDt < now) {
+        sp.closed = true;
+        sp.closeReason = 'expired';
+        sp.closeDate = sp.expiry;
+        sp.buybackCost = 0;
+        changed = true;
+      }
+    });
+  });
+  if (changed) save();
+}
+
+function renderSummary() {
+  var strip = document.getElementById('summary-strip');
+  if (!strip) return;
+  var allSel = typeof selectedTickers === 'undefined' || selectedTickers.has('ALL');
+  var visible = ladders.filter(function(l) {
+    if (!allSel && !selectedTickers.has(l.ticker)) return false;
+    if (filterMode === 'open' && l.closed) return false;
+    if (filterMode === 'closed' && !l.closed) return false;
+    return true;
+  });
+  var totalLongCost = 0, totalIncome = 0, totalCollat = 0, openCount = 0, closedCount = 0;
+  var totalBTO = 0, totalSTC = 0, totalSTO = 0, totalBTC = 0;
+  visible.forEach(function(l) {
+    var s = calcLadder(l);
+    totalLongCost += s.longCost;
+    totalIncome += s.totalIncome;
+    totalCollat += s.collat;
+    if (l.closed) closedCount++; else openCount++;
+    // BTO = long put cost, STC = long put close credit
+    totalBTO += (!l.noLongPut && l.longPremium) ? l.longPremium * 100 * (l.contracts||1) : 0;
+    totalSTC += l.longCloseAmount || 0;
+    // STO = sum of SP received, BTC = sum of SP btcDebit
+    (l.shortPuts||[]).forEach(function(sp){
+      totalSTO += sp.received || 0;
+      totalBTC += (sp.btcDebit || 0) + (sp.buybackCost || 0);
+    });
+  });
+  var net = totalIncome - totalLongCost;
+  var lpNet = totalSTC - totalBTO;  // Long put net: STC credit - BTO cost
+  var spNet = totalSTO - totalBTC;
+  var totalInvested = totalBTO;  // Invested = BTO (long put cost)
+  var totalIncomeReceived = totalBTC + totalSTO + totalSTC;  // Income = BTC + STO + STC
+  var gap = totalInvested - totalIncomeReceived;  // Gap = Invested - Income
+  var pct = totalLongCost > 0 ? Math.min(Math.round(totalIncome / totalLongCost * 100), 100) : 0;
+  strip.style.cssText = 'display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0.5rem;margin-bottom:0.75rem;';
+  strip.innerHTML =
+    scardBreakdown('Summary', [
+      { label: 'Invested', value: '-' + fmt(totalInvested), color: '#DC2626' },
+      { label: 'Income', value: totalIncomeReceived > 0 ? '+' + fmt(totalIncomeReceived) : '—', color: '#059669' },
+      { label: 'Gap', value: fmtSign(-gap), color: gap <= 0 ? '#059669' : '#DC2626', isBold: true }
+    ]) +
+    scardBreakdown('Long Put', [
+      { label: 'BTO', value: '-' + fmt(totalBTO), color: '#DC2626' },
+      { label: 'STC', value: totalSTC > 0 ? '+' + fmt(totalSTC) : '—', color: '#059669' },
+      { label: 'Net', value: fmtSign(lpNet), color: lpNet >= 0 ? '#059669' : '#DC2626', isBold: true }
+    ]) +
+    scardBreakdown('Short Put', [
+      { label: 'STO', value: '+' + fmt(totalSTO), color: '#059669' },
+      { label: 'BTC', value: totalBTC > 0 ? '-' + fmt(totalBTC) : '—', color: '#DC2626' },
+      { label: 'Net', value: fmtSign(spNet), color: spNet >= 0 ? '#059669' : '#DC2626', isBold: true }
+    ]) +
+    scard('Net P&L', fmtSign(net), net >= 0 ? 'in profit ▲' : 'to breakeven', net >= 0 ? 'pos-val' : 'neg-val') +
+    scard('Covered', pct + '%', 'of cost recovered', pct >= 100 ? 'pos-val' : pct >= 50 ? '' : 'neg-val') +
+    scard('Collateral', fmt(totalCollat), 'tied in active SPs', '');
+}
+
+function scard(label, val, sub, cls) {
+  return '<div class="scard"><div class="sc-label">' + label + '</div>' +
+    '<div class="sc-val ' + cls + '">' + val + '</div>' +
+    '<div class="sc-sub">' + sub + '</div></div>';
+}
+function scardTx(code, val, sub, color, bg) {
+  return '<div class="scard" style="padding:0.55rem 0.75rem;">'+
+    '<div style="font-size:0.5rem;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;background:'+bg+';color:'+color+';border-radius:3px;padding:0.03rem 0.24rem;display:inline-block;margin-bottom:0.18rem;">'+code+'</div>'+
+    '<div class="sc-val" style="color:'+color+';">'+val+'</div>'+
+    '<div class="sc-sub">'+sub+'</div></div>';
+}
+
+function scardBreakdown(title, items) {
+  var rows = items.map(function(item) {
+    return '<div style="display:flex;align-items:center;justify-content:space-between;padding:0.08rem 0;">' +
+      '<span style="font-size:0.58rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;">' + item.label + '</span>' +
+      '<span style="font-size:' + (item.isBold ? '0.85rem' : '0.75rem') + ';font-weight:' + (item.isBold ? '800' : '700') + ';font-family:monospace;color:' + item.color + ';">' + item.value + '</span>' +
+      '</div>';
+  }).join('');
+  return '<div class="scard" style="padding:0.5rem 1.1rem;">' +
+    '<div style="font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text2);margin-bottom:0.25rem;">' + title + '</div>' +
+    rows +
+    '</div>';
+}
+
+function renderLadders() {
+  var root = document.getElementById('ladders-root');
+  if (!root) return;
+  var allSel = typeof selectedTickers === 'undefined' || selectedTickers.has('ALL');
+  var visible = ladders.filter(function(l) {
+    if (filterMode === 'open' && l.closed) return false;
+    if (filterMode === 'closed' && !l.closed) return false;
+    if (!allSel && !selectedTickers.has(l.ticker)) return false;
+    return true;
+  });
+  
+  if (!visible.length) {
+    root.innerHTML = '<div class="empty-state"><strong>No ladders found</strong>' + (!allSel ? ' for selected tickers' : ' — add your first long put to start tracking.') + '</div>';
+    return;
+  }
+  
+  // Group ladders by ticker
+  var tickerGroups = {};
+  visible.forEach(function(l) {
+    if (!tickerGroups[l.ticker]) tickerGroups[l.ticker] = [];
+    tickerGroups[l.ticker].push(l);
+  });
+  
+  // Sort tickers: those with open positions first, then alphabetically
+  var tickers = Object.keys(tickerGroups).sort(function(a, b) {
+    var aHasOpen = tickerGroups[a].some(function(l) { return !l.closed; });
+    var bHasOpen = tickerGroups[b].some(function(l) { return !l.closed; });
+    if (aHasOpen !== bHasOpen) return aHasOpen ? -1 : 1;
+    return a.localeCompare(b);
+  });
+  
+  // Render each ticker group
+  var html = '';
+  tickers.forEach(function(ticker) {
+    var laddersForTicker = tickerGroups[ticker];
+    
+    // Sort ladders within ticker: open first, then closed
+    laddersForTicker.sort(function(a, b) {
+      if (a.closed !== b.closed) return a.closed ? 1 : -1;
+      return 0;
+    });
+    
+    // Get current week filter for this ticker
+    var weekFilter = typeof tickerWeekFilters !== 'undefined' && tickerWeekFilters[ticker] ? tickerWeekFilters[ticker] : 'all';
+    
+    // Helper to get week date range
+    function getWeekRange(weeksAgo) {
+      var now = new Date();
+      var dayOfWeek = now.getDay(); // 0=Sunday, 1=Monday, etc
+      var daysToMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1; // Days since last Monday
+      
+      var weekStart = new Date(now);
+      weekStart.setDate(now.getDate() - daysToMonday - (weeksAgo * 7));
+      weekStart.setHours(0, 0, 0, 0);
+      
+      var weekEnd = new Date(weekStart);
+      weekEnd.setDate(weekStart.getDate() + 6);
+      weekEnd.setHours(23, 59, 59, 999);
+      
+      return { start: weekStart, end: weekEnd };
+    }
+    
+    function isInWeek(dateStr, weekRange) {
+      if (!dateStr) return false;
+      var d = new Date(dateStr);
+      return d >= weekRange.start && d <= weekRange.end;
+    }
+    
+    var cwRange = getWeekRange(0); // Current week
+    var pwRange = getWeekRange(1); // Previous week
+    
+    // Calculate ticker-level summary (filtered by week if needed)
+    var totalBTO = 0, totalSTC = 0, totalSTO = 0, totalBTC = 0, totalCollat = 0;
+    var openCount = 0, closedCount = 0;
+    
+    laddersForTicker.forEach(function(l) {
+      var s = calcLadder(l);
+      if (l.closed) closedCount++; else openCount++;
+      
+      // BTO - filter by ladder open date
+      if (!l.noLongPut && l.longPremium) {
+        if (weekFilter === 'all' || 
+            (weekFilter === 'cw' && isInWeek(l.openDate, cwRange)) || 
+            (weekFilter === 'pw' && isInWeek(l.openDate, pwRange))) {
+          totalBTO += l.longPremium * 100 * (l.contracts||1);
+        }
+      }
+      
+      // STC - filter by long put close date
+      if (l.longCloseAmount && l.longCloseDate) {
+        if (weekFilter === 'all' || 
+            (weekFilter === 'cw' && isInWeek(l.longCloseDate, cwRange)) || 
+            (weekFilter === 'pw' && isInWeek(l.longCloseDate, pwRange))) {
+          totalSTC += l.longCloseAmount;
+        }
+      }
+      
+      totalCollat += s.collat;
+      
+      // Short puts
+      (l.shortPuts||[]).forEach(function(sp){
+        // STO - filter by short put open date
+        if (sp.received) {
+          if (weekFilter === 'all' || 
+              (weekFilter === 'cw' && isInWeek(sp.openDate, cwRange)) || 
+              (weekFilter === 'pw' && isInWeek(sp.openDate, pwRange))) {
+            totalSTO += sp.received;
+          }
+        }
+        // BTC - filter by short put close date
+        if (sp.closed && sp.closeDate) {
+          if (weekFilter === 'all' || 
+              (weekFilter === 'cw' && isInWeek(sp.closeDate, cwRange)) || 
+              (weekFilter === 'pw' && isInWeek(sp.closeDate, pwRange))) {
+            totalBTC += (sp.btcDebit || 0) + (sp.buybackCost || 0);
+          }
+        }
+      });
+    });
+    
+    var invested = totalBTO;
+    var income = totalSTC + totalSTO + totalBTC;
+    var gap = invested - income;
+    var tickerExpanded = expandedIds.has('ticker-' + ticker);
+    
+    // Ticker summary header
+    html += '<div style="background:linear-gradient(135deg, var(--bg2) 0%, var(--bg3) 100%);border:1px solid var(--border);border-radius:8px;padding:0.6rem 0.85rem;margin-bottom:0.6rem;box-shadow:0 1px 3px rgba(0,0,0,0.06);">';
+    html += '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem;">';
+    html += '<div style="display:flex;align-items:center;gap:0.6rem;">';
+    html += '<button onclick="toggleTickerGroup(\'' + ticker + '\')" style="background:transparent;border:none;cursor:pointer;font-size:1.1rem;padding:0.2rem;color:var(--text2);line-height:1;">' + (tickerExpanded ? '▼' : '▶') + '</button>';
+    html += '<div style="font-size:1.15rem;font-weight:800;color:var(--black);letter-spacing:0.02em;">' + ticker + '</div>';
+    html += '<div style="font-size:0.65rem;color:var(--text3);font-weight:600;background:var(--bg);padding:0.2rem 0.5rem;border-radius:12px;">' + openCount + ' open' + (closedCount ? ' • ' + closedCount + ' closed' : '') + '</div>';
+    html += '</div>';
+    html += '<div style="display:flex;gap:0.4rem;">';
+    html += '<button class="add-btn" style="font-size:0.68rem;padding:0.35rem 0.65rem;" onclick="openAddShortPutForTicker(\'' + ticker + '\')">+ Short Put</button>';
+    html += '<button class="add-btn" style="background:var(--blue);font-size:0.68rem;padding:0.35rem 0.65rem;" onclick="openAddLongPutForTicker(\'' + ticker + '\')">+ Long Put</button>';
+    html += '</div>';
+    html += '</div>';
+    html += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.5rem;margin-bottom:0.5rem;">';
+    html += '<div style="text-align:center;padding:0.35rem;background:var(--bg);border-radius:6px;">';
+    html += '<div style="font-size:0.55rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.15rem;">Invested</div>';
+    html += '<div style="font-size:0.82rem;font-weight:800;font-family:monospace;color:#DC2626;">-' + fmt(invested) + '</div>';
+    html += '</div>';
+    html += '<div style="text-align:center;padding:0.35rem;background:var(--bg);border-radius:6px;">';
+    html += '<div style="font-size:0.55rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.15rem;">Income</div>';
+    html += '<div style="font-size:0.82rem;font-weight:800;font-family:monospace;color:#059669;">+' + fmt(income) + '</div>';
+    html += '</div>';
+    html += '<div style="text-align:center;padding:0.35rem;background:var(--bg);border-radius:6px;">';
+    html += '<div style="font-size:0.55rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.15rem;">Gap</div>';
+    html += '<div style="font-size:0.82rem;font-weight:800;font-family:monospace;color:' + (gap <= 0 ? '#059669' : '#DC2626') + ';">' + fmtSign(-gap) + '</div>';
+    html += '</div>';
+    html += '<div style="text-align:center;padding:0.35rem;background:var(--bg);border-radius:6px;">';
+    html += '<div style="font-size:0.55rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.15rem;">Collateral</div>';
+    html += '<div style="font-size:0.82rem;font-weight:800;font-family:monospace;color:#6B7280;">' + fmt(totalCollat) + '</div>';
+    html += '</div>';
+    html += '</div>';
+    
+    // Week filter buttons
+    html += '<div style="display:flex;gap:0.3rem;justify-content:flex-start;">';
+    html += '<button onclick="setTickerWeekFilter(\'' + ticker + '\', \'all\')" style="padding:0.25rem 0.5rem;font-size:0.65rem;font-weight:600;border-radius:5px;cursor:pointer;border:1px solid var(--border);background:' + (weekFilter === 'all' ? 'var(--black)' : 'transparent') + ';color:' + (weekFilter === 'all' ? '#fff' : 'var(--text3)') + ';">All Time</button>';
+    html += '<button onclick="setTickerWeekFilter(\'' + ticker + '\', \'cw\')" style="padding:0.25rem 0.5rem;font-size:0.65rem;font-weight:600;border-radius:5px;cursor:pointer;border:1px solid var(--border);background:' + (weekFilter === 'cw' ? '#2563EB' : 'transparent') + ';color:' + (weekFilter === 'cw' ? '#fff' : 'var(--text3)') + ';">CW</button>';
+    html += '<button onclick="setTickerWeekFilter(\'' + ticker + '\', \'pw\')" style="padding:0.25rem 0.5rem;font-size:0.65rem;font-weight:600;border-radius:5px;cursor:pointer;border:1px solid var(--border);background:' + (weekFilter === 'pw' ? '#7C3AED' : 'transparent') + ';color:' + (weekFilter === 'pw' ? '#fff' : 'var(--text3)') + ';">PW</button>';
+    html += '</div>';
+    html += '</div>';
+    
+    // Render ladder cards for this ticker (only if expanded)
+    if (tickerExpanded) {
+      html += laddersForTicker.map(function(l) { return renderLadderCard(l); }).join('');
+    }
+  });
+  
+  root.innerHTML = html;
+}
+
+// Add short put for a specific ticker
+function openAddShortPutForTicker(ticker) {
+  // Find first ladder for this ticker to pre-fill
+  var ladder = ladders.find(function(l) { return l.ticker === ticker && !l.closed; });
+  if (!ladder) ladder = ladders.find(function(l) { return l.ticker === ticker; });
+  
+  if (ladder) {
+    openAddShortPut(ladder.id);
+  } else {
+    // If no ladder exists, open add short put with ticker pre-filled
+    openAddShortPutNew();
+    setTimeout(function() {
+      var inp = document.getElementById('sp-ticker');
+      if (inp) inp.value = ticker;
+    }, 50);
+  }
+}
+
+// Add long put for a specific ticker
+function openAddLongPutForTicker(ticker) {
+  openAddLongPutNew();
+  setTimeout(function() {
+    var inp = document.getElementById('lp-ticker');
+    if (inp) inp.value = ticker;
+  }, 50);
+}
+
+function renderLadderCard(l) {
+  var s = calcLadder(l);
+  var expanded = expandedIds.has(l.id);
+  var dl = daysLeft(l.longExpiry);
+  var dlStr = dl != null ? (dl === 0 ? 'Expires today' : dl > 0 ? dl + 'd left' : 'Expired ' + Math.abs(dl) + 'd ago') : '';
+  var pctBar = Math.round(s.pct * 100);
+  var bePct = 100; // breakeven is always at 100%
+  var statusBadge = l.closed
+    ? '<span class="lh-badge-closed">Closed</span>'
+    : '<span class="lh-badge-open">Open</span>';
+
+  var incomeColor = s.totalIncome >= s.longCost ? '#34D399' : '#FCD34D';
+  var netColor = s.profit >= 0 ? '#34D399' : '#FCA5A5';
+
+  // Header stats
+  var hdrStats = [
+    { val: fmt(s.longCost), lbl: 'Long Cost', color: '#2563EB' },
+    { val: fmt(s.totalIncome), lbl: 'Income', color: s.totalIncome >= s.longCost ? '#059669' : '#D97706' },
+    { val: fmtSign(s.profit), lbl: 'Net P&L', color: s.profit >= 0 ? '#059669' : '#DC2626' },
+    { val: (l.shortPuts||[]).filter(function(sp){return!sp.closed;}).length + '', lbl: 'Active SP', color: '#D97706' },
+    { val: fmt(s.collat), lbl: 'Collateral', color: '#EA580C' },
+  ].map(function(st) {
+    return '<div class="lh-stat"><div class="lh-stat-val" style="color:' + st.color + ';">' + st.val + '</div><div class="lh-stat-lbl">' + st.lbl + '</div></div>';
+  }).join('');
+
+  // Long put panel (left side)
+  var lpClosed = l.longPutClosed;
+  var fillColor = s.pct >= 1 ? '#34D399' : s.pct >= 0.5 ? '#FCD34D' : '#EF4444';
+  var panelActions = '<div class="lp-panel-actions">' +
+    '<button class="lp-edit-btn" onclick="event.stopPropagation();openEditLadder(\'' + l.id + '\')">&#9998; Edit</button>' +
+    '<button class="lp-del-btn" onclick="event.stopPropagation();deleteLongPut(\'' + l.id + '\')">&#10005;</button>' +
+  '</div>';
+
+  var lpPanel;
+  if (l.noLongPut || !l.longStrike) {
+    // No long put — show summary stats only
+    lpPanel = '<div class="lp-panel">' +
+      '<div class="lp-panel-title"><span>&#128308; Long Put</span>' + panelActions + '</div>' +
+      '<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.65rem;padding:1.5rem 0.5rem;text-align:center;">' +
+        '<div style="width:44px;height:44px;border-radius:50%;background:var(--bg4);display:flex;align-items:center;justify-content:center;font-size:1.3rem;">&#128274;</div>' +
+        '<div style="font-size:0.72rem;font-weight:700;color:var(--text2);">No Long Put Added</div>' +
+        '<div style="font-size:0.65rem;color:var(--text3);line-height:1.5;max-width:180px;">Add a long put hedge anytime to track cost coverage and breakeven</div>' +
+        '<button class="lp-edit-btn" style="margin-top:0.25rem;padding:0.4rem 1rem;font-size:0.65rem;" onclick="event.stopPropagation();openAddLongPut(\'' + l.id + '\')">&#43; Add Long Put</button>' +
+      '</div>' +
+      (l.notes ? '<div style="font-size:0.63rem;color:var(--text3);font-style:italic;border-top:1px solid var(--border);padding-top:0.6rem;">' + l.notes + '</div>' : '') +
+    '</div>';
+  } else {
+    lpPanel = '<div class="lp-panel">' +
+      '<div class="lp-panel-title"><span>&#9632; Long Put</span>' + panelActions + '</div>' +
+      '<div class="lp-fields-grid">' +
+        lp_field('Strike', '$' + l.longStrike) +
+        lp_field('Premium', fmt(l.longPremium * 100 * (l.contracts||1))) +
+        lp_field('Expiry', fmtDate(l.longExpiry)) +
+        (dlStr ? lp_field('Days Left', dlStr) : lp_field('Contracts', l.contracts || 1)) +
+        lp_field('Income', fmt(s.totalIncome)) +
+        lp_field('Net P&L', '<span class="' + (s.profit>=0?'pos-val':'neg-val') + '">' + fmtSign(s.profit) + '</span>') +
+        (l.longCloseAmount ? lp_field('STC Credit', '<span class="pos-val" style="font-weight:800;">+' + fmt(l.longCloseAmount) + '</span>') : '') +
+      '</div>' +
+      '<div class="lp-progress-row">' +
+        '<div class="lp-progress-track"><div class="lp-progress-fill" style="width:' + pctBar + '%;background:' + fillColor + ';"></div></div>' +
+        '<span class="lp-progress-pct" style="color:' + fillColor + ';">' + pctBar + '%</span>' +
+      '</div>' +
+      (lpClosed
+        ? '<div style="display:flex;align-items:center;gap:0.5rem;"><div class="lp-closed-tag">Closed · ' + fmt(l.longCloseAmount) + '</div>' +
+          '<button class="reopen-btn" onclick="event.stopPropagation();reopenLongPut(\'' + l.id + '\')">&#8617; Reopen</button></div>'
+        : '<button class="lp-close-btn" onclick="event.stopPropagation();openCloseLongPut(\'' + l.id + '\')">Close Long Put</button>') +
+    '</div>';
+  }
+
+  // Collateral note
+  var collatNote = '';
+  if (s.collat > 0 && !l.closed) {
+    collatNote = '<div class="collat-note">&#9888; ' + fmt(s.collat) + ' collateral tied in active short puts</div>';
+  }
+
+  // Header buttons
+  var hdrBtns = l.closed
+    ? '<button class="hdr-btn" onclick="event.stopPropagation();reopenLadder(\'' + l.id + '\')">Reopen</button>'
+    : '<button class="hdr-btn" onclick="event.stopPropagation();openAddShortPut(\'' + l.id + '\')">+ Short Put</button>';
+  hdrBtns += '<button class="hdr-btn red" onclick="event.stopPropagation();deleteLadder(\'' + l.id + '\')" title="Delete entire tracker">&#10005;</button>';
+
+  return '<div class="ladder-card" id="lc-' + l.id + '">' +
+    '<div class="ladder-hdr" onclick="toggleExpand(\'' + l.id + '\')">' +
+      '<div class="lh-left">' +
+        '<span class="lh-ticker">' + l.ticker + '</span>' +
+        statusBadge +
+        (!l.noLongPut && l.longExpiry ? '<span class="lh-expiry">LP Exp: ' + fmtDate(l.longExpiry) + '</span>' : '') +
+        (!l.noLongPut ? '<span class="lh-expiry" style="color:' + (s.profit>=0?'#059669':'#DC2626') + ';background:' + (s.profit>=0?'#F0FDF4':'#FEF2F2') + ';border-color:' + (s.profit>=0?'#BBF7D0':'#FECACA') + ';">' + fmtSign(s.profit) + '</span>' : '') +
+      '</div>' +
+      '<div class="lh-right">' + hdrBtns + '<span class="chevron' + (expanded?' open':'') + '">&#9654;</span></div>' +
+    '</div>' +
+    (expanded
+      ? '<div class="ladder-body">' + lpPanel + '<div class="sp-panel">' + renderShortPutsSection(l) + collatNote + '</div></div>'
+      : '') +
+  '</div>';
+}
+
+function pb_stat(val, lbl) {
+  return '<div class="pb-stat"><div class="pb-val">' + val + '</div><div class="pb-lbl">' + lbl + '</div></div>';
+}
+function lp_chip(label, val) {
+  return '<div class="lp-chip"><span class="lp-chip-label">' + label + '</span><span class="lp-chip-val">' + val + '</span></div>';
+}
+function lp_field(label, val) {
+  return '<div class="lp-field"><div class="lp-field-label">' + label + '</div><div class="lp-field-val">' + val + '</div></div>';
+}
+
+function renderShortPutsSection(l) {
+  var rows = '';
+  var sps = l.shortPuts || [];
+  if (!sps.length) {
+    rows = '<div class="empty-sp">No short puts opened yet — click "+ Short Put" to add one.</div>';
+  } else {
+    rows = '<div class="sp-table-wrap"><table class="sp-table">' +
+      '<thead><tr>' +
+        '<th></th><th>Status</th><th>Strike</th><th>Expiry</th><th>#</th><th>Received</th><th title="BTC debit paid">Debit (BTC)</th><th>Net</th><th>Opened</th><th></th>' +
+      '</tr></thead><tbody>';
+    sps.forEach(function(sp, i) {
+      var dl = daysLeft(sp.expiry);
+      var dteStr = sp.closed ? '—' : (dl != null ? dl + 'd' : '--');
+      var debit  = sp.btcDebit  || 0;
+      var net = (sp.received || 0) - debit - (sp.buybackCost || 0);
+      var cts = sp.contracts || l.contracts || 1;
+      var collat = (!l.noLongPut && l.longStrike)
+        ? Math.max(0, sp.strike - l.longStrike) * 100 * cts
+        : sp.strike * 100 * cts;
+      var statusBadge = sp.closed
+        ? '<span class="badge-closed-sp">' + (sp.closeReason === 'expired' ? 'Expired' : sp.closeReason === 'buyback' ? 'Bought Back' : 'Closed') + '</span>'
+        : '<span class="badge-open">Open</span>';
+      var closeBtn = sp.closed ? '' : '<button class="sp-close-link" onclick="openCloseShortPut(\'' + l.id + '\',\'' + sp.id + '\')">Close</button>';
+      var editBtn  = '<button class="sp-edit-btn" onclick="openEditShortPut(\'' + l.id + '\',\'' + sp.id + '\')" title="Edit">&#9998;</button>';
+      var copyBtn  = '<button class="sp-copy-btn" onclick="copyShortPut(\'' + l.id + '\',\'' + sp.id + '\')" title="Copy & re-open">&#10697;</button>';
+      var moveBtn  = '<button class="sp-move-btn" onclick="openMoveShortPut(event,\'' + l.id + '\',\'' + sp.id + '\')" title="Move to another ladder">&#8645;</button>';
+      var delBtn   = '<button class="sp-del-btn" onclick="deleteShortPut(\'' + l.id + '\',\'' + sp.id + '\')" title="Delete">&#10005;</button>';
+      var credit = sp.received || 0;
+      var creditCell = credit > 0 ? '<span class="stc-val">+' + fmt(credit) + '</span>' : '<span style="color:var(--text3);">—</span>';
+      var debitCell  = debit  > 0 ? '<span class="btc-val">-' + fmt(debit)  + '</span>' : '<span style="color:var(--text3);">—</span>';
+      rows +=
+        '<tr draggable="true" data-spid="' + sp.id + '" data-lid="' + l.id + '"' + (sp.closed ? ' style="opacity:0.6;"' : '') + '>' +
+        '<td style="cursor:grab;color:var(--text3);padding:0 0.2rem;">&#8942;&#8942;</td>' +
+        '<td>' + statusBadge + '</td>' +
+        '<td class="mn" style="font-weight:700;">$' + sp.strike + '</td>' +
+        '<td class="mn ' + (sp.closed?'':expiryClass(sp.expiry)) + '">' + fmtDate(sp.expiry) + '</td>' +
+        '<td class="mn">' + cts + '</td>' +
+        '<td class="mn pos-val">' + fmt(sp.received) + '</td>' +
+        '<td class="mn">' + debitCell + '</td>' +
+        '<td class="mn ' + (net >= 0 ? 'pos-val' : 'neg-val') + '">' + fmtSign(net) + '</td>' +
+        '<td class="mn" style="color:var(--text3);">' + (sp.openDate || '--') + '</td>' +
+        '<td style="display:flex;align-items:center;gap:0.15rem;">' + editBtn + moveBtn + copyBtn + closeBtn + delBtn + '</td>' +
+        '</tr>';
+    });
+    rows += '</tbody></table></div>';
+  }
+  return '<div class="sp-section" data-lid="' + l.id + '">' +
+    rows +
+  '</div>';
+}
+
+// Toggle ticker group expand/collapse
+function toggleTickerGroup(ticker) {
+  var id = 'ticker-' + ticker;
+  if (expandedIds.has(id)) {
+    expandedIds.delete(id);
+  } else {
+    expandedIds.add(id);
+  }
+  render();
+}
+
+function toggleExpand(id) {
+  if (expandedIds.has(id)) expandedIds.delete(id);
+  else expandedIds.add(id);
+  render();
+  attachDragDrop();
+}
+
+// ── DRAG & DROP MOVE ─────────────────────────────────────────────────────────
+var _dragSpId = null, _dragFromLid = null;
+
+function attachDragDrop() {
+  document.querySelectorAll('.sp-table tbody tr[draggable]').forEach(function(row) {
+    row.addEventListener('dragstart', function(e) {
+      _dragSpId = row.dataset.spid;
+      _dragFromLid = row.dataset.lid;
+      row.classList.add('sp-dragging');
+      e.dataTransfer.effectAllowed = 'move';
+    });
+    row.addEventListener('dragend', function() {
+      row.classList.remove('sp-dragging');
+      document.querySelectorAll('.drag-over').forEach(function(el){ el.classList.remove('drag-over'); });
+    });
+    row.addEventListener('dragover', function(e) {
+      if (row.dataset.lid !== _dragFromLid) { e.preventDefault(); row.classList.add('drag-over'); }
+    });
+    row.addEventListener('dragleave', function() { row.classList.remove('drag-over'); });
+    row.addEventListener('drop', function(e) {
+      e.preventDefault();
+      row.classList.remove('drag-over');
+      var toLid = row.dataset.lid;
+      if (toLid && toLid !== _dragFromLid && _dragSpId) moveShortPutTo(_dragFromLid, _dragSpId, toLid);
+    });
+  });
+  // Also allow dropping on the sp-section itself (empty target)
+  document.querySelectorAll('.sp-section').forEach(function(sec) {
+    var toLid = sec.dataset.lid;
+    if (!toLid) return;
+    sec.addEventListener('dragover', function(e) {
+      if (toLid !== _dragFromLid) { e.preventDefault(); sec.classList.add('drag-target'); }
+    });
+    sec.addEventListener('dragleave', function() { sec.classList.remove('drag-target'); });
+    sec.addEventListener('drop', function(e) {
+      e.preventDefault();
+      sec.classList.remove('drag-target');
+      if (toLid && toLid !== _dragFromLid && _dragSpId) moveShortPutTo(_dragFromLid, _dragSpId, toLid);
+    });
+  });
+}
+
+// ── MOVE BUTTON DROPDOWN ─────────────────────────────────────────────────────
+function openMoveShortPut(event, fromLid, spId) {
+  event.stopPropagation();
+  document.querySelectorAll('.sp-move-dropdown').forEach(function(d){ d.remove(); });
+  var fromL = getLadder(fromLid);
+  if (!fromL) return;
+  var targets = ladders.filter(function(l){ return l.ticker === fromL.ticker && l.id !== fromLid && !l.closed; });
+  if (!targets.length) { alert('No other open ' + fromL.ticker + ' ladders to move to.'); return; }
+  var dd = document.createElement('div');
+  dd.className = 'sp-move-dropdown';
+  dd.style.top = (event.clientY + 4) + 'px';
+  dd.style.left = Math.min(event.clientX, window.innerWidth - 220) + 'px';
+  var header = document.createElement('div');
+  header.style.cssText = 'padding:0.25rem 0.85rem 0.2rem;font-size:0.55rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--text3);border-bottom:1px solid var(--border);margin-bottom:0.2rem;';
+  header.textContent = 'Move to ladder:';
+  dd.appendChild(header);
+  targets.forEach(function(t) {
+    var item = document.createElement('div');
+    item.className = 'sp-move-dropdown-item';
+    item.innerHTML = '<span style="font-size:0.75rem;">&#8645;</span> LP $' + (t.longStrike||'?') + ' exp ' + fmtDate(t.longExpiry||'');
+    item.addEventListener('click', function() { dd.remove(); moveShortPutTo(fromLid, spId, t.id); });
+    dd.appendChild(item);
+  });
+  document.body.appendChild(dd);
+  setTimeout(function(){ document.addEventListener('click', function rm(){ dd.remove(); document.removeEventListener('click',rm); }); }, 10);
+}
+
+function moveShortPutTo(fromLid, spId, toLid) {
+  var fromL = getLadder(fromLid), toL = getLadder(toLid);
+  if (!fromL || !toL) return;
+  var idx = (fromL.shortPuts||[]).findIndex(function(sp){ return sp.id === spId; });
+  if (idx < 0) return;
+  var sp = fromL.shortPuts.splice(idx, 1)[0];
+  toL.shortPuts = toL.shortPuts || [];
+  toL.shortPuts.push(sp);
+  save(); render(); attachDragDrop();
+}
+
+// ── MODALS ────────────────────────────────────────────────────────────────────
+function closeModal() { document.getElementById('modal-root').innerHTML = ''; }
+
+function openAddShortPutNew() {
+  document.getElementById('modal-root').innerHTML =
+    '<div class="modal-overlay" onclick="if(event.target===this)closeModal()">' +
+    '<div class="modal-box">' +
+      '<div class="modal-title">&#128200; Add Short Put</div>' +
+      '<div class="modal-sub">Create a new tracker and add your short put</div>' +
+      '<div class="mf-row">' +
+        field('Ticker Symbol', 'nsq-ticker', 'text', 'e.g. INTC', true) +
+        field('Contracts', 'nsq-contracts', 'number', '1', true) +
+      '</div>' +
+      '<div class="mf-row">' +
+        field('Strike', 'nsq-strike', 'number', 'e.g. 62', true) +
+        field('Premium Received ($)', 'nsq-received', 'number', 'e.g. 1.31', true) +
+      '</div>' +
+      '<div class="mf-row">' +
+        field('Expiry (MM/DD/YYYY)', 'nsq-expiry', 'text', 'e.g. 5/16/2026', true) +
+        field('Opened Date (MM/DD/YYYY)', 'nsq-opendate', 'text', today(), false) +
+      '</div>' +
+      field('Stock Position / Cost Basis ($)', 'nsq-position', 'number', 'e.g. 62.00 (optional)', false) +
+      '<div class="mf"><label class="mf-label">Notes (optional)</label><input class="mf-input" id="nsq-notes" placeholder=""></div>' +
+      '<div class="modal-btns">' +
+        '<button class="modal-cancel" onclick="closeModal()">Cancel</button>' +
+        '<button class="modal-confirm green-btn" onclick="saveNewShortPut()">Add Short Put</button>' +
+      '</div>' +
+    '</div></div>';
+}
+
+function saveNewShortPut() {
+  var ticker = v('nsq-ticker').toUpperCase().trim();
+  var contracts = parseInt(v('nsq-contracts')) || 1;
+  var strike = parseFloat(v('nsq-strike'));
+  var received = parseFloat(v('nsq-received'));
+  var expiry = v('nsq-expiry').trim();
+  var openDate = v('nsq-opendate').trim() || today();
+  var position = parseFloat(v('nsq-position')) || null;
+  var notes = v('nsq-notes').trim();
+  if (!ticker || !strike || !received || !expiry) { alert('Please fill in all required fields.'); return; }
+  // Find existing open ladder for this ticker or create one
+  var l = ladders.find(function(x){ return x.ticker === ticker && !x.closed; });
+  if (!l) {
+    l = { id: uid(), ticker: ticker, contracts: contracts, longStrike: null, longPremium: null, longExpiry: null, openDate: today(), notes: notes, position: position, noLongPut: true, shortPuts: [], closed: false };
+    ladders.unshift(l);
+  }
+  expandedIds.add(l.id);
+  var sp = { id: uid(), strike: strike, contracts: contracts, received: received, expiry: expiry, openDate: openDate, closed: false };
+  l.shortPuts.push(sp);
+  save(); closeModal(); render();
+}
+
+function openAddLongPutNew() {
+  document.getElementById('modal-root').innerHTML =
+    '<div class="modal-overlay" onclick="if(event.target===this)closeModal()">' +
+    '<div class="modal-box">' +
+      '<div class="modal-title">&#128308; Add Long Put</div>' +
+      '<div class="modal-sub">Create a new tracker and add your long put hedge</div>' +
+      '<div class="mf-row">' +
+        field('Ticker Symbol', 'nlq-ticker', 'text', 'e.g. INTC', true) +
+        field('Contracts', 'nlq-contracts', 'number', '1', true) +
+      '</div>' +
+      '<div class="mf-row">' +
+        field('Long Put Strike', 'nlq-strike', 'number', 'e.g. 60', true) +
+        field('Premium Per Contract ($)', 'nlq-premium', 'number', 'e.g. 5.50', true) +
+      '</div>' +
+      '<div class="mf-row">' +
+        field('Expiry (MM/DD/YYYY)', 'nlq-expiry', 'text', 'e.g. 6/20/2026', true) +
+        field('Opened Date (MM/DD/YYYY)', 'nlq-opendate', 'text', today(), false) +
+      '</div>' +
+      field('Stock Position / Cost Basis ($)', 'nlq-position', 'number', 'e.g. 62.00 (optional)', false) +
+      '<div class="mf"><label class="mf-label">Notes (optional)</label><input class="mf-input" id="nlq-notes" placeholder=""></div>' +
+      '<div class="modal-btns">' +
+        '<button class="modal-cancel" onclick="closeModal()">Cancel</button>' +
+        '<button class="modal-confirm blue-btn" onclick="saveNewLongPut()">Add Long Put</button>' +
+      '</div>' +
+    '</div></div>';
+}
+
+function saveNewLongPut() {
+  var ticker = v('nlq-ticker').toUpperCase().trim();
+  var contracts = parseInt(v('nlq-contracts')) || 1;
+  var strike = parseFloat(v('nlq-strike'));
+  var premium = parseFloat(v('nlq-premium'));
+  var expiry = v('nlq-expiry').trim();
+  var openDate = v('nlq-opendate').trim() || today();
+  var position = parseFloat(v('nlq-position')) || null;
+  var notes = v('nlq-notes').trim();
+  if (!ticker || !strike || !premium || !expiry) { alert('Please fill in all required fields.'); return; }
+  // Find existing open ladder for this ticker or create one
+  var l = ladders.find(function(x){ return x.ticker === ticker && !x.closed; });
+  if (!l) {
+    l = { id: uid(), ticker: ticker, contracts: contracts, longStrike: null, longPremium: null, longExpiry: null, openDate: today(), notes: notes, position: position, noLongPut: false, shortPuts: [], closed: false };
+    ladders.unshift(l);
+  }
+  l.longStrike = strike;
+  l.longPremium = premium;
+  l.longExpiry = expiry;
+  l.openDate = openDate;
+  l.noLongPut = false;
+  expandedIds.add(l.id);
+  save(); closeModal(); render();
+}
+
+function openAddLadder() {
+  document.getElementById('modal-root').innerHTML =
+    '<div class="modal-overlay" onclick="if(event.target===this)closeModal()">' +
+    '<div class="modal-box">' +
+      '<div class="modal-title">&#128203; New Tracker</div>' +
+      '<div class="modal-sub">Enter ticker info, then choose what to add first</div>' +
+      '<div class="mf-row">' +
+        field('Ticker Symbol', 'al-ticker', 'text', 'e.g. INTC', true) +
+        field('Default Contracts', 'al-contracts', 'number', '1', true) +
+      '</div>' +
+      field('Stock Position / Cost Basis ($)', 'al-position', 'number', 'e.g. 62.00 (optional)', false) +
+      '<div class="mf"><label class="mf-label">Notes (optional)</label><input class="mf-input" id="al-notes" placeholder="e.g. selling puts on INTC position"></div>' +
+      '<div style="border-top:1px solid var(--border);margin:0.5rem 0 0.75rem;padding-top:0.75rem;">' +
+        '<div style="font-size:0.6rem;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem;">What do you want to add first?</div>' +
+        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;">' +
+          '<button class="modal-confirm green-btn" style="font-size:0.7rem;" onclick="saveNewLadder(\'short\')">&#128200; Short Put</button>' +
+          '<button class="modal-confirm blue-btn" style="font-size:0.7rem;" onclick="saveNewLadder(\'long\')">&#128308; Long Put</button>' +
+        '</div>' +
+        '<button class="modal-cancel" style="width:100%;margin-top:0.4rem;" onclick="saveNewLadder(\'none\')">Create Empty (add later)</button>' +
+      '</div>' +
+    '</div></div>';
+}
+
+function toggleLongPutFields() {}
+
+function field(label, id, type, placeholder, required) {
+  return '<div class="mf"><label class="mf-label">' + label + (required ? '<span>*</span>' : '') + '</label>' +
+    '<input class="mf-input" id="' + id + '" type="' + type + '" placeholder="' + placeholder + '"></div>';
+}
+
+function today() {
+  var d = new Date();
+  return (d.getMonth()+1) + '/' + d.getDate() + '/' + d.getFullYear();
+}
+
+function saveNewLadder(mode) {
+  var ticker = v('al-ticker').toUpperCase().trim();
+  var contracts = parseInt(v('al-contracts')) || 1;
+  var notes = v('al-notes').trim();
+  var position = parseFloat(v('al-position')) || null;
+  if (!ticker) { alert('Please enter a ticker symbol.'); return; }
+  var l = { id: uid(), ticker: ticker, contracts: contracts, longStrike: null, longPremium: null, longExpiry: null, openDate: today(), notes: notes, position: position, noLongPut: true, shortPuts: [], closed: false };
+  ladders.unshift(l);
+  expandedIds.add(l.id);
+  save();
+  if (mode === 'short') { closeModal(); render(); openAddShortPut(l.id); }
+  else if (mode === 'long') { closeModal(); render(); openAddLongPut(l.id); }
+  else { closeModal(); render(); }
+}
+
+function openAddShortPut(ladderId) {
+  var l = getLadder(ladderId);
+  if (!l) return;
+  document.getElementById('modal-root').innerHTML =
+    '<div class="modal-overlay" onclick="if(event.target===this)closeModal()">' +
+    '<div class="modal-box">' +
+      '<div class="modal-title">&#128200; Open Short Put</div>' +
+      '<div class="modal-sub">Adding short put for <strong>' + l.ticker + '</strong>' + (l.longStrike ? ' · long put $' + l.longStrike : '') + '</div>' +
+      '<div class="mf-row">' +
+        field('Short Put Strike', 'sp-strike', 'number', 'e.g. 85', true) +
+        field('Contracts', 'sp-contracts', 'number', l.contracts || 1, false) +
+      '</div>' +
+      '<div class="mf-row">' +
+        field('Premium Received ($)', 'sp-received', 'number', 'e.g. 120.00', true) +
+        field('Expiry (MM/DD/YYYY)', 'sp-expiry', 'text', 'e.g. 4/25/2025', true) +
+      '</div>' +
+      field('Opened Date (MM/DD/YYYY)', 'sp-opendate', 'text', today(), false) +
+      '<div id="sp-collat-preview"></div>' +
+      '<div class="modal-btns">' +
+        '<button class="modal-cancel" onclick="closeModal()">Cancel</button>' +
+        '<button class="modal-confirm green-btn" onclick="saveShortPut(\'' + ladderId + '\')">Add Short Put</button>' +
+      '</div>' +
+    '</div></div>';
+  // live collateral preview
+  document.getElementById('sp-strike').addEventListener('input', function() { updateCollatPreview(l); });
+  document.getElementById('sp-contracts').addEventListener('input', function() { updateCollatPreview(l); });
+  updateCollatPreview(l);
+}
+
+function updateCollatPreview(l) {
+  var strike = parseFloat(document.getElementById('sp-strike').value);
+  var contracts = parseInt(document.getElementById('sp-contracts').value) || l.contracts || 1;
+  var box = document.getElementById('sp-collat-preview');
+  if (!box) return;
+  if (!isNaN(strike) && strike > 0) {
+    var collat, spreadNote;
+    if (!l.noLongPut && l.longStrike) {
+      collat = Math.max(0, strike - l.longStrike) * 100 * contracts;
+      spreadNote = 'Spread collateral: max(0, $' + strike + ' - $' + l.longStrike + ') × 100 × ' + contracts;
+    } else {
+      collat = strike * 100 * contracts;
+      spreadNote = 'Full cash-secured: $' + strike + ' × 100 × ' + contracts;
+    }
+    box.innerHTML = '<div class="mf-collat-box">&#9888; Collateral required: ' + fmt(collat) + '<br><span style="font-size:0.62rem;font-weight:400;">' + spreadNote + '</span></div>';
+  } else {
+    box.innerHTML = '';
+  }
+}
+
+function saveShortPut(ladderId) {
+  var l = getLadder(ladderId);
+  if (!l) return;
+  var strike = parseFloat(v('sp-strike'));
+  var contracts = parseInt(v('sp-contracts')) || l.contracts || 1;
+  var received = parseFloat(v('sp-received'));
+  var expiry = v('sp-expiry').trim();
+  var openDate = v('sp-opendate').trim() || today();
+  if (!strike || !received || !expiry) { alert('Please fill in all required fields.'); return; }
+  var sp = { id: uid(), strike: strike, contracts: contracts, received: received, expiry: expiry, openDate: openDate, closed: false };
+  l.shortPuts.push(sp);
+  save(); closeModal(); render();
+}
+
+function openCloseShortPut(ladderId, spId) {
+  var l = getLadder(ladderId);
+  var sp = l && (l.shortPuts||[]).find(function(s){return s.id===spId;});
+  if (!sp) return;
+  document.getElementById('modal-root').innerHTML =
+    '<div class="modal-overlay" onclick="if(event.target===this)closeModal()">' +
+    '<div class="modal-box">' +
+      '<div class="modal-title">Close Short Put</div>' +
+      '<div class="modal-sub"><strong>' + l.ticker + '</strong> $' + sp.strike + ' · exp ' + fmtDate(sp.expiry) + ' · received ' + fmt(sp.received) + '</div>' +
+      '<div class="modal-section-lbl">How was this closed?</div>' +
+      '<div class="radio-group">' +
+        '<button class="radio-btn active-expire" id="cr-expired" onclick="selectCloseReason(\'expired\')">Expired ✓</button>' +
+        '<button class="radio-btn" id="cr-buyback" onclick="selectCloseReason(\'buyback\')">Bought Back</button>' +
+        '<button class="radio-btn" id="cr-assigned" onclick="selectCloseReason(\'assigned\')">Assigned</button>' +
+      '</div>' +
+      '<div id="cr-cost-wrap" style="display:none;">' +
+        field('Buyback Cost ($)', 'sp-buyback', 'number', 'e.g. 35.00', false) +
+      '</div>' +
+      field('Close Date (MM/DD/YYYY)', 'sp-closedate', 'text', today(), false) +
+      '<div class="modal-btns">' +
+        '<button class="modal-cancel" onclick="closeModal()">Cancel</button>' +
+        '<button class="modal-confirm blue-btn" onclick="saveCloseShortPut(\'' + ladderId + '\',\'' + spId + '\')">Confirm Close</button>' +
+      '</div>' +
+    '</div></div>';
+  window._closeReason = 'expired';
+}
+
+var _closeReason = 'expired';
+function selectCloseReason(r) {
+  _closeReason = r;
+  ['expired','buyback','assigned'].forEach(function(cr) {
+    var btn = document.getElementById('cr-' + cr);
+    if (btn) { btn.className = 'radio-btn' + (cr===r ? ' active-' + cr : ''); }
+  });
+  var wrap = document.getElementById('cr-cost-wrap');
+  if (wrap) wrap.style.display = r === 'buyback' ? '' : 'none';
+}
+
+function saveCloseShortPut(ladderId, spId) {
+  var l = getLadder(ladderId);
+  var sp = l && (l.shortPuts||[]).find(function(s){return s.id===spId;});
+  if (!sp) return;
+  sp.closed = true;
+  sp.closeReason = _closeReason;
+  sp.closeDate = v('sp-closedate') || today();
+  if (_closeReason === 'buyback') {
+    sp.buybackCost = parseFloat(v('sp-buyback')) || 0;
+  }
+  save(); closeModal(); render();
+}
+
+function openCloseLongPut(ladderId) {
+  var l = getLadder(ladderId);
+  if (!l) return;
+  document.getElementById('modal-root').innerHTML =
+    '<div class="modal-overlay" onclick="if(event.target===this)closeModal()">' +
+    '<div class="modal-box">' +
+      '<div class="modal-title">Close Long Put</div>' +
+      '<div class="modal-sub"><strong>' + l.ticker + '</strong> $' + l.longStrike + ' · exp ' + fmtDate(l.longExpiry) + '</div>' +
+      '<div class="mf-row">' +
+        field('Amount Received ($)', 'lp-close-amt', 'number', 'Sale proceeds', false) +
+        field('Close Date (MM/DD/YYYY)', 'lp-close-date', 'text', today(), false) +
+      '</div>' +
+      '<div class="modal-btns">' +
+        '<button class="modal-cancel" onclick="closeModal()">Cancel</button>' +
+        '<button class="modal-confirm" onclick="saveCloseLongPut(\'' + ladderId + '\')">Close Long Put</button>' +
+      '</div>' +
+    '</div></div>';
+}
+
+function saveCloseLongPut(ladderId) {
+  var l = getLadder(ladderId);
+  if (!l) return;
+  l.longPutClosed = true;
+  l.longCloseAmount = parseFloat(v('lp-close-amt')) || 0;
+  l.longCloseDate = v('lp-close-date') || today();
+  // Mark ladder closed if all short puts also closed
+  var allSpClosed = (l.shortPuts||[]).every(function(sp){return sp.closed;});
+  if (allSpClosed) l.closed = true;
+  save(); closeModal(); render();
+}
+
+function reopenLongPut(ladderId) {
+  var l = getLadder(ladderId);
+  if (!l) return;
+  if (!confirm('Reopen this long put position?')) return;
+  l.longPutClosed = false;
+  l.longCloseAmount = 0;
+  l.longCloseDate = null;
+  l.closed = false; // Also reopen the ladder
+  save(); render();
+}
+
+function deleteLongPut(ladderId) {
+  var l = getLadder(ladderId);
+  if (!l) return;
+  if (!confirm('Remove the long put from this tracker? Short puts will remain.')) return;
+  l.longStrike = null;
+  l.longPremium = null;
+  l.longExpiry = null;
+  l.noLongPut = true;
+  save(); render();
+}
+
+function deleteVisibleLadders() {
+  var allSel = typeof selectedTickers === 'undefined' || selectedTickers.has('ALL');
+  var toDelete = ladders.filter(function(l) {
+    if (filterMode === 'open' && l.closed) return false;
+    if (filterMode === 'closed' && !l.closed) return false;
+    if (!allSel && !selectedTickers.has(l.ticker)) return false;
+    return true;
+  });
+  if (!toDelete.length) { alert('No visible ladders to delete.'); return; }
+  var ids = toDelete.map(function(l){return l.ticker;}).join(', ');
+  if (!confirm('Delete ' + toDelete.length + ' visible ladder(s)?\n\n' + ids + '\n\nThis cannot be undone.')) return;
+  var deleteIds = new Set(toDelete.map(function(l){return l.id;}));
+  ladders = ladders.filter(function(l){return !deleteIds.has(l.id);});
+  deleteIds.forEach(function(id){expandedIds.delete(id);});
+  save(); render();
+}
+
+function deleteLadder(ladderId) {
+  if (!confirm('Delete this put ladder and all its short puts?')) return;
+  ladders = ladders.filter(function(l){return l.id !== ladderId;});
+  expandedIds.delete(ladderId);
+  save(); render();
+}
+
+function deleteShortPut(ladderId, spId) {
+  var l = getLadder(ladderId);
+  if (!l) return;
+  if (!confirm('Delete this short put entry?')) return;
+  l.shortPuts = (l.shortPuts||[]).filter(function(sp){return sp.id!==spId;});
+  save(); render();
+}
+
+function reopenLadder(ladderId) {
+  var l = getLadder(ladderId);
+  if (!l) return;
+  l.closed = false;
+  l.longPutClosed = false;
+  save(); render();
+}
+
+// ── EDIT MODALS ──────────────────────────────────────────────────────────────
+function openEditLadder(ladderId) {
+  var l = getLadder(ladderId);
+  if (!l) return;
+  var closeBtn = l.longPutClosed 
+    ? '' 
+    : '<button class="modal-action-btn" onclick="closeModal();openCloseLongPut(\'' + ladderId + '\')">Close Long Put</button>';
+  document.getElementById('modal-root').innerHTML =
+    '<div class="modal-overlay" onclick="if(event.target===this)closeModal()">' +
+    '<div class="modal-box">' +
+      '<div class="modal-title">&#9998; Edit Long Put</div>' +
+      '<div class="modal-sub">Update details for <strong>' + l.ticker + '</strong></div>' +
+      '<div class="mf-row">' +
+        fieldVal('Ticker Symbol', 'el-ticker', 'text', l.ticker, true) +
+        fieldVal('Contracts', 'el-contracts', 'number', l.contracts || 1, true) +
+      '</div>' +
+      '<div class="mf-row">' +
+        fieldVal('Long Put Strike', 'el-strike', 'number', l.longStrike, true) +
+        fieldVal('Premium Per Contract ($)', 'el-premium', 'number', l.longPremium, true) +
+      '</div>' +
+      '<div class="mf-row">' +
+        fieldVal('Long Put Expiry (MM/DD/YYYY)', 'el-expiry', 'text', l.longExpiry, true) +
+        fieldVal('Opened Date (MM/DD/YYYY)', 'el-opendate', 'text', l.openDate || today(), false) +
+      '</div>' +
+      fieldVal('Stock Position / Cost Basis ($)', 'el-position', 'number', l.position || '', false) +
+      '<div class="mf"><label class="mf-label">Notes (optional)</label><input class="mf-input" id="el-notes" placeholder="Notes" value="' + (l.notes||'').replace(/"/g,"&quot;") + '"></div>' +
+      '<div class="modal-btns">' +
+        '<button class="modal-cancel" onclick="closeModal()">Cancel</button>' +
+        closeBtn +
+        '<button class="modal-confirm blue-btn" onclick="saveEditLadder(\'' + ladderId + '\')">Save Changes</button>' +
+      '</div>' +
+    '</div></div>';
+}
+
+function fieldVal(label, id, type, val, required) {
+  return '<div class="mf"><label class="mf-label">' + label + (required ? '<span>*</span>' : '') + '</label>' +
+    '<input class="mf-input" id="' + id + '" type="' + type + '" value="' + val + '"></div>';
+}
+
+function saveEditLadder(ladderId) {
+  var l = getLadder(ladderId);
+  if (!l) return;
+  var ticker = v('el-ticker').toUpperCase().trim();
+  var contracts = parseInt(v('el-contracts')) || 1;
+  var strike = parseFloat(v('el-strike'));
+  var premium = parseFloat(v('el-premium'));
+  var expiry = v('el-expiry').trim();
+  var openDate = v('el-opendate').trim() || today();
+  var notes = v('el-notes').trim();
+  var position = parseFloat(v('el-position')) || null;
+  if (!ticker || !strike || !premium || !expiry) { alert('Please fill in all required fields.'); return; }
+  l.ticker = ticker; l.contracts = contracts; l.longStrike = strike; l.longPremium = premium;
+  l.longExpiry = expiry; l.openDate = openDate; l.notes = notes; l.position = position;
+  save(); closeModal(); render();
+}
+
+function openEditShortPut(ladderId, spId) {
+  var l = getLadder(ladderId);
+  var sp = l && (l.shortPuts||[]).find(function(s){return s.id===spId;});
+  if (!sp) return;
+  document.getElementById('modal-root').innerHTML =
+    '<div class="modal-overlay" onclick="if(event.target===this)closeModal()">' +
+    '<div class="modal-box">' +
+      '<div class="modal-title">&#9998; Edit Short Put</div>' +
+      '<div class="modal-sub"><strong>' + l.ticker + '</strong> · $' + sp.strike + ' exp ' + fmtDate(sp.expiry) + '</div>' +
+      '<div class="mf-row">' +
+        fieldVal('Short Put Strike', 'esp-strike', 'number', sp.strike, true) +
+        fieldVal('Contracts', 'esp-contracts', 'number', sp.contracts || l.contracts || 1, false) +
+      '</div>' +
+      '<div class="mf-row">' +
+        fieldVal('Premium Received ($)', 'esp-received', 'number', sp.received, true) +
+        fieldVal('Expiry (MM/DD/YYYY)', 'esp-expiry', 'text', sp.expiry, true) +
+      '</div>' +
+      fieldVal('Opened Date (MM/DD/YYYY)', 'esp-opendate', 'text', sp.openDate || today(), false) +
+      '<div class="modal-btns">' +
+        '<button class="modal-cancel" onclick="closeModal()">Cancel</button>' +
+        '<button class="modal-confirm blue-btn" onclick="saveEditShortPut(\'' + ladderId + '\',\'' + spId + '\')">Save Changes</button>' +
+      '</div>' +
+    '</div></div>';
+}
+
+function saveEditShortPut(ladderId, spId) {
+  var l = getLadder(ladderId);
+  var sp = l && (l.shortPuts||[]).find(function(s){return s.id===spId;});
+  if (!sp) return;
+  var strike = parseFloat(v('esp-strike'));
+  var contracts = parseInt(v('esp-contracts')) || l.contracts || 1;
+  var received = parseFloat(v('esp-received'));
+  var expiry = v('esp-expiry').trim();
+  var openDate = v('esp-opendate').trim() || today();
+  if (!strike || !received || !expiry) { alert('Please fill in all required fields.'); return; }
+  sp.strike = strike; sp.contracts = contracts; sp.received = received; sp.expiry = expiry; sp.openDate = openDate;
+  save(); closeModal(); render();
+}
+
+function openAddLongPut(ladderId) {
+  var l = getLadder(ladderId);
+  if (!l) return;
+  document.getElementById('modal-root').innerHTML =
+    '<div class="modal-overlay" onclick="if(event.target===this)closeModal()">' +
+    '<div class="modal-box">' +
+      '<div class="modal-title">&#128308; Add Long Put Hedge</div>' +
+      '<div class="modal-sub">Anchor for <strong>' + l.ticker + '</strong> — track cost coverage against short put income</div>' +
+      '<div class="mf-row">' +
+        field('Long Put Strike', 'lpa-strike', 'number', 'e.g. 60', true) +
+        field('Premium Per Contract ($)', 'lpa-premium', 'number', 'e.g. 5.50', true) +
+      '</div>' +
+      '<div class="mf-row">' +
+        field('Long Put Expiry (MM/DD/YYYY)', 'lpa-expiry', 'text', 'e.g. 6/20/2026', true) +
+        field('Opened Date (MM/DD/YYYY)', 'lpa-opendate', 'text', today(), false) +
+      '</div>' +
+      '<div class="modal-btns">' +
+        '<button class="modal-cancel" onclick="closeModal()">Cancel</button>' +
+        '<button class="modal-confirm blue-btn" onclick="saveAddLongPut(\'' + ladderId + '\')">Add Long Put</button>' +
+      '</div>' +
+    '</div></div>';
+}
+
+function saveAddLongPut(ladderId) {
+  var l = getLadder(ladderId);
+  if (!l) return;
+  var strike = parseFloat(v('lpa-strike'));
+  var premium = parseFloat(v('lpa-premium'));
+  var expiry = v('lpa-expiry').trim();
+  var openDate = v('lpa-opendate').trim() || today();
+  if (!strike || !premium || !expiry) { alert('Please fill in all required fields.'); return; }
+  l.longStrike = strike;
+  l.longPremium = premium;
+  l.longExpiry = expiry;
+  l.openDate = openDate;
+  l.noLongPut = false;
+  save(); closeModal(); render();
+}
+
+function copyShortPut(ladderId, spId) {
+  var l = getLadder(ladderId);
+  var sp = l && (l.shortPuts||[]).find(function(s){return s.id===spId;});
+  if (!sp) return;
+  // Pre-fill the add short put modal with the copied values
+  document.getElementById('modal-root').innerHTML =
+    '<div class="modal-overlay" onclick="if(event.target===this)closeModal()">' +
+    '<div class="modal-box">' +
+      '<div class="modal-title">&#10697; Copy Short Put</div>' +
+      '<div class="modal-sub">Copied from $' + sp.strike + ' · update fields as needed</div>' +
+      '<div class="mf-row">' +
+        fieldVal('Short Put Strike', 'sp-strike', 'number', sp.strike, true) +
+        fieldVal('Contracts', 'sp-contracts', 'number', sp.contracts || l.contracts || 1, false) +
+      '</div>' +
+      '<div class="mf-row">' +
+        fieldVal('Premium Received ($)', 'sp-received', 'number', sp.received, true) +
+        field('Expiry (MM/DD/YYYY)', 'sp-expiry', 'text', 'e.g. 5/16/2026', true) +
+      '</div>' +
+      field('Opened Date (MM/DD/YYYY)', 'sp-opendate', 'text', today(), false) +
+      '<div class="modal-btns">' +
+        '<button class="modal-cancel" onclick="closeModal()">Cancel</button>' +
+        '<button class="modal-confirm green-btn" onclick="saveShortPut(\'' + ladderId + '\')">Add Short Put</button>' +
+      '</div>' +
+    '</div></div>';
+}
+
+
+// ── CSV IMPORT ────────────────────────────────────────────────────────────────
+function handleCSVUpload(event) {
+  var file = event.target.files[0];
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    var text = e.target.result;
+    var result = parseRobinhoodCSV(text);
+    // Reset file input so same file can be re-uploaded
+    document.getElementById('csv-upload').value = '';
+    if (result.errors.length && !result.imported) {
+      alert('Could not parse CSV:\n' + result.errors.join('\n'));
+      return;
+    }
+    showImportPreview(result);
+  };
+  reader.readAsText(file);
+}
+
+function parseRobinhoodCSV(text) {
+  var lines = text.split(/\r?\n/).filter(function(l){ return l.trim(); });
+  if (!lines.length) return { rows: [], errors: ['Empty file'] };
+
+  // Auto-detect delimiter: tab or comma
+  var delimiter = lines[0].indexOf('\t') > -1 ? '\t' : ',';
+
+  // Parse header
+  var headers = (delimiter === '\t' ? lines[0].split('\t') : splitCSVLine(lines[0])).map(function(h){ return h.trim().toLowerCase().replace(/\s+/g,'_'); });
+  var idx = {
+    activityDate: headers.indexOf('activity_date'),
+    instrument:   headers.indexOf('instrument'),
+    description:  headers.indexOf('description'),
+    transCode:    headers.indexOf('trans_code'),
+    quantity:     headers.indexOf('quantity'),
+    price:        headers.indexOf('price'),
+    amount:       headers.indexOf('amount')
+  };
+
+  var rows = [], errors = [], skipped = 0;
+
+  for (var i = 1; i < lines.length; i++) {
+    var cols = delimiter === '\t' ? lines[i].split('\t').map(function(c){return c.trim();}) : splitCSVLine(lines[i]);
+    if (cols.length < 4) { skipped++; continue; }
+
+    var transCode = (cols[idx.transCode] || '').trim().toUpperCase();
+    // Process BTO, STO, STC, BTC
+    if (transCode !== 'BTO' && transCode !== 'STO' && transCode !== 'STC' && transCode !== 'BTC') { skipped++; continue; }
+
+    var desc        = (cols[idx.description] || '').trim();
+    var actDate     = (cols[idx.activityDate] || '').trim();
+    var ticker      = (cols[idx.instrument] || '').trim().toUpperCase();
+    var quantity    = Math.abs(parseFloat(cols[idx.quantity]) || 1);
+    var price       = Math.abs(parseFloat((cols[idx.price]||'').replace(/[$,()]/g,'')) || 0);
+    var amount      = parseAmount(cols[idx.amount] || '');
+
+    // Parse description: e.g. "HOOD 4/24/2026 Put $69.00"
+    var parsed = parseOptionDescription(desc);
+    if (!parsed) { errors.push('Row ' + (i+1) + ': could not parse description "' + desc + '"'); skipped++; continue; }
+
+    // Derive ticker from instrument, fallback to description ticker
+    if (!ticker) ticker = parsed.ticker;
+
+    // Map trans code + option type to position type
+    var posType;
+    if (transCode === 'BTO') {
+      posType = parsed.optionType === 'put' ? 'LPUT' : 'LCALL';
+    } else if (transCode === 'STO') {
+      posType = parsed.optionType === 'put' ? 'SPUT' : 'SCALL';
+    } else if (transCode === 'STC') {
+      posType = 'STC'; // closing a long — credit received
+    } else if (transCode === 'BTC') {
+      posType = 'BTC'; // closing a short — debit paid
+    }
+
+    // Use actual transaction amount (includes fees/commissions)
+    var totalPremium = Math.abs(amount) > 0 ? Math.abs(amount) : Math.abs(price) * 100 * quantity;
+    var premiumPerContract = quantity > 0 ? totalPremium / (quantity * 100) : Math.abs(price);
+
+    rows.push({
+      ticker:      ticker,
+      posType:     posType,
+      optionType:  parsed.optionType,
+      strike:      parsed.strike,
+      expiry:      parsed.expiry,
+      openDate:    actDate,
+      contracts:   quantity,
+      premium:     premiumPerContract,
+      totalPremium: totalPremium,
+      amount:      amount,
+      transCode:   transCode,
+      rawDesc:     desc
+    });
+  }
+
+  return { rows: rows, errors: errors, skipped: skipped, imported: rows.length > 0 };
+}
+
+function parseOptionDescription(desc) {
+  // Format: "HOOD 4/24/2026 Put $69.00" or "INTC 5/15/2026 Call $67.50"
+  var m = desc.match(/^(\S+)\s+(\d{1,2}\/\d{1,2}\/\d{2,4})\s+(Put|Call)\s+\$?([\d.]+)/i);
+  if (!m) return null;
+  return {
+    ticker:     m[1].toUpperCase(),
+    expiry:     m[2],
+    optionType: m[3].toLowerCase(),
+    strike:     parseFloat(m[4])
+  };
+}
+
+function splitCSVLine(line) {
+  var result = [], cur = '', inQ = false, inParen = false;
+  for (var i = 0; i < line.length; i++) {
+    var c = line[i];
+    if (c === '"') { inQ = !inQ; }
+    else if (c === '(' && !inQ) { inParen = true; cur += c; }
+    else if (c === ')' && !inQ) { inParen = false; cur += c; }
+    else if (c === ',' && !inQ && !inParen) { result.push(cur.trim()); cur = ''; }
+    else { cur += c; }
+  }
+  result.push(cur.trim());
+  return result;
+}
+
+function parseAmount(str) {
+  if (!str) return 0;
+  str = str.trim();
+  // Parentheses = negative: ($590.04) or ($1,620.04)
+  var neg = /^\(.*\)$/.test(str);
+  var n = parseFloat(str.replace(/[($,)]/g, '')) || 0;
+  return neg ? -n : n;
+}
+
+function showImportPreview(result) {
+  if (!result.rows.length) {
+    alert('No BTO/STO option rows found in CSV.' + (result.skipped ? ' (' + result.skipped + ' rows skipped)' : ''));
+    return;
+  }
+
+  var typeColors = { LPUT:'#2563EB', SPUT:'#059669', LCALL:'#7C3AED', SCALL:'#EA580C', STC:'#059669', BTC:'#DC2626' };
+  var typeBg    = { LPUT:'#EFF6FF', SPUT:'#ECFDF5', LCALL:'#F5F3FF', SCALL:'#FFF7ED', STC:'#ECFDF5', BTC:'#FEF2F2' };
+
+  var rows = result.rows.map(function(r, i) {
+    var c = typeColors[r.posType] || '#111';
+    var bg = typeBg[r.posType] || '#fff';
+    var isSTC = r.posType === 'STC', isBTC = r.posType === 'BTC';
+    var amtColor = (r.transCode==='STO'||isSTC) ? '#059669' : '#DC2626';
+    var amtSign  = (r.transCode==='STO'||isSTC) ? '+' : '-';
+    return '<tr>' +
+      '<td><input type="checkbox" class="csv-row-chk" data-idx="' + i + '" checked style="accent-color:var(--green);"></td>' +
+      '<td style="font-weight:700;">' + r.ticker + '</td>' +
+      '<td><span style="background:' + bg + ';color:' + c + ';border:1px solid ' + c + '33;border-radius:4px;padding:0.08rem 0.38rem;font-size:0.62rem;font-weight:700;">' + r.posType + '</span></td>' +
+      '<td>$' + r.strike + '</td>' +
+      '<td>' + r.expiry + '</td>' +
+      '<td>' + r.contracts + '</td>' +
+      '<td style="color:' + amtColor + ';font-weight:700;">' + amtSign + '$' + (r.totalPremium).toFixed(2) + '</td>' +
+      '<td style="color:#888;font-size:0.62rem;">' + r.openDate + '</td>' +
+    '</tr>';
+  }).join('');
+
+  var warnHtml = result.errors.length
+    ? '<div style="background:#FEF9C3;border:1px solid #FDE68A;border-radius:6px;padding:0.4rem 0.7rem;font-size:0.62rem;color:#92400E;margin-bottom:0.6rem;">&#9888; ' + result.errors.length + ' row(s) skipped: ' + result.errors.slice(0,3).join('; ') + (result.errors.length>3?' …':'') + '</div>'
+    : '';
+
+  document.getElementById('modal-root').innerHTML =
+    '<div class="modal-overlay" onclick="if(event.target===this)closeModal()">' +
+    '<div class="modal-box" style="width:660px;max-width:96vw;max-height:88vh;display:flex;flex-direction:column;padding:0;overflow:hidden;">' +
+      '<div style="padding:1.25rem 1.5rem 0.75rem;flex-shrink:0;">' +
+        '<div class="modal-title">&#8613; Import CSV — Preview</div>' +
+        '<div class="modal-sub" style="margin-bottom:' + (warnHtml ? '0.5rem' : '0') + ';">' + result.rows.length + ' option rows found · uncheck any to skip · ' + (result.skipped||0) + ' non-option rows ignored</div>' +
+        warnHtml +
+      '</div>' +
+      '<div style="overflow:auto;flex:1;padding:0 1.5rem;">' +
+      '<table style="width:100%;border-collapse:collapse;font-size:0.7rem;">' +
+        '<thead style="background:var(--bg4);position:sticky;top:0;z-index:1;">' +
+          '<tr>' +
+            '<th style="padding:0.35rem 0.5rem;text-align:left;"><input type="checkbox" id="csv-chk-all" checked onchange="toggleAllCsvRows(this)" style="accent-color:var(--green);"></th>' +
+            '<th style="padding:0.35rem 0.5rem;text-align:left;">Ticker</th>' +
+            '<th style="padding:0.35rem 0.5rem;text-align:left;">Type</th>' +
+            '<th style="padding:0.35rem 0.5rem;text-align:left;">Strike</th>' +
+            '<th style="padding:0.35rem 0.5rem;text-align:left;">Expiry</th>' +
+            '<th style="padding:0.35rem 0.5rem;text-align:left;">#</th>' +
+            '<th style="padding:0.35rem 0.5rem;text-align:left;">Premium</th>' +
+            '<th style="padding:0.35rem 0.5rem;text-align:left;">Opened</th>' +
+          '</tr>' +
+        '</thead>' +
+        '<tbody>' + rows + '</tbody>' +
+      '</table></div>' +
+      '<div class="modal-btns" style="padding:0.85rem 1.5rem;border-top:1px solid var(--border);flex-shrink:0;background:#fff;">' +
+        '<button class="modal-cancel" onclick="closeModal()">Cancel</button>' +
+        '<button class="modal-confirm green-btn" onclick="commitCSVImport()">&#8593; Import Selected</button>' +
+      '</div>' +
+    '</div></div>';
+
+  // Store rows on window for commitCSVImport
+  window._csvImportRows = result.rows;
+}
+
+function toggleAllCsvRows(chk) {
+  document.querySelectorAll('.csv-row-chk').forEach(function(c){ c.checked = chk.checked; });
+}
+
+function commitCSVImport() {
+  var rows = window._csvImportRows || [];
+  var checked = [];
+  document.querySelectorAll('.csv-row-chk').forEach(function(c){
+    if (c.checked) checked.push(parseInt(c.dataset.idx));
+  });
+
+  var imported = 0;
+  checked.forEach(function(i) {
+    var r = rows[i];
+    if (!r) return;
+
+    if (r.posType === 'LPUT') {
+      // Each BTO long put = its own ladder (dedup: same ticker+strike+expiry+openDate)
+      var l = ladders.find(function(x){
+        return x.ticker === r.ticker && !x.noLongPut &&
+               x.longStrike == r.strike && x.longExpiry === r.expiry &&
+               x.openDate === r.openDate;
+      });
+      if (!l) {
+        l = { id: uid(), ticker: r.ticker, contracts: r.contracts, longStrike: r.strike, longPremium: r.premium, longExpiry: r.expiry, openDate: r.openDate, notes: '', position: null, noLongPut: false, shortPuts: [], closed: false };
+        ladders.unshift(l);
+        expandedIds.add(l.id);
+      }
+    } else if (r.posType === 'SPUT') {
+      // Short put → find the ladder with the CLOSEST long put expiry >= sp.expiry
+      var spExpDt = normExpiry(r.expiry);
+      var bestTarget = null, bestDiff = Infinity;
+      ladders.forEach(function(x) {
+        if (x.ticker !== r.ticker || x.closed) return;
+        if (x.noLongPut) { if (!bestTarget) bestTarget = x; return; }
+        var lpDt = normExpiry(x.longExpiry);
+        if (lpDt && spExpDt && lpDt >= spExpDt) {
+          var diff = lpDt - spExpDt;
+          if (diff < bestDiff) { bestDiff = diff; bestTarget = x; }
+        }
+      });
+      if (!bestTarget) {
+        // fallback: any open ladder for this ticker
+        bestTarget = ladders.find(function(x){ return x.ticker === r.ticker && !x.closed; });
+      }
+      if (!bestTarget) {
+        bestTarget = { id: uid(), ticker: r.ticker, contracts: r.contracts, longStrike: null, longPremium: null, longExpiry: null, openDate: r.openDate, notes: '', position: null, noLongPut: true, shortPuts: [], closed: false };
+        ladders.unshift(bestTarget);
+        expandedIds.add(bestTarget.id);
+      }
+      var dup = (bestTarget.shortPuts||[]).find(function(sp){
+        return sp.strike == r.strike && sp.expiry === r.expiry && sp.openDate === r.openDate;
+      });
+      if (!dup) {
+        var sp = { id: uid(), strike: r.strike, contracts: r.contracts, received: r.totalPremium, expiry: r.expiry, openDate: r.openDate, closed: false };
+        bestTarget.shortPuts.push(sp);
+      }
+    } else if (r.posType === 'STC') {
+      // STC = Sell To Close a Long Put → credit to LP's longCloseAmount
+      var stcDate = r.openDate;
+      var stcBest = null, stcBestDiff = Infinity;
+      ladders.forEach(function(x) {
+        if (x.ticker !== r.ticker || x.noLongPut) return;
+        if (x.longStrike == r.strike) {
+          var d = Math.abs((new Date(x.openDate||0)) - (new Date(stcDate||0)));
+          if (d < stcBestDiff) { stcBestDiff = d; stcBest = x; }
+        }
+      });
+      if (!stcBest) stcBest = ladders.find(function(x){ return x.ticker === r.ticker; });
+      if (stcBest) {
+        stcBest.longPutClosed = true;
+        stcBest.longCloseAmount = (stcBest.longCloseAmount || 0) + Math.abs(r.totalPremium);
+      }
+    } else if (r.posType === 'BTC') {
+      // BTC = Buy To Close a Short Put → btcDebit on matching SP (string expiry match)
+      var btcMatched = false;
+      ladders.forEach(function(x) {
+        if (x.ticker !== r.ticker) return;
+        (x.shortPuts || []).forEach(function(sp) {
+          if (sp.strike == r.strike && sp.expiry === r.expiry) {
+            sp.btcDebit = (sp.btcDebit || 0) + Math.abs(r.totalPremium);
+            sp.closed = true;
+            sp.closeReason = sp.closeReason || 'buyback';
+            btcMatched = true;
+          }
+        });
+      });
+      if (!btcMatched) {
+        // No existing SP — create one with btcDebit, attach to best ladder
+        var btcTarget = null, btcBestDiff = Infinity;
+        ladders.forEach(function(x) {
+          if (x.ticker !== r.ticker) return;
+          var d = Math.abs((new Date(x.openDate||0)) - (new Date(r.openDate||0)));
+          if (d < btcBestDiff) { btcBestDiff = d; btcTarget = x; }
+        });
+        if (!btcTarget) {
+          btcTarget = { id: uid(), ticker: r.ticker, contracts: r.contracts, longStrike: null, longPremium: null, longExpiry: null, openDate: r.openDate, notes: '', position: null, noLongPut: true, shortPuts: [], closed: false };
+          ladders.unshift(btcTarget);
+          expandedIds.add(btcTarget.id);
+        }
+        if (btcTarget) {
+          if (!btcTarget.shortPuts) btcTarget.shortPuts = [];
+          var existSp = btcTarget.shortPuts.find(function(sp){ return sp.strike == r.strike && sp.expiry === r.expiry; });
+          if (existSp) {
+            existSp.btcDebit = (existSp.btcDebit || 0) + Math.abs(r.totalPremium);
+            existSp.closed = true;
+            existSp.closeReason = existSp.closeReason || 'buyback';
+          } else {
+            btcTarget.shortPuts.push({ id: uid(), strike: r.strike, contracts: r.contracts, received: 0, expiry: r.expiry, openDate: r.openDate, closed: true, closeReason: 'buyback', btcDebit: Math.abs(r.totalPremium) });
+          }
+        }
+      }
+    }
+    imported++;
+  });
+
+  // Post-import merge: combine BTC-only SPs with matching STO-only SPs
+  ladders.forEach(function(l) {
+    var sps = l.shortPuts;
+    if (!sps || !sps.length) return;
+    var changed = true;
+    while (changed) {
+      changed = false;
+      for (var i = 0; i < sps.length; i++) {
+        var btcSp = sps[i];
+        if (!btcSp.btcDebit || btcSp.received > 0) continue;
+        for (var j = 0; j < sps.length; j++) {
+          if (i === j) continue;
+          var stoSp = sps[j];
+          if (stoSp.strike != btcSp.strike || stoSp.expiry !== btcSp.expiry) continue;
+          if (!(stoSp.received > 0)) continue;
+          stoSp.btcDebit = (stoSp.btcDebit || 0) + btcSp.btcDebit;
+          stoSp.closed = true;
+          stoSp.closeReason = stoSp.closeReason || 'buyback';
+          sps.splice(i, 1);
+          changed = true; break;
+        }
+        if (changed) break;
+      }
+    }
+  });
+
+  save(); closeModal();
+  if (document.getElementById('ladders-root')) {
+    render();
+  } else if (typeof activeView !== 'undefined' && activeView === 'putladder') {
+    plReloadForPortfolio();
+  }
+  if (imported) alert('Imported ' + imported + ' position(s) successfully.');
+}
+
+// ── HELPERS ───────────────────────────────────────────────────────────────────
+function getLadder(id) { return ladders.find(function(l){return l.id===id;}); }
+function v(id) { var el=document.getElementById(id); return el?el.value:''; }
+
+// ── STORAGE KEY ───────────────────────────────────────────────────────────────
+function lsKey(portKey) { return 'roi_putladder_' + (portKey || 'joint'); }
+
+// ── SAVE LADDERS ──────────────────────────────────────────────────────────────
+function save() {
+  try { localStorage.setItem(lsKey(plGetPortKey()), JSON.stringify(ladders)); } catch(e) {}
+}
+
+// ── RELOAD PUT LADDER FOR CURRENT PORTFOLIO ───────────────────────────────────
+function plReloadForPortfolio() {
+  try {
+    var raw = localStorage.getItem(lsKey(plGetPortKey()));
+    ladders = (raw && JSON.parse(raw)) || [];
+    if (!Array.isArray(ladders)) ladders = [];
+  } catch(e) { ladders = []; }
+  expandedIds = new Set();
+  plTickerSearch = '';
+  ladders.forEach(function(l) { if (!l.closed) expandedIds.add(l.id); });
+  // Expand all ticker groups by default
+  var tickers = [...new Set(ladders.map(function(l) { return l.ticker; }))];
+  tickers.forEach(function(t) { expandedIds.add('ticker-' + t); });
+  render();
+}
+
+// ── TOPBAR DATE ───────────────────────────────────────────────────────────────
+(function() {
+  var d = new Date();
+  var days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var el = document.getElementById('topbar-date');
+  if (el) el.textContent = days[d.getDay()] + ' ' + months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+})();
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+render();
+
 </script>
 </body>
 </html>
