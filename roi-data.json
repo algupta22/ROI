@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "savedAt": "2026-04-26T16:22:35.910Z",
+  "savedAt": "2026-04-26T21:04:46.666Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -5817,29 +5817,29 @@
     }
   ],
   "tickerPrices": {
-    "GOOGL": 319.23,
+    "GOOGL": 344.4,
     "PLTR": 146.39,
-    "IBIT": 43.94,
+    "IBIT": 44.02,
     "TSLZ": 13.16,
     "HIMZ": 41.81,
     "HIMZ1": 3,
-    "TSLL": 13.9,
-    "ROBN": 28.51,
+    "TSLL": 12.09,
+    "ROBN": 24.64,
     "NVTS": 12,
-    "BBAI": 3.82,
+    "BBAI": 3.7,
     "HIMS": 28.82,
-    "HOOD": 90.75,
+    "HOOD": 84.71,
     "MSFT": 422.79,
-    "CDE": 20.38,
-    "CELH": 35.25,
+    "CDE": 19.31,
+    "CELH": 34.59,
     "LYFT": 14.95,
     "METU": 32.05,
     "NKE": 46.03,
     "NVDA": 201.68,
-    "NVDX": 18.425,
-    "PATH": 10.41,
+    "NVDX": 19.53,
+    "PATH": 10.37,
     "QQQ": 648.85,
-    "BULL": 6.72,
+    "BULL": 6.9,
     "NFLU": 32.04,
     "QQQI": 53.89,
     "RGTI": 19.81,
@@ -5854,8 +5854,9 @@
     "USAR": 19.95,
     "SLV": 73.63,
     "MRVL": 148.29,
-    "ONDS": 10,
-    "NFLX": 93
+    "ONDS": 10.55,
+    "NFLX": 93,
+    "PLTZ": 28.88
   },
   "earningsDates": {
     "TSLL": {
