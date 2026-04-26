@@ -661,6 +661,10 @@ td.mc{color:var(--black);font-weight:700;}td.mn{font-family:monospace;font-size:
 .lp-edit-btn:hover{background:#DBEAFE;}
 .lp-del-btn{background:#FEF2F2;border:1px solid rgba(220,38,38,0.2);color:var(--red);padding:0.12rem 0.35rem;border-radius:4px;font-size:0.55rem;font-weight:700;cursor:pointer;}
 .lp-del-btn:hover{background:#FEE2E2;}
+.add-sp-btn{background:#F0FDF4;border:1px solid #BBF7D0;color:#059669;padding:0.25rem 0.5rem;border-radius:5px;font-size:0.65rem;font-weight:700;cursor:pointer;transition:all 0.15s;}
+.add-sp-btn:hover{background:#DCFCE7;}
+.add-sp-btn.green-btn{background:#10b981;border-color:#10b981;color:#fff;}
+.add-sp-btn.green-btn:hover{background:#059669;}
 
 /* Fields in a 2-col grid — compact */
 .lp-fields-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.3rem 0.6rem;}
@@ -2828,196 +2832,235 @@ function buildSpreadPairs(data){
 }
 function calcSpreadCol(sp,lp){if(!sp)return 0;if(!lp)return sp.strike*100;return(sp.strike-lp.strike)*100;}
 function rSpreadsView(data){
-  var groups=buildSpreadPairs(data);
-  var has=groups.some(function(g){return g.pairs.length>0||g.independentLPs.length>0;});
-  var portNames={'lovelina':'L','amit':'A','joint':'J','amit-roth':'AR','lov-roth':'LR','lov-trad':'LT'};
-  var portColors={'lovelina':'#DB2877','amit':'#2563EB','joint':'#059669','amit-roth':'#7C3AED','lov-roth':'#DB2877','lov-trad':'#0891B2'};
-  var tN=0,tS=0,netMap={};
-  groups.forEach(function(g){var tn=0,ts=0;g.pairs.forEach(function(p){var c=calcSpreadCol(p.sp,p.lp);if(p.lp)ts+=c;else tn+=c;});var net=Math.max(0,tn+ts);netMap[g.ticker]=net;tN+=Math.max(0,tn);tS+=Math.max(0,ts);});
-  var retirementPorts=new Set(['amit-roth','lov-roth','lov-trad']);
-  // ── Ticker dropdown — same as positions tab ──────────────────────────────
-  var tickers=getTickersFrom(data),allSel=selectedTickers.has('ALL');
-  var selList=allSel?[]:[...selectedTickers].filter(function(t){return t!=='ALL';});
-  var absentSel=selList.filter(function(t){return tickers.indexOf(t)<0;});
-  var ddItems=tickers.map(function(t){var sel=allSel||selectedTickers.has(t);return'<div class="ticker-dd-item'+(sel?' selected':'')+'" data-ddticker="'+t+'"><div class="ticker-dd-check">'+(sel?'&#10003;':'')+'</div><span class="dd-dot" style="background:'+(DC[t]||'#888')+'"></span>'+t+'</div>';}).join('')+(absentSel.length?'<div style="height:1px;background:var(--border);margin:0.1rem 0;"></div>'+absentSel.map(function(t){return'<div class="ticker-dd-item selected" data-ddticker="'+t+'" style="opacity:0.45;"><div class="ticker-dd-check">&#10003;</div><span class="dd-dot" style="background:'+(DC[t]||'#888')+'"></span>'+t+' <span style="font-size:0.55rem;color:var(--text3);">n/a</span></div>';}).join(''):'');
-  var tags=allSel?'<span style="color:var(--text3);font-size:0.7rem;">All</span>':selList.map(function(t){var inPort=tickers.indexOf(t)>=0;return'<span class="sel-tag" style="'+(inPort?'':'opacity:0.45;')+'"><span style="width:6px;height:6px;border-radius:50%;background:'+(DC[t]||'#888')+';display:inline-block;flex-shrink:0;"></span>'+t+'<span class="sel-tag-x" data-xticker="'+t+'">&#10005;</span></span>';}).join('');
-  var total=Object.values(netMap).reduce(function(s,v){return s+v;},0);
-  var collatChip='<div style="display:flex;align-items:center;gap:0.5rem;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:0.28rem 0.75rem;"><span style="font-size:0.62rem;font-weight:700;color:var(--text3);">&#128274; COLLAT</span><span style="font-size:0.78rem;font-weight:800;font-family:monospace;color:#EF4444;">$'+total.toLocaleString()+'</span><span style="width:1px;background:var(--border);align-self:stretch;"></span><span style="font-size:0.62rem;color:var(--text3);">Naked</span><span style="font-size:0.72rem;font-weight:700;font-family:monospace;color:#EF4444;">$'+tN.toLocaleString()+'</span><span style="font-size:0.62rem;color:var(--text3);">Spread</span><span style="font-size:0.72rem;font-weight:700;font-family:monospace;color:var(--purple);">$'+tS.toLocaleString()+'</span></div>';
-  // ── Spreads filter bar — matches positions tab style ─────────────────────
-  var typeOpts=[['all','All'],['Short Put','SPUT'],['Short Call','SCALL'],['Shares','SHR']];
-  var stypes=typeOpts.map(function(t){return'<button class="type-tab'+(spreadsTypeFilter===t[0]?' active':'')+'" onclick="spreadsTypeFilter=\''+t[0]+'\';rMain();">'+t[1]+'</button>';}).join('');
-  var expOpts=[['all','All'],['this-week','⚠ This Wk'],['next-week','→ Next Wk']];
-  var exps=expOpts.map(function(o){return'<button class="expiry-pill'+(spreadsExpFilter===o[0]?' active':'')+'" onclick="spreadsExpFilter=\''+o[0]+'\';rMain();" style="'+(o[0]==='this-week'&&spreadsExpFilter===o[0]?'background:var(--yellow);color:#000;border-color:var(--yellow);':o[0]==='next-week'&&spreadsExpFilter===o[0]?'background:var(--blue);color:#fff;border-color:var(--blue);':'')+'">'+o[1]+'</button>';}).join('');
-  // Show filter: All / Naked / No SPUT/SHR
-  var showOpts=[['all','All'],['naked','Naked'],['no-short','No SPUT/SHR']];
-  var sshow=showOpts.map(function(o){return'<button class="expiry-pill'+(spreadsShowFilter===o[0]?' active':'')+'" onclick="spreadsShowFilter=\''+o[0]+'\';rMain();" style="'+(spreadsShowFilter===o[0]&&o[0]!=='all'?'background:#7C3AED;color:#fff;border-color:#7C3AED;':'')+'">'+o[1]+'</button>';}).join('');
-  // Money filter: All / ITM / ATM
-  var moneyOpts=[['all','All'],['itm','ITM'],['atm','ATM']];
-  var smoney=moneyOpts.map(function(o){return'<button class="expiry-pill'+(spreadsMoneyFilter===o[0]?' active':'')+'" onclick="spreadsMoneyFilter=\''+o[0]+'\';rMain();" style="'+(spreadsMoneyFilter===o[0]&&o[0]==='itm'?'background:var(--red);color:#fff;border-color:var(--red);':spreadsMoneyFilter===o[0]&&o[0]==='atm'?'background:var(--yellow);color:#000;border-color:var(--yellow);':'')+'">'+o[1]+'</button>';}).join('');
-  // Risk filter: All / UHedge (over-hedged) / OHedge (other way)
-  var riskOpts=[['all','All'],['uhedge','UHedge'],['ohedge','OHedge']];
-  var srisk=riskOpts.map(function(o){return'<button class="expiry-pill'+(spreadsRiskFilter===o[0]?' active':'')+'" onclick="spreadsRiskFilter=\''+o[0]+'\';rMain();" style="'+(spreadsRiskFilter===o[0]&&o[0]!=='all'?'background:#EF4444;color:#fff;border-color:#EF4444;':'')+'">'+o[1]+'</button>';}).join('');
-  var sfb='<div class="controls-row" style="margin-bottom:0.6rem;flex-wrap:wrap;gap:0.4rem;">'
-    // Ticker selector — identical to positions tab
-    +'<div class="ticker-select-wrap" id="tkwrap" style="flex-shrink:0;min-width:80px;max-width:150px;"><div class="ticker-select-btn" id="tkbtn" onclick="toggleDropdown()"><div class="sel-tags">'+tags+'</div><span style="color:var(--text3);font-size:0.65rem;">&#9660;</span></div><div class="ticker-dropdown'+(dropdownOpen?' open':'')+'" id="tkdrop"><div style="padding:0.3rem 0.4rem;border-bottom:1px solid var(--border);"><input id="tk-search-inp" type="text" placeholder="&#128269; Search..." value="'+(typeof tkSearch!=='undefined'?tkSearch:'')+'" oninput="setTkSearch(this.value)" onclick="event.stopPropagation()" style="width:100%;border:1px solid var(--border2);border-radius:5px;padding:0.25rem 0.45rem;font-size:0.68rem;outline:none;color:var(--black);background:var(--bg3);"></div><div class="ticker-dd-item'+(allSel?' selected':'')+'" data-ddticker="ALL"><div class="ticker-dd-check">'+(allSel?'&#10003;':'')+'</div><span style="font-size:0.72rem;font-weight:700;">All Tickers</span></div><div style="height:1px;background:var(--border);margin:0.1rem 0;"></div><div style="max-height:180px;overflow-y:auto;">'+ddItems+'</div></div></div>'
-    +'<div style="width:1px;background:var(--border);align-self:stretch;flex-shrink:0;"></div>'
-    // Ticker sort button
-    +'<button class="expiry-pill'+(tickerSortOverride?' active':'')+'" onclick="toggleTickerSort()" style="'+(tickerSortOverride==='asc'?'background:#2563EB;color:#fff;border-color:#2563EB;':tickerSortOverride==='desc'?'background:#7C3AED;color:#fff;border-color:#7C3AED;':'')+'" title="Sort by ticker">'+(tickerSortOverride==='asc'?'&#9651; A&#8594;Z':tickerSortOverride==='desc'?'&#9661; Z&#8594;A':'&#9651;&#9661; Ticker')+'</button>'
-    +'<div style="width:1px;background:var(--border);align-self:stretch;flex-shrink:0;"></div>'
-    // Type tabs
-    +'<div class="type-tabs">'+stypes+'</div>'
-    +'<div style="width:1px;background:var(--border);align-self:stretch;flex-shrink:0;"></div>'
-    // Expiry pills
-    +exps
-    +'<div style="width:1px;background:var(--border);align-self:stretch;flex-shrink:0;"></div>'
-    // Show filter
-    +'<span style="font-size:0.62rem;font-weight:700;color:var(--text3);white-space:nowrap;">Show</span>'+sshow
-    +'<div style="width:1px;background:var(--border);align-self:stretch;flex-shrink:0;"></div>'
-    // Money filter
-    +'<span style="font-size:0.62rem;font-weight:700;color:var(--text3);white-space:nowrap;">Money</span>'+smoney
-    +'<div style="width:1px;background:var(--border);align-self:stretch;flex-shrink:0;"></div>'
-    // Risk filter
-    +'<span style="font-size:0.62rem;font-weight:700;color:var(--text3);white-space:nowrap;">Risk</span>'+srisk
-    // Collateral chip right-aligned
-    +'<div style="margin-left:auto;">'+collatChip+'</div>'
-    +'</div>';
-  // Flatten all rows, sort by SP expiry asc — or by ticker if override set
-  var allRows=[];
-  groups.filter(function(g){return g.pairs.length>0||g.independentLPs.length>0;}).forEach(function(g){
-    var ticker=g.ticker;
-    g.pairs.forEach(function(pair){
-      // Only show left side if Short Put (not Short Call)
-      if(pair.sp&&pair.sp.excelType==='Short Call')return;
-      var lpToShow=(pair.lp&&pair.lp.excelType==='Long Put')?pair.lp:null;
-      allRows.push({type:'pair',ticker:ticker,pair:{sp:pair.sp,lp:lpToShow},sortDate:parseDate((pair.sp&&pair.sp.expiryDate)||'')||new Date('9999-12-31')});
-    });
-    // Independent LPUTs only — exclude Long Call
-    g.independentLPs.filter(function(lp){return lp.excelType==='Long Put';}).forEach(function(lp){allRows.push({type:'indep',ticker:ticker,lp:lp,sortDate:parseDate(lp.expiryDate||'')||new Date('9999-12-31')});});
-  });
-  if(tickerSortOverride){
-    allRows.sort(function(a,b){return tickerSortOverride==='asc'?a.ticker.localeCompare(b.ticker):b.ticker.localeCompare(a.ticker);});
-  }else{
-    allRows.sort(function(a,b){return a.sortDate-b.sortDate;});
+  // Get week ranges for filtering
+  function getWeekRange(weeksAgo) {
+    var now = new Date();
+    var dayOfWeek = now.getDay();
+    var daysToMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+    var weekStart = new Date(now);
+    weekStart.setDate(now.getDate() - daysToMonday - (weeksAgo * 7));
+    weekStart.setHours(0, 0, 0, 0);
+    var weekEnd = new Date(weekStart);
+    weekEnd.setDate(weekStart.getDate() + 6);
+    weekEnd.setHours(23, 59, 59, 999);
+    return { start: weekStart, end: weekEnd };
   }
-  if(spreadsSpreadFilter==='spread')allRows=allRows.filter(function(i){return i.type==='pair'&&i.pair.lp;});
-  else if(spreadsSpreadFilter==='naked')allRows=allRows.filter(function(i){return i.type==='pair'&&!i.pair.lp;});
-  else if(spreadsSpreadFilter==='unhedged')allRows=allRows.filter(function(i){return i.type==='indep'&&i.lp&&i.lp.excelType==='Long Put';});
-  // Show filter: Naked = SPUT/SHR with no LPUT paired; No SPUT/SHR = LPUT with no pair
-  if(spreadsShowFilter==='naked')allRows=allRows.filter(function(i){return i.type==='pair'&&!i.pair.lp;});
-  else if(spreadsShowFilter==='no-short')allRows=allRows.filter(function(i){return i.type==='indep';});
-  // Money filter: ITM / ATM (within 5% of strike)
-  if(spreadsMoneyFilter!=='all'){allRows=allRows.filter(function(i){
-    var ticker=i.ticker;
-    var lP=(liveCache[ticker]&&liveCache[ticker].price!=null)?liveCache[ticker].price:null;
-    var mP=tickerPrices[ticker]!=null?tickerPrices[ticker]:null;
-    var stockP=lP!=null?lP:(mP!=null?mP:null);
-    if(stockP==null)return false;
-    var sp=i.type==='pair'?i.pair.sp:null;
-    if(!sp)return false;
-    var isITM=(sp.excelType==='Short Put'&&stockP<=sp.strike)||(sp.excelType==='Short Call'&&stockP>sp.strike);
-    var pct=Math.abs(stockP-sp.strike)/sp.strike;
-    var isATM=!isITM&&pct<=0.05;
-    if(spreadsMoneyFilter==='itm')return isITM;
-    if(spreadsMoneyFilter==='atm')return isATM;
+  
+  function isInWeek(dateStr, weekRange) {
+    if (!dateStr) return false;
+    var d = new Date(dateStr);
+    return d >= weekRange.start && d <= weekRange.end;
+  }
+  
+  var twRange = getWeekRange(0);
+  var lwRange = getWeekRange(1);
+  
+  var weekFilterToUse = globalWeekFilter;
+  if (weekFilterToUse === 'tw') weekFilterToUse = 'cw';
+  if (weekFilterToUse === 'lw') weekFilterToUse = 'pw';
+  
+  var allSel = typeof selectedTickers === 'undefined' || selectedTickers.has('ALL');
+  var filtered = ladders.filter(function(l) {
+    if (!allSel && !selectedTickers.has(l.ticker)) return false;
+    if (filterMode === 'expired' && !isLadderExpired(l)) return false;
+    if (filterMode === 'not_expired' && isLadderExpired(l)) return false;
     return true;
-  });}
-  // Risk filter: UHedge = more LPUT contracts than SPUT (over-hedged); OHedge = fewer LPUT than SPUT but >0
-  if(spreadsRiskFilter!=='all'){allRows=allRows.filter(function(i){
-    if(i.type!=='pair'||!i.pair.lp)return false;
-    var spC=i.pair.sp?(i.pair.sp.contracts||1):1;
-    var lpC=i.pair.lp?(i.pair.lp.contracts||1):0;
-    if(spreadsRiskFilter==='uhedge')return lpC>spC;
-    if(spreadsRiskFilter==='ohedge')return lpC>0&&lpC<spC;
-    return true;
-  });}
-  if(spreadsItmFilter){allRows=allRows.filter(function(i){
-    if(i.type!=='pair')return false;
-    var sp=i.pair.sp;if(!sp)return false;
-    var lP=(liveCache[i.ticker]&&liveCache[i.ticker].price!=null)?liveCache[i.ticker].price:null;
-    var mP=tickerPrices[i.ticker]!=null?tickerPrices[i.ticker]:null;
-    var stockP=lP!=null?lP:(mP!=null?mP:null);
-    if(stockP==null)return false;
-    if(sp.excelType==='Short Put')return stockP<=sp.strike;
-    if(sp.excelType==='Short Call')return stockP>sp.strike;
-    return false;
-  });}
-  var rows=allRows.map(function(item){
-    var ticker=item.ticker;
-    var sp=item.type==='pair'?item.pair.sp:null;
-    var lp=item.type==='pair'?item.pair.lp:item.lp;
-    var portKey=((sp?sp.portfolio:lp?lp.portfolio:null)||'lovelina');
-    var isRetPort=retirementPorts.has(portKey);
-    var portClr=portColors[portKey]||'#888';
-    var portBadge='<td><span style="display:inline-flex;align-items:center;gap:0.3rem;font-size:0.62rem;font-weight:600;color:'+portClr+'"><span style="width:6px;height:6px;border-radius:50%;background:'+portClr+';flex-shrink:0;"></span>'+(portNames[portKey]||portKey)+'</span></td>';
-    // Stock price for ticker
-    var liveP=(liveCache[ticker]&&liveCache[ticker].price!=null)?liveCache[ticker].price:null;
-    var manP=tickerPrices[ticker]!=null?tickerPrices[ticker]:null;
-    var stockP=liveP!=null?liveP:(manP!=null?manP:null);
-    var stockPcell=stockP!=null?'<span style="font-family:monospace;font-weight:700;">$'+Number(stockP).toFixed(2)+'</span>'+(liveP!=null?'<span class="pcell-badge pcell-badge-live" style="margin-left:3px;">L</span>':'<span class="pcell-badge pcell-badge-manual" style="margin-left:3px;">M</span>'):'<span class="empty">--</span>';
-    if(item.type==='pair'){
-      var c,collatDisplay;
-      if(isRetPort){
-        // Retirement: collateral always SP Strike * 100, but also show hedged value
-        var retCol=sp.strike*100;
-        var hedgedCol=calcSpreadCol(sp,lp);
-        var rn2=hedgedCol<0,cc2=rn2?'var(--green)':'var(--purple)';
-        var hedgedStr=lp?(' <span style="font-size:0.58rem;color:'+cc2+';font-weight:600;">(hedged: '+(rn2?'\u2212':'')+'$'+Math.abs(hedgedCol).toLocaleString()+')</span>'):'';
-        collatDisplay='<span style="font-weight:800;font-family:monospace;color:#EF4444;">$'+retCol.toLocaleString()+'</span>'+hedgedStr;
-      } else {
-        c=calcSpreadCol(sp,lp);
-        var isN=!lp,rn=c<0,cc=isN?'var(--red)':rn?'var(--green)':'var(--purple)';
-        collatDisplay=rn?'<span style="color:var(--green);font-size:0.62rem;">\u2212$'+Math.abs(c).toLocaleString()+' <span style="color:var(--text3);font-weight:400;">(over-hedged)</span></span>':'<span style="font-weight:800;font-family:monospace;color:'+cc+';">$'+c.toLocaleString()+'</span>';
-      }
-      var badge=(!lp)?'<span class="badge-naked">Naked</span>':'<span class="badge-spread">Spread</span>';
-      // Red flags
-      var flags='';
-      var isShares=sp.excelType==='Shares';
-      if(!isShares&&stockP!=null&&sp.strike>stockP)flags+=' <span title="SP Strike above stock price" style="color:#EF4444;font-size:0.85rem;">\uD83D\uDEA9</span>';
-      if(!isShares&&lp&&sp.strike>lp.strike)flags+=' <span title="SP Strike above LP Strike" style="color:#EF4444;font-size:0.85rem;">\uD83D\uDEA9</span>';
-      // Left side type badge
-      var spTypeLabel=isShares?'SHR':sp.excelType==='Short Call'?'SCALL':'SPUT';
-      var spTypeCls=isShares?'blc':sp.excelType==='Short Call'?'bsh':'bsp';
-      var spTypeBadgeCell='<span class="badge '+spTypeCls+'" style="opacity:0.9;">'+spTypeLabel+'</span>';
-      // Left side strike/qty display
-      var spStrikeDisplay=isShares
-        ?(function(){var qty=Math.round((sp.excelCost||0)/(sp.manualPrice||tickerPrices[sp.ticker]||stockP||1));var eqCtr=Math.max(1,Math.floor(qty/100));return'<span style="font-family:monospace;font-weight:700;color:var(--green);">'+qty+' sh</span><span style="font-size:0.58rem;color:var(--text3);margin-left:3px;">(≈'+eqCtr+'x)</span>';}())
-        :'$'+sp.strike;
-      // Left side expiry display
-      var spExpiryDisplay=isShares?'<span style="color:var(--text3);">hold</span>':(sp.expiryDate||'--');
-      var spExpiryClass=isShares?'':'mn sp-cell '+ec(sp.expiryDate);
-      var lpTypeLabel=lp?(lp.excelType==='Long Call'?'LCALL':'LPUT'):'';
-      var lpTypeBadgeCell=lp?'<span class="badge '+(lp.excelType==='Long Call'?'blc':'blp')+'" style="opacity:0.9;">'+lpTypeLabel+'</span>':'<span class="empty">\u2014</span>';
-      var spCtr=1;
-      var lpCtr=lp?1:0;
-      var nakedWarning='';
-      var rowStyle=(!lp&&sp)?'border-left:3px solid #F97316;background:rgba(255,247,237,0.5);':(isShares?'background:rgba(5,150,105,0.03);':'');
-      var spCtrBadge='<span style="display:inline-flex;align-items:center;background:'+(isShares?'#059669':'#DC2626')+';color:#fff;border-radius:4px;padding:0.05rem 0.28rem;font-size:0.58rem;font-weight:800;margin-left:3px;">1x</span>';
-      var lpCtrBadge=lp?'<span style="display:inline-flex;align-items:center;background:#2563EB;color:#fff;border-radius:4px;padding:0.05rem 0.28rem;font-size:0.58rem;font-weight:800;margin-left:3px;">1x</span>':'';
-      // Collateral: Shares have no collateral requirement (they ARE the collateral)
-      var collatDisplay2=isShares?(function(){
-        if(!lp)return'<span style="color:var(--green);font-size:0.62rem;">&#10003; Covered</span>';
-        var qty=Math.round((sp.excelCost||0)/(sp.manualPrice||tickerPrices[sp.ticker]||stockP||1));
-        var hedgeFloor=lp.strike*100;
-        var net=qty-hedgeFloor;
-        var netColor=net>0?'var(--yellow)':'var(--green)';
-        return'<span style="font-family:monospace;font-weight:700;color:'+netColor+';">$'+Math.abs(net).toLocaleString()+'</span><span style="font-size:0.58rem;color:var(--text3);margin-left:3px;">('+qty+' \u2212 $'+hedgeFloor+')</span>';
-      }()):collatDisplay;
-      return'<tr style="'+rowStyle+'">'+portBadge+'<td class="mc"><span class="chip"><span class="tk-dot-sm" style="background:'+(DC[ticker]||'#888')+'"></span>'+ticker+'</span></td><td>'+stockPcell+'</td><td class="mn sp-cell" style="color:'+(isShares?'var(--green)':'var(--red)')+';font-weight:700;border-right:none;">'+spStrikeDisplay+spCtrBadge+flags+nakedWarning+'</td><td class="'+spExpiryClass+'" style="border-right:none;">'+spExpiryDisplay+'</td><td class="mn sp-cell" style="border-right:none;">'+spTypeBadgeCell+'</td><td class="div-col" style="width:60px;font-size:0.65rem;">&#8596;</td><td class="mn" style="color:var(--blue);font-weight:700;background:rgba(37,99,235,0.05);">'+(lp?'$'+lp.strike+lpCtrBadge:'<span class="empty">\u2014</span>')+'</td><td class="mn lp-cell '+(lp?ec(lp.expiryDate):'')+'">'+(lp?lp.expiryDate:'<span class="empty">\u2014</span>')+'</td><td class="mn" style="background:rgba(37,99,235,0.03);">'+lpTypeBadgeCell+'</td><td class="mn">'+collatDisplay2+'</td></tr>';
-    } else {
-      var typeBadge2='<span class="badge '+(lp.excelType==='Long Call'?'blc':'blp')+'" style="opacity:0.85;">'+(lp.excelType==='Long Call'?'LCALL':'LPUT')+'</span>';
-      var noSpB=spreadsSpreadFilter==='unhedged'?'<span style="background:#FEF2F2;color:#DC2626;border:1px solid rgba(220,38,38,0.25);border-radius:4px;padding:0.08rem 0.38rem;font-size:0.58rem;font-weight:700;margin-left:4px;">&#128683; No SPUT</span>':'<span class="badge-indep">Indep</span>';
-      var rSt=spreadsSpreadFilter==='unhedged'?'background:rgba(254,242,242,0.5);border-left:3px solid #EF4444;':'';
-      var lpCtr2=1;
-      var lpCtrBadge2='<span style="display:inline-flex;align-items:center;background:#2563EB;color:#fff;border-radius:4px;padding:0.05rem 0.28rem;font-size:0.58rem;font-weight:800;margin-left:3px;">'+lpCtr2+'x</span>';
-      var lpTypeBadge2='<span class="badge '+(lp.excelType==='Long Call'?'blc':'blp')+'" style="opacity:0.9;">'+(lp.excelType==='Long Call'?'LCALL':'LPUT')+'</span>';
-      return'<tr style="'+rSt+'">'+portBadge+'<td class="mc"><span class="chip"><span class="tk-dot-sm" style="background:'+(DC[ticker]||'#888')+'"></span>'+ticker+'</span></td><td>'+stockPcell+'</td><td class="mn empty">\u2014</td><td class="mn empty">\u2014</td><td class="mn empty">\u2014</td><td class="div-col">\u2194</td><td class="mn" style="color:var(--blue);font-weight:700;">$'+lp.strike+lpCtrBadge2+'</td><td class="mn '+ec(lp.expiryDate)+'">'+(lp.expiryDate||'--')+'</td><td class="mn">'+lpTypeBadge2+'</td><td class="mn" style="color:var(--text3);">\u2014</td></tr>';
-    }
   });
-  var uhB=spreadsSpreadFilter==='unhedged'&&rows.length>0?'<div style="background:#FEF2F2;border:1px solid rgba(220,38,38,0.2);border-radius:var(--r);padding:0.6rem 1rem;margin-bottom:0.75rem;display:flex;align-items:center;gap:0.75rem;"><span>&#128683;</span><div><div style="font-size:0.72rem;font-weight:700;color:#DC2626;">'+rows.length+' Unhedged LPUT'+(rows.length>1?'s':'')+'</div><div style="font-size:0.63rem;color:#991B1B;">No SPUT mapped. Consider selling a short put to hedge.</div></div></div>':'';
-  var tableBody=rows.length>0?rows.join(''):'<tr><td colspan="11" class="ec" style="padding:2rem;text-align:center;color:var(--text3);">'+(spreadsSpreadFilter==='unhedged'?'&#10003; All LPUTs are hedged.':has?'No positions match filters.':'No positions found.')+'</td></tr>';
-  return sfb+uhB+'<div class="st-wrap"><table style="min-width:1000px;"><thead><tr><th>Portfolio</th><th>Ticker</th><th>Stock Price</th><th class="sp-hdr">Short Strike</th><th class="sp-hdr">Short Expiry</th><th class="sp-hdr">Short Type</th><th class="div-hdr">SHORT&#8594;LONG</th><th class="lp-hdr">Long Strike</th><th class="lp-hdr">Long Expiry</th><th class="lp-hdr">Long Type</th><th>Collateral</th></tr></thead><tbody>'+tableBody+'</tbody></table></div>';
+  
+  // Group by PORTFOLIO first, then by ticker
+  var portfolioGroups = {};
+  filtered.forEach(function(l) {
+    // Each ladder belongs to the current portfolio being viewed
+    var portKey = plGetPortKey();
+    if (!portfolioGroups[portKey]) portfolioGroups[portKey] = {};
+    if (!portfolioGroups[portKey][l.ticker]) {
+      portfolioGroups[portKey][l.ticker] = { longPuts: [], shortPuts: [] };
+    }
+    
+    // Long puts
+    if (!l.noLongPut && l.longStrike && !l.longPutClosed) {
+      var dl = daysLeft(l.longExpiry);
+      if (dl === null || dl >= 0) {
+        var includeLP = weekFilterToUse === 'all' || 
+                       (weekFilterToUse === 'cw' && isInWeek(l.openDate, twRange)) || 
+                       (weekFilterToUse === 'pw' && isInWeek(l.openDate, lwRange));
+        if (includeLP) {
+          portfolioGroups[portKey][l.ticker].longPuts.push({
+            strike: l.longStrike,
+            expiry: l.longExpiry,
+            contracts: l.contracts || 1,
+            premium: l.longPremium * 100 * (l.contracts || 1),
+            daysLeft: dl
+          });
+        }
+      }
+    }
+    
+    // Short puts
+    (l.shortPuts || []).forEach(function(sp) {
+      if (!sp.closed) {
+        var dl = daysLeft(sp.expiry);
+        if (dl === null || dl >= 0) {
+          var includeSP = weekFilterToUse === 'all' || 
+                         (weekFilterToUse === 'cw' && isInWeek(sp.openDate, twRange)) || 
+                         (weekFilterToUse === 'pw' && isInWeek(sp.openDate, lwRange));
+          if (includeSP) {
+            portfolioGroups[portKey][l.ticker].shortPuts.push({
+              strike: sp.strike,
+              expiry: sp.expiry,
+              contracts: sp.contracts || l.contracts || 1,
+              received: sp.received || 0,
+              daysLeft: dl
+            });
+          }
+        }
+      }
+    });
+  });
+  
+  // Portfolio names
+  var portNames = {
+    'self': 'AMIT',
+    'spouse': 'LOVELINA', 
+    'joint': 'JOINT',
+    'self_roth': 'AMIT - ROTH IRA',
+    'spouse_roth': 'LOVELINA - ROTH IRA',
+    'spouse_ira': 'LOVELINA - TRADITIONAL IRA',
+    'retirement': 'ALL RETIREMENT'
+  };
+  
+  // Build compact HTML
+  var html = '<div style="padding:1rem;background:#f8fafc;">';
+  
+  // Add filter controls at the top
+  html += '<div style="background:white;border:1px solid #e2e8f0;border-radius:8px;padding:0.75rem;margin-bottom:1rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">';
+  html += '<div style="font-weight:800;font-size:0.85rem;color:#1e293b;">Filters:</div>';
+  
+  // Expiry filter
+  html += '<div style="display:flex;gap:0.3rem;">';
+  html += '<button onclick="filterMode=\'all\';render();" style="padding:0.3rem 0.6rem;font-size:0.7rem;font-weight:700;border-radius:5px;cursor:pointer;border:1px solid var(--border);background:' + (filterMode === 'all' ? 'var(--black)' : 'transparent') + ';color:' + (filterMode === 'all' ? '#fff' : 'var(--text3)') + ';">All</button>';
+  html += '<button onclick="filterMode=\'not_expired\';render();" style="padding:0.3rem 0.6rem;font-size:0.7rem;font-weight:700;border-radius:5px;cursor:pointer;border:1px solid var(--border);background:' + (filterMode === 'not_expired' ? 'var(--black)' : 'transparent') + ';color:' + (filterMode === 'not_expired' ? '#fff' : 'var(--text3)') + ';">Not Expired</button>';
+  html += '<button onclick="filterMode=\'expired\';render();" style="padding:0.3rem 0.6rem;font-size:0.7rem;font-weight:700;border-radius:5px;cursor:pointer;border:1px solid var(--border);background:' + (filterMode === 'expired' ? 'var(--black)' : 'transparent') + ';color:' + (filterMode === 'expired' ? '#fff' : 'var(--text3)') + ';">Expired</button>';
+  html += '</div>';
+  
+  html += '<div style="width:1px;height:20px;background:var(--border);"></div>';
+  
+  // Week filter
+  html += '<div style="display:flex;gap:0.3rem;">';
+  html += '<button onclick="setGlobalWeekFilter(\'all\');" style="padding:0.3rem 0.6rem;font-size:0.7rem;font-weight:700;border-radius:5px;cursor:pointer;border:1px solid var(--border);background:' + (globalWeekFilter === 'all' ? 'var(--black)' : 'transparent') + ';color:' + (globalWeekFilter === 'all' ? '#fff' : 'var(--text3)') + ';" title="Show all weeks">All Time</button>';
+  html += '<button onclick="setGlobalWeekFilter(\'tw\');" style="padding:0.3rem 0.6rem;font-size:0.7rem;font-weight:700;border-radius:5px;cursor:pointer;border:1px solid var(--border);background:' + (globalWeekFilter === 'tw' ? '#2563EB' : 'transparent') + ';color:' + (globalWeekFilter === 'tw' ? '#fff' : 'var(--text3)') + ';" title="This Week (Monday - Sunday)">TW</button>';
+  html += '<button onclick="setGlobalWeekFilter(\'lw\');" style="padding:0.3rem 0.6rem;font-size:0.7rem;font-weight:700;border-radius:5px;cursor:pointer;border:1px solid var(--border);background:' + (globalWeekFilter === 'lw' ? '#7C3AED' : 'transparent') + ';color:' + (globalWeekFilter === 'lw' ? '#fff' : 'var(--text3)') + ';" title="Last Week (Monday - Sunday)">LW</button>';
+  html += '</div>';
+  
+  html += '</div>';
+  
+  // Check if we have any data
+  var hasData = Object.keys(portfolioGroups).some(function(pk) {
+    return Object.keys(portfolioGroups[pk]).length > 0;
+  });
+  
+  if (!hasData) {
+    html += '<div style="text-align:center;padding:4rem;color:#94a3b8;">No positions found</div>';
+    html += '</div>';
+    return html;
+  }
+  
+  // Render each portfolio
+  Object.keys(portfolioGroups).forEach(function(portKey) {
+    var tickerGroups = portfolioGroups[portKey];
+    var tickers = Object.keys(tickerGroups).sort();
+    
+    if (tickers.length === 0) return;
+    
+    // Portfolio header
+    html += '<div style="background:#475569;color:white;padding:0.6rem 1rem;margin-bottom:0.75rem;margin-top:1rem;border-radius:6px;font-weight:800;font-size:0.85rem;">';
+    html += portNames[portKey] || portKey.toUpperCase();
+    html += '</div>';
+  
+  // Render each ticker as compact row group
+  tickers.forEach(function(ticker) {
+    var group = tickerGroups[ticker];
+    var lps = group.longPuts;
+    var sps = group.shortPuts;
+    
+    if (lps.length === 0 && sps.length === 0) return;
+    
+    var totalLP = lps.reduce(function(s, lp) { return s + lp.premium; }, 0);
+    var totalSP = sps.reduce(function(s, sp) { return s + sp.received; }, 0);
+    var coverage = totalLP > 0 ? Math.round((totalSP / totalLP) * 100) : 0;
+    
+    var coverageColor = coverage >= 100 ? '#10b981' : coverage >= 50 ? '#f59e0b' : '#ef4444';
+    
+    // Ticker header row
+    html += '<div style="background:white;border:1px solid #e2e8f0;border-radius:8px;margin-bottom:0.75rem;overflow:hidden;">';
+    html += '<div style="background:#1e293b;color:white;padding:0.5rem 0.75rem;display:flex;align-items:center;justify-content:space-between;">';
+    html += '<div style="font-weight:800;font-size:0.95rem;">' + ticker + '</div>';
+    html += '<div style="display:flex;gap:0.75rem;font-size:0.7rem;align-items:center;">';
+    html += '<span style="color:#fca5a5;">LP: $' + totalLP.toFixed(0) + '</span>';
+    html += '<span style="color:#6ee7b7;">SP: $' + totalSP.toFixed(0) + '</span>';
+    html += '<span style="background:' + coverageColor + ';color:white;padding:0.15rem 0.5rem;border-radius:4px;font-weight:700;">' + coverage + '%</span>';
+    html += '</div>';
+    html += '</div>';
+    
+    // Two-column table layout
+    html += '<div style="display:grid;grid-template-columns:1fr 1fr;">';
+    
+    // LEFT - Long Puts table
+    html += '<div style="border-right:1px solid #fee2e2;">';
+    html += '<div style="background:#fef2f2;padding:0.35rem 0.75rem;font-size:0.65rem;font-weight:700;color:#991b1b;border-bottom:1px solid #fee2e2;">LONG PUTS (' + lps.length + ')</div>';
+    if (lps.length === 0) {
+      html += '<div style="padding:1rem;text-align:center;color:#cbd5e1;font-size:0.7rem;">No protection</div>';
+    } else {
+      html += '<table style="width:100%;font-size:0.7rem;border-collapse:collapse;">';
+      lps.forEach(function(lp, idx) {
+        var dlStr = lp.daysLeft != null ? lp.daysLeft + 'd' : '—';
+        var urgent = lp.daysLeft !== null && lp.daysLeft <= 7;
+        var bgColor = idx % 2 === 0 ? 'white' : '#fef2f2';
+        html += '<tr style="background:' + bgColor + ';' + (urgent ? 'border-left:3px solid #ef4444;' : '') + '">';
+        html += '<td style="padding:0.3rem 0.5rem;font-weight:700;color:#dc2626;">$' + lp.strike + '</td>';
+        html += '<td style="padding:0.3rem 0.5rem;font-size:0.65rem;color:#6b7280;">' + (lp.expiry || '—') + '</td>';
+        html += '<td style="padding:0.3rem 0.5rem;text-align:center;font-size:0.65rem;">' + lp.contracts + 'x</td>';
+        html += '<td style="padding:0.3rem 0.5rem;text-align:right;color:' + (urgent ? '#dc2626' : '#9ca3af') + ';font-size:0.65rem;">' + dlStr + '</td>';
+        html += '<td style="padding:0.3rem 0.5rem;text-align:right;font-weight:700;color:#dc2626;">-$' + lp.premium.toFixed(0) + '</td>';
+        html += '</tr>';
+      });
+      html += '</table>';
+    }
+    html += '</div>';
+    
+    // RIGHT - Short Puts table
+    html += '<div>';
+    html += '<div style="background:#f0fdf4;padding:0.35rem 0.75rem;font-size:0.65rem;font-weight:700;color:#065f46;border-bottom:1px solid #d1fae5;">SHORT PUTS (' + sps.length + ')</div>';
+    if (sps.length === 0) {
+      html += '<div style="padding:1rem;text-align:center;color:#cbd5e1;font-size:0.7rem;">No income</div>';
+    } else {
+      html += '<table style="width:100%;font-size:0.7rem;border-collapse:collapse;">';
+      sps.forEach(function(sp, idx) {
+        var dlStr = sp.daysLeft != null ? sp.daysLeft + 'd' : '—';
+        var urgent = sp.daysLeft !== null && sp.daysLeft <= 7;
+        var bgColor = idx % 2 === 0 ? 'white' : '#f0fdf4';
+        html += '<tr style="background:' + bgColor + ';' + (urgent ? 'border-left:3px solid #f59e0b;' : '') + '">';
+        html += '<td style="padding:0.3rem 0.5rem;font-weight:700;color:#059669;">$' + sp.strike + '</td>';
+        html += '<td style="padding:0.3rem 0.5rem;font-size:0.65rem;color:#6b7280;">' + (sp.expiry || '—') + '</td>';
+        html += '<td style="padding:0.3rem 0.5rem;text-align:center;font-size:0.65rem;">' + sp.contracts + 'x</td>';
+        html += '<td style="padding:0.3rem 0.5rem;text-align:right;color:' + (urgent ? '#f59e0b' : '#9ca3af') + ';font-size:0.65rem;">' + dlStr + '</td>';
+        html += '<td style="padding:0.3rem 0.5rem;text-align:right;font-weight:700;color:#059669;">+$' + sp.received.toFixed(0) + '</td>';
+        html += '</tr>';
+      });
+      html += '</table>';
+    }
+    html += '</div>';
+    
+    html += '</div>'; // End two-column
+    html += '</div>'; // End ticker card
+  });
+  
+  }); // End portfolio loop
+  
+  html += '</div>'; // End container
+  
+  return html;
 }
-
 // ── ADMIN / PRICES VIEW ───────────────────────────────────────────────────────
 var liveCache={},CACHE_TTL=5*60*1000;
 async function fetchLivePrice(ticker){
@@ -3475,6 +3518,9 @@ function rMain(){
     el.innerHTML=rAdminView();
     fetchAndUpdateLive([...new Set(positions.map(function(r){return r.ticker;}))].sort());
   }else if(activeView==='spreads'){
+    // Reload ladders for current portfolio (same as Put Ladders)
+    var pk = plGetPortKey();
+    ladders = JSON.parse(localStorage.getItem('roi_putladder_' + pk) || '[]');
     el.innerHTML=rSpreadsView(data);
   }else if(activeView==='putladder'){
     el.innerHTML = [
@@ -4060,19 +4106,23 @@ var ladders = [];
 })();
 
 // ── STATE ─────────────────────────────────────────────────────────────────────
-var filterMode = 'all';
+var filterMode = 'not_expired'; // Default to Not Expired
 var plTickerSearch = '';
 var expandedIds = new Set();
+var globalWeekFilter = 'all'; // Default to All Time to show all positions
 var tickerWeekFilters = {}; // Tracks week filter per ticker: { 'PLTR': 'all', 'WMT': 'cw', etc }
-ladders.forEach(function(l) { 
-  if (!l.closed) expandedIds.add(l.id); 
-});
-// Expand all ticker groups by default
-var tickers = [...new Set(ladders.map(function(l) { return l.ticker; }))];
-tickers.forEach(function(t) { expandedIds.add('ticker-' + t); });
+// Start with everything collapsed by default
+// Users can click to expand what they want to see
 
 function setTickerWeekFilter(ticker, filter) {
   tickerWeekFilters[ticker] = filter;
+  render();
+}
+
+function setGlobalWeekFilter(filter) {
+  globalWeekFilter = filter;
+  // Reset all individual ticker filters when global filter changes
+  tickerWeekFilters = {};
   render();
 }
 
@@ -4254,6 +4304,15 @@ function renderControls() {
     '<div class="action-bar" style="margin-bottom:0.65rem;">',
       '<span style="font-size:0.82rem;font-weight:900;color:var(--black);letter-spacing:0.02em;">&#128203; Put Ladders</span>',
       '<div style="width:1px;height:20px;background:var(--border);flex-shrink:0;"></div>',
+      '<select id="pl-port-sel" onchange="var sel=this.selectedOptions[0];var sub=sel.dataset.sub;if(sub){ap=\'retirement\';as=sub;}else{ap=this.value;as=\'ret-all\';}render();" style="padding:0.3rem 0.6rem;font-size:0.7rem;font-weight:700;border-radius:5px;cursor:pointer;border:1px solid var(--border);background:var(--bg3);color:var(--black);">',
+        '<option value="amit"' + (ap === 'amit' ? ' selected' : '') + '>AMIT</option>',
+        '<option value="lovelina"' + (ap === 'lovelina' ? ' selected' : '') + '>LOVELINA</option>',
+        '<option value="joint"' + (ap === 'joint' ? ' selected' : '') + '>JOINT</option>',
+        '<option value="retirement" data-sub="amit-roth"' + (ap === 'retirement' && as === 'amit-roth' ? ' selected' : '') + '>AMIT - ROTH IRA</option>',
+        '<option value="retirement" data-sub="lov-roth"' + (ap === 'retirement' && as === 'lov-roth' ? ' selected' : '') + '>LOVELINA - ROTH IRA</option>',
+        '<option value="retirement" data-sub="lov-trad"' + (ap === 'retirement' && as === 'lov-trad' ? ' selected' : '') + '>LOVELINA - TRADITIONAL IRA</option>',
+      '</select>',
+      '<div style="width:1px;height:20px;background:var(--border);flex-shrink:0;"></div>',
       '<div class="ticker-select-wrap" id="pl-tkwrap" style="min-width:80px;max-width:150px;">',
         '<div class="ticker-select-btn" id="pl-tkbtn" onclick="plToggleDropdown()">',
           '<div class="sel-tags">' + tags + '</div>',
@@ -4282,6 +4341,12 @@ function renderControls() {
         '<button class="fp-btn' + (filterMode === 'all' ? ' active' : '') + '" data-filter="all" onclick="plSetFilter(this,\'all\')">All</button>',
         '<button class="fp-btn' + (filterMode === 'expired' ? ' active' : '') + '" data-filter="expired" onclick="plSetFilter(this,\'expired\')">Expired</button>',
         '<button class="fp-btn' + (filterMode === 'not_expired' ? ' active' : '') + '" data-filter="not_expired" onclick="plSetFilter(this,\'not_expired\')">Not Expired</button>',
+      '</div>',
+      '<div style="width:1px;height:20px;background:var(--border);flex-shrink:0;"></div>',
+      '<div class="filter-pill" style="gap:0.3rem;">',
+        '<button class="fp-btn' + (globalWeekFilter === 'all' ? ' active' : '') + '" onclick="setGlobalWeekFilter(\'all\')" title="Show all weeks">All Time</button>',
+        '<button class="fp-btn' + (globalWeekFilter === 'tw' ? ' active' : '') + '" style="' + (globalWeekFilter === 'tw' ? 'background:#2563EB;color:#fff;' : '') + '" onclick="setGlobalWeekFilter(\'tw\')" title="This Week (Monday - Sunday)">TW</button>',
+        '<button class="fp-btn' + (globalWeekFilter === 'lw' ? ' active' : '') + '" style="' + (globalWeekFilter === 'lw' ? 'background:#7C3AED;color:#fff;' : '') + '" onclick="setGlobalWeekFilter(\'lw\')" title="Last Week (Monday - Sunday)">LW</button>',
       '</div>',
       '<input id="pl-ticker-search" type="text" placeholder="&#128269; Filter ticker..." oninput="plTickerSearch=this.value.toUpperCase().trim();render();" style="display:none;">',
       '<div style="width:1px;height:20px;background:var(--border);flex-shrink:0;"></div>',
@@ -4364,6 +4429,35 @@ function autoExpireLadderSPs() {
 function renderSummary() {
   var strip = document.getElementById('summary-strip');
   if (!strip) return;
+  
+  // Helper functions for week filtering
+  function getWeekRange(weeksAgo) {
+    var now = new Date();
+    var dayOfWeek = now.getDay();
+    var daysToMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+    var weekStart = new Date(now);
+    weekStart.setDate(now.getDate() - daysToMonday - (weeksAgo * 7));
+    weekStart.setHours(0, 0, 0, 0);
+    var weekEnd = new Date(weekStart);
+    weekEnd.setDate(weekStart.getDate() + 6);
+    weekEnd.setHours(23, 59, 59, 999);
+    return { start: weekStart, end: weekEnd };
+  }
+  
+  function isInWeek(dateStr, weekRange) {
+    if (!dateStr) return false;
+    var d = new Date(dateStr);
+    return d >= weekRange.start && d <= weekRange.end;
+  }
+  
+  var twRange = getWeekRange(0); // This week
+  var lwRange = getWeekRange(1); // Last week
+  
+  // Map filter for compatibility
+  var weekFilterToUse = globalWeekFilter;
+  if (weekFilterToUse === 'tw') weekFilterToUse = 'cw';
+  if (weekFilterToUse === 'lw') weekFilterToUse = 'pw';
+  
   var allSel = typeof selectedTickers === 'undefined' || selectedTickers.has('ALL');
   var visible = ladders.filter(function(l) {
     if (!allSel && !selectedTickers.has(l.ticker)) return false;
@@ -4377,17 +4471,51 @@ function renderSummary() {
   var totalBTO = 0, totalSTC = 0, totalSTO = 0, totalBTC = 0;
   visible.forEach(function(l) {
     var s = calcLadder(l);
-    totalLongCost += s.longCost;
-    totalIncome += s.totalIncome;
     totalCollat += s.collat;
     if (l.closed) closedCount++; else openCount++;
-    // BTO = long put cost, STC = long put close credit
-    totalBTO += (!l.noLongPut && l.longPremium) ? l.longPremium * 100 * (l.contracts||1) : 0;
-    totalSTC += l.longCloseAmount || 0;
-    // STO = sum of SP received, BTC = sum of SP btcDebit
+    
+    // BTO = long put cost - filter by open date
+    if (!l.noLongPut && l.longPremium) {
+      if (weekFilterToUse === 'all' || 
+          (weekFilterToUse === 'cw' && isInWeek(l.openDate, twRange)) || 
+          (weekFilterToUse === 'pw' && isInWeek(l.openDate, lwRange))) {
+        var btoAmt = l.longPremium * 100 * (l.contracts||1);
+        totalBTO += btoAmt;
+        totalLongCost += btoAmt;
+      }
+    }
+    
+    // STC = long put close credit - filter by close date
+    if (l.longCloseAmount) {
+      if (weekFilterToUse === 'all' || 
+          (weekFilterToUse === 'cw' && isInWeek(l.longCloseDate, twRange)) || 
+          (weekFilterToUse === 'pw' && isInWeek(l.longCloseDate, lwRange))) {
+        totalSTC += l.longCloseAmount;
+        totalIncome += l.longCloseAmount;
+      }
+    }
+    
+    // STO/BTC from short puts - filter by dates
     (l.shortPuts||[]).forEach(function(sp){
-      totalSTO += sp.received || 0;
-      totalBTC += (sp.btcDebit || 0) + (sp.buybackCost || 0);
+      // STO - filter by open date
+      if (sp.received) {
+        if (weekFilterToUse === 'all' || 
+            (weekFilterToUse === 'cw' && isInWeek(sp.openDate, twRange)) || 
+            (weekFilterToUse === 'pw' && isInWeek(sp.openDate, lwRange))) {
+          totalSTO += sp.received;
+          totalIncome += sp.received;
+        }
+      }
+      // BTC - filter by close date
+      var btcAmt = (sp.btcDebit || 0) + (sp.buybackCost || 0);
+      if (btcAmt > 0 && sp.closeDate) {
+        if (weekFilterToUse === 'all' || 
+            (weekFilterToUse === 'cw' && isInWeek(sp.closeDate, twRange)) || 
+            (weekFilterToUse === 'pw' && isInWeek(sp.closeDate, lwRange))) {
+          totalBTC += btcAmt;
+          totalIncome -= btcAmt;
+        }
+      }
     });
   });
   var net = totalIncome - totalLongCost;
@@ -4489,7 +4617,14 @@ function renderLadders() {
     });
     
     // Get current week filter for this ticker
-    var weekFilter = typeof tickerWeekFilters !== 'undefined' && tickerWeekFilters[ticker] ? tickerWeekFilters[ticker] : 'all';
+    // Use global filter if set to TW or LW, otherwise use ticker-specific filter
+    var weekFilter = globalWeekFilter !== 'all' 
+      ? globalWeekFilter 
+      : (typeof tickerWeekFilters !== 'undefined' && tickerWeekFilters[ticker] ? tickerWeekFilters[ticker] : 'all');
+    
+    // Map 'tw' and 'lw' to 'cw' and 'pw' for compatibility with existing logic
+    if (weekFilter === 'tw') weekFilter = 'cw';
+    if (weekFilter === 'lw') weekFilter = 'pw';
     
     // Helper to get week date range
     function getWeekRange(weeksAgo) {
@@ -4606,8 +4741,8 @@ function renderLadders() {
     // Week filter buttons
     html += '<div style="display:flex;gap:0.3rem;justify-content:flex-start;">';
     html += '<button onclick="setTickerWeekFilter(\'' + ticker + '\', \'all\')" style="padding:0.25rem 0.5rem;font-size:0.65rem;font-weight:600;border-radius:5px;cursor:pointer;border:1px solid var(--border);background:' + (weekFilter === 'all' ? 'var(--black)' : 'transparent') + ';color:' + (weekFilter === 'all' ? '#fff' : 'var(--text3)') + ';">All Time</button>';
-    html += '<button onclick="setTickerWeekFilter(\'' + ticker + '\', \'cw\')" style="padding:0.25rem 0.5rem;font-size:0.65rem;font-weight:600;border-radius:5px;cursor:pointer;border:1px solid var(--border);background:' + (weekFilter === 'cw' ? '#2563EB' : 'transparent') + ';color:' + (weekFilter === 'cw' ? '#fff' : 'var(--text3)') + ';">CW</button>';
-    html += '<button onclick="setTickerWeekFilter(\'' + ticker + '\', \'pw\')" style="padding:0.25rem 0.5rem;font-size:0.65rem;font-weight:600;border-radius:5px;cursor:pointer;border:1px solid var(--border);background:' + (weekFilter === 'pw' ? '#7C3AED' : 'transparent') + ';color:' + (weekFilter === 'pw' ? '#fff' : 'var(--text3)') + ';">PW</button>';
+    html += '<button onclick="setTickerWeekFilter(\'' + ticker + '\', \'cw\')" style="padding:0.25rem 0.5rem;font-size:0.65rem;font-weight:600;border-radius:5px;cursor:pointer;border:1px solid var(--border);background:' + (weekFilter === 'cw' ? '#2563EB' : 'transparent') + ';color:' + (weekFilter === 'cw' ? '#fff' : 'var(--text3)') + ';" title="Monday - Sunday (This Week)">TW</button>';
+    html += '<button onclick="setTickerWeekFilter(\'' + ticker + '\', \'pw\')" style="padding:0.25rem 0.5rem;font-size:0.65rem;font-weight:600;border-radius:5px;cursor:pointer;border:1px solid var(--border);background:' + (weekFilter === 'pw' ? '#7C3AED' : 'transparent') + ';color:' + (weekFilter === 'pw' ? '#fff' : 'var(--text3)') + ';" title="Last Week (Monday - Sunday)">LW</button>';
     html += '</div>';
     html += '</div>';
     
@@ -4701,7 +4836,8 @@ function renderLadderCard(l) {
         lp_field('Strike', '$' + l.longStrike) +
         lp_field('Premium', fmt(l.longPremium * 100 * (l.contracts||1))) +
         lp_field('Expiry', fmtDate(l.longExpiry)) +
-        (dlStr ? lp_field('Days Left', dlStr) : lp_field('Contracts', l.contracts || 1)) +
+        lp_field('Days Left', dlStr || '—') +
+        lp_field('#', l.contracts || 1) +
         lp_field('Income', fmt(s.totalIncome)) +
         lp_field('Net P&L', '<span class="' + (s.profit>=0?'pos-val':'neg-val') + '">' + fmtSign(s.profit) + '</span>') +
         (l.longCloseAmount ? lp_field('STC Credit', '<span class="pos-val" style="font-weight:800;">+' + fmt(l.longCloseAmount) + '</span>') : '') +
@@ -5005,12 +5141,22 @@ function saveNewShortPut() {
   var position = parseFloat(v('nsq-position')) || null;
   var notes = v('nsq-notes').trim();
   if (!ticker || !strike || !received || !expiry) { alert('Please fill in all required fields.'); return; }
-  // Find existing open ladder for this ticker or create one
-  var l = ladders.find(function(x){ return x.ticker === ticker && !x.closed; });
-  if (!l) {
-    l = { id: uid(), ticker: ticker, contracts: contracts, longStrike: null, longPremium: null, longExpiry: null, openDate: today(), notes: notes, position: position, noLongPut: true, shortPuts: [], closed: false };
-    ladders.unshift(l);
-  }
+  // ALWAYS create a new ladder - don't find existing
+  var l = { 
+    id: uid(), 
+    ticker: ticker, 
+    contracts: contracts, 
+    longStrike: null, 
+    longPremium: null, 
+    longExpiry: null, 
+    openDate: openDate, 
+    notes: notes, 
+    position: position, 
+    noLongPut: true, 
+    shortPuts: [], 
+    closed: false 
+  };
+  ladders.unshift(l);
   expandedIds.add(l.id);
   var sp = { id: uid(), strike: strike, contracts: contracts, received: received, expiry: expiry, openDate: openDate, closed: false };
   l.shortPuts.push(sp);
@@ -5054,17 +5200,23 @@ function saveNewLongPut() {
   var position = parseFloat(v('nlq-position')) || null;
   var notes = v('nlq-notes').trim();
   if (!ticker || !strike || !premium || !expiry) { alert('Please fill in all required fields.'); return; }
-  // Find existing open ladder for this ticker or create one
-  var l = ladders.find(function(x){ return x.ticker === ticker && !x.closed; });
-  if (!l) {
-    l = { id: uid(), ticker: ticker, contracts: contracts, longStrike: null, longPremium: null, longExpiry: null, openDate: today(), notes: notes, position: position, noLongPut: false, shortPuts: [], closed: false };
-    ladders.unshift(l);
-  }
-  l.longStrike = strike;
-  l.longPremium = premium;
-  l.longExpiry = expiry;
-  l.openDate = openDate;
-  l.noLongPut = false;
+  // ALWAYS create a new ladder - don't find existing
+  var l = { 
+    id: uid(), 
+    ticker: ticker, 
+    contracts: contracts, 
+    longStrike: strike, 
+    longPremium: premium, 
+    longExpiry: expiry, 
+    openDate: openDate, 
+    notes: notes, 
+    position: position, 
+    noLongPut: false, 
+    longPutClosed: false,
+    shortPuts: [], 
+    closed: false 
+  };
+  ladders.unshift(l);
   expandedIds.add(l.id);
   save(); closeModal(); render();
 }
@@ -5524,6 +5676,7 @@ var sharePositions = [];
 
 // ── SHARES STATE ──────────────────────────────────────────────────────────────
 var sharesFilterMode = 'all';
+var sharesWeekFilter = 'all';
 var sharesTickerSearch = '';
 var sharesExpandedIds = new Set();
 var sharesTickerWeekFilters = {};
@@ -5558,9 +5711,7 @@ function sharesReloadForPortfolio() {
   } catch(e) { sharePositions = []; }
   sharesExpandedIds = new Set();
   sharesTickerSearch = '';
-  sharePositions.forEach(function(s) { if (!s.closed) sharesExpandedIds.add(s.id); });
-  var sharesTickers = [...new Set(sharePositions.map(function(s) { return s.ticker; }))];
-  sharesTickers.forEach(function(t) { sharesExpandedIds.add('ticker-' + t); });
+  // Start with everything collapsed by default in Shares tab
   sharesRender();
 }
 
@@ -5583,31 +5734,86 @@ function sharesRenderSummary() {
     return true;
   });
   
+  // Helper to check if date is in week range
+  var checkDateInWeek = function(dateStr, weeksAgo) {
+    if (!dateStr) return false;
+    try {
+      var now = new Date();
+      var d = new Date(dateStr);
+      var dayOfWeek = now.getDay();
+      var diff = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+      var monday = new Date(now);
+      monday.setDate(monday.getDate() - diff - (weeksAgo * 7));
+      monday.setHours(0, 0, 0, 0);
+      var sunday = new Date(monday);
+      sunday.setDate(sunday.getDate() + 6);
+      sunday.setHours(23, 59, 59, 999);
+      return d >= monday && d <= sunday;
+    } catch(e) {
+      return false;
+    }
+  };
+  
+  var weeksAgo = sharesWeekFilter === 'tw' ? 0 : sharesWeekFilter === 'lw' ? 1 : -1;
+  
   var totalSharesCount = 0;
   var totalInvested = 0;
   var totalCallSTO = 0;
   var totalCallBTC = 0;
+  var totalSaleProceeds = 0;
+  var totalSaleCost = 0;
   
   filtered.forEach(function(s) {
-    totalSharesCount += s.shares || 0;
-    totalInvested += (s.shares || 0) * (s.costBasis || 0);
+    // For share count and invested, only count if position was opened in the week filter
+    // OR if week filter is 'all'
+    var includePosition = sharesWeekFilter === 'all' || 
+                         (s.purchaseDate && checkDateInWeek(s.purchaseDate, weeksAgo));
+    
+    if (includePosition) {
+      totalSharesCount += s.shares || 0;
+      totalInvested += (s.shares || 0) * (s.costBasis || 0);
+    }
+    
+    // For calls, filter by STO date or BTC date
     (s.coveredCalls || []).forEach(function(cc) {
-      totalCallSTO += cc.received || 0;
-      totalCallBTC += cc.btcPaid || 0;
+      var includeCall = sharesWeekFilter === 'all' ||
+                       (cc.openDate && checkDateInWeek(cc.openDate, weeksAgo)) ||
+                       (cc.closeDate && checkDateInWeek(cc.closeDate, weeksAgo));
+      if (includeCall) {
+        totalCallSTO += cc.received || 0;
+        totalCallBTC += cc.btcPaid || 0;
+      }
+    });
+    
+    // For sales, filter by sale date
+    (s.shareSales || []).forEach(function(sale) {
+      var includeSale = sharesWeekFilter === 'all' ||
+                       (sale.saleDate && checkDateInWeek(sale.saleDate, weeksAgo));
+      if (includeSale) {
+        totalSaleProceeds += (sale.shares || 0) * (sale.salePrice || 0);
+        totalSaleCost += (sale.shares || 0) * (s.costBasis || 0);
+      }
     });
   });
   
+  // Calculate total market value
+  var totalMarketValue = 0;
+  filtered.forEach(function(s) {
+    var price = tickerPrices[s.ticker] || 0;
+    totalMarketValue += (s.shares || 0) * price;
+  });
+  var unrealizedGL = totalMarketValue - totalInvested;
+  
   var callNet = totalCallSTO - totalCallBTC;
-  var totalIncomeReceived = totalCallSTO;
-  var gap = totalInvested - totalIncomeReceived;
-  var netPL = callNet - totalInvested;
-  var pct = totalInvested > 0 ? Math.min(Math.round(totalIncomeReceived / totalInvested * 100), 100) : 0;
+  var saleNet = totalSaleProceeds - totalSaleCost;
+  var totalIncome = callNet + saleNet;
+  var gap = totalInvested - totalIncome;
   
   root.style.cssText = 'display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0.5rem;margin-bottom:0.75rem;';
   root.innerHTML =
     scardBreakdown('Summary', [
       { label: 'Invested', value: '-' + fmt(totalInvested), color: '#DC2626' },
-      { label: 'Income', value: totalIncomeReceived > 0 ? '+' + fmt(totalIncomeReceived) : '—', color: '#059669' },
+      { label: 'Income', value: totalIncome > 0 ? '+' + fmt(totalIncome) : '—', color: '#059669' },
       { label: 'Gap', value: fmtSign(-gap), color: gap <= 0 ? '#059669' : '#DC2626', isBold: true }
     ]) +
     scardBreakdown('Stock Shares', [
@@ -5615,13 +5821,18 @@ function sharesRenderSummary() {
       { label: 'Cost', value: '-' + fmt(totalInvested), color: '#DC2626' },
       { label: 'Avg', value: totalSharesCount > 0 ? '$' + (totalInvested / totalSharesCount).toFixed(2) : '—', color: 'var(--text2)' }
     ]) +
+    scardBreakdown('Market Value', [
+      { label: 'Current', value: totalMarketValue > 0 ? fmt(totalMarketValue) : '—', color: 'var(--black)' },
+      { label: 'Cost', value: '-' + fmt(totalInvested), color: '#DC2626' },
+      { label: 'Unrealized', value: totalMarketValue > 0 ? fmtSign(unrealizedGL) : '—', color: unrealizedGL >= 0 ? '#059669' : '#DC2626', isBold: true }
+    ]) +
     scardBreakdown('Covered Call', [
-      { label: 'STO', value: '+' + fmt(totalCallSTO), color: '#059669' },
+      { label: 'STO', value: totalCallSTO > 0 ? '+' + fmt(totalCallSTO) : '—', color: '#059669' },
       { label: 'BTC', value: totalCallBTC > 0 ? '-' + fmt(totalCallBTC) : '—', color: '#DC2626' },
       { label: 'Net', value: fmtSign(callNet), color: callNet >= 0 ? '#059669' : '#DC2626', isBold: true }
     ]) +
-    scard('Net P&L', fmtSign(netPL), netPL >= 0 ? 'in profit ▲' : 'in loss ▼', netPL >= 0 ? 'pos-val' : 'neg-val') +
-    scard('Covered', pct + '%', 'of cost recovered', pct >= 100 ? 'pos-val' : pct >= 50 ? '' : 'neg-val');
+    scard('Share Sales', fmtSign(saleNet), saleNet >= 0 ? 'profit ▲' : 'loss ▼', saleNet >= 0 ? 'pos-val' : 'neg-val') +
+    scard('Total Income', fmtSign(totalIncome), gap <= 0 ? 'breakeven ✓' : 'in progress', totalIncome >= totalInvested ? 'pos-val' : '');
 }
 
 function sharesRenderControls() {
@@ -5629,16 +5840,37 @@ function sharesRenderControls() {
   if (!root) return;
   
   var tickers = [...new Set(sharePositions.map(function(s) { return s.ticker; }))].sort();
+  var allSel = !sharesTickerSearch;
+  
+  // Build ticker dropdown items
+  var ddItems = tickers.map(function(t) {
+    var isSel = sharesTickerSearch === t;
+    return '<div class="ticker-dd-item' + (isSel ? ' selected' : '') + '" data-ddticker="' + t + '" onclick="sharesSetTicker(\'' + t + '\')">' +
+      '<div class="ticker-dd-check">' + (isSel ? '&#10003;' : '') + '</div>' +
+      '<span style="font-size:0.72rem;font-weight:700;">' + t + '</span>' +
+      '</div>';
+  }).join('');
   
   root.innerHTML = [
     '<div class="action-bar" style="margin-bottom:0.65rem;">',
       '<span style="font-size:0.82rem;font-weight:900;color:var(--black);letter-spacing:0.02em;">&#128176; Share Positions</span>',
       '<div style="width:1px;height:20px;background:var(--border);flex-shrink:0;"></div>',
-      '<div class="ticker-select-wrap" style="min-width:80px;max-width:150px;">',
-        '<select class="ticker-select-btn" style="border:1px solid var(--border);border-radius:7px;padding:0.35rem 0.6rem;font-size:0.68rem;background:white;color:var(--black);cursor:pointer;outline:none;" onchange="sharesTickerSearch=this.value;sharesRender()">',
-          '<option value="">All Tickers</option>',
-          tickers.map(function(t) { return '<option value="' + t + '"' + (sharesTickerSearch === t ? ' selected' : '') + '>' + t + '</option>'; }).join(''),
-        '</select>',
+      '<div class="ticker-select-wrap" id="shares-tkwrap">',
+        '<div class="ticker-select-btn" id="shares-tkbtn" onclick="sharesToggleTkDrop()">',
+          '<span id="shares-tk-label" style="font-size:0.68rem;font-weight:700;color:var(--black);">' + (sharesTickerSearch || 'All Tickers') + '</span>',
+          '<span style="color:var(--text3);font-size:0.65rem;">&#9660;</span>',
+        '</div>',
+        '<div class="ticker-dropdown" id="shares-tkdrop" style="display:none;">',
+          '<div style="padding:0.3rem 0.4rem;border-bottom:1px solid var(--border);">',
+            '<input id="shares-tk-search-inp" type="text" placeholder="&#128269; Search..." oninput="sharesSetTkSearch(this.value)" onclick="event.stopPropagation()" style="width:100%;border:1px solid var(--border2);border-radius:5px;padding:0.25rem 0.45rem;font-size:0.68rem;outline:none;color:var(--black);background:var(--bg3);">',
+          '</div>',
+          '<div class="ticker-dd-item' + (allSel ? ' selected' : '') + '" data-ddticker="ALL" onclick="sharesSetTicker(\'\')">',
+            '<div class="ticker-dd-check">' + (allSel ? '&#10003;' : '') + '</div>',
+            '<span style="font-size:0.72rem;font-weight:700;">All Tickers</span>',
+          '</div>',
+          '<div style="height:1px;background:var(--border);margin:0.25rem 0;"></div>',
+          ddItems,
+        '</div>',
       '</div>',
       '<div style="width:1px;height:20px;background:var(--border);flex-shrink:0;"></div>',
       '<button class="add-btn" onclick="openAddCoveredCallNew()">&#43; Covered Call</button>',
@@ -5652,8 +5884,67 @@ function sharesRenderControls() {
         '<button class="fp-btn' + (sharesFilterMode === 'open' ? ' active' : '') + '" onclick="sharesFilterMode=\'open\';sharesRender()">OPEN</button>',
         '<button class="fp-btn' + (sharesFilterMode === 'closed' ? ' active' : '') + '" onclick="sharesFilterMode=\'closed\';sharesRender()">CLOSED</button>',
       '</div>',
+      '<div style="width:1px;height:20px;background:var(--border);flex-shrink:0;"></div>',
+      '<div class="filter-pill" style="gap:0.3rem;">',
+        '<button class="fp-btn' + (sharesWeekFilter === 'all' ? ' active' : '') + '" onclick="sharesSetWeekFilter(\'all\')" title="Show all weeks">All Time</button>',
+        '<button class="fp-btn' + (sharesWeekFilter === 'tw' ? ' active' : '') + '" style="' + (sharesWeekFilter === 'tw' ? 'background:#2563EB;color:#fff;' : '') + '" onclick="sharesSetWeekFilter(\'tw\')" title="This Week">TW</button>',
+        '<button class="fp-btn' + (sharesWeekFilter === 'lw' ? ' active' : '') + '" style="' + (sharesWeekFilter === 'lw' ? 'background:#7C3AED;color:#fff;' : '') + '" onclick="sharesSetWeekFilter(\'lw\')" title="Last Week">LW</button>',
+      '</div>',
+      '<div style="width:1px;height:20px;background:var(--border);flex-shrink:0;"></div>',
+      '<button class="add-btn" style="background:#7F1D1D;color:#FCA5A5;border:1px solid #991B1B;" onclick="deleteVisibleShares()" title="Delete all currently visible share positions">&#128465; Delete Visible</button>',
     '</div>'
   ].join('');
+  
+  // Add click outside listener
+  setTimeout(function() {
+    document.addEventListener('click', function(e) {
+      var tkwrap = document.getElementById('shares-tkwrap');
+      if (tkwrap && !tkwrap.contains(e.target)) {
+        var dropdown = document.getElementById('shares-tkdrop');
+        if (dropdown) dropdown.style.display = 'none';
+      }
+    });
+  }, 100);
+}
+
+// Ticker dropdown functions for Shares
+function sharesToggleTkDrop() {
+  var dropdown = document.getElementById('shares-tkdrop');
+  if (!dropdown) return;
+  var isOpen = dropdown.style.display !== 'none';
+  dropdown.style.display = isOpen ? 'none' : 'block';
+  if (!isOpen) {
+    setTimeout(function() {
+      var inp = document.getElementById('shares-tk-search-inp');
+      if (inp) inp.focus();
+    }, 50);
+  }
+}
+
+function sharesSetTicker(ticker) {
+  sharesTickerSearch = ticker;
+  sharesRender();
+  var dropdown = document.getElementById('shares-tkdrop');
+  if (dropdown) dropdown.style.display = 'none';
+}
+
+function sharesSetTkSearch(val) {
+  // Filter dropdown items
+  var items = document.querySelectorAll('#shares-tkdrop .ticker-dd-item[data-ddticker]:not([data-ddticker="ALL"])');
+  var searchVal = val.toLowerCase();
+  items.forEach(function(item) {
+    var ticker = item.getAttribute('data-ddticker');
+    if (ticker.toLowerCase().indexOf(searchVal) > -1) {
+      item.style.display = '';
+    } else {
+      item.style.display = 'none';
+    }
+  });
+}
+
+function sharesSetWeekFilter(filter) {
+  sharesWeekFilter = filter;
+  sharesRender();
 }
 
 function sharesRenderPositions() {
@@ -5665,6 +5956,48 @@ function sharesRenderPositions() {
     if (sharesTickerSearch && s.ticker !== sharesTickerSearch) return false;
     if (sharesFilterMode === 'open' && s.closed) return false;
     if (sharesFilterMode === 'closed' && !s.closed) return false;
+    
+    // Week filter - simple date range check
+    if (sharesWeekFilter !== 'all') {
+      var now = new Date();
+      var hasActivity = false;
+      
+      // Helper to check if date is in week range
+      var checkDateInWeek = function(dateStr, weeksAgo) {
+        if (!dateStr) return false;
+        try {
+          var d = new Date(dateStr);
+          var dayOfWeek = now.getDay();
+          var diff = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+          var monday = new Date(now);
+          monday.setDate(monday.getDate() - diff - (weeksAgo * 7));
+          monday.setHours(0, 0, 0, 0);
+          var sunday = new Date(monday);
+          sunday.setDate(sunday.getDate() + 6);
+          sunday.setHours(23, 59, 59, 999);
+          return d >= monday && d <= sunday;
+        } catch(e) {
+          return false;
+        }
+      };
+      
+      var weeksAgo = sharesWeekFilter === 'tw' ? 0 : 1;
+      
+      // Check purchase date
+      if (s.purchaseDate && checkDateInWeek(s.purchaseDate, weeksAgo)) {
+        hasActivity = true;
+      }
+      
+      // Check sale dates
+      if (!hasActivity && s.shareSales) {
+        hasActivity = s.shareSales.some(function(sale) {
+          return sale.saleDate && checkDateInWeek(sale.saleDate, weeksAgo);
+        });
+      }
+      
+      if (!hasActivity) return false;
+    }
+    
     return true;
   });
   
@@ -5692,6 +6025,7 @@ function sharesRenderPositions() {
     var totalShares = 0;
     var totalInvested = 0;
     var totalCallIncome = 0;
+    var totalSaleIncome = 0;
     
     positions.forEach(function(s) {
       totalShares += s.shares || 0;
@@ -5700,19 +6034,26 @@ function sharesRenderPositions() {
         if (!cc.closed) totalCallIncome += cc.received || 0;
         else totalCallIncome -= (cc.btcPaid || 0);
       });
+      (s.shareSales || []).forEach(function(sale) {
+        var proceeds = (sale.shares || 0) * (sale.salePrice || 0);
+        var cost = (sale.shares || 0) * (s.costBasis || 0);
+        totalSaleIncome += (proceeds - cost);
+      });
     });
     
-    html += '<div class="ticker-group">';
-    html += '<div class="ticker-header" onclick="toggleSharesTicker(\'' + ticker + '\')">';
-    html += '<div class="ticker-left">';
-    html += '<span class="ticker-chevron">' + (tickerExpanded ? '▼' : '▶') + '</span>';
-    html += '<span class="ticker-name">' + ticker + '</span>';
-    html += '<span class="ticker-badge">' + positions.length + ' position' + (positions.length !== 1 ? 's' : '') + '</span>';
+    var totalIncome = totalCallIncome + totalSaleIncome;
+    
+    html += '<div style="background:linear-gradient(135deg, var(--bg2) 0%, var(--bg3) 100%);border:1px solid var(--border);border-radius:8px;padding:0.6rem 0.85rem;margin-bottom:0.6rem;box-shadow:0 1px 3px rgba(0,0,0,0.06);">';
+    html += '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem;cursor:pointer;" onclick="toggleSharesTicker(\'' + ticker + '\')">';
+    html += '<div style="display:flex;align-items:center;gap:0.6rem;">';
+    html += '<span style="font-size:1.1rem;color:var(--text2);">' + (tickerExpanded ? '▼' : '▶') + '</span>';
+    html += '<span style="font-size:1.15rem;font-weight:800;color:var(--black);letter-spacing:0.02em;">' + ticker + '</span>';
+    html += '<span style="font-size:0.65rem;color:var(--text3);font-weight:600;background:var(--bg);padding:0.2rem 0.5rem;border-radius:12px;">' + positions.length + ' position' + (positions.length !== 1 ? 's' : '') + '</span>';
     html += '</div>';
-    html += '<div class="ticker-summary">';
-    html += '<div class="ts-item"><span class="ts-label">Shares:</span><span class="ts-val">' + totalShares + '</span></div>';
-    html += '<div class="ts-item"><span class="ts-label">Invested:</span><span class="ts-val">$' + totalInvested.toFixed(2) + '</span></div>';
-    html += '<div class="ts-item"><span class="ts-label">Call Income:</span><span class="ts-val ' + (totalCallIncome >= 0 ? 'green' : 'red') + '">+$' + totalCallIncome.toFixed(2) + '</span></div>';
+    html += '<div style="display:flex;gap:0.75rem;font-size:0.7rem;">';
+    html += '<div><span style="color:var(--text3);">Shares:</span> <span style="font-weight:700;">' + totalShares + '</span></div>';
+    html += '<div><span style="color:var(--text3);">Invested:</span> <span style="font-weight:700;">$' + totalInvested.toFixed(2) + '</span></div>';
+    html += '<div><span style="color:var(--text3);">Income:</span> <span style="font-weight:700;color:' + (totalIncome >= 0 ? 'var(--green)' : 'var(--red)') + ';">' + (totalIncome >= 0 ? '+' : '') + '$' + totalIncome.toFixed(2) + '</span></div>';
     html += '</div>';
     html += '</div>';
     
@@ -5735,86 +6076,176 @@ function renderSharePositionCard(s) {
     callBTC += cc.btcPaid || 0;
   });
   var netCallIncome = callIncome - callBTC;
-  var netPosition = netCallIncome - totalCost;
   
-  var html = '<div class="ladder-card" data-lid="' + s.id + '">';
-  
-  // Left side - Stock Position
-  html += '<div class="long-put-panel">';
-  html += '<div class="lpp-header">';
-  html += '<div class="lpp-title"><span class="status-dot ' + (s.closed ? 'gray' : 'blue') + '"></span> STOCK POSITION</div>';
-  html += '<div class="lpp-actions">';
-  html += '<button class="icon-btn" title="Edit" onclick="openEditSharePosition(\'' + s.id + '\')">✏️ Edit</button>';
-  if (!s.closed) {
-    html += '<button class="icon-btn red" title="Close" onclick="closeSharePosition(\'' + s.id + '\')">✕ Close</button>';
-  } else {
-    html += '<button class="icon-btn" title="Reopen" onclick="reopenSharePosition(\'' + s.id + '\')">↩ Reopen</button>';
-  }
-  html += '</div>';
-  html += '</div>';
-  
-  html += '<div class="lpp-body">';
-  html += '<div class="lpp-row"><span class="lpp-label">Shares</span><span class="lpp-val"><strong>' + (s.shares || 0).toLocaleString() + '</strong></span></div>';
-  html += '<div class="lpp-row"><span class="lpp-label">Cost Basis</span><span class="lpp-val">$' + (s.costBasis || 0).toFixed(2) + '/share</span></div>';
-  html += '<div class="lpp-row"><span class="lpp-label">Total Cost</span><span class="lpp-val red"><strong>-$' + totalCost.toFixed(2) + '</strong></span></div>';
-  if (s.purchaseDate) {
-    html += '<div class="lpp-row"><span class="lpp-label">Purchase Date</span><span class="lpp-val">' + s.purchaseDate + '</span></div>';
-  }
-  html += '<div class="lpp-divider"></div>';
-  html += '<div class="lpp-row"><span class="lpp-label">Call Income</span><span class="lpp-val ' + (netCallIncome >= 0 ? 'green' : 'red') + '"><strong>+$' + netCallIncome.toFixed(2) + '</strong></span></div>';
-  html += '<div class="lpp-row"><span class="lpp-label">Net P&L</span><span class="lpp-val ' + (netPosition >= 0 ? 'green' : 'red') + '"><strong>' + (netPosition >= 0 ? '+' : '') + '$' + netPosition.toFixed(2) + '</strong></span></div>';
-  html += '</div>';
-  html += '</div>';
-  
-  // Right side - Covered Calls
-  html += '<div class="short-puts-panel">';
-  html += '<div class="spp-header">';
-  html += '<div class="spp-title">COVERED CALLS</div>';
-  html += '<button class="add-sp-btn green-btn" onclick="openAddCoveredCall(\'' + s.id + '\')">+ Covered Call</button>';
-  html += '</div>';
-  
-  var calls = (s.coveredCalls || []).sort(function(a, b) {
-    if (!a.expiry) return 1;
-    if (!b.expiry) return -1;
-    return new Date(a.expiry) - new Date(b.expiry);
+  // Calculate share sale income
+  var saleIncome = 0;
+  (s.shareSales || []).forEach(function(sale) {
+    var proceeds = (sale.shares || 0) * (sale.salePrice || 0);
+    var cost = (sale.shares || 0) * (s.costBasis || 0);
+    saleIncome += (proceeds - cost);
   });
   
-  if (calls.length === 0) {
-    html += '<div class="empty-sp">No covered calls yet — sell calls to generate income</div>';
-  } else {
-    html += '<table class="sp-table">';
-    html += '<thead><tr>';
-    html += '<th>TYPE</th><th>STATUS</th><th>STRIKE</th><th>EXPIRY</th><th>#</th><th>RECEIVED</th><th>DEBIT (BTC)</th><th>OPENED</th><th></th>';
-    html += '</tr></thead><tbody>';
+  // Calculate market value
+  var currentPrice = tickerPrices[s.ticker] || 0;
+  var marketValue = (s.shares || 0) * currentPrice;
+  var unrealizedGL = marketValue - totalCost;
+  
+  var totalIncome = netCallIncome + saleIncome;
+  var netPosition = totalIncome - totalCost;
+  var expanded = sharesExpandedIds.has(s.id);
+  
+  // Use same classes as Put Ladders
+  var statusBadge = s.closed
+    ? '<span class="lh-badge-closed">Closed</span>'
+    : '<span class="lh-badge-open">Open</span>';
+  
+  var hdrBtns = s.closed
+    ? '<button class="hdr-btn" onclick="event.stopPropagation();reopenSharePosition(\'' + s.id + '\')">Reopen</button>'
+    : '<button class="hdr-btn" onclick="event.stopPropagation();openAddCoveredCall(\'' + s.id + '\')">+ Covered Call</button>';
+  hdrBtns += '<button class="hdr-btn red" onclick="event.stopPropagation();deleteSharePosition(\'' + s.id + '\')" title="Delete entire position" style="margin-left:0.25rem;">Delete</button>';
+  
+  var html = '<div class="ladder-card" id="sc-' + s.id + '">';
+  html += '<div class="ladder-hdr" onclick="toggleSharePosition(\'' + s.id + '\')">';
+  html += '<div class="lh-left">';
+  html += '<span class="lh-ticker">' + s.ticker + '</span>';
+  html += statusBadge;
+  if (s.purchaseDate) html += '<span class="lh-expiry">Bought: ' + s.purchaseDate + '</span>';
+  html += '<span class="lh-expiry" style="color:' + (netPosition>=0?'#059669':'#DC2626') + ';background:' + (netPosition>=0?'#F0FDF4':'#FEF2F2') + ';border-color:' + (netPosition>=0?'#BBF7D0':'#FECACA') + ';">' + (netPosition >= 0 ? '+' : '') + '$' + netPosition.toFixed(2) + '</span>';
+  html += '</div>';
+  html += '<div class="lh-right">' + hdrBtns + '<span class="chevron' + (expanded?' open':'') + '">&#9654;</span></div>';
+  html += '</div>';
+  
+  if (expanded) {
+    // Left panel - Stock Position
+    html += '<div class="ladder-body">';
+    html += '<div class="lp-panel">';
+    html += '<div class="lp-panel-title"><span>&#128200; Stock Position</span>';
+    html += '<div class="lp-panel-actions">';
+    html += '<button class="lp-edit-btn" onclick="event.stopPropagation();openEditSharePosition(\'' + s.id + '\')">&#9998; Edit</button>';
+    if (!s.closed) {
+      html += '<button class="lp-del-btn" onclick="event.stopPropagation();closeSharePosition(\'' + s.id + '\')">&#10005; Close</button>';
+    }
+    html += '</div></div>';
+    html += '<div class="lp-fields-grid">';
+    html += lp_field('Shares', (s.shares || 0).toLocaleString());
+    html += lp_field('Cost Basis', '$' + (s.costBasis || 0).toFixed(2) + '/share');
+    html += lp_field('Total Cost', '<span class="neg-val">-$' + totalCost.toFixed(2) + '</span>');
+    if (s.purchaseDate) html += lp_field('Purchase Date', s.purchaseDate);
+    if (currentPrice > 0) {
+      html += lp_field('Market Value', '$' + marketValue.toFixed(2));
+      html += lp_field('Unrealized G/L', '<span class="' + (unrealizedGL>=0?'pos-val':'neg-val') + '">' + (unrealizedGL >= 0 ? '+' : '') + '$' + unrealizedGL.toFixed(2) + '</span>');
+    }
+    html += lp_field('Call Income', '<span class="' + (netCallIncome>=0?'pos-val':'neg-val') + '">' + (netCallIncome >= 0 ? '+' : '') + '$' + netCallIncome.toFixed(2) + '</span>');
+    html += lp_field('Sale Income', '<span class="' + (saleIncome>=0?'pos-val':'neg-val') + '">' + (saleIncome >= 0 ? '+' : '') + '$' + saleIncome.toFixed(2) + '</span>');
+    html += lp_field('Total Income', '<span class="' + (totalIncome>=0?'pos-val':'neg-val') + '">' + (totalIncome >= 0 ? '+' : '') + '$' + totalIncome.toFixed(2) + '</span>');
+    html += lp_field('Net P&L', '<span class="' + (netPosition>=0?'pos-val':'neg-val') + '">' + (netPosition >= 0 ? '+' : '') + '$' + netPosition.toFixed(2) + '</span>');
+    html += '</div>';
+    html += '</div>';
     
-    calls.forEach(function(cc) {
-      html += '<tr class="' + (cc.closed ? 'closed-row' : '') + '" draggable="true">';
-      html += '<td><span class="type-badge blue">SCALL</span></td>';
-      html += '<td><span class="status-badge ' + (cc.closed ? 'gray' : 'green') + '">' + (cc.closed ? 'SOLD' : 'OPEN') + '</span></td>';
-      html += '<td><strong>$' + (cc.strike || 0) + '</strong></td>';
-      html += '<td>' + (cc.expiry || '—') + '</td>';
-      html += '<td>' + (cc.contracts || 0) + '</td>';
-      html += '<td class="green"><strong>+$' + (cc.received || 0).toFixed(2) + '</strong></td>';
-      html += '<td>' + (cc.btcPaid ? '<span class="red"><strong>-$' + cc.btcPaid.toFixed(2) + '</strong></span>' : '—') + '</td>';
-      html += '<td>' + (cc.openDate || '—') + '</td>';
-      html += '<td class="sp-actions">';
-      html += '<button class="action-btn" title="Edit" onclick="openEditCoveredCall(\'' + s.id + '\',\'' + cc.id + '\')">✏️</button>';
-      html += '<button class="action-btn" title="Copy" onclick="copyCoveredCall(\'' + s.id + '\',\'' + cc.id + '\')">📋</button>';
-      if (!cc.closed) {
-        html += '<button class="action-btn close-btn" title="Close" onclick="closeCoveredCall(\'' + s.id + '\',\'' + cc.id + '\')">Close</button>';
-      }
-      html += '<button class="action-btn delete-btn" title="Delete" onclick="deleteCoveredCall(\'' + s.id + '\',\'' + cc.id + '\')">🗑️</button>';
-      html += '</td>';
-      html += '</tr>';
+    // Right panel - Covered Calls (using sp-panel like Put Ladders)
+    html += '<div class="sp-panel">';
+    html += '<div style="display:flex;align-items:center;justify-content:space-between;padding:0.75rem 0.85rem;background:var(--bg3);border-radius:6px 6px 0 0;">';
+    html += '<div style="font-size:0.75rem;font-weight:800;color:var(--black);text-transform:uppercase;letter-spacing:0.06em;">Covered Calls</div>';
+    html += '<button class="add-sp-btn green-btn" onclick="event.stopPropagation();openAddCoveredCall(\'' + s.id + '\')">+ Covered Call</button>';
+    html += '</div>';
+    
+    var calls = (s.coveredCalls || []).sort(function(a, b) {
+      if (!a.expiry) return 1;
+      if (!b.expiry) return -1;
+      return new Date(a.expiry) - new Date(b.expiry);
     });
     
-    html += '</tbody></table>';
+    if (calls.length === 0) {
+      html += '<div style="padding:2rem;text-align:center;color:var(--text3);font-size:0.75rem;font-style:italic;">No covered calls yet — sell calls to generate income</div>';
+    } else {
+      html += '<table class="sp-table">';
+      html += '<thead><tr>';
+      html += '<th>TYPE</th><th>STATUS</th><th>STRIKE</th><th>EXPIRY</th><th>#</th><th>RECEIVED</th><th>DEBIT (BTC)</th><th>OPENED</th><th></th>';
+      html += '</tr></thead><tbody>';
+      
+      calls.forEach(function(cc) {
+        html += '<tr class="' + (cc.closed ? 'closed-row' : '') + '">';
+        html += '<td><span class="type-badge blue">SCALL</span></td>';
+        html += '<td><span class="status-badge ' + (cc.closed ? 'gray' : 'green') + '">' + (cc.closed ? 'CLOSED' : 'OPEN') + '</span></td>';
+        html += '<td><strong>$' + (cc.strike || 0) + '</strong></td>';
+        html += '<td>' + (cc.expiry || '—') + '</td>';
+        html += '<td>' + (cc.contracts || 0) + '</td>';
+        html += '<td class="green"><strong>+$' + (cc.received || 0).toFixed(2) + '</strong></td>';
+        html += '<td>' + (cc.btcPaid ? '<span class="red"><strong>-$' + cc.btcPaid.toFixed(2) + '</strong></span>' : '—') + '</td>';
+        html += '<td>' + (cc.openDate || '—') + '</td>';
+        html += '<td class="sp-actions">';
+        html += '<button class="action-btn" title="Edit" onclick="event.stopPropagation();openEditCoveredCall(\'' + s.id + '\',\'' + cc.id + '\')">✏️</button>';
+        html += '<button class="action-btn" title="Copy" onclick="event.stopPropagation();copyCoveredCall(\'' + s.id + '\',\'' + cc.id + '\')">📋</button>';
+        if (!cc.closed) {
+          html += '<button class="action-btn close-btn" title="Close" onclick="event.stopPropagation();closeCoveredCall(\'' + s.id + '\',\'' + cc.id + '\')">Close</button>';
+        }
+        html += '<button class="action-btn delete-btn" title="Delete" onclick="event.stopPropagation();deleteCoveredCall(\'' + s.id + '\',\'' + cc.id + '\')">🗑️</button>';
+        html += '</td>';
+        html += '</tr>';
+      });
+      
+      html += '</tbody></table>';
+    }
+    
+    // Share Sales section
+    html += '<div style="display:flex;align-items:center;justify-content:space-between;padding:0.75rem 0.85rem;background:var(--bg3);border-radius:6px 6px 0 0;margin-top:1rem;">';
+    html += '<div style="font-size:0.75rem;font-weight:800;color:var(--black);text-transform:uppercase;letter-spacing:0.06em;">Share Sales</div>';
+    html += '<button class="add-sp-btn green-btn" onclick="event.stopPropagation();openSellSharesTransaction(\'' + s.id + '\')">+ Sell Shares</button>';
+    html += '</div>';
+    
+    var sales = (s.shareSales || []).sort(function(a, b) {
+      if (!a.saleDate) return 1;
+      if (!b.saleDate) return -1;
+      return new Date(b.saleDate) - new Date(a.saleDate);
+    });
+    
+    if (sales.length === 0) {
+      html += '<div style="padding:2rem;text-align:center;color:var(--text3);font-size:0.75rem;font-style:italic;">No share sales yet — sell shares to realize gains/losses</div>';
+    } else {
+      html += '<table class="sp-table">';
+      html += '<thead><tr>';
+      html += '<th>TYPE</th><th>SHARES</th><th>COST BASIS</th><th>SALE PRICE</th><th>PROCEEDS</th><th>PROFIT/LOSS</th><th>SALE DATE</th><th></th>';
+      html += '</tr></thead><tbody>';
+      
+      sales.forEach(function(sale) {
+        var totalSale = (sale.shares || 0) * (sale.salePrice || 0);
+        var totalCost = (sale.shares || 0) * (s.costBasis || 0);
+        var profitLoss = totalSale - totalCost;
+        
+        html += '<tr>';
+        html += '<td><span class="type-badge" style="background:#10b981;border-color:#10b981;">SELL</span></td>';
+        html += '<td><strong>' + (sale.shares || 0) + '</strong></td>';
+        html += '<td>$' + (s.costBasis || 0).toFixed(2) + '/sh</td>';
+        html += '<td>$' + (sale.salePrice || 0).toFixed(2) + '/sh</td>';
+        html += '<td class="green"><strong>+$' + totalSale.toFixed(2) + '</strong></td>';
+        html += '<td><strong class="' + (profitLoss >= 0 ? 'green' : 'red') + '">' + (profitLoss >= 0 ? '+' : '') + '$' + profitLoss.toFixed(2) + '</strong></td>';
+        html += '<td>' + (sale.saleDate || '—') + '</td>';
+        html += '<td class="sp-actions">';
+        html += '<button class="action-btn" title="Edit" onclick="event.stopPropagation();openEditShareSale(\'' + s.id + '\',\'' + sale.id + '\')">✏️</button>';
+        html += '<button class="action-btn delete-btn" title="Delete" onclick="event.stopPropagation();deleteShareSale(\'' + s.id + '\',\'' + sale.id + '\')">🗑️</button>';
+        html += '</td>';
+        html += '</tr>';
+      });
+      
+      html += '</tbody></table>';
+    }
+    
+    
+    html += '</div>';
+    html += '</div>';
   }
   
   html += '</div>';
-  html += '</div>';
-  
   return html;
+}
+
+function toggleSharePosition(id) {
+  if (sharesExpandedIds.has(id)) {
+    sharesExpandedIds.delete(id);
+  } else {
+    sharesExpandedIds.add(id);
+  }
+  sharesRender();
 }
 
 function toggleSharesTicker(ticker) {
@@ -5880,16 +6311,81 @@ function openEditSharePosition(sid) {
       '<div class="modal-title">✏️ Edit Share Position</div>' +
       '<div class="modal-sub"><strong>' + s.ticker + '</strong></div>' +
       '<div class="mf-row">' +
-        '<div class="mf"><label class="mf-label">Shares *</label><input class="mf-input" id="esp-shares" type="number" value="' + s.shares + '"></div>' +
+        '<div class="mf"><label class="mf-label">Shares *</label><input class="mf-input" id="esp-shares" type="number" value="' + s.shares + '" oninput="updateCurrentValue(\'' + s.ticker + '\')"></div>' +
         '<div class="mf"><label class="mf-label">Cost Basis ($) *</label><input class="mf-input" id="esp-basis" type="number" step="0.01" value="' + s.costBasis + '"></div>' +
       '</div>' +
       '<div class="mf"><label class="mf-label">Purchase Date (MM/DD/YYYY)</label><input class="mf-input" id="esp-date" value="' + (s.purchaseDate || '') + '"></div>' +
+      '<div id="esp-current-value" style="margin-top:0.75rem;padding:0.75rem;background:#F0FDF4;border:1px solid #BBF7D0;border-radius:6px;">' +
+        '<div style="font-size:0.65rem;font-weight:700;color:#059669;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.35rem;">Current Market Value</div>' +
+        '<div style="display:flex;justify-content:space-between;align-items:center;">' +
+          '<div>' +
+            '<div style="font-size:0.6rem;color:#6B7280;">Current Price</div>' +
+            '<div id="esp-price" style="font-size:0.9rem;font-weight:800;color:#059669;">Loading...</div>' +
+          '</div>' +
+          '<div>' +
+            '<div style="font-size:0.6rem;color:#6B7280;">Market Value</div>' +
+            '<div id="esp-market-val" style="font-size:0.9rem;font-weight:800;color:#059669;">—</div>' +
+          '</div>' +
+          '<div>' +
+            '<div style="font-size:0.6rem;color:#6B7280;">Gain/Loss</div>' +
+            '<div id="esp-gain-loss" style="font-size:0.9rem;font-weight:800;">—</div>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
       '<div class="modal-btns">' +
         '<button class="modal-cancel" onclick="closeModal()">Cancel</button>' +
         '<button class="modal-confirm blue-btn" onclick="saveEditSharePosition(\'' + sid + '\')">Save Changes</button>' +
       '</div>' +
     '</div></div>';
   document.getElementById('modal-root').innerHTML = html;
+  
+  // Fetch current price
+  fetchStockPrice(s.ticker);
+}
+
+function fetchStockPrice(ticker) {
+  // Get price from Admin > Prices tab (stored in tickerPrices)
+  var price = tickerPrices[ticker];
+  
+  if (price && price > 0) {
+    document.getElementById('esp-price').textContent = '$' + price.toFixed(2);
+    updateCurrentValue(ticker, price);
+  } else {
+    document.getElementById('esp-price').textContent = 'Not Set';
+    document.getElementById('esp-price').style.color = '#DC2626';
+  }
+}
+
+function updateCurrentValue(ticker, price) {
+  var shares = parseInt(document.getElementById('esp-shares').value) || 0;
+  var basis = parseFloat(document.getElementById('esp-basis').value) || 0;
+  
+  if (!price) {
+    // Try to get from display
+    var priceText = document.getElementById('esp-price').textContent;
+    if (priceText && priceText !== 'Loading...' && priceText !== 'Not Set') {
+      price = parseFloat(priceText.replace('$', ''));
+    } else {
+      // Try to get from tickerPrices
+      price = tickerPrices[ticker];
+    }
+  }
+  
+  if (price && shares > 0) {
+    var marketValue = shares * price;
+    var costBasis = shares * basis;
+    var gainLoss = marketValue - costBasis;
+    var gainLossPct = costBasis > 0 ? ((gainLoss / costBasis) * 100) : 0;
+    
+    document.getElementById('esp-market-val').textContent = '$' + marketValue.toFixed(2);
+    
+    var glElem = document.getElementById('esp-gain-loss');
+    glElem.textContent = (gainLoss >= 0 ? '+' : '') + '$' + gainLoss.toFixed(2) + ' (' + (gainLossPct >= 0 ? '+' : '') + gainLossPct.toFixed(1) + '%)';
+    glElem.style.color = gainLoss >= 0 ? '#059669' : '#DC2626';
+  } else {
+    document.getElementById('esp-market-val').textContent = '—';
+    document.getElementById('esp-gain-loss').textContent = '—';
+  }
 }
 
 function saveEditSharePosition(sid) {
@@ -5918,6 +6414,174 @@ function reopenSharePosition(sid) {
   var s = sharePositions.find(function(x) { return x.id === sid; });
   if (!s) return;
   s.closed = false;
+  saveSharePositions();
+  sharesRender();
+}
+
+function deleteSharePosition(sid) {
+  if (!confirm('Delete this share position? This action cannot be undone.')) return;
+  sharePositions = sharePositions.filter(function(x) { return x.id !== sid; });
+  saveSharePositions();
+  sharesRender();
+}
+
+function deleteVisibleShares() {
+  var toDelete = sharePositions.filter(function(s) {
+    if (!s) return false;
+    if (sharesTickerSearch && s.ticker !== sharesTickerSearch) return false;
+    if (sharesFilterMode === 'open' && s.closed) return false;
+    if (sharesFilterMode === 'closed' && !s.closed) return false;
+    return true;
+  });
+  
+  if (!toDelete.length) { 
+    alert('No visible share positions to delete.'); 
+    return; 
+  }
+  
+  var tickers = toDelete.map(function(s){return s.ticker;}).join(', ');
+  if (!confirm('Delete ' + toDelete.length + ' visible share position(s)?\n\n' + tickers + '\n\nThis cannot be undone.')) return;
+  
+  var deleteIds = new Set(toDelete.map(function(s){return s.id;}));
+  sharePositions = sharePositions.filter(function(s){return !deleteIds.has(s.id);});
+  deleteIds.forEach(function(id){sharesExpandedIds.delete(id);});
+  
+  saveSharePositions();
+  sharesRender();
+}
+
+function openSellSharesTransaction(sid) {
+  var s = sharePositions.find(function(x) { return x.id === sid; });
+  if (!s) return;
+  
+  var html = '<div class="modal-overlay" onclick="if(event.target===this)closeModal()">' +
+    '<div class="modal-box">' +
+      '<div class="modal-title">💰 Sell Shares</div>' +
+      '<div class="modal-sub"><strong>' + s.ticker + '</strong> · You have ' + s.shares + ' shares</div>' +
+      '<div class="mf-row">' +
+        '<div class="mf"><label class="mf-label">Shares to Sell *</label><input class="mf-input" id="sst-shares" type="number" max="' + s.shares + '"></div>' +
+        '<div class="mf"><label class="mf-label">Sale Price *</label><input class="mf-input" id="sst-price" type="number" step="0.01"></div>' +
+      '</div>' +
+      '<div class="mf"><label class="mf-label">Sale Date</label><input class="mf-input" id="sst-date" type="text" placeholder="MM/DD/YYYY" value="' + today() + '"></div>' +
+      '<div class="modal-btns">' +
+        '<button class="modal-cancel" onclick="closeModal()">Cancel</button>' +
+        '<button class="modal-confirm" onclick="saveSellSharesTransaction(\'' + sid + '\')">Sell Shares</button>' +
+      '</div>' +
+    '</div></div>';
+  
+  document.getElementById('modal-root').innerHTML = html;
+}
+
+function saveSellSharesTransaction(sid) {
+  var s = sharePositions.find(function(x) { return x.id === sid; });
+  if (!s) return;
+  
+  var sharesToSell = parseFloat(v('sst-shares')) || 0;
+  var salePrice = parseFloat(v('sst-price')) || 0;
+  var saleDate = v('sst-date').trim();
+  
+  if (sharesToSell <= 0 || salePrice <= 0) {
+    alert('Please enter valid shares and sale price');
+    return;
+  }
+  
+  if (sharesToSell > s.shares) {
+    alert('Cannot sell more shares than you own (' + s.shares + ')');
+    return;
+  }
+  
+  // Add to share sales array
+  s.shareSales = s.shareSales || [];
+  s.shareSales.push({
+    id: uid(),
+    shares: sharesToSell,
+    salePrice: salePrice,
+    saleDate: saleDate
+  });
+  
+  // Reduce shares from position
+  s.shares -= sharesToSell;
+  
+  // If all shares sold, close position
+  if (s.shares === 0) {
+    s.closed = true;
+  }
+  
+  saveSharePositions();
+  sharesRender();
+  closeModal();
+}
+
+function openEditShareSale(sid, saleId) {
+  var s = sharePositions.find(function(x) { return x.id === sid; });
+  if (!s) return;
+  var sale = (s.shareSales || []).find(function(x) { return x.id === saleId; });
+  if (!sale) return;
+  
+  var html = '<div class="modal-overlay" onclick="if(event.target===this)closeModal()">' +
+    '<div class="modal-box">' +
+      '<div class="modal-title">✏️ Edit Share Sale</div>' +
+      '<div class="modal-sub"><strong>' + s.ticker + '</strong></div>' +
+      '<div class="mf-row">' +
+        '<div class="mf"><label class="mf-label">Shares Sold *</label><input class="mf-input" id="ess-shares" type="number" value="' + (sale.shares || 0) + '"></div>' +
+        '<div class="mf"><label class="mf-label">Sale Price *</label><input class="mf-input" id="ess-price" type="number" step="0.01" value="' + (sale.salePrice || 0) + '"></div>' +
+      '</div>' +
+      '<div class="mf"><label class="mf-label">Sale Date</label><input class="mf-input" id="ess-date" type="text" placeholder="MM/DD/YYYY" value="' + (sale.saleDate || '') + '"></div>' +
+      '<div class="modal-btns">' +
+        '<button class="modal-cancel" onclick="closeModal()">Cancel</button>' +
+        '<button class="modal-confirm" onclick="saveEditShareSale(\'' + sid + '\',\'' + saleId + '\')">Save</button>' +
+      '</div>' +
+    '</div></div>';
+  
+  document.getElementById('modal-root').innerHTML = html;
+}
+
+function saveEditShareSale(sid, saleId) {
+  var s = sharePositions.find(function(x) { return x.id === sid; });
+  if (!s) return;
+  var sale = (s.shareSales || []).find(function(x) { return x.id === saleId; });
+  if (!sale) return;
+  
+  var oldShares = sale.shares || 0;
+  var newShares = parseFloat(v('ess-shares')) || 0;
+  var newPrice = parseFloat(v('ess-price')) || 0;
+  var newDate = v('ess-date').trim();
+  
+  if (newShares <= 0 || newPrice <= 0) {
+    alert('Please enter valid shares and sale price');
+    return;
+  }
+  
+  // Update sale
+  sale.shares = newShares;
+  sale.salePrice = newPrice;
+  sale.saleDate = newDate;
+  
+  // Adjust share count
+  var diff = newShares - oldShares;
+  s.shares -= diff;
+  
+  if (s.shares === 0) s.closed = true;
+  else if (s.shares > 0) s.closed = false;
+  
+  saveSharePositions();
+  sharesRender();
+  closeModal();
+}
+
+function deleteShareSale(sid, saleId) {
+  if (!confirm('Delete this share sale?')) return;
+  var s = sharePositions.find(function(x) { return x.id === sid; });
+  if (!s) return;
+  
+  var sale = (s.shareSales || []).find(function(x) { return x.id === saleId; });
+  if (sale) {
+    // Return shares to position
+    s.shares += sale.shares || 0;
+    s.closed = false;
+  }
+  
+  s.shareSales = (s.shareSales || []).filter(function(x) { return x.id !== saleId; });
   saveSharePositions();
   sharesRender();
 }
@@ -6075,7 +6739,162 @@ function openAddCoveredCallNew() {
 }
 
 function handleSharesCSVUpload(event) {
-  alert('Shares CSV import - Coming soon!');
+  var file = event.target.files[0];
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    var text = e.target.result;
+    parseSharesCSV(text);
+    // Reset file input
+    document.getElementById('shares-csv-upload').value = '';
+  };
+  reader.readAsText(file);
+}
+
+function parseSharesCSV(text) {
+  // Parse CSV with proper handling of multi-line quoted fields
+  var records = [];
+  var lines = text.split(/\r?\n/);
+  var currentRecord = [];
+  var currentField = '';
+  var inQuotes = false;
+  
+  for (var i = 0; i < lines.length; i++) {
+    var line = lines[i];
+    var j = 0;
+    
+    while (j < line.length) {
+      var c = line[j];
+      
+      if (c === '"') {
+        if (inQuotes && line[j+1] === '"') {
+          // Escaped quote
+          currentField += '"';
+          j += 2;
+          continue;
+        }
+        inQuotes = !inQuotes;
+        j++;
+      } else if (c === ',' && !inQuotes) {
+        // End of field
+        currentRecord.push(currentField.trim());
+        currentField = '';
+        j++;
+      } else {
+        currentField += c;
+        j++;
+      }
+    }
+    
+    // At end of line
+    if (!inQuotes) {
+      // End of record
+      currentRecord.push(currentField.trim());
+      if (currentRecord.length > 1 && currentRecord.some(function(f){return f;})) {
+        records.push(currentRecord);
+      }
+      currentRecord = [];
+      currentField = '';
+    } else {
+      // Multi-line field continues - add newline
+      currentField += '\n';
+    }
+  }
+  
+  if (!records.length) {
+    alert('Empty CSV file');
+    return;
+  }
+  
+  // First record is header
+  var headers = records[0].map(function(h){ return h.trim().toLowerCase().replace(/\s+/g,'_'); });
+  
+  var idx = {
+    activityDate: headers.indexOf('activity_date'),
+    instrument:   headers.indexOf('instrument'),
+    transCode:    headers.indexOf('trans_code'),
+    quantity:     headers.indexOf('quantity'),
+    price:        headers.indexOf('price'),
+    amount:       headers.indexOf('amount')
+  };
+  
+  var imported = 0, skipped = 0, errors = [];
+  
+  for (var i = 1; i < records.length; i++) {
+    var cols = records[i];
+    if (cols.length < 6) { skipped++; continue; }
+    
+    var transCode = (cols[idx.transCode] || '').trim();
+    var ticker = (cols[idx.instrument] || '').trim().toUpperCase();
+    var actDate = (cols[idx.activityDate] || '').trim();
+    var quantity = Math.abs(parseFloat(cols[idx.quantity]) || 0);
+    var price = Math.abs(parseFloat((cols[idx.price]||'').replace(/[$,()]/g,'')) || 0);
+    var amount = parseAmount(cols[idx.amount] || '');
+    
+    if (!ticker || quantity === 0 || !transCode) { skipped++; continue; }
+    
+    // Handle BUY transactions - create share position on LEFT
+    if (transCode === 'Buy') {
+      var s = sharePositions.find(function(x) { return x.ticker === ticker && !x.closed; });
+      if (!s) {
+        // Create new share position
+        s = {
+          id: uid(),
+          ticker: ticker,
+          shares: quantity,
+          costBasis: price,
+          purchaseDate: actDate,
+          coveredCalls: [],
+          shareSales: [],
+          closed: false
+        };
+        sharePositions.unshift(s);
+      } else {
+        // Add to existing position (average cost basis)
+        var totalCost = (s.shares * s.costBasis) + (quantity * price);
+        s.shares += quantity;
+        s.costBasis = totalCost / s.shares;
+      }
+      imported++;
+    }
+    // Handle SELL transactions - add to share sales on RIGHT
+    else if (transCode === 'Sell') {
+      var s = sharePositions.find(function(x) { return x.ticker === ticker && !x.closed; });
+      if (!s) {
+        errors.push('Row ' + (i+1) + ': Sell transaction for ' + ticker + ' but no existing position found');
+        skipped++;
+        continue;
+      }
+      
+      // Add to share sales array on RIGHT panel
+      s.shareSales = s.shareSales || [];
+      s.shareSales.push({
+        id: uid(),
+        shares: quantity,
+        salePrice: price,
+        saleDate: actDate
+      });
+      
+      // Reduce shares from position
+      s.shares -= quantity;
+      if (s.shares <= 0) {
+        s.closed = true;
+      }
+      imported++;
+    }
+    else {
+      skipped++;
+    }
+  }
+  
+  saveSharePositions();
+  sharesRender();
+  
+  var msg = 'Import complete!\n\n';
+  msg += 'Imported: ' + imported + ' transaction(s)\n';
+  if (skipped) msg += 'Skipped: ' + skipped + ' row(s)\n';
+  if (errors.length) msg += '\nErrors:\n' + errors.join('\n');
+  alert(msg);
 }
 
 function deleteCoveredCall(sid, ccid) {
@@ -6419,10 +7238,7 @@ function plReloadForPortfolio() {
   } catch(e) { ladders = []; }
   expandedIds = new Set();
   plTickerSearch = '';
-  ladders.forEach(function(l) { if (!l.closed) expandedIds.add(l.id); });
-  // Expand all ticker groups by default
-  var tickers = [...new Set(ladders.map(function(l) { return l.ticker; }))];
-  tickers.forEach(function(t) { expandedIds.add('ticker-' + t); });
+  // Start collapsed - users expand what they need
   render();
 }
 
@@ -6468,15 +7284,20 @@ var callLadders = [];
 var growthFilterMode = 'all';
 var growthTickerSearch = '';
 var growthExpandedIds = new Set();
+var growthGlobalWeekFilter = 'all'; // Default to All Time to show all positions
 var growthTickerWeekFilters = {};
-callLadders.forEach(function(l) { 
-  if (!l.closed) growthExpandedIds.add(l.id); 
-});
-var growthTickers = [...new Set(callLadders.map(function(l) { return l.ticker; }))];
-growthTickers.forEach(function(t) { growthExpandedIds.add('ticker-' + t); });
+// Start with everything collapsed by default in Growth tab
+// Users can click to expand what they want to see
 
 function setGrowthTickerWeekFilter(ticker, filter) {
   growthTickerWeekFilters[ticker] = filter;
+  growthRender();
+}
+
+function setGrowthGlobalWeekFilter(filter) {
+  growthGlobalWeekFilter = filter;
+  // Reset all individual ticker filters when global filter changes
+  growthTickerWeekFilters = {};
   growthRender();
 }
 
@@ -6549,6 +7370,12 @@ function growthRenderControls() {
         '<button class="fp-btn' + (growthFilterMode==='all'?' active':'') + '" onclick="setGrowthFilter(this,\'all\')">All</button>',
         '<button class="fp-btn' + (growthFilterMode==='open'?' active':'') + '" onclick="setGrowthFilter(this,\'open\')">Open</button>',
         '<button class="fp-btn' + (growthFilterMode==='closed'?' active':'') + '" onclick="setGrowthFilter(this,\'closed\')">Closed</button>',
+      '</div>',
+      '<div style="width:1px;height:20px;background:var(--border);flex-shrink:0;"></div>',
+      '<div class="filter-pill" style="gap:0.3rem;">',
+        '<button class="fp-btn' + (growthGlobalWeekFilter === 'all' ? ' active' : '') + '" onclick="setGrowthGlobalWeekFilter(\'all\')" title="Show all weeks">All Time</button>',
+        '<button class="fp-btn' + (growthGlobalWeekFilter === 'tw' ? ' active' : '') + '" style="' + (growthGlobalWeekFilter === 'tw' ? 'background:#2563EB;color:#fff;' : '') + '" onclick="setGrowthGlobalWeekFilter(\'tw\')" title="This Week (Monday - Sunday)">TW</button>',
+        '<button class="fp-btn' + (growthGlobalWeekFilter === 'lw' ? ' active' : '') + '" style="' + (growthGlobalWeekFilter === 'lw' ? 'background:#7C3AED;color:#fff;' : '') + '" onclick="setGrowthGlobalWeekFilter(\'lw\')" title="Last Week (Monday - Sunday)">LW</button>',
       '</div>',
       '<input id="growth-ticker-search" type="text" placeholder="&#128269; Filter ticker..." oninput="growthTickerSearch=this.value.toUpperCase().trim();growthRender();" style="display:none;">',
       '<div style="width:1px;height:20px;background:var(--border);flex-shrink:0;"></div>',
@@ -6656,7 +7483,14 @@ function growthRenderLadders() {
 }
 
 function renderCallTickerGroup(ticker, laddersForTicker) {
-  var weekFilter = typeof growthTickerWeekFilters !== 'undefined' && growthTickerWeekFilters[ticker] ? growthTickerWeekFilters[ticker] : 'all';
+  // Use global filter if set to TW or LW, otherwise use ticker-specific filter
+  var weekFilter = growthGlobalWeekFilter !== 'all' 
+    ? growthGlobalWeekFilter 
+    : (typeof growthTickerWeekFilters !== 'undefined' && growthTickerWeekFilters[ticker] ? growthTickerWeekFilters[ticker] : 'all');
+  
+  // Map 'tw' and 'lw' to 'cw' and 'pw' for compatibility with existing logic
+  if (weekFilter === 'tw') weekFilter = 'cw';
+  if (weekFilter === 'lw') weekFilter = 'pw';
   
   function getWeekRange(weeksAgo) {
     var now = new Date();
@@ -6761,8 +7595,8 @@ function renderCallTickerGroup(ticker, laddersForTicker) {
   
   html += '<div style="display:flex;gap:0.3rem;justify-content:flex-start;">';
   html += '<button onclick="setGrowthTickerWeekFilter(\'' + ticker + '\', \'all\')" style="padding:0.25rem 0.5rem;font-size:0.65rem;font-weight:600;border-radius:5px;cursor:pointer;border:1px solid var(--border);background:' + (weekFilter === 'all' ? 'var(--black)' : 'transparent') + ';color:' + (weekFilter === 'all' ? '#fff' : 'var(--text3)') + ';">All Time</button>';
-  html += '<button onclick="setGrowthTickerWeekFilter(\'' + ticker + '\', \'cw\')" style="padding:0.25rem 0.5rem;font-size:0.65rem;font-weight:600;border-radius:5px;cursor:pointer;border:1px solid var(--border);background:' + (weekFilter === 'cw' ? '#2563EB' : 'transparent') + ';color:' + (weekFilter === 'cw' ? '#fff' : 'var(--text3)') + ';">CW</button>';
-  html += '<button onclick="setGrowthTickerWeekFilter(\'' + ticker + '\', \'pw\')" style="padding:0.25rem 0.5rem;font-size:0.65rem;font-weight:600;border-radius:5px;cursor:pointer;border:1px solid var(--border);background:' + (weekFilter === 'pw' ? '#7C3AED' : 'transparent') + ';color:' + (weekFilter === 'pw' ? '#fff' : 'var(--text3)') + ';">PW</button>';
+  html += '<button onclick="setGrowthTickerWeekFilter(\'' + ticker + '\', \'cw\')" style="padding:0.25rem 0.5rem;font-size:0.65rem;font-weight:600;border-radius:5px;cursor:pointer;border:1px solid var(--border);background:' + (weekFilter === 'cw' ? '#2563EB' : 'transparent') + ';color:' + (weekFilter === 'cw' ? '#fff' : 'var(--text3)') + ';" title="Monday - Sunday (This Week)">TW</button>';
+  html += '<button onclick="setGrowthTickerWeekFilter(\'' + ticker + '\', \'pw\')" style="padding:0.25rem 0.5rem;font-size:0.65rem;font-weight:600;border-radius:5px;cursor:pointer;border:1px solid var(--border);background:' + (weekFilter === 'pw' ? '#7C3AED' : 'transparent') + ';color:' + (weekFilter === 'pw' ? '#fff' : 'var(--text3)') + ';" title="Last Week (Monday - Sunday)">LW</button>';
   html += '</div>';
   html += '</div>';
   
@@ -7588,9 +8422,7 @@ function growthReloadForPortfolio() {
   } catch(e) { callLadders = []; }
   growthExpandedIds = new Set();
   growthTickerSearch = '';
-  callLadders.forEach(function(l) { if (!l.closed) growthExpandedIds.add(l.id); });
-  var growthTickers = [...new Set(callLadders.map(function(l) { return l.ticker; }))];
-  growthTickers.forEach(function(t) { growthExpandedIds.add('ticker-' + t); });
+  // Start collapsed - users expand what they need
   growthRender();
 }
 
