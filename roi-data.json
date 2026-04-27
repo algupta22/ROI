@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-04-27T20:20:45.111Z",
+  "savedAt": "2026-04-27T20:28:44.495Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -21023,6 +21023,37 @@
     ],
     "spouse": [
       {
+        "id": "mohnfkd12706",
+        "ticker": "F",
+        "contracts": 1,
+        "longStrike": 11,
+        "longPremium": 0.11,
+        "longExpiry": "5/15",
+        "openDate": "4/27/2026",
+        "notes": "",
+        "position": null,
+        "noLongPut": false,
+        "longPutClosed": false,
+        "shortPuts": [],
+        "closed": false
+      },
+      {
+        "id": "mohncggwgfga",
+        "ticker": "F",
+        "contracts": 1,
+        "longStrike": 11,
+        "longPremium": 0.14,
+        "longExpiry": "5/22",
+        "openDate": "4/27/2026",
+        "notes": "",
+        "position": null,
+        "noLongPut": false,
+        "longPutClosed": false,
+        "shortPuts": [],
+        "closed": false,
+        "marketValueOverride": 0
+      },
+      {
         "id": "mohhzqmbhbs9",
         "ticker": "MSFT",
         "contracts": 1,
@@ -39245,6 +39276,20 @@
       }
     ],
     "spouse": [
+      {
+        "id": "mohnghb4ny4k",
+        "ticker": "F",
+        "contracts": 4,
+        "longStrike": 15,
+        "longPremium": 0.28,
+        "longExpiry": "9/18",
+        "openDate": "4/27/2026",
+        "notes": "",
+        "noLongCall": false,
+        "longCallClosed": false,
+        "shortCalls": [],
+        "closed": false
+      },
       {
         "id": "mohhs8hf6s0d",
         "ticker": "NVDX",
