@@ -1831,6 +1831,194 @@ function rSum(s){
   }
   function div1(){return '<div style="height:1px;background:var(--border);margin:0.18rem 0;"></div>';}
   function div1dk(){return '<div style="height:1px;background:rgba(255,255,255,0.1);margin:0.15rem 0;"></div>';}
+  
+  function rMarketValueCard() {
+    // Calculate market values by portfolio and category
+    var portfolios = ['self', 'spouse', 'joint'];
+    var mvData = {};
+    
+    portfolios.forEach(function(portKey) {
+      mvData[portKey] = { shares: 0, puts: 0, calls: 0, collateral: 0, cash: 0, total: 0 };
+      
+      // Calculate Cash balance (with override support)
+      var cashKey = portKey === 'self' ? 'amit' : portKey === 'spouse' ? 'lovelina' : 'joint';
+      mvData[portKey].cash = cashBalances[cashKey] || 0;
+      
+      // Check for collateral override
+      var collOverrideKey = 'roi_coll_override_' + portKey;
+      var collOverride = localStorage.getItem(collOverrideKey);
+      var hasCollOverride = collOverride !== null && collOverride !== '';
+      
+      // Calculate Shares market value
+      var portShares = JSON.parse(localStorage.getItem('roi_shares_' + portKey) || '[]');
+      portShares.forEach(function(share) {
+        if (!share.closed) {
+          var currentPrice = tickerPrices[share.ticker] || 0;
+          var sharesMV = Math.round(currentPrice * (share.shares || 0));
+          mvData[portKey].shares += sharesMV;
+        }
+      });
+      
+      // Calculate Put Ladders market value and collateral
+      var portPuts = JSON.parse(localStorage.getItem('roi_putladder_' + portKey) || '[]');
+      portPuts.forEach(function(ladder) {
+        // Market value
+        if (!ladder.closed && !ladder.longPutClosed && !ladder.noLongPut && ladder.longStrike) {
+          var mv = 0;
+          if (ladder.marketValueOverride !== undefined && ladder.marketValueOverride !== null && ladder.marketValueOverride !== '') {
+            mv = Math.round(parseFloat(ladder.marketValueOverride));
+          } else {
+            var currentPrice = tickerPrices[ladder.ticker] || 0;
+            if (currentPrice > 0 && currentPrice < ladder.longStrike) {
+              mv = Math.round((ladder.longStrike - currentPrice) * 100 * (ladder.contracts || 1));
+            }
+          }
+          mvData[portKey].puts += mv;
+        }
+        
+        // Collateral (only if no override)
+        if (!hasCollOverride && !ladder.closed) {
+          var activeSP = (ladder.shortPuts || []).filter(function(sp) { return !sp.closed; });
+          activeSP.forEach(function(sp) {
+            var cts = sp.contracts || ladder.contracts || 1;
+            if (!ladder.noLongPut && ladder.longStrike) {
+              mvData[portKey].collateral += Math.max(0, sp.strike - ladder.longStrike) * 100 * cts;
+            } else {
+              mvData[portKey].collateral += sp.strike * 100 * cts;
+            }
+          });
+        }
+      });
+      
+      // Calculate Call Ladders (Growth) market value and collateral
+      var portCalls = JSON.parse(localStorage.getItem('roi_callladder_' + portKey) || '[]');
+      portCalls.forEach(function(ladder) {
+        // Market value
+        if (!ladder.closed && !ladder.longCallClosed && !ladder.noLongCall && ladder.longStrike) {
+          var mv = 0;
+          if (ladder.marketValueOverride !== undefined && ladder.marketValueOverride !== null && ladder.marketValueOverride !== '') {
+            mv = Math.round(parseFloat(ladder.marketValueOverride));
+          } else {
+            var currentPrice = tickerPrices[ladder.ticker] || 0;
+            if (currentPrice > 0 && currentPrice > ladder.longStrike) {
+              mv = Math.round((currentPrice - ladder.longStrike) * 100 * (ladder.contracts || 1));
+            }
+          }
+          mvData[portKey].calls += mv;
+        }
+        
+        // Collateral (only if no override)
+        if (!hasCollOverride && !ladder.closed) {
+          var longContracts = (!ladder.noLongCall && ladder.longStrike && !ladder.longCallClosed) ? (ladder.contracts || 1) : 0;
+          var longStrike = ladder.longStrike || 0;
+          
+          (ladder.shortCalls||[]).forEach(function(sc) {
+            if (!sc.closed && sc.strike) {
+              var scContracts = sc.contracts || 1;
+              if (longContracts > 0 && longStrike > 0) {
+                if (longStrike > sc.strike) {
+                  var spreadContracts = Math.min(longContracts, scContracts);
+                  mvData[portKey].collateral += (longStrike - sc.strike) * 100 * spreadContracts;
+                  var nakedContracts = Math.max(0, scContracts - longContracts);
+                  mvData[portKey].collateral += sc.strike * 100 * nakedContracts;
+                } else {
+                  var excessShortContracts = Math.max(0, scContracts - longContracts);
+                  mvData[portKey].collateral += sc.strike * 100 * excessShortContracts;
+                }
+              } else {
+                mvData[portKey].collateral += sc.strike * 100 * scContracts;
+              }
+            }
+          });
+        }
+      });
+      
+      // Apply collateral override if exists
+      if (hasCollOverride) {
+        mvData[portKey].collateral = parseFloat(collOverride);
+      }
+      
+      // Total includes EVERYTHING: shares + puts + calls + collateral + cash
+      mvData[portKey].total = mvData[portKey].shares + mvData[portKey].puts + mvData[portKey].calls + mvData[portKey].collateral + mvData[portKey].cash;
+    });
+    
+    var grandTotal = mvData.self.total + mvData.spouse.total + mvData.joint.total;
+    var grandCollateral = mvData.self.collateral + mvData.spouse.collateral + mvData.joint.collateral;
+    var grandCash = mvData.self.cash + mvData.spouse.cash + mvData.joint.cash;
+    
+    function fmv(v) { return '$' + Math.round(v).toLocaleString(); }
+    function portRow(label, color, data, portKey) {
+      var hasValue = data.total > 0 || data.collateral > 0 || data.cash > 0;
+      return '<div style="padding:0.3rem 0;border-bottom:1px solid var(--border2);">'
+        + '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.2rem;">'
+        + '<div style="font-size:0.65rem;font-weight:700;color:' + color + ';">' + label + '</div>'
+        + '<div style="font-size:0.75rem;font-weight:800;font-family:monospace;color:var(--black);">' + (data.total > 0 ? fmv(data.total) : '—') + '</div>'
+        + '</div>'
+        + (hasValue ? '<div style="display:flex;gap:0.5rem;font-size:0.58rem;color:var(--text3);padding-left:0.3rem;flex-wrap:wrap;">'
+          + '<span>SHR: <strong style="color:var(--black);">' + fmv(data.shares) + '</strong></span>'
+          + '<span>PUT: <strong style="color:var(--black);">' + fmv(data.puts) + '</strong></span>'
+          + '<span>CALL: <strong style="color:var(--black);">' + fmv(data.calls) + '</strong></span>'
+          + '<span>COLL: <strong style="color:#EA580C;cursor:pointer;" onclick="editCollateral(\'' + portKey + '\')" title="Click to edit">' + fmv(data.collateral) + '</strong></span>'
+          + '<span>CASH: <strong style="color:#059669;cursor:pointer;" onclick="editCash(\'' + portKey + '\')" title="Click to edit">' + fmv(data.cash) + '</strong></span>'
+          + '</div>' : '')
+        + '</div>';
+    }
+    
+    return '<div class="scard" style="border-left:3px solid #059669;padding:0.55rem 0.75rem;">'
+      + '<div class="scard-label" style="color:var(--text3);font-size:0.56rem;margin:0 0 0.5rem 0;">&#128176; Market Value Breakdown</div>'
+      + portRow('AMIT', '#2563EB', mvData.self, 'self')
+      + portRow('LOVELINA', '#EC4899', mvData.spouse, 'spouse')
+      + portRow('JOINT', '#10B981', mvData.joint, 'joint')
+      + '<div style="padding:0.4rem 0;margin-top:0.3rem;border-top:2px solid var(--border);">'
+      + '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.3rem;">'
+      + '<div style="font-size:0.65rem;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:rgba(0,0,0,0.4);">TOTAL MV</div>'
+      + '<div style="font-size:0.9rem;font-weight:900;font-family:monospace;color:#059669;">' + fmv(grandTotal) + '</div>'
+      + '</div>'
+      + '<div style="display:flex;gap:0.8rem;font-size:0.6rem;color:var(--text3);">'
+      + '<span>Collateral: <strong style="color:#EA580C;">' + fmv(grandCollateral) + '</strong></span>'
+      + '<span>Cash: <strong style="color:#059669;">' + fmv(grandCash) + '</strong></span>'
+      + '</div>'
+      + '</div>'
+      + '</div>';
+  }
+  
+  // Functions for editing collateral and cash
+  window.editCollateral = function(portKey) {
+    var portNames = { 'self': 'AMIT', 'spouse': 'LOVELINA', 'joint': 'JOINT' };
+    var currentVal = localStorage.getItem('roi_coll_override_' + portKey) || '';
+    var newVal = prompt('Edit Collateral Override for ' + portNames[portKey] + ':\n\n(Leave empty to use auto-calculated value)', currentVal);
+    if (newVal !== null) {
+      if (newVal.trim() === '') {
+        localStorage.removeItem('roi_coll_override_' + portKey);
+      } else {
+        var parsed = parseFloat(newVal);
+        if (!isNaN(parsed)) {
+          localStorage.setItem('roi_coll_override_' + portKey, parsed.toString());
+        } else {
+          alert('Invalid number');
+          return;
+        }
+      }
+      rMain();
+    }
+  };
+  
+  window.editCash = function(portKey) {
+    var portNames = { 'self': 'AMIT', 'spouse': 'LOVELINA', 'joint': 'JOINT' };
+    var cashKey = portKey === 'self' ? 'amit' : portKey === 'spouse' ? 'lovelina' : 'joint';
+    var currentVal = cashBalances[cashKey] || 0;
+    var newVal = prompt('Edit Cash Balance for ' + portNames[portKey] + ':', currentVal);
+    if (newVal !== null) {
+      var parsed = parseFloat(newVal);
+      if (!isNaN(parsed)) {
+        cashBalances[cashKey] = parsed;
+        saveCash();
+        rMain();
+      } else {
+        alert('Invalid number');
+      }
+    }
+  };
 
   var realCol=s.realized>=0?'var(--green)':'var(--red)';
   var unrealCol=s.unrealized>=0?'var(--green)':'var(--red)';
@@ -1903,12 +2091,15 @@ function rSum(s){
     +'<div style="height:100%;border-radius:100px;background:linear-gradient(90deg,var(--red),#FB923C,var(--green));width:'+s.pct+'%;"></div></div>'
     +'<div class="scard-sub" style="margin-top:0.14rem;font-size:0.55rem;">'+s.pct+'% recovered &middot; '+s.op+' open &middot; '+s.cl+' closed</div>'
     +'</div>';
+  
+  var marketValueCard = rMarketValueCard();
 
   return'<div style="display:grid;grid-template-columns:1fr 1.5fr 1.2fr;gap:0.6rem;margin-bottom:0.55rem;">'
     +capitalCard
     +rCashCard()
     +rWeeklyIncomeCard()
     +rCryptoCard()
+    +marketValueCard
     +rRetirementCard()
     +'<div></div>'
     +'</div>';
@@ -2871,8 +3062,8 @@ function rSpreadsView(data){
   // Group by PORTFOLIO first, then by ticker
   var portfolioGroups = {};
   filtered.forEach(function(l) {
-    // Each ladder belongs to the current portfolio being viewed
-    var portKey = plGetPortKey();
+    // Use the _portfolio tag to know which portfolio this ladder belongs to
+    var portKey = l._portfolio || plGetPortKey();
     if (!portfolioGroups[portKey]) portfolioGroups[portKey] = {};
     if (!portfolioGroups[portKey][l.ticker]) {
       portfolioGroups[portKey][l.ticker] = { longPuts: [], shortPuts: [] };
@@ -2946,15 +3137,6 @@ function rSpreadsView(data){
   
   html += '<div style="width:1px;height:20px;background:var(--border);"></div>';
   
-  // Week filter
-  html += '<div style="display:flex;gap:0.3rem;">';
-  html += '<button onclick="setGlobalWeekFilter(\'all\');" style="padding:0.3rem 0.6rem;font-size:0.7rem;font-weight:700;border-radius:5px;cursor:pointer;border:1px solid var(--border);background:' + (globalWeekFilter === 'all' ? 'var(--black)' : 'transparent') + ';color:' + (globalWeekFilter === 'all' ? '#fff' : 'var(--text3)') + ';" title="Show all weeks">All Time</button>';
-  html += '<button onclick="setGlobalWeekFilter(\'tw\');" style="padding:0.3rem 0.6rem;font-size:0.7rem;font-weight:700;border-radius:5px;cursor:pointer;border:1px solid var(--border);background:' + (globalWeekFilter === 'tw' ? '#2563EB' : 'transparent') + ';color:' + (globalWeekFilter === 'tw' ? '#fff' : 'var(--text3)') + ';" title="This Week (Monday - Sunday)">TW</button>';
-  html += '<button onclick="setGlobalWeekFilter(\'lw\');" style="padding:0.3rem 0.6rem;font-size:0.7rem;font-weight:700;border-radius:5px;cursor:pointer;border:1px solid var(--border);background:' + (globalWeekFilter === 'lw' ? '#7C3AED' : 'transparent') + ';color:' + (globalWeekFilter === 'lw' ? '#fff' : 'var(--text3)') + ';" title="Last Week (Monday - Sunday)">LW</button>';
-  html += '</div>';
-  
-  html += '<div style="width:1px;height:20px;background:var(--border);"></div>';
-  
   // Risk Type filter (No Income/No Hedge/All)
   html += '<div style="display:flex;gap:0.3rem;">';
   html += '<div style="font-weight:700;font-size:0.7rem;color:#64748b;padding:0.3rem 0.3rem 0.3rem 0;">Risk:</div>';
@@ -2993,10 +3175,12 @@ function rSpreadsView(data){
     
     if (tickers.length === 0) return;
     
-    // Portfolio header
-    html += '<div style="background:#475569;color:white;padding:0.6rem 1rem;margin-bottom:0.75rem;margin-top:1rem;border-radius:6px;font-weight:800;font-size:0.85rem;">';
-    html += portNames[portKey] || portKey.toUpperCase();
-    html += '</div>';
+    // Portfolio header (skip when viewing all portfolios - we show badges on each ticker instead)
+    if (ap !== 'all') {
+      html += '<div style="background:#475569;color:white;padding:0.6rem 1rem;margin-bottom:0.75rem;margin-top:1rem;border-radius:6px;font-weight:800;font-size:0.85rem;">';
+      html += portNames[portKey] || portKey.toUpperCase();
+      html += '</div>';
+    }
   
   // Render each ticker as compact row group
   tickers.forEach(function(ticker) {
@@ -3046,7 +3230,8 @@ function rSpreadsView(data){
     }
     
     // Apply Expiring filter (TW/NW/All for SPUT expiry)
-    if (spreadsRiskExpiryFilter !== 'all') {
+    // SKIP this filter if in "No Income" mode since there are no SPUTs to check
+    if (spreadsRiskExpiryFilter !== 'all' && spreadsRiskFilter !== 'naked') {
       var now = new Date();
       var dayOfWeek = now.getDay();
       var daysToMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
@@ -3089,7 +3274,14 @@ function rSpreadsView(data){
     // Ticker header row
     html += '<div style="background:white;border:1px solid #e2e8f0;border-radius:8px;margin-bottom:0.75rem;overflow:hidden;">';
     html += '<div style="background:#1e293b;color:white;padding:0.5rem 0.75rem;display:flex;align-items:center;justify-content:space-between;">';
-    html += '<div style="font-weight:800;font-size:0.95rem;">' + ticker + '</div>';
+    html += '<div style="display:flex;align-items:center;gap:0.5rem;">';
+    html += '<span style="font-weight:800;font-size:0.95rem;">' + ticker + '</span>';
+    // Show portfolio badge when viewing all portfolios
+    if (ap === 'all') {
+      var portBadgeColor = portKey === 'self' ? '#3B82F6' : portKey === 'spouse' ? '#EC4899' : '#10B981';
+      html += '<span style="background:' + portBadgeColor + ';color:white;padding:0.15rem 0.4rem;border-radius:4px;font-size:0.65rem;font-weight:700;">' + (portNames[portKey] || portKey.toUpperCase()) + '</span>';
+    }
+    html += '</div>';
     html += '<div style="display:flex;gap:0.75rem;font-size:0.7rem;align-items:center;">';
     html += '<span style="color:#fca5a5;">LP: $' + totalLP.toFixed(0) + '</span>';
     html += '<span style="color:#6ee7b7;">SP: $' + totalSP.toFixed(0) + '</span>';
@@ -3632,9 +3824,26 @@ function rMain(){
     el.innerHTML=rAdminView();
     fetchAndUpdateLive([...new Set(positions.map(function(r){return r.ticker;}))].sort());
   }else if(activeView==='spreads'){
-    // Reload ladders for current portfolio (same as Put Ladders)
+    // Load ladders based on selected portfolio
     var pk = plGetPortKey();
-    ladders = JSON.parse(localStorage.getItem('roi_putladder_' + pk) || '[]');
+    if (ap === 'all') {
+      // Load from all main portfolios (not retirement)
+      ladders = [];
+      ['self', 'spouse', 'joint'].forEach(function(portKey) {
+        var portLadders = JSON.parse(localStorage.getItem('roi_putladder_' + portKey) || '[]');
+        // Tag each ladder with its portfolio
+        portLadders.forEach(function(l) {
+          l._portfolio = portKey;
+        });
+        ladders = ladders.concat(portLadders);
+      });
+    } else {
+      ladders = JSON.parse(localStorage.getItem('roi_putladder_' + pk) || '[]');
+      // Tag with current portfolio
+      ladders.forEach(function(l) {
+        l._portfolio = pk;
+      });
+    }
     el.innerHTML=rSpreadsView(data);
   }else if(activeView==='putladder'){
     el.innerHTML = [
@@ -3888,10 +4097,54 @@ function ghGetToken(){return localStorage.getItem(GH_TK)||'';}
 function ghSetToken(t){localStorage.setItem(GH_TK,t);}
 function ghGetCfg(){try{var c=JSON.parse(localStorage.getItem(GH_CF)||'{}');return{repo:c.repo||'algupta22/Ricks-Trading',branch:c.branch||'',file:c.file||'roi-data.json'};}catch(e){return{repo:'algupta22/Ricks-Trading',branch:'',file:'roi-data.json'};}}
 function ghSetCfg(c){localStorage.setItem(GH_CF,JSON.stringify(c));}
-function ghCollect(){return{version:2,savedAt:new Date().toISOString(),positions:positions,tickerPrices:tickerPrices,earningsDates:earningsDates,activityData:activityData,cashBalances:cashBalances,initialCashBalances:initialCashBalances,collatBlocked:collatBlocked,cryptoBalances:cryptoBalances,cryptoDetail:cryptoDetail};}
+function ghCollect(){
+  // Collect all put ladders from all portfolios
+  var allPutLadders = {};
+  ['self', 'spouse', 'joint', 'self_roth', 'spouse_roth', 'spouse_ira'].forEach(function(key) {
+    try {
+      var data = localStorage.getItem('roi_putladder_' + key);
+      if (data) allPutLadders[key] = JSON.parse(data);
+    } catch(e) {}
+  });
+  
+  // Collect all call ladders from all portfolios
+  var allCallLadders = {};
+  ['self', 'spouse', 'joint', 'self_roth', 'spouse_roth', 'spouse_ira'].forEach(function(key) {
+    try {
+      var data = localStorage.getItem('roi_callladder_' + key);
+      if (data) allCallLadders[key] = JSON.parse(data);
+    } catch(e) {}
+  });
+  
+  // Collect all shares from all portfolios
+  var allShares = {};
+  ['self', 'spouse', 'joint', 'self_roth', 'spouse_roth', 'spouse_ira'].forEach(function(key) {
+    try {
+      var data = localStorage.getItem('roi_shares_' + key);
+      if (data) allShares[key] = JSON.parse(data);
+    } catch(e) {}
+  });
+  
+  return{
+    version:3,
+    savedAt:new Date().toISOString(),
+    positions:positions,
+    tickerPrices:tickerPrices,
+    earningsDates:earningsDates,
+    activityData:activityData,
+    cashBalances:cashBalances,
+    initialCashBalances:initialCashBalances,
+    collatBlocked:collatBlocked,
+    cryptoBalances:cryptoBalances,
+    cryptoDetail:cryptoDetail,
+    putLadders:allPutLadders,
+    callLadders:allCallLadders,
+    shares:allShares
+  };
+}
 function ghApply(d){
   if(!d||typeof d!=='object')return false;
-  var hasData=Array.isArray(d.positions)||d.tickerPrices||d.cashBalances||d.activityData;
+  var hasData=Array.isArray(d.positions)||d.tickerPrices||d.cashBalances||d.activityData||d.putLadders||d.callLadders||d.shares;
   if(!hasData)return false;
   if(Array.isArray(d.positions))positions=d.positions;
   if(d.tickerPrices&&typeof d.tickerPrices==='object'){Object.assign(tickerPrices,d.tickerPrices);saveTP(tickerPrices);}
@@ -3902,6 +4155,34 @@ function ghApply(d){
   if(d.initialCashBalances&&typeof d.initialCashBalances==='object'){Object.assign(initialCashBalances,d.initialCashBalances);saveInitCash();}
   if(d.cryptoBalances&&typeof d.cryptoBalances==='object'){Object.assign(cryptoBalances,d.cryptoBalances);saveCrypto();}
   if(d.cryptoDetail&&typeof d.cryptoDetail==='object'){Object.assign(cryptoDetail,d.cryptoDetail);saveCryptoDetail();}
+  
+  // Restore put ladders for all portfolios
+  if(d.putLadders&&typeof d.putLadders==='object'){
+    Object.keys(d.putLadders).forEach(function(key){
+      try{
+        localStorage.setItem('roi_putladder_'+key,JSON.stringify(d.putLadders[key]));
+      }catch(e){}
+    });
+  }
+  
+  // Restore call ladders for all portfolios
+  if(d.callLadders&&typeof d.callLadders==='object'){
+    Object.keys(d.callLadders).forEach(function(key){
+      try{
+        localStorage.setItem('roi_callladder_'+key,JSON.stringify(d.callLadders[key]));
+      }catch(e){}
+    });
+  }
+  
+  // Restore shares for all portfolios
+  if(d.shares&&typeof d.shares==='object'){
+    Object.keys(d.shares).forEach(function(key){
+      try{
+        localStorage.setItem('roi_shares_'+key,JSON.stringify(d.shares[key]));
+      }catch(e){}
+    });
+  }
+  
   savePositions();return true;
 }
 async function ghDetect(token,repo){for(var i=0;i<2;i++){var b=['main','master'][i];var r=await fetch('https://api.github.com/repos/'+repo+'/branches/'+b,{headers:{'Authorization':'token '+token,'Accept':'application/vnd.github.v3+json'}});if(r.ok)return b;}return null;}
@@ -4352,6 +4633,24 @@ function calcLadder(l) {
   var remaining = longCost - totalIncome;
   var profit = totalIncome - longCost;
   var pct = longCost > 0 ? Math.min(Math.max(totalIncome / longCost, 0), 1) : 0;
+  
+  // Calculate current market value based on ticker prices or use override
+  var marketValue = 0;
+  
+  if (l.marketValueOverride !== undefined && l.marketValueOverride !== null && l.marketValueOverride !== '') {
+    // Use manual override if set
+    marketValue = parseFloat(l.marketValueOverride);
+  } else if (!l.closed && !l.longPutClosed && !l.noLongPut && l.longStrike) {
+    // Auto-calculate from current price if no override
+    var currentPrice = tickerPrices[l.ticker] || 0;
+    if (currentPrice > 0 && currentPrice < l.longStrike) {
+      // Long put is ITM: value = (strike - current price) × 100 × contracts
+      var intrinsicValue = (l.longStrike - currentPrice) * 100 * (l.contracts || 1);
+      marketValue = intrinsicValue;
+    }
+    // If OTM or ATM, market value stays 0 (could add time value later)
+  }
+  
   // collateral: if spread, max(0, short - long) * 100 * contracts; if no long put, full short strike
   var activeSP = (l.shortPuts || []).filter(function(sp) { return !sp.closed; });
   var totalCollat = 0;
@@ -4365,7 +4664,15 @@ function calcLadder(l) {
       totalCollat += sp.strike * 100 * cts;
     }
   });
-  return { longCost: longCost, totalIncome: totalIncome, remaining: remaining, profit: profit, pct: pct, collat: totalCollat };
+  return { 
+    longCost: longCost, 
+    totalIncome: totalIncome, 
+    remaining: remaining, 
+    profit: profit, 
+    pct: pct, 
+    collat: totalCollat,
+    marketValue: marketValue 
+  };
 }
 
 // ── RENDER ────────────────────────────────────────────────────────────────────
@@ -4589,11 +4896,12 @@ function renderSummary() {
     if (filterMode === 'not_expired' && isLadderExpired(l)) return false;
     return true;
   });
-  var totalLongCost = 0, totalIncome = 0, totalCollat = 0, openCount = 0, closedCount = 0;
+  var totalLongCost = 0, totalIncome = 0, totalCollat = 0, openCount = 0, closedCount = 0, totalMarketValue = 0;
   var totalBTO = 0, totalSTC = 0, totalSTO = 0, totalBTC = 0;
   visible.forEach(function(l) {
     var s = calcLadder(l);
     totalCollat += s.collat;
+    totalMarketValue += s.marketValue;
     if (l.closed) closedCount++; else openCount++;
     
     // BTO = long put cost - filter by open date
@@ -4651,6 +4959,7 @@ function renderSummary() {
   strip.innerHTML =
     scardBreakdown('Summary', [
       { label: 'Invested', value: '-' + fmt(totalInvested), color: '#DC2626' },
+      { label: 'Market Value', value: totalMarketValue > 0 ? fmt(totalMarketValue) : '—', color: '#059669' },
       { label: 'Income', value: totalIncomeReceived > 0 ? '+' + fmt(totalIncomeReceived) : '—', color: '#059669' },
       { label: 'Gap', value: fmtSign(-gap), color: gap <= 0 ? '#059669' : '#DC2626', isBold: true }
     ]) +
@@ -4775,12 +5084,13 @@ function renderLadders() {
     var pwRange = getWeekRange(1); // Previous week
     
     // Calculate ticker-level summary (filtered by week if needed)
-    var totalBTO = 0, totalSTC = 0, totalSTO = 0, totalBTC = 0, totalCollat = 0;
+    var totalBTO = 0, totalSTC = 0, totalSTO = 0, totalBTC = 0, totalCollat = 0, totalMarketValue = 0;
     var openCount = 0, closedCount = 0;
     
     laddersForTicker.forEach(function(l) {
       var s = calcLadder(l);
       if (l.closed) closedCount++; else openCount++;
+      totalMarketValue += s.marketValue;
       
       // BTO - filter by ladder open date
       if (!l.noLongPut && l.longPremium) {
@@ -4841,10 +5151,14 @@ function renderLadders() {
     html += '<button class="add-btn" style="background:var(--blue);font-size:0.68rem;padding:0.35rem 0.65rem;" onclick="openAddLongPutForTicker(\'' + ticker + '\')">+ Long Put</button>';
     html += '</div>';
     html += '</div>';
-    html += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.5rem;margin-bottom:0.5rem;">';
+    html += '<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:0.5rem;margin-bottom:0.5rem;">';
     html += '<div style="text-align:center;padding:0.35rem;background:var(--bg);border-radius:6px;">';
     html += '<div style="font-size:0.55rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.15rem;">Invested</div>';
     html += '<div style="font-size:0.82rem;font-weight:800;font-family:monospace;color:#DC2626;">-' + fmt(invested) + '</div>';
+    html += '</div>';
+    html += '<div style="text-align:center;padding:0.35rem;background:var(--bg);border-radius:6px;">';
+    html += '<div style="font-size:0.55rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.15rem;">Market Value</div>';
+    html += '<div style="font-size:0.82rem;font-weight:800;font-family:monospace;color:#059669;">' + (totalMarketValue > 0 ? fmt(totalMarketValue) : '—') + '</div>';
     html += '</div>';
     html += '<div style="text-align:center;padding:0.35rem;background:var(--bg);border-radius:6px;">';
     html += '<div style="font-size:0.55rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.15rem;">Income</div>';
@@ -4922,6 +5236,7 @@ function renderLadderCard(l) {
   // Header stats
   var hdrStats = [
     { val: fmt(s.longCost), lbl: 'Long Cost', color: '#2563EB' },
+    { val: s.marketValue > 0 ? fmt(s.marketValue) : '—', lbl: 'Market Value', color: '#059669' },
     { val: fmt(s.totalIncome), lbl: 'Income', color: s.totalIncome >= s.longCost ? '#059669' : '#D97706' },
     { val: fmtSign(s.profit), lbl: 'Net P&L', color: s.profit >= 0 ? '#059669' : '#DC2626' },
     { val: (l.shortPuts||[]).filter(function(sp){return!sp.closed;}).length + '', lbl: 'Active SP', color: '#D97706' },
@@ -4957,6 +5272,7 @@ function renderLadderCard(l) {
       '<div class="lp-fields-grid">' +
         lp_field('Strike', '$' + l.longStrike) +
         lp_field('Premium', fmt(l.longPremium * 100 * (l.contracts||1))) +
+        lp_field('Market Value', s.marketValue > 0 ? '<span style="color:#059669;font-weight:800;">' + fmt(s.marketValue) + '</span>' : '—') +
         lp_field('Expiry', fmtDate(l.longExpiry)) +
         lp_field('Days Left', dlStr || '—') +
         lp_field('#', l.contracts || 1) +
@@ -5624,7 +5940,11 @@ function openEditLadder(ladderId) {
         fieldVal('Long Put Expiry (MM/DD/YYYY)', 'el-expiry', 'text', l.longExpiry, true) +
         fieldVal('Opened Date (MM/DD/YYYY)', 'el-opendate', 'text', l.openDate || today(), false) +
       '</div>' +
-      fieldVal('Stock Position / Cost Basis ($)', 'el-position', 'number', l.position || '', false) +
+      '<div class="mf-row">' +
+        fieldVal('Stock Position / Cost Basis ($)', 'el-position', 'number', l.position || '', false) +
+        fieldVal('Market Value Override ($)', 'el-marketvalue', 'number', l.marketValueOverride || '', false) +
+      '</div>' +
+      '<div style="font-size:0.7rem;color:var(--text3);margin-top:-0.5rem;margin-bottom:0.75rem;font-style:italic;">Market value auto-calculates from current price. Override if you want to set it manually.</div>' +
       '<div class="mf"><label class="mf-label">Notes (optional)</label><input class="mf-input" id="el-notes" placeholder="Notes" value="' + (l.notes||'').replace(/"/g,"&quot;") + '"></div>' +
       '<div class="modal-btns">' +
         '<button class="modal-cancel" onclick="closeModal()">Cancel</button>' +
@@ -5651,9 +5971,12 @@ function saveEditLadder(ladderId) {
   var openDate = v('el-opendate').trim() || today();
   var notes = v('el-notes').trim();
   var position = parseFloat(v('el-position')) || null;
+  var marketValueOverride = v('el-marketvalue').trim();
+  marketValueOverride = marketValueOverride === '' ? null : parseFloat(marketValueOverride);
   if (!ticker || !strike || !premium || !expiry) { alert('Please fill in all required fields.'); return; }
   l.ticker = ticker; l.contracts = contracts; l.longStrike = strike; l.longPremium = premium;
   l.longExpiry = expiry; l.openDate = openDate; l.notes = notes; l.position = position;
+  l.marketValueOverride = marketValueOverride;
   save(); closeModal(); render();
 }
 
