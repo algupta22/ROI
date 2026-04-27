@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-04-27T20:36:28.401Z",
+  "savedAt": "2026-04-27T20:44:50.621Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -8607,12 +8607,12 @@
     ]
   },
   "cashBalances": {
-    "amit": -19060,
+    "amit": -9242,
     "lov-trad": 379570,
     "amit-roth": 7246,
     "lov-roth": 12622,
-    "lovelina": -3800,
-    "joint": 314
+    "lovelina": 312,
+    "joint": 458
   },
   "initialCashBalances": {
     "amit-roth": 16068,
@@ -40348,15 +40348,6 @@
         "ticker": "NVTS",
         "shares": 80,
         "costBasis": 9.15,
-        "purchaseDate": "4/14",
-        "coveredCalls": [],
-        "closed": false
-      },
-      {
-        "id": "mogapsrjqfwp",
-        "ticker": "SOFI",
-        "shares": 100,
-        "costBasis": 18.29,
         "purchaseDate": "4/14",
         "coveredCalls": [],
         "closed": false
