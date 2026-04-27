@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-04-27T18:12:49.999Z",
+  "savedAt": "2026-04-27T18:15:02.691Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -5846,7 +5846,7 @@
     "SMCI": 29.08,
     "SOFI": 18.44,
     "SMCZ": 24.53,
-    "TTD": 23.97,
+    "TTD": 23.385,
     "SPY": 713.94,
     "SMST": 30.4,
     "SPXS": 30.59,
@@ -5856,7 +5856,7 @@
     "MRVL": 164.31,
     "ONDS": 10.55,
     "NFLX": 92.355,
-    "PLTZ": 28.52
+    "PLTZ": 28.46
   },
   "earningsDates": {
     "TSLL": {
