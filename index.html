@@ -1041,7 +1041,7 @@ var selectedTickers=new Set(['ALL']),editingPrice=null,dropdownOpen=false;
 var bcDropdownOpen=false,bcTkSearch='';
 function bcToggleDropdown(){bcDropdownOpen=!bcDropdownOpen;var d=document.getElementById('bc-tkdrop');if(d)d.classList.toggle('open',bcDropdownOpen);if(bcDropdownOpen){setTimeout(function(){var s=document.getElementById('bc-tk-search');if(s)s.focus();},40);}else{bcTkSearch='';}}
 function bcSetTkSearch(v){bcTkSearch=v;var d=document.getElementById('bc-tkdrop');if(!d)return;var q=(v||'').toLowerCase();d.querySelectorAll('.ticker-dd-item[data-ddticker]').forEach(function(el){var t=el.dataset.ddticker;el.style.display=(!t||t==='ALL'||t.toLowerCase().indexOf(q)>=0||!q)?'':'none';});}
-var editCell=null,activeView='positions',spreadsOcFilter='open',spreadsExpFilter='all',spreadsTypeFilter='all',spreadsSpreadFilter='all',spreadsItmFilter=false,spreadsMoneyFilter='all',spreadsShowFilter='all',spreadsRiskFilter='all';
+var editCell=null,activeView='positions',spreadsOcFilter='open',spreadsExpFilter='all',spreadsTypeFilter='all',spreadsSpreadFilter='all',spreadsItmFilter=false,spreadsMoneyFilter='all',spreadsShowFilter='all',spreadsRiskFilter='all',spreadsRiskExpiryFilter='all';
 var modal=null,showUpload=false,csvPreview=null,importMsg='';
 var expandedGroups=new Set();
 var hiddenClosedGroups=new Set();
@@ -2952,6 +2952,26 @@ function rSpreadsView(data){
   html += '<button onclick="setGlobalWeekFilter(\'lw\');" style="padding:0.3rem 0.6rem;font-size:0.7rem;font-weight:700;border-radius:5px;cursor:pointer;border:1px solid var(--border);background:' + (globalWeekFilter === 'lw' ? '#7C3AED' : 'transparent') + ';color:' + (globalWeekFilter === 'lw' ? '#fff' : 'var(--text3)') + ';" title="Last Week (Monday - Sunday)">LW</button>';
   html += '</div>';
   
+  html += '<div style="width:1px;height:20px;background:var(--border);"></div>';
+  
+  // Risk Type filter (No Income/No Hedge/All)
+  html += '<div style="display:flex;gap:0.3rem;">';
+  html += '<div style="font-weight:700;font-size:0.7rem;color:#64748b;padding:0.3rem 0.3rem 0.3rem 0;">Risk:</div>';
+  html += '<button onclick="spreadsRiskFilter=\'all\';rMain();" style="padding:0.3rem 0.6rem;font-size:0.7rem;font-weight:700;border-radius:5px;cursor:pointer;border:1px solid var(--border);background:' + (spreadsRiskFilter === 'all' ? 'var(--black)' : 'transparent') + ';color:' + (spreadsRiskFilter === 'all' ? '#fff' : 'var(--text3)') + ';" title="Show all positions">All</button>';
+  html += '<button onclick="spreadsRiskFilter=\'naked\';rMain();" style="padding:0.3rem 0.6rem;font-size:0.7rem;font-weight:700;border-radius:5px;cursor:pointer;border:1px solid var(--border);background:' + (spreadsRiskFilter === 'naked' ? '#DC2626' : 'transparent') + ';color:' + (spreadsRiskFilter === 'naked' ? '#fff' : 'var(--text3)') + ';" title="LPUT without SPUT (bought protection, not selling against it)">No Income</button>';
+  html += '<button onclick="spreadsRiskFilter=\'unhedged\';rMain();" style="padding:0.3rem 0.6rem;font-size:0.7rem;font-weight:700;border-radius:5px;cursor:pointer;border:1px solid var(--border);background:' + (spreadsRiskFilter === 'unhedged' ? '#F59E0B' : 'transparent') + ';color:' + (spreadsRiskFilter === 'unhedged' ? '#fff' : 'var(--text3)') + ';" title="SPUT without LPUT (sold puts, no protection)">No Hedge</button>';
+  html += '</div>';
+  
+  html += '<div style="width:1px;height:20px;background:var(--border);"></div>';
+  
+  // Expiring filter (TW/NW/All for SPUT expiry)
+  html += '<div style="display:flex;gap:0.3rem;">';
+  html += '<div style="font-weight:700;font-size:0.7rem;color:#64748b;padding:0.3rem 0.3rem 0.3rem 0;">Expiring:</div>';
+  html += '<button onclick="spreadsRiskExpiryFilter=\'all\';rMain();" style="padding:0.3rem 0.6rem;font-size:0.7rem;font-weight:700;border-radius:5px;cursor:pointer;border:1px solid var(--border);background:' + (spreadsRiskExpiryFilter === 'all' ? 'var(--black)' : 'transparent') + ';color:' + (spreadsRiskExpiryFilter === 'all' ? '#fff' : 'var(--text3)') + ';" title="All expirations">All</button>';
+  html += '<button onclick="spreadsRiskExpiryFilter=\'tw\';rMain();" style="padding:0.3rem 0.6rem;font-size:0.7rem;font-weight:700;border-radius:5px;cursor:pointer;border:1px solid var(--border);background:' + (spreadsRiskExpiryFilter === 'tw' ? '#2563EB' : 'transparent') + ';color:' + (spreadsRiskExpiryFilter === 'tw' ? '#fff' : 'var(--text3)') + ';" title="SPUTs expiring this week">TW</button>';
+  html += '<button onclick="spreadsRiskExpiryFilter=\'nw\';rMain();" style="padding:0.3rem 0.6rem;font-size:0.7rem;font-weight:700;border-radius:5px;cursor:pointer;border:1px solid var(--border);background:' + (spreadsRiskExpiryFilter === 'nw' ? '#7C3AED' : 'transparent') + ';color:' + (spreadsRiskExpiryFilter === 'nw' ? '#fff' : 'var(--text3)') + ';" title="SPUTs expiring next week">NW</button>';
+  html += '</div>';
+  
   html += '</div>';
   
   // Check if we have any data
@@ -2980,8 +3000,82 @@ function rSpreadsView(data){
   // Render each ticker as compact row group
   tickers.forEach(function(ticker) {
     var group = tickerGroups[ticker];
-    var lps = group.longPuts;
-    var sps = group.shortPuts;
+    var allLps = group.longPuts;
+    var allSps = group.shortPuts;
+    
+    var lps = allLps;
+    var sps = allSps;
+    
+    // Calculate contract counts
+    var totalLPContracts = allLps.reduce(function(sum, lp) { return sum + (lp.contracts || 0); }, 0);
+    var totalSPContracts = allSps.reduce(function(sum, sp) { return sum + (sp.contracts || 0); }, 0);
+    
+    if (spreadsRiskFilter === 'naked') {
+      // Naked: Show only excess LPUT rows beyond what can be matched with SPUTs
+      if (totalLPContracts <= totalSPContracts) return; // No excess LPUTs
+      
+      var excessLPContracts = totalLPContracts - totalSPContracts;
+      
+      // Show only the excess LPUT rows
+      var contractsToShow = excessLPContracts;
+      lps = [];
+      for (var i = 0; i < allLps.length && contractsToShow > 0; i++) {
+        lps.push(allLps[i]);
+        contractsToShow -= (allLps[i].contracts || 0);
+      }
+      
+      sps = []; // Don't show any SPUTs in Naked filter
+    }
+    
+    if (spreadsRiskFilter === 'unhedged') {
+      // Unhedged: Show only excess SPUT rows beyond what can be matched with LPUTs
+      if (totalSPContracts <= totalLPContracts) return; // No excess SPUTs
+      
+      var excessSPContracts = totalSPContracts - totalLPContracts;
+      
+      // Show only the excess SPUT rows
+      var contractsToShow = excessSPContracts;
+      sps = [];
+      for (var i = 0; i < allSps.length && contractsToShow > 0; i++) {
+        sps.push(allSps[i]);
+        contractsToShow -= (allSps[i].contracts || 0);
+      }
+      
+      lps = []; // Don't show any LPUTs in Unhedged filter
+    }
+    
+    // Apply Expiring filter (TW/NW/All for SPUT expiry)
+    if (spreadsRiskExpiryFilter !== 'all') {
+      var now = new Date();
+      var dayOfWeek = now.getDay();
+      var daysToMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+      
+      var thisWeekStart = new Date(now);
+      thisWeekStart.setDate(now.getDate() - daysToMonday);
+      thisWeekStart.setHours(0, 0, 0, 0);
+      var thisWeekEnd = new Date(thisWeekStart);
+      thisWeekEnd.setDate(thisWeekStart.getDate() + 6);
+      thisWeekEnd.setHours(23, 59, 59, 999);
+      
+      var nextWeekStart = new Date(thisWeekStart);
+      nextWeekStart.setDate(thisWeekStart.getDate() + 7);
+      var nextWeekEnd = new Date(nextWeekStart);
+      nextWeekEnd.setDate(nextWeekStart.getDate() + 6);
+      nextWeekEnd.setHours(23, 59, 59, 999);
+      
+      var hasMatchingExpiry = sps.some(function(sp) {
+        if (!sp.expiry) return false;
+        var expDate = new Date(sp.expiry);
+        if (spreadsRiskExpiryFilter === 'tw') {
+          return expDate >= thisWeekStart && expDate <= thisWeekEnd;
+        } else if (spreadsRiskExpiryFilter === 'nw') {
+          return expDate >= nextWeekStart && expDate <= nextWeekEnd;
+        }
+        return false;
+      });
+      
+      if (!hasMatchingExpiry) return;
+    }
     
     if (lps.length === 0 && sps.length === 0) return;
     
@@ -3095,16 +3189,26 @@ async function fetchLivePrice(ticker){
 }
 function rAdminView(){
   var allT=[...new Set(positions.map(function(r){return r.ticker;}).concat(Object.keys(tickerPrices)))].sort();
-  // Sort: tickers with earnings date first (asc by date), then no-earnings tickers (alpha)
-  allT.sort(function(a,b){
-    var ea=getActiveEarnings(a),eb=getActiveEarnings(b);
-    var da=ea?fmtEarningsDate(ea):null,db=eb?fmtEarningsDate(eb):null;
-    var hasA=da&&da.diff>=0,hasB=db&&db.diff>=0;
-    if(hasA&&hasB)return da.diff-db.diff;
-    if(hasA&&!hasB)return -1;
-    if(!hasA&&hasB)return 1;
-    return a.localeCompare(b);
-  });
+  
+  // Check if user wants ticker sort instead of earnings sort
+  if (typeof adminSortBy !== 'undefined' && (adminSortBy === 'ticker_asc' || adminSortBy === 'ticker_desc')) {
+    if (adminSortBy === 'ticker_asc') {
+      allT.sort(function(a,b){ return a.localeCompare(b); });
+    } else {
+      allT.sort(function(a,b){ return b.localeCompare(a); });
+    }
+  } else {
+    // Default: Sort by earnings date (tickers with earnings first, then alphabetical)
+    allT.sort(function(a,b){
+      var ea=getActiveEarnings(a),eb=getActiveEarnings(b);
+      var da=ea?fmtEarningsDate(ea):null,db=eb?fmtEarningsDate(eb):null;
+      var hasA=da&&da.diff>=0,hasB=db&&db.diff>=0;
+      if(hasA&&hasB)return da.diff-db.diff;
+      if(hasA&&!hasB)return -1;
+      if(!hasA&&hasB)return 1;
+      return a.localeCompare(b);
+    });
+  }
   var rows=allT.map(function(t){
     var manual=tickerPrices[t]!=null?tickerPrices[t]:null;
     var live=liveCache[t]&&liveCache[t].price!=null?liveCache[t].price:null;
@@ -3131,7 +3235,7 @@ function rAdminView(){
   }).join('');
   // Fetch earnings live in background
   setTimeout(function(){fetchAllEarnings(allT);},100);
-  return'<div class="admin-wrap"><div class="admin-title">&#9881; Prices &amp; Earnings Admin</div><div class="admin-sub">Live prices and earnings dates fetched from Yahoo Finance. Manual overrides take effect when live data is unavailable.</div><div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Ticker</th><th>Live Price</th><th>Manual Price</th><th>Active Price</th><th>Set Manual Price</th><th style="color:#FCD34D;">Next Earnings</th><th style="color:#FCD34D;">Set Earnings</th></tr></thead><tbody>'+rows+'</tbody></table></div><div class="admin-add-row"><span class="admin-add-label">Add ticker:</span><input class="admin-add-input" id="adm-new-ticker" placeholder="Ticker" style="width:100px;"><input class="admin-add-input" id="adm-new-price" type="number" step="0.01" placeholder="Manual price" style="width:120px;"><button class="admin-add-btn" onclick="adminAddTicker()">+ Add</button></div></div>';
+  return'<div class="admin-wrap"><div class="admin-title">&#9881; Prices &amp; Earnings Admin</div><div class="admin-sub">Live prices and earnings dates fetched from Yahoo Finance. Manual overrides take effect when live data is unavailable.</div><div class="admin-table-wrap"><table class="admin-table"><thead><tr><th style="cursor:pointer;" onclick="toggleAdminSort()">Ticker ' + (typeof adminSortBy !== 'undefined' && adminSortBy === 'ticker_desc' ? '▼' : '▲') + '</th><th>Live Price</th><th>Manual Price</th><th>Active Price</th><th>Set Manual Price</th><th style="color:#FCD34D;">Next Earnings</th><th style="color:#FCD34D;">Set Earnings</th></tr></thead><tbody>'+rows+'</tbody></table></div><div class="admin-add-row"><span class="admin-add-label">Add ticker:</span><input class="admin-add-input" id="adm-new-ticker" placeholder="Ticker" style="width:100px;"><input class="admin-add-input" id="adm-new-price" type="number" step="0.01" placeholder="Manual price" style="width:120px;"><button class="admin-add-btn" onclick="adminAddTicker()">+ Add</button></div></div>';
 }
 function adminDateToInput(dateStr){
   // Convert M/D/YYYY to YYYY-MM-DD for date input
@@ -3164,6 +3268,15 @@ async function fetchAllEarnings(tickers){
 function adminSavePrice(ticker){var inp=document.getElementById('ap_'+ticker);if(!inp)return;var v=parseFloat(inp.value);if(isNaN(v)||v<=0){alert('Enter a valid price > 0');return;}setTickerPrice(ticker,v);rMain();}
 function adminClearPrice(ticker){setTickerPrice(ticker,null);rMain();}
 function adminAddTicker(){var t=((document.getElementById('adm-new-ticker')||{value:''}).value||'').trim().toUpperCase();var p=parseFloat((document.getElementById('adm-new-price')||{value:''}).value||'');if(!t){alert('Enter a ticker symbol.');return;}if(!isNaN(p)&&p>0)setTickerPrice(t,p);fetchAndUpdateLive([t]);rMain();}
+
+function toggleAdminSort() {
+  if (typeof adminSortBy === 'undefined' || adminSortBy === 'ticker_asc') {
+    adminSortBy = 'ticker_desc';
+  } else {
+    adminSortBy = 'ticker_asc';
+  }
+  rMain();
+}
 async function fetchAndUpdateLive(tickers){
   await Promise.all(tickers.map(async function(t){
     var p=await fetchLivePrice(t);
@@ -5677,6 +5790,16 @@ var sharePositions = [];
 // ── SHARES STATE ──────────────────────────────────────────────────────────────
 var sharesFilterMode = 'all';
 var sharesWeekFilter = 'all';
+var sharesSortBy = 'symbol_asc';
+
+function toggleSharesSort() {
+  if (sharesSortBy === 'symbol_asc') {
+    sharesSortBy = 'symbol_desc';
+  } else {
+    sharesSortBy = 'symbol_asc';
+  }
+  sharesRender();
+}
 var sharesTickerSearch = '';
 var sharesExpandedIds = new Set();
 var sharesTickerWeekFilters = {};
@@ -5687,10 +5810,31 @@ function saveSharePositions() {
 
 function sharesReloadForPortfolio() {
   try {
-    var portKey = plGetPortKey();
-    
+    // Check ap BEFORE calling plGetPortKey to handle ALL views
+    // If viewing ALL (non-retirement), aggregate from AMIT, LOVELINA, JOINT
+    if (typeof ap !== 'undefined' && ap === 'all') {
+      var allShares = [];
+      var mainKeys = ['amit', 'lovelina', 'joint'];
+      mainKeys.forEach(function(key) {
+        try {
+          // Map portfolio key to storage key
+          var storageMap = { 'amit': 'self', 'lovelina': 'spouse', 'joint': 'joint' };
+          var storageKey = storageMap[key] || key;
+          var raw = localStorage.getItem('roi_shares_' + storageKey);
+          var subShares = (raw && JSON.parse(raw)) || [];
+          if (Array.isArray(subShares)) {
+            // Tag each position with source portfolio
+            subShares.forEach(function(s) {
+              s._sourcePortfolio = key;
+            });
+            allShares = allShares.concat(subShares);
+          }
+        } catch(e) {}
+      });
+      sharePositions = allShares;
+    }
     // If viewing ALL RETIREMENT, aggregate from all retirement sub-portfolios
-    if (typeof ap !== 'undefined' && ap === 'retirement' && (typeof as === 'undefined' || as === 'ret-all')) {
+    else if (typeof ap !== 'undefined' && ap === 'retirement' && (typeof as === 'undefined' || as === 'ret-all')) {
       var allRetirementShares = [];
       var retirementKeys = ['self_roth', 'spouse_roth', 'spouse_ira'];
       retirementKeys.forEach(function(key) {
@@ -5698,12 +5842,18 @@ function sharesReloadForPortfolio() {
           var raw = localStorage.getItem('roi_shares_' + key);
           var subShares = (raw && JSON.parse(raw)) || [];
           if (Array.isArray(subShares)) {
+            // Tag each position with source portfolio
+            subShares.forEach(function(s) {
+              s._sourcePortfolio = key;
+            });
             allRetirementShares = allRetirementShares.concat(subShares);
           }
         } catch(e) {}
       });
       sharePositions = allRetirementShares;
     } else {
+      // Single portfolio view
+      var portKey = plGetPortKey();
       var raw = localStorage.getItem('roi_shares_' + portKey);
       sharePositions = (raw && JSON.parse(raw)) || [];
       if (!Array.isArray(sharePositions)) sharePositions = [];
@@ -5807,24 +5957,14 @@ function sharesRenderSummary() {
   var callNet = totalCallSTO - totalCallBTC;
   var saleNet = totalSaleProceeds - totalSaleCost;
   var totalIncome = callNet + saleNet;
-  var gap = totalInvested - totalIncome;
+  var totalPL = totalMarketValue - totalInvested;
   
   root.style.cssText = 'display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0.5rem;margin-bottom:0.75rem;';
   root.innerHTML =
     scardBreakdown('Summary', [
-      { label: 'Invested', value: '-' + fmt(totalInvested), color: '#DC2626' },
-      { label: 'Income', value: totalIncome > 0 ? '+' + fmt(totalIncome) : '—', color: '#059669' },
-      { label: 'Gap', value: fmtSign(-gap), color: gap <= 0 ? '#059669' : '#DC2626', isBold: true }
-    ]) +
-    scardBreakdown('Stock Shares', [
-      { label: 'Shares', value: totalSharesCount.toLocaleString(), color: 'var(--black)' },
       { label: 'Cost', value: '-' + fmt(totalInvested), color: '#DC2626' },
-      { label: 'Avg', value: totalSharesCount > 0 ? '$' + (totalInvested / totalSharesCount).toFixed(2) : '—', color: 'var(--text2)' }
-    ]) +
-    scardBreakdown('Market Value', [
-      { label: 'Current', value: totalMarketValue > 0 ? fmt(totalMarketValue) : '—', color: 'var(--black)' },
-      { label: 'Cost', value: '-' + fmt(totalInvested), color: '#DC2626' },
-      { label: 'Unrealized', value: totalMarketValue > 0 ? fmtSign(unrealizedGL) : '—', color: unrealizedGL >= 0 ? '#059669' : '#DC2626', isBold: true }
+      { label: 'Market Value', value: totalMarketValue > 0 ? fmt(totalMarketValue) : '—', color: 'var(--black)' },
+      { label: 'P&L', value: totalMarketValue > 0 ? fmtSign(totalPL) : '—', color: totalPL >= 0 ? '#059669' : '#DC2626', isBold: true }
     ]) +
     scardBreakdown('Covered Call', [
       { label: 'STO', value: totalCallSTO > 0 ? '+' + fmt(totalCallSTO) : '—', color: '#059669' },
@@ -5832,7 +5972,7 @@ function sharesRenderSummary() {
       { label: 'Net', value: fmtSign(callNet), color: callNet >= 0 ? '#059669' : '#DC2626', isBold: true }
     ]) +
     scard('Share Sales', fmtSign(saleNet), saleNet >= 0 ? 'profit ▲' : 'loss ▼', saleNet >= 0 ? 'pos-val' : 'neg-val') +
-    scard('Total Income', fmtSign(totalIncome), gap <= 0 ? 'breakeven ✓' : 'in progress', totalIncome >= totalInvested ? 'pos-val' : '');
+    scard('Total Income', fmtSign(totalIncome), totalIncome >= 0 ? 'realized ✓' : 'loss', totalIncome >= 0 ? 'pos-val' : 'neg-val');
 }
 
 function sharesRenderControls() {
@@ -6015,59 +6155,51 @@ function sharesRenderPositions() {
     return;
   }
   
-  var html = '';
-  var isAllRetirement = (typeof ap !== 'undefined' && ap === 'retirement' && (typeof as === 'undefined' || as === 'ret-all'));
+  // Simple table layout
+  var isAggregateView = (typeof ap !== 'undefined' && ap === 'all') || 
+                        (typeof ap !== 'undefined' && ap === 'retirement' && (typeof as === 'undefined' || as === 'ret-all'));
   
-  tickers.forEach(function(ticker) {
-    var positions = byTicker[ticker];
-    var tickerExpanded = sharesExpandedIds.has('ticker-' + ticker);
-    
-    var totalShares = 0;
-    var totalInvested = 0;
-    var totalCallIncome = 0;
-    var totalSaleIncome = 0;
-    
-    positions.forEach(function(s) {
-      totalShares += s.shares || 0;
-      totalInvested += (s.shares || 0) * (s.costBasis || 0);
-      (s.coveredCalls || []).forEach(function(cc) {
-        if (!cc.closed) totalCallIncome += cc.received || 0;
-        else totalCallIncome -= (cc.btcPaid || 0);
-      });
-      (s.shareSales || []).forEach(function(sale) {
-        var proceeds = (sale.shares || 0) * (sale.salePrice || 0);
-        var cost = (sale.shares || 0) * (s.costBasis || 0);
-        totalSaleIncome += (proceeds - cost);
-      });
+  var html = '<table style="width:100%;border-collapse:collapse;background:white;border-radius:8px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.1);">';
+  html += '<thead><tr style="background:#F9FAFB;border-bottom:2px solid var(--border);">';
+  html += '<th style="padding:0.75rem 1rem;text-align:center;font-size:0.7rem;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:0.05em;width:50px;"></th>';
+  if (isAggregateView) {
+    html += '<th style="padding:0.75rem 1rem;text-align:left;font-size:0.7rem;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">Portfolio</th>';
+  }
+  html += '<th style="padding:0.75rem 1rem;text-align:left;font-size:0.7rem;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:0.05em;cursor:pointer;" onclick="toggleSharesSort()">Symbol ' + (sharesSortBy === 'symbol_asc' ? '▲' : sharesSortBy === 'symbol_desc' ? '▼' : '') + '</th>';
+  html += '<th style="padding:0.75rem 1rem;text-align:right;font-size:0.7rem;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">Shares</th>';
+  html += '<th style="padding:0.75rem 1rem;text-align:right;font-size:0.7rem;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">Price</th>';
+  html += '<th style="padding:0.75rem 1rem;text-align:right;font-size:0.7rem;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">Average cost</th>';
+  html += '<th style="padding:0.75rem 1rem;text-align:right;font-size:0.7rem;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">Cost</th>';
+  html += '<th style="padding:0.75rem 1rem;text-align:right;font-size:0.7rem;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">Income</th>';
+  html += '<th style="padding:0.75rem 1rem;text-align:right;font-size:0.7rem;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">Total return ▼</th>';
+  html += '<th style="padding:0.75rem 1rem;text-align:right;font-size:0.7rem;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">Equity</th>';
+  html += '<th style="padding:0.75rem 1rem;text-align:right;font-size:0.7rem;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:0.05em;"></th>';
+  html += '</tr></thead>';
+  html += '<tbody>';
+  
+  // Sort positions
+  var sortedFiltered = filtered.slice();
+  if (sharesSortBy === 'symbol_asc') {
+    sortedFiltered.sort(function(a, b) {
+      return a.ticker.localeCompare(b.ticker);
     });
-    
-    var totalIncome = totalCallIncome + totalSaleIncome;
-    
-    html += '<div style="background:linear-gradient(135deg, var(--bg2) 0%, var(--bg3) 100%);border:1px solid var(--border);border-radius:8px;padding:0.6rem 0.85rem;margin-bottom:0.6rem;box-shadow:0 1px 3px rgba(0,0,0,0.06);">';
-    html += '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem;cursor:pointer;" onclick="toggleSharesTicker(\'' + ticker + '\')">';
-    html += '<div style="display:flex;align-items:center;gap:0.6rem;">';
-    html += '<span style="font-size:1.1rem;color:var(--text2);">' + (tickerExpanded ? '▼' : '▶') + '</span>';
-    html += '<span style="font-size:1.15rem;font-weight:800;color:var(--black);letter-spacing:0.02em;">' + ticker + '</span>';
-    html += '<span style="font-size:0.65rem;color:var(--text3);font-weight:600;background:var(--bg);padding:0.2rem 0.5rem;border-radius:12px;">' + positions.length + ' position' + (positions.length !== 1 ? 's' : '') + '</span>';
-    html += '</div>';
-    html += '<div style="display:flex;gap:0.75rem;font-size:0.7rem;">';
-    html += '<div><span style="color:var(--text3);">Shares:</span> <span style="font-weight:700;">' + totalShares + '</span></div>';
-    html += '<div><span style="color:var(--text3);">Invested:</span> <span style="font-weight:700;">$' + totalInvested.toFixed(2) + '</span></div>';
-    html += '<div><span style="color:var(--text3);">Income:</span> <span style="font-weight:700;color:' + (totalIncome >= 0 ? 'var(--green)' : 'var(--red)') + ';">' + (totalIncome >= 0 ? '+' : '') + '$' + totalIncome.toFixed(2) + '</span></div>';
-    html += '</div>';
-    html += '</div>';
-    
-    if (tickerExpanded && !isAllRetirement) {
-      html += positions.map(function(s) { return renderSharePositionCard(s); }).join('');
-    }
-    
-    html += '</div>';
+  } else if (sharesSortBy === 'symbol_desc') {
+    sortedFiltered.sort(function(a, b) {
+      return b.ticker.localeCompare(a.ticker);
+    });
+  }
+  
+  // Flatten all positions (no grouping)
+  sortedFiltered.forEach(function(s) {
+    html += renderSharePositionCard(s, isAggregateView);
   });
+  
+  html += '</tbody></table>';
   
   root.innerHTML = html;
 }
 
-function renderSharePositionCard(s) {
+function renderSharePositionCard(s, isAggregateView) {
   var totalCost = (s.shares || 0) * (s.costBasis || 0);
   var callIncome = 0;
   var callBTC = 0;
@@ -6077,7 +6209,6 @@ function renderSharePositionCard(s) {
   });
   var netCallIncome = callIncome - callBTC;
   
-  // Calculate share sale income
   var saleIncome = 0;
   (s.shareSales || []).forEach(function(sale) {
     var proceeds = (sale.shares || 0) * (sale.salePrice || 0);
@@ -6085,160 +6216,152 @@ function renderSharePositionCard(s) {
     saleIncome += (proceeds - cost);
   });
   
-  // Calculate market value
   var currentPrice = tickerPrices[s.ticker] || 0;
   var marketValue = (s.shares || 0) * currentPrice;
   var unrealizedGL = marketValue - totalCost;
+  var totalReturn = unrealizedGL + netCallIncome + saleIncome;
   
-  var totalIncome = netCallIncome + saleIncome;
-  var netPosition = totalIncome - totalCost;
   var expanded = sharesExpandedIds.has(s.id);
   
-  // Use same classes as Put Ladders
-  var statusBadge = s.closed
-    ? '<span class="lh-badge-closed">Closed</span>'
-    : '<span class="lh-badge-open">Open</span>';
+  var totalIncome = netCallIncome + saleIncome;
   
-  var hdrBtns = s.closed
-    ? '<button class="hdr-btn" onclick="event.stopPropagation();reopenSharePosition(\'' + s.id + '\')">Reopen</button>'
-    : '<button class="hdr-btn" onclick="event.stopPropagation();openAddCoveredCall(\'' + s.id + '\')">+ Covered Call</button>';
-  hdrBtns += '<button class="hdr-btn red" onclick="event.stopPropagation();deleteSharePosition(\'' + s.id + '\')" title="Delete entire position" style="margin-left:0.25rem;">Delete</button>';
+  // Portfolio name mapping
+  var portfolioNames = {
+    'amit': 'AMIT',
+    'lovelina': 'LOVELINA',
+    'joint': 'JOINT',
+    'self_roth': 'Self Roth IRA',
+    'spouse_roth': 'Spouse Roth IRA',
+    'spouse_ira': 'Spouse IRA'
+  };
+  var portfolioName = portfolioNames[s._sourcePortfolio] || '';
   
-  var html = '<div class="ladder-card" id="sc-' + s.id + '">';
-  html += '<div class="ladder-hdr" onclick="toggleSharePosition(\'' + s.id + '\')">';
-  html += '<div class="lh-left">';
-  html += '<span class="lh-ticker">' + s.ticker + '</span>';
-  html += statusBadge;
-  if (s.purchaseDate) html += '<span class="lh-expiry">Bought: ' + s.purchaseDate + '</span>';
-  html += '<span class="lh-expiry" style="color:' + (netPosition>=0?'#059669':'#DC2626') + ';background:' + (netPosition>=0?'#F0FDF4':'#FEF2F2') + ';border-color:' + (netPosition>=0?'#BBF7D0':'#FECACA') + ';">' + (netPosition >= 0 ? '+' : '') + '$' + netPosition.toFixed(2) + '</span>';
-  html += '</div>';
-  html += '<div class="lh-right">' + hdrBtns + '<span class="chevron' + (expanded?' open':'') + '">&#9654;</span></div>';
-  html += '</div>';
+  // Simple table row
+  var html = '<tr class="share-row' + (expanded ? ' expanded' : '') + '" style="border-bottom:1px solid var(--border);">';
   
-  if (expanded) {
-    // Left panel - Stock Position
-    html += '<div class="ladder-body">';
-    html += '<div class="lp-panel">';
-    html += '<div class="lp-panel-title"><span>&#128200; Stock Position</span>';
-    html += '<div class="lp-panel-actions">';
-    html += '<button class="lp-edit-btn" onclick="event.stopPropagation();openEditSharePosition(\'' + s.id + '\')">&#9998; Edit</button>';
-    if (!s.closed) {
-      html += '<button class="lp-del-btn" onclick="event.stopPropagation();closeSharePosition(\'' + s.id + '\')">&#10005; Close</button>';
-    }
-    html += '</div></div>';
-    html += '<div class="lp-fields-grid">';
-    html += lp_field('Shares', (s.shares || 0).toLocaleString());
-    html += lp_field('Cost Basis', '$' + (s.costBasis || 0).toFixed(2) + '/share');
-    html += lp_field('Total Cost', '<span class="neg-val">-$' + totalCost.toFixed(2) + '</span>');
-    if (s.purchaseDate) html += lp_field('Purchase Date', s.purchaseDate);
-    if (currentPrice > 0) {
-      html += lp_field('Market Value', '$' + marketValue.toFixed(2));
-      html += lp_field('Unrealized G/L', '<span class="' + (unrealizedGL>=0?'pos-val':'neg-val') + '">' + (unrealizedGL >= 0 ? '+' : '') + '$' + unrealizedGL.toFixed(2) + '</span>');
-    }
-    html += lp_field('Call Income', '<span class="' + (netCallIncome>=0?'pos-val':'neg-val') + '">' + (netCallIncome >= 0 ? '+' : '') + '$' + netCallIncome.toFixed(2) + '</span>');
-    html += lp_field('Sale Income', '<span class="' + (saleIncome>=0?'pos-val':'neg-val') + '">' + (saleIncome >= 0 ? '+' : '') + '$' + saleIncome.toFixed(2) + '</span>');
-    html += lp_field('Total Income', '<span class="' + (totalIncome>=0?'pos-val':'neg-val') + '">' + (totalIncome >= 0 ? '+' : '') + '$' + totalIncome.toFixed(2) + '</span>');
-    html += lp_field('Net P&L', '<span class="' + (netPosition>=0?'pos-val':'neg-val') + '">' + (netPosition >= 0 ? '+' : '') + '$' + netPosition.toFixed(2) + '</span>');
-    html += '</div>';
-    html += '</div>';
-    
-    // Right panel - Covered Calls (using sp-panel like Put Ladders)
-    html += '<div class="sp-panel">';
-    html += '<div style="display:flex;align-items:center;justify-content:space-between;padding:0.75rem 0.85rem;background:var(--bg3);border-radius:6px 6px 0 0;">';
-    html += '<div style="font-size:0.75rem;font-weight:800;color:var(--black);text-transform:uppercase;letter-spacing:0.06em;">Covered Calls</div>';
-    html += '<button class="add-sp-btn green-btn" onclick="event.stopPropagation();openAddCoveredCall(\'' + s.id + '\')">+ Covered Call</button>';
-    html += '</div>';
-    
-    var calls = (s.coveredCalls || []).sort(function(a, b) {
-      if (!a.expiry) return 1;
-      if (!b.expiry) return -1;
-      return new Date(a.expiry) - new Date(b.expiry);
-    });
-    
-    if (calls.length === 0) {
-      html += '<div style="padding:2rem;text-align:center;color:var(--text3);font-size:0.75rem;font-style:italic;">No covered calls yet — sell calls to generate income</div>';
-    } else {
-      html += '<table class="sp-table">';
-      html += '<thead><tr>';
-      html += '<th>TYPE</th><th>STATUS</th><th>STRIKE</th><th>EXPIRY</th><th>#</th><th>RECEIVED</th><th>DEBIT (BTC)</th><th>OPENED</th><th></th>';
-      html += '</tr></thead><tbody>';
-      
-      calls.forEach(function(cc) {
-        html += '<tr class="' + (cc.closed ? 'closed-row' : '') + '">';
-        html += '<td><span class="type-badge blue">SCALL</span></td>';
-        html += '<td><span class="status-badge ' + (cc.closed ? 'gray' : 'green') + '">' + (cc.closed ? 'CLOSED' : 'OPEN') + '</span></td>';
-        html += '<td><strong>$' + (cc.strike || 0) + '</strong></td>';
-        html += '<td>' + (cc.expiry || '—') + '</td>';
-        html += '<td>' + (cc.contracts || 0) + '</td>';
-        html += '<td class="green"><strong>+$' + (cc.received || 0).toFixed(2) + '</strong></td>';
-        html += '<td>' + (cc.btcPaid ? '<span class="red"><strong>-$' + cc.btcPaid.toFixed(2) + '</strong></span>' : '—') + '</td>';
-        html += '<td>' + (cc.openDate || '—') + '</td>';
-        html += '<td class="sp-actions">';
-        html += '<button class="action-btn" title="Edit" onclick="event.stopPropagation();openEditCoveredCall(\'' + s.id + '\',\'' + cc.id + '\')">✏️</button>';
-        html += '<button class="action-btn" title="Copy" onclick="event.stopPropagation();copyCoveredCall(\'' + s.id + '\',\'' + cc.id + '\')">📋</button>';
-        if (!cc.closed) {
-          html += '<button class="action-btn close-btn" title="Close" onclick="event.stopPropagation();closeCoveredCall(\'' + s.id + '\',\'' + cc.id + '\')">Close</button>';
-        }
-        html += '<button class="action-btn delete-btn" title="Delete" onclick="event.stopPropagation();deleteCoveredCall(\'' + s.id + '\',\'' + cc.id + '\')">🗑️</button>';
-        html += '</td>';
-        html += '</tr>';
-      });
-      
-      html += '</tbody></table>';
-    }
-    
-    // Share Sales section
-    html += '<div style="display:flex;align-items:center;justify-content:space-between;padding:0.75rem 0.85rem;background:var(--bg3);border-radius:6px 6px 0 0;margin-top:1rem;">';
-    html += '<div style="font-size:0.75rem;font-weight:800;color:var(--black);text-transform:uppercase;letter-spacing:0.06em;">Share Sales</div>';
-    html += '<button class="add-sp-btn green-btn" onclick="event.stopPropagation();openSellSharesTransaction(\'' + s.id + '\')">+ Sell Shares</button>';
-    html += '</div>';
-    
-    var sales = (s.shareSales || []).sort(function(a, b) {
-      if (!a.saleDate) return 1;
-      if (!b.saleDate) return -1;
-      return new Date(b.saleDate) - new Date(a.saleDate);
-    });
-    
-    if (sales.length === 0) {
-      html += '<div style="padding:2rem;text-align:center;color:var(--text3);font-size:0.75rem;font-style:italic;">No share sales yet — sell shares to realize gains/losses</div>';
-    } else {
-      html += '<table class="sp-table">';
-      html += '<thead><tr>';
-      html += '<th>TYPE</th><th>SHARES</th><th>COST BASIS</th><th>SALE PRICE</th><th>PROCEEDS</th><th>PROFIT/LOSS</th><th>SALE DATE</th><th></th>';
-      html += '</tr></thead><tbody>';
-      
-      sales.forEach(function(sale) {
-        var totalSale = (sale.shares || 0) * (sale.salePrice || 0);
-        var totalCost = (sale.shares || 0) * (s.costBasis || 0);
-        var profitLoss = totalSale - totalCost;
-        
-        html += '<tr>';
-        html += '<td><span class="type-badge" style="background:#10b981;border-color:#10b981;">SELL</span></td>';
-        html += '<td><strong>' + (sale.shares || 0) + '</strong></td>';
-        html += '<td>$' + (s.costBasis || 0).toFixed(2) + '/sh</td>';
-        html += '<td>$' + (sale.salePrice || 0).toFixed(2) + '/sh</td>';
-        html += '<td class="green"><strong>+$' + totalSale.toFixed(2) + '</strong></td>';
-        html += '<td><strong class="' + (profitLoss >= 0 ? 'green' : 'red') + '">' + (profitLoss >= 0 ? '+' : '') + '$' + profitLoss.toFixed(2) + '</strong></td>';
-        html += '<td>' + (sale.saleDate || '—') + '</td>';
-        html += '<td class="sp-actions">';
-        html += '<button class="action-btn" title="Edit" onclick="event.stopPropagation();openEditShareSale(\'' + s.id + '\',\'' + sale.id + '\')">✏️</button>';
-        html += '<button class="action-btn delete-btn" title="Delete" onclick="event.stopPropagation();deleteShareSale(\'' + s.id + '\',\'' + sale.id + '\')">🗑️</button>';
-        html += '</td>';
-        html += '</tr>';
-      });
-      
-      html += '</tbody></table>';
-    }
-    
-    
-    html += '</div>';
-    html += '</div>';
+  // Expand/Collapse button
+  html += '<td style="padding:0.75rem 1rem;text-align:center;"><button onclick="toggleSharePosition(\'' + s.id + '\')" style="background:none;border:none;cursor:pointer;font-size:1rem;color:var(--text3);">' + (expanded ? '▼' : '▶') + '</button></td>';
+  
+  // Portfolio column (conditional)
+  if (isAggregateView) {
+    html += '<td style="padding:0.75rem 1rem;"><span style="font-size:0.75rem;font-weight:600;color:#6B7280;">' + portfolioName + '</span></td>';
   }
   
-  html += '</div>';
+  // Symbol
+  html += '<td style="padding:0.75rem 1rem;"><strong style="font-size:0.85rem;color:var(--black);">' + s.ticker + '</strong></td>';
+  
+  // Shares
+  html += '<td style="padding:0.75rem 1rem;text-align:right;"><span style="font-size:0.8rem;color:var(--black);">' + (s.shares || 0).toLocaleString() + '</span></td>';
+  
+  // Price (current from Admin)
+  html += '<td style="padding:0.75rem 1rem;text-align:right;"><span style="font-size:0.8rem;color:var(--black);">' + (currentPrice > 0 ? '$' + currentPrice.toFixed(2) : '—') + '</span></td>';
+  
+  // Average cost
+  html += '<td style="padding:0.75rem 1rem;text-align:right;"><span style="font-size:0.8rem;color:var(--text2);">' + (s.costBasis > 0 ? '$' + s.costBasis.toFixed(2) : '—') + '</span></td>';
+  
+  // Cost (shares * average cost)
+  html += '<td style="padding:0.75rem 1rem;text-align:right;"><span style="font-size:0.8rem;color:#DC2626;font-weight:700;">-$' + totalCost.toFixed(2) + '</span></td>';
+  
+  // Income (calls + sales)
+  var incomeColor = totalIncome >= 0 ? '#059669' : '#DC2626';
+  html += '<td style="padding:0.75rem 1rem;text-align:right;"><span style="font-size:0.8rem;font-weight:700;color:' + incomeColor + ';">' + (totalIncome >= 0 ? '+' : '') + '$' + totalIncome.toFixed(2) + '</span></td>';
+  
+  // Total return (unrealized + income)
+  var returnColor = totalReturn >= 0 ? '#059669' : '#DC2626';
+  html += '<td style="padding:0.75rem 1rem;text-align:right;"><span style="font-size:0.85rem;font-weight:700;color:' + returnColor + ';">' + (totalReturn >= 0 ? '▲ ' : '▼ ') + (totalReturn >= 0 ? '+' : '') + '$' + totalReturn.toFixed(2) + '</span></td>';
+  
+  // Equity (market value)
+  html += '<td style="padding:0.75rem 1rem;text-align:right;"><strong style="font-size:0.85rem;color:var(--black);">' + (marketValue > 0 ? '$' + marketValue.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) : '—') + '</strong></td>';
+  
+  // Actions
+  html += '<td style="padding:0.75rem 1rem;text-align:right;">';
+  html += '<button class="action-btn" onclick="event.stopPropagation();openMoveSharesModal(\'' + s.id + '\')" title="Move to another portfolio" style="background:#FEF3C7;border:1px solid #FCD34D;color:#92400E;padding:0.25rem 0.5rem;border-radius:4px;font-size:0.7rem;font-weight:600;cursor:pointer;margin-right:0.25rem;">Move</button>';
+  html += '<button class="action-btn" onclick="event.stopPropagation();openEditSharePosition(\'' + s.id + '\')" title="Edit" style="background:#EFF6FF;border:1px solid #BFDBFE;color:#2563EB;padding:0.25rem 0.5rem;border-radius:4px;font-size:0.7rem;font-weight:600;cursor:pointer;margin-right:0.25rem;">Edit</button>';
+  html += '<button class="action-btn delete-btn" onclick="event.stopPropagation();deleteSharePosition(\'' + s.id + '\')" title="Delete" style="background:#FEF2F2;border:1px solid rgba(220,38,38,0.2);color:#DC2626;padding:0.25rem 0.5rem;border-radius:4px;font-size:0.7rem;font-weight:600;cursor:pointer;">Delete</button>';
+  html += '</td>';
+  
+  html += '</tr>';
+  
+  // Expanded details row
+  if (expanded) {
+    var totalCols = isAggregateView ? 11 : 10;
+    html += '<tr class="details-row"><td colspan="' + totalCols + '" style="padding:0;background:#FAFAFA;border-bottom:2px solid var(--border);">';
+    html += '<div style="padding:1.5rem 2rem;">';
+    
+    // Income breakdown
+    html += '<div style="margin-bottom:1.5rem;">';
+    html += '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.75rem;">';
+    html += '<div style="font-size:0.7rem;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;">Income Breakdown</div>';
+    if ((s.coveredCalls || []).length === 0) {
+      html += '<button class="add-sp-btn green-btn" onclick="event.stopPropagation();openAddCoveredCall(\'' + s.id + '\')">+ Add Call</button>';
+    }
+    html += '</div>';
+    html += '<div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:1rem;">';
+    html += '<div><div style="font-size:0.65rem;color:var(--text3);">Call Income</div><div style="font-size:0.9rem;font-weight:700;color:' + (netCallIncome >= 0 ? '#059669' : '#DC2626') + ';">' + (netCallIncome >= 0 ? '+' : '') + '$' + netCallIncome.toFixed(2) + '</div></div>';
+    html += '<div><div style="font-size:0.65rem;color:var(--text3);">Sale Income</div><div style="font-size:0.9rem;font-weight:700;color:' + (saleIncome >= 0 ? '#059669' : '#DC2626') + ';">' + (saleIncome >= 0 ? '+' : '') + '$' + saleIncome.toFixed(2) + '</div></div>';
+    html += '<div><div style="font-size:0.65rem;color:var(--text3);">Unrealized G/L</div><div style="font-size:0.9rem;font-weight:700;color:' + (unrealizedGL >= 0 ? '#059669' : '#DC2626') + ';">' + (unrealizedGL >= 0 ? '+' : '') + '$' + unrealizedGL.toFixed(2) + '</div></div>';
+    html += '<div><div style="font-size:0.65rem;color:var(--text3);">Total Return</div><div style="font-size:0.9rem;font-weight:700;color:' + (totalReturn >= 0 ? '#059669' : '#DC2626') + ';">' + (totalReturn >= 0 ? '+' : '') + '$' + totalReturn.toFixed(2) + '</div></div>';
+    html += '</div></div>';
+    
+    // Covered Calls section (if any)
+    var calls = (s.coveredCalls || []);
+    if (calls.length > 0) {
+      html += '<div style="margin-bottom:1.5rem;">';
+      html += '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.75rem;">';
+      html += '<div style="font-size:0.7rem;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;">Covered Calls (' + calls.length + ')</div>';
+      html += '<button class="add-sp-btn green-btn" onclick="event.stopPropagation();openAddCoveredCall(\'' + s.id + '\')">+ Add Call</button>';
+      html += '</div>';
+      
+      html += '<table style="width:100%;border-collapse:collapse;font-size:0.75rem;">';
+      html += '<thead><tr style="background:#F3F4F6;"><th style="padding:0.5rem;text-align:left;font-size:0.65rem;color:var(--text3);font-weight:700;">STRIKE</th><th style="padding:0.5rem;text-align:left;font-size:0.65rem;color:var(--text3);font-weight:700;">EXPIRY</th><th style="padding:0.5rem;text-align:right;font-size:0.65rem;color:var(--text3);font-weight:700;">CONTRACTS</th><th style="padding:0.5rem;text-align:right;font-size:0.65rem;color:var(--text3);font-weight:700;">RECEIVED</th><th style="padding:0.5rem;text-align:right;font-size:0.65rem;color:var(--text3);font-weight:700;">STATUS</th><th></th></tr></thead>';
+      html += '<tbody>';
+      calls.forEach(function(cc) {
+        html += '<tr style="border-bottom:1px solid #E5E7EB;">';
+        html += '<td style="padding:0.5rem;"><strong>$' + (cc.strike || 0) + '</strong></td>';
+        html += '<td style="padding:0.5rem;">' + (cc.expiry || '—') + '</td>';
+        html += '<td style="padding:0.5rem;text-align:right;">' + (cc.contracts || 0) + '</td>';
+        html += '<td style="padding:0.5rem;text-align:right;color:#059669;font-weight:700;">+$' + (cc.received || 0).toFixed(2) + '</td>';
+        html += '<td style="padding:0.5rem;text-align:right;"><span style="padding:0.15rem 0.4rem;border-radius:3px;font-size:0.65rem;font-weight:700;background:' + (cc.closed ? '#F3F4F6' : '#DCFCE7') + ';color:' + (cc.closed ? '#6B7280' : '#059669') + ';">' + (cc.closed ? 'CLOSED' : 'OPEN') + '</span></td>';
+        html += '<td style="padding:0.5rem;text-align:right;"><button onclick="event.stopPropagation();deleteCoveredCall(\'' + s.id + '\',\'' + cc.id + '\')" style="color:#DC2626;background:none;border:none;cursor:pointer;font-size:0.75rem;">🗑️</button></td>';
+        html += '</tr>';
+      });
+      html += '</tbody></table></div>';
+    }
+    
+    // Share Sales History section
+    var sales = (s.shareSales || []);
+    if (sales.length > 0) {
+      html += '<div>';
+      html += '<div style="font-size:0.7rem;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.75rem;">Share Sales History (' + sales.length + ')</div>';
+      
+      html += '<table style="width:100%;border-collapse:collapse;font-size:0.75rem;">';
+      html += '<thead><tr style="background:#F3F4F6;"><th style="padding:0.5rem;text-align:left;font-size:0.65rem;color:var(--text3);font-weight:700;">DATE</th><th style="padding:0.5rem;text-align:right;font-size:0.65rem;color:var(--text3);font-weight:700;">SHARES</th><th style="padding:0.5rem;text-align:right;font-size:0.65rem;color:var(--text3);font-weight:700;">COST BASIS</th><th style="padding:0.5rem;text-align:right;font-size:0.65rem;color:var(--text3);font-weight:700;">SALE PRICE</th><th style="padding:0.5rem;text-align:right;font-size:0.65rem;color:var(--text3);font-weight:700;">PROFIT/LOSS</th><th style="padding:0.5rem;text-align:right;"></th></tr></thead>';
+      html += '<tbody>';
+      sales.forEach(function(sale) {
+        var proceeds = (sale.shares || 0) * (sale.salePrice || 0);
+        var cost = (sale.shares || 0) * (s.costBasis || 0);
+        var profitLoss = proceeds - cost;
+        
+        html += '<tr style="border-bottom:1px solid #E5E7EB;">';
+        html += '<td style="padding:0.5rem;">' + (sale.saleDate || '—') + '</td>';
+        html += '<td style="padding:0.5rem;text-align:right;"><strong>' + (sale.shares || 0) + '</strong></td>';
+        html += '<td style="padding:0.5rem;text-align:right;">$' + (s.costBasis || 0).toFixed(2) + '</td>';
+        html += '<td style="padding:0.5rem;text-align:right;">$' + (sale.salePrice || 0).toFixed(2) + '</td>';
+        html += '<td style="padding:0.5rem;text-align:right;font-weight:700;color:' + (profitLoss >= 0 ? '#059669' : '#DC2626') + ';">' + (profitLoss >= 0 ? '+' : '') + '$' + profitLoss.toFixed(2) + '</td>';
+        html += '<td style="padding:0.5rem;text-align:right;">';
+        html += '<button onclick="event.stopPropagation();openEditShareSale(\'' + s.id + '\',\'' + sale.id + '\')" style="color:#2563EB;background:none;border:none;cursor:pointer;font-size:0.75rem;margin-right:0.25rem;" title="Edit">✏️</button>';
+        html += '<button onclick="event.stopPropagation();deleteShareSale(\'' + s.id + '\',\'' + sale.id + '\')" style="color:#DC2626;background:none;border:none;cursor:pointer;font-size:0.75rem;" title="Delete">🗑️</button>';
+        html += '</td>';
+        html += '</tr>';
+      });
+      html += '</tbody></table></div>';
+    }
+    
+    html += '</div></td></tr>';
+  }
+  
   return html;
 }
-
 function toggleSharePosition(id) {
   if (sharesExpandedIds.has(id)) {
     sharesExpandedIds.delete(id);
@@ -6306,8 +6429,11 @@ function openEditSharePosition(sid) {
   var s = sharePositions.find(function(x) { return x.id === sid; });
   if (!s) return;
   
+  var today = new Date().toISOString().split('T')[0].split('-');
+  var todayFormatted = today[1] + '/' + today[2] + '/' + today[0];
+  
   var html = '<div class="modal-overlay" onclick="if(event.target===this)closeModal()">' +
-    '<div class="modal-box">' +
+    '<div class="modal-box" style="max-width:600px;">' +
       '<div class="modal-title">✏️ Edit Share Position</div>' +
       '<div class="modal-sub"><strong>' + s.ticker + '</strong></div>' +
       '<div class="mf-row">' +
@@ -6332,9 +6458,18 @@ function openEditSharePosition(sid) {
           '</div>' +
         '</div>' +
       '</div>' +
+      '<div class="modal-divider"></div>' +
+      '<div style="margin-top:1rem;">' +
+        '<div style="font-size:0.75rem;font-weight:700;color:var(--black);margin-bottom:0.75rem;">💰 Sell Shares</div>' +
+        '<div class="mf-row">' +
+          '<div class="mf"><label class="mf-label">Quantity to Sell</label><input class="mf-input" id="esp-sell-qty" type="number" min="1" max="' + s.shares + '" placeholder="0"></div>' +
+          '<div class="mf"><label class="mf-label">Sell Price ($)</label><input class="mf-input" id="esp-sell-price" type="number" step="0.01" placeholder="0.00"></div>' +
+        '</div>' +
+        '<div class="mf"><label class="mf-label">Sale Date (MM/DD/YYYY)</label><input class="mf-input" id="esp-sell-date" value="' + todayFormatted + '"></div>' +
+      '</div>' +
       '<div class="modal-btns">' +
         '<button class="modal-cancel" onclick="closeModal()">Cancel</button>' +
-        '<button class="modal-confirm blue-btn" onclick="saveEditSharePosition(\'' + sid + '\')">Save Changes</button>' +
+        '<button class="modal-confirm green-btn" onclick="saveEditSharePositionWithSale(\'' + sid + '\')">Save Changes</button>' +
       '</div>' +
     '</div></div>';
   document.getElementById('modal-root').innerHTML = html;
@@ -6401,6 +6536,51 @@ function saveEditSharePosition(sid) {
   sharesRender();
 }
 
+function saveEditSharePositionWithSale(sid) {
+  var s = sharePositions.find(function(x) { return x.id === sid; });
+  if (!s) return;
+  
+  // Update basic fields
+  s.shares = parseInt(document.getElementById('esp-shares').value) || s.shares;
+  s.costBasis = parseFloat(document.getElementById('esp-basis').value) || s.costBasis;
+  s.purchaseDate = document.getElementById('esp-date').value.trim() || s.purchaseDate;
+  
+  // Handle share sale if specified
+  var sellQty = parseInt(document.getElementById('esp-sell-qty').value) || 0;
+  var sellPrice = parseFloat(document.getElementById('esp-sell-price').value) || 0;
+  var sellDate = document.getElementById('esp-sell-date').value.trim();
+  
+  if (sellQty > 0 && sellPrice > 0) {
+    // Validate
+    if (sellQty > s.shares) {
+      alert('Cannot sell more shares than you own (' + s.shares + ')');
+      return;
+    }
+    
+    // Create sale record
+    if (!s.shareSales) s.shareSales = [];
+    s.shareSales.push({
+      id: 'sale_' + Date.now(),
+      shares: sellQty,
+      salePrice: sellPrice,
+      saleDate: sellDate
+    });
+    
+    // Reduce share count
+    s.shares -= sellQty;
+    
+    // Close position if all shares sold
+    if (s.shares <= 0) {
+      s.shares = 0;
+      s.closed = true;
+    }
+  }
+  
+  saveSharePositions();
+  closeModal();
+  sharesRender();
+}
+
 function closeSharePosition(sid) {
   if (!confirm('Close this share position?')) return;
   var s = sharePositions.find(function(x) { return x.id === sid; });
@@ -6421,6 +6601,94 @@ function reopenSharePosition(sid) {
 function deleteSharePosition(sid) {
   if (!confirm('Delete this share position? This action cannot be undone.')) return;
   sharePositions = sharePositions.filter(function(x) { return x.id !== sid; });
+  saveSharePositions();
+  sharesRender();
+}
+
+function openEditShareSale(sid, saleId) {
+  var s = sharePositions.find(function(x) { return x.id === sid; });
+  if (!s) return;
+  
+  var sale = (s.shareSales || []).find(function(x) { return x.id === saleId; });
+  if (!sale) return;
+  
+  var html = '<div class="modal-overlay" onclick="if(event.target===this)closeModal()">' +
+    '<div class="modal-box">' +
+      '<div class="modal-title">✏️ Edit Share Sale</div>' +
+      '<div class="modal-sub"><strong>' + s.ticker + '</strong></div>' +
+      '<div class="mf-row">' +
+        '<div class="mf"><label class="mf-label">Quantity Sold *</label><input class="mf-input" id="ess-qty" type="number" value="' + sale.shares + '"></div>' +
+        '<div class="mf"><label class="mf-label">Sale Price ($) *</label><input class="mf-input" id="ess-price" type="number" step="0.01" value="' + sale.salePrice + '"></div>' +
+      '</div>' +
+      '<div class="mf"><label class="mf-label">Sale Date (MM/DD/YYYY) *</label><input class="mf-input" id="ess-date" value="' + (sale.saleDate || '') + '"></div>' +
+      '<div style="margin-top:0.75rem;padding:0.75rem;background:#FEF2F2;border:1px solid #FCA5A5;border-radius:6px;">' +
+        '<div style="font-size:0.7rem;color:#991B1B;"><strong>⚠️ Note:</strong> Editing this sale will restore the original shares to your position, then apply the new sale quantity.</div>' +
+      '</div>' +
+      '<div class="modal-btns">' +
+        '<button class="modal-cancel" onclick="closeModal()">Cancel</button>' +
+        '<button class="modal-confirm blue-btn" onclick="saveEditShareSale(\'' + sid + '\',\'' + saleId + '\')">Save Changes</button>' +
+      '</div>' +
+    '</div></div>';
+  document.getElementById('modal-root').innerHTML = html;
+}
+
+function saveEditShareSale(sid, saleId) {
+  var s = sharePositions.find(function(x) { return x.id === sid; });
+  if (!s) return;
+  
+  var sale = (s.shareSales || []).find(function(x) { return x.id === saleId; });
+  if (!sale) return;
+  
+  var oldQty = sale.shares;
+  var newQty = parseInt(document.getElementById('ess-qty').value) || 0;
+  var newPrice = parseFloat(document.getElementById('ess-price').value) || 0;
+  var newDate = document.getElementById('ess-date').value.trim();
+  
+  if (newQty <= 0 || newPrice <= 0) {
+    alert('Quantity and price must be greater than 0');
+    return;
+  }
+  
+  // Restore old shares
+  s.shares += oldQty;
+  
+  // Update sale
+  sale.shares = newQty;
+  sale.salePrice = newPrice;
+  sale.saleDate = newDate;
+  
+  // Deduct new quantity
+  s.shares -= newQty;
+  
+  // Close if all sold
+  if (s.shares <= 0) {
+    s.shares = 0;
+    s.closed = true;
+  } else {
+    s.closed = false;
+  }
+  
+  saveSharePositions();
+  closeModal();
+  sharesRender();
+}
+
+function deleteShareSale(sid, saleId) {
+  if (!confirm('Delete this share sale? The shares will be restored to your position.')) return;
+  
+  var s = sharePositions.find(function(x) { return x.id === sid; });
+  if (!s) return;
+  
+  var sale = (s.shareSales || []).find(function(x) { return x.id === saleId; });
+  if (!sale) return;
+  
+  // Restore shares
+  s.shares += sale.shares;
+  s.closed = false;
+  
+  // Remove sale
+  s.shareSales = s.shareSales.filter(function(x) { return x.id !== saleId; });
+  
   saveSharePositions();
   sharesRender();
 }
@@ -6584,6 +6852,131 @@ function deleteShareSale(sid, saleId) {
   s.shareSales = (s.shareSales || []).filter(function(x) { return x.id !== saleId; });
   saveSharePositions();
   sharesRender();
+}
+
+function openMoveSharesModal(sid) {
+  var s = sharePositions.find(function(x) { return x.id === sid; });
+  if (!s) return;
+  
+  // Get current portfolio key
+  var currentPortKey = plGetPortKey();
+  
+  // Build list of available portfolios
+  var portfolios = [
+    { key: 'amit', name: 'AMIT' },
+    { key: 'lovelina', name: 'LOVELINA' },
+    { key: 'joint', name: 'JOINT' },
+    { key: 'self_roth', name: 'Self Roth IRA' },
+    { key: 'spouse_roth', name: 'Spouse Roth IRA' },
+    { key: 'spouse_ira', name: 'Spouse IRA' }
+  ];
+  
+  var portfolioOptions = portfolios
+    .filter(function(p) { return p.key !== currentPortKey; })
+    .map(function(p) {
+      return '<option value="' + p.key + '">' + p.name + '</option>';
+    }).join('');
+  
+  var html = '<div class="modal-overlay" onclick="if(event.target===this)closeModal()">' +
+    '<div class="modal-box">' +
+      '<div class="modal-title">📦 Move Shares to Another Portfolio</div>' +
+      '<div class="modal-sub"><strong>' + s.ticker + '</strong> · ' + s.shares + ' shares available</div>' +
+      '<div class="mf"><label class="mf-label">Number of Shares to Move *</label><input class="mf-input" id="move-shares-qty" type="number" min="1" max="' + s.shares + '" placeholder="Enter quantity"></div>' +
+      '<div class="mf"><label class="mf-label">Destination Portfolio *</label><select class="mf-input" id="move-shares-portfolio">' +
+        '<option value="">-- Select Portfolio --</option>' +
+        portfolioOptions +
+      '</select></div>' +
+      '<div style="margin-top:0.75rem;padding:0.75rem;background:#FEF3C7;border:1px solid #FCD34D;border-radius:6px;">' +
+        '<div style="font-size:0.7rem;color:#92400E;"><strong>ℹ️ Note:</strong> Moving shares will:</div>' +
+        '<ul style="margin:0.5rem 0 0 1.2rem;font-size:0.7rem;color:#92400E;">' +
+          '<li>Transfer the shares with the same cost basis</li>' +
+          '<li>Keep all covered calls and sale history with this position</li>' +
+          '<li>If moving all shares, the entire position will be transferred</li>' +
+          '<li>If moving partial shares, a new position will be created in the destination</li>' +
+        '</ul>' +
+      '</div>' +
+      '<div class="modal-btns">' +
+        '<button class="modal-cancel" onclick="closeModal()">Cancel</button>' +
+        '<button class="modal-confirm blue-btn" onclick="saveMoveShares(\'' + sid + '\')">Move Shares</button>' +
+      '</div>' +
+    '</div></div>';
+  document.getElementById('modal-root').innerHTML = html;
+}
+
+function saveMoveShares(sid) {
+  var s = sharePositions.find(function(x) { return x.id === sid; });
+  if (!s) return;
+  
+  var sharesToMove = parseInt(document.getElementById('move-shares-qty').value) || 0;
+  var destPortfolio = document.getElementById('move-shares-portfolio').value;
+  
+  // Validation
+  if (sharesToMove <= 0 || sharesToMove > s.shares) {
+    alert('Please enter a valid number of shares (1 to ' + s.shares + ')');
+    return;
+  }
+  
+  if (!destPortfolio) {
+    alert('Please select a destination portfolio');
+    return;
+  }
+  
+  // Get current portfolio key
+  var currentPortKey = plGetPortKey();
+  
+  // Load destination portfolio positions
+  var destKey = 'roi_shares_' + destPortfolio;
+  var destPositions = [];
+  try {
+    var raw = localStorage.getItem(destKey);
+    destPositions = (raw && JSON.parse(raw)) || [];
+    if (!Array.isArray(destPositions)) destPositions = [];
+  } catch(e) {
+    destPositions = [];
+  }
+  
+  if (sharesToMove === s.shares) {
+    // Moving all shares - transfer entire position
+    destPositions.push(s);
+    
+    // Remove from current portfolio
+    sharePositions = sharePositions.filter(function(x) { return x.id !== sid; });
+  } else {
+    // Moving partial shares - create new position in destination
+    var newPosition = {
+      id: 'share_' + Date.now(),
+      ticker: s.ticker,
+      shares: sharesToMove,
+      costBasis: s.costBasis,
+      purchaseDate: s.purchaseDate,
+      coveredCalls: [],
+      shareSales: [],
+      closed: false
+    };
+    
+    destPositions.push(newPosition);
+    
+    // Reduce shares in current portfolio
+    s.shares -= sharesToMove;
+  }
+  
+  // Save both portfolios
+  localStorage.setItem(destKey, JSON.stringify(destPositions));
+  saveSharePositions();
+  
+  closeModal();
+  sharesRender();
+  
+  var portfolioNames = {
+    'amit': 'AMIT',
+    'lovelina': 'LOVELINA',
+    'joint': 'JOINT',
+    'self_roth': 'Self Roth IRA',
+    'spouse_roth': 'Spouse Roth IRA',
+    'spouse_ira': 'Spouse IRA'
+  };
+  
+  alert('✓ Moved ' + sharesToMove + ' shares of ' + s.ticker + ' to ' + portfolioNames[destPortfolio]);
 }
 
 function openAddCoveredCall(sid) {
@@ -7394,48 +7787,103 @@ function growthRenderSummary() {
     if (growthFilterMode === 'closed' && !l.closed) return false;
     return true;
   });
-  var totalLongCost = 0, totalIncome = 0, totalCollat = 0, openCount = 0, closedCount = 0;
+  
+  // Week filtering helpers
+  function getWeekRange(weeksAgo) {
+    var now = new Date();
+    var dayOfWeek = now.getDay();
+    var daysToMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+    var weekStart = new Date(now);
+    weekStart.setDate(now.getDate() - daysToMonday - (weeksAgo * 7));
+    weekStart.setHours(0, 0, 0, 0);
+    var weekEnd = new Date(weekStart);
+    weekEnd.setDate(weekStart.getDate() + 6);
+    weekEnd.setHours(23, 59, 59, 999);
+    return { start: weekStart, end: weekEnd };
+  }
+  
+  function isInWeek(dateStr, weekRange) {
+    if (!dateStr) return false;
+    var d = new Date(dateStr);
+    return d >= weekRange.start && d <= weekRange.end;
+  }
+  
+  var cwRange = getWeekRange(0);
+  var pwRange = getWeekRange(1);
+  var weekFilter = growthGlobalWeekFilter === 'tw' ? 'cw' : growthGlobalWeekFilter === 'lw' ? 'pw' : 'all';
+  
+  var totalCost = 0, totalMarketValue = 0, totalIncome = 0, totalCollat = 0;
   var totalBTO = 0, totalSTC = 0, totalSTO = 0, totalBTC = 0;
+  
   visible.forEach(function(l) {
     var s = calcCallLadder(l);
-    totalLongCost += s.longCost;
-    totalIncome += s.totalIncome;
     totalCollat += s.collat;
-    if (l.closed) closedCount++; else openCount++;
-    totalBTO += (!l.noLongCall && l.longPremium) ? l.longPremium * 100 * (l.contracts||1) : 0;
-    totalSTC += l.longCloseAmount || 0;
+    totalMarketValue += s.marketValue;
+    
+    // Apply week filter to BTO (long call open)
+    if (!l.noLongCall && l.longPremium) {
+      if (weekFilter === 'all' || 
+          (weekFilter === 'cw' && isInWeek(l.openDate, cwRange)) || 
+          (weekFilter === 'pw' && isInWeek(l.openDate, pwRange))) {
+        var btoCost = l.longPremium * 100 * (l.contracts||1);
+        totalBTO += btoCost;
+        totalCost += btoCost;
+      }
+    }
+    
+    // Apply week filter to STC (long call close)
+    if (l.longCloseAmount && l.longCloseDate) {
+      if (weekFilter === 'all' || 
+          (weekFilter === 'cw' && isInWeek(l.longCloseDate, cwRange)) || 
+          (weekFilter === 'pw' && isInWeek(l.longCloseDate, pwRange))) {
+        totalSTC += l.longCloseAmount;
+        totalIncome += l.longCloseAmount;
+      }
+    }
+    
+    // Apply week filter to short calls
     (l.shortCalls||[]).forEach(function(sc){
-      totalSTO += sc.received || 0;
-      totalBTC += (sc.btcDebit || 0) + (sc.buybackCost || 0);
+      // STO (received)
+      if (sc.received) {
+        if (weekFilter === 'all' || 
+            (weekFilter === 'cw' && isInWeek(sc.openDate, cwRange)) || 
+            (weekFilter === 'pw' && isInWeek(sc.openDate, pwRange))) {
+          totalSTO += sc.received;
+          totalIncome += sc.received;
+        }
+      }
+      
+      // BTC (debit)
+      var btcAmount = (sc.btcDebit || 0) + (sc.buybackCost || 0);
+      if (btcAmount > 0 && sc.closed && sc.closeDate) {
+        if (weekFilter === 'all' || 
+            (weekFilter === 'cw' && isInWeek(sc.closeDate, cwRange)) || 
+            (weekFilter === 'pw' && isInWeek(sc.closeDate, pwRange))) {
+          totalBTC += btcAmount;
+          totalIncome -= btcAmount;
+        }
+      }
     });
   });
-  var net = totalIncome - totalLongCost;
-  var lcNet = totalSTC - totalBTO;
-  var scNet = totalSTO - totalBTC;
-  var totalInvested = totalBTO;
-  var totalIncomeReceived = totalBTC + totalSTO + totalSTC;
-  var gap = totalInvested - totalIncomeReceived;
-  var pct = totalLongCost > 0 ? Math.min(Math.round(totalIncome / totalLongCost * 100), 100) : 0;
+  
   strip.style.cssText = 'display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0.5rem;margin-bottom:0.75rem;';
   strip.innerHTML =
     scardBreakdown('Summary', [
-      { label: 'Invested', value: '-' + fmt(totalInvested), color: '#DC2626' },
-      { label: 'Income', value: totalIncomeReceived > 0 ? '+' + fmt(totalIncomeReceived) : '—', color: '#059669' },
-      { label: 'Gap', value: fmtSign(-gap), color: gap <= 0 ? '#059669' : '#DC2626', isBold: true }
+      { label: 'Cost', value: '-' + fmt(totalCost), color: '#DC2626' },
+      { label: 'Current Value', value: totalMarketValue > 0 ? fmt(totalMarketValue) : '—', color: 'var(--black)' },
+      { label: 'Income', value: totalIncome > 0 ? '+' + fmt(totalIncome) : totalIncome < 0 ? fmt(totalIncome) : '—', color: totalIncome >= 0 ? '#059669' : '#DC2626', isBold: true }
     ]) +
     scardBreakdown('Long Call', [
-      { label: 'BTO', value: '-' + fmt(totalBTO), color: '#DC2626' },
+      { label: 'BTO', value: totalBTO > 0 ? '-' + fmt(totalBTO) : '—', color: '#DC2626' },
       { label: 'STC', value: totalSTC > 0 ? '+' + fmt(totalSTC) : '—', color: '#059669' },
-      { label: 'Net', value: fmtSign(lcNet), color: lcNet >= 0 ? '#059669' : '#DC2626', isBold: true }
+      { label: 'Net', value: fmtSign(totalSTC - totalBTO), color: (totalSTC - totalBTO) >= 0 ? '#059669' : '#DC2626', isBold: true }
     ]) +
     scardBreakdown('Short Call', [
-      { label: 'STO', value: '+' + fmt(totalSTO), color: '#059669' },
+      { label: 'STO', value: totalSTO > 0 ? '+' + fmt(totalSTO) : '—', color: '#059669' },
       { label: 'BTC', value: totalBTC > 0 ? '-' + fmt(totalBTC) : '—', color: '#DC2626' },
-      { label: 'Net', value: fmtSign(scNet), color: scNet >= 0 ? '#059669' : '#DC2626', isBold: true }
+      { label: 'Net', value: fmtSign(totalSTO - totalBTC), color: (totalSTO - totalBTC) >= 0 ? '#059669' : '#DC2626', isBold: true }
     ]) +
-    scard('Net P&L', fmtSign(net), net >= 0 ? 'in profit ▲' : 'to breakeven', net >= 0 ? 'pos-val' : 'neg-val') +
-    scard('Covered', pct + '%', 'of cost recovered', pct >= 100 ? 'pos-val' : pct >= 50 ? '' : 'neg-val') +
-    scard('Collateral', fmt(totalCollat), 'tied in active SCs', '');
+    scard('Collateral', fmt(totalCollat), 'tied in active calls', '');
 }
 
 function growthRenderLadders() {
@@ -7521,6 +7969,8 @@ function renderCallTickerGroup(ticker, laddersForTicker) {
     var s = calcCallLadder(l);
     if (l.closed) closedCount++; else openCount++;
     
+    totalCollat += s.collat;
+    
     if (!l.noLongCall && l.longPremium) {
       if (weekFilter === 'all' || 
           (weekFilter === 'cw' && isInWeek(l.openDate, cwRange)) || 
@@ -7536,8 +7986,6 @@ function renderCallTickerGroup(ticker, laddersForTicker) {
         totalSTC += l.longCloseAmount;
       }
     }
-    
-    totalCollat += s.collat;
     
     (l.shortCalls||[]).forEach(function(sc){
       if (sc.received) {
@@ -7557,9 +8005,15 @@ function renderCallTickerGroup(ticker, laddersForTicker) {
     });
   });
   
-  var invested = totalBTO;
-  var income = totalSTC + totalSTO + totalBTC;
-  var gap = invested - income;
+  // Calculate total market value for this ticker
+  var totalMarketValue = 0;
+  laddersForTicker.forEach(function(l) {
+    var s = calcCallLadder(l);
+    totalMarketValue += s.marketValue;
+  });
+  
+  var cost = totalBTO;
+  var income = totalSTC + totalSTO - totalBTC;
   var tickerExpanded = growthExpandedIds.has('ticker-' + ticker);
   
   var html = '<div style="background:linear-gradient(135deg, var(--bg2) 0%, var(--bg3) 100%);border:1px solid var(--border);border-radius:8px;padding:0.6rem 0.85rem;margin-bottom:0.6rem;box-shadow:0 1px 3px rgba(0,0,0,0.06);">';
@@ -7576,16 +8030,16 @@ function renderCallTickerGroup(ticker, laddersForTicker) {
   html += '</div>';
   html += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.5rem;margin-bottom:0.5rem;">';
   html += '<div style="text-align:center;padding:0.35rem;background:var(--bg);border-radius:6px;">';
-  html += '<div style="font-size:0.55rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.15rem;">Invested</div>';
-  html += '<div style="font-size:0.82rem;font-weight:800;font-family:monospace;color:#DC2626;">-' + fmt(invested) + '</div>';
+  html += '<div style="font-size:0.55rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.15rem;">Cost</div>';
+  html += '<div style="font-size:0.82rem;font-weight:800;font-family:monospace;color:#DC2626;">-' + fmt(cost) + '</div>';
+  html += '</div>';
+  html += '<div style="text-align:center;padding:0.35rem;background:var(--bg);border-radius:6px;">';
+  html += '<div style="font-size:0.55rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.15rem;">Market Value</div>';
+  html += '<div style="font-size:0.82rem;font-weight:800;font-family:monospace;color:var(--black);">' + (totalMarketValue > 0 ? fmt(totalMarketValue) : '—') + '</div>';
   html += '</div>';
   html += '<div style="text-align:center;padding:0.35rem;background:var(--bg);border-radius:6px;">';
   html += '<div style="font-size:0.55rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.15rem;">Income</div>';
-  html += '<div style="font-size:0.82rem;font-weight:800;font-family:monospace;color:#059669;">+' + fmt(income) + '</div>';
-  html += '</div>';
-  html += '<div style="text-align:center;padding:0.35rem;background:var(--bg);border-radius:6px;">';
-  html += '<div style="font-size:0.55rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.15rem;">Gap</div>';
-  html += '<div style="font-size:0.82rem;font-weight:800;font-family:monospace;color:' + (gap <= 0 ? '#059669' : '#DC2626') + ';">' + fmtSign(-gap) + '</div>';
+  html += '<div style="font-size:0.82rem;font-weight:800;font-family:monospace;color:' + (income >= 0 ? '#059669' : '#DC2626') + ';">' + (income >= 0 ? '+' : '') + fmt(income) + '</div>';
   html += '</div>';
   html += '<div style="text-align:center;padding:0.35rem;background:var(--bg);border-radius:6px;">';
   html += '<div style="font-size:0.55rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.15rem;">Collateral</div>';
@@ -7614,15 +8068,70 @@ function calcCallLadder(l) {
   var longCost = (!l.noLongCall && l.longPremium) ? l.longPremium * 100 * (l.contracts||1) : 0;
   var stcCredit = l.longCloseAmount || 0;
   var totalSTO = 0, totalBTC = 0, collat = 0;
+  
+  // Calculate current market value based on ticker prices or use override
+  var marketValue = 0;
+  
+  if (l.marketValueOverride !== undefined && l.marketValueOverride !== null && l.marketValueOverride !== '') {
+    // Use manual override if set
+    marketValue = parseFloat(l.marketValueOverride);
+  } else if (!l.closed && !l.longCallClosed && !l.noLongCall && l.longStrike) {
+    // Auto-calculate from current price if no override
+    var currentPrice = tickerPrices[l.ticker] || 0;
+    if (currentPrice > 0 && currentPrice > l.longStrike) {
+      // Long call is ITM: value = (current price - strike) × 100 × contracts
+      var intrinsicValue = (currentPrice - l.longStrike) * 100 * (l.contracts || 1);
+      marketValue = intrinsicValue;
+    }
+    // If OTM or ATM, market value stays 0 (could add time value later)
+  }
+  
+  // Only calculate collateral for open positions
+  if (!l.closed) {
+    // Get long call details (only if not closed)
+    var longContracts = (!l.noLongCall && l.longStrike && !l.longCallClosed) ? (l.contracts || 1) : 0;
+    var longStrike = l.longStrike || 0;
+    
+    // Calculate collateral for each open short call
+    (l.shortCalls||[]).forEach(function(sc) {
+      if (!sc.closed && sc.strike) {
+        var scContracts = sc.contracts || 1;
+        
+        if (longContracts > 0 && longStrike > 0) {
+          // We have a long call - calculate spread collateral
+          if (longStrike > sc.strike) {
+            // Bear call spread: Long strike > Short strike
+            // Collateral = (Long Strike - Short Strike) × 100 × min(long contracts, short contracts)
+            var spreadContracts = Math.min(longContracts, scContracts);
+            collat += (longStrike - sc.strike) * 100 * spreadContracts;
+            
+            // If short has more contracts than long, the excess is naked
+            var nakedContracts = Math.max(0, scContracts - longContracts);
+            collat += sc.strike * 100 * nakedContracts;
+          } else {
+            // Bull call spread or same strike: Long strike <= Short strike
+            // Short call is covered by long call, no additional collateral for the spread
+            // But if there are excess short contracts, they need collateral
+            var excessShortContracts = Math.max(0, scContracts - longContracts);
+            collat += sc.strike * 100 * excessShortContracts;
+          }
+        } else {
+          // No long call - naked short call
+          collat += sc.strike * 100 * scContracts;
+        }
+      }
+    });
+  }
+  
   (l.shortCalls||[]).forEach(function(sc) {
     totalSTO += sc.received || 0;
     totalBTC += (sc.btcDebit || 0) + (sc.buybackCost || 0);
-    if (!sc.closed && sc.strike) collat += sc.strike * 100 * (sc.contracts || 1);
   });
+  
   var totalIncome = stcCredit + totalSTO - totalBTC;
   var profit = totalIncome - longCost;
   var pct = longCost > 0 ? totalIncome / longCost : 0;
-  return { longCost: longCost, totalIncome: totalIncome, profit: profit, pct: pct, collat: collat };
+  return { longCost: longCost, totalIncome: totalIncome, profit: profit, pct: pct, collat: collat, marketValue: marketValue };
 }
 
 // Full Call Ladder card rendering - exact copy of Put Ladder structure
@@ -7663,6 +8172,7 @@ function renderCallLadderCard(l) {
         lp_field('Premium', fmt(l.longPremium * 100 * (l.contracts||1))) +
         lp_field('Expiry', fmtDate(l.longExpiry)) +
         (dlStr ? lp_field('Days Left', dlStr) : lp_field('Contracts', l.contracts || 1)) +
+        lp_field('Market Value', s.marketValue > 0 ? fmt(s.marketValue) : '—') +
         lp_field('Income', fmt(s.totalIncome)) +
         lp_field('Net P&L', '<span class="' + (s.profit>=0?'pos-val':'neg-val') + '">' + fmtSign(s.profit) + '</span>') +
         (l.longCloseAmount ? lp_field('STC Credit', '<span class="pos-val" style="font-weight:800;">+' + fmt(l.longCloseAmount) + '</span>') : '') +
@@ -7831,6 +8341,8 @@ function openEditCallLadder(id) {
       '<div class="modal-sub"><strong>' + l.ticker + '</strong></div>' +
       '<div class="mf"><label class="mf-label">Ticker *</label><input class="mf-input" id="ecl-ticker" value="' + l.ticker + '"></div>' +
       '<div class="mf"><label class="mf-label">Contracts *</label><input class="mf-input" id="ecl-contracts" type="number" value="' + (l.contracts||1) + '"></div>' +
+      '<div class="mf"><label class="mf-label">Market Value Override ($)</label><input class="mf-input" id="ecl-market-value" type="number" step="0.01" placeholder="Leave empty for auto-calculated" value="' + (l.marketValueOverride||'') + '"></div>' +
+      '<div style="font-size:0.65rem;color:var(--text3);margin-top:-0.5rem;margin-bottom:0.75rem;">Enter a value to override auto-calculated market value. Leave empty to use current price from Admin > Prices.</div>' +
       '<hr style="border:none;border-top:1px solid var(--border);margin:0.75rem 0;">' +
       '<div style="font-size:0.7rem;font-weight:700;color:var(--text2);margin-bottom:0.5rem;">LONG CALL (Optional)</div>' +
       '<div class="mf-row">' +
@@ -7857,6 +8369,14 @@ function saveEditCallLadder(id) {
   
   l.ticker = document.getElementById('ecl-ticker').value.trim().toUpperCase();
   l.contracts = parseInt(document.getElementById('ecl-contracts').value) || 1;
+  
+  // Save market value override
+  var marketValueInput = document.getElementById('ecl-market-value').value.trim();
+  if (marketValueInput) {
+    l.marketValueOverride = parseFloat(marketValueInput);
+  } else {
+    delete l.marketValueOverride; // Remove override to use auto-calculated
+  }
   
   var strike = document.getElementById('ecl-strike').value.trim();
   var premium = document.getElementById('ecl-premium').value.trim();
@@ -7906,7 +8426,14 @@ function reopenLongCall(id) {
   saveCallLadders();
   growthRender();
 }
-function deleteCallLadder(id) { alert('Delete Call Ladder - Coming soon'); }
+function deleteCallLadder(id) {
+  var l = callLadders.find(function(x){ return x.id === id; });
+  if (!l) return;
+  if (!confirm('Delete this entire call ladder for ' + l.ticker + '? This will remove all short calls and the long call.')) return;
+  callLadders = callLadders.filter(function(x){ return x.id !== id; });
+  saveCallLadders();
+  growthRender();
+}
 function openAddLongCallToLadder(id) { alert('Add Long Call - Coming soon'); }
 function openCloseLongCall(id) { alert('Close Long Call - Coming soon'); }
 function reopenLongCall(id) { alert('Reopen Long Call - Coming soon'); }
