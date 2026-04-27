@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-04-27T15:46:57.973Z",
+  "savedAt": "2026-04-27T16:01:57.807Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -8607,12 +8607,12 @@
     ]
   },
   "cashBalances": {
-    "amit": 3568,
+    "amit": 2440,
     "lov-trad": 379570,
     "amit-roth": 7246,
     "lov-roth": 12622,
-    "lovelina": 1165,
-    "joint": 530
+    "lovelina": 1207,
+    "joint": 2314
   },
   "initialCashBalances": {
     "amit-roth": 16068,
@@ -35926,7 +35926,17 @@
         "notes": "",
         "position": null,
         "noLongPut": false,
-        "shortPuts": [],
+        "shortPuts": [
+          {
+            "id": "mohdir13l5ds",
+            "strike": 57,
+            "contracts": 1,
+            "received": 572,
+            "expiry": "9/8",
+            "openDate": "4/27/2026",
+            "closed": false
+          }
+        ],
         "closed": false
       },
       {
