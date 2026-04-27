@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-04-27T20:16:10.249Z",
+  "savedAt": "2026-04-27T20:20:45.111Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -8675,6 +8675,22 @@
   },
   "putLadders": {
     "self": [
+      {
+        "id": "mohn4lub8fy4",
+        "ticker": "PLTR",
+        "contracts": 1,
+        "longStrike": 145,
+        "longPremium": 13.05,
+        "longExpiry": "6/18",
+        "openDate": "4/27/2026",
+        "notes": "",
+        "position": null,
+        "noLongPut": false,
+        "longPutClosed": false,
+        "shortPuts": [],
+        "closed": false,
+        "marketValueOverride": 1288
+      },
       {
         "id": "moh9q45uxfzd",
         "ticker": "PTON",
@@ -18416,23 +18432,9 @@
         "notes": "",
         "position": null,
         "noLongPut": false,
-        "shortPuts": [
-          {
-            "id": "modx2clrvfnu",
-            "strike": 105,
-            "contracts": 2,
-            "received": 5.9,
-            "btcDebit": 0,
-            "expiry": "5/1/2026",
-            "openDate": "4/24/2026",
-            "closed": true,
-            "closeReason": "buyback",
-            "posType": "SPUT",
-            "closeDate": "4/27/2026",
-            "buybackCost": 6
-          }
-        ],
-        "closed": false
+        "shortPuts": [],
+        "closed": false,
+        "marketValueOverride": 0
       },
       {
         "id": "modx2clrzb3s",
@@ -18459,7 +18461,8 @@
             "posType": "SPUT"
           }
         ],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 1033
       },
       {
         "id": "modx2clriomz",
@@ -20924,6 +20927,20 @@
             "posType": "SPUT",
             "closeDate": "4/24/2026",
             "buybackCost": 0
+          },
+          {
+            "id": "modx2clrvfnu",
+            "strike": 105,
+            "contracts": 2,
+            "received": -6,
+            "btcDebit": 0,
+            "expiry": "5/1/2026",
+            "openDate": "4/24/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "posType": "SPUT",
+            "closeDate": "4/27/2026",
+            "buybackCost": 6
           }
         ],
         "closed": true
@@ -37838,7 +37855,8 @@
         "noLongCall": false,
         "longCallClosed": false,
         "shortCalls": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 3353
       },
       {
         "id": "mohmu0v5tes6",
