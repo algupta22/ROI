@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-04-27T14:05:08.673Z",
+  "savedAt": "2026-04-27T15:31:53.861Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -24825,7 +24825,17 @@
         "notes": "",
         "position": null,
         "noLongPut": false,
-        "shortPuts": [],
+        "shortPuts": [
+          {
+            "id": "mohak1ek3ey1",
+            "strike": 17.5,
+            "contracts": 1,
+            "received": 15,
+            "expiry": "5/1",
+            "openDate": "4/27/2026",
+            "closed": false
+          }
+        ],
         "closed": false
       },
       {
@@ -25032,7 +25042,17 @@
         "notes": "",
         "position": null,
         "noLongPut": false,
-        "shortPuts": [],
+        "shortPuts": [
+          {
+            "id": "mohcuqbfazn3",
+            "strike": 14,
+            "contracts": 2,
+            "received": 34,
+            "expiry": "5/1",
+            "openDate": "4/27/2026",
+            "closed": false
+          }
+        ],
         "closed": false
       },
       {
@@ -25382,6 +25402,34 @@
       }
     ],
     "joint": [
+      {
+        "id": "mohab4fdyf8x",
+        "ticker": "SLV",
+        "contracts": 1,
+        "longStrike": null,
+        "longPremium": null,
+        "longExpiry": null,
+        "openDate": "4/27/2026",
+        "notes": "",
+        "position": null,
+        "noLongPut": true,
+        "shortPuts": [],
+        "closed": true
+      },
+      {
+        "id": "moha5co4iv6d",
+        "ticker": "ONDS",
+        "contracts": 1,
+        "longStrike": null,
+        "longPremium": null,
+        "longExpiry": null,
+        "openDate": "4/27/2026",
+        "notes": "",
+        "position": null,
+        "noLongPut": true,
+        "shortPuts": [],
+        "closed": true
+      },
       {
         "id": "modx0diqg5vo",
         "ticker": "MSTU",
@@ -34581,7 +34629,17 @@
         "notes": "",
         "position": null,
         "noLongPut": false,
-        "shortPuts": [],
+        "shortPuts": [
+          {
+            "id": "mohab4fd6v3g",
+            "strike": 68,
+            "contracts": 1,
+            "received": 21.96,
+            "expiry": "4/27",
+            "openDate": "4/27/2026",
+            "closed": false
+          }
+        ],
         "closed": false
       },
       {
@@ -34595,7 +34653,17 @@
         "notes": "",
         "position": null,
         "noLongPut": false,
-        "shortPuts": [],
+        "shortPuts": [
+          {
+            "id": "mohaerqt9o30",
+            "strike": 64,
+            "contracts": 1,
+            "received": 12.96,
+            "expiry": "4/29",
+            "openDate": "4/27/2026",
+            "closed": false
+          }
+        ],
         "closed": false
       },
       {
@@ -34749,7 +34817,17 @@
         "notes": "",
         "position": null,
         "noLongPut": false,
-        "shortPuts": [],
+        "shortPuts": [
+          {
+            "id": "moha5co4on07",
+            "strike": 10,
+            "contracts": 2,
+            "received": 51,
+            "expiry": "5/1",
+            "openDate": "4/27/2026",
+            "closed": false
+          }
+        ],
         "closed": false
       },
       {
