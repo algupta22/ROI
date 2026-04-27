@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-04-27T18:39:42.161Z",
+  "savedAt": "2026-04-27T20:07:38.073Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -38071,14 +38071,17 @@
         "ticker": "NVDX",
         "contracts": 1,
         "longStrike": 11.43,
-        "longPremium": 7.400399999999999,
+        "longPremium": 7.6,
         "longExpiry": "1/15/2027",
         "openDate": "1/14/2026",
         "notes": "",
         "position": null,
         "noLongCall": false,
         "shortCalls": [],
-        "closed": false
+        "closed": true,
+        "longCallClosed": true,
+        "longCloseAmount": 273,
+        "longCloseDate": "4/27/2026"
       },
       {
         "id": "modx2m2mom5o",
@@ -39064,9 +39067,9 @@
       {
         "id": "modx2m2md8vh",
         "ticker": "NVDX",
-        "contracts": 2,
+        "contracts": 1,
         "longStrike": 11.43,
-        "longPremium": 7.6004,
+        "longPremium": 7.7,
         "longExpiry": "1/15/2027",
         "openDate": "4/15/2026",
         "notes": "",
@@ -39074,11 +39077,12 @@
         "noLongCall": false,
         "shortCalls": [],
         "closed": true,
-        "longCloseAmount": 1364.86,
-        "longCloseDate": "3/31/2026",
+        "longCloseAmount": 240,
+        "longCloseDate": "4/27/2026",
         "longCallClosed": true,
         "stcStrike": 11.43,
-        "stcExpiry": "1/15/2027"
+        "stcExpiry": "1/15/2027",
+        "marketValueOverride": 240
       },
       {
         "id": "modx2m2m0cvk",
