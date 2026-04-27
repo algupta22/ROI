@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-04-27T20:28:44.495Z",
+  "savedAt": "2026-04-27T20:36:28.401Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -34767,6 +34767,18 @@
             "received": 21.96,
             "expiry": "4/27",
             "openDate": "4/27/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "4/27/2026",
+            "buybackCost": 1
+          },
+          {
+            "id": "mohnkbqswzi7",
+            "strike": 67,
+            "contracts": 1,
+            "received": 45,
+            "expiry": "4/29",
+            "openDate": "4/27/2026",
             "closed": false
           }
         ],
@@ -36030,7 +36042,7 @@
             "contracts": 1,
             "received": 572,
             "expiry": "9/8",
-            "openDate": "4/27/2026",
+            "openDate": "3/27/2026",
             "closed": false
           }
         ],
