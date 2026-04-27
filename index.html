@@ -842,6 +842,7 @@ td.mc{color:var(--black);font-weight:700;}td.mn{font-family:monospace;font-size:
   <div class="view-tab" data-view="spreads">&#8597; Spreads / Risk View</div>
   <div class="view-tab" data-view="putladder">&#128308; Put Ladders</div>
   <div class="view-tab" data-view="growth">&#128640; Growth</div>
+  <div class="view-tab" data-view="options">&#128200; Options</div>
   <div class="view-tab" data-view="shares">&#128176; Shares</div>
   <div class="view-tab" data-view="admin">&#9881; Admin &#8212; Prices</div>
 </div>
@@ -3650,6 +3651,14 @@ function rMain(){
       '<div id="growth-root"></div>'
     ].join('');
     growthReloadForPortfolio();
+    return;
+  }else if(activeView==='options'){
+    el.innerHTML = [
+      '<div id="opts-summary"></div>',
+      '<div id="opts-controls"></div>',
+      '<div id="opts-root"></div>'
+    ].join('');
+    optionsInit();
     return;
   }else if(activeView==='shares'){
     el.innerHTML = [
@@ -8961,6 +8970,178 @@ function growthReloadForPortfolio() {
   var el = document.getElementById('topbar-date');
   if (el) el.textContent = days[d.getDay()] + ' ' + months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
 })();
+
+// ══════════════════════════════════════════════════════════════════════════════
+// OPTIONS TAB - INTEGRATED PUT & CALL LADDERS
+// ══════════════════════════════════════════════════════════════════════════════
+
+// State variables
+var optsFilterMode = 'not_expired'; // 'all', 'expired', 'not_expired'
+var optsTypeFilter = 'all'; // 'all', 'puts', 'calls'
+var optsGlobalWeekFilter = 'all'; // 'all', 'tw', 'lw'
+var optsTickerWeekFilters = {}; // per-ticker week filters
+var optsExpandedIds = new Set();
+
+// Data arrays - separate from main ladders and callLadders
+var optsCallLadders = [];
+var optsPutLadders = [];
+
+function optionsInit() {
+  optsLoadData();
+  optsRender();
+}
+
+function optsLoadData() {
+  var portKey = plGetPortKey();
+  console.log('OPTIONS: Portfolio key =', portKey);
+  
+  // Load CALL ladders (from Growth tab)
+  try {
+    if (typeof ap !== 'undefined' && ap === 'retirement' && (typeof as === 'undefined' || as === 'ret-all')) {
+      var allRetirementCalls = [];
+      var retirementKeys = ['self_roth', 'spouse_roth', 'spouse_ira'];
+      retirementKeys.forEach(function(key) {
+        try {
+          var raw = localStorage.getItem('roi_callladder_' + key);
+          var subCalls = (raw && JSON.parse(raw)) || [];
+          if (Array.isArray(subCalls)) {
+            allRetirementCalls = allRetirementCalls.concat(subCalls);
+          }
+        } catch(e) {}
+      });
+      optsCallLadders = allRetirementCalls;
+    } else {
+      var callKey = 'roi_callladder_' + portKey;
+      console.log('OPTIONS: Loading calls from', callKey);
+      var raw = localStorage.getItem(callKey);
+      optsCallLadders = (raw && JSON.parse(raw)) || [];
+      if (!Array.isArray(optsCallLadders)) optsCallLadders = [];
+    }
+    console.log('OPTIONS: Loaded', optsCallLadders.length, 'call ladders');
+  } catch(e) { 
+    console.error('OPTIONS: Error loading calls:', e);
+    optsCallLadders = []; 
+  }
+  
+  // PUT ladders - empty for now (Step 4)
+  optsPutLadders = [];
+  console.log('OPTIONS: Put ladders will be loaded in Step 4');
+}
+
+function optsRender() {
+  optsRenderControls();
+  optsRenderSummary();
+  optsRenderLadders();
+}
+
+function optsRenderControls() {
+  var controlsDiv = document.getElementById('opts-controls');
+  if (!controlsDiv) return;
+  
+  // Get ticker list from CALL ladders
+  var allTickers = [...new Set(optsCallLadders.map(function(l) { return l.ticker; }))].sort();
+  var allSel = typeof selectedTickers === 'undefined' || selectedTickers.has('ALL');
+  
+  var html = '<div class="action-bar" style="margin-bottom:0.65rem;">';
+  
+  // Title
+  html += '<span style="font-size:0.82rem;font-weight:900;color:var(--black);letter-spacing:0.02em;">&#128200; Options</span>';
+  html += '<div style="width:1px;height:20px;background:var(--border);flex-shrink:0;"></div>';
+  
+  // Portfolio selector
+  html += '<select id="opts-port-sel" onchange="var sel=this.selectedOptions[0];var sub=sel.dataset.sub;if(sub){ap=\'retirement\';as=sub;}else{ap=this.value;as=\'ret-all\';}optionsInit();" style="padding:0.3rem 0.6rem;font-size:0.7rem;font-weight:700;border-radius:5px;cursor:pointer;border:1px solid var(--border);background:var(--bg3);color:var(--black);">';
+  html += '<option value="amit"' + (ap === 'amit' ? ' selected' : '') + '>AMIT</option>';
+  html += '<option value="lovelina"' + (ap === 'lovelina' ? ' selected' : '') + '>LOVELINA</option>';
+  html += '<option value="joint"' + (ap === 'joint' ? ' selected' : '') + '>JOINT</option>';
+  html += '<option value="retirement" data-sub="amit-roth"' + (ap === 'retirement' && as === 'amit-roth' ? ' selected' : '') + '>AMIT - ROTH IRA</option>';
+  html += '<option value="retirement" data-sub="lov-roth"' + (ap === 'retirement' && as === 'lov-roth' ? ' selected' : '') + '>LOVELINA - ROTH IRA</option>';
+  html += '<option value="retirement" data-sub="lov-trad"' + (ap === 'retirement' && as === 'lov-trad' ? ' selected' : '') + '>LOVELINA - TRADITIONAL IRA</option>';
+  html += '</select>';
+  html += '<div style="width:1px;height:20px;background:var(--border);flex-shrink:0;"></div>';
+  
+  // Ticker selector (placeholder)
+  html += '<div style="padding:0.3rem 0.6rem;font-size:0.7rem;background:var(--bg3);border:1px solid var(--border);border-radius:5px;">Tickers: ' + allTickers.join(', ') + '</div>';
+  html += '<div style="width:1px;height:20px;background:var(--border);flex-shrink:0;"></div>';
+  
+  // Add buttons
+  html += '<button class="add-btn" onclick="openAddShortPutNew()">&#43; Short Put</button>';
+  html += '<button class="add-btn" style="background:var(--blue);" onclick="openAddLongPutNew()">&#43; Long Put</button>';
+  html += '<button class="add-btn" style="background:#F59E0B;" onclick="openAddShortCallNew()">&#43; Short Call</button>';
+  html += '<button class="add-btn" style="background:#059669;" onclick="openAddLongCallNew()">&#43; Long Call</button>';
+  html += '<div style="width:1px;height:20px;background:var(--border);flex-shrink:0;"></div>';
+  
+  // Expired filter (from Put Ladders)
+  html += '<div class="filter-pill">';
+  html += '<button class="fp-btn' + (optsFilterMode === 'all' ? ' active' : '') + '" onclick="optsFilterMode=\'all\';optsRender()">All</button>';
+  html += '<button class="fp-btn' + (optsFilterMode === 'expired' ? ' active' : '') + '" onclick="optsFilterMode=\'expired\';optsRender()">Expired</button>';
+  html += '<button class="fp-btn' + (optsFilterMode === 'not_expired' ? ' active' : '') + '" onclick="optsFilterMode=\'not_expired\';optsRender()">Not Expired</button>';
+  html += '</div>';
+  html += '<div style="width:1px;height:20px;background:var(--border);flex-shrink:0;"></div>';
+  
+  // Week filter (from both tabs)
+  html += '<div class="filter-pill" style="gap:0.3rem;">';
+  html += '<button class="fp-btn' + (optsGlobalWeekFilter === 'all' ? ' active' : '') + '" onclick="optsGlobalWeekFilter=\'all\';optsRender()">All Time</button>';
+  html += '<button class="fp-btn' + (optsGlobalWeekFilter === 'tw' ? ' active' : '') + '" style="' + (optsGlobalWeekFilter === 'tw' ? 'background:#2563EB;color:#fff;' : '') + '" onclick="optsGlobalWeekFilter=\'tw\';optsRender()">TW</button>';
+  html += '<button class="fp-btn' + (optsGlobalWeekFilter === 'lw' ? ' active' : '') + '" style="' + (optsGlobalWeekFilter === 'lw' ? 'background:#7C3AED;color:#fff;' : '') + '" onclick="optsGlobalWeekFilter=\'lw\';optsRender()">LW</button>';
+  html += '</div>';
+  html += '<div style="width:1px;height:20px;background:var(--border);flex-shrink:0;"></div>';
+  
+  // Type filter (NEW)
+  html += '<div style="display:flex;gap:0.3rem;align-items:center;">';
+  html += '<div style="font-weight:700;font-size:0.7rem;color:#64748b;padding:0 0.3rem;">Type:</div>';
+  html += '<button class="fp-btn' + (optsTypeFilter === 'all' ? ' active' : '') + '" onclick="optsTypeFilter=\'all\';optsRender()">ALL</button>';
+  html += '<button class="fp-btn' + (optsTypeFilter === 'puts' ? ' active' : '') + '" style="' + (optsTypeFilter === 'puts' ? 'background:#DC2626;color:#fff;' : '') + '" onclick="optsTypeFilter=\'puts\';optsRender()">PUTS</button>';
+  html += '<button class="fp-btn' + (optsTypeFilter === 'calls' ? ' active' : '') + '" style="' + (optsTypeFilter === 'calls' ? 'background:#059669;color:#fff;' : '') + '" onclick="optsTypeFilter=\'calls\';optsRender()">CALLS</button>';
+  html += '</div>';
+  
+  html += '</div>';
+  
+  controlsDiv.innerHTML = html;
+}
+
+function optsRenderSummary() {
+  var summaryDiv = document.getElementById('opts-summary');
+  if (!summaryDiv) return;
+  
+  var html = '<div style="padding:1rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0.5rem;">';
+  html += '<div style="background:var(--bg2);padding:0.75rem;border-radius:6px;text-align:center;">';
+  html += '<div style="font-size:0.65rem;color:var(--text3);margin-bottom:0.25rem;">CALL LADDERS</div>';
+  html += '<div style="font-size:1.2rem;font-weight:800;color:var(--black);">' + optsCallLadders.length + '</div>';
+  html += '</div>';
+  html += '<div style="background:var(--bg2);padding:0.75rem;border-radius:6px;text-align:center;">';
+  html += '<div style="font-size:0.65rem;color:var(--text3);margin-bottom:0.25rem;">PUT LADDERS</div>';
+  html += '<div style="font-size:1.2rem;font-weight:800;color:var(--text2);">' + optsPutLadders.length + ' (Step 4)</div>';
+  html += '</div>';
+  html += '</div>';
+  
+  summaryDiv.innerHTML = html;
+}
+
+function optsRenderLadders() {
+  var rootDiv = document.getElementById('opts-root');
+  if (!rootDiv) return;
+  
+  var html = '<div style="padding:1.5rem;">';
+  
+  // Show call ladders using EXISTING renderCallLadderCard function
+  html += '<div style="font-weight:700;font-size:0.9rem;color:var(--black);margin-bottom:1rem;">📞 CALL LADDERS (' + optsCallLadders.length + ')</div>';
+  
+  if (optsCallLadders.length === 0) {
+    html += '<div style="padding:2rem;text-align:center;color:var(--text3);background:var(--bg2);border-radius:8px;margin-bottom:2rem;">No call ladders found for this portfolio</div>';
+  } else {
+    optsCallLadders.forEach(function(l) {
+      // Use the EXISTING renderCallLadderCard function from Growth tab
+      html += renderCallLadderCard(l);
+    });
+  }
+  
+  html += '<div style="font-weight:700;font-size:0.9rem;color:var(--black);margin:2rem 0 1rem 0;">🔴 PUT LADDERS (Step 4)</div>';
+  html += '<div style="padding:2rem;text-align:center;color:var(--text3);background:var(--bg2);border-radius:8px;">Put ladders will be added in Step 4</div>';
+  
+  html += '</div>';
+  
+  rootDiv.innerHTML = html;
+}
 
 // ── INIT ──────────────────────────────────────────────────────────────────────
 render();
