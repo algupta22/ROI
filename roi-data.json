@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-04-27T13:26:09.522Z",
+  "savedAt": "2026-04-27T13:56:18.885Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -19082,6 +19082,15 @@
             "closed": false,
             "closeReason": null,
             "posType": "SPUT"
+          },
+          {
+            "id": "moh9fwfuc4gg",
+            "strike": 26,
+            "contracts": 1,
+            "received": 15,
+            "expiry": "5/1",
+            "openDate": "4/27/2026",
+            "closed": false
           }
         ],
         "closed": false
