@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-04-27T20:07:38.073Z",
+  "savedAt": "2026-04-27T20:14:22.211Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -37827,6 +37827,36 @@
   "callLadders": {
     "self": [
       {
+        "id": "mohmu0v5tes6",
+        "ticker": "NVDX",
+        "contracts": 2,
+        "longStrike": 13.43,
+        "longPremium": 9.15,
+        "longExpiry": "1/15/27",
+        "openDate": "4/27",
+        "notes": "",
+        "noLongCall": false,
+        "longCallClosed": false,
+        "shortCalls": [],
+        "closed": false,
+        "marketValueOverride": 1850
+      },
+      {
+        "id": "mohmsfxhlz8l",
+        "ticker": "NVDX",
+        "contracts": 3,
+        "longStrike": 11.43,
+        "longPremium": 7.63,
+        "longExpiry": "1/15/27",
+        "openDate": "4/15",
+        "notes": "",
+        "noLongCall": false,
+        "longCallClosed": false,
+        "shortCalls": [],
+        "closed": false,
+        "marketValueOverride": 3180
+      },
+      {
         "id": "modx2m2no8ey",
         "ticker": "AMDL",
         "contracts": 1,
@@ -38441,7 +38471,10 @@
         "position": null,
         "noLongCall": false,
         "shortCalls": [],
-        "closed": false
+        "closed": true,
+        "longCallClosed": true,
+        "longCloseAmount": 0,
+        "longCloseDate": "4/27/2026"
       },
       {
         "id": "modx2m2myko6",
@@ -40205,11 +40238,19 @@
       {
         "id": "mog972j4kdii",
         "ticker": "PLTR",
-        "shares": 300,
+        "shares": 200,
         "costBasis": 132.03,
         "purchaseDate": "04/24",
         "coveredCalls": [],
-        "closed": false
+        "closed": false,
+        "shareSales": [
+          {
+            "id": "sale_1777320819570",
+            "shares": 100,
+            "salePrice": 142.85,
+            "saleDate": "04/27/2026"
+          }
+        ]
       }
     ],
     "spouse": [
