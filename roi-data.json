@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-04-27T20:14:22.211Z",
+  "savedAt": "2026-04-27T20:16:10.249Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -37826,6 +37826,20 @@
   },
   "callLadders": {
     "self": [
+      {
+        "id": "mohmzt3w4r9u",
+        "ticker": "PLTR",
+        "contracts": 1,
+        "longStrike": 140,
+        "longPremium": 33.45,
+        "longExpiry": "3/19/27",
+        "openDate": "4/27/2026",
+        "notes": "",
+        "noLongCall": false,
+        "longCallClosed": false,
+        "shortCalls": [],
+        "closed": false
+      },
       {
         "id": "mohmu0v5tes6",
         "ticker": "NVDX",
