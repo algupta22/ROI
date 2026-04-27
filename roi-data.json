@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-04-27T13:56:18.885Z",
+  "savedAt": "2026-04-27T14:05:08.673Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -8675,6 +8675,20 @@
   },
   "putLadders": {
     "self": [
+      {
+        "id": "moh9q45uxfzd",
+        "ticker": "PTON",
+        "contracts": 1,
+        "longStrike": null,
+        "longPremium": null,
+        "longExpiry": null,
+        "openDate": "4/27/2026",
+        "notes": "",
+        "position": null,
+        "noLongPut": true,
+        "shortPuts": [],
+        "closed": true
+      },
       {
         "id": "mofv8mzyqioy",
         "ticker": "TSLL",
@@ -19626,7 +19640,17 @@
         "notes": "",
         "position": null,
         "noLongPut": false,
-        "shortPuts": [],
+        "shortPuts": [
+          {
+            "id": "moh9q45ullf5",
+            "strike": 5,
+            "contracts": 1,
+            "received": 31,
+            "expiry": "5/8",
+            "openDate": "4/27/2026",
+            "closed": false
+          }
+        ],
         "closed": false
       },
       {
