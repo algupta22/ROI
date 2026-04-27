@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-04-27T17:43:47.486Z",
+  "savedAt": "2026-04-27T17:56:35.710Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -21006,6 +21006,44 @@
     ],
     "spouse": [
       {
+        "id": "mohhzqmbhbs9",
+        "ticker": "MSFT",
+        "contracts": 1,
+        "longStrike": null,
+        "longPremium": null,
+        "longExpiry": null,
+        "openDate": "4/27/2026",
+        "notes": "",
+        "position": null,
+        "noLongPut": true,
+        "shortPuts": [],
+        "closed": true
+      },
+      {
+        "id": "mohhxzcuk0qq",
+        "ticker": "INTC",
+        "contracts": 1,
+        "longStrike": null,
+        "longPremium": null,
+        "longExpiry": null,
+        "openDate": "4/27/2026",
+        "notes": "",
+        "position": null,
+        "noLongPut": true,
+        "shortPuts": [
+          {
+            "id": "mohhxzcum6o1",
+            "strike": 68,
+            "contracts": 1,
+            "received": 15,
+            "expiry": "5/1",
+            "openDate": "4/27/2026",
+            "closed": false
+          }
+        ],
+        "closed": false
+      },
+      {
         "id": "mofquzve1p1y",
         "ticker": "METU",
         "contracts": 1,
@@ -24301,8 +24339,19 @@
         "notes": "",
         "position": null,
         "noLongPut": false,
-        "shortPuts": [],
-        "closed": false
+        "shortPuts": [
+          {
+            "id": "mohhzqmb51xv",
+            "strike": 375,
+            "contracts": 1,
+            "received": 107,
+            "expiry": "5/1",
+            "openDate": "4/27/2026",
+            "closed": false
+          }
+        ],
+        "closed": false,
+        "marketValueOverride": 232
       },
       {
         "id": "modx1cn9ocqi",
@@ -39128,6 +39177,21 @@
     ],
     "spouse": [
       {
+        "id": "mohhs8hf6s0d",
+        "ticker": "NVDX",
+        "contracts": 1,
+        "longStrike": 13.43,
+        "longPremium": 8.8,
+        "longExpiry": "1/15/2027",
+        "openDate": "4/27/2026",
+        "notes": "",
+        "noLongCall": false,
+        "longCallClosed": false,
+        "shortCalls": [],
+        "closed": false,
+        "marketValueOverride": 880
+      },
+      {
         "id": "modx1ojo9022",
         "ticker": "SOFI",
         "contracts": 3,
@@ -39215,8 +39279,11 @@
         "position": null,
         "noLongCall": false,
         "shortCalls": [],
-        "closed": false,
-        "marketValueOverride": 1000
+        "closed": true,
+        "marketValueOverride": 1000,
+        "longCallClosed": true,
+        "longCloseAmount": 300,
+        "longCloseDate": "4/27/2026"
       },
       {
         "id": "modx1ojohvbc",
