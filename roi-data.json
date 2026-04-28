@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-04-28T16:49:14.327Z",
+  "savedAt": "2026-04-28T16:59:48.495Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -8676,6 +8676,24 @@
   "putLadders": {
     "self": [
       {
+        "id": "moiv7f3pkzbf",
+        "ticker": "IBIT",
+        "contracts": 1,
+        "longStrike": 40,
+        "longPremium": 3.19,
+        "longExpiry": "5/1",
+        "openDate": "3/20",
+        "notes": "",
+        "position": null,
+        "noLongPut": false,
+        "longPutClosed": true,
+        "shortPuts": [],
+        "closed": true,
+        "marketValueOverride": null,
+        "longCloseAmount": 7,
+        "longCloseDate": "4/28/2026"
+      },
+      {
         "id": "moiv0ygxi8cd",
         "ticker": "BBAI",
         "contracts": 1,
@@ -11108,6 +11126,20 @@
             "closed": true,
             "closeReason": "sold",
             "posType": "STC"
+          },
+          {
+            "id": "modx2clrxtp0",
+            "strike": 16.5,
+            "contracts": 1,
+            "received": 19.94,
+            "btcDebit": 0,
+            "expiry": "5/1/2026",
+            "openDate": "4/23/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "posType": "SPUT",
+            "closeDate": "4/28/2026",
+            "buybackCost": 5
           }
         ],
         "closed": true,
@@ -16754,7 +16786,7 @@
       {
         "id": "modx2cls3ole",
         "ticker": "IBIT",
-        "contracts": 2,
+        "contracts": 1,
         "longStrike": 40,
         "longPremium": 3.19,
         "longExpiry": "5/1/2026",
@@ -16762,8 +16794,19 @@
         "notes": "",
         "position": null,
         "noLongPut": false,
-        "shortPuts": [],
-        "closed": false
+        "shortPuts": [
+          {
+            "id": "moiv8nuux40w",
+            "strike": 42.5,
+            "contracts": 1,
+            "received": 18,
+            "expiry": "4/29",
+            "openDate": "4/28/2026",
+            "closed": false
+          }
+        ],
+        "closed": false,
+        "marketValueOverride": null
       },
       {
         "id": "modx2clsno7r",
@@ -18899,18 +18942,6 @@
         "noLongPut": false,
         "shortPuts": [
           {
-            "id": "modx2clrxtp0",
-            "strike": 16.5,
-            "contracts": 1,
-            "received": 19.94,
-            "btcDebit": 0,
-            "expiry": "5/1/2026",
-            "openDate": "4/23/2026",
-            "closed": false,
-            "closeReason": null,
-            "posType": "SPUT"
-          },
-          {
             "id": "modx2clrxccs",
             "strike": 17,
             "contracts": 1,
@@ -18921,6 +18952,15 @@
             "closed": false,
             "closeReason": null,
             "posType": "SPUT"
+          },
+          {
+            "id": "moivbqybdyt2",
+            "strike": 18,
+            "contracts": 1,
+            "received": 10,
+            "expiry": "5/1",
+            "openDate": "4/28/2026",
+            "closed": false
           }
         ],
         "closed": false
