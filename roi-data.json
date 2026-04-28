@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-04-28T04:25:30.587Z",
+  "savedAt": "2026-04-28T04:51:36.920Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -37887,6 +37887,36 @@
   "callLadders": {
     "self": [
       {
+        "id": "moi52emnogq5",
+        "ticker": "SOFI",
+        "contracts": 2,
+        "longStrike": 17,
+        "longPremium": 8.52,
+        "longExpiry": "1/15/2027",
+        "openDate": "1/28/2026",
+        "notes": "",
+        "noLongCall": false,
+        "longCallClosed": false,
+        "shortCalls": [],
+        "closed": false,
+        "marketValueOverride": 1026
+      },
+      {
+        "id": "moi4ngnaurei",
+        "ticker": "BBAI",
+        "contracts": 1,
+        "longStrike": 3.5,
+        "longPremium": 3.05,
+        "longExpiry": "1/15/2027",
+        "openDate": "1/28/2026",
+        "notes": "",
+        "noLongCall": false,
+        "longCallClosed": false,
+        "shortCalls": [],
+        "closed": false,
+        "marketValueOverride": 127
+      },
+      {
         "id": "mohmzt3w4r9u",
         "ticker": "PLTR",
         "contracts": 1,
@@ -38200,7 +38230,10 @@
         "position": null,
         "noLongCall": false,
         "shortCalls": [],
-        "closed": false
+        "closed": true,
+        "longCallClosed": true,
+        "longCloseAmount": 0,
+        "longCloseDate": "4/28/2026"
       },
       {
         "id": "modx2m2mrgbl",
@@ -38214,7 +38247,8 @@
         "position": null,
         "noLongCall": false,
         "shortCalls": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 2153
       },
       {
         "id": "modx2m2m7f8t",
@@ -38266,7 +38300,8 @@
             "closeDate": "2/2/2026"
           }
         ],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 1273
       },
       {
         "id": "modx2m2m0du8",
@@ -38325,7 +38360,8 @@
         "position": null,
         "noLongCall": false,
         "shortCalls": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 32
       },
       {
         "id": "modx2m2m2vnc",
@@ -38365,7 +38401,10 @@
         "position": null,
         "noLongCall": false,
         "shortCalls": [],
-        "closed": false
+        "closed": true,
+        "longCallClosed": true,
+        "longCloseAmount": 0,
+        "longCloseDate": "4/28/2026"
       },
       {
         "id": "modx2m2mo7od",
@@ -38379,7 +38418,10 @@
         "position": null,
         "noLongCall": false,
         "shortCalls": [],
-        "closed": false
+        "closed": true,
+        "longCallClosed": true,
+        "longCloseAmount": 0,
+        "longCloseDate": "4/28/2026"
       },
       {
         "id": "modx2m2m1p6a",
@@ -38393,7 +38435,8 @@
         "position": null,
         "noLongCall": false,
         "shortCalls": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 385
       },
       {
         "id": "modx2m2m72sz",
@@ -38407,7 +38450,8 @@
         "position": null,
         "noLongCall": false,
         "shortCalls": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 363
       },
       {
         "id": "modx2m2maq1g",
@@ -38421,7 +38465,8 @@
         "position": null,
         "noLongCall": false,
         "shortCalls": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 1
       },
       {
         "id": "modx2m2mtwb7",
@@ -38454,7 +38499,10 @@
         "position": null,
         "noLongCall": false,
         "shortCalls": [],
-        "closed": false
+        "closed": true,
+        "longCallClosed": true,
+        "longCloseAmount": 0,
+        "longCloseDate": "4/28/2026"
       },
       {
         "id": "modx2m2m6w23",
@@ -38518,7 +38566,8 @@
         "position": null,
         "noLongCall": false,
         "shortCalls": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 595
       },
       {
         "id": "modx2m2mhvng",
@@ -38532,7 +38581,8 @@
         "position": null,
         "noLongCall": false,
         "shortCalls": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 453
       },
       {
         "id": "modx2m2mu782",
@@ -38711,7 +38761,10 @@
         "position": null,
         "noLongCall": false,
         "shortCalls": [],
-        "closed": false
+        "closed": true,
+        "longCallClosed": true,
+        "longCloseAmount": 0,
+        "longCloseDate": "4/28/2026"
       },
       {
         "id": "modx2m2mu8ai",
@@ -38737,7 +38790,10 @@
             "closeDate": "3/12/2026"
           }
         ],
-        "closed": false
+        "closed": true,
+        "longCallClosed": true,
+        "longCloseAmount": 0,
+        "longCloseDate": "4/28/2026"
       },
       {
         "id": "modx2m2mr1u6",
@@ -39106,28 +39162,13 @@
             "id": "modx2m2mh2i7",
             "strike": 616,
             "contracts": 1,
-            "received": 7458.95,
+            "received": 3038,
             "expiry": "4/30/2026",
             "openDate": "3/2/2026",
             "closed": true,
             "btcDebit": 3170.04,
             "closeDate": "3/30/2026"
-          }
-        ],
-        "closed": false
-      },
-      {
-        "id": "modx2m2mwt90",
-        "ticker": "SPY",
-        "contracts": 1,
-        "longStrike": null,
-        "longPremium": null,
-        "longExpiry": null,
-        "openDate": "3/30/2026",
-        "notes": "",
-        "position": null,
-        "noLongCall": true,
-        "shortCalls": [
+          },
           {
             "id": "modx2m2midv2",
             "strike": 628,
@@ -39138,7 +39179,8 @@
             "closed": false
           }
         ],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 2267
       },
       {
         "id": "modx2m2muizj",
@@ -39195,16 +39237,17 @@
       {
         "id": "modx2m2m0cvk",
         "ticker": "NVTS",
-        "contracts": 1,
+        "contracts": 2,
         "longStrike": 8,
-        "longPremium": 6.3004,
+        "longPremium": 6.4,
         "longExpiry": "1/15/2027",
         "openDate": "4/16/2026",
         "notes": "",
         "position": null,
         "noLongCall": false,
         "shortCalls": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 2270
       },
       {
         "id": "modx2m2mxre4",
@@ -39230,14 +39273,15 @@
         "ticker": "SOFI",
         "contracts": 1,
         "longStrike": 15,
-        "longPremium": 7.3004,
+        "longPremium": 7.33,
         "longExpiry": "3/19/2027",
         "openDate": "4/20/2026",
         "notes": "",
         "position": null,
         "noLongCall": false,
         "shortCalls": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 1346
       },
       {
         "id": "modx2m2m2t7c",
@@ -39284,7 +39328,8 @@
         "position": null,
         "noLongCall": false,
         "shortCalls": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 300
       }
     ],
     "spouse": [
