@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-04-28T22:41:48.677Z",
+  "savedAt": "2026-04-28T22:46:01.200Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -25491,14 +25491,16 @@
           {
             "id": "modx1cn9umip",
             "strike": 17,
-            "contracts": 2,
-            "received": 73,
+            "contracts": 1,
+            "received": 36,
             "btcDebit": 0,
             "expiry": "5/1/2026",
             "openDate": "4/24/2026",
-            "closed": false,
-            "closeReason": null,
-            "posType": "SPUT"
+            "closed": true,
+            "closeReason": "buyback",
+            "posType": "SPUT",
+            "closeDate": "4/28/2026",
+            "buybackCost": 26
           },
           {
             "id": "modx1cn9nc5r",
@@ -25508,9 +25510,32 @@
             "btcDebit": 0,
             "expiry": "5/1/2026",
             "openDate": "4/24/2026",
-            "closed": false,
-            "closeReason": null,
-            "posType": "SPUT"
+            "closed": true,
+            "closeReason": "buyback",
+            "posType": "SPUT",
+            "closeDate": "4/28/2026",
+            "buybackCost": 46
+          },
+          {
+            "id": "moj7pm80qo9x",
+            "strike": 17,
+            "contracts": 1,
+            "received": 36,
+            "expiry": "5/1",
+            "openDate": "3/4",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "4/28/2026",
+            "buybackCost": 26
+          },
+          {
+            "id": "moj7sd0fymrz",
+            "strike": 18,
+            "contracts": 3,
+            "received": 180,
+            "expiry": "5/1",
+            "openDate": "4/28/2026",
+            "closed": false
           }
         ],
         "closed": false
