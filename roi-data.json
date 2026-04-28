@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-04-28T14:40:06.022Z",
+  "savedAt": "2026-04-28T15:03:46.722Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -18965,45 +18965,11 @@
         "notes": "",
         "position": null,
         "noLongPut": false,
-        "shortPuts": [
-          {
-            "id": "modx2clr14fh",
-            "strike": 17.5,
-            "contracts": 1,
-            "received": 52.94,
-            "btcDebit": 0,
-            "expiry": "5/1/2026",
-            "openDate": "4/24/2026",
-            "closed": false,
-            "closeReason": null,
-            "posType": "SPUT"
-          },
-          {
-            "id": "modx2clrznq6",
-            "strike": 17,
-            "contracts": 1,
-            "received": 35.94,
-            "btcDebit": 0,
-            "expiry": "5/1/2026",
-            "openDate": "4/23/2026",
-            "closed": false,
-            "closeReason": null,
-            "posType": "SPUT"
-          },
-          {
-            "id": "modx2clrswkd",
-            "strike": 17,
-            "contracts": 1,
-            "received": 36.94,
-            "btcDebit": 0,
-            "expiry": "5/1/2026",
-            "openDate": "4/24/2026",
-            "closed": false,
-            "closeReason": null,
-            "posType": "SPUT"
-          }
-        ],
-        "closed": false
+        "shortPuts": [],
+        "closed": true,
+        "longPutClosed": true,
+        "longCloseAmount": 133,
+        "longCloseDate": "4/28/2026"
       },
       {
         "id": "modx2clrwfx2",
@@ -19097,9 +19063,9 @@
       {
         "id": "modx2clrk6c0",
         "ticker": "SOFI",
-        "contracts": 1,
+        "contracts": 4,
         "longStrike": 19,
-        "longPremium": 1.7504,
+        "longPremium": 1.99,
         "longExpiry": "6/18/2026",
         "openDate": "4/20/2026",
         "notes": "",
@@ -19117,9 +19083,46 @@
             "closed": false,
             "closeReason": null,
             "posType": "SPUT"
+          },
+          {
+            "id": "modx2clr14fh",
+            "strike": 17.5,
+            "contracts": 1,
+            "received": 52.94,
+            "btcDebit": 0,
+            "expiry": "5/1/2026",
+            "openDate": "4/24/2026",
+            "closed": false,
+            "closeReason": null,
+            "posType": "SPUT"
+          },
+          {
+            "id": "modx2clrznq6",
+            "strike": 17,
+            "contracts": 1,
+            "received": 35.94,
+            "btcDebit": 0,
+            "expiry": "5/1/2026",
+            "openDate": "4/23/2026",
+            "closed": false,
+            "closeReason": null,
+            "posType": "SPUT"
+          },
+          {
+            "id": "modx2clrswkd",
+            "strike": 17,
+            "contracts": 1,
+            "received": 36.94,
+            "btcDebit": 0,
+            "expiry": "5/1/2026",
+            "openDate": "4/24/2026",
+            "closed": false,
+            "closeReason": null,
+            "posType": "SPUT"
           }
         ],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 804
       },
       {
         "id": "modx2clrbd2z",
