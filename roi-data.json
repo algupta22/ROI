@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-04-28T04:51:36.920Z",
+  "savedAt": "2026-04-28T14:40:06.022Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -18439,9 +18439,9 @@
       {
         "id": "modx2clrzb3s",
         "ticker": "PLTR",
-        "contracts": 1,
+        "contracts": 2,
         "longStrike": 140,
-        "longPremium": 16.2504,
+        "longPremium": 13.52,
         "longExpiry": "6/18/2026",
         "openDate": "4/13/2026",
         "notes": "",
@@ -18462,7 +18462,7 @@
           }
         ],
         "closed": false,
-        "marketValueOverride": 1033
+        "marketValueOverride": 2200
       },
       {
         "id": "modx2clriomz",
@@ -21034,7 +21034,17 @@
         "position": null,
         "noLongPut": false,
         "longPutClosed": false,
-        "shortPuts": [],
+        "shortPuts": [
+          {
+            "id": "moip9u3eymeh",
+            "strike": 11,
+            "contracts": 2,
+            "received": 18,
+            "expiry": "5/1",
+            "openDate": "4/28/2026",
+            "closed": false
+          }
+        ],
         "closed": false
       },
       {
@@ -37887,6 +37897,21 @@
   "callLadders": {
     "self": [
       {
+        "id": "moiq721wtye7",
+        "ticker": "PLTR",
+        "contracts": 1,
+        "longStrike": 140,
+        "longPremium": 33.45,
+        "longExpiry": "3/19/27",
+        "openDate": "4/28/2026",
+        "notes": "",
+        "noLongCall": false,
+        "longCallClosed": false,
+        "shortCalls": [],
+        "closed": false,
+        "marketValueOverride": 3288
+      },
+      {
         "id": "moi52emnogq5",
         "ticker": "SOFI",
         "contracts": 2,
@@ -40372,7 +40397,7 @@
       {
         "id": "mog972j4kdii",
         "ticker": "PLTR",
-        "shares": 200,
+        "shares": 100,
         "costBasis": 132.03,
         "purchaseDate": "04/24",
         "coveredCalls": [],
@@ -40383,6 +40408,12 @@
             "shares": 100,
             "salePrice": 142.85,
             "saleDate": "04/27/2026"
+          },
+          {
+            "id": "sale_1777386712066",
+            "shares": 100,
+            "salePrice": 141.77,
+            "saleDate": "04/28/2026"
           }
         ]
       }
