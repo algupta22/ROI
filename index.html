@@ -1042,7 +1042,7 @@ var selectedTickers=new Set(['ALL']),editingPrice=null,dropdownOpen=false;
 var bcDropdownOpen=false,bcTkSearch='';
 function bcToggleDropdown(){bcDropdownOpen=!bcDropdownOpen;var d=document.getElementById('bc-tkdrop');if(d)d.classList.toggle('open',bcDropdownOpen);if(bcDropdownOpen){setTimeout(function(){var s=document.getElementById('bc-tk-search');if(s)s.focus();},40);}else{bcTkSearch='';}}
 function bcSetTkSearch(v){bcTkSearch=v;var d=document.getElementById('bc-tkdrop');if(!d)return;var q=(v||'').toLowerCase();d.querySelectorAll('.ticker-dd-item[data-ddticker]').forEach(function(el){var t=el.dataset.ddticker;el.style.display=(!t||t==='ALL'||t.toLowerCase().indexOf(q)>=0||!q)?'':'none';});}
-var editCell=null,activeView='positions',spreadsOcFilter='open',spreadsExpFilter='all',spreadsTypeFilter='all',spreadsSpreadFilter='all',spreadsItmFilter=false,spreadsMoneyFilter='all',spreadsShowFilter='all',spreadsRiskFilter='all',spreadsRiskExpiryFilter='all';
+var editCell=null,activeView='positions',spreadsOcFilter='open',spreadsExpFilter='all',spreadsTypeFilter='all',spreadsSpreadFilter='all',spreadsItmFilter=false,spreadsMoneyFilter='all',spreadsShowFilter='all',spreadsRiskFilter='all',spreadsRiskExpiryFilter='tw';
 var modal=null,showUpload=false,csvPreview=null,importMsg='';
 var expandedGroups=new Set();
 var hiddenClosedGroups=new Set();
@@ -1662,154 +1662,329 @@ window.cryptoDetailSave=cryptoDetailSave;
 window.cryptoDetailCancel=cryptoDetailCancel;
 
 // ── WEEKLY INCOME CARD ────────────────────────────────────────────────────────
+// Global variable for income card week filter (default TW - This Week)
+var incomeCardWeekFilter = 'tw';
+
+function setIncomeCardWeekFilter(mode) {
+  incomeCardWeekFilter = mode;
+  rMain(); // Re-render the main view to update the income card
+}
+
 function rWeeklyIncomeCard(){
-  var now2=new Date();
-  var tod=new Date(now2.getFullYear(),now2.getMonth(),now2.getDate());
-  var dow=now2.getDay();
-  // Week: Monday 00:00 → Sunday 23:59
-  var monOff=dow===0?-6:1-dow;
-  var thisMon=new Date(tod);thisMon.setDate(tod.getDate()+monOff);thisMon.setHours(0,0,0,0);
-  var thisSunEnd=new Date(thisMon);thisSunEnd.setDate(thisMon.getDate()+6);thisSunEnd.setHours(23,59,59,999);
-  var lastMon=new Date(thisMon);lastMon.setDate(thisMon.getDate()-7);
-  var lastSunEnd=new Date(thisSunEnd);lastSunEnd.setDate(thisSunEnd.getDate()-7);
-
-  function parseOD(s){if(!s)return null;var p=s.split('/');if(p.length===3){var y=parseInt(p[2]);if(y<100)y+=2000;return new Date(y,parseInt(p[0])-1,parseInt(p[1]));}return null;}
-
-  function getOpenIncome(r){
-    var sa=r.soldAmount!=null&&r.soldAmount!==''?parseFloat(r.soldAmount):null;
-    if(sa!=null&&!isNaN(sa))return sa; // sold amount (premium received or shares sold)
-    // No sold yet — cost paid is negative income (money spent this week)
-    return -(r.excelCost||0);
+  // Week calculation helpers
+  function getWeekRange(weeksAgo) {
+    var now = new Date();
+    var dayOfWeek = now.getDay();
+    var daysToMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+    var weekStart = new Date(now);
+    weekStart.setDate(now.getDate() - daysToMonday - (weeksAgo * 7));
+    weekStart.setHours(0, 0, 0, 0);
+    var weekEnd = new Date(weekStart);
+    weekEnd.setDate(weekStart.getDate() + 6);
+    weekEnd.setHours(23, 59, 59, 999);
+    return { start: weekStart, end: weekEnd };
   }
-  function getCloseIncome(r){
-    if(!r.closeAction||r.closeAction.signedAmount==null)return 0;
-    return r.closeAction.signedAmount; // positive=credit, negative=debit
+  
+  function isInWeek(dateStr, weekRange) {
+    if (!dateStr) return false;
+    var d = new Date(dateStr);
+    return d >= weekRange.start && d <= weekRange.end;
   }
-  // All-time net per position: sold - cost + close
-  function getAllTimeNI(r){
-    var sa=r.soldAmount!=null&&r.soldAmount!==''?parseFloat(r.soldAmount):0;
-    var ca=r.closeAction&&r.closeAction.signedAmount!=null?r.closeAction.signedAmount:0;
-    return sa-(r.excelCost||0)+ca;
-  }
-
-  var ports=[
-    {key:'lovelina', label:'Lovelina', color:'#DB2877'},
-    {key:'amit',     label:'Amit',     color:'#2563EB'},
-    {key:'joint',    label:'Joint',    color:'#059669'},
-    {key:'amit-roth',label:'A.Roth',   color:'#7C3AED'},
-    {key:'lov-roth', label:'L.Roth',   color:'#9333EA'},
-    {key:'lov-trad', label:'L.Trad',   color:'#0891B2'}
-  ];
-
-  var portStats={};
-  var grandCW=0,grandPW=0,grandTotal=0;
-  ports.forEach(function(p){
-    var cw=0,pw=0,total=0,openCount=0;
-    tkFilter(positions.filter(function(r){return(r.portfolio||'lovelina')===p.key;})).forEach(function(r){
-      var od=parseOD(r.openDate);
-      var cd=r.closeAction&&r.closeAction.date?parseOD(r.closeAction.date):null;
-      var ca=r.closeAction||null;
-      var isClosed=isCl(r);
-
-      // Partial sells on open share positions — attribute each by its own sale date
-      if(!isClosed&&r.partialSells&&r.partialSells.length){
-        r.partialSells.forEach(function(ps){
-          var psd=parseOD(ps.date);
-          if(psd&&psd>=thisMon&&psd<=thisSunEnd) cw+=ps.amount;
-          if(psd&&psd>=lastMon&&psd<=lastSunEnd) pw+=ps.amount;
-          total+=ps.amount-ps.cost;
-        });
-        if(!isCl(r))openCount++;
-        return;
-      }
-
-      // Sold amount: for closed → close date; for open → open date
-      var soldDate=isClosed?cd:od;
-      if(isClosed){
-        // Closed position: all income is from closeAction (credit/debit on close date)
-        // soldAmount is already captured in closeAction.signedAmount for STC/Sell
-        var ci=getCloseIncome(r);
-        if(cd&&cd>=thisMon&&cd<=thisSunEnd) cw+=ci;
-        if(cd&&cd>=lastMon&&cd<=lastSunEnd) pw+=ci;
-      } else {
-        // Open position: income is soldAmount (premium) attributed to open date
-        var soldInc=getOpenIncome(r);
-        if(od&&od>=thisMon&&od<=thisSunEnd) cw+=soldInc;
-        if(od&&od>=lastMon&&od<=lastSunEnd) pw+=soldInc;
-      }
-      total+=getAllTimeNI(r);
-      if(!isCl(r))openCount++;
-    });
-    portStats[p.key]={cw:cw,pw:pw,total:total,openCount:openCount};
-    grandCW+=cw;grandPW+=pw;grandTotal+=total;
-  });
-
-  // KPIs across ALL positions
-  var allOpenSPUTs=tkFilter(positions.filter(function(r){return r.excelType==='Short Put'&&!isCl(r);}));
-  var expThisWeek=allOpenSPUTs.filter(function(r){var d=parseExpiry(r.expiryDate);return d&&d>=thisMon&&d<=thisSunEnd;}).length;
-  var itmCount=allOpenSPUTs.filter(function(r){
-    var lP=liveCache[r.ticker]&&liveCache[r.ticker].price!=null?liveCache[r.ticker].price:null;
-    var mP=tickerPrices[r.ticker];var sP=lP!=null?lP:(mP!=null?mP:null);
-    return sP!=null&&sP<r.strike;
-  }).length;
-  var wowVal=grandCW-grandPW;
-  var wowColor=wowVal>=0?'var(--green)':'var(--red)';
-  var wowSign=wowVal>=0?'+':'';
-
+  
+  var cwRange = getWeekRange(0); // This week
+  var pwRange = getWeekRange(1); // Previous week
+  
   function fc(v){return(v>=0?'+':'-')+'$'+Math.abs(v).toLocaleString(undefined,{maximumFractionDigits:0});}
   function fcp(v){return v>=0?'var(--green)':'var(--red)';}
   function div1(){return '<div style="height:1px;background:var(--border);margin:0.16rem 0;"></div>';}
   function lbl(t){return '<div style="font-size:0.48rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:rgba(0,0,0,0.3);margin-bottom:0.03rem;">'+t+'</div>';}
   function val(v,color){return '<div style="font-size:0.7rem;font-weight:800;font-family:monospace;color:'+color+';">'+v+'</div>';}
 
-  // Header: title + grand CW + grand PW
+  // Portfolio definitions
+  var ports=[
+    {key:'lovelina', label:'Lovelina', color:'#DB2877', mainPort: 'spouse'},
+    {key:'amit',     label:'Amit',     color:'#2563EB', mainPort: 'self'},
+    {key:'joint',    label:'Joint',    color:'#059669', mainPort: 'joint'},
+    {key:'amit-roth',label:'A.Roth',   color:'#7C3AED', mainPort: 'retirement', sub: 'amit-roth'},
+    {key:'lov-roth', label:'L.Roth',   color:'#9333EA', mainPort: 'retirement', sub: 'lov-roth'},
+    {key:'lov-trad', label:'L.Trad',   color:'#0891B2', mainPort: 'retirement', sub: 'lov-trad'}
+  ];
+
+  var portStats={};
+  var grandTotal=0;
+  
+  // Calculate income for each portfolio from Put Ladders, Shares, and Growth
+  ports.forEach(function(p){
+    var putIncome = 0, shareIncome = 0, growthIncome = 0;
+    
+    // 1. PUT LADDERS INCOME
+    var relevantLadders = [];
+    if (p.mainPort === 'retirement') {
+      // Retirement portfolios - map to correct localStorage keys
+      var retKeyMap = { 'amit-roth':'self_roth', 'lov-roth':'spouse_roth', 'lov-trad':'spouse_ira' };
+      var lsKey = retKeyMap[p.sub] || p.sub;
+      try {
+        var raw = localStorage.getItem('roi_putladder_' + lsKey);
+        relevantLadders = (raw && JSON.parse(raw)) || [];
+        if (!Array.isArray(relevantLadders)) relevantLadders = [];
+      } catch(e) { relevantLadders = []; }
+    } else {
+      // Regular portfolios - map to correct localStorage keys
+      var portKeyMap = { 'amit':'self', 'lovelina':'spouse', 'joint':'joint' };
+      var lsKey = portKeyMap[p.key] || p.key;
+      try {
+        var raw = localStorage.getItem('roi_putladder_' + lsKey);
+        relevantLadders = (raw && JSON.parse(raw)) || [];
+        if (!Array.isArray(relevantLadders)) relevantLadders = [];
+      } catch(e) { relevantLadders = []; }
+    }
+    
+    relevantLadders.forEach(function(l) {
+      if (incomeCardWeekFilter === 'all') {
+        // All time - use total income from calcLadder
+        var s = calcLadder(l);
+        putIncome += s.totalIncome;
+      } else {
+        // Week filtered - calculate income only from transactions in the target week
+        var targetRange = incomeCardWeekFilter === 'tw' ? cwRange : pwRange;
+        
+        // Long put close credit (if sold in target week)
+        if ((l.longPutClosed || l.closed) && l.longCloseAmount && l.longCloseDate) {
+          if (isInWeek(l.longCloseDate, targetRange)) {
+            putIncome += l.longCloseAmount;
+          }
+        }
+        
+        // Short put premiums (received in target week)
+        (l.shortPuts || []).forEach(function(sp) {
+          if (sp.openDate && isInWeek(sp.openDate, targetRange)) {
+            // Premium received this week
+            putIncome += (sp.received || 0);
+          }
+          
+          if (sp.closed && sp.closeDate && isInWeek(sp.closeDate, targetRange)) {
+            // Buyback cost or profit/loss from closing in target week
+            var debit = sp.btcDebit || 0;
+            var buybackCost = sp.buybackCost || 0;
+            putIncome -= (debit + buybackCost);
+          }
+        });
+      }
+    });
+    
+    // 2. SHARES INCOME (from sharePositions, NOT positions)
+    var relevantShares = [];
+    if (p.mainPort === 'retirement') {
+      // Retirement shares
+      var retKeyMap = { 'amit-roth':'self_roth', 'lov-roth':'spouse_roth', 'lov-trad':'spouse_ira' };
+      var lsKey = retKeyMap[p.sub] || p.sub;
+      try {
+        var raw = localStorage.getItem('roi_shares_' + lsKey);
+        relevantShares = (raw && JSON.parse(raw)) || [];
+        if (!Array.isArray(relevantShares)) relevantShares = [];
+      } catch(e) { relevantShares = []; }
+    } else {
+      // Regular portfolios
+      var portKeyMap = { 'amit':'self', 'lovelina':'spouse', 'joint':'joint' };
+      var lsKey = portKeyMap[p.key] || p.key;
+      try {
+        var raw = localStorage.getItem('roi_shares_' + lsKey);
+        relevantShares = (raw && JSON.parse(raw)) || [];
+        if (!Array.isArray(relevantShares)) relevantShares = [];
+      } catch(e) { relevantShares = []; }
+    }
+    
+    relevantShares.forEach(function(share) {
+      if (incomeCardWeekFilter === 'all') {
+        // All time: calculate total income (covered calls + share sales net)
+        
+        // Covered calls net income
+        var callSTO = 0, callBTC = 0;
+        (share.coveredCalls || []).forEach(function(cc) {
+          callSTO += cc.received || 0;
+          callBTC += cc.btcPaid || 0;
+        });
+        shareIncome += (callSTO - callBTC);
+        
+        // Share sales net income (proceeds - cost basis)
+        (share.shareSales || []).forEach(function(sale) {
+          var proceeds = (sale.shares || 0) * (sale.salePrice || 0);
+          var cost = (sale.shares || 0) * (share.costBasis || 0);
+          shareIncome += (proceeds - cost);
+        });
+      } else {
+        // Week filtered: only count transactions in target week
+        var targetRange = incomeCardWeekFilter === 'tw' ? cwRange : pwRange;
+        
+        // Covered calls in target week
+        (share.coveredCalls || []).forEach(function(cc) {
+          var includeCall = (cc.openDate && isInWeek(cc.openDate, targetRange)) ||
+                           (cc.closeDate && isInWeek(cc.closeDate, targetRange));
+          if (includeCall) {
+            shareIncome += (cc.received || 0) - (cc.btcPaid || 0);
+          }
+        });
+        
+        // Share sales in target week
+        (share.shareSales || []).forEach(function(sale) {
+          if (sale.saleDate && isInWeek(sale.saleDate, targetRange)) {
+            var proceeds = (sale.shares || 0) * (sale.salePrice || 0);
+            var cost = (sale.shares || 0) * (share.costBasis || 0);
+            shareIncome += (proceeds - cost);
+          }
+        });
+      }
+    });
+    
+    // 3. GROWTH (CALL LADDERS) INCOME
+    var relevantCalls = [];
+    if (p.mainPort === 'retirement') {
+      // Retirement call ladders
+      var retKeyMap = { 'amit-roth':'self_roth', 'lov-roth':'spouse_roth', 'lov-trad':'spouse_ira' };
+      var lsKey = retKeyMap[p.sub] || p.sub;
+      try {
+        var raw = localStorage.getItem('roi_callladder_' + lsKey);
+        relevantCalls = (raw && JSON.parse(raw)) || [];
+        if (!Array.isArray(relevantCalls)) relevantCalls = [];
+      } catch(e) { relevantCalls = []; }
+    } else {
+      // Regular call ladders
+      var portKeyMap = { 'amit':'self', 'lovelina':'spouse', 'joint':'joint' };
+      var lsKey = portKeyMap[p.key] || p.key;
+      try {
+        var raw = localStorage.getItem('roi_callladder_' + lsKey);
+        relevantCalls = (raw && JSON.parse(raw)) || [];
+        if (!Array.isArray(relevantCalls)) relevantCalls = [];
+      } catch(e) { relevantCalls = []; }
+    }
+    
+    relevantCalls.forEach(function(cl) {
+      if (incomeCardWeekFilter === 'all') {
+        // All time - use total income from calcCallLadder
+        var s = calcCallLadder(cl);
+        growthIncome += s.totalIncome;
+      } else {
+        // Week filtered - calculate income only from transactions in the target week
+        var targetRange = incomeCardWeekFilter === 'tw' ? cwRange : pwRange;
+        
+        // Long call close credit (if sold in target week)
+        if (cl.longCallClosed && cl.longCloseAmount && cl.longCloseDate) {
+          if (isInWeek(cl.longCloseDate, targetRange)) {
+            growthIncome += cl.longCloseAmount;
+          }
+        }
+        
+        // NOTE: We do NOT subtract long call cost from INCOME
+        // Income is money received (STC credits + short call premiums)
+        // Cost is tracked separately
+        
+        // Short call premiums (received in target week)
+        (cl.shortCalls || []).forEach(function(sc) {
+          if (sc.openDate && isInWeek(sc.openDate, targetRange)) {
+            // Premium received this week
+            growthIncome += (sc.received || 0);
+          }
+          
+          if (sc.closed && sc.closeDate && isInWeek(sc.closeDate, targetRange)) {
+            // Buyback cost from closing in target week
+            var debit = sc.btcDebit || 0;
+            var buybackCost = sc.buybackCost || 0;
+            growthIncome -= (debit + buybackCost);
+          }
+        });
+      }
+    });
+    
+    var total = putIncome + shareIncome + growthIncome;
+    portStats[p.key] = {
+      putIncome: putIncome,
+      shareIncome: shareIncome,
+      growthIncome: growthIncome,
+      total: total
+    };
+    grandTotal += total;
+  });
+
+  // Header with filter buttons
+  var filterLabel = incomeCardWeekFilter === 'all' ? 'All Time' : incomeCardWeekFilter === 'tw' ? 'This Week' : 'Last Week';
   var header='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.22rem;">'
-    +'<div class="scard-label" style="color:var(--text3);font-size:0.56rem;margin:0;">&#128197; This Week Income</div>'
-    +'<div style="display:flex;gap:0.5rem;">'
-    +'<div style="text-align:right;"><div style="font-size:0.48rem;font-weight:700;text-transform:uppercase;color:rgba(0,0,0,0.3);letter-spacing:0.06em;">CW</div><div style="font-size:0.7rem;font-weight:800;font-family:monospace;color:'+fcp(grandCW)+';">'+fc(grandCW)+'</div></div>'
-    +'<div style="text-align:right;"><div style="font-size:0.48rem;font-weight:700;text-transform:uppercase;color:rgba(0,0,0,0.3);letter-spacing:0.06em;">PW</div><div style="font-size:0.7rem;font-weight:800;font-family:monospace;color:'+fcp(grandPW)+';">'+fc(grandPW)+'</div></div>'
+    +'<div class="scard-label" style="color:var(--text3);font-size:0.56rem;margin:0;">&#128202; Income Summary</div>'
+    +'<div style="display:flex;gap:0.3rem;align-items:center;">'
+    +'<div style="font-size:0.48rem;font-weight:700;text-transform:uppercase;color:rgba(0,0,0,0.3);letter-spacing:0.06em;margin-right:0.2rem;">'+filterLabel+'</div>'
+    +'<button onclick="setIncomeCardWeekFilter(\'all\')" style="padding:0.25rem 0.5rem;font-size:0.65rem;font-weight:600;border-radius:5px;cursor:pointer;border:1px solid var(--border);background:'+(incomeCardWeekFilter==='all'?'var(--black)':'transparent')+';color:'+(incomeCardWeekFilter==='all'?'#fff':'var(--text3)')+';">ALL TIME</button>'
+    +'<button onclick="setIncomeCardWeekFilter(\'tw\')" style="padding:0.25rem 0.5rem;font-size:0.65rem;font-weight:600;border-radius:5px;cursor:pointer;border:1px solid var(--border);background:'+(incomeCardWeekFilter==='tw'?'#2563EB':'transparent')+';color:'+(incomeCardWeekFilter==='tw'?'#fff':'var(--text3)')+';">TW</button>'
+    +'<button onclick="setIncomeCardWeekFilter(\'lw\')" style="padding:0.25rem 0.5rem;font-size:0.65rem;font-weight:600;border-radius:5px;cursor:pointer;border:1px solid var(--border);background:'+(incomeCardWeekFilter==='lw'?'#7C3AED':'transparent')+';color:'+(incomeCardWeekFilter==='lw'?'#fff':'var(--text3)')+';">LW</button>'
     +'</div>'
     +'</div>';
 
-  // Column header
-  var colHdr='<div style="display:grid;grid-template-columns:1.1fr 1fr 1fr 0.6fr;gap:0.25rem;margin-bottom:0.1rem;">'
+  // Column header - now with Total column
+  var colHdr='<div style="display:grid;grid-template-columns:1.1fr 0.9fr 0.9fr 0.9fr 0.9fr;gap:0.25rem;margin-bottom:0.1rem;">'
     +'<div>'+lbl('Portfolio')+'</div>'
-    +'<div>'+lbl('CW')+'</div>'
-    +'<div>'+lbl('PW')+'</div>'
-    +'<div>'+lbl('Open')+'</div>'
+    +'<div>'+lbl('Put Ladders')+'</div>'
+    +'<div>'+lbl('Shares')+'</div>'
+    +'<div>'+lbl('Growth')+'</div>'
+    +'<div>'+lbl('Total')+'</div>'
     +'</div>';
 
-  // Split into non-ret and ret groups with a tiny divider label
+  // Split into non-ret and ret groups
   var nonRetKeys=['lovelina','amit','joint'];
   var retKeys=['amit-roth','lov-roth','lov-trad'];
 
   function portRow(p){
     var st=portStats[p.key];
-    return '<div style="display:grid;grid-template-columns:1.1fr 1fr 1fr 0.6fr;gap:0.25rem;margin-bottom:0.1rem;align-items:center;">'
+    return '<div style="display:grid;grid-template-columns:1.1fr 0.9fr 0.9fr 0.9fr 0.9fr;gap:0.25rem;margin-bottom:0.1rem;align-items:center;">'
       +'<div style="font-size:0.65rem;font-weight:800;color:'+p.color+';white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+p.label+'</div>'
-      +'<div style="font-size:0.68rem;font-weight:800;font-family:monospace;color:'+fcp(st.cw)+';">'+fc(st.cw)+'</div>'
-      +'<div style="font-size:0.68rem;font-weight:800;font-family:monospace;color:'+fcp(st.pw)+';">'+fc(st.pw)+'</div>'
-      +'<div style="font-size:0.62rem;color:var(--text3);font-weight:600;">'+st.openCount+'</div>'
+      +'<div style="font-size:0.68rem;font-weight:800;font-family:monospace;color:'+fcp(st.putIncome)+';">'+fc(st.putIncome)+'</div>'
+      +'<div style="font-size:0.68rem;font-weight:800;font-family:monospace;color:'+fcp(st.shareIncome)+';">'+fc(st.shareIncome)+'</div>'
+      +'<div style="font-size:0.68rem;font-weight:800;font-family:monospace;color:'+fcp(st.growthIncome)+';">'+fc(st.growthIncome)+'</div>'
+      +'<div style="font-size:0.68rem;font-weight:800;font-family:monospace;color:'+fcp(st.total)+';">'+fc(st.total)+'</div>'
       +'</div>';
   }
 
   var nonRetRows=ports.filter(function(p){return nonRetKeys.indexOf(p.key)>=0;}).map(portRow).join('');
   var retRows=ports.filter(function(p){return retKeys.indexOf(p.key)>=0;}).map(portRow).join('');
 
+  // Calculate main portfolios sum (Amit + Joint + Lovelina)
+  var mainPuts = 0, mainShares = 0, mainGrowth = 0, mainTotal = 0;
+  ['lovelina', 'amit', 'joint'].forEach(function(key) {
+    var st = portStats[key];
+    mainPuts += st.putIncome;
+    mainShares += st.shareIncome;
+    mainGrowth += st.growthIncome;
+    mainTotal += st.total;
+  });
+  
+  var mainSumRow = '<div style="display:grid;grid-template-columns:1.1fr 0.9fr 0.9fr 0.9fr 0.9fr;gap:0.25rem;margin-bottom:0.1rem;align-items:center;background:rgba(0,0,0,0.03);padding:0.15rem 0.2rem;border-radius:5px;">'
+    +'<div style="font-size:0.62rem;font-weight:800;color:var(--text1);text-transform:uppercase;letter-spacing:0.05em;">Main Total</div>'
+    +'<div style="font-size:0.7rem;font-weight:800;font-family:monospace;color:'+fcp(mainPuts)+';">'+fc(mainPuts)+'</div>'
+    +'<div style="font-size:0.7rem;font-weight:800;font-family:monospace;color:'+fcp(mainShares)+';">'+fc(mainShares)+'</div>'
+    +'<div style="font-size:0.7rem;font-weight:800;font-family:monospace;color:'+fcp(mainGrowth)+';">'+fc(mainGrowth)+'</div>'
+    +'<div style="font-size:0.7rem;font-weight:800;font-family:monospace;color:'+fcp(mainTotal)+';">'+fc(mainTotal)+'</div>'
+    +'</div>';
+
   var retLabel='<div style="font-size:0.48rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:rgba(124,58,237,0.6);margin:0.12rem 0 0.08rem;">&#127981; Retirement</div>';
 
-  // KPI footer row
+  // Summary footer row
+  var totalPuts = 0, totalShares = 0, totalGrowth = 0;
+  ports.forEach(function(p) {
+    var st = portStats[p.key];
+    totalPuts += st.putIncome;
+    totalShares += st.shareIncome;
+    totalGrowth += st.growthIncome;
+  });
+  
   var kpiRow='<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:0.25rem;margin-top:0.04rem;">'
-    +'<div>'+lbl('WoW')+val(wowSign+'$'+Math.abs(wowVal).toLocaleString(undefined,{maximumFractionDigits:0}),wowColor)+'</div>'
-    +'<div>'+lbl('All-Time')+val(fc(grandTotal),fcp(grandTotal))+'</div>'
-    +'<div>'+lbl('Exp.Wk')+val(expThisWeek>0?expThisWeek+' &#9888;':expThisWeek+'',expThisWeek>0?'var(--red)':'var(--text3)')+'</div>'
-    +'<div>'+lbl('ITM')+val(itmCount>0?itmCount+' &#9888;':itmCount+'',itmCount>0?'var(--red)':'var(--text3)')+'</div>'
+    +'<div>'+lbl('Total Puts')+val(fc(totalPuts),fcp(totalPuts))+'</div>'
+    +'<div>'+lbl('Total Shares')+val(fc(totalShares),fcp(totalShares))+'</div>'
+    +'<div>'+lbl('Total Growth')+val(fc(totalGrowth),fcp(totalGrowth))+'</div>'
+    +'<div>'+lbl('Grand Total')+val(fc(grandTotal),fcp(grandTotal))+'</div>'
     +'</div>';
 
   return'<div class="scard" style="border-left:3px solid var(--red);padding:0.55rem 0.75rem;">'
     +header
     +colHdr
     +nonRetRows
+    +mainSumRow
     +div1()
     +retLabel
     +retRows
@@ -2093,11 +2268,14 @@ function rSum(s){
     +'</div>';
   
   var marketValueCard = rMarketValueCard();
+  
+  // Only show Income Summary card when viewing ALL portfolios
+  var incomeSummaryCard = (typeof ap !== 'undefined' && ap === 'all') ? rWeeklyIncomeCard() : '';
 
   return'<div style="display:grid;grid-template-columns:1fr 1.5fr 1.2fr;gap:0.6rem;margin-bottom:0.55rem;">'
     +capitalCard
     +rCashCard()
-    +rWeeklyIncomeCard()
+    +incomeSummaryCard
     +rCryptoCard()
     +marketValueCard
     +rRetirementCard()
@@ -4512,8 +4690,8 @@ var ladders = [];
 var filterMode = 'not_expired'; // Default to Not Expired
 var plTickerSearch = '';
 var expandedIds = new Set();
-var globalWeekFilter = 'all'; // Default to All Time to show all positions
-var tickerWeekFilters = {}; // Tracks week filter per ticker: { 'PLTR': 'all', 'WMT': 'cw', etc }
+var globalWeekFilter = 'tw'; // Default to This Week
+var tickerWeekFilters = {}; // Tracks week filter per ticker: { 'PLTR': 'tw', 'WMT': 'tw', etc }
 // Start with everything collapsed by default
 // Users can click to expand what they want to see
 
@@ -6121,7 +6299,7 @@ var sharePositions = [];
 
 // ── SHARES STATE ──────────────────────────────────────────────────────────────
 var sharesFilterMode = 'all';
-var sharesWeekFilter = 'all';
+var sharesWeekFilter = 'tw';
 var sharesSortBy = 'symbol_asc';
 
 function toggleSharesSort() {
@@ -8009,7 +8187,7 @@ var callLadders = [];
 var growthFilterMode = 'all';
 var growthTickerSearch = '';
 var growthExpandedIds = new Set();
-var growthGlobalWeekFilter = 'all'; // Default to All Time to show all positions
+var growthGlobalWeekFilter = 'tw'; // Default to This Week
 var growthTickerWeekFilters = {};
 // Start with everything collapsed by default in Growth tab
 // Users can click to expand what they want to see
@@ -8766,12 +8944,267 @@ function deleteCallLadder(id) {
   saveCallLadders();
   growthRender();
 }
-function openAddLongCallToLadder(id) { alert('Add Long Call - Coming soon'); }
-function openCloseLongCall(id) { alert('Close Long Call - Coming soon'); }
-function reopenLongCall(id) { alert('Reopen Long Call - Coming soon'); }
-function reopenCallLadder(id) { alert('Reopen Call Ladder - Coming soon'); }
-function openAddShortCallToLadder(id) { alert('Add Short Call - Coming soon'); }
-function openCloseShortCall(lid, scid) { alert('Close Short Call - Coming soon'); }
+function openAddLongCallToLadder(id) {
+  var l = callLadders.find(function(x){ return x.id === id; });
+  if (!l) return;
+  
+  document.getElementById('modal-root').innerHTML =
+    '<div class="modal-overlay" onclick="if(event.target===this)closeModal()">' +
+    '<div class="modal-box">' +
+      '<div class="modal-title">🚀 Add Long Call</div>' +
+      '<div class="modal-sub">Adding long call for <strong>' + l.ticker + '</strong></div>' +
+      '<div class="mf-row">' +
+        field('Long Call Strike', 'alc-strike', 'number', 'e.g. 140', true) +
+        field('Contracts', 'alc-contracts', 'number', l.contracts || 1, false) +
+      '</div>' +
+      '<div class="mf-row">' +
+        field('Premium Per Contract ($)', 'alc-premium', 'number', 'e.g. 8.50', true) +
+        field('Expiry (MM/DD/YYYY)', 'alc-expiry', 'text', 'e.g. 6/20/2026', true) +
+      '</div>' +
+      field('Opened Date (MM/DD/YYYY)', 'alc-opendate', 'text', today(), false) +
+      '<div class="modal-btns">' +
+        '<button class="modal-cancel" onclick="closeModal()">Cancel</button>' +
+        '<button class="modal-confirm blue-btn" onclick="saveLongCallToLadder(\'' + id + '\')">Add Long Call</button>' +
+      '</div>' +
+    '</div></div>';
+}
+
+function saveLongCallToLadder(id) {
+  var l = callLadders.find(function(x){ return x.id === id; });
+  if (!l) return;
+  
+  var strike = parseFloat(v('alc-strike'));
+  var contracts = parseInt(v('alc-contracts')) || l.contracts || 1;
+  var premium = parseFloat(v('alc-premium'));
+  var expiry = v('alc-expiry').trim();
+  var openDate = v('alc-opendate').trim() || today();
+  
+  if (!strike || !premium || !expiry) { alert('Please fill in all required fields.'); return; }
+  
+  l.longStrike = strike;
+  l.longPremium = premium;
+  l.longExpiry = expiry;
+  l.openDate = openDate;
+  l.contracts = contracts;
+  l.noLongCall = false;
+  l.longCallClosed = false;
+  
+  saveCallLadders(); closeModal(); growthRender();
+}
+function openCloseLongCall(id) {
+  var l = callLadders.find(function(x){ return x.id === id; });
+  if (!l) return;
+  
+  document.getElementById('modal-root').innerHTML =
+    '<div class="modal-overlay" onclick="if(event.target===this)closeModal()">' +
+    '<div class="modal-box">' +
+      '<div class="modal-title">Close Long Call</div>' +
+      '<div class="modal-sub"><strong>' + l.ticker + '</strong> $' + l.longStrike + ' · exp ' + fmtDate(l.longExpiry) + '</div>' +
+      '<div class="modal-section-lbl">How was this closed?</div>' +
+      '<div class="radio-group">' +
+        '<button class="radio-btn active-expire" id="clc-expired" onclick="selectCloseLCReason(\'expired\')">Expired ✓</button>' +
+        '<button class="radio-btn" id="clc-selltoclose" onclick="selectCloseLCReason(\'selltoclose\')">Sold to Close (STC)</button>' +
+      '</div>' +
+      '<div id="clc-amount-wrap" style="display:none;">' +
+        field('STC Credit Received ($)', 'lc-stc-amount', 'number', 'e.g. 1250.00', false) +
+      '</div>' +
+      field('Close Date (MM/DD/YYYY)', 'lc-closedate', 'text', today(), false) +
+      '<div class="modal-btns">' +
+        '<button class="modal-cancel" onclick="closeModal()">Cancel</button>' +
+        '<button class="modal-confirm blue-btn" onclick="saveCloseLongCall(\'' + id + '\')">Confirm Close</button>' +
+      '</div>' +
+    '</div></div>';
+  window._closeLCReason = 'expired';
+}
+
+function selectCloseLCReason(reason) {
+  window._closeLCReason = reason;
+  document.querySelectorAll('#clc-expired, #clc-selltoclose').forEach(function(btn) {
+    btn.classList.remove('active-expire', 'active-buyback');
+  });
+  
+  if (reason === 'expired') {
+    document.getElementById('clc-expired').classList.add('active-expire');
+    document.getElementById('clc-amount-wrap').style.display = 'none';
+  } else if (reason === 'selltoclose') {
+    document.getElementById('clc-selltoclose').classList.add('active-buyback');
+    document.getElementById('clc-amount-wrap').style.display = 'block';
+  }
+}
+
+function saveCloseLongCall(id) {
+  var l = callLadders.find(function(x){ return x.id === id; });
+  if (!l) return;
+  
+  var closeDate = v('lc-closedate').trim() || today();
+  var amount = 0;
+  
+  if (window._closeLCReason === 'selltoclose') {
+    amount = parseFloat(v('lc-stc-amount')) || 0;
+    if (amount === 0) {
+      alert('Please enter the STC credit received.');
+      return;
+    }
+  }
+  
+  l.longCallClosed = true;
+  l.longCloseAmount = amount;
+  l.longCloseDate = closeDate;
+  
+  saveCallLadders(); closeModal(); growthRender();
+}
+function reopenCallLadder(id) {
+  var l = callLadders.find(function(x){ return x.id === id; });
+  if (!l) return;
+  if (!confirm('Reopen this call ladder for ' + l.ticker + '?')) return;
+  
+  l.closed = false;
+  saveCallLadders();
+  growthRender();
+}
+function openAddShortCallToLadder(id) {
+  var l = callLadders.find(function(x){ return x.id === id; });
+  if (!l) return;
+  
+  document.getElementById('modal-root').innerHTML =
+    '<div class="modal-overlay" onclick="if(event.target===this)closeModal()">' +
+    '<div class="modal-box">' +
+      '<div class="modal-title">📞 Open Short Call</div>' +
+      '<div class="modal-sub">Adding short call for <strong>' + l.ticker + '</strong>' + (l.longStrike ? ' · long call $' + l.longStrike : '') + '</div>' +
+      '<div class="mf-row">' +
+        field('Short Call Strike', 'sc-strike', 'number', 'e.g. 150', true) +
+        field('Contracts', 'sc-contracts', 'number', l.contracts || 1, false) +
+      '</div>' +
+      '<div class="mf-row">' +
+        field('Premium Received ($)', 'sc-received', 'number', 'e.g. 250.00', true) +
+        field('Expiry (MM/DD/YYYY)', 'sc-expiry', 'text', 'e.g. 5/16/2026', true) +
+      '</div>' +
+      field('Opened Date (MM/DD/YYYY)', 'sc-opendate', 'text', today(), false) +
+      '<div id="sc-collat-preview"></div>' +
+      '<div class="modal-btns">' +
+        '<button class="modal-cancel" onclick="closeModal()">Cancel</button>' +
+        '<button class="modal-confirm" style="background:#F59E0B;" onclick="saveShortCallToLadder(\'' + id + '\')">Add Short Call</button>' +
+      '</div>' +
+    '</div></div>';
+  
+  document.getElementById('sc-strike').addEventListener('input', function() { updateSCCollatPreview(l); });
+  document.getElementById('sc-contracts').addEventListener('input', function() { updateSCCollatPreview(l); });
+  updateSCCollatPreview(l);
+}
+
+function updateSCCollatPreview(l) {
+  var strike = parseFloat(document.getElementById('sc-strike').value);
+  var contracts = parseInt(document.getElementById('sc-contracts').value) || l.contracts || 1;
+  var box = document.getElementById('sc-collat-preview');
+  if (!box) return;
+  
+  if (!isNaN(strike) && strike > 0) {
+    var collat, spreadNote;
+    if (!l.noLongCall && l.longStrike) {
+      if (l.longStrike > strike) {
+        collat = (l.longStrike - strike) * 100 * contracts;
+        spreadNote = 'Bear spread collateral: ($' + l.longStrike + ' - $' + strike + ') × 100 × ' + contracts;
+      } else {
+        collat = 0;
+        spreadNote = 'Bull spread: Short call covered by long call at $' + l.longStrike;
+      }
+    } else {
+      collat = strike * 100 * contracts;
+      spreadNote = 'Naked short call: $' + strike + ' × 100 × ' + contracts;
+    }
+    box.innerHTML = '<div class="mf-collat-box">&#9888; Collateral required: ' + fmt(collat) + '<br><span style="font-size:0.62rem;font-weight:400;">' + spreadNote + '</span></div>';
+  } else {
+    box.innerHTML = '';
+  }
+}
+
+function saveShortCallToLadder(id) {
+  var l = callLadders.find(function(x){ return x.id === id; });
+  if (!l) return;
+  
+  var strike = parseFloat(v('sc-strike'));
+  var contracts = parseInt(v('sc-contracts')) || l.contracts || 1;
+  var received = parseFloat(v('sc-received'));
+  var expiry = v('sc-expiry').trim();
+  var openDate = v('sc-opendate').trim() || today();
+  
+  if (!strike || !received || !expiry) { alert('Please fill in all required fields.'); return; }
+  
+  var sc = { id: uid(), strike: strike, contracts: contracts, received: received, expiry: expiry, openDate: openDate, closed: false };
+  l.shortCalls = l.shortCalls || [];
+  l.shortCalls.push(sc);
+  
+  saveCallLadders(); closeModal(); growthRender();
+}
+function openCloseShortCall(lid, scid) {
+  var l = callLadders.find(function(x){ return x.id === lid; });
+  var sc = l && (l.shortCalls||[]).find(function(s){return s.id===scid;});
+  if (!sc) return;
+  
+  document.getElementById('modal-root').innerHTML =
+    '<div class="modal-overlay" onclick="if(event.target===this)closeModal()">' +
+    '<div class="modal-box">' +
+      '<div class="modal-title">Close Short Call</div>' +
+      '<div class="modal-sub"><strong>' + l.ticker + '</strong> $' + sc.strike + ' · exp ' + fmtDate(sc.expiry) + ' · received ' + fmt(sc.received) + '</div>' +
+      '<div class="modal-section-lbl">How was this closed?</div>' +
+      '<div class="radio-group">' +
+        '<button class="radio-btn active-expire" id="csc-expired" onclick="selectCloseSCReason(\'expired\')">Expired ✓</button>' +
+        '<button class="radio-btn" id="csc-buyback" onclick="selectCloseSCReason(\'buyback\')">Bought Back (BTC)</button>' +
+        '<button class="radio-btn" id="csc-assigned" onclick="selectCloseSCReason(\'assigned\')">Assigned</button>' +
+      '</div>' +
+      '<div id="csc-cost-wrap" style="display:none;">' +
+        field('Buyback Cost ($)', 'sc-buyback', 'number', 'e.g. 100.00', false) +
+      '</div>' +
+      field('Close Date (MM/DD/YYYY)', 'sc-closedate', 'text', today(), false) +
+      '<div class="modal-btns">' +
+        '<button class="modal-cancel" onclick="closeModal()">Cancel</button>' +
+        '<button class="modal-confirm blue-btn" onclick="saveCloseShortCall(\'' + lid + '\',\'' + scid + '\')">Confirm Close</button>' +
+      '</div>' +
+    '</div></div>';
+  window._closeSCReason = 'expired';
+}
+
+function selectCloseSCReason(reason) {
+  window._closeSCReason = reason;
+  document.querySelectorAll('#csc-expired, #csc-buyback, #csc-assigned').forEach(function(btn) {
+    btn.classList.remove('active-expire', 'active-buyback');
+  });
+  
+  if (reason === 'expired') {
+    document.getElementById('csc-expired').classList.add('active-expire');
+    document.getElementById('csc-cost-wrap').style.display = 'none';
+  } else if (reason === 'buyback') {
+    document.getElementById('csc-buyback').classList.add('active-buyback');
+    document.getElementById('csc-cost-wrap').style.display = 'block';
+  } else if (reason === 'assigned') {
+    document.getElementById('csc-assigned').classList.add('active-buyback');
+    document.getElementById('csc-cost-wrap').style.display = 'none';
+  }
+}
+
+function saveCloseShortCall(lid, scid) {
+  var l = callLadders.find(function(x){ return x.id === lid; });
+  var sc = l && (l.shortCalls||[]).find(function(s){return s.id===scid;});
+  if (!sc) return;
+  
+  var closeDate = v('sc-closedate').trim() || today();
+  var buybackCost = 0;
+  
+  if (window._closeSCReason === 'buyback') {
+    buybackCost = parseFloat(v('sc-buyback')) || 0;
+    if (buybackCost === 0) {
+      alert('Please enter the buyback cost.');
+      return;
+    }
+  }
+  
+  sc.closed = true;
+  sc.closeReason = window._closeSCReason;
+  sc.closeDate = closeDate;
+  sc.buybackCost = buybackCost;
+  
+  saveCallLadders(); closeModal(); growthRender();
+}
 function openEditShortCall(lid, scid) {
   var l = callLadders.find(function(x){ return x.id === lid; });
   if (!l) { alert('Ladder not found'); return; }
@@ -8925,10 +9358,227 @@ function autoExpireCallLadderCalls() {
   });
   if (changed) saveCallLadders();
 }
-function openAddShortCallNew() { alert('Add Short Call - Coming soon'); }
-function openAddLongCallNew() { alert('Add Long Call - Coming soon'); }
-function openAddShortCallForTicker(ticker) { alert('Add Short Call for ' + ticker + ' - Coming soon'); }
-function openAddLongCallForTicker(ticker) { alert('Add Long Call for ' + ticker + ' - Coming soon'); }
+function openAddShortCallNew() {
+  document.getElementById('modal-root').innerHTML =
+    '<div class="modal-overlay" onclick="if(event.target===this)closeModal()">' +
+    '<div class="modal-box">' +
+      '<div class="modal-title">📞 Add Short Call</div>' +
+      '<div class="modal-sub">Create a new tracker and add your short call</div>' +
+      '<div class="mf-row">' +
+        field('Ticker Symbol', 'nsc-ticker', 'text', 'e.g. NVDA', true) +
+        field('Contracts', 'nsc-contracts', 'number', '1', true) +
+      '</div>' +
+      '<div class="mf-row">' +
+        field('Strike', 'nsc-strike', 'number', 'e.g. 150', true) +
+        field('Premium Received ($)', 'nsc-received', 'number', 'e.g. 250.00', true) +
+      '</div>' +
+      '<div class="mf-row">' +
+        field('Expiry (MM/DD/YYYY)', 'nsc-expiry', 'text', 'e.g. 5/16/2026', true) +
+        field('Opened Date (MM/DD/YYYY)', 'nsc-opendate', 'text', today(), false) +
+      '</div>' +
+      '<div class="mf"><label class="mf-label">Notes (optional)</label><input class="mf-input" id="nsc-notes" placeholder=""></div>' +
+      '<div class="modal-btns">' +
+        '<button class="modal-cancel" onclick="closeModal()">Cancel</button>' +
+        '<button class="modal-confirm" style="background:#F59E0B;" onclick="saveNewShortCall()">Add Short Call</button>' +
+      '</div>' +
+    '</div></div>';
+}
+
+function openAddLongCallNew() {
+  document.getElementById('modal-root').innerHTML =
+    '<div class="modal-overlay" onclick="if(event.target===this)closeModal()">' +
+    '<div class="modal-box">' +
+      '<div class="modal-title">🚀 Add Long Call</div>' +
+      '<div class="modal-sub">Create a new tracker and add your long call</div>' +
+      '<div class="mf-row">' +
+        field('Ticker Symbol', 'nlc-ticker', 'text', 'e.g. NVDA', true) +
+        field('Contracts', 'nlc-contracts', 'number', '1', true) +
+      '</div>' +
+      '<div class="mf-row">' +
+        field('Long Call Strike', 'nlc-strike', 'number', 'e.g. 140', true) +
+        field('Premium Per Contract ($)', 'nlc-premium', 'number', 'e.g. 8.50', true) +
+      '</div>' +
+      '<div class="mf-row">' +
+        field('Expiry (MM/DD/YYYY)', 'nlc-expiry', 'text', 'e.g. 6/20/2026', true) +
+        field('Opened Date (MM/DD/YYYY)', 'nlc-opendate', 'text', today(), false) +
+      '</div>' +
+      '<div class="mf"><label class="mf-label">Notes (optional)</label><input class="mf-input" id="nlc-notes" placeholder=""></div>' +
+      '<div class="modal-btns">' +
+        '<button class="modal-cancel" onclick="closeModal()">Cancel</button>' +
+        '<button class="modal-confirm blue-btn" onclick="saveNewLongCall()">Add Long Call</button>' +
+      '</div>' +
+    '</div></div>';
+}
+
+function openAddShortCallForTicker(ticker) {
+  document.getElementById('modal-root').innerHTML =
+    '<div class="modal-overlay" onclick="if(event.target===this)closeModal()">' +
+    '<div class="modal-box">' +
+      '<div class="modal-title">📞 Add Short Call</div>' +
+      '<div class="modal-sub">Create a new tracker for <strong>' + ticker + '</strong> and add your short call</div>' +
+      '<div class="mf-row">' +
+        field('Contracts', 'nscf-contracts', 'number', '1', true) +
+        field('Strike', 'nscf-strike', 'number', 'e.g. 150', true) +
+      '</div>' +
+      '<div class="mf-row">' +
+        field('Premium Received ($)', 'nscf-received', 'number', 'e.g. 250.00', true) +
+        field('Expiry (MM/DD/YYYY)', 'nscf-expiry', 'text', 'e.g. 5/16/2026', true) +
+      '</div>' +
+      field('Opened Date (MM/DD/YYYY)', 'nscf-opendate', 'text', today(), false) +
+      '<div class="mf"><label class="mf-label">Notes (optional)</label><input class="mf-input" id="nscf-notes" placeholder=""></div>' +
+      '<div class="modal-btns">' +
+        '<button class="modal-cancel" onclick="closeModal()">Cancel</button>' +
+        '<button class="modal-confirm" style="background:#F59E0B;" onclick="saveNewShortCallForTicker(\'' + ticker + '\')">Add Short Call</button>' +
+      '</div>' +
+    '</div></div>';
+}
+
+function openAddLongCallForTicker(ticker) {
+  document.getElementById('modal-root').innerHTML =
+    '<div class="modal-overlay" onclick="if(event.target===this)closeModal()">' +
+    '<div class="modal-box">' +
+      '<div class="modal-title">🚀 Add Long Call</div>' +
+      '<div class="modal-sub">Create a new tracker for <strong>' + ticker + '</strong> and add your long call</div>' +
+      '<div class="mf-row">' +
+        field('Contracts', 'nlcf-contracts', 'number', '1', true) +
+        field('Long Call Strike', 'nlcf-strike', 'number', 'e.g. 140', true) +
+      '</div>' +
+      '<div class="mf-row">' +
+        field('Premium Per Contract ($)', 'nlcf-premium', 'number', 'e.g. 8.50', true) +
+        field('Expiry (MM/DD/YYYY)', 'nlcf-expiry', 'text', 'e.g. 6/20/2026', true) +
+      '</div>' +
+      field('Opened Date (MM/DD/YYYY)', 'nlcf-opendate', 'text', today(), false) +
+      '<div class="mf"><label class="mf-label">Notes (optional)</label><input class="mf-input" id="nlcf-notes" placeholder=""></div>' +
+      '<div class="modal-btns">' +
+        '<button class="modal-cancel" onclick="closeModal()">Cancel</button>' +
+        '<button class="modal-confirm blue-btn" onclick="saveNewLongCallForTicker(\'' + ticker + '\')">Add Long Call</button>' +
+      '</div>' +
+    '</div></div>';
+}
+
+function saveNewShortCall() {
+  var ticker = v('nsc-ticker').toUpperCase().trim();
+  var contracts = parseInt(v('nsc-contracts')) || 1;
+  var strike = parseFloat(v('nsc-strike'));
+  var received = parseFloat(v('nsc-received'));
+  var expiry = v('nsc-expiry').trim();
+  var openDate = v('nsc-opendate').trim() || today();
+  var notes = v('nsc-notes').trim();
+  if (!ticker || !strike || !received || !expiry) { alert('Please fill in all required fields.'); return; }
+  
+  var l = { 
+    id: uid(), 
+    ticker: ticker, 
+    contracts: contracts, 
+    longStrike: null, 
+    longPremium: null, 
+    longExpiry: null, 
+    openDate: openDate, 
+    notes: notes, 
+    noLongCall: true, 
+    shortCalls: [], 
+    closed: false 
+  };
+  callLadders.unshift(l);
+  growthExpandedIds.add(l.id);
+  
+  var sc = { id: uid(), strike: strike, contracts: contracts, received: received, expiry: expiry, openDate: openDate, closed: false };
+  l.shortCalls.push(sc);
+  
+  saveCallLadders(); closeModal(); growthRender();
+}
+
+function saveNewLongCall() {
+  var ticker = v('nlc-ticker').toUpperCase().trim();
+  var contracts = parseInt(v('nlc-contracts')) || 1;
+  var strike = parseFloat(v('nlc-strike'));
+  var premium = parseFloat(v('nlc-premium'));
+  var expiry = v('nlc-expiry').trim();
+  var openDate = v('nlc-opendate').trim() || today();
+  var notes = v('nlc-notes').trim();
+  if (!ticker || !strike || !premium || !expiry) { alert('Please fill in all required fields.'); return; }
+  
+  var l = { 
+    id: uid(), 
+    ticker: ticker, 
+    contracts: contracts, 
+    longStrike: strike, 
+    longPremium: premium, 
+    longExpiry: expiry, 
+    openDate: openDate, 
+    notes: notes, 
+    noLongCall: false, 
+    longCallClosed: false,
+    shortCalls: [], 
+    closed: false 
+  };
+  callLadders.unshift(l);
+  growthExpandedIds.add(l.id);
+  
+  saveCallLadders(); closeModal(); growthRender();
+}
+
+function saveNewShortCallForTicker(ticker) {
+  var contracts = parseInt(v('nscf-contracts')) || 1;
+  var strike = parseFloat(v('nscf-strike'));
+  var received = parseFloat(v('nscf-received'));
+  var expiry = v('nscf-expiry').trim();
+  var openDate = v('nscf-opendate').trim() || today();
+  var notes = v('nscf-notes').trim();
+  if (!strike || !received || !expiry) { alert('Please fill in all required fields.'); return; }
+  
+  var l = { 
+    id: uid(), 
+    ticker: ticker, 
+    contracts: contracts, 
+    longStrike: null, 
+    longPremium: null, 
+    longExpiry: null, 
+    openDate: openDate, 
+    notes: notes, 
+    noLongCall: true, 
+    shortCalls: [], 
+    closed: false 
+  };
+  callLadders.unshift(l);
+  growthExpandedIds.add(l.id);
+  growthExpandedIds.add('ticker-' + ticker);
+  
+  var sc = { id: uid(), strike: strike, contracts: contracts, received: received, expiry: expiry, openDate: openDate, closed: false };
+  l.shortCalls.push(sc);
+  
+  saveCallLadders(); closeModal(); growthRender();
+}
+
+function saveNewLongCallForTicker(ticker) {
+  var contracts = parseInt(v('nlcf-contracts')) || 1;
+  var strike = parseFloat(v('nlcf-strike'));
+  var premium = parseFloat(v('nlcf-premium'));
+  var expiry = v('nlcf-expiry').trim();
+  var openDate = v('nlcf-opendate').trim() || today();
+  var notes = v('nlcf-notes').trim();
+  if (!strike || !premium || !expiry) { alert('Please fill in all required fields.'); return; }
+  
+  var l = { 
+    id: uid(), 
+    ticker: ticker, 
+    contracts: contracts, 
+    longStrike: strike, 
+    longPremium: premium, 
+    longExpiry: expiry, 
+    openDate: openDate, 
+    notes: notes, 
+    noLongCall: false, 
+    longCallClosed: false,
+    shortCalls: [], 
+    closed: false 
+  };
+  callLadders.unshift(l);
+  growthExpandedIds.add(l.id);
+  growthExpandedIds.add('ticker-' + ticker);
+  
+  saveCallLadders(); closeModal(); growthRender();
+}
 function growthToggleDropdown() {}
 function growthSetTkSearch(val) {}
 function handleGrowthCSVUpload(event) {
@@ -9301,7 +9951,7 @@ function growthReloadForPortfolio() {
 // State variables
 var optsFilterMode = 'not_expired'; // 'all', 'expired', 'not_expired'
 var optsTypeFilter = 'all'; // 'all', 'puts', 'calls'
-var optsGlobalWeekFilter = 'all'; // 'all', 'tw', 'lw'
+var optsGlobalWeekFilter = 'tw'; // 'all', 'tw', 'lw' - Default to This Week
 var optsTickerWeekFilters = {}; // per-ticker week filters
 var optsExpandedIds = new Set();
 
