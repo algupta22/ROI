@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-04-28T22:46:01.200Z",
+  "savedAt": "2026-04-28T22:58:25.115Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -17482,12 +17482,26 @@
             "btcDebit": 0,
             "expiry": "5/1/2026",
             "openDate": "4/24/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "posType": "SPUT",
+            "closeDate": "4/28/2026",
+            "buybackCost": 17
+          },
+          {
+            "id": "modx2clrvap3",
+            "strike": 17,
+            "contracts": 1,
+            "received": 35.94,
+            "btcDebit": 0,
+            "expiry": "5/1/2026",
+            "openDate": "4/24/2026",
             "closed": false,
             "closeReason": null,
             "posType": "SPUT"
           },
           {
-            "id": "modx2clrvap3",
+            "id": "modx2clrueiq",
             "strike": 17,
             "contracts": 1,
             "received": 35.94,
@@ -19098,18 +19112,6 @@
         "noLongPut": false,
         "shortPuts": [
           {
-            "id": "modx2clrueiq",
-            "strike": 17,
-            "contracts": 1,
-            "received": 35.94,
-            "btcDebit": 0,
-            "expiry": "5/1/2026",
-            "openDate": "4/24/2026",
-            "closed": false,
-            "closeReason": null,
-            "posType": "SPUT"
-          },
-          {
             "id": "modx2clr14fh",
             "strike": 17.5,
             "contracts": 1,
@@ -19117,9 +19119,11 @@
             "btcDebit": 0,
             "expiry": "5/1/2026",
             "openDate": "4/24/2026",
-            "closed": false,
-            "closeReason": null,
-            "posType": "SPUT"
+            "closed": true,
+            "closeReason": "buyback",
+            "posType": "SPUT",
+            "closeDate": "4/28/2026",
+            "buybackCost": 41
           },
           {
             "id": "modx2clrznq6",
@@ -19129,9 +19133,11 @@
             "btcDebit": 0,
             "expiry": "5/1/2026",
             "openDate": "4/23/2026",
-            "closed": false,
-            "closeReason": null,
-            "posType": "SPUT"
+            "closed": true,
+            "closeReason": "buyback",
+            "posType": "SPUT",
+            "closeDate": "4/28/2026",
+            "buybackCost": 27
           },
           {
             "id": "modx2clrswkd",
@@ -19141,9 +19147,20 @@
             "btcDebit": 0,
             "expiry": "5/1/2026",
             "openDate": "4/24/2026",
-            "closed": false,
-            "closeReason": null,
-            "posType": "SPUT"
+            "closed": true,
+            "closeReason": "buyback",
+            "posType": "SPUT",
+            "closeDate": "4/28/2026",
+            "buybackCost": 27
+          },
+          {
+            "id": "moj800wn8xvj",
+            "strike": 18,
+            "contracts": 2,
+            "received": 104,
+            "expiry": "5/1",
+            "openDate": "4/28/2026",
+            "closed": false
           }
         ],
         "closed": false,
@@ -25624,6 +25641,56 @@
       }
     ],
     "joint": [
+      {
+        "id": "moj83qwl2gde",
+        "ticker": "PATH",
+        "contracts": 1,
+        "longStrike": 11,
+        "longPremium": 1.51,
+        "longExpiry": "6/18",
+        "openDate": "4/28/2026",
+        "notes": "",
+        "position": null,
+        "noLongPut": false,
+        "longPutClosed": false,
+        "shortPuts": [
+          {
+            "id": "moj842xf6ksx",
+            "strike": 10,
+            "contracts": 1,
+            "received": 24,
+            "expiry": "5/8",
+            "openDate": "4/28/2026",
+            "closed": false
+          }
+        ],
+        "closed": false
+      },
+      {
+        "id": "moj81q5th9cl",
+        "ticker": "NKE",
+        "contracts": 1,
+        "longStrike": 45,
+        "longPremium": 2.38,
+        "longExpiry": "6/18",
+        "openDate": "4/28/2026",
+        "notes": "",
+        "position": null,
+        "noLongPut": false,
+        "longPutClosed": false,
+        "shortPuts": [
+          {
+            "id": "moj824dqra35",
+            "strike": 44,
+            "contracts": 1,
+            "received": 20,
+            "expiry": "5/1",
+            "openDate": "4/28/2026",
+            "closed": false
+          }
+        ],
+        "closed": false
+      },
       {
         "id": "mohab4fdyf8x",
         "ticker": "SLV",
@@ -34871,6 +34938,18 @@
             "received": 45,
             "expiry": "4/29",
             "openDate": "4/27/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "4/28/2026",
+            "buybackCost": 124
+          },
+          {
+            "id": "moj87q0otc9k",
+            "strike": 66.5,
+            "contracts": 1,
+            "received": 145,
+            "expiry": "5/1",
+            "openDate": "4/28/2026",
             "closed": false
           }
         ],
@@ -35421,7 +35500,17 @@
         "notes": "",
         "position": null,
         "noLongPut": false,
-        "shortPuts": [],
+        "shortPuts": [
+          {
+            "id": "moj7uytecg8g",
+            "strike": 17,
+            "contracts": 2,
+            "received": 52,
+            "expiry": "5/1",
+            "openDate": "4/28/2026",
+            "closed": false
+          }
+        ],
         "closed": false
       },
       {
@@ -36017,7 +36106,17 @@
         "notes": "",
         "position": null,
         "noLongPut": false,
-        "shortPuts": [],
+        "shortPuts": [
+          {
+            "id": "moj7v9l4n33x",
+            "strike": 17,
+            "contracts": 1,
+            "received": 26,
+            "expiry": "5/1",
+            "openDate": "4/28/2026",
+            "closed": false
+          }
+        ],
         "closed": false
       },
       {
