@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-04-28T15:09:34.445Z",
+  "savedAt": "2026-04-28T16:49:14.327Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -8676,6 +8676,38 @@
   "putLadders": {
     "self": [
       {
+        "id": "moiv0ygxi8cd",
+        "ticker": "BBAI",
+        "contracts": 1,
+        "longStrike": 4,
+        "longPremium": 0.47,
+        "longExpiry": "5/1",
+        "openDate": "3/17",
+        "notes": "",
+        "position": null,
+        "noLongPut": false,
+        "longPutClosed": false,
+        "shortPuts": [],
+        "closed": false,
+        "marketValueOverride": 17
+      },
+      {
+        "id": "moiv00ta3r1b",
+        "ticker": "BBAI",
+        "contracts": 1,
+        "longStrike": 4,
+        "longPremium": 0.92,
+        "longExpiry": "5/15",
+        "openDate": "3/4",
+        "notes": "",
+        "position": null,
+        "noLongPut": false,
+        "longPutClosed": false,
+        "shortPuts": [],
+        "closed": false,
+        "marketValueOverride": 41
+      },
+      {
         "id": "mohn4lub8fy4",
         "ticker": "PLTR",
         "contracts": 1,
@@ -14443,9 +14475,9 @@
       {
         "id": "modx2clsll7v",
         "ticker": "BBAI",
-        "contracts": 1,
+        "contracts": 5,
         "longStrike": 4,
-        "longPremium": 0.8004000000000001,
+        "longPremium": 0.662,
         "longExpiry": "6/18/2026",
         "openDate": "3/4/2026",
         "notes": "",
@@ -14455,8 +14487,8 @@
           {
             "id": "modx2clrnj9j",
             "strike": 3.5,
-            "contracts": 1,
-            "received": 9,
+            "contracts": 3,
+            "received": 27,
             "btcDebit": 0,
             "expiry": "5/1/2026",
             "openDate": "4/24/2026",
@@ -14465,7 +14497,8 @@
             "posType": "SPUT"
           }
         ],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 300
       },
       {
         "id": "modx2clsj49s",
@@ -15736,30 +15769,6 @@
         "longPutClosed": true,
         "longCloseAmount": 0,
         "longCloseDate": "4/26/2026"
-      },
-      {
-        "id": "modx2clsafh6",
-        "ticker": "BBAI",
-        "contracts": 1,
-        "longStrike": 4,
-        "longPremium": 0.4704,
-        "longExpiry": "5/1/2026",
-        "openDate": "3/17/2026",
-        "notes": "",
-        "position": null,
-        "noLongPut": false,
-        "shortPuts": [
-          {
-            "id": "moft3ikx2ie2",
-            "strike": 3.5,
-            "contracts": 1,
-            "received": 9,
-            "expiry": "5/1",
-            "openDate": "4/26/2026",
-            "closed": false
-          }
-        ],
-        "closed": false
       },
       {
         "id": "modx2cls1ogm",
@@ -18094,30 +18103,6 @@
             "received": 10,
             "expiry": "5/1",
             "openDate": "4/27/2026",
-            "closed": false
-          }
-        ],
-        "closed": false
-      },
-      {
-        "id": "modx2clr2ehj",
-        "ticker": "BBAI",
-        "contracts": 1,
-        "longStrike": 4,
-        "longPremium": 0.9204000000000001,
-        "longExpiry": "5/15/2026",
-        "openDate": "3/31/2026",
-        "notes": "",
-        "position": null,
-        "noLongPut": false,
-        "shortPuts": [
-          {
-            "id": "moft3cgbh9q8",
-            "strike": 3.5,
-            "contracts": 1,
-            "received": 9,
-            "expiry": "5/1",
-            "openDate": "4/26/2026",
             "closed": false
           }
         ],
@@ -37900,6 +37885,37 @@
   "callLadders": {
     "self": [
       {
+        "id": "moiuqeb6ccni",
+        "ticker": "BBAI",
+        "contracts": 4,
+        "longStrike": 2.5,
+        "longPremium": 1.93,
+        "longExpiry": "1/15/2027",
+        "openDate": "4/28/2026",
+        "notes": "",
+        "noLongCall": false,
+        "longCallClosed": false,
+        "shortCalls": [],
+        "closed": false,
+        "marketValueOverride": 772
+      },
+      {
+        "id": "moiuh8rccta8",
+        "ticker": "PTON",
+        "contracts": 1,
+        "longStrike": 5,
+        "longPremium": 1.34,
+        "longExpiry": "1/15/2027",
+        "openDate": "4/24",
+        "notes": "",
+        "noLongCall": false,
+        "longCallClosed": true,
+        "shortCalls": [],
+        "closed": true,
+        "longCloseAmount": 13,
+        "longCloseDate": "4/28/2026"
+      },
+      {
         "id": "moiq721wtye7",
         "ticker": "PLTR",
         "contracts": 1,
@@ -38387,9 +38403,25 @@
         "notes": "",
         "position": null,
         "noLongCall": false,
-        "shortCalls": [],
-        "closed": false,
-        "marketValueOverride": 32
+        "shortCalls": [
+          {
+            "id": "moiutjf3hi3e",
+            "strike": 6,
+            "contracts": 1,
+            "received": 185,
+            "expiry": "6/18",
+            "openDate": "3/10",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "4/28/2026",
+            "buybackCost": 15
+          }
+        ],
+        "closed": true,
+        "marketValueOverride": 32,
+        "longCallClosed": true,
+        "longCloseAmount": 36,
+        "longCloseDate": "4/28/2026"
       },
       {
         "id": "modx2m2m2vnc",
@@ -39347,7 +39379,7 @@
       {
         "id": "modx2m2mjxrf",
         "ticker": "PTON",
-        "contracts": 2,
+        "contracts": 1,
         "longStrike": 5,
         "longPremium": 1.3403999999999998,
         "longExpiry": "1/15/2027",
@@ -40390,12 +40422,43 @@
       {
         "id": "mog8z0vb0xoe",
         "ticker": "BBAI",
-        "shares": 600,
+        "shares": 0,
         "costBasis": 3.97,
         "purchaseDate": "4/17/2026",
         "coveredCalls": [],
-        "shareSales": [],
-        "closed": false
+        "shareSales": [
+          {
+            "id": "sale_1777394144702",
+            "shares": 100,
+            "salePrice": 3.9,
+            "saleDate": "04/28/2026"
+          },
+          {
+            "id": "sale_1777394198687",
+            "shares": 100,
+            "salePrice": 3.91,
+            "saleDate": "04/28/2026"
+          },
+          {
+            "id": "sale_1777394212776",
+            "shares": 200,
+            "salePrice": 3.92,
+            "saleDate": "04/28/2026"
+          },
+          {
+            "id": "sale_1777394243621",
+            "shares": 100,
+            "salePrice": 3.91,
+            "saleDate": "04/28/2026"
+          },
+          {
+            "id": "sale_1777394256298",
+            "shares": 100,
+            "salePrice": 3.9,
+            "saleDate": "04/28/2026"
+          }
+        ],
+        "closed": true
       },
       {
         "id": "mog972j4kdii",
