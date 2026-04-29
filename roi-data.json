@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-04-29T21:40:02.012Z",
+  "savedAt": "2026-04-29T21:49:14.105Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -21068,6 +21068,40 @@
     ],
     "spouse": [
       {
+        "id": "mokl0qbn3thv",
+        "ticker": "HOOD",
+        "contracts": 2,
+        "longStrike": 71,
+        "longPremium": 3.02,
+        "longExpiry": "5/8",
+        "openDate": "4/29/2026",
+        "notes": "",
+        "position": null,
+        "noLongPut": false,
+        "longPutClosed": false,
+        "shortPuts": [
+          {
+            "id": "mokl3e3759ke",
+            "strike": 74,
+            "contracts": 1,
+            "received": 480,
+            "expiry": "5/8",
+            "openDate": "4/29/2026",
+            "closed": false
+          },
+          {
+            "id": "mokl4csv6d66",
+            "strike": 73,
+            "contracts": 1,
+            "received": 395,
+            "expiry": "5/8",
+            "openDate": "4/29/2026",
+            "closed": false
+          }
+        ],
+        "closed": false
+      },
+      {
         "id": "mohnfkd12706",
         "ticker": "F",
         "contracts": 1,
@@ -23803,7 +23837,10 @@
             "received": 102,
             "expiry": "5/1",
             "openDate": "4/28/2026",
-            "closed": false
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "4/29/2026",
+            "buybackCost": 455
           },
           {
             "id": "moj7njpeg4pr",
@@ -23812,7 +23849,10 @@
             "received": 82,
             "expiry": "5/1",
             "openDate": "4/28/2026",
-            "closed": false
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "4/29/2026",
+            "buybackCost": 385
           }
         ],
         "closed": false
