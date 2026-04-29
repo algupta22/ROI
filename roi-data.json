@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-04-29T21:49:14.105Z",
+  "savedAt": "2026-04-29T22:47:38.086Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -23798,9 +23798,9 @@
       {
         "id": "modx1cn965x9",
         "ticker": "HOOD",
-        "contracts": 3,
+        "contracts": 1,
         "longStrike": 73,
-        "longPremium": 9.4104,
+        "longPremium": 20,
         "longExpiry": "5/1/2026",
         "openDate": "3/30/2026",
         "notes": "",
@@ -23855,7 +23855,24 @@
             "buybackCost": 385
           }
         ],
-        "closed": false
+        "closed": false,
+        "longCloseAmount": 854,
+        "longCloseDate": "4/29/2026",
+        "longPartialCloses": [
+          {
+            "id": "mokme6u541u6",
+            "contracts": 1,
+            "amount": 293,
+            "closeDate": "4/29/2026"
+          },
+          {
+            "id": "mokmehedz7lk",
+            "contracts": 1,
+            "amount": 268,
+            "closeDate": "4/29/2026"
+          }
+        ],
+        "marketValueOverride": null
       },
       {
         "id": "modx1cn9kkqz",
