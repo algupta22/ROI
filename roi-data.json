@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-04-29T22:47:38.086Z",
+  "savedAt": "2026-04-29T23:17:45.072Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -21068,6 +21068,62 @@
     ],
     "spouse": [
       {
+        "id": "mokocokn5iqi",
+        "ticker": "CDE",
+        "contracts": 1,
+        "longStrike": 17.5,
+        "longPremium": 1.91,
+        "longExpiry": "6/18",
+        "openDate": "4/29/2026",
+        "notes": "",
+        "position": null,
+        "noLongPut": false,
+        "longPutClosed": false,
+        "shortPuts": [
+          {
+            "id": "modx1cn9kxij",
+            "strike": 18,
+            "contracts": 1,
+            "received": 24.94,
+            "btcDebit": 0,
+            "expiry": "5/1/2026",
+            "openDate": "4/24/2026",
+            "closed": false,
+            "closeReason": null,
+            "posType": "SPUT"
+          }
+        ],
+        "closed": false
+      },
+      {
+        "id": "mokne923a585",
+        "ticker": "TSLL",
+        "contracts": 1,
+        "longStrike": 12,
+        "longPremium": 1.48,
+        "longExpiry": "6/18",
+        "openDate": "4/29/2026",
+        "notes": "",
+        "position": null,
+        "noLongPut": false,
+        "longPutClosed": false,
+        "shortPuts": [
+          {
+            "id": "modx1cn9he0h",
+            "strike": 11.5,
+            "contracts": 1,
+            "received": 25.94,
+            "btcDebit": 0,
+            "expiry": "5/1/2026",
+            "openDate": "4/24/2026",
+            "closed": false,
+            "closeReason": null,
+            "posType": "SPUT"
+          }
+        ],
+        "closed": false
+      },
+      {
         "id": "mokl0qbn3thv",
         "ticker": "HOOD",
         "contracts": 2,
@@ -25069,21 +25125,11 @@
         "notes": "",
         "position": null,
         "noLongPut": false,
-        "shortPuts": [
-          {
-            "id": "modx1cn9he0h",
-            "strike": 11.5,
-            "contracts": 1,
-            "received": 25.94,
-            "btcDebit": 0,
-            "expiry": "5/1/2026",
-            "openDate": "4/24/2026",
-            "closed": false,
-            "closeReason": null,
-            "posType": "SPUT"
-          }
-        ],
-        "closed": false
+        "shortPuts": [],
+        "closed": true,
+        "longPutClosed": true,
+        "longCloseAmount": 280,
+        "longCloseDate": "4/29/2026"
       },
       {
         "id": "modx1cn9h07z",
@@ -25666,21 +25712,11 @@
         "notes": "",
         "position": null,
         "noLongPut": false,
-        "shortPuts": [
-          {
-            "id": "modx1cn9kxij",
-            "strike": 18,
-            "contracts": 1,
-            "received": 24.94,
-            "btcDebit": 0,
-            "expiry": "5/1/2026",
-            "openDate": "4/24/2026",
-            "closed": false,
-            "closeReason": null,
-            "posType": "SPUT"
-          }
-        ],
-        "closed": false
+        "shortPuts": [],
+        "closed": true,
+        "longPutClosed": true,
+        "longCloseAmount": 355,
+        "longCloseDate": "4/29/2026"
       },
       {
         "id": "modx1cn9xlf9",
