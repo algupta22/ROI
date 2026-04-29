@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-04-29T03:20:53.405Z",
+  "savedAt": "2026-04-29T21:21:24.608Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -8607,12 +8607,12 @@
     ]
   },
   "cashBalances": {
-    "amit": -9242,
+    "amit": 1872,
     "lov-trad": 379570,
     "amit-roth": 7246,
     "lov-roth": 12622,
-    "lovelina": 312,
-    "joint": 458
+    "lovelina": -108,
+    "joint": 162
   },
   "initialCashBalances": {
     "amit-roth": 16068,
@@ -26266,7 +26266,7 @@
       {
         "id": "modx0diq1r02",
         "ticker": "BBAI",
-        "contracts": 1,
+        "contracts": 2,
         "longStrike": 2,
         "longPremium": 0.0704,
         "longExpiry": "6/18/2026",
@@ -26286,22 +26286,7 @@
             "closed": false,
             "closeReason": null,
             "posType": "SPUT"
-          }
-        ],
-        "closed": false
-      },
-      {
-        "id": "modx0diq3u1v",
-        "ticker": "BBAI",
-        "contracts": 1,
-        "longStrike": 2,
-        "longPremium": 0.0704,
-        "longExpiry": "6/18/2026",
-        "openDate": "1/5/2026",
-        "notes": "",
-        "position": null,
-        "noLongPut": false,
-        "shortPuts": [
+          },
           {
             "id": "modx0diq87sp",
             "strike": 4,
@@ -26315,7 +26300,8 @@
             "posType": "SPUT"
           }
         ],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 0.08
       },
       {
         "id": "modx0diqnyzk",
@@ -34974,7 +34960,9 @@
             "received": 12.96,
             "expiry": "4/29",
             "openDate": "4/27/2026",
-            "closed": false
+            "closed": true,
+            "closeReason": "expired",
+            "closeDate": "4/29/2026"
           }
         ],
         "closed": false
