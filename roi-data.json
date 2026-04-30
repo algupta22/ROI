@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-04-30T22:02:32.093Z",
+  "savedAt": "2026-04-30T22:37:42.577Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -15017,30 +15017,14 @@
         "noLongPut": false,
         "shortPuts": [
           {
-            "id": "molyhh1ix2z4",
-            "strike": 37,
+            "id": "molyhh1hwgfb",
+            "strike": 42,
             "contracts": 1,
-            "received": 31.95,
-            "expiry": "4/6/2026",
-            "openDate": "4/2/2026",
-            "closed": true,
-            "posType": "SPUT",
-            "closeReason": "expired",
-            "closeDate": "4/6/2026",
-            "buybackCost": 0
-          },
-          {
-            "id": "molyhh1it52f",
-            "strike": 37.5,
-            "contracts": 1,
-            "received": 10.95,
-            "expiry": "4/2/2026",
-            "openDate": "4/1/2026",
-            "closed": true,
-            "posType": "SPUT",
-            "closeReason": "expired",
-            "closeDate": "4/2/2026",
-            "buybackCost": 0
+            "received": 22.94,
+            "expiry": "5/1/2026",
+            "openDate": "4/29/2026",
+            "closed": false,
+            "posType": "SPUT"
           }
         ],
         "closed": false
@@ -15090,6 +15074,32 @@
             "strike": 37.5,
             "contracts": 1,
             "received": 74.95,
+            "expiry": "4/6/2026",
+            "openDate": "4/2/2026",
+            "closed": true,
+            "posType": "SPUT",
+            "closeReason": "expired",
+            "closeDate": "4/6/2026",
+            "buybackCost": 0
+          },
+          {
+            "id": "molyhh1it52f",
+            "strike": 37.5,
+            "contracts": 1,
+            "received": 10.95,
+            "expiry": "4/2/2026",
+            "openDate": "4/1/2026",
+            "closed": true,
+            "posType": "SPUT",
+            "closeReason": "expired",
+            "closeDate": "4/2/2026",
+            "buybackCost": 0
+          },
+          {
+            "id": "molyhh1ix2z4",
+            "strike": 37,
+            "contracts": 1,
+            "received": 31.95,
             "expiry": "4/6/2026",
             "openDate": "4/2/2026",
             "closed": true,
@@ -18187,16 +18197,6 @@
             "posType": "SPUT"
           },
           {
-            "id": "molyhh1hwgfb",
-            "strike": 42,
-            "contracts": 1,
-            "received": 22.94,
-            "expiry": "5/1/2026",
-            "openDate": "4/29/2026",
-            "closed": false,
-            "posType": "SPUT"
-          },
-          {
             "id": "molyhh1hrxdc",
             "strike": 42.5,
             "contracts": 1,
@@ -18548,7 +18548,7 @@
             "posType": "SPUT"
           }
         ],
-        "closed": false,
+        "closed": true,
         "longPutClosed": true,
         "longCloseAmount": 6.94,
         "longCloseDate": "4/28/2026"
@@ -23572,24 +23572,7 @@
             "openDate": "4/24/2026",
             "closed": false,
             "posType": "SPUT"
-          }
-        ],
-        "closed": false,
-        "longPutClosed": true,
-        "longCloseAmount": 39.94,
-        "longCloseDate": "4/17/2026"
-      },
-      {
-        "id": "molyjbje5jsv",
-        "ticker": "TSLL",
-        "contracts": 1,
-        "longStrike": null,
-        "longPremium": null,
-        "longExpiry": null,
-        "openDate": "4/30/2026",
-        "notes": "",
-        "noLongPut": true,
-        "shortPuts": [
+          },
           {
             "id": "molyjbjedk8t",
             "strike": 11.5,
@@ -23601,7 +23584,10 @@
             "posType": "SPUT"
           }
         ],
-        "closed": false
+        "closed": false,
+        "longPutClosed": true,
+        "longCloseAmount": 39.94,
+        "longCloseDate": "4/17/2026"
       }
     ],
     "joint": [
@@ -39245,12 +39231,19 @@
       {
         "id": "molyiverxoah",
         "ticker": "TSLL",
-        "shares": 100,
+        "shares": 0,
         "costBasis": 12.5,
         "purchaseDate": "4/24/2026",
         "coveredCalls": [],
-        "shareSales": [],
-        "closed": false
+        "shareSales": [
+          {
+            "id": "sale_1777586979515",
+            "shares": 100,
+            "salePrice": 12.35,
+            "saleDate": "04/30/2026"
+          }
+        ],
+        "closed": true
       },
       {
         "id": "molyivern2io",
