@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-04-30T00:07:48.939Z",
+  "savedAt": "2026-04-30T00:11:39.292Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -38228,6 +38228,43 @@
   },
   "callLadders": {
     "self": [
+      {
+        "id": "mokq8xefzudm",
+        "ticker": "AMZN",
+        "contracts": 1,
+        "longStrike": null,
+        "longPremium": null,
+        "longExpiry": null,
+        "openDate": "4/29/2026",
+        "notes": "",
+        "noLongCall": true,
+        "shortCalls": [
+          {
+            "id": "mokq8xefmu61",
+            "strike": 270,
+            "contracts": 1,
+            "received": 965,
+            "expiry": "5/29",
+            "openDate": "4/29/2026",
+            "closed": false
+          }
+        ],
+        "closed": false
+      },
+      {
+        "id": "mokq7pu76mvk",
+        "ticker": "AMZN",
+        "contracts": 1,
+        "longStrike": 260,
+        "longPremium": 14.5,
+        "longExpiry": "5/29",
+        "openDate": "4/29/2026",
+        "notes": "",
+        "noLongCall": false,
+        "longCallClosed": false,
+        "shortCalls": [],
+        "closed": false
+      },
       {
         "id": "mokq2krh01v3",
         "ticker": "PTON",
