@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-04-30T20:57:17.725Z",
+  "savedAt": "2026-04-30T20:59:43.529Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -35276,7 +35276,10 @@
             "buybackCost": 0
           }
         ],
-        "closed": false
+        "closed": true,
+        "longCallClosed": true,
+        "longCloseAmount": 0,
+        "longCloseDate": "4/30/2026"
       },
       {
         "id": "molyhwbdcaon",
@@ -36099,10 +36102,13 @@
             "received": 7458.95,
             "expiry": "4/30/2026",
             "openDate": "3/2/2026",
-            "closed": false
+            "closed": true,
+            "closeReason": "expired",
+            "closeDate": "4/30/2026",
+            "buybackCost": 0
           }
         ],
-        "closed": false,
+        "closed": true,
         "longCallClosed": true,
         "longCloseAmount": 740.95,
         "longCloseDate": "3/2/2026",
@@ -37057,7 +37063,10 @@
             "received": 3087.95,
             "expiry": "5/29/2026",
             "openDate": "3/30/2026",
-            "closed": false
+            "closed": true,
+            "closeReason": "expired",
+            "closeDate": "4/30/2026",
+            "buybackCost": 0
           },
           {
             "id": "molyhwbdliir",
@@ -37072,7 +37081,7 @@
             "closeDate": "3/30/2026"
           }
         ],
-        "closed": false
+        "closed": true
       }
     ],
     "spouse": [
