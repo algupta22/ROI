@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-04-30T20:30:13.600Z",
+  "savedAt": "2026-04-30T20:38:29.392Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -17574,7 +17574,373 @@
   "callLadders": {
     "self": [],
     "spouse": [],
-    "joint": [],
+    "joint": [
+      {
+        "id": "moly3g46pf4l",
+        "ticker": "BULL",
+        "contracts": 1,
+        "longStrike": 7.5,
+        "longPremium": 3.1004,
+        "longExpiry": "1/15/2027",
+        "openDate": "1/7/2026",
+        "notes": "",
+        "noLongCall": false,
+        "shortCalls": [],
+        "closed": false
+      },
+      {
+        "id": "moly3g46qwqu",
+        "ticker": "MSTU",
+        "contracts": 1,
+        "longStrike": null,
+        "longPremium": null,
+        "longExpiry": null,
+        "openDate": "1/12/2026",
+        "notes": "",
+        "noLongCall": true,
+        "shortCalls": [
+          {
+            "id": "moly3g467m5z",
+            "strike": 9.5,
+            "contracts": 1,
+            "received": 35.95,
+            "expiry": "1/16/2026",
+            "openDate": "1/12/2026",
+            "closed": true,
+            "closeReason": "expired",
+            "closeDate": "1/16/2026",
+            "buybackCost": 0
+          }
+        ],
+        "closed": true
+      },
+      {
+        "id": "moly3g4600ud",
+        "ticker": "SOFI",
+        "contracts": 1,
+        "longStrike": 12,
+        "longPremium": 11.750399999999999,
+        "longExpiry": "1/15/2027",
+        "openDate": "2/2/2026",
+        "notes": "",
+        "noLongCall": false,
+        "shortCalls": [],
+        "closed": false
+      },
+      {
+        "id": "moly3g46qp9g",
+        "ticker": "SOFI",
+        "contracts": 1,
+        "longStrike": 12,
+        "longPremium": 11.8104,
+        "longExpiry": "1/15/2027",
+        "openDate": "2/2/2026",
+        "notes": "",
+        "noLongCall": false,
+        "shortCalls": [],
+        "closed": false
+      },
+      {
+        "id": "moly3g4632k6",
+        "ticker": "SOFI",
+        "contracts": 1,
+        "longStrike": 12,
+        "longPremium": 8.1004,
+        "longExpiry": "1/15/2027",
+        "openDate": "2/23/2026",
+        "notes": "",
+        "noLongCall": false,
+        "shortCalls": [],
+        "closed": false
+      },
+      {
+        "id": "moly3g46u3av",
+        "ticker": "SOFI",
+        "contracts": 1,
+        "longStrike": 12,
+        "longPremium": 8.1004,
+        "longExpiry": "1/15/2027",
+        "openDate": "2/23/2026",
+        "notes": "",
+        "noLongCall": false,
+        "shortCalls": [],
+        "closed": false
+      },
+      {
+        "id": "moly3g46u636",
+        "ticker": "SOFI",
+        "contracts": 1,
+        "longStrike": 12,
+        "longPremium": 8.1004,
+        "longExpiry": "1/15/2027",
+        "openDate": "2/23/2026",
+        "notes": "",
+        "noLongCall": false,
+        "shortCalls": [],
+        "closed": false
+      },
+      {
+        "id": "moly3g46eynp",
+        "ticker": "PATH",
+        "contracts": 1,
+        "longStrike": null,
+        "longPremium": null,
+        "longExpiry": null,
+        "openDate": "2/24/2026",
+        "notes": "",
+        "noLongCall": true,
+        "shortCalls": [
+          {
+            "id": "moly3g46him9",
+            "strike": 14,
+            "contracts": 1,
+            "received": 34.95,
+            "expiry": "4/17/2026",
+            "openDate": "2/24/2026",
+            "closed": true,
+            "closeReason": "expired",
+            "closeDate": "4/17/2026",
+            "buybackCost": 0
+          },
+          {
+            "id": "moly3g468wis",
+            "strike": 13.5,
+            "contracts": 1,
+            "received": 0,
+            "btcDebit": 1.04,
+            "expiry": "3/6/2026",
+            "openDate": "2/24/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "2/24/2026"
+          },
+          {
+            "id": "moly3g46l0ij",
+            "strike": 13.5,
+            "contracts": 1,
+            "received": 19.95,
+            "expiry": "3/6/2026",
+            "openDate": "2/13/2026",
+            "closed": true,
+            "closeReason": "expired",
+            "closeDate": "3/6/2026",
+            "buybackCost": 0
+          }
+        ],
+        "closed": true
+      },
+      {
+        "id": "moly3g467gil",
+        "ticker": "TLT",
+        "contracts": 1,
+        "longStrike": null,
+        "longPremium": null,
+        "longExpiry": null,
+        "openDate": "3/10/2026",
+        "notes": "",
+        "noLongCall": true,
+        "shortCalls": [
+          {
+            "id": "moly3g46a6pw",
+            "strike": 90,
+            "contracts": 1,
+            "received": 0,
+            "btcDebit": 3.04,
+            "expiry": "3/11/2026",
+            "openDate": "3/10/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "3/10/2026"
+          },
+          {
+            "id": "moly3g461l56",
+            "strike": 90,
+            "contracts": 1,
+            "received": 10.95,
+            "expiry": "3/11/2026",
+            "openDate": "3/6/2026",
+            "closed": true,
+            "closeReason": "expired",
+            "closeDate": "3/11/2026",
+            "buybackCost": 0
+          }
+        ],
+        "closed": true
+      },
+      {
+        "id": "moly3g462n99",
+        "ticker": "ONDS",
+        "contracts": 1,
+        "longStrike": null,
+        "longPremium": null,
+        "longExpiry": null,
+        "openDate": "3/17/2026",
+        "notes": "",
+        "noLongCall": true,
+        "shortCalls": [
+          {
+            "id": "moly3g46cnzr",
+            "strike": 16,
+            "contracts": 1,
+            "received": 0,
+            "btcDebit": 9.04,
+            "expiry": "3/27/2026",
+            "openDate": "3/17/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "3/17/2026"
+          },
+          {
+            "id": "moly3g46vqv1",
+            "strike": 16,
+            "contracts": 1,
+            "received": 20.95,
+            "expiry": "3/27/2026",
+            "openDate": "2/13/2026",
+            "closed": true,
+            "closeReason": "expired",
+            "closeDate": "3/27/2026",
+            "buybackCost": 0
+          },
+          {
+            "id": "moly3g46xqbf",
+            "strike": 15,
+            "contracts": 1,
+            "received": 0,
+            "btcDebit": 6.04,
+            "expiry": "1/30/2026",
+            "openDate": "1/27/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "1/27/2026"
+          }
+        ],
+        "closed": true
+      },
+      {
+        "id": "moly3g46xmzb",
+        "ticker": "NKE",
+        "contracts": 1,
+        "longStrike": 40,
+        "longPremium": 15.0504,
+        "longExpiry": "3/19/2027",
+        "openDate": "3/30/2026",
+        "notes": "",
+        "noLongCall": false,
+        "shortCalls": [],
+        "closed": false
+      },
+      {
+        "id": "moly3g463a2s",
+        "ticker": "TSLL",
+        "contracts": 1,
+        "longStrike": null,
+        "longPremium": null,
+        "longExpiry": null,
+        "openDate": "4/14/2026",
+        "notes": "",
+        "noLongCall": true,
+        "shortCalls": [
+          {
+            "id": "moly3g463334",
+            "strike": 20,
+            "contracts": 1,
+            "received": 0,
+            "btcDebit": 1.04,
+            "expiry": "4/24/2026",
+            "openDate": "4/14/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "4/14/2026"
+          },
+          {
+            "id": "moly3g46pcly",
+            "strike": 20,
+            "contracts": 1,
+            "received": 17.95,
+            "expiry": "4/24/2026",
+            "openDate": "3/17/2026",
+            "closed": true,
+            "closeReason": "expired",
+            "closeDate": "4/24/2026",
+            "buybackCost": 0
+          },
+          {
+            "id": "moly3g46spkt",
+            "strike": 21,
+            "contracts": 1,
+            "received": 0,
+            "btcDebit": 3.04,
+            "expiry": "3/27/2026",
+            "openDate": "3/10/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "3/10/2026"
+          },
+          {
+            "id": "moly3g46gazx",
+            "strike": 21,
+            "contracts": 1,
+            "received": 0,
+            "btcDebit": 2.04,
+            "expiry": "3/20/2026",
+            "openDate": "3/10/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "3/10/2026"
+          },
+          {
+            "id": "moly3g46snd4",
+            "strike": 21.5,
+            "contracts": 1,
+            "received": 0,
+            "btcDebit": 1.04,
+            "expiry": "3/13/2026",
+            "openDate": "3/10/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "3/10/2026"
+          },
+          {
+            "id": "moly3g46fwn1",
+            "strike": 21.5,
+            "contracts": 1,
+            "received": 29.95,
+            "expiry": "3/13/2026",
+            "openDate": "2/11/2026",
+            "closed": true,
+            "closeReason": "expired",
+            "closeDate": "3/13/2026",
+            "buybackCost": 0
+          },
+          {
+            "id": "moly3g46mtla",
+            "strike": 21,
+            "contracts": 1,
+            "received": 49.95,
+            "expiry": "3/27/2026",
+            "openDate": "2/10/2026",
+            "closed": true,
+            "closeReason": "expired",
+            "closeDate": "3/27/2026",
+            "buybackCost": 0
+          },
+          {
+            "id": "moly3g467x43",
+            "strike": 21,
+            "contracts": 1,
+            "received": 44.95,
+            "expiry": "3/20/2026",
+            "openDate": "2/10/2026",
+            "closed": true,
+            "closeReason": "expired",
+            "closeDate": "3/20/2026",
+            "buybackCost": 0
+          }
+        ],
+        "closed": true
+      }
+    ],
     "self_roth": [],
     "spouse_roth": [],
     "spouse_ira": []
@@ -17582,7 +17948,346 @@
   "shares": {
     "self": [],
     "spouse": [],
-    "joint": [],
+    "joint": [
+      {
+        "id": "moly4j0l4ouj",
+        "ticker": "OKLS",
+        "shares": 25,
+        "costBasis": 19.43,
+        "purchaseDate": "1/2/2026",
+        "coveredCalls": [],
+        "shareSales": [],
+        "closed": false
+      },
+      {
+        "id": "moly4j0lyq9w",
+        "ticker": "MSTU",
+        "shares": 100,
+        "costBasis": 9,
+        "purchaseDate": "1/9/2026",
+        "coveredCalls": [],
+        "shareSales": [],
+        "closed": false
+      },
+      {
+        "id": "moly4j0l2xh1",
+        "ticker": "BULL",
+        "shares": 100,
+        "costBasis": 8,
+        "purchaseDate": "1/23/2026",
+        "coveredCalls": [],
+        "shareSales": [],
+        "closed": false
+      },
+      {
+        "id": "moly4j0lhznx",
+        "ticker": "MSTX",
+        "shares": 300,
+        "costBasis": 4.333333333333333,
+        "purchaseDate": "1/30/2026",
+        "coveredCalls": [],
+        "shareSales": [],
+        "closed": false
+      },
+      {
+        "id": "moly4j0lpfcr",
+        "ticker": "TAIL",
+        "shares": 50,
+        "costBasis": 11.63,
+        "purchaseDate": "2/13/2026",
+        "coveredCalls": [],
+        "shareSales": [],
+        "closed": false
+      },
+      {
+        "id": "moly4j0lnu1k",
+        "ticker": "SPXS",
+        "shares": 24,
+        "costBasis": 35.77333333333334,
+        "purchaseDate": "2/18/2026",
+        "coveredCalls": [],
+        "shareSales": [],
+        "closed": false
+      },
+      {
+        "id": "moly4j0ln5rk",
+        "ticker": "PATH",
+        "shares": 400,
+        "costBasis": 15.25,
+        "purchaseDate": "2/18/2026",
+        "coveredCalls": [],
+        "shareSales": [],
+        "closed": false
+      },
+      {
+        "id": "moly4j0l3pl0",
+        "ticker": "SOFI",
+        "shares": 400,
+        "costBasis": 24.1875,
+        "purchaseDate": "2/19/2026",
+        "coveredCalls": [],
+        "shareSales": [
+          {
+            "id": "moly4j0l9gnm",
+            "shares": 100,
+            "salePrice": 22.58,
+            "saleDate": "2/2/2026"
+          },
+          {
+            "id": "moly4j0lve9u",
+            "shares": 100,
+            "salePrice": 22.27,
+            "saleDate": "2/2/2026"
+          }
+        ],
+        "closed": false
+      },
+      {
+        "id": "moly4j0lumwv",
+        "ticker": "TSLQ",
+        "shares": 45,
+        "costBasis": 21.439999999999998,
+        "purchaseDate": "2/24/2026",
+        "coveredCalls": [],
+        "shareSales": [],
+        "closed": false
+      },
+      {
+        "id": "moly4j0lsxf2",
+        "ticker": "MSTZ",
+        "shares": 100,
+        "costBasis": 13.655,
+        "purchaseDate": "2/25/2026",
+        "coveredCalls": [],
+        "shareSales": [],
+        "closed": false
+      },
+      {
+        "id": "moly4j0l9an3",
+        "ticker": "SOFI",
+        "shares": -100,
+        "costBasis": 23,
+        "purchaseDate": "3/4/2026",
+        "coveredCalls": [],
+        "shareSales": [
+          {
+            "id": "moly4j0lya3y",
+            "shares": 200,
+            "salePrice": 18.1,
+            "saleDate": "2/23/2026"
+          }
+        ],
+        "closed": true
+      },
+      {
+        "id": "moly4j0lrzwb",
+        "ticker": "TLT",
+        "shares": 100,
+        "costBasis": 90,
+        "purchaseDate": "3/5/2026",
+        "coveredCalls": [],
+        "shareSales": [],
+        "closed": false
+      },
+      {
+        "id": "moly4j0lopo1",
+        "ticker": "SOFI",
+        "shares": 0,
+        "costBasis": 22,
+        "purchaseDate": "3/5/2026",
+        "coveredCalls": [],
+        "shareSales": [
+          {
+            "id": "moly4j0lw64y",
+            "shares": 50,
+            "salePrice": 18.98,
+            "saleDate": "3/5/2026"
+          },
+          {
+            "id": "moly4j0llecd",
+            "shares": 25,
+            "salePrice": 18.75,
+            "saleDate": "3/5/2026"
+          },
+          {
+            "id": "moly4j0lgqm8",
+            "shares": 21,
+            "salePrice": 18.75,
+            "saleDate": "3/5/2026"
+          },
+          {
+            "id": "moly4j0lq68t",
+            "shares": 4,
+            "salePrice": 18.75,
+            "saleDate": "3/5/2026"
+          }
+        ],
+        "closed": true
+      },
+      {
+        "id": "moly4j0lbh48",
+        "ticker": "TLT",
+        "shares": 0,
+        "costBasis": 90.5,
+        "purchaseDate": "3/11/2026",
+        "coveredCalls": [],
+        "shareSales": [
+          {
+            "id": "moly4j0l7vd1",
+            "shares": 100,
+            "salePrice": 88.9,
+            "saleDate": "3/10/2026"
+          }
+        ],
+        "closed": true
+      },
+      {
+        "id": "moly4j0lyko8",
+        "ticker": "KO",
+        "shares": 100,
+        "costBasis": 78,
+        "purchaseDate": "3/13/2026",
+        "coveredCalls": [],
+        "shareSales": [],
+        "closed": false
+      },
+      {
+        "id": "moly4j0l01xb",
+        "ticker": "SLV",
+        "shares": 100,
+        "costBasis": 63.5,
+        "purchaseDate": "3/20/2026",
+        "coveredCalls": [],
+        "shareSales": [],
+        "closed": false
+      },
+      {
+        "id": "moly4j0lblx8",
+        "ticker": "SOFI",
+        "shares": 0,
+        "costBasis": 21,
+        "purchaseDate": "3/26/2026",
+        "coveredCalls": [],
+        "shareSales": [
+          {
+            "id": "moly4j0lz52y",
+            "shares": 50,
+            "salePrice": 19.12,
+            "saleDate": "3/6/2026"
+          },
+          {
+            "id": "moly4j0l1mzq",
+            "shares": 50,
+            "salePrice": 19.25,
+            "saleDate": "3/6/2026"
+          }
+        ],
+        "closed": true
+      },
+      {
+        "id": "moly4j0lsoey",
+        "ticker": "NKE",
+        "shares": 100,
+        "costBasis": 53,
+        "purchaseDate": "3/27/2026",
+        "coveredCalls": [],
+        "shareSales": [],
+        "closed": false
+      },
+      {
+        "id": "moly4j0lyctj",
+        "ticker": "SMST",
+        "shares": 30,
+        "costBasis": 64.45666666666666,
+        "purchaseDate": "3/30/2026",
+        "coveredCalls": [],
+        "shareSales": [],
+        "closed": false
+      },
+      {
+        "id": "moly4j0kbhz1",
+        "ticker": "SQQQ",
+        "shares": 40,
+        "costBasis": 77.41193124999998,
+        "purchaseDate": "4/1/2026",
+        "coveredCalls": [],
+        "shareSales": [
+          {
+            "id": "moly4j0logri",
+            "shares": 16,
+            "salePrice": 76.82,
+            "saleDate": "3/19/2026"
+          },
+          {
+            "id": "moly4j0lzoky",
+            "shares": 6,
+            "salePrice": 72.15,
+            "saleDate": "2/19/2026"
+          }
+        ],
+        "closed": false
+      },
+      {
+        "id": "moly4j0k3u0g",
+        "ticker": "NKE",
+        "shares": 0,
+        "costBasis": 49.5,
+        "purchaseDate": "4/1/2026",
+        "coveredCalls": [],
+        "shareSales": [
+          {
+            "id": "moly4j0lffpl",
+            "shares": 50,
+            "salePrice": 51.66,
+            "saleDate": "3/30/2026"
+          },
+          {
+            "id": "moly4j0l2010",
+            "shares": 50,
+            "salePrice": 51.65,
+            "saleDate": "3/30/2026"
+          }
+        ],
+        "closed": true
+      },
+      {
+        "id": "moly4j0kukx4",
+        "ticker": "TSLZ",
+        "shares": 68,
+        "costBasis": 14.901587370242215,
+        "purchaseDate": "4/10/2026",
+        "coveredCalls": [],
+        "shareSales": [
+          {
+            "id": "moly4j0l54hg",
+            "shares": 50,
+            "salePrice": 14.34,
+            "saleDate": "3/13/2026"
+          }
+        ],
+        "closed": false
+      },
+      {
+        "id": "moly4j0kbny4",
+        "ticker": "TSLL",
+        "shares": 1000,
+        "costBasis": 16.65,
+        "purchaseDate": "4/17/2026",
+        "coveredCalls": [],
+        "shareSales": [],
+        "closed": false
+      },
+      {
+        "id": "moly4j0k82n0",
+        "ticker": "CDE",
+        "shares": 100,
+        "costBasis": 20.5,
+        "purchaseDate": "4/23/2026",
+        "coveredCalls": [],
+        "shareSales": [],
+        "closed": false
+      }
+    ],
     "self_roth": [],
     "spouse_roth": []
   }
