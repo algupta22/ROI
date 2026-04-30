@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-04-30T01:33:37.245Z",
+  "savedAt": "2026-04-30T04:22:11.746Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -5817,7 +5817,7 @@
     }
   ],
   "tickerPrices": {
-    "GOOGL": 344.4,
+    "GOOGL": 349.94,
     "PLTR": 137.97,
     "IBIT": 43.56,
     "TSLZ": 15.12,
@@ -5847,7 +5847,7 @@
     "SOFI": 15.525,
     "SMCZ": 24.53,
     "TTD": 24.37,
-    "SPY": 715.17,
+    "SPY": 711.58,
     "SMST": 35.31,
     "SPXS": 30.94,
     "SQQQ": 53.08,
@@ -21162,6 +21162,423 @@
       }
     ],
     "spouse": [
+      {
+        "id": "mokyzdfzabmg",
+        "ticker": "HOOD1",
+        "contracts": 2,
+        "longStrike": 71,
+        "longPremium": 3.02,
+        "longExpiry": "5/8",
+        "openDate": "4/29",
+        "notes": "",
+        "position": null,
+        "noLongPut": false,
+        "longPutClosed": false,
+        "shortPuts": [
+          {
+            "id": "mokz4vp8xqcg",
+            "strike": 73,
+            "contracts": 1,
+            "received": 395,
+            "expiry": "5/8",
+            "openDate": "4/29",
+            "closed": false
+          },
+          {
+            "id": "mokz2i7ny5wg",
+            "strike": 74,
+            "contracts": 1,
+            "received": 455,
+            "expiry": "5/8",
+            "openDate": "4/29",
+            "closed": false
+          }
+        ],
+        "closed": false
+      },
+      {
+        "id": "mokyb079pp96",
+        "ticker": "HOOD1",
+        "contracts": 1,
+        "longStrike": 73,
+        "longPremium": 18.82,
+        "longExpiry": "5/1",
+        "openDate": "3/29",
+        "notes": "",
+        "position": null,
+        "noLongPut": false,
+        "longPutClosed": false,
+        "shortPuts": [
+          {
+            "id": "mokytveax8o7",
+            "strike": 72,
+            "contracts": 1,
+            "received": 63,
+            "expiry": "5/1",
+            "openDate": "4/24",
+            "closed": false
+          }
+        ],
+        "closed": false,
+        "longPartialCloses": [
+          {
+            "id": "mokz32wsd1mv",
+            "contracts": 1,
+            "amount": 293,
+            "closeDate": "4/29"
+          },
+          {
+            "id": "mokz5bni3ot6",
+            "contracts": 1,
+            "amount": 368,
+            "closeDate": "4/29"
+          }
+        ],
+        "longCloseAmount": 661,
+        "longCloseDate": "4/29"
+      },
+      {
+        "id": "moky0nuef6mw",
+        "ticker": "HOOD1",
+        "contracts": 1,
+        "longStrike": 74,
+        "longPremium": 6.24,
+        "longExpiry": "5/1",
+        "openDate": "3/24",
+        "notes": "",
+        "position": null,
+        "noLongPut": false,
+        "longPutClosed": true,
+        "shortPuts": [
+          {
+            "id": "moky2b88zv0e",
+            "strike": 69,
+            "contracts": 1,
+            "received": 45,
+            "expiry": "5/1",
+            "openDate": "3/25",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "3/24",
+            "buybackCost": 87
+          },
+          {
+            "id": "moky54kgmnj7",
+            "strike": 68,
+            "contracts": 2,
+            "received": 374,
+            "expiry": "5/1",
+            "openDate": "3/25",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "3/30",
+            "buybackCost": 794
+          },
+          {
+            "id": "mokywbz0pe63",
+            "strike": 74,
+            "contracts": 1,
+            "received": 82,
+            "expiry": "5/1",
+            "openDate": "4/24",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "4/29",
+            "buybackCost": 385
+          },
+          {
+            "id": "mokyvppesh83",
+            "strike": 72,
+            "contracts": 1,
+            "received": 63,
+            "expiry": "5/1",
+            "openDate": "4/24",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "4/24",
+            "buybackCost": 52
+          },
+          {
+            "id": "mokyv6wr1j57",
+            "strike": 75,
+            "contracts": 1,
+            "received": 102,
+            "expiry": "5/1",
+            "openDate": "4/24",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "4/29/2026",
+            "buybackCost": 455
+          },
+          {
+            "id": "mokyus0xruqr",
+            "strike": 72,
+            "contracts": 1,
+            "received": 63,
+            "expiry": "5/1",
+            "openDate": "4/24",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "4/28",
+            "buybackCost": 52
+          },
+          {
+            "id": "mokyrm5l19y4",
+            "strike": 79,
+            "contracts": 1,
+            "received": 24,
+            "expiry": "5/1",
+            "openDate": "4/24",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "4/24",
+            "buybackCost": 2
+          },
+          {
+            "id": "mokypaceokbu",
+            "strike": 80,
+            "contracts": 1,
+            "received": 22,
+            "expiry": "5/1",
+            "openDate": "4/25",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "4/24",
+            "buybackCost": 2
+          },
+          {
+            "id": "mokyoc36aq2p",
+            "strike": 73,
+            "contracts": 1,
+            "received": 25,
+            "expiry": "5/1",
+            "openDate": "4/24",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "4/24",
+            "buybackCost": 1
+          },
+          {
+            "id": "mokynbps2oj8",
+            "strike": 69,
+            "contracts": 1,
+            "received": 265,
+            "expiry": "5/1",
+            "openDate": "4/24",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "4/24",
+            "buybackCost": 2
+          },
+          {
+            "id": "mokylv84gqzg",
+            "strike": 70,
+            "contracts": 1,
+            "received": 310,
+            "expiry": "5/1",
+            "openDate": "4/24",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "4/24",
+            "buybackCost": 215
+          },
+          {
+            "id": "mokyjq0y7ptk",
+            "strike": 71,
+            "contracts": 1,
+            "received": 188,
+            "expiry": "5/1",
+            "openDate": "4/9",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "4/20",
+            "buybackCost": 275
+          },
+          {
+            "id": "mokyi722hpbi",
+            "strike": 70,
+            "contracts": 1,
+            "received": 153,
+            "expiry": "5/1",
+            "openDate": "4/8",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "4/24",
+            "buybackCost": 1
+          },
+          {
+            "id": "mokyhig2bwb6",
+            "strike": 67,
+            "contracts": 1,
+            "received": 447,
+            "expiry": "5/1",
+            "openDate": "3/30",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "4/8",
+            "buybackCost": 16
+          },
+          {
+            "id": "mokyebc208su",
+            "strike": 67,
+            "contracts": 1,
+            "received": 447,
+            "expiry": "5/1",
+            "openDate": "3/30",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "4/8",
+            "buybackCost": 17
+          },
+          {
+            "id": "mokyfzgovgh2",
+            "strike": 70,
+            "contracts": 1,
+            "received": 409,
+            "expiry": "4/17",
+            "openDate": "3/30",
+            "closed": true,
+            "closeReason": "expired",
+            "closeDate": "4/17",
+            "buybackCost": 0
+          }
+        ],
+        "closed": true,
+        "longCloseAmount": 1002,
+        "longCloseDate": "3/29"
+      },
+      {
+        "id": "mokxzuppoz6k",
+        "ticker": "HOOD1",
+        "contracts": 1,
+        "longStrike": 74,
+        "longPremium": 8.79,
+        "longExpiry": "5/1",
+        "openDate": "3/24",
+        "notes": "",
+        "position": null,
+        "noLongPut": false,
+        "longPutClosed": true,
+        "shortPuts": [],
+        "closed": true,
+        "longCloseAmount": 1002,
+        "longCloseDate": "3/29"
+      },
+      {
+        "id": "mokxv8n5vf8r",
+        "ticker": "HOOD1",
+        "contracts": 1,
+        "longStrike": 74,
+        "longPremium": 7,
+        "longExpiry": "5/1",
+        "openDate": "3/19",
+        "notes": "",
+        "position": null,
+        "noLongPut": false,
+        "longPutClosed": true,
+        "shortPuts": [
+          {
+            "id": "moky381ktoy6",
+            "strike": 69,
+            "contracts": 1,
+            "received": 101,
+            "expiry": "5/1",
+            "openDate": "4/29/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "4/29/20263/25",
+            "buybackCost": 87
+          },
+          {
+            "id": "moky7kh6fcmh",
+            "strike": 71,
+            "contracts": 1,
+            "received": 533,
+            "expiry": "5/1",
+            "openDate": "3/26",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "3/30",
+            "buybackCost": 377
+          }
+        ],
+        "closed": true,
+        "longCloseAmount": 1002,
+        "longCloseDate": "3/29"
+      },
+      {
+        "id": "mokxtskfy4c3",
+        "ticker": "HOOD1",
+        "contracts": 1,
+        "longStrike": 76,
+        "longPremium": 8.01,
+        "longExpiry": "5/1",
+        "openDate": "3/19/2026",
+        "notes": "",
+        "position": null,
+        "noLongPut": false,
+        "longPutClosed": true,
+        "shortPuts": [
+          {
+            "id": "moky65rv498e",
+            "strike": 72,
+            "contracts": 1,
+            "received": 454,
+            "expiry": "5/1",
+            "openDate": "3/24",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "3/25",
+            "buybackCost": 510
+          }
+        ],
+        "closed": true,
+        "marketValueOverride": null,
+        "longCloseAmount": 9.54,
+        "longCloseDate": "3/24"
+      },
+      {
+        "id": "mokxjpzmu40z",
+        "ticker": "HOOD1",
+        "contracts": 1,
+        "longStrike": 77,
+        "longPremium": 6.71,
+        "longExpiry": "5/1",
+        "openDate": "3/17",
+        "notes": "",
+        "position": null,
+        "noLongPut": false,
+        "longPutClosed": true,
+        "shortPuts": [
+          {
+            "id": "mokxpz8d6vyx",
+            "strike": 73,
+            "contracts": 1,
+            "received": 255,
+            "expiry": "5/1",
+            "openDate": "3/19",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "3/24",
+            "buybackCost": 442
+          },
+          {
+            "id": "mokxr07nsbyn",
+            "strike": 74,
+            "contracts": 1,
+            "received": 80,
+            "expiry": "5/1",
+            "openDate": "3/17",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "3/19",
+            "buybackCost": 144
+          }
+        ],
+        "closed": true,
+        "longCloseAmount": 873,
+        "longCloseDate": "3/19"
+      },
       {
         "id": "mokocokn5iqi",
         "ticker": "CDE",
