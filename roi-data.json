@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-04-30T20:10:39.007Z",
+  "savedAt": "2026-04-30T20:12:33.031Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -45789,7 +45789,7 @@
     ],
     "joint": [
       {
-        "id": "molwu4uc6e4u",
+        "id": "molx7e7313zd",
         "ticker": "BULL",
         "contracts": 1,
         "longStrike": 7.5,
@@ -45802,7 +45802,7 @@
         "closed": false
       },
       {
-        "id": "molwu4ucb5gf",
+        "id": "molx7e73n8hh",
         "ticker": "MSTU",
         "contracts": 1,
         "longStrike": null,
@@ -45813,7 +45813,7 @@
         "noLongCall": true,
         "shortCalls": [
           {
-            "id": "molwu4uchhqs",
+            "id": "molx7e73mlo1",
             "strike": 9.5,
             "contracts": 1,
             "received": 35.95,
@@ -45828,7 +45828,7 @@
         "closed": true
       },
       {
-        "id": "molwu4ucrcd7",
+        "id": "molx7e73o6os",
         "ticker": "SOFI",
         "contracts": 1,
         "longStrike": 12,
@@ -45841,7 +45841,7 @@
         "closed": false
       },
       {
-        "id": "molwu4ucned7",
+        "id": "molx7e73d597",
         "ticker": "SOFI",
         "contracts": 1,
         "longStrike": 12,
@@ -45854,7 +45854,7 @@
         "closed": false
       },
       {
-        "id": "molwu4uc5oh5",
+        "id": "molx7e73wo7l",
         "ticker": "SOFI",
         "contracts": 1,
         "longStrike": 12,
@@ -45867,7 +45867,7 @@
         "closed": false
       },
       {
-        "id": "molwu4uc3f33",
+        "id": "molx7e73nf8l",
         "ticker": "SOFI",
         "contracts": 1,
         "longStrike": 12,
@@ -45880,7 +45880,7 @@
         "closed": false
       },
       {
-        "id": "molwu4ucr1bo",
+        "id": "molx7e7307v6",
         "ticker": "SOFI",
         "contracts": 1,
         "longStrike": 12,
@@ -45893,7 +45893,7 @@
         "closed": false
       },
       {
-        "id": "molwu4uc1ll4",
+        "id": "molx7e73tlh9",
         "ticker": "PATH",
         "contracts": 1,
         "longStrike": null,
@@ -45904,7 +45904,7 @@
         "noLongCall": true,
         "shortCalls": [
           {
-            "id": "molwu4uczmhj",
+            "id": "molx7e73xmx8",
             "strike": 14,
             "contracts": 1,
             "received": 34.95,
@@ -45916,7 +45916,7 @@
             "buybackCost": 0
           },
           {
-            "id": "molwu4ucnp5w",
+            "id": "molx7e73h94x",
             "strike": 13.5,
             "contracts": 1,
             "received": 0,
@@ -45928,7 +45928,7 @@
             "closeDate": "2/24/2026"
           },
           {
-            "id": "molwu4ucydnk",
+            "id": "molx7e7312lg",
             "strike": 13.5,
             "contracts": 1,
             "received": 19.95,
@@ -45943,7 +45943,7 @@
         "closed": true
       },
       {
-        "id": "molwu4ucjn9s",
+        "id": "molx7e73r32a",
         "ticker": "TLT",
         "contracts": 1,
         "longStrike": null,
@@ -45954,7 +45954,7 @@
         "noLongCall": true,
         "shortCalls": [
           {
-            "id": "molwu4ucv6ne",
+            "id": "molx7e73502w",
             "strike": 90,
             "contracts": 1,
             "received": 0,
@@ -45966,7 +45966,7 @@
             "closeDate": "3/10/2026"
           },
           {
-            "id": "molwu4ucyq0f",
+            "id": "molx7e73s9qk",
             "strike": 90,
             "contracts": 1,
             "received": 10.95,
@@ -45981,7 +45981,7 @@
         "closed": true
       },
       {
-        "id": "molwu4uc2ftd",
+        "id": "molx7e73n3u9",
         "ticker": "ONDS",
         "contracts": 1,
         "longStrike": null,
@@ -45992,7 +45992,7 @@
         "noLongCall": true,
         "shortCalls": [
           {
-            "id": "molwu4ucc7dd",
+            "id": "molx7e73y2eb",
             "strike": 16,
             "contracts": 1,
             "received": 0,
@@ -46004,7 +46004,7 @@
             "closeDate": "3/17/2026"
           },
           {
-            "id": "molwu4uccrrr",
+            "id": "molx7e73ik32",
             "strike": 16,
             "contracts": 1,
             "received": 20.95,
@@ -46016,7 +46016,7 @@
             "buybackCost": 0
           },
           {
-            "id": "molwu4uc34z0",
+            "id": "molx7e73cxrb",
             "strike": 15,
             "contracts": 1,
             "received": 0,
@@ -46031,7 +46031,7 @@
         "closed": true
       },
       {
-        "id": "molwu4uccmpm",
+        "id": "molx7e73de7h",
         "ticker": "NKE",
         "contracts": 1,
         "longStrike": 40,
@@ -46044,7 +46044,7 @@
         "closed": false
       },
       {
-        "id": "molwu4ucp1nz",
+        "id": "molx7e73pvt9",
         "ticker": "TSLL",
         "contracts": 1,
         "longStrike": null,
@@ -46055,7 +46055,7 @@
         "noLongCall": true,
         "shortCalls": [
           {
-            "id": "molwu4ucw2n2",
+            "id": "molx7e73szn3",
             "strike": 20,
             "contracts": 1,
             "received": 0,
@@ -46067,7 +46067,7 @@
             "closeDate": "4/14/2026"
           },
           {
-            "id": "molwu4uc1263",
+            "id": "molx7e73ztzb",
             "strike": 20,
             "contracts": 1,
             "received": 17.95,
@@ -46079,7 +46079,7 @@
             "buybackCost": 0
           },
           {
-            "id": "molwu4ucgimy",
+            "id": "molx7e73w6cu",
             "strike": 21,
             "contracts": 1,
             "received": 0,
@@ -46091,7 +46091,7 @@
             "closeDate": "3/10/2026"
           },
           {
-            "id": "molwu4uciwx0",
+            "id": "molx7e73exnh",
             "strike": 21,
             "contracts": 1,
             "received": 0,
@@ -46103,7 +46103,7 @@
             "closeDate": "3/10/2026"
           },
           {
-            "id": "molwu4ucra9g",
+            "id": "molx7e737ejd",
             "strike": 21.5,
             "contracts": 1,
             "received": 0,
@@ -46115,7 +46115,7 @@
             "closeDate": "3/10/2026"
           },
           {
-            "id": "molwu4uchnz5",
+            "id": "molx7e735jx5",
             "strike": 21.5,
             "contracts": 1,
             "received": 29.95,
@@ -46127,7 +46127,7 @@
             "buybackCost": 0
           },
           {
-            "id": "molwu4ucw6s4",
+            "id": "molx7e73j21w",
             "strike": 21,
             "contracts": 1,
             "received": 49.95,
@@ -46139,7 +46139,7 @@
             "buybackCost": 0
           },
           {
-            "id": "molwu4ucjgn3",
+            "id": "molx7e731lzj",
             "strike": 21,
             "contracts": 1,
             "received": 44.95,
