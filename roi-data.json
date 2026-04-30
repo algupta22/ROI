@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-04-30T00:25:42.510Z",
+  "savedAt": "2026-04-30T00:29:30.435Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -40934,7 +40934,7 @@
         "ticker": "FNGD",
         "shares": 17,
         "costBasis": 45.54,
-        "purchaseDate": "4/29",
+        "purchaseDate": "4/29/2026",
         "coveredCalls": [],
         "closed": false
       }
