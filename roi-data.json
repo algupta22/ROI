@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-04-30T01:20:01.685Z",
+  "savedAt": "2026-04-30T01:33:37.245Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -38363,7 +38363,8 @@
             "closed": false
           }
         ],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 1515
       },
       {
         "id": "mokq2krh01v3",
