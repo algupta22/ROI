@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-04-30T20:50:01.511Z",
+  "savedAt": "2026-04-30T20:57:17.725Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -32494,9 +32494,1677 @@
         "closed": false
       }
     ],
-    "self_roth": [],
-    "spouse_roth": [],
-    "spouse_ira": []
+    "self_roth": [
+      {
+        "id": "molypfyvqf28",
+        "ticker": "VZ",
+        "contracts": 1,
+        "longStrike": null,
+        "longPremium": null,
+        "longExpiry": null,
+        "openDate": "1/30/2026",
+        "notes": "",
+        "noLongPut": true,
+        "shortPuts": [
+          {
+            "id": "molypfyvmknp",
+            "strike": 38,
+            "contracts": 1,
+            "received": 0,
+            "btcDebit": 1.04,
+            "expiry": "2/6/2026",
+            "openDate": "1/30/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "1/30/2026",
+            "posType": "SPUT"
+          },
+          {
+            "id": "molypfyv8jeu",
+            "strike": 38,
+            "contracts": 1,
+            "received": 24.95,
+            "expiry": "2/6/2026",
+            "openDate": "1/27/2026",
+            "closed": true,
+            "posType": "SPUT",
+            "closeReason": "expired",
+            "closeDate": "2/6/2026",
+            "buybackCost": 0
+          }
+        ],
+        "closed": true
+      },
+      {
+        "id": "molypfyvlyw8",
+        "ticker": "NVTS",
+        "contracts": 1,
+        "longStrike": 7.5,
+        "longPremium": 0.6404000000000001,
+        "longExpiry": "3/6/2026",
+        "openDate": "2/2/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [],
+        "closed": true,
+        "longPutClosed": true,
+        "longCloseAmount": 0,
+        "longCloseDate": "3/6/2026"
+      },
+      {
+        "id": "molypfyvvzfc",
+        "ticker": "PFE",
+        "contracts": 1,
+        "longStrike": null,
+        "longPremium": null,
+        "longExpiry": null,
+        "openDate": "2/11/2026",
+        "notes": "",
+        "noLongPut": true,
+        "shortPuts": [
+          {
+            "id": "molypfyvsgkt",
+            "strike": 27.5,
+            "contracts": 1,
+            "received": 26.95,
+            "expiry": "2/20/2026",
+            "openDate": "2/11/2026",
+            "closed": true,
+            "posType": "SPUT",
+            "closeReason": "expired",
+            "closeDate": "2/20/2026",
+            "buybackCost": 0
+          },
+          {
+            "id": "molypfyvza6a",
+            "strike": 25,
+            "contracts": 1,
+            "received": 0,
+            "btcDebit": 5.04,
+            "expiry": "2/13/2026",
+            "openDate": "2/4/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "2/4/2026",
+            "posType": "SPUT"
+          },
+          {
+            "id": "molypfyvamqf",
+            "strike": 25,
+            "contracts": 1,
+            "received": 18.95,
+            "expiry": "2/13/2026",
+            "openDate": "1/28/2026",
+            "closed": true,
+            "posType": "SPUT",
+            "closeReason": "expired",
+            "closeDate": "2/13/2026",
+            "buybackCost": 0
+          }
+        ],
+        "closed": true
+      },
+      {
+        "id": "molypfyvzinc",
+        "ticker": "SGOL",
+        "contracts": 1,
+        "longStrike": null,
+        "longPremium": null,
+        "longExpiry": null,
+        "openDate": "2/18/2026",
+        "notes": "",
+        "noLongPut": true,
+        "shortPuts": [
+          {
+            "id": "molypfyvgmqx",
+            "strike": 44,
+            "contracts": 1,
+            "received": 0,
+            "btcDebit": 4.04,
+            "expiry": "2/20/2026",
+            "openDate": "2/18/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "2/18/2026",
+            "posType": "SPUT"
+          },
+          {
+            "id": "molypfyvlgpa",
+            "strike": 44,
+            "contracts": 1,
+            "received": 51.95,
+            "expiry": "2/20/2026",
+            "openDate": "1/30/2026",
+            "closed": true,
+            "posType": "SPUT",
+            "closeReason": "expired",
+            "closeDate": "2/20/2026",
+            "buybackCost": 0
+          }
+        ],
+        "closed": true
+      },
+      {
+        "id": "molypfyvpm2a",
+        "ticker": "NVTS",
+        "contracts": 1,
+        "longStrike": 8,
+        "longPremium": 1.2004000000000001,
+        "longExpiry": "4/17/2026",
+        "openDate": "2/24/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "molypfyvyt5u",
+            "strike": 7.5,
+            "contracts": 1,
+            "received": 0,
+            "btcDebit": 2.04,
+            "expiry": "2/20/2026",
+            "openDate": "2/20/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "2/20/2026",
+            "posType": "SPUT"
+          },
+          {
+            "id": "molypfyv3q4v",
+            "strike": 6.5,
+            "contracts": 1,
+            "received": 10.95,
+            "expiry": "2/27/2026",
+            "openDate": "2/18/2026",
+            "closed": true,
+            "posType": "SPUT",
+            "closeReason": "expired",
+            "closeDate": "2/27/2026",
+            "buybackCost": 0
+          },
+          {
+            "id": "molypfyv5cqt",
+            "strike": 7.5,
+            "contracts": 1,
+            "received": 12.95,
+            "expiry": "2/20/2026",
+            "openDate": "2/12/2026",
+            "closed": true,
+            "posType": "SPUT",
+            "closeReason": "expired",
+            "closeDate": "2/20/2026",
+            "buybackCost": 0
+          }
+        ],
+        "closed": true,
+        "longPutClosed": true,
+        "longCloseAmount": 0,
+        "longCloseDate": "4/17/2026"
+      },
+      {
+        "id": "molypfyvftg4",
+        "ticker": "AES",
+        "contracts": 1,
+        "longStrike": null,
+        "longPremium": null,
+        "longExpiry": null,
+        "openDate": "2/27/2026",
+        "notes": "",
+        "noLongPut": true,
+        "shortPuts": [
+          {
+            "id": "molypfyvn25e",
+            "strike": 16,
+            "contracts": 1,
+            "received": 0,
+            "btcDebit": 1.04,
+            "expiry": "2/27/2026",
+            "openDate": "2/27/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "2/27/2026",
+            "posType": "SPUT"
+          },
+          {
+            "id": "molypfyvy06t",
+            "strike": 16,
+            "contracts": 1,
+            "received": 24.95,
+            "expiry": "2/27/2026",
+            "openDate": "2/18/2026",
+            "closed": true,
+            "posType": "SPUT",
+            "closeReason": "expired",
+            "closeDate": "2/27/2026",
+            "buybackCost": 0
+          },
+          {
+            "id": "molypfyv5hzk",
+            "strike": 15,
+            "contracts": 1,
+            "received": 0,
+            "btcDebit": 5.04,
+            "expiry": "2/20/2026",
+            "openDate": "2/11/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "2/11/2026",
+            "posType": "SPUT"
+          },
+          {
+            "id": "molypfyvfkcw",
+            "strike": 15,
+            "contracts": 1,
+            "received": 16.95,
+            "expiry": "2/20/2026",
+            "openDate": "2/4/2026",
+            "closed": true,
+            "posType": "SPUT",
+            "closeReason": "expired",
+            "closeDate": "2/20/2026",
+            "buybackCost": 0
+          },
+          {
+            "id": "molypfyvw6q1",
+            "strike": 14,
+            "contracts": 1,
+            "received": 0,
+            "btcDebit": 3.04,
+            "expiry": "2/13/2026",
+            "openDate": "2/4/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "2/4/2026",
+            "posType": "SPUT"
+          },
+          {
+            "id": "molypfyvu24u",
+            "strike": 14,
+            "contracts": 1,
+            "received": 22.95,
+            "expiry": "2/13/2026",
+            "openDate": "1/27/2026",
+            "closed": true,
+            "posType": "SPUT",
+            "closeReason": "expired",
+            "closeDate": "2/13/2026",
+            "buybackCost": 0
+          }
+        ],
+        "closed": true
+      },
+      {
+        "id": "molypfyuohdk",
+        "ticker": "KHC",
+        "contracts": 1,
+        "longStrike": null,
+        "longPremium": null,
+        "longExpiry": null,
+        "openDate": "2/27/2026",
+        "notes": "",
+        "noLongPut": true,
+        "shortPuts": [
+          {
+            "id": "molypfyu4nm3",
+            "strike": 24,
+            "contracts": 1,
+            "received": 0,
+            "btcDebit": 1.04,
+            "expiry": "2/27/2026",
+            "openDate": "2/27/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "2/27/2026",
+            "posType": "SPUT"
+          },
+          {
+            "id": "molypfyv08rw",
+            "strike": 24,
+            "contracts": 1,
+            "received": 19.95,
+            "expiry": "2/27/2026",
+            "openDate": "2/20/2026",
+            "closed": true,
+            "posType": "SPUT",
+            "closeReason": "buyback",
+            "closeDate": "2/20/2026",
+            "buybackCost": 3.04
+          },
+          {
+            "id": "molypfyvekps",
+            "strike": 24,
+            "contracts": 1,
+            "received": 19.95,
+            "expiry": "2/20/2026",
+            "openDate": "2/12/2026",
+            "closed": true,
+            "posType": "SPUT",
+            "closeReason": "expired",
+            "closeDate": "2/20/2026",
+            "buybackCost": 0
+          },
+          {
+            "id": "molypfyv51r6",
+            "strike": 23.5,
+            "contracts": 1,
+            "received": 0,
+            "btcDebit": 2.04,
+            "expiry": "2/13/2026",
+            "openDate": "2/11/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "2/11/2026",
+            "posType": "SPUT"
+          },
+          {
+            "id": "molypfyvx0as",
+            "strike": 23.5,
+            "contracts": 1,
+            "received": 23.95,
+            "expiry": "2/13/2026",
+            "openDate": "2/4/2026",
+            "closed": true,
+            "posType": "SPUT",
+            "closeReason": "expired",
+            "closeDate": "2/13/2026",
+            "buybackCost": 0
+          }
+        ],
+        "closed": true
+      },
+      {
+        "id": "molypfyukg5h",
+        "ticker": "T",
+        "contracts": 1,
+        "longStrike": null,
+        "longPremium": null,
+        "longExpiry": null,
+        "openDate": "2/27/2026",
+        "notes": "",
+        "noLongPut": true,
+        "shortPuts": [
+          {
+            "id": "molypfyu0obg",
+            "strike": 27.5,
+            "contracts": 1,
+            "received": 0,
+            "btcDebit": 1.04,
+            "expiry": "2/27/2026",
+            "openDate": "2/27/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "2/27/2026",
+            "posType": "SPUT"
+          },
+          {
+            "id": "molypfyvwus8",
+            "strike": 27.5,
+            "contracts": 1,
+            "received": 14.95,
+            "expiry": "2/27/2026",
+            "openDate": "2/18/2026",
+            "closed": true,
+            "posType": "SPUT",
+            "closeReason": "expired",
+            "closeDate": "2/27/2026",
+            "buybackCost": 0
+          }
+        ],
+        "closed": true
+      },
+      {
+        "id": "molypfyuj5pp",
+        "ticker": "NVTS",
+        "contracts": 1,
+        "longStrike": 8.5,
+        "longPremium": 1.3104,
+        "longExpiry": "4/24/2026",
+        "openDate": "3/6/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "molypfyvhrzh",
+            "strike": 8.5,
+            "contracts": 1,
+            "received": 14.95,
+            "expiry": "3/6/2026",
+            "openDate": "2/26/2026",
+            "closed": true,
+            "posType": "SPUT",
+            "closeReason": "expired",
+            "closeDate": "3/6/2026",
+            "buybackCost": 0
+          },
+          {
+            "id": "molypfyves51",
+            "strike": 8.5,
+            "contracts": 1,
+            "received": 14.95,
+            "expiry": "3/6/2026",
+            "openDate": "2/26/2026",
+            "closed": true,
+            "posType": "SPUT",
+            "closeReason": "expired",
+            "closeDate": "3/6/2026",
+            "buybackCost": 0
+          },
+          {
+            "id": "molypfyv7h0e",
+            "strike": 6.5,
+            "contracts": 1,
+            "received": 0,
+            "btcDebit": 1.04,
+            "expiry": "2/27/2026",
+            "openDate": "2/25/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "2/25/2026",
+            "posType": "SPUT"
+          }
+        ],
+        "closed": true,
+        "longPutClosed": true,
+        "longCloseAmount": 1.95,
+        "longCloseDate": "3/4/2026"
+      },
+      {
+        "id": "molypfyuc2f9",
+        "ticker": "NVTS",
+        "contracts": 1,
+        "longStrike": 9.5,
+        "longPremium": 1.0004,
+        "longExpiry": "4/24/2026",
+        "openDate": "3/11/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "molypfyu9a0a",
+            "strike": 7.5,
+            "contracts": 1,
+            "received": 13.95,
+            "expiry": "3/13/2026",
+            "openDate": "3/9/2026",
+            "closed": true,
+            "posType": "SPUT",
+            "closeReason": "expired",
+            "closeDate": "3/13/2026",
+            "buybackCost": 0
+          },
+          {
+            "id": "molypfyu4e62",
+            "strike": 8,
+            "contracts": 1,
+            "received": 28.95,
+            "expiry": "3/13/2026",
+            "openDate": "3/6/2026",
+            "closed": true,
+            "posType": "SPUT",
+            "closeReason": "expired",
+            "closeDate": "3/13/2026",
+            "buybackCost": 0
+          }
+        ],
+        "closed": true,
+        "longPutClosed": true,
+        "longCloseAmount": 0,
+        "longCloseDate": "4/24/2026"
+      },
+      {
+        "id": "molypfyudb6x",
+        "ticker": "NVTS",
+        "contracts": 1,
+        "longStrike": 9,
+        "longPremium": 1.3304,
+        "longExpiry": "5/1/2026",
+        "openDate": "3/20/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "molypfyumnwt",
+            "strike": 8,
+            "contracts": 1,
+            "received": 0,
+            "btcDebit": 3.04,
+            "expiry": "3/13/2026",
+            "openDate": "3/12/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "3/12/2026",
+            "posType": "SPUT"
+          },
+          {
+            "id": "molypfyumkls",
+            "strike": 8.5,
+            "contracts": 1,
+            "received": 10.95,
+            "expiry": "3/20/2026",
+            "openDate": "3/12/2026",
+            "closed": true,
+            "posType": "SPUT",
+            "closeReason": "expired",
+            "closeDate": "3/20/2026",
+            "buybackCost": 0
+          },
+          {
+            "id": "molypfyufod5",
+            "strike": 9,
+            "contracts": 1,
+            "received": 24.95,
+            "expiry": "3/20/2026",
+            "openDate": "3/11/2026",
+            "closed": true,
+            "posType": "SPUT",
+            "closeReason": "expired",
+            "closeDate": "3/20/2026",
+            "buybackCost": 0
+          },
+          {
+            "id": "molypfyuexj8",
+            "strike": 7.5,
+            "contracts": 1,
+            "received": 0,
+            "btcDebit": 2.04,
+            "expiry": "3/13/2026",
+            "openDate": "3/11/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "3/11/2026",
+            "posType": "SPUT"
+          }
+        ],
+        "closed": true,
+        "longPutClosed": true,
+        "longCloseAmount": 57.95,
+        "longCloseDate": "3/11/2026"
+      },
+      {
+        "id": "molypfyudei5",
+        "ticker": "NVTS",
+        "contracts": 1,
+        "longStrike": 8.5,
+        "longPremium": 1.3204,
+        "longExpiry": "5/1/2026",
+        "openDate": "3/30/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "molypfyu23au",
+            "strike": 7.5,
+            "contracts": 1,
+            "received": 15.95,
+            "expiry": "4/2/2026",
+            "openDate": "3/30/2026",
+            "closed": true,
+            "posType": "SPUT",
+            "closeReason": "expired",
+            "closeDate": "4/2/2026",
+            "buybackCost": 0
+          },
+          {
+            "id": "molypfyud9k1",
+            "strike": 7.5,
+            "contracts": 1,
+            "received": 14.95,
+            "expiry": "4/2/2026",
+            "openDate": "3/30/2026",
+            "closed": true,
+            "posType": "SPUT",
+            "closeReason": "expired",
+            "closeDate": "4/2/2026",
+            "buybackCost": 0
+          },
+          {
+            "id": "molypfyuovrj",
+            "strike": 8,
+            "contracts": 1,
+            "received": 18.95,
+            "expiry": "4/2/2026",
+            "openDate": "3/23/2026",
+            "closed": true,
+            "posType": "SPUT",
+            "closeReason": "expired",
+            "closeDate": "4/2/2026",
+            "buybackCost": 0
+          },
+          {
+            "id": "molypfyuzc6w",
+            "strike": 8.5,
+            "contracts": 1,
+            "received": 16.95,
+            "expiry": "3/27/2026",
+            "openDate": "3/23/2026",
+            "closed": true,
+            "posType": "SPUT",
+            "closeReason": "expired",
+            "closeDate": "3/27/2026",
+            "buybackCost": 0
+          },
+          {
+            "id": "molypfyuazvd",
+            "strike": 8.5,
+            "contracts": 1,
+            "received": 17.95,
+            "expiry": "3/27/2026",
+            "openDate": "3/23/2026",
+            "closed": true,
+            "posType": "SPUT",
+            "closeReason": "expired",
+            "closeDate": "3/27/2026",
+            "buybackCost": 0
+          }
+        ],
+        "closed": true,
+        "longPutClosed": true,
+        "longCloseAmount": 179.95,
+        "longCloseDate": "3/30/2026"
+      },
+      {
+        "id": "molypfyu6h9s",
+        "ticker": "NVTS",
+        "contracts": 1,
+        "longStrike": 10,
+        "longPremium": 1.5004,
+        "longExpiry": "5/29/2026",
+        "openDate": "4/14/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "molypfyueo6s",
+            "strike": 7.5,
+            "contracts": 1,
+            "received": 0,
+            "btcDebit": 2.04,
+            "expiry": "4/17/2026",
+            "openDate": "4/14/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "4/14/2026",
+            "posType": "SPUT"
+          },
+          {
+            "id": "molypfyu5z0i",
+            "strike": 7.5,
+            "contracts": 1,
+            "received": 4.94,
+            "expiry": "4/17/2026",
+            "openDate": "4/9/2026",
+            "closed": true,
+            "posType": "SPUT",
+            "closeReason": "buyback",
+            "closeDate": "4/1/2026",
+            "buybackCost": 2.04
+          },
+          {
+            "id": "molypfyugfs8",
+            "strike": 8,
+            "contracts": 2,
+            "received": 0,
+            "btcDebit": 6.08,
+            "expiry": "4/10/2026",
+            "openDate": "4/8/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "4/8/2026",
+            "posType": "SPUT"
+          },
+          {
+            "id": "molypfyug8ux",
+            "strike": 8,
+            "contracts": 1,
+            "received": 0,
+            "btcDebit": 2.04,
+            "expiry": "4/10/2026",
+            "openDate": "4/8/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "4/8/2026",
+            "posType": "SPUT"
+          },
+          {
+            "id": "molypfyuvq5b",
+            "strike": 8,
+            "contracts": 1,
+            "received": 28.95,
+            "expiry": "4/10/2026",
+            "openDate": "4/1/2026",
+            "closed": true,
+            "posType": "SPUT",
+            "closeReason": "buyback",
+            "closeDate": "4/1/2026",
+            "buybackCost": 3.04
+          },
+          {
+            "id": "molypfyun93x",
+            "strike": 8,
+            "contracts": 2,
+            "received": 27.91,
+            "expiry": "4/10/2026",
+            "openDate": "4/1/2026",
+            "closed": true,
+            "posType": "SPUT",
+            "closeReason": "expired",
+            "closeDate": "4/10/2026",
+            "buybackCost": 0
+          },
+          {
+            "id": "molypfyu7s0v",
+            "strike": 7.5,
+            "contracts": 1,
+            "received": 0,
+            "btcDebit": 1.04,
+            "expiry": "4/2/2026",
+            "openDate": "4/1/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "4/1/2026",
+            "posType": "SPUT"
+          }
+        ],
+        "closed": false
+      },
+      {
+        "id": "molypfyua5uf",
+        "ticker": "NVTS",
+        "contracts": 1,
+        "longStrike": 10,
+        "longPremium": 1.4504,
+        "longExpiry": "5/29/2026",
+        "openDate": "4/15/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "molypfyux1e1",
+            "strike": 8.5,
+            "contracts": 1,
+            "received": 17.94,
+            "expiry": "4/17/2026",
+            "openDate": "4/8/2026",
+            "closed": true,
+            "posType": "SPUT",
+            "closeReason": "expired",
+            "closeDate": "4/17/2026",
+            "buybackCost": 0
+          }
+        ],
+        "closed": false
+      },
+      {
+        "id": "molypfyuh94s",
+        "ticker": "NVTS",
+        "contracts": 1,
+        "longStrike": 13.5,
+        "longPremium": 1.7304,
+        "longExpiry": "5/8/2026",
+        "openDate": "4/20/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "molypfyu4a7o",
+            "strike": 9,
+            "contracts": 1,
+            "received": 30.94,
+            "expiry": "4/17/2026",
+            "openDate": "4/8/2026",
+            "closed": true,
+            "posType": "SPUT",
+            "closeReason": "expired",
+            "closeDate": "4/17/2026",
+            "buybackCost": 0
+          }
+        ],
+        "closed": true,
+        "longPutClosed": true,
+        "longCloseAmount": 5.94,
+        "longCloseDate": "4/20/2026"
+      },
+      {
+        "id": "molypfyuq72z",
+        "ticker": "NVTS",
+        "contracts": 1,
+        "longStrike": 13,
+        "longPremium": 1.5004,
+        "longExpiry": "5/8/2026",
+        "openDate": "4/20/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "molypfyujwhf",
+            "strike": 12.5,
+            "contracts": 1,
+            "received": 34.94,
+            "expiry": "4/24/2026",
+            "openDate": "4/20/2026",
+            "closed": true,
+            "posType": "SPUT",
+            "closeReason": "expired",
+            "closeDate": "4/24/2026",
+            "buybackCost": 0
+          }
+        ],
+        "closed": true,
+        "longPutClosed": true,
+        "longCloseAmount": 3.94,
+        "longCloseDate": "4/20/2026"
+      },
+      {
+        "id": "molypfyu6r3h",
+        "ticker": "NVTS",
+        "contracts": 1,
+        "longStrike": null,
+        "longPremium": null,
+        "longExpiry": null,
+        "openDate": "4/27/2026",
+        "notes": "",
+        "noLongPut": true,
+        "shortPuts": [
+          {
+            "id": "molypfyu8dg9",
+            "strike": 14,
+            "contracts": 1,
+            "received": 18.94,
+            "expiry": "5/1/2026",
+            "openDate": "4/27/2026",
+            "closed": false,
+            "posType": "SPUT"
+          },
+          {
+            "id": "molypfyufrom",
+            "strike": 13.5,
+            "contracts": 1,
+            "received": 12.94,
+            "expiry": "5/1/2026",
+            "openDate": "4/27/2026",
+            "closed": false,
+            "posType": "SPUT"
+          },
+          {
+            "id": "molypfyuhemi",
+            "strike": 12.5,
+            "contracts": 1,
+            "received": 43.94,
+            "expiry": "4/24/2026",
+            "openDate": "4/20/2026",
+            "closed": true,
+            "posType": "SPUT",
+            "closeReason": "expired",
+            "closeDate": "4/24/2026",
+            "buybackCost": 0
+          }
+        ],
+        "closed": false,
+        "longPutClosed": true,
+        "longCloseAmount": 109.9,
+        "longCloseDate": "4/20/2026"
+      },
+      {
+        "id": "molypfyunlyj",
+        "ticker": "CELH",
+        "contracts": 1,
+        "longStrike": 33,
+        "longPremium": 3.7504000000000004,
+        "longExpiry": "6/12/2026",
+        "openDate": "4/30/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "molypfyurd89",
+            "strike": 32.5,
+            "contracts": 1,
+            "received": 41.94,
+            "expiry": "5/1/2026",
+            "openDate": "4/27/2026",
+            "closed": false,
+            "posType": "SPUT"
+          },
+          {
+            "id": "molypfyujd2m",
+            "strike": 50,
+            "contracts": 1,
+            "received": 51.95,
+            "expiry": "3/6/2026",
+            "openDate": "2/27/2026",
+            "closed": true,
+            "posType": "SPUT",
+            "closeReason": "expired",
+            "closeDate": "3/6/2026",
+            "buybackCost": 0
+          }
+        ],
+        "closed": false
+      }
+    ],
+    "spouse_roth": [
+      {
+        "id": "molyq2jzmiy2",
+        "ticker": "TMC",
+        "contracts": 1,
+        "longStrike": null,
+        "longPremium": null,
+        "longExpiry": null,
+        "openDate": "1/7/2026",
+        "notes": "",
+        "noLongPut": true,
+        "shortPuts": [
+          {
+            "id": "molyq2jzm8gv",
+            "strike": 6,
+            "contracts": 1,
+            "received": 0,
+            "btcDebit": 1.04,
+            "expiry": "1/9/2026",
+            "openDate": "1/7/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "1/7/2026",
+            "posType": "SPUT"
+          }
+        ],
+        "closed": true
+      },
+      {
+        "id": "molyq2jz5zes",
+        "ticker": "MARA",
+        "contracts": 1,
+        "longStrike": null,
+        "longPremium": null,
+        "longExpiry": null,
+        "openDate": "1/22/2026",
+        "notes": "",
+        "noLongPut": true,
+        "shortPuts": [
+          {
+            "id": "molyq2jzork6",
+            "strike": 9,
+            "contracts": 1,
+            "received": 0,
+            "btcDebit": 2.04,
+            "expiry": "1/23/2026",
+            "openDate": "1/22/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "1/22/2026",
+            "posType": "SPUT"
+          },
+          {
+            "id": "molyq2jzp332",
+            "strike": 9,
+            "contracts": 1,
+            "received": 16.95,
+            "expiry": "1/23/2026",
+            "openDate": "1/9/2026",
+            "closed": true,
+            "posType": "SPUT",
+            "closeReason": "expired",
+            "closeDate": "1/23/2026",
+            "buybackCost": 0
+          }
+        ],
+        "closed": true
+      },
+      {
+        "id": "molyq2jzqd96",
+        "ticker": "QQQI",
+        "contracts": 1,
+        "longStrike": null,
+        "longPremium": null,
+        "longExpiry": null,
+        "openDate": "2/12/2026",
+        "notes": "",
+        "noLongPut": true,
+        "shortPuts": [
+          {
+            "id": "molyq2jzncjw",
+            "strike": 53,
+            "contracts": 1,
+            "received": 54.95,
+            "expiry": "2/20/2026",
+            "openDate": "2/12/2026",
+            "closed": true,
+            "posType": "SPUT",
+            "closeReason": "expired",
+            "closeDate": "2/20/2026",
+            "buybackCost": 0
+          }
+        ],
+        "closed": true
+      },
+      {
+        "id": "molyq2jzbqc9",
+        "ticker": "BBAI",
+        "contracts": 1,
+        "longStrike": 4,
+        "longPremium": 0.2704,
+        "longExpiry": "2/27/2026",
+        "openDate": "2/13/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "molyq2jzxoeg",
+            "strike": 4.5,
+            "contracts": 1,
+            "received": 8.95,
+            "expiry": "2/13/2026",
+            "openDate": "2/9/2026",
+            "closed": true,
+            "posType": "SPUT",
+            "closeReason": "expired",
+            "closeDate": "2/13/2026",
+            "buybackCost": 0
+          }
+        ],
+        "closed": true,
+        "longPutClosed": true,
+        "longCloseAmount": 0,
+        "longCloseDate": "2/27/2026"
+      },
+      {
+        "id": "molyq2jzc5w7",
+        "ticker": "BBAI",
+        "contracts": 1,
+        "longStrike": 4,
+        "longPremium": 0.7204,
+        "longExpiry": "4/17/2026",
+        "openDate": "2/24/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "molyq2jz479c",
+            "strike": 4,
+            "contracts": 1,
+            "received": 6.95,
+            "expiry": "2/20/2026",
+            "openDate": "2/18/2026",
+            "closed": true,
+            "posType": "SPUT",
+            "closeReason": "expired",
+            "closeDate": "2/20/2026",
+            "buybackCost": 0
+          }
+        ],
+        "closed": true,
+        "longPutClosed": true,
+        "longCloseAmount": 27.95,
+        "longCloseDate": "2/24/2026"
+      },
+      {
+        "id": "molyq2jz8iba",
+        "ticker": "BBAI",
+        "contracts": 1,
+        "longStrike": 4,
+        "longPremium": 0.4004,
+        "longExpiry": "4/24/2026",
+        "openDate": "3/17/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "molyq2jzy6wc",
+            "strike": 3.5,
+            "contracts": 1,
+            "received": 0,
+            "btcDebit": 1.04,
+            "expiry": "3/13/2026",
+            "openDate": "3/12/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "3/12/2026",
+            "posType": "SPUT"
+          },
+          {
+            "id": "molyq2jzs2t7",
+            "strike": 4,
+            "contracts": 1,
+            "received": 19.95,
+            "expiry": "3/20/2026",
+            "openDate": "3/12/2026",
+            "closed": true,
+            "posType": "SPUT",
+            "closeReason": "expired",
+            "closeDate": "3/20/2026",
+            "buybackCost": 0
+          }
+        ],
+        "closed": true,
+        "longPutClosed": true,
+        "longCloseAmount": 0,
+        "longCloseDate": "4/24/2026"
+      },
+      {
+        "id": "molyq2jzzhgj",
+        "ticker": "PATH",
+        "contracts": 1,
+        "longStrike": 11.5,
+        "longPremium": 1.0904,
+        "longExpiry": "5/1/2026",
+        "openDate": "3/31/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [],
+        "closed": false
+      },
+      {
+        "id": "molyq2jzb92q",
+        "ticker": "BBAI",
+        "contracts": 1,
+        "longStrike": 4,
+        "longPremium": 0.6904,
+        "longExpiry": "6/18/2026",
+        "openDate": "4/27/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "molyq2jz5bip",
+            "strike": 3.5,
+            "contracts": 1,
+            "received": 7.94,
+            "expiry": "4/24/2026",
+            "openDate": "4/16/2026",
+            "closed": true,
+            "posType": "SPUT",
+            "closeReason": "expired",
+            "closeDate": "4/24/2026",
+            "buybackCost": 0
+          }
+        ],
+        "closed": false
+      },
+      {
+        "id": "molyq2jzehty",
+        "ticker": "BBAI",
+        "contracts": 1,
+        "longStrike": 4,
+        "longPremium": 0.7004,
+        "longExpiry": "6/18/2026",
+        "openDate": "4/27/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "molyq2jzp7sg",
+            "strike": 3.5,
+            "contracts": 1,
+            "received": 0,
+            "btcDebit": 3.04,
+            "expiry": "3/6/2026",
+            "openDate": "3/4/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "3/4/2026",
+            "posType": "SPUT"
+          },
+          {
+            "id": "molyq2jzby9k",
+            "strike": 3.5,
+            "contracts": 1,
+            "received": 14.95,
+            "expiry": "3/6/2026",
+            "openDate": "2/24/2026",
+            "closed": true,
+            "posType": "SPUT",
+            "closeReason": "expired",
+            "closeDate": "3/6/2026",
+            "buybackCost": 0
+          }
+        ],
+        "closed": true,
+        "longPutClosed": true,
+        "longCloseAmount": 69.94,
+        "longCloseDate": "4/27/2026"
+      },
+      {
+        "id": "molyq2jzo4jh",
+        "ticker": "BBAI",
+        "contracts": 1,
+        "longStrike": 4,
+        "longPremium": 0.7004,
+        "longExpiry": "6/18/2026",
+        "openDate": "4/27/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "molyq2jzujji",
+            "strike": 3.5,
+            "contracts": 1,
+            "received": 4.94,
+            "expiry": "5/1/2026",
+            "openDate": "4/27/2026",
+            "closed": false,
+            "posType": "SPUT"
+          }
+        ],
+        "closed": false
+      },
+      {
+        "id": "molyq2jze0tz",
+        "ticker": "PATH",
+        "contracts": 1,
+        "longStrike": 11,
+        "longPremium": 1.5604,
+        "longExpiry": "6/18/2026",
+        "openDate": "4/27/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "molyq2jz4l06",
+            "strike": 10.5,
+            "contracts": 1,
+            "received": 31.94,
+            "expiry": "5/1/2026",
+            "openDate": "4/27/2026",
+            "closed": false,
+            "posType": "SPUT"
+          }
+        ],
+        "closed": false
+      },
+      {
+        "id": "molyq2jzp5lb",
+        "ticker": "BBAI",
+        "contracts": 1,
+        "longStrike": 4,
+        "longPremium": 0.6704000000000001,
+        "longExpiry": "6/18/2026",
+        "openDate": "4/28/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "molyq2jztc54",
+            "strike": 3.5,
+            "contracts": 1,
+            "received": 4.94,
+            "expiry": "5/1/2026",
+            "openDate": "4/27/2026",
+            "closed": false,
+            "posType": "SPUT"
+          }
+        ],
+        "closed": false
+      },
+      {
+        "id": "molyq2jz1ckb",
+        "ticker": "BBAI",
+        "contracts": 1,
+        "longStrike": 4,
+        "longPremium": 0.6704000000000001,
+        "longExpiry": "6/18/2026",
+        "openDate": "4/28/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "molyq2jz821f",
+            "strike": 3.5,
+            "contracts": 1,
+            "received": 12.94,
+            "expiry": "4/10/2026",
+            "openDate": "4/9/2026",
+            "closed": true,
+            "posType": "SPUT",
+            "closeReason": "expired",
+            "closeDate": "4/10/2026",
+            "buybackCost": 0
+          }
+        ],
+        "closed": false
+      },
+      {
+        "id": "molyq2jzx1fn",
+        "ticker": "BBAI",
+        "contracts": 2,
+        "longStrike": 4,
+        "longPremium": 0.6304,
+        "longExpiry": "6/18/2026",
+        "openDate": "4/28/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "molyq2jzrw7k",
+            "strike": 3.5,
+            "contracts": 2,
+            "received": 27.9,
+            "expiry": "5/8/2026",
+            "openDate": "4/28/2026",
+            "closed": false,
+            "posType": "SPUT"
+          }
+        ],
+        "closed": false,
+        "longPutClosed": true,
+        "longCloseAmount": 59.94,
+        "longCloseDate": "4/28/2026"
+      },
+      {
+        "id": "molyq2jzwgd4",
+        "ticker": "BBAI",
+        "contracts": 2,
+        "longStrike": null,
+        "longPremium": null,
+        "longExpiry": null,
+        "openDate": "4/30/2026",
+        "notes": "",
+        "noLongPut": true,
+        "shortPuts": [
+          {
+            "id": "molyq2jzpvft",
+            "strike": 3.5,
+            "contracts": 2,
+            "received": 29.9,
+            "expiry": "5/8/2026",
+            "openDate": "4/30/2026",
+            "closed": true,
+            "posType": "SPUT",
+            "closeReason": "buyback",
+            "closeDate": "4/30/2026",
+            "buybackCost": 1.04
+          },
+          {
+            "id": "molyq2jzn93b",
+            "strike": 3.5,
+            "contracts": 1,
+            "received": 0,
+            "btcDebit": 2.04,
+            "expiry": "5/1/2026",
+            "openDate": "4/30/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "4/30/2026",
+            "posType": "SPUT"
+          },
+          {
+            "id": "molyq2jz5r0f",
+            "strike": 3.5,
+            "contracts": 1,
+            "received": 16.94,
+            "expiry": "5/8/2026",
+            "openDate": "4/29/2026",
+            "closed": false,
+            "posType": "SPUT"
+          },
+          {
+            "id": "molyq2jzoc0t",
+            "strike": 3.5,
+            "contracts": 1,
+            "received": 6.95,
+            "expiry": "3/13/2026",
+            "openDate": "3/4/2026",
+            "closed": true,
+            "posType": "SPUT",
+            "closeReason": "expired",
+            "closeDate": "3/13/2026",
+            "buybackCost": 0
+          }
+        ],
+        "closed": false
+      },
+      {
+        "id": "molyq2jz34l7",
+        "ticker": "PATH",
+        "contracts": 1,
+        "longStrike": null,
+        "longPremium": null,
+        "longExpiry": null,
+        "openDate": "4/30/2026",
+        "notes": "",
+        "noLongPut": true,
+        "shortPuts": [
+          {
+            "id": "molyq2jzvpip",
+            "strike": 10.5,
+            "contracts": 1,
+            "received": 64.94,
+            "expiry": "5/15/2026",
+            "openDate": "4/30/2026",
+            "closed": true,
+            "posType": "SPUT",
+            "closeReason": "buyback",
+            "closeDate": "4/30/2026",
+            "buybackCost": 29.04
+          },
+          {
+            "id": "molyq2jzn5h0",
+            "strike": 10.5,
+            "contracts": 1,
+            "received": 51.94,
+            "expiry": "5/8/2026",
+            "openDate": "4/30/2026",
+            "closed": true,
+            "posType": "SPUT",
+            "closeReason": "buyback",
+            "closeDate": "4/30/2026",
+            "buybackCost": 29.04
+          },
+          {
+            "id": "molyq2jztri6",
+            "strike": 10.5,
+            "contracts": 1,
+            "received": 31.94,
+            "expiry": "5/1/2026",
+            "openDate": "4/27/2026",
+            "closed": false,
+            "posType": "SPUT"
+          }
+        ],
+        "closed": false
+      }
+    ],
+    "spouse_ira": [
+      {
+        "id": "molyr7xx2wwt",
+        "ticker": "PLTR",
+        "contracts": 1,
+        "longStrike": 144,
+        "longPremium": 11.4004,
+        "longExpiry": "5/22/2026",
+        "openDate": "4/8/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [],
+        "closed": false
+      },
+      {
+        "id": "molyr7xx2e1y",
+        "ticker": "PLTR",
+        "contracts": 1,
+        "longStrike": 130,
+        "longPremium": 12.000399999999999,
+        "longExpiry": "5/29/2026",
+        "openDate": "4/9/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "molyr7xxswbm",
+            "strike": 139,
+            "contracts": 1,
+            "received": 434.94,
+            "expiry": "4/17/2026",
+            "openDate": "4/8/2026",
+            "closed": true,
+            "posType": "SPUT",
+            "closeReason": "expired",
+            "closeDate": "4/17/2026",
+            "buybackCost": 0
+          }
+        ],
+        "closed": false
+      },
+      {
+        "id": "molyr7xx9h3r",
+        "ticker": "WMT",
+        "contracts": 1,
+        "longStrike": 132,
+        "longPremium": 3.1004,
+        "longExpiry": "5/8/2026",
+        "openDate": "4/24/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [],
+        "closed": false
+      },
+      {
+        "id": "molyr7xxfgkl",
+        "ticker": "WMT",
+        "contracts": 1,
+        "longStrike": null,
+        "longPremium": null,
+        "longExpiry": null,
+        "openDate": "4/24/2026",
+        "notes": "",
+        "noLongPut": true,
+        "shortPuts": [
+          {
+            "id": "molyr7xx1wk8",
+            "strike": 131,
+            "contracts": 1,
+            "received": 248.94,
+            "expiry": "5/8/2026",
+            "openDate": "4/24/2026",
+            "closed": false,
+            "posType": "SPUT"
+          }
+        ],
+        "closed": false
+      },
+      {
+        "id": "molyr7xx35ue",
+        "ticker": "PLTR",
+        "contracts": 1,
+        "longStrike": 140,
+        "longPremium": 26.4604,
+        "longExpiry": "3/19/2027",
+        "openDate": "4/24/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "molyr7xx7arf",
+            "strike": 140,
+            "contracts": 1,
+            "received": 94.94,
+            "expiry": "4/24/2026",
+            "openDate": "4/21/2026",
+            "closed": true,
+            "posType": "SPUT",
+            "closeReason": "expired",
+            "closeDate": "4/24/2026",
+            "buybackCost": 0
+          }
+        ],
+        "closed": true,
+        "longPutClosed": true,
+        "longCloseAmount": 1949.9,
+        "longCloseDate": "4/9/2026"
+      },
+      {
+        "id": "molyr7xxg0ez",
+        "ticker": "PLTR",
+        "contracts": 1,
+        "longStrike": 145,
+        "longPremium": 13.6504,
+        "longExpiry": "6/18/2026",
+        "openDate": "4/24/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "molyr7xxxuct",
+            "strike": 130,
+            "contracts": 1,
+            "received": 70.94,
+            "expiry": "5/1/2026",
+            "openDate": "4/24/2026",
+            "closed": false,
+            "posType": "SPUT"
+          }
+        ],
+        "closed": false
+      },
+      {
+        "id": "molyr7xx4szs",
+        "ticker": "PLTR",
+        "contracts": 1,
+        "longStrike": 140,
+        "longPremium": 13.1504,
+        "longExpiry": "6/18/2026",
+        "openDate": "4/29/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "molyr7xx85ac",
+            "strike": 139,
+            "contracts": 1,
+            "received": 271.94,
+            "expiry": "5/1/2026",
+            "openDate": "4/24/2026",
+            "closed": false,
+            "posType": "SPUT"
+          }
+        ],
+        "closed": false,
+        "longPutClosed": true,
+        "longCloseAmount": 1609.91,
+        "longCloseDate": "4/29/2026"
+      },
+      {
+        "id": "molyr7xwinf0",
+        "ticker": "PLTR",
+        "contracts": 1,
+        "longStrike": null,
+        "longPremium": null,
+        "longExpiry": null,
+        "openDate": "4/30/2026",
+        "notes": "",
+        "noLongPut": true,
+        "shortPuts": [
+          {
+            "id": "molyr7xwv987",
+            "strike": 130,
+            "contracts": 1,
+            "received": 0,
+            "btcDebit": 6.04,
+            "expiry": "5/1/2026",
+            "openDate": "4/30/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "4/30/2026",
+            "posType": "SPUT"
+          },
+          {
+            "id": "molyr7xx3ttc",
+            "strike": 139,
+            "contracts": 1,
+            "received": 0,
+            "btcDebit": 3.04,
+            "expiry": "4/17/2026",
+            "openDate": "4/17/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "4/17/2026",
+            "posType": "SPUT"
+          }
+        ],
+        "closed": true,
+        "longPutClosed": true,
+        "longCloseAmount": 2629.89,
+        "longCloseDate": "4/24/2026"
+      }
+    ]
   },
   "callLadders": {
     "self": [
@@ -36161,9 +37829,683 @@
         "closed": true
       }
     ],
-    "self_roth": [],
-    "spouse_roth": [],
-    "spouse_ira": []
+    "self_roth": [
+      {
+        "id": "molyp76iam5r",
+        "ticker": "BYND",
+        "contracts": 1,
+        "longStrike": 1,
+        "longPremium": 0,
+        "longExpiry": "1/16/2026",
+        "openDate": "1/14/2026",
+        "notes": "STC imported",
+        "noLongCall": false,
+        "longCallClosed": true,
+        "longCloseAmount": 1.95,
+        "longCloseDate": "1/14/2026",
+        "stcStrike": 1,
+        "stcExpiry": "1/16/2026",
+        "shortCalls": [],
+        "closed": true
+      },
+      {
+        "id": "molyp76i3ikw",
+        "ticker": "BYND",
+        "contracts": 1,
+        "longStrike": 1.5,
+        "longPremium": 0,
+        "longExpiry": "1/16/2026",
+        "openDate": "1/14/2026",
+        "notes": "STC imported",
+        "noLongCall": false,
+        "longCallClosed": true,
+        "longCloseAmount": 0.95,
+        "longCloseDate": "1/14/2026",
+        "stcStrike": 1.5,
+        "stcExpiry": "1/16/2026",
+        "shortCalls": [],
+        "closed": true
+      },
+      {
+        "id": "molyp76ik813",
+        "ticker": "MSTU1",
+        "contracts": 1,
+        "longStrike": null,
+        "longPremium": null,
+        "longExpiry": null,
+        "openDate": "1/27/2026",
+        "notes": "",
+        "noLongCall": true,
+        "shortCalls": [
+          {
+            "id": "molyp76idnmh",
+            "strike": 6,
+            "contracts": 1,
+            "received": 0,
+            "btcDebit": 5.04,
+            "expiry": "3/20/2026",
+            "openDate": "1/27/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "1/27/2026"
+          }
+        ],
+        "closed": true
+      },
+      {
+        "id": "molyp76iwf1f",
+        "ticker": "NVTS",
+        "contracts": 1,
+        "longStrike": 4.5,
+        "longPremium": 5.2504,
+        "longExpiry": "1/15/2027",
+        "openDate": "2/2/2026",
+        "notes": "",
+        "noLongCall": false,
+        "shortCalls": [
+          {
+            "id": "molyp76isap1",
+            "strike": 12,
+            "contracts": 1,
+            "received": 0,
+            "btcDebit": 3.04,
+            "expiry": "2/6/2026",
+            "openDate": "2/2/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "2/2/2026"
+          }
+        ],
+        "closed": true,
+        "longCallClosed": true,
+        "longCloseAmount": 172.95,
+        "longCloseDate": "1/6/2026",
+        "stcStrike": 8,
+        "stcExpiry": "1/16/2026"
+      },
+      {
+        "id": "molyp76iggnf",
+        "ticker": "HIMZ",
+        "contracts": 1,
+        "longStrike": null,
+        "longPremium": null,
+        "longExpiry": null,
+        "openDate": "2/4/2026",
+        "notes": "",
+        "noLongCall": true,
+        "shortCalls": [
+          {
+            "id": "molyp76iigit",
+            "strike": 6,
+            "contracts": 1,
+            "received": 0,
+            "btcDebit": 4.04,
+            "expiry": "2/20/2026",
+            "openDate": "2/4/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "2/4/2026"
+          },
+          {
+            "id": "molyp76i7sk4",
+            "strike": 6,
+            "contracts": 1,
+            "received": 19.95,
+            "expiry": "2/20/2026",
+            "openDate": "1/22/2026",
+            "closed": true,
+            "closeReason": "expired",
+            "closeDate": "2/20/2026",
+            "buybackCost": 0
+          },
+          {
+            "id": "molyp76iy6sk",
+            "strike": 10,
+            "contracts": 1,
+            "received": 0,
+            "btcDebit": 5.04,
+            "expiry": "1/16/2026",
+            "openDate": "1/7/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "1/7/2026"
+          }
+        ],
+        "closed": true
+      },
+      {
+        "id": "molyp76iq343",
+        "ticker": "NVTS",
+        "contracts": 1,
+        "longStrike": 4,
+        "longPremium": 5.3004,
+        "longExpiry": "1/15/2027",
+        "openDate": "3/6/2026",
+        "notes": "",
+        "noLongCall": false,
+        "shortCalls": [
+          {
+            "id": "molyp76il1cn",
+            "strike": 12,
+            "contracts": 1,
+            "received": 13.97,
+            "expiry": "2/6/2026",
+            "openDate": "1/2/2026",
+            "closed": true,
+            "closeReason": "expired",
+            "closeDate": "2/6/2026",
+            "buybackCost": 0
+          }
+        ],
+        "closed": false
+      },
+      {
+        "id": "molyp76i5y7a",
+        "ticker": "CELH",
+        "contracts": 1,
+        "longStrike": null,
+        "longPremium": null,
+        "longExpiry": null,
+        "openDate": "3/9/2026",
+        "notes": "",
+        "noLongCall": true,
+        "shortCalls": [
+          {
+            "id": "molyp76iu3j9",
+            "strike": 50,
+            "contracts": 1,
+            "received": 43.95,
+            "expiry": "4/2/2026",
+            "openDate": "3/9/2026",
+            "closed": true,
+            "closeReason": "expired",
+            "closeDate": "4/2/2026",
+            "buybackCost": 0
+          }
+        ],
+        "closed": true
+      },
+      {
+        "id": "molyp76iny16",
+        "ticker": "NVTS",
+        "contracts": 1,
+        "longStrike": 7,
+        "longPremium": 5.400399999999999,
+        "longExpiry": "1/15/2027",
+        "openDate": "3/11/2026",
+        "notes": "",
+        "noLongCall": false,
+        "shortCalls": [],
+        "closed": true,
+        "longCallClosed": true,
+        "longCloseAmount": 669.95,
+        "longCloseDate": "3/11/2026",
+        "stcStrike": 4.5,
+        "stcExpiry": "1/15/2027"
+      },
+      {
+        "id": "molyp76itu9y",
+        "ticker": "NVTS",
+        "contracts": 1,
+        "longStrike": 7,
+        "longPremium": 5.400399999999999,
+        "longExpiry": "1/15/2027",
+        "openDate": "3/13/2026",
+        "notes": "",
+        "noLongCall": false,
+        "shortCalls": [],
+        "closed": true,
+        "longCallClosed": true,
+        "longCloseAmount": 709.95,
+        "longCloseDate": "3/13/2026",
+        "stcStrike": 4,
+        "stcExpiry": "1/15/2027"
+      },
+      {
+        "id": "molyp76h5jct",
+        "ticker": "PFE",
+        "contracts": 1,
+        "longStrike": null,
+        "longPremium": null,
+        "longExpiry": null,
+        "openDate": "4/8/2026",
+        "notes": "",
+        "noLongCall": true,
+        "shortCalls": [
+          {
+            "id": "molyp76h0pw0",
+            "strike": 28.5,
+            "contracts": 1,
+            "received": 0,
+            "btcDebit": 2.04,
+            "expiry": "4/10/2026",
+            "openDate": "4/8/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "4/8/2026"
+          },
+          {
+            "id": "molyp76idz20",
+            "strike": 28.5,
+            "contracts": 1,
+            "received": 14.95,
+            "expiry": "4/10/2026",
+            "openDate": "3/30/2026",
+            "closed": true,
+            "closeReason": "expired",
+            "closeDate": "4/10/2026",
+            "buybackCost": 0
+          },
+          {
+            "id": "molyp76iy1fz",
+            "strike": 28,
+            "contracts": 1,
+            "received": 17.95,
+            "expiry": "3/27/2026",
+            "openDate": "3/13/2026",
+            "closed": true,
+            "closeReason": "expired",
+            "closeDate": "3/27/2026",
+            "buybackCost": 0
+          },
+          {
+            "id": "molyp76i2uuk",
+            "strike": 27.5,
+            "contracts": 1,
+            "received": 0,
+            "btcDebit": 3.04,
+            "expiry": "3/13/2026",
+            "openDate": "3/13/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "3/13/2026"
+          },
+          {
+            "id": "molyp76i9l74",
+            "strike": 27.5,
+            "contracts": 1,
+            "received": 17.95,
+            "expiry": "3/13/2026",
+            "openDate": "3/3/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "3/3/2026",
+            "buybackCost": 5.04,
+            "btcDebit": 5.04
+          },
+          {
+            "id": "molyp76idi0d",
+            "strike": 27.5,
+            "contracts": 1,
+            "received": 18.95,
+            "expiry": "3/6/2026",
+            "openDate": "2/23/2026",
+            "closed": true,
+            "closeReason": "expired",
+            "closeDate": "3/6/2026",
+            "buybackCost": 0
+          }
+        ],
+        "closed": true
+      },
+      {
+        "id": "molyp76hec4a",
+        "ticker": "NVTS",
+        "contracts": 1,
+        "longStrike": 5,
+        "longPremium": 5.700399999999999,
+        "longExpiry": "1/15/2027",
+        "openDate": "4/14/2026",
+        "notes": "",
+        "noLongCall": false,
+        "shortCalls": [
+          {
+            "id": "molyp76icy4y",
+            "strike": 9,
+            "contracts": 1,
+            "received": 22.95,
+            "expiry": "3/20/2026",
+            "openDate": "3/9/2026",
+            "closed": true,
+            "closeReason": "expired",
+            "closeDate": "3/20/2026",
+            "buybackCost": 0
+          }
+        ],
+        "closed": false
+      },
+      {
+        "id": "molyp76hjdrm",
+        "ticker": "NVTS",
+        "contracts": 1,
+        "longStrike": 7,
+        "longPremium": 4.6504,
+        "longExpiry": "1/15/2027",
+        "openDate": "4/15/2026",
+        "notes": "",
+        "noLongCall": false,
+        "shortCalls": [
+          {
+            "id": "molyp76i39rs",
+            "strike": 9,
+            "contracts": 1,
+            "received": 22.95,
+            "expiry": "3/20/2026",
+            "openDate": "3/9/2026",
+            "closed": true,
+            "closeReason": "expired",
+            "closeDate": "3/20/2026",
+            "buybackCost": 0
+          }
+        ],
+        "closed": false
+      },
+      {
+        "id": "molyp76hi7j8",
+        "ticker": "NVTS",
+        "contracts": 1,
+        "longStrike": 7,
+        "longPremium": 6.900399999999999,
+        "longExpiry": "1/15/2027",
+        "openDate": "4/17/2026",
+        "notes": "",
+        "noLongCall": false,
+        "shortCalls": [],
+        "closed": true,
+        "longCallClosed": true,
+        "longCloseAmount": 809.93,
+        "longCloseDate": "4/17/2026",
+        "stcStrike": 5,
+        "stcExpiry": "1/15/2027"
+      },
+      {
+        "id": "molyp76hcmi0",
+        "ticker": "NVTS",
+        "contracts": 1,
+        "longStrike": 8,
+        "longPremium": 6.400399999999999,
+        "longExpiry": "1/15/2027",
+        "openDate": "4/17/2026",
+        "notes": "",
+        "noLongCall": false,
+        "shortCalls": [],
+        "closed": true,
+        "longCallClosed": true,
+        "longCloseAmount": 1369.88,
+        "longCloseDate": "4/17/2026",
+        "stcStrike": 7,
+        "stcExpiry": "1/15/2027"
+      },
+      {
+        "id": "molyp76hza7p",
+        "ticker": "NVTS",
+        "contracts": 1,
+        "longStrike": 8,
+        "longPremium": 6.3504,
+        "longExpiry": "1/15/2027",
+        "openDate": "4/17/2026",
+        "notes": "",
+        "noLongCall": false,
+        "shortCalls": [],
+        "closed": false
+      },
+      {
+        "id": "molyp76hjjt6",
+        "ticker": "NVTS",
+        "contracts": 1,
+        "longStrike": 8,
+        "longPremium": 6.3504,
+        "longExpiry": "1/15/2027",
+        "openDate": "4/17/2026",
+        "notes": "",
+        "noLongCall": false,
+        "shortCalls": [],
+        "closed": false
+      },
+      {
+        "id": "molyp76he1zx",
+        "ticker": "NVTS",
+        "contracts": 1,
+        "longStrike": 7,
+        "longPremium": 0,
+        "longExpiry": "1/15/2027",
+        "openDate": "4/17/2026",
+        "notes": "STC imported",
+        "noLongCall": false,
+        "longCallClosed": true,
+        "longCloseAmount": 692.93,
+        "longCloseDate": "4/17/2026",
+        "stcStrike": 7,
+        "stcExpiry": "1/15/2027",
+        "shortCalls": [],
+        "closed": true
+      },
+      {
+        "id": "molyp76hlmvt",
+        "ticker": "NVTS",
+        "contracts": 1,
+        "longStrike": 8,
+        "longPremium": 0,
+        "longExpiry": "1/15/2027",
+        "openDate": "4/22/2026",
+        "notes": "STC imported",
+        "noLongCall": false,
+        "longCallClosed": true,
+        "longCloseAmount": 1049.92,
+        "longCloseDate": "4/22/2026",
+        "stcStrike": 8,
+        "stcExpiry": "1/15/2027",
+        "shortCalls": [],
+        "closed": true
+      }
+    ],
+    "spouse_roth": [
+      {
+        "id": "molyqeo94x37",
+        "ticker": "NOK",
+        "contracts": 1,
+        "longStrike": null,
+        "longPremium": null,
+        "longExpiry": null,
+        "openDate": "2/19/2026",
+        "notes": "",
+        "noLongCall": true,
+        "shortCalls": [
+          {
+            "id": "molyqeo9y9wt",
+            "strike": 7,
+            "contracts": 1,
+            "received": 0,
+            "btcDebit": 55.04,
+            "expiry": "2/20/2026",
+            "openDate": "2/19/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "2/19/2026"
+          }
+        ],
+        "closed": true
+      },
+      {
+        "id": "molyqeo9qgzc",
+        "ticker": "QQQI",
+        "contracts": 1,
+        "longStrike": null,
+        "longPremium": null,
+        "longExpiry": null,
+        "openDate": "3/16/2026",
+        "notes": "",
+        "noLongCall": true,
+        "shortCalls": [
+          {
+            "id": "molyqeo9f2fj",
+            "strike": 53,
+            "contracts": 1,
+            "received": 0,
+            "btcDebit": 2.04,
+            "expiry": "3/20/2026",
+            "openDate": "3/16/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "3/16/2026"
+          },
+          {
+            "id": "molyqeo9i3tx",
+            "strike": 53,
+            "contracts": 1,
+            "received": 39.95,
+            "expiry": "3/20/2026",
+            "openDate": "2/23/2026",
+            "closed": true,
+            "closeReason": "expired",
+            "closeDate": "3/20/2026",
+            "buybackCost": 0
+          }
+        ],
+        "closed": true
+      },
+      {
+        "id": "molyqeo9fom3",
+        "ticker": "BBAI",
+        "contracts": 3,
+        "longStrike": 2.5,
+        "longPremium": 1.9804,
+        "longExpiry": "1/15/2027",
+        "openDate": "4/28/2026",
+        "notes": "",
+        "noLongCall": false,
+        "shortCalls": [
+          {
+            "id": "molyqeo9gp47",
+            "strike": 5,
+            "contracts": 1,
+            "received": 18.95,
+            "expiry": "3/6/2026",
+            "openDate": "2/13/2026",
+            "closed": true,
+            "closeReason": "expired",
+            "closeDate": "3/6/2026",
+            "buybackCost": 0
+          },
+          {
+            "id": "molyqeo95dus",
+            "strike": 7.5,
+            "contracts": 1,
+            "received": 0,
+            "btcDebit": 4.04,
+            "expiry": "2/6/2026",
+            "openDate": "1/27/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "1/27/2026"
+          },
+          {
+            "id": "molyqeo92co5",
+            "strike": 7.5,
+            "contracts": 1,
+            "received": 14.97,
+            "expiry": "2/6/2026",
+            "openDate": "1/2/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "1/2/2026",
+            "buybackCost": 2.02,
+            "btcDebit": 2.02
+          }
+        ],
+        "closed": false
+      },
+      {
+        "id": "molyqeo90ok4",
+        "ticker": "BBAI",
+        "contracts": 1,
+        "longStrike": 2.5,
+        "longPremium": 1.9203999999999999,
+        "longExpiry": "1/15/2027",
+        "openDate": "4/28/2026",
+        "notes": "",
+        "noLongCall": false,
+        "shortCalls": [
+          {
+            "id": "molyqeo9qayx",
+            "strike": 15,
+            "contracts": 1,
+            "received": 0,
+            "btcDebit": 20.04,
+            "expiry": "1/15/2027",
+            "openDate": "4/28/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "4/28/2026"
+          }
+        ],
+        "closed": true,
+        "longCallClosed": true,
+        "longCloseAmount": 35.94,
+        "longCloseDate": "4/28/2026",
+        "stcStrike": 10,
+        "stcExpiry": "1/15/2027"
+      }
+    ],
+    "spouse_ira": [
+      {
+        "id": "molyrsiezaa0",
+        "ticker": "PLTR",
+        "contracts": 1,
+        "longStrike": 95,
+        "longPremium": 60.9504,
+        "longExpiry": "3/19/2027",
+        "openDate": "4/8/2026",
+        "notes": "",
+        "noLongCall": false,
+        "shortCalls": [],
+        "closed": false
+      },
+      {
+        "id": "molyrsieof3a",
+        "ticker": "WMT",
+        "contracts": 1,
+        "longStrike": 132,
+        "longPremium": 3.0404,
+        "longExpiry": "5/15/2026",
+        "openDate": "4/24/2026",
+        "notes": "",
+        "noLongCall": false,
+        "shortCalls": [],
+        "closed": false
+      },
+      {
+        "id": "molyrsiem949",
+        "ticker": "WMT",
+        "contracts": 1,
+        "longStrike": 132,
+        "longPremium": 0,
+        "longExpiry": "5/15/2026",
+        "openDate": "4/24/2026",
+        "notes": "STC imported",
+        "noLongCall": false,
+        "longCallClosed": true,
+        "longCloseAmount": 249.94,
+        "longCloseDate": "4/24/2026",
+        "stcStrike": 132,
+        "stcExpiry": "5/15/2026",
+        "shortCalls": [],
+        "closed": true
+      },
+      {
+        "id": "molyrsiekk6t",
+        "ticker": "PLTR",
+        "contracts": 1,
+        "longStrike": 140,
+        "longPremium": 37.800399999999996,
+        "longExpiry": "6/17/2027",
+        "openDate": "4/24/2026",
+        "notes": "",
+        "noLongCall": false,
+        "shortCalls": [],
+        "closed": false
+      }
+    ]
   },
   "shares": {
     "self": [
@@ -37246,7 +39588,167 @@
         "closed": false
       }
     ],
-    "self_roth": [],
-    "spouse_roth": []
+    "self_roth": [
+      {
+        "id": "molyomvudk25",
+        "ticker": "HIMZ",
+        "shares": 2.448096,
+        "costBasis": 5.78,
+        "purchaseDate": "1/2/2026",
+        "coveredCalls": [],
+        "shareSales": [],
+        "closed": false
+      },
+      {
+        "id": "molyomvulwx4",
+        "ticker": "HIMZ",
+        "shares": -2.4480960000000067,
+        "costBasis": 6,
+        "purchaseDate": "1/16/2026",
+        "coveredCalls": [],
+        "shareSales": [
+          {
+            "id": "molyomvuxni8",
+            "shares": 0.448096,
+            "salePrice": 5.28,
+            "saleDate": "1/14/2026"
+          },
+          {
+            "id": "molyomvu824u",
+            "shares": 102,
+            "salePrice": 5.28,
+            "saleDate": "1/14/2026"
+          }
+        ],
+        "closed": true
+      },
+      {
+        "id": "molyomvuf4jg",
+        "ticker": "JEPQ",
+        "shares": 9.946919000000001,
+        "costBasis": 58.73711246266305,
+        "purchaseDate": "2/10/2026",
+        "coveredCalls": [],
+        "shareSales": [],
+        "closed": false
+      },
+      {
+        "id": "molyomvuu97w",
+        "ticker": "JEPQ",
+        "shares": -0.051856999999999986,
+        "costBasis": 58.4,
+        "purchaseDate": "2/11/2026",
+        "coveredCalls": [],
+        "shareSales": [
+          {
+            "id": "molyomvunkg0",
+            "shares": 0.394322,
+            "salePrice": 58.24,
+            "saleDate": "2/11/2026"
+          }
+        ],
+        "closed": true
+      },
+      {
+        "id": "molyomvury6n",
+        "ticker": "PFE",
+        "shares": 100,
+        "costBasis": 27.5,
+        "purchaseDate": "2/20/2026",
+        "coveredCalls": [],
+        "shareSales": [],
+        "closed": false
+      },
+      {
+        "id": "molyomvu08tc",
+        "ticker": "CELH",
+        "shares": 100,
+        "costBasis": 50,
+        "purchaseDate": "3/6/2026",
+        "coveredCalls": [],
+        "shareSales": [],
+        "closed": false
+      },
+      {
+        "id": "molyomvuz4t4",
+        "ticker": "NVTS",
+        "shares": 300,
+        "costBasis": 8.583333333333332,
+        "purchaseDate": "3/27/2026",
+        "coveredCalls": [],
+        "shareSales": [
+          {
+            "id": "molyomvuq5fm",
+            "shares": 100,
+            "salePrice": 9,
+            "saleDate": "3/18/2026"
+          },
+          {
+            "id": "molyomvuyjyz",
+            "shares": 100,
+            "salePrice": 8.65,
+            "saleDate": "2/2/2026"
+          }
+        ],
+        "closed": false
+      }
+    ],
+    "spouse_roth": [
+      {
+        "id": "molyqnc74qzl",
+        "ticker": "SPYI",
+        "shares": 11.061950000000001,
+        "costBasis": 52.75409049218266,
+        "purchaseDate": "2/11/2026",
+        "coveredCalls": [],
+        "shareSales": [],
+        "closed": false
+      },
+      {
+        "id": "molyqnc798xw",
+        "ticker": "QQQI",
+        "shares": 56.797871000000015,
+        "costBasis": 53.16815844523466,
+        "purchaseDate": "2/20/2026",
+        "coveredCalls": [],
+        "shareSales": [
+          {
+            "id": "molyqnc7qhtv",
+            "shares": 0.781663,
+            "salePrice": 53.16,
+            "saleDate": "2/11/2026"
+          },
+          {
+            "id": "molyqnc7tjpg",
+            "shares": 53,
+            "salePrice": 53.16,
+            "saleDate": "2/11/2026"
+          }
+        ],
+        "closed": false
+      },
+      {
+        "id": "molyqnc7gin1",
+        "ticker": "BBAI",
+        "shares": 400,
+        "costBasis": 4,
+        "purchaseDate": "4/10/2026",
+        "coveredCalls": [],
+        "shareSales": [],
+        "closed": false
+      }
+    ],
+    "spouse_ira": [
+      {
+        "id": "molys4ljb17t",
+        "ticker": "SCHD",
+        "shares": 7.259434,
+        "costBasis": 28.929146495443035,
+        "purchaseDate": "1/26/2026",
+        "coveredCalls": [],
+        "shareSales": [],
+        "closed": false
+      }
+    ]
   }
 }
