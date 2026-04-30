@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-04-30T20:59:43.529Z",
+  "savedAt": "2026-04-30T21:40:04.163Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -37002,19 +37002,6 @@
         "openDate": "4/29/2026",
         "notes": "",
         "noLongCall": false,
-        "shortCalls": [],
-        "closed": false
-      },
-      {
-        "id": "molyhwbdbw99",
-        "ticker": "META",
-        "contracts": 1,
-        "longStrike": null,
-        "longPremium": null,
-        "longExpiry": null,
-        "openDate": "4/29/2026",
-        "notes": "",
-        "noLongCall": true,
         "shortCalls": [
           {
             "id": "molyhwbd0asl",
