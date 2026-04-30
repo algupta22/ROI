@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-04-30T21:43:04.351Z",
+  "savedAt": "2026-04-30T22:02:32.093Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -38922,31 +38922,19 @@
       {
         "id": "molyi3rskv2r",
         "ticker": "BTCZ",
-        "shares": 300,
+        "shares": 0,
         "costBasis": 5.219594666666665,
         "purchaseDate": "3/13/2026",
         "coveredCalls": [],
         "shareSales": [
           {
-            "id": "molyi3rsptxs",
-            "shares": 8,
-            "salePrice": 5.51,
-            "saleDate": "3/6/2026"
-          },
-          {
-            "id": "molyi3rsozfy",
-            "shares": 30,
-            "salePrice": 6.28,
-            "saleDate": "2/23/2026"
-          },
-          {
-            "id": "molyi3rsxa5m",
-            "shares": 30,
-            "salePrice": 6.28,
-            "saleDate": "2/23/2026"
+            "id": "sale_1777586432924",
+            "shares": 300,
+            "salePrice": 5.41,
+            "saleDate": "03/30"
           }
         ],
-        "closed": false
+        "closed": true
       },
       {
         "id": "molyi3rs0npr",
@@ -39134,12 +39122,19 @@
       {
         "id": "molyi3rsd2eo",
         "ticker": "BBAI",
-        "shares": 500,
+        "shares": 0,
         "costBasis": 3.9,
         "purchaseDate": "4/24/2026",
         "coveredCalls": [],
-        "shareSales": [],
-        "closed": false
+        "shareSales": [
+          {
+            "id": "sale_1777585749781",
+            "shares": 600,
+            "salePrice": 3.841,
+            "saleDate": "04/29/2026"
+          }
+        ],
+        "closed": true
       },
       {
         "id": "molyi3rs9kge",
@@ -39154,12 +39149,19 @@
       {
         "id": "molyi3rsvay4",
         "ticker": "FNGD",
-        "shares": 17,
+        "shares": 0,
         "costBasis": 45.54235294117647,
         "purchaseDate": "4/29/2026",
         "coveredCalls": [],
-        "shareSales": [],
-        "closed": false
+        "shareSales": [
+          {
+            "id": "sale_1777585538525",
+            "shares": 17,
+            "salePrice": 46.2,
+            "saleDate": "04/30/2026"
+          }
+        ],
+        "closed": true
       }
     ],
     "spouse": [
