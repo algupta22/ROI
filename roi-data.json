@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-04-30T00:11:39.292Z",
+  "savedAt": "2026-04-30T00:25:42.510Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -38229,8 +38229,8 @@
   "callLadders": {
     "self": [
       {
-        "id": "mokq8xefzudm",
-        "ticker": "AMZN",
+        "id": "mokqky6d28pf",
+        "ticker": "META",
         "contracts": 1,
         "longStrike": null,
         "longPremium": null,
@@ -38238,12 +38238,50 @@
         "openDate": "4/29/2026",
         "notes": "",
         "noLongCall": true,
+        "shortCalls": [],
+        "closed": true
+      },
+      {
+        "id": "mokqjkyfmay5",
+        "ticker": "META",
+        "contracts": 1,
+        "longStrike": 670,
+        "longPremium": 35.81,
+        "longExpiry": "5/29",
+        "openDate": "4/29/2026",
+        "notes": "",
+        "noLongCall": false,
+        "longCallClosed": false,
         "shortCalls": [
           {
-            "id": "mokq8xefmu61",
-            "strike": 270,
+            "id": "mokqky6dkvzv",
+            "strike": 680,
             "contracts": 1,
-            "received": 965,
+            "received": 3111,
+            "expiry": "5/29",
+            "openDate": "4/29/2026",
+            "closed": false
+          }
+        ],
+        "closed": false
+      },
+      {
+        "id": "mokqfhp4s06q",
+        "ticker": "GOOGL",
+        "contracts": 1,
+        "longStrike": 350,
+        "longPremium": 15.39,
+        "longExpiry": "5/29",
+        "openDate": "4/29/2026",
+        "notes": "",
+        "noLongCall": false,
+        "longCallClosed": false,
+        "shortCalls": [
+          {
+            "id": "mokqgo2ssd5p",
+            "strike": 350,
+            "contracts": 1,
+            "received": 1100,
             "expiry": "5/29",
             "openDate": "4/29/2026",
             "closed": false
@@ -38262,7 +38300,17 @@
         "notes": "",
         "noLongCall": false,
         "longCallClosed": false,
-        "shortCalls": [],
+        "shortCalls": [
+          {
+            "id": "mokq8xefmu61",
+            "strike": 270,
+            "contracts": 1,
+            "received": 965,
+            "expiry": "5/29",
+            "openDate": "4/29/2026",
+            "closed": false
+          }
+        ],
         "closed": false
       },
       {
@@ -40880,6 +40928,15 @@
             "saleDate": "04/28/2026"
           }
         ]
+      },
+      {
+        "id": "mokqnjjkmo7y",
+        "ticker": "FNGD",
+        "shares": 17,
+        "costBasis": 45.54,
+        "purchaseDate": "4/29",
+        "coveredCalls": [],
+        "closed": false
       }
     ],
     "spouse": [
