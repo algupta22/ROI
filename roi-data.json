@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-04-30T21:40:04.163Z",
+  "savedAt": "2026-04-30T21:43:04.351Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -34168,6 +34168,30 @@
   },
   "callLadders": {
     "self": [
+      {
+        "id": "mom0e83akpgn",
+        "ticker": "META",
+        "contracts": 1,
+        "longStrike": 615,
+        "longPremium": 25.4,
+        "longExpiry": "5/29",
+        "openDate": "4/30/2026",
+        "notes": "",
+        "noLongCall": false,
+        "longCallClosed": false,
+        "shortCalls": [
+          {
+            "id": "mom0f1j9xtj8",
+            "strike": 630,
+            "contracts": 1,
+            "received": 1850,
+            "expiry": "5/29",
+            "openDate": "4/30/2026",
+            "closed": false
+          }
+        ],
+        "closed": false
+      },
       {
         "id": "molyhwbd3i0u",
         "ticker": "AMDL",
