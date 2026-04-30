@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-04-30T00:29:30.435Z",
+  "savedAt": "2026-04-30T01:01:08.419Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -8676,6 +8676,31 @@
   "putLadders": {
     "self": [
       {
+        "id": "mokrogfhid6m",
+        "ticker": "SOFI",
+        "contracts": 4,
+        "longStrike": 18,
+        "longPremium": 2.68,
+        "longExpiry": "6/18",
+        "openDate": "4/29/2026",
+        "notes": "",
+        "position": null,
+        "noLongPut": false,
+        "longPutClosed": false,
+        "shortPuts": [
+          {
+            "id": "mokrqaeetgx3",
+            "strike": 18,
+            "contracts": 4,
+            "received": 876,
+            "expiry": "5/8",
+            "openDate": "4/29/2026",
+            "closed": false
+          }
+        ],
+        "closed": false
+      },
+      {
         "id": "mokpmvxrnpp3",
         "ticker": "PLTR",
         "contracts": 3,
@@ -10267,6 +10292,18 @@
             "closed": true,
             "closeReason": "sold",
             "posType": "STC"
+          },
+          {
+            "id": "mokrwzd7sx4c",
+            "strike": 18,
+            "contracts": 4,
+            "received": 228,
+            "expiry": "5/1",
+            "openDate": "4/17",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "4/29/2026",
+            "buybackCost": 848
           }
         ],
         "closed": true,
@@ -17504,20 +17541,6 @@
         "noLongPut": false,
         "shortPuts": [
           {
-            "id": "modx2clra2k8",
-            "strike": 16.5,
-            "contracts": 1,
-            "received": 24.94,
-            "btcDebit": 0,
-            "expiry": "5/1/2026",
-            "openDate": "4/24/2026",
-            "closed": true,
-            "closeReason": "buyback",
-            "posType": "SPUT",
-            "closeDate": "4/28/2026",
-            "buybackCost": 17
-          },
-          {
             "id": "modx2clrvap3",
             "strike": 17,
             "contracts": 1,
@@ -19134,9 +19157,9 @@
       {
         "id": "modx2clrk6c0",
         "ticker": "SOFI",
-        "contracts": 4,
+        "contracts": 1,
         "longStrike": 19,
-        "longPremium": 1.99,
+        "longPremium": 11.94,
         "longExpiry": "6/18/2026",
         "openDate": "4/20/2026",
         "notes": "",
@@ -19186,17 +19209,45 @@
             "buybackCost": 27
           },
           {
-            "id": "moj800wn8xvj",
-            "strike": 18,
-            "contracts": 2,
-            "received": 104,
-            "expiry": "5/1",
-            "openDate": "4/28/2026",
-            "closed": false
+            "id": "modx2clra2k8",
+            "strike": 16.5,
+            "contracts": 1,
+            "received": 24.94,
+            "btcDebit": 0,
+            "expiry": "5/1/2026",
+            "openDate": "4/24/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "posType": "SPUT",
+            "closeDate": "4/28/2026",
+            "buybackCost": 17
           }
         ],
-        "closed": false,
-        "marketValueOverride": 804
+        "closed": true,
+        "marketValueOverride": 804,
+        "longPartialCloses": [
+          {
+            "id": "mokr2552y54k",
+            "contracts": 1,
+            "amount": 345,
+            "closeDate": "4/29/2026"
+          },
+          {
+            "id": "mokr57jqzxu0",
+            "contracts": 1,
+            "amount": 345,
+            "closeDate": "4/29/2026"
+          },
+          {
+            "id": "mokrjtc0i0z1",
+            "contracts": 1,
+            "amount": 345,
+            "closeDate": "4/29/2026"
+          }
+        ],
+        "longCloseAmount": 345,
+        "longCloseDate": "4/29/2026",
+        "longPutClosed": true
       },
       {
         "id": "modx2clrbd2z",
