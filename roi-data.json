@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-04-29T23:40:03.660Z",
+  "savedAt": "2026-04-30T00:07:48.939Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -8676,6 +8676,21 @@
   "putLadders": {
     "self": [
       {
+        "id": "mokpmvxrnpp3",
+        "ticker": "PLTR",
+        "contracts": 3,
+        "longStrike": 135,
+        "longPremium": 10.5,
+        "longExpiry": "6/19",
+        "openDate": "4/29/2026",
+        "notes": "",
+        "position": null,
+        "noLongPut": false,
+        "longPutClosed": false,
+        "shortPuts": [],
+        "closed": false
+      },
+      {
         "id": "moiv7f3pkzbf",
         "ticker": "IBIT",
         "contracts": 1,
@@ -8736,10 +8751,12 @@
         "notes": "",
         "position": null,
         "noLongPut": false,
-        "longPutClosed": false,
+        "longPutClosed": true,
         "shortPuts": [],
-        "closed": false,
-        "marketValueOverride": 1288
+        "closed": true,
+        "marketValueOverride": 1288,
+        "longCloseAmount": 1611,
+        "longCloseDate": "4/29/2026"
       },
       {
         "id": "moh9q45uxfzd",
@@ -16802,6 +16819,18 @@
             "received": 18,
             "expiry": "4/29",
             "openDate": "4/28/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "4/29/2026",
+            "buybackCost": 7
+          },
+          {
+            "id": "mokq5y7etcsc",
+            "strike": 42.5,
+            "contracts": 1,
+            "received": 23,
+            "expiry": "5/1",
+            "openDate": "4/29/2026",
             "closed": false
           }
         ],
@@ -18504,7 +18533,10 @@
           }
         ],
         "closed": false,
-        "marketValueOverride": 2200
+        "marketValueOverride": 2200,
+        "longPutClosed": true,
+        "longCloseAmount": 2600,
+        "longCloseDate": "4/29/2026"
       },
       {
         "id": "modx2clriomz",
@@ -19703,9 +19735,11 @@
             "btcDebit": 0,
             "expiry": "5/1/2026",
             "openDate": "4/22/2026",
-            "closed": false,
-            "closeReason": null,
-            "posType": "SPUT"
+            "closed": true,
+            "closeReason": "buyback",
+            "posType": "SPUT",
+            "closeDate": "4/29/2026",
+            "buybackCost": 3
           }
         ],
         "closed": false
@@ -19729,6 +19763,15 @@
             "received": 31,
             "expiry": "5/8",
             "openDate": "4/27/2026",
+            "closed": false
+          },
+          {
+            "id": "mokpzwch37ra",
+            "strike": 5,
+            "contracts": 1,
+            "received": 19,
+            "expiry": "5/8",
+            "openDate": "4/29/2026",
             "closed": false
           }
         ],
@@ -38186,6 +38229,20 @@
   "callLadders": {
     "self": [
       {
+        "id": "mokq2krh01v3",
+        "ticker": "PTON",
+        "contracts": 1,
+        "longStrike": 6,
+        "longPremium": 1.37,
+        "longExpiry": "1/15/2027",
+        "openDate": "4/29/2026",
+        "notes": "",
+        "noLongCall": false,
+        "longCallClosed": false,
+        "shortCalls": [],
+        "closed": false
+      },
+      {
         "id": "moiuqeb6ccni",
         "ticker": "BBAI",
         "contracts": 4,
@@ -39689,8 +39746,11 @@
         "position": null,
         "noLongCall": false,
         "shortCalls": [],
-        "closed": false,
-        "marketValueOverride": 300
+        "closed": true,
+        "marketValueOverride": 300,
+        "longCallClosed": true,
+        "longCloseAmount": 163,
+        "longCloseDate": "4/29/2026"
       }
     ],
     "spouse": [
