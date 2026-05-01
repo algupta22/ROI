@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-04-30T22:37:42.577Z",
+  "savedAt": "2026-05-01T02:06:38.633Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -17776,21 +17776,7 @@
         "openDate": "4/28/2026",
         "notes": "",
         "noLongPut": false,
-        "shortPuts": [
-          {
-            "id": "molyhh1hales",
-            "strike": 4,
-            "contracts": 2,
-            "received": 47.9,
-            "expiry": "4/24/2026",
-            "openDate": "4/17/2026",
-            "closed": true,
-            "posType": "SPUT",
-            "closeReason": "expired",
-            "closeDate": "4/24/2026",
-            "buybackCost": 0
-          }
-        ],
+        "shortPuts": [],
         "closed": false
       },
       {
@@ -17805,17 +17791,34 @@
         "noLongPut": false,
         "shortPuts": [
           {
-            "id": "molyhh1htttt",
-            "strike": 4,
+            "id": "molyhh1hfdjf",
+            "strike": 3.5,
             "contracts": 1,
-            "received": 23.94,
-            "expiry": "4/24/2026",
-            "openDate": "4/17/2026",
-            "closed": true,
-            "posType": "SPUT",
-            "closeReason": "expired",
-            "closeDate": "4/24/2026",
-            "buybackCost": 0
+            "received": 13.94,
+            "expiry": "5/8/2026",
+            "openDate": "4/30/2026",
+            "closed": false,
+            "posType": "SPUT"
+          },
+          {
+            "id": "molyhh1h7jxo",
+            "strike": 3.5,
+            "contracts": 2,
+            "received": 27.9,
+            "expiry": "5/8/2026",
+            "openDate": "4/30/2026",
+            "closed": false,
+            "posType": "SPUT"
+          },
+          {
+            "id": "molyhh1h3x41",
+            "strike": 3.5,
+            "contracts": 1,
+            "received": 14.94,
+            "expiry": "5/8/2026",
+            "openDate": "4/30/2026",
+            "closed": false,
+            "posType": "SPUT"
           }
         ],
         "closed": false
@@ -18823,37 +18826,33 @@
             "buybackCost": 2.04
           },
           {
-            "id": "molyhh1hfdjf",
-            "strike": 3.5,
-            "contracts": 1,
-            "received": 13.94,
-            "expiry": "5/8/2026",
-            "openDate": "4/30/2026",
-            "closed": false,
-            "posType": "SPUT"
-          },
-          {
-            "id": "molyhh1h7jxo",
-            "strike": 3.5,
+            "id": "molyhh1hales",
+            "strike": 4,
             "contracts": 2,
-            "received": 27.9,
-            "expiry": "5/8/2026",
-            "openDate": "4/30/2026",
-            "closed": false,
-            "posType": "SPUT"
+            "received": 47.9,
+            "expiry": "4/24/2026",
+            "openDate": "4/17/2026",
+            "closed": true,
+            "posType": "SPUT",
+            "closeReason": "expired",
+            "closeDate": "4/24/2026",
+            "buybackCost": 0
           },
           {
-            "id": "molyhh1h3x41",
-            "strike": 3.5,
+            "id": "molyhh1htttt",
+            "strike": 4,
             "contracts": 1,
-            "received": 14.94,
-            "expiry": "5/8/2026",
-            "openDate": "4/30/2026",
-            "closed": false,
-            "posType": "SPUT"
+            "received": 23.94,
+            "expiry": "4/24/2026",
+            "openDate": "4/17/2026",
+            "closed": true,
+            "posType": "SPUT",
+            "closeReason": "expired",
+            "closeDate": "4/24/2026",
+            "buybackCost": 0
           }
         ],
-        "closed": false
+        "closed": true
       },
       {
         "id": "molyhh1h7g1k",
