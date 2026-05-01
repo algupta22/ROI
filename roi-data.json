@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-01T04:27:12.016Z",
+  "savedAt": "2026-05-01T04:46:33.895Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -38515,39 +38515,113 @@
   "shares": {
     "self": [
       {
-        "id": "momeozppoky0",
-        "ticker": "AMIT",
-        "shares": 0,
-        "costBasis": 10,
+        "id": "momf7yjf3yvt",
+        "ticker": "HIMZ",
+        "shares": 78,
+        "costBasis": 101.06,
+        "purchaseDate": "1/9/2026",
+        "coveredCalls": [],
+        "shareSales": [],
+        "closed": false
+      },
+      {
+        "id": "momf7yjfiaqg",
+        "ticker": "TSLL",
+        "shares": 2000,
+        "costBasis": 16.62,
+        "purchaseDate": "1/29/2026",
+        "coveredCalls": [],
+        "shareSales": [],
+        "closed": false
+      },
+      {
+        "id": "momf7yjeau3u",
+        "ticker": "LYFT",
+        "shares": 200,
+        "costBasis": 18.78,
+        "purchaseDate": "1/30/2026",
+        "coveredCalls": [],
+        "shareSales": [],
+        "closed": false
+      },
+      {
+        "id": "momf7yjeafhy",
+        "ticker": "SMCI",
+        "shares": 100,
+        "costBasis": 33.34,
+        "purchaseDate": "2/18/2026",
+        "coveredCalls": [],
+        "shareSales": [],
+        "closed": false
+      },
+      {
+        "id": "momf7yjetx1u",
+        "ticker": "SOFI",
+        "shares": 600,
+        "costBasis": 20.66,
+        "purchaseDate": "3/19/2026",
+        "coveredCalls": [],
+        "shareSales": [],
+        "closed": false
+      },
+      {
+        "id": "momf7yje7x5w",
+        "ticker": "TSLZ",
+        "shares": 93,
+        "costBasis": 18.13,
+        "purchaseDate": "3/23/2026",
+        "coveredCalls": [],
+        "shareSales": [],
+        "closed": false
+      },
+      {
+        "id": "momf7yjexray",
+        "ticker": "RGTI",
+        "shares": 100,
+        "costBasis": 20.27,
+        "purchaseDate": "3/30/2026",
+        "coveredCalls": [],
+        "shareSales": [],
+        "closed": false
+      },
+      {
+        "id": "momf7yjeqyvy",
+        "ticker": "TTD",
+        "shares": 500,
+        "costBasis": 42.47,
+        "purchaseDate": "4/6/2026",
+        "coveredCalls": [],
+        "shareSales": [],
+        "closed": false
+      },
+      {
+        "id": "momf7yjeomf3",
+        "ticker": "PLTZ",
+        "shares": 25,
+        "costBasis": 37.144,
+        "purchaseDate": "4/13/2026",
+        "coveredCalls": [],
+        "shareSales": [],
+        "closed": false
+      },
+      {
+        "id": "momf7yjd32wy",
+        "ticker": "PLTR",
+        "shares": 300,
+        "costBasis": 144.66666666666666,
         "purchaseDate": "4/24/2026",
         "coveredCalls": [],
-        "closed": true,
-        "shareSales": [
-          {
-            "id": "momepj15vp1q",
-            "shares": 5,
-            "salePrice": 20,
-            "saleDate": "5/1/2026"
-          },
-          {
-            "id": "mometgir8kzf",
-            "shares": 2,
-            "salePrice": 20,
-            "saleDate": "5/1/2026"
-          },
-          {
-            "id": "momeu9w2fbip",
-            "shares": 2,
-            "salePrice": 20,
-            "saleDate": "5/1/2026"
-          },
-          {
-            "id": "momeuw21vca8",
-            "shares": 1,
-            "salePrice": 100,
-            "saleDate": "5/1/2026"
-          }
-        ]
+        "shareSales": [],
+        "closed": false
+      },
+      {
+        "id": "momfkedvh7xh",
+        "ticker": "METD",
+        "shares": 30,
+        "costBasis": 16.42,
+        "purchaseDate": "3/30",
+        "coveredCalls": [],
+        "closed": false
       }
     ],
     "spouse": [
