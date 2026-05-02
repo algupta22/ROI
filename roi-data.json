@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-02T15:18:32.198Z",
+  "savedAt": "2026-05-02T15:40:48.179Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -9769,7 +9769,226 @@
         "marketValueOverride": null
       }
     ],
-    "joint": [],
+    "joint": [
+      {
+        "id": "mooibzvf18jv",
+        "ticker": "TSLL",
+        "contracts": 1,
+        "longStrike": 12,
+        "longPremium": 1.23,
+        "longExpiry": "6/5",
+        "openDate": "5/2/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "mooicu0jtd2x",
+            "strike": 11.5,
+            "contracts": 1,
+            "received": 25,
+            "expiry": "5/8",
+            "openDate": "5/2/2026",
+            "closed": false
+          }
+        ],
+        "closed": false
+      },
+      {
+        "id": "mooi66igkt8r",
+        "ticker": "PATH",
+        "contracts": 1,
+        "longStrike": 10,
+        "longPremium": 1.13,
+        "longExpiry": "5/29",
+        "openDate": "5/2/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "moohwd02xg6o",
+            "strike": 10,
+            "contracts": 1,
+            "received": 23.94,
+            "expiry": "5/8/2026",
+            "openDate": "4/28/2026",
+            "closed": false,
+            "posType": "SPUT"
+          }
+        ],
+        "closed": false
+      },
+      {
+        "id": "mooi0eu8d1p3",
+        "ticker": "NKE",
+        "contracts": 1,
+        "longStrike": 44,
+        "longPremium": 2.12,
+        "longExpiry": "5/8",
+        "openDate": "5/2/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "mooi3r6ewwpk",
+            "strike": 43.5,
+            "contracts": 1,
+            "received": 22,
+            "expiry": "5/8",
+            "openDate": "5/2/2026",
+            "closed": false
+          }
+        ],
+        "closed": false
+      },
+      {
+        "id": "moohzbbyss07",
+        "ticker": "NKE",
+        "contracts": 1,
+        "longStrike": 42.5,
+        "longPremium": 1.67,
+        "longExpiry": "5/15",
+        "openDate": "5/2/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "mooi38rl5953",
+            "strike": 43.5,
+            "contracts": 1,
+            "received": 22,
+            "expiry": "5/8",
+            "openDate": "5/8",
+            "closed": false
+          }
+        ],
+        "closed": false,
+        "position": null,
+        "marketValueOverride": null
+      },
+      {
+        "id": "moohwd02qa1x",
+        "ticker": "PATH",
+        "contracts": 1,
+        "longStrike": 11,
+        "longPremium": 1.5104,
+        "longExpiry": "6/18/2026",
+        "openDate": "4/28/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "moohwd02waez",
+            "strike": 10.5,
+            "contracts": 1,
+            "received": 28.94,
+            "expiry": "5/8/2026",
+            "openDate": "5/1/2026",
+            "closed": false,
+            "posType": "SPUT"
+          }
+        ],
+        "closed": false
+      },
+      {
+        "id": "moohwd022et5",
+        "ticker": "NKE",
+        "contracts": 1,
+        "longStrike": 45,
+        "longPremium": 2.3804,
+        "longExpiry": "6/18/2026",
+        "openDate": "4/28/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "mooi3l13tsol",
+            "strike": 43.5,
+            "contracts": 1,
+            "received": 22,
+            "expiry": "5/8",
+            "openDate": "5/2/2026",
+            "closed": false
+          }
+        ],
+        "closed": false
+      },
+      {
+        "id": "moohwd02fvxk",
+        "ticker": "TSLL",
+        "contracts": 2,
+        "longStrike": 10.5,
+        "longPremium": 1.46,
+        "longExpiry": "5/29",
+        "openDate": "5/2/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "moohwd02v0mf",
+            "strike": 11.5,
+            "contracts": 2,
+            "received": 49,
+            "expiry": "5/8/2026",
+            "openDate": "4/30/2026",
+            "closed": false,
+            "posType": "SPUT"
+          }
+        ],
+        "closed": false,
+        "position": null,
+        "marketValueOverride": null
+      },
+      {
+        "id": "moohwd023rzg",
+        "ticker": "SOFI",
+        "contracts": 3,
+        "longStrike": 16,
+        "longPremium": 1.0104,
+        "longExpiry": "6/18/2026",
+        "openDate": "5/1/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "moohwd02wy5e",
+            "strike": 16,
+            "contracts": 3,
+            "received": 84,
+            "expiry": "5/8/2026",
+            "openDate": "5/1/2026",
+            "closed": false,
+            "posType": "SPUT"
+          }
+        ],
+        "closed": false,
+        "position": null,
+        "marketValueOverride": null
+      },
+      {
+        "id": "moohwd02t2nu",
+        "ticker": "CDE",
+        "contracts": 1,
+        "longStrike": 17.5,
+        "longPremium": 1.6203999999999998,
+        "longExpiry": "6/18/2026",
+        "openDate": "5/1/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "moohwd02sg58",
+            "strike": 17,
+            "contracts": 1,
+            "received": 46.94,
+            "expiry": "5/8/2026",
+            "openDate": "5/1/2026",
+            "closed": false,
+            "posType": "SPUT"
+          }
+        ],
+        "closed": false
+      }
+    ],
     "self_roth": [
       {
         "id": "molypfyvqf28",
