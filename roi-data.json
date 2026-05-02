@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-02T14:39:12.527Z",
+  "savedAt": "2026-05-02T14:49:07.958Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -9341,26 +9341,62 @@
     ],
     "spouse": [
       {
-        "id": "moofx2mr3gkv",
-        "ticker": "TSLL",
-        "contracts": 1,
-        "longStrike": 12,
-        "longPremium": 1.4804,
-        "longExpiry": "6/18/2026",
-        "openDate": "4/29/2026",
+        "id": "moogdhm8n7st",
+        "ticker": "SOFI",
+        "contracts": 3,
+        "longStrike": 18,
+        "longPremium": 1.41,
+        "longExpiry": "6/5",
+        "openDate": "5/2/2026",
         "notes": "",
         "noLongPut": false,
-        "shortPuts": [],
+        "shortPuts": [
+          {
+            "id": "moofx2mrlizh",
+            "strike": 18,
+            "contracts": 3,
+            "received": 675,
+            "expiry": "5/8/2026",
+            "openDate": "4/29/2026",
+            "closed": false,
+            "posType": "SPUT"
+          }
+        ],
         "closed": false
       },
       {
-        "id": "moofx2mrh63p",
-        "ticker": "TSLL",
+        "id": "moog9bfcssy0",
+        "ticker": "PLTR",
         "contracts": 1,
+        "longStrike": 140,
+        "longPremium": 18.5,
+        "longExpiry": "5/22",
+        "openDate": "5/2/2026",
+        "notes": "",
+        "position": null,
+        "noLongPut": false,
+        "longPutClosed": false,
+        "shortPuts": [
+          {
+            "id": "moogb8r3vyym",
+            "strike": 140,
+            "contracts": 1,
+            "received": 293.94763,
+            "expiry": "5/15",
+            "openDate": "5/2/2026",
+            "closed": false
+          }
+        ],
+        "closed": false
+      },
+      {
+        "id": "moofx2mr3gkv",
+        "ticker": "TSLL",
+        "contracts": 2,
         "longStrike": 12,
-        "longPremium": 1.2904,
+        "longPremium": 1.39,
         "longExpiry": "6/18/2026",
-        "openDate": "4/30/2026",
+        "openDate": "4/29/2026",
         "notes": "",
         "noLongPut": false,
         "shortPuts": [
@@ -9373,21 +9409,7 @@
             "openDate": "4/30/2026",
             "closed": false,
             "posType": "SPUT"
-          }
-        ],
-        "closed": false
-      },
-      {
-        "id": "moofx2mrmyy1",
-        "ticker": "TSLL",
-        "contracts": 1,
-        "longStrike": null,
-        "longPremium": null,
-        "longExpiry": null,
-        "openDate": "4/30/2026",
-        "notes": "",
-        "noLongPut": true,
-        "shortPuts": [
+          },
           {
             "id": "moofx2mr8unc",
             "strike": 11.5,
@@ -9399,7 +9421,9 @@
             "posType": "SPUT"
           }
         ],
-        "closed": false
+        "closed": false,
+        "position": null,
+        "marketValueOverride": null
       },
       {
         "id": "moofx2mrfan2",
@@ -9407,89 +9431,6 @@
         "contracts": 1,
         "longStrike": 16,
         "longPremium": 1.0404,
-        "longExpiry": "6/18/2026",
-        "openDate": "5/1/2026",
-        "notes": "",
-        "noLongPut": false,
-        "shortPuts": [
-          {
-            "id": "moofx2mrlizh",
-            "strike": 18,
-            "contracts": 1,
-            "received": 224.94,
-            "expiry": "5/8/2026",
-            "openDate": "4/29/2026",
-            "closed": false,
-            "posType": "SPUT"
-          },
-          {
-            "id": "moofx2mrkk9b",
-            "strike": 18,
-            "contracts": 1,
-            "received": 221.94,
-            "expiry": "5/8/2026",
-            "openDate": "4/29/2026",
-            "closed": false,
-            "posType": "SPUT"
-          },
-          {
-            "id": "moofx2mr5wdu",
-            "strike": 18,
-            "contracts": 1,
-            "received": 222.94,
-            "expiry": "5/8/2026",
-            "openDate": "4/29/2026",
-            "closed": false,
-            "posType": "SPUT"
-          },
-          {
-            "id": "moofx2mry3ah",
-            "strike": 18,
-            "contracts": 1,
-            "received": 64.94,
-            "expiry": "5/1/2026",
-            "openDate": "4/28/2026",
-            "closed": true,
-            "posType": "SPUT",
-            "closeReason": "expired",
-            "closeDate": "5/1/2026",
-            "buybackCost": 0
-          },
-          {
-            "id": "moofx2mrl35g",
-            "strike": 18,
-            "contracts": 1,
-            "received": 56.94,
-            "expiry": "5/1/2026",
-            "openDate": "4/28/2026",
-            "closed": true,
-            "posType": "SPUT",
-            "closeReason": "expired",
-            "closeDate": "5/1/2026",
-            "buybackCost": 0
-          },
-          {
-            "id": "moofx2mr7g14",
-            "strike": 18,
-            "contracts": 1,
-            "received": 56.94,
-            "expiry": "5/1/2026",
-            "openDate": "4/28/2026",
-            "closed": true,
-            "posType": "SPUT",
-            "closeReason": "expired",
-            "closeDate": "5/1/2026",
-            "buybackCost": 0
-          }
-        ],
-        "closed": false
-      },
-      {
-        "id": "moofx2mrjda3",
-        "ticker": "SOFI",
-        "contracts": 1,
-        "longStrike": 15,
-        "longPremium": 0.6103999999999999,
         "longExpiry": "6/18/2026",
         "openDate": "5/1/2026",
         "notes": "",
@@ -9509,15 +9450,15 @@
         "closed": false
       },
       {
-        "id": "moofx2mrhw56",
+        "id": "moofx2mrjda3",
         "ticker": "SOFI",
         "contracts": 1,
-        "longStrike": null,
-        "longPremium": null,
-        "longExpiry": null,
+        "longStrike": 15,
+        "longPremium": 0.6103999999999999,
+        "longExpiry": "6/18/2026",
         "openDate": "5/1/2026",
         "notes": "",
-        "noLongPut": true,
+        "noLongPut": false,
         "shortPuts": [
           {
             "id": "moofx2mrybpb",
@@ -9535,13 +9476,13 @@
       {
         "id": "moofx2mrp6es",
         "ticker": "PLTR",
-        "contracts": 1,
-        "longStrike": null,
-        "longPremium": null,
-        "longExpiry": null,
-        "openDate": "5/1/2026",
+        "contracts": 2,
+        "longStrike": 135,
+        "longPremium": 8.5,
+        "longExpiry": "6/18",
+        "openDate": "5/2/2026",
         "notes": "",
-        "noLongPut": true,
+        "noLongPut": false,
         "shortPuts": [
           {
             "id": "moofx2mre6ks",
@@ -9554,7 +9495,9 @@
             "posType": "SPUT"
           }
         ],
-        "closed": false
+        "closed": false,
+        "position": null,
+        "marketValueOverride": null
       },
       {
         "id": "moofx2mrtu0q",
@@ -9678,27 +9621,13 @@
         "id": "moofx2mravxz",
         "ticker": "INTC",
         "contracts": 1,
-        "longStrike": null,
-        "longPremium": null,
-        "longExpiry": null,
-        "openDate": "4/27/2026",
+        "longStrike": 67.5,
+        "longPremium": 5.5,
+        "longExpiry": "5/15",
+        "openDate": "5/2/2026",
         "notes": "",
-        "noLongPut": true,
-        "shortPuts": [
-          {
-            "id": "moofx2mr1lct",
-            "strike": 68,
-            "contracts": 1,
-            "received": 14.94,
-            "expiry": "5/1/2026",
-            "openDate": "4/27/2026",
-            "closed": true,
-            "posType": "SPUT",
-            "closeReason": "expired",
-            "closeDate": "5/1/2026",
-            "buybackCost": 0
-          }
-        ],
+        "noLongPut": false,
+        "shortPuts": [],
         "closed": true
       },
       {
