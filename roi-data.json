@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-02T14:00:21.574Z",
+  "savedAt": "2026-05-02T14:05:51.560Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -8812,6 +8812,67 @@
   "putLadders": {
     "self": [
       {
+        "id": "mooeyzrwhsde",
+        "ticker": "USAR",
+        "contracts": 1,
+        "longStrike": 21.5,
+        "longPremium": 1.65,
+        "longExpiry": "5/8",
+        "openDate": "5/2/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "moodpbp7hbw2",
+            "strike": 22.5,
+            "contracts": 1,
+            "received": 25.94,
+            "expiry": "5/8/2026",
+            "openDate": "5/1/2026",
+            "closed": false,
+            "posType": "SPUT"
+          }
+        ],
+        "closed": false
+      },
+      {
+        "id": "mooevovagx5z",
+        "ticker": "TTD",
+        "contracts": 1,
+        "longStrike": 22.5,
+        "longPremium": 2.8,
+        "longExpiry": "5/15",
+        "openDate": "5/2/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [],
+        "closed": false
+      },
+      {
+        "id": "mooeuu9ph2wc",
+        "ticker": "TTD",
+        "contracts": 1,
+        "longStrike": 21,
+        "longPremium": 2.73,
+        "longExpiry": "5/22",
+        "openDate": "5/2/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "moodpbp7yobc",
+            "strike": 21,
+            "contracts": 1,
+            "received": 79.94,
+            "expiry": "5/8/2026",
+            "openDate": "4/30/2026",
+            "closed": false,
+            "posType": "SPUT"
+          }
+        ],
+        "closed": false
+      },
+      {
         "id": "mooejiz90qow",
         "ticker": "PTON",
         "contracts": 1,
@@ -9124,37 +9185,13 @@
         "id": "moodpbp7kpmc",
         "ticker": "TTD",
         "contracts": 1,
-        "longStrike": null,
-        "longPremium": null,
-        "longExpiry": null,
-        "openDate": "4/30/2026",
+        "longStrike": 24,
+        "longPremium": 2.8,
+        "longExpiry": "5/29",
+        "openDate": "5/2/2026",
         "notes": "",
-        "noLongPut": true,
-        "shortPuts": [
-          {
-            "id": "moodpbp7yobc",
-            "strike": 21,
-            "contracts": 1,
-            "received": 79.94,
-            "expiry": "5/8/2026",
-            "openDate": "4/30/2026",
-            "closed": false,
-            "posType": "SPUT"
-          },
-          {
-            "id": "moodpbp7604z",
-            "strike": 22,
-            "contracts": 1,
-            "received": 0,
-            "btcDebit": 4.04,
-            "expiry": "5/1/2026",
-            "openDate": "4/30/2026",
-            "closed": true,
-            "closeReason": "buyback",
-            "closeDate": "4/30/2026",
-            "posType": "SPUT"
-          }
-        ],
+        "noLongPut": false,
+        "shortPuts": [],
         "closed": false
       },
       {
@@ -9284,24 +9321,13 @@
         "id": "moodpbp7fm75",
         "ticker": "USAR",
         "contracts": 1,
-        "longStrike": null,
-        "longPremium": null,
-        "longExpiry": null,
-        "openDate": "5/1/2026",
+        "longStrike": 22,
+        "longPremium": 3.05,
+        "longExpiry": "5/29",
+        "openDate": "5/2/2026",
         "notes": "",
-        "noLongPut": true,
-        "shortPuts": [
-          {
-            "id": "moodpbp7hbw2",
-            "strike": 22.5,
-            "contracts": 1,
-            "received": 25.94,
-            "expiry": "5/8/2026",
-            "openDate": "5/1/2026",
-            "closed": false,
-            "posType": "SPUT"
-          }
-        ],
+        "noLongPut": false,
+        "shortPuts": [],
         "closed": false
       }
     ],
