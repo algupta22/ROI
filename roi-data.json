@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-02T20:35:26.980Z",
+  "savedAt": "2026-05-02T20:40:42.582Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -11057,7 +11057,36 @@
         "closed": true
       }
     ],
-    "spouse_roth": [],
+    "spouse_roth": [
+      {
+        "id": "moot168ua99d",
+        "ticker": "BBAI",
+        "contracts": 4,
+        "longStrike": 2.5,
+        "longPremium": 1.97,
+        "longExpiry": "1/15/27",
+        "openDate": "5/2/2026",
+        "notes": "",
+        "noLongCall": false,
+        "longCallClosed": false,
+        "shortCalls": [],
+        "closed": false
+      },
+      {
+        "id": "mooszdwn9cxg",
+        "ticker": "PATH",
+        "contracts": 1,
+        "longStrike": 20,
+        "longPremium": 4.65,
+        "longExpiry": "1/15/27",
+        "openDate": "5/2/2026",
+        "notes": "",
+        "noLongCall": false,
+        "longCallClosed": false,
+        "shortCalls": [],
+        "closed": false
+      }
+    ],
     "spouse_ira": [
       {
         "id": "molyrsiezaa0",
