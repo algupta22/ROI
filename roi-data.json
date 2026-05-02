@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-02T20:02:15.484Z",
+  "savedAt": "2026-05-02T20:06:36.652Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -10260,7 +10260,7 @@
       {
         "id": "moork0s20cn1",
         "ticker": "BBAI",
-        "contracts": 1,
+        "contracts": 4,
         "longStrike": 2.5,
         "longPremium": 1.9804,
         "longExpiry": "1/15/2027",
@@ -10273,22 +10273,9 @@
       {
         "id": "moork0s2dro8",
         "ticker": "BBAI",
-        "contracts": 2,
-        "longStrike": 2.5,
-        "longPremium": 1.9804,
-        "longExpiry": "1/15/2027",
-        "openDate": "4/28/2026",
-        "notes": "",
-        "noLongCall": false,
-        "shortCalls": [],
-        "closed": false
-      },
-      {
-        "id": "moork0s247lf",
-        "ticker": "BBAI",
         "contracts": 1,
-        "longStrike": 2.5,
-        "longPremium": 1.9804,
+        "longStrike": 3.5,
+        "longPremium": 3.05,
         "longExpiry": "1/15/2027",
         "openDate": "4/28/2026",
         "notes": "",
