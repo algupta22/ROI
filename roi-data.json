@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-02T03:38:53.291Z",
+  "savedAt": "2026-05-02T03:49:12.839Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -38669,8 +38669,8 @@
       {
         "id": "momgabh34atx",
         "ticker": "SPXS",
-        "shares": 24,
-        "costBasis": 35.77333333333334,
+        "shares": 20,
+        "costBasis": 39.68,
         "purchaseDate": "2/18/2026",
         "coveredCalls": [],
         "shareSales": [],
@@ -38679,8 +38679,8 @@
       {
         "id": "momgabh3hpyq",
         "ticker": "PATH",
-        "shares": 400,
-        "costBasis": 15.25,
+        "shares": 100,
+        "costBasis": 12.8,
         "purchaseDate": "2/18/2026",
         "coveredCalls": [],
         "shareSales": [],
@@ -38689,106 +38689,18 @@
       {
         "id": "momgabh3idey",
         "ticker": "SOFI",
-        "shares": 400,
-        "costBasis": 24.1875,
+        "shares": 300,
+        "costBasis": 17,
         "purchaseDate": "2/19/2026",
         "coveredCalls": [],
-        "shareSales": [
-          {
-            "id": "momgabh3d8ba",
-            "shares": 100,
-            "salePrice": 22.58,
-            "saleDate": "2/2/2026"
-          },
-          {
-            "id": "momgabh37gjz",
-            "shares": 100,
-            "salePrice": 22.27,
-            "saleDate": "2/2/2026"
-          }
-        ],
+        "shareSales": [],
         "closed": false
-      },
-      {
-        "id": "momgabh3z4jy",
-        "ticker": "SOFI",
-        "shares": -100,
-        "costBasis": 23,
-        "purchaseDate": "3/4/2026",
-        "coveredCalls": [],
-        "shareSales": [
-          {
-            "id": "momgabh3n8s9",
-            "shares": 200,
-            "salePrice": 18.1,
-            "saleDate": "2/23/2026"
-          }
-        ],
-        "closed": true
-      },
-      {
-        "id": "momgabh3dquu",
-        "ticker": "SOFI",
-        "shares": 0,
-        "costBasis": 22,
-        "purchaseDate": "3/5/2026",
-        "coveredCalls": [],
-        "shareSales": [
-          {
-            "id": "momgabh3yh2z",
-            "shares": 50,
-            "salePrice": 18.98,
-            "saleDate": "3/5/2026"
-          },
-          {
-            "id": "momgabh3jhia",
-            "shares": 25,
-            "salePrice": 18.75,
-            "saleDate": "3/5/2026"
-          },
-          {
-            "id": "momgabh37kq5",
-            "shares": 21,
-            "salePrice": 18.75,
-            "saleDate": "3/5/2026"
-          },
-          {
-            "id": "momgabh357ed",
-            "shares": 4,
-            "salePrice": 18.75,
-            "saleDate": "3/5/2026"
-          }
-        ],
-        "closed": true
-      },
-      {
-        "id": "momgabh3vnxp",
-        "ticker": "SOFI",
-        "shares": 0,
-        "costBasis": 21,
-        "purchaseDate": "3/26/2026",
-        "coveredCalls": [],
-        "shareSales": [
-          {
-            "id": "momgabh3jqdm",
-            "shares": 50,
-            "salePrice": 19.12,
-            "saleDate": "3/6/2026"
-          },
-          {
-            "id": "momgabh3j881",
-            "shares": 50,
-            "salePrice": 19.25,
-            "saleDate": "3/6/2026"
-          }
-        ],
-        "closed": true
       },
       {
         "id": "momgabh3epjy",
         "ticker": "NKE",
         "shares": 100,
-        "costBasis": 53,
+        "costBasis": 48.15,
         "purchaseDate": "3/27/2026",
         "coveredCalls": [],
         "shareSales": [],
@@ -38797,44 +38709,20 @@
       {
         "id": "momgabh3snvw",
         "ticker": "SMST",
-        "shares": 30,
-        "costBasis": 64.45666666666666,
+        "shares": 20,
+        "costBasis": 66.66,
         "purchaseDate": "3/30/2026",
         "coveredCalls": [],
         "shareSales": [],
         "closed": false
       },
       {
-        "id": "momgabh2zvr8",
-        "ticker": "NKE",
-        "shares": 0,
-        "costBasis": 49.5,
-        "purchaseDate": "4/1/2026",
+        "id": "monswba6q2ej",
+        "ticker": "SQQQ",
+        "shares": 40,
+        "costBasis": 81.2,
+        "purchaseDate": "",
         "coveredCalls": [],
-        "shareSales": [
-          {
-            "id": "momgabh3i9wr",
-            "shares": 50,
-            "salePrice": 51.66,
-            "saleDate": "3/30/2026"
-          },
-          {
-            "id": "momgabh33m3k",
-            "shares": 50,
-            "salePrice": 51.65,
-            "saleDate": "3/30/2026"
-          }
-        ],
-        "closed": true
-      },
-      {
-        "id": "momgabh2nwr0",
-        "ticker": "TSLL",
-        "shares": 1000,
-        "costBasis": 16.65,
-        "purchaseDate": "4/17/2026",
-        "coveredCalls": [],
-        "shareSales": [],
         "closed": false
       }
     ],
