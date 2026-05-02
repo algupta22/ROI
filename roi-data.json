@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-01T04:48:08.011Z",
+  "savedAt": "2026-05-02T02:41:54.361Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -38513,233 +38513,30 @@
     ]
   },
   "shares": {
-    "self": [
+    "self": [],
+    "spouse": [
       {
-        "id": "momf7yjf3yvt",
-        "ticker": "HIMZ",
-        "shares": 78,
-        "costBasis": 101.06,
-        "purchaseDate": "1/9/2026",
-        "coveredCalls": [],
-        "shareSales": [],
-        "closed": false
-      },
-      {
-        "id": "momf7yjfiaqg",
-        "ticker": "TSLL",
-        "shares": 2000,
-        "costBasis": 16.62,
-        "purchaseDate": "1/29/2026",
-        "coveredCalls": [],
-        "shareSales": [],
-        "closed": false
-      },
-      {
-        "id": "momf7yjeau3u",
-        "ticker": "LYFT",
-        "shares": 200,
-        "costBasis": 18.78,
-        "purchaseDate": "1/30/2026",
-        "coveredCalls": [],
-        "shareSales": [],
-        "closed": false
-      },
-      {
-        "id": "momf7yjeafhy",
-        "ticker": "SMCI",
-        "shares": 100,
-        "costBasis": 33.34,
-        "purchaseDate": "2/18/2026",
-        "coveredCalls": [],
-        "shareSales": [],
-        "closed": false
-      },
-      {
-        "id": "momf7yjetx1u",
-        "ticker": "SOFI",
-        "shares": 600,
-        "costBasis": 20.66,
-        "purchaseDate": "3/19/2026",
-        "coveredCalls": [],
-        "shareSales": [],
-        "closed": false
-      },
-      {
-        "id": "momf7yje7x5w",
-        "ticker": "TSLZ",
-        "shares": 93,
-        "costBasis": 18.13,
-        "purchaseDate": "3/23/2026",
-        "coveredCalls": [],
-        "shareSales": [],
-        "closed": false
-      },
-      {
-        "id": "momf7yjexray",
-        "ticker": "RGTI",
-        "shares": 100,
-        "costBasis": 20.27,
-        "purchaseDate": "3/30/2026",
-        "coveredCalls": [],
-        "shareSales": [],
-        "closed": false
-      },
-      {
-        "id": "momf7yjeqyvy",
-        "ticker": "TTD",
-        "shares": 500,
-        "costBasis": 42.47,
-        "purchaseDate": "4/6/2026",
-        "coveredCalls": [],
-        "shareSales": [],
-        "closed": false
-      },
-      {
-        "id": "momf7yjeomf3",
-        "ticker": "PLTZ",
-        "shares": 25,
-        "costBasis": 37.144,
-        "purchaseDate": "4/13/2026",
-        "coveredCalls": [],
-        "shareSales": [],
-        "closed": false
-      },
-      {
-        "id": "momf7yjd32wy",
-        "ticker": "PLTR",
-        "shares": 300,
-        "costBasis": 144.66666666666666,
-        "purchaseDate": "4/24/2026",
-        "coveredCalls": [],
-        "shareSales": [],
-        "closed": false
-      },
-      {
-        "id": "momfkedvh7xh",
-        "ticker": "METD",
-        "shares": 30,
-        "costBasis": 16.42,
+        "id": "momfowbmaz9y",
+        "ticker": "NVTS",
+        "shares": 80,
+        "costBasis": 9.15,
         "purchaseDate": "3/30",
         "coveredCalls": [],
         "closed": false
-      }
-    ],
-    "spouse": [
+      },
       {
-        "id": "molyiveryb09",
-        "ticker": "ROBN",
+        "id": "momfpb3ef1gs",
+        "ticker": "METU",
         "shares": 100,
-        "costBasis": 74,
-        "purchaseDate": "1/16/2026",
+        "costBasis": 39.1,
+        "purchaseDate": "4/1",
         "coveredCalls": [],
-        "shareSales": [],
         "closed": false
-      },
-      {
-        "id": "molyiveru88y",
-        "ticker": "SOFI",
-        "shares": 400,
-        "costBasis": 24,
-        "purchaseDate": "2/20/2026",
-        "coveredCalls": [],
-        "shareSales": [],
-        "closed": false
-      },
-      {
-        "id": "molyiver6p9o",
-        "ticker": "PLTR",
-        "shares": 100,
-        "costBasis": 140,
-        "purchaseDate": "2/20/2026",
-        "coveredCalls": [],
-        "shareSales": [],
-        "closed": false
-      },
-      {
-        "id": "molyiver6pvt",
-        "ticker": "HOOZ",
-        "shares": 15,
-        "costBasis": 37.10666666666666,
-        "purchaseDate": "3/2/2026",
-        "coveredCalls": [],
-        "shareSales": [],
-        "closed": false
-      },
-      {
-        "id": "molyiverr9og",
-        "ticker": "SOFI",
-        "shares": -50,
-        "costBasis": 18,
-        "purchaseDate": "3/13/2026",
-        "coveredCalls": [],
-        "shareSales": [
-          {
-            "id": "molyiverqj4e",
-            "shares": 150,
-            "salePrice": 18,
-            "saleDate": "2/23/2026"
-          }
-        ],
-        "closed": true
-      },
-      {
-        "id": "molyiver8uhg",
-        "ticker": "QQQ",
-        "shares": 100,
-        "costBasis": 610,
-        "purchaseDate": "3/26/2026",
-        "coveredCalls": [],
-        "shareSales": [],
-        "closed": false
-      },
-      {
-        "id": "molyiverrk3m",
-        "ticker": "TSLZ",
-        "shares": 45,
-        "costBasis": 16.456666666666667,
-        "purchaseDate": "4/6/2026",
-        "coveredCalls": [],
-        "shareSales": [],
-        "closed": false
-      },
-      {
-        "id": "molyiverxoah",
-        "ticker": "TSLL",
-        "shares": 0,
-        "costBasis": 12.5,
-        "purchaseDate": "4/24/2026",
-        "coveredCalls": [],
-        "shareSales": [
-          {
-            "id": "sale_1777586979515",
-            "shares": 100,
-            "salePrice": 12.35,
-            "saleDate": "04/30/2026"
-          }
-        ],
-        "closed": true
-      },
-      {
-        "id": "molyivern2io",
-        "ticker": "SOFI",
-        "shares": 0,
-        "costBasis": 18.5,
-        "purchaseDate": "4/24/2026",
-        "coveredCalls": [],
-        "shareSales": [
-          {
-            "id": "molyiveruahv",
-            "shares": 100,
-            "salePrice": 17.68,
-            "saleDate": "3/16/2026"
-          }
-        ],
-        "closed": true
       }
     ],
     "joint": [
       {
-        "id": "moly4j0l4ouj",
+        "id": "momgabh3flat",
         "ticker": "OKLS",
         "shares": 25,
         "costBasis": 19.43,
@@ -38749,7 +38546,7 @@
         "closed": false
       },
       {
-        "id": "moly4j0lyq9w",
+        "id": "momgabh3ak3t",
         "ticker": "MSTU",
         "shares": 100,
         "costBasis": 9,
@@ -38759,17 +38556,7 @@
         "closed": false
       },
       {
-        "id": "moly4j0l2xh1",
-        "ticker": "BULL",
-        "shares": 100,
-        "costBasis": 8,
-        "purchaseDate": "1/23/2026",
-        "coveredCalls": [],
-        "shareSales": [],
-        "closed": false
-      },
-      {
-        "id": "moly4j0lhznx",
+        "id": "momgabh37fzr",
         "ticker": "MSTX",
         "shares": 300,
         "costBasis": 4.333333333333333,
@@ -38779,7 +38566,7 @@
         "closed": false
       },
       {
-        "id": "moly4j0lpfcr",
+        "id": "momgabh3b3hq",
         "ticker": "TAIL",
         "shares": 50,
         "costBasis": 11.63,
@@ -38789,7 +38576,7 @@
         "closed": false
       },
       {
-        "id": "moly4j0lnu1k",
+        "id": "momgabh34atx",
         "ticker": "SPXS",
         "shares": 24,
         "costBasis": 35.77333333333334,
@@ -38799,7 +38586,7 @@
         "closed": false
       },
       {
-        "id": "moly4j0ln5rk",
+        "id": "momgabh3hpyq",
         "ticker": "PATH",
         "shares": 400,
         "costBasis": 15.25,
@@ -38809,7 +38596,7 @@
         "closed": false
       },
       {
-        "id": "moly4j0l3pl0",
+        "id": "momgabh3idey",
         "ticker": "SOFI",
         "shares": 400,
         "costBasis": 24.1875,
@@ -38817,13 +38604,13 @@
         "coveredCalls": [],
         "shareSales": [
           {
-            "id": "moly4j0l9gnm",
+            "id": "momgabh3d8ba",
             "shares": 100,
             "salePrice": 22.58,
             "saleDate": "2/2/2026"
           },
           {
-            "id": "moly4j0lve9u",
+            "id": "momgabh37gjz",
             "shares": 100,
             "salePrice": 22.27,
             "saleDate": "2/2/2026"
@@ -38832,7 +38619,7 @@
         "closed": false
       },
       {
-        "id": "moly4j0lumwv",
+        "id": "momgabh344xn",
         "ticker": "TSLQ",
         "shares": 45,
         "costBasis": 21.439999999999998,
@@ -38842,7 +38629,7 @@
         "closed": false
       },
       {
-        "id": "moly4j0lsxf2",
+        "id": "momgabh3qx1a",
         "ticker": "MSTZ",
         "shares": 100,
         "costBasis": 13.655,
@@ -38852,7 +38639,7 @@
         "closed": false
       },
       {
-        "id": "moly4j0l9an3",
+        "id": "momgabh3z4jy",
         "ticker": "SOFI",
         "shares": -100,
         "costBasis": 23,
@@ -38860,7 +38647,7 @@
         "coveredCalls": [],
         "shareSales": [
           {
-            "id": "moly4j0lya3y",
+            "id": "momgabh3n8s9",
             "shares": 200,
             "salePrice": 18.1,
             "saleDate": "2/23/2026"
@@ -38869,7 +38656,7 @@
         "closed": true
       },
       {
-        "id": "moly4j0lrzwb",
+        "id": "momgabh3gnp9",
         "ticker": "TLT",
         "shares": 100,
         "costBasis": 90,
@@ -38879,7 +38666,7 @@
         "closed": false
       },
       {
-        "id": "moly4j0lopo1",
+        "id": "momgabh3dquu",
         "ticker": "SOFI",
         "shares": 0,
         "costBasis": 22,
@@ -38887,25 +38674,25 @@
         "coveredCalls": [],
         "shareSales": [
           {
-            "id": "moly4j0lw64y",
+            "id": "momgabh3yh2z",
             "shares": 50,
             "salePrice": 18.98,
             "saleDate": "3/5/2026"
           },
           {
-            "id": "moly4j0llecd",
+            "id": "momgabh3jhia",
             "shares": 25,
             "salePrice": 18.75,
             "saleDate": "3/5/2026"
           },
           {
-            "id": "moly4j0lgqm8",
+            "id": "momgabh37kq5",
             "shares": 21,
             "salePrice": 18.75,
             "saleDate": "3/5/2026"
           },
           {
-            "id": "moly4j0lq68t",
+            "id": "momgabh357ed",
             "shares": 4,
             "salePrice": 18.75,
             "saleDate": "3/5/2026"
@@ -38914,7 +38701,7 @@
         "closed": true
       },
       {
-        "id": "moly4j0lbh48",
+        "id": "momgabh3z9re",
         "ticker": "TLT",
         "shares": 0,
         "costBasis": 90.5,
@@ -38922,7 +38709,7 @@
         "coveredCalls": [],
         "shareSales": [
           {
-            "id": "moly4j0l7vd1",
+            "id": "momgabh3iijd",
             "shares": 100,
             "salePrice": 88.9,
             "saleDate": "3/10/2026"
@@ -38931,17 +38718,7 @@
         "closed": true
       },
       {
-        "id": "moly4j0lyko8",
-        "ticker": "KO",
-        "shares": 100,
-        "costBasis": 78,
-        "purchaseDate": "3/13/2026",
-        "coveredCalls": [],
-        "shareSales": [],
-        "closed": false
-      },
-      {
-        "id": "moly4j0l01xb",
+        "id": "momgabh38hco",
         "ticker": "SLV",
         "shares": 100,
         "costBasis": 63.5,
@@ -38951,7 +38728,7 @@
         "closed": false
       },
       {
-        "id": "moly4j0lblx8",
+        "id": "momgabh3vnxp",
         "ticker": "SOFI",
         "shares": 0,
         "costBasis": 21,
@@ -38959,13 +38736,13 @@
         "coveredCalls": [],
         "shareSales": [
           {
-            "id": "moly4j0lz52y",
+            "id": "momgabh3jqdm",
             "shares": 50,
             "salePrice": 19.12,
             "saleDate": "3/6/2026"
           },
           {
-            "id": "moly4j0l1mzq",
+            "id": "momgabh3j881",
             "shares": 50,
             "salePrice": 19.25,
             "saleDate": "3/6/2026"
@@ -38974,7 +38751,7 @@
         "closed": true
       },
       {
-        "id": "moly4j0lsoey",
+        "id": "momgabh3epjy",
         "ticker": "NKE",
         "shares": 100,
         "costBasis": 53,
@@ -38984,7 +38761,7 @@
         "closed": false
       },
       {
-        "id": "moly4j0lyctj",
+        "id": "momgabh3snvw",
         "ticker": "SMST",
         "shares": 30,
         "costBasis": 64.45666666666666,
@@ -38994,7 +38771,7 @@
         "closed": false
       },
       {
-        "id": "moly4j0kbhz1",
+        "id": "momgabh3muae",
         "ticker": "SQQQ",
         "shares": 40,
         "costBasis": 77.41193124999998,
@@ -39002,13 +38779,13 @@
         "coveredCalls": [],
         "shareSales": [
           {
-            "id": "moly4j0logri",
+            "id": "momgabh3tqbp",
             "shares": 16,
             "salePrice": 76.82,
             "saleDate": "3/19/2026"
           },
           {
-            "id": "moly4j0lzoky",
+            "id": "momgabh3u935",
             "shares": 6,
             "salePrice": 72.15,
             "saleDate": "2/19/2026"
@@ -39017,7 +38794,7 @@
         "closed": false
       },
       {
-        "id": "moly4j0k3u0g",
+        "id": "momgabh2zvr8",
         "ticker": "NKE",
         "shares": 0,
         "costBasis": 49.5,
@@ -39025,13 +38802,13 @@
         "coveredCalls": [],
         "shareSales": [
           {
-            "id": "moly4j0lffpl",
+            "id": "momgabh3i9wr",
             "shares": 50,
             "salePrice": 51.66,
             "saleDate": "3/30/2026"
           },
           {
-            "id": "moly4j0l2010",
+            "id": "momgabh33m3k",
             "shares": 50,
             "salePrice": 51.65,
             "saleDate": "3/30/2026"
@@ -39040,38 +38817,11 @@
         "closed": true
       },
       {
-        "id": "moly4j0kukx4",
-        "ticker": "TSLZ",
-        "shares": 68,
-        "costBasis": 14.901587370242215,
-        "purchaseDate": "4/10/2026",
-        "coveredCalls": [],
-        "shareSales": [
-          {
-            "id": "moly4j0l54hg",
-            "shares": 50,
-            "salePrice": 14.34,
-            "saleDate": "3/13/2026"
-          }
-        ],
-        "closed": false
-      },
-      {
-        "id": "moly4j0kbny4",
+        "id": "momgabh2nwr0",
         "ticker": "TSLL",
         "shares": 1000,
         "costBasis": 16.65,
         "purchaseDate": "4/17/2026",
-        "coveredCalls": [],
-        "shareSales": [],
-        "closed": false
-      },
-      {
-        "id": "moly4j0k82n0",
-        "ticker": "CDE",
-        "shares": 100,
-        "costBasis": 20.5,
-        "purchaseDate": "4/23/2026",
         "coveredCalls": [],
         "shareSales": [],
         "closed": false
