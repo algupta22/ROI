@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-02T14:52:09.760Z",
+  "savedAt": "2026-05-02T14:55:17.490Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -9341,6 +9341,21 @@
     ],
     "spouse": [
       {
+        "id": "moogpxkwdn0j",
+        "ticker": "NVDX",
+        "contracts": 1,
+        "longStrike": 15,
+        "longPremium": 1.95,
+        "longExpiry": "5/15",
+        "openDate": "5/2/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [],
+        "closed": false,
+        "position": null,
+        "marketValueOverride": null
+      },
+      {
         "id": "moogdhm8n7st",
         "ticker": "SOFI",
         "contracts": 3,
@@ -9543,27 +9558,13 @@
         "id": "moofx2mrt1je",
         "ticker": "NVDX",
         "contracts": 1,
-        "longStrike": null,
-        "longPremium": null,
-        "longExpiry": null,
-        "openDate": "4/27/2026",
+        "longStrike": 17.43,
+        "longPremium": 2,
+        "longExpiry": "6/18",
+        "openDate": "5/2/2026",
         "notes": "",
-        "noLongPut": true,
-        "shortPuts": [
-          {
-            "id": "moofx2mrj3bn",
-            "strike": 17.5,
-            "contracts": 1,
-            "received": 14.94,
-            "expiry": "5/1/2026",
-            "openDate": "4/27/2026",
-            "closed": true,
-            "posType": "SPUT",
-            "closeReason": "expired",
-            "closeDate": "5/1/2026",
-            "buybackCost": 0
-          }
-        ],
+        "noLongPut": false,
+        "shortPuts": [],
         "closed": true
       },
       {
@@ -9573,11 +9574,13 @@
         "longStrike": 375,
         "longPremium": 18.37,
         "longExpiry": "5/15",
-        "openDate": "5/2/2026",
+        "openDate": "5/1",
         "notes": "",
         "noLongPut": false,
         "shortPuts": [],
-        "closed": true
+        "closed": true,
+        "position": null,
+        "marketValueOverride": null
       },
       {
         "id": "moofx2mrqtyx",
