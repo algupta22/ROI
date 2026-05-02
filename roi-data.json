@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-02T14:49:07.958Z",
+  "savedAt": "2026-05-02T14:52:09.760Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -9570,27 +9570,13 @@
         "id": "moofx2mr62j9",
         "ticker": "MSFT",
         "contracts": 1,
-        "longStrike": null,
-        "longPremium": null,
-        "longExpiry": null,
-        "openDate": "4/27/2026",
+        "longStrike": 375,
+        "longPremium": 18.37,
+        "longExpiry": "5/15",
+        "openDate": "5/2/2026",
         "notes": "",
-        "noLongPut": true,
-        "shortPuts": [
-          {
-            "id": "moofx2mr4wk5",
-            "strike": 375,
-            "contracts": 1,
-            "received": 106.94,
-            "expiry": "5/1/2026",
-            "openDate": "4/27/2026",
-            "closed": true,
-            "posType": "SPUT",
-            "closeReason": "expired",
-            "closeDate": "5/1/2026",
-            "buybackCost": 0
-          }
-        ],
+        "noLongPut": false,
+        "shortPuts": [],
         "closed": true
       },
       {
