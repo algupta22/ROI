@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-02T13:37:27.464Z",
+  "savedAt": "2026-05-02T13:42:18.460Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -8812,6 +8812,32 @@
   "putLadders": {
     "self": [
       {
+        "id": "mooe3ne10387",
+        "ticker": "HIMS",
+        "contracts": 1,
+        "longStrike": 20,
+        "longPremium": 2.79,
+        "longExpiry": "5/15",
+        "openDate": "5/2/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [],
+        "closed": false
+      },
+      {
+        "id": "mooe2i4fh0tv",
+        "ticker": "HIMS",
+        "contracts": 1,
+        "longStrike": 19.5,
+        "longPremium": 3.6,
+        "longExpiry": "5/29",
+        "openDate": "5/2/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [],
+        "closed": false
+      },
+      {
         "id": "moodye1kh9w8",
         "ticker": "BBAI",
         "contracts": 1,
@@ -9298,36 +9324,20 @@
         "noLongPut": false,
         "shortPuts": [
           {
-            "id": "moodpbp7gexa",
-            "strike": 24.5,
+            "id": "moodpbp7ndoi",
+            "strike": 26.5,
             "contracts": 1,
-            "received": 9.94,
-            "expiry": "5/1/2026",
-            "openDate": "4/27/2026",
-            "closed": true,
-            "posType": "SPUT",
-            "closeReason": "expired",
-            "closeDate": "5/1/2026",
-            "buybackCost": 0
-          },
-          {
-            "id": "moodpbp7z4pr",
-            "strike": 26,
-            "contracts": 1,
-            "received": 14.94,
-            "expiry": "5/1/2026",
-            "openDate": "4/27/2026",
-            "closed": true,
-            "posType": "SPUT",
-            "closeReason": "expired",
-            "closeDate": "5/1/2026",
-            "buybackCost": 0
+            "received": 78.94,
+            "expiry": "5/8/2026",
+            "openDate": "5/1/2026",
+            "closed": false,
+            "posType": "SPUT"
           }
         ],
-        "closed": true,
-        "longPutClosed": true,
-        "longCloseAmount": 591.93,
-        "longCloseDate": "4/30/2026"
+        "closed": false,
+        "longPutClosed": false,
+        "longCloseAmount": 0,
+        "longCloseDate": null
       },
       {
         "id": "moodpbp7eont",
@@ -9710,56 +9720,6 @@
         "longPutClosed": true,
         "longCloseAmount": 268.94,
         "longCloseDate": "5/1/2026"
-      },
-      {
-        "id": "moodpbp7h2lb",
-        "ticker": "HIMS",
-        "contracts": 1,
-        "longStrike": null,
-        "longPremium": null,
-        "longExpiry": null,
-        "openDate": "5/1/2026",
-        "notes": "",
-        "noLongPut": true,
-        "shortPuts": [
-          {
-            "id": "moodpbp7ecso",
-            "strike": 26,
-            "contracts": 1,
-            "received": 0,
-            "btcDebit": 1.04,
-            "expiry": "5/1/2026",
-            "openDate": "5/1/2026",
-            "closed": true,
-            "closeReason": "buyback",
-            "closeDate": "5/1/2026",
-            "posType": "SPUT"
-          },
-          {
-            "id": "moodpbp7ndoi",
-            "strike": 26.5,
-            "contracts": 1,
-            "received": 78.94,
-            "expiry": "5/8/2026",
-            "openDate": "5/1/2026",
-            "closed": false,
-            "posType": "SPUT"
-          },
-          {
-            "id": "moodpbp7r4fm",
-            "strike": 24,
-            "contracts": 1,
-            "received": 0,
-            "btcDebit": 4.04,
-            "expiry": "5/1/2026",
-            "openDate": "4/30/2026",
-            "closed": true,
-            "closeReason": "buyback",
-            "closeDate": "4/30/2026",
-            "posType": "SPUT"
-          }
-        ],
-        "closed": false
       },
       {
         "id": "moodpbp7fm75",
