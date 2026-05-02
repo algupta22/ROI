@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-02T04:14:57.574Z",
+  "savedAt": "2026-05-02T04:26:27.238Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -31014,7 +31014,7 @@
         "id": "monr2dom5foo",
         "ticker": "SOFI",
         "shares": 800,
-        "costBasis": 20,
+        "costBasis": 19.66,
         "purchaseDate": "3/19/2026",
         "coveredCalls": [],
         "shareSales": [],
@@ -31034,7 +31034,7 @@
         "id": "monr2domlr87",
         "ticker": "RGTI",
         "shares": 200,
-        "costBasis": 30,
+        "costBasis": 18.24,
         "purchaseDate": "3/30/2026",
         "coveredCalls": [],
         "shareSales": [],
