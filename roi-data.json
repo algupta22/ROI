@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-02T03:20:17.403Z",
+  "savedAt": "2026-05-02T03:30:07.540Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -5817,7 +5817,7 @@
     }
   ],
   "tickerPrices": {
-    "GOOGL": 349.94,
+    "GOOGL": 385.69,
     "PLTR": 137.97,
     "IBIT": 43.56,
     "TSLZ": 15.12,
@@ -5826,7 +5826,7 @@
     "TSLL": 12.19,
     "ROBN": 16.96,
     "NVTS": 15.48,
-    "BBAI": 3.82,
+    "BBAI": 4.14,
     "HIMS": 29.39,
     "HOOD": 83.95,
     "MSFT": 424.46,
@@ -5857,7 +5857,9 @@
     "ONDS": 9.49,
     "NFLX": 92.355,
     "PLTZ": 30.58,
-    "FNGD": 44.15
+    "FNGD": 44.15,
+    "METD": 16.45,
+    "RGTZ": 13.63
   },
   "earningsDates": {
     "TSLL": {
