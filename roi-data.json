@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-02T03:03:16.619Z",
+  "savedAt": "2026-05-02T03:20:17.403Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -38525,27 +38525,10 @@
         "closed": false
       },
       {
-        "id": "monr2don3rcl",
-        "ticker": "NVTS",
-        "shares": 0,
-        "costBasis": 7,
-        "purchaseDate": "1/16/2026",
-        "coveredCalls": [],
-        "shareSales": [
-          {
-            "id": "monr2don9021",
-            "shares": 200,
-            "salePrice": 9,
-            "saleDate": "1/9/2026"
-          }
-        ],
-        "closed": true
-      },
-      {
         "id": "monr2donbvfb",
         "ticker": "TSLL",
-        "shares": 100,
-        "costBasis": 19.5,
+        "shares": 2000,
+        "costBasis": 16.62,
         "purchaseDate": "1/29/2026",
         "coveredCalls": [],
         "shareSales": [],
@@ -38564,115 +38547,48 @@
       {
         "id": "monr2domdx77",
         "ticker": "NVDX",
-        "shares": 0,
-        "costBasis": 18.93,
+        "shares": 100,
+        "costBasis": 18,
         "purchaseDate": "1/30/2026",
         "coveredCalls": [],
-        "shareSales": [
-          {
-            "id": "monr2don1fyw",
-            "shares": 100,
-            "salePrice": 15.65,
-            "saleDate": "1/20/2026"
-          }
-        ],
-        "closed": true
+        "shareSales": [],
+        "closed": false
       },
       {
         "id": "monr2domzk0a",
         "ticker": "SMCI",
         "shares": 100,
-        "costBasis": 41,
+        "costBasis": 33.34,
         "purchaseDate": "2/18/2026",
         "coveredCalls": [],
         "shareSales": [],
         "closed": false
       },
       {
-        "id": "monr2domwyjf",
-        "ticker": "NVDX",
-        "shares": 0,
-        "costBasis": 15,
-        "purchaseDate": "2/27/2026",
-        "coveredCalls": [],
-        "shareSales": [
-          {
-            "id": "monr2dom2n88",
-            "shares": 100,
-            "salePrice": 17.38,
-            "saleDate": "2/2/2026"
-          }
-        ],
-        "closed": true
-      },
-      {
         "id": "monr2dom5foo",
         "ticker": "SOFI",
-        "shares": 0,
-        "costBasis": 23,
+        "shares": 800,
+        "costBasis": 20,
         "purchaseDate": "3/19/2026",
         "coveredCalls": [],
-        "shareSales": [
-          {
-            "id": "monr2dom16xt",
-            "shares": 100,
-            "salePrice": 22.55,
-            "saleDate": "1/30/2026"
-          }
-        ],
-        "closed": true
+        "shareSales": [],
+        "closed": false
       },
       {
         "id": "monr2domeukz",
         "ticker": "TSLZ",
-        "shares": 55,
-        "costBasis": 15.357024793388431,
+        "shares": 93,
+        "costBasis": 18.13,
         "purchaseDate": "3/23/2026",
         "coveredCalls": [],
-        "shareSales": [
-          {
-            "id": "monr2domxnr8",
-            "shares": 30,
-            "salePrice": 15.34,
-            "saleDate": "3/19/2026"
-          }
-        ],
+        "shareSales": [],
         "closed": false
-      },
-      {
-        "id": "monr2domi95g",
-        "ticker": "NVTS",
-        "shares": 0,
-        "costBasis": 8.833333333333334,
-        "purchaseDate": "3/27/2026",
-        "coveredCalls": [],
-        "shareSales": [
-          {
-            "id": "monr2domre6z",
-            "shares": 100,
-            "salePrice": 9.1,
-            "saleDate": "3/19/2026"
-          },
-          {
-            "id": "monr2domelno",
-            "shares": 100,
-            "salePrice": 8.5,
-            "saleDate": "1/30/2026"
-          },
-          {
-            "id": "monr2donben1",
-            "shares": 100,
-            "salePrice": 9.04,
-            "saleDate": "1/29/2026"
-          }
-        ],
-        "closed": true
       },
       {
         "id": "monr2domlr87",
         "ticker": "RGTI",
-        "shares": 100,
-        "costBasis": 31,
+        "shares": 200,
+        "costBasis": 30,
         "purchaseDate": "3/30/2026",
         "coveredCalls": [],
         "shareSales": [],
@@ -38681,8 +38597,8 @@
       {
         "id": "monr2domzrpc",
         "ticker": "TTD",
-        "shares": 200,
-        "costBasis": 27,
+        "shares": 500,
+        "costBasis": 42.47,
         "purchaseDate": "4/6/2026",
         "coveredCalls": [],
         "shareSales": [],
@@ -38699,30 +38615,31 @@
         "closed": false
       },
       {
-        "id": "monr2domkcnq",
-        "ticker": "TSLZ",
-        "shares": -30,
-        "costBasis": 18.078000000000003,
-        "purchaseDate": "4/13/2026",
-        "coveredCalls": [],
-        "shareSales": [
-          {
-            "id": "monr2domq3bx",
-            "shares": 55,
-            "salePrice": 17.69,
-            "saleDate": "3/30/2026"
-          }
-        ],
-        "closed": true
-      },
-      {
         "id": "monr2dom5c14",
         "ticker": "PLTR",
-        "shares": 300,
-        "costBasis": 144.66666666666666,
+        "shares": 100,
+        "costBasis": 131.8,
         "purchaseDate": "4/24/2026",
         "coveredCalls": [],
         "shareSales": [],
+        "closed": false
+      },
+      {
+        "id": "monrf3xwun95",
+        "ticker": "METD",
+        "shares": 30,
+        "costBasis": 16.42,
+        "purchaseDate": "5/01/2026",
+        "coveredCalls": [],
+        "closed": false
+      },
+      {
+        "id": "monrgrh2d4py",
+        "ticker": "RGTZ",
+        "shares": 10,
+        "costBasis": 13.59,
+        "purchaseDate": "5/01/2026",
+        "coveredCalls": [],
         "closed": false
       }
     ],
