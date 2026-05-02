@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-02T14:09:21.581Z",
+  "savedAt": "2026-05-02T14:17:36.963Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -8812,6 +8812,54 @@
   "putLadders": {
     "self": [
       {
+        "id": "moofcuspvemq",
+        "ticker": "TSLL",
+        "contracts": 1,
+        "longStrike": 5,
+        "longPremium": 0.15,
+        "longExpiry": "6/18",
+        "openDate": "5/2/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "moofelksu18s",
+            "strike": 16,
+            "contracts": 1,
+            "received": 294,
+            "expiry": "6/18",
+            "openDate": "5/2/2026",
+            "closed": false
+          }
+        ],
+        "closed": false
+      },
+      {
+        "id": "moofbecskfr0",
+        "ticker": "TSLL",
+        "contracts": 1,
+        "longStrike": 20,
+        "longPremium": 7.32,
+        "longExpiry": "6/18",
+        "openDate": "5/2/2026",
+        "notes": "",
+        "position": null,
+        "noLongPut": false,
+        "longPutClosed": false,
+        "shortPuts": [
+          {
+            "id": "moofdt42wtmf",
+            "strike": 19,
+            "contracts": 1,
+            "received": 465,
+            "expiry": "6/18",
+            "openDate": "5/2/2026",
+            "closed": false
+          }
+        ],
+        "closed": false
+      },
+      {
         "id": "mooeyzrwhsde",
         "ticker": "USAR",
         "contracts": 1,
@@ -9175,7 +9223,7 @@
             "closed": false
           }
         ],
-        "closed": true
+        "closed": false
       },
       {
         "id": "moodpbp7no7c",
