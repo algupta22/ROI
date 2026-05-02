@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-02T14:58:20.951Z",
+  "savedAt": "2026-05-02T15:10:02.703Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -9341,6 +9341,107 @@
     ],
     "spouse": [
       {
+        "id": "mooh8qn1y50s",
+        "ticker": "ROBN",
+        "contracts": 1,
+        "longStrike": 9,
+        "longPremium": 0.42,
+        "longExpiry": "6/18",
+        "openDate": "5/2/2026",
+        "notes": "",
+        "position": null,
+        "noLongPut": false,
+        "longPutClosed": false,
+        "shortPuts": [
+          {
+            "id": "mooha2xn4wgg",
+            "strike": 50,
+            "contracts": 1,
+            "received": 9.93,
+            "expiry": "6/18",
+            "openDate": "5/2/2026",
+            "closed": false
+          }
+        ],
+        "closed": false
+      },
+      {
+        "id": "mooh50x3j0z9",
+        "ticker": "METU",
+        "contracts": 1,
+        "longStrike": 22,
+        "longPremium": 3.3,
+        "longExpiry": "5/15",
+        "openDate": "5/2/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "mooh5v30w9z8",
+            "strike": 30,
+            "contracts": 1,
+            "received": 5.8,
+            "expiry": "5/15",
+            "openDate": "5/2/2026",
+            "closed": false
+          }
+        ],
+        "closed": false
+      },
+      {
+        "id": "mooh498xa4c4",
+        "ticker": "METU",
+        "contracts": 1,
+        "longStrike": 25,
+        "longPremium": 3.5,
+        "longExpiry": "5/15",
+        "openDate": "5/2/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [],
+        "closed": false
+      },
+      {
+        "id": "mooh2v8ymufi",
+        "ticker": "METU",
+        "contracts": 2,
+        "longStrike": 17,
+        "longPremium": 0.18,
+        "longExpiry": "5/15",
+        "openDate": "5/2/2026",
+        "notes": "",
+        "position": null,
+        "noLongPut": false,
+        "longPutClosed": false,
+        "shortPuts": [
+          {
+            "id": "mooh6w3k7l23",
+            "strike": 35,
+            "contracts": 2,
+            "received": 1434,
+            "expiry": "5/15",
+            "openDate": "5/2/2026",
+            "closed": false
+          }
+        ],
+        "closed": false
+      },
+      {
+        "id": "moogzql9hjj5",
+        "ticker": "NVTS",
+        "contracts": 2,
+        "longStrike": 14,
+        "longPremium": 2.95,
+        "longExpiry": "6/18",
+        "openDate": "5/2/2026",
+        "notes": "",
+        "position": null,
+        "noLongPut": false,
+        "longPutClosed": false,
+        "shortPuts": [],
+        "closed": false
+      },
+      {
         "id": "moogpxkwdn0j",
         "ticker": "NVDX",
         "contracts": 1,
@@ -9515,46 +9616,6 @@
         "marketValueOverride": null
       },
       {
-        "id": "moofx2mrtu0q",
-        "ticker": "NVTS",
-        "contracts": 1,
-        "longStrike": null,
-        "longPremium": null,
-        "longExpiry": null,
-        "openDate": "4/27/2026",
-        "notes": "",
-        "noLongPut": true,
-        "shortPuts": [
-          {
-            "id": "moofx2mrvvif",
-            "strike": 14,
-            "contracts": 1,
-            "received": 17.94,
-            "expiry": "5/1/2026",
-            "openDate": "4/27/2026",
-            "closed": true,
-            "posType": "SPUT",
-            "closeReason": "expired",
-            "closeDate": "5/1/2026",
-            "buybackCost": 0
-          },
-          {
-            "id": "moofx2mrh88p",
-            "strike": 14,
-            "contracts": 1,
-            "received": 15.94,
-            "expiry": "5/1/2026",
-            "openDate": "4/27/2026",
-            "closed": true,
-            "posType": "SPUT",
-            "closeReason": "expired",
-            "closeDate": "5/1/2026",
-            "buybackCost": 0
-          }
-        ],
-        "closed": true
-      },
-      {
         "id": "moofx2mrt1je",
         "ticker": "NVDX",
         "contracts": 1,
@@ -9565,7 +9626,7 @@
         "notes": "",
         "noLongPut": false,
         "shortPuts": [],
-        "closed": true
+        "closed": false
       },
       {
         "id": "moofx2mr62j9",
@@ -9578,7 +9639,7 @@
         "notes": "",
         "noLongPut": false,
         "shortPuts": [],
-        "closed": true,
+        "closed": false,
         "position": null,
         "marketValueOverride": null
       },
@@ -9617,7 +9678,7 @@
         "notes": "",
         "noLongPut": false,
         "shortPuts": [],
-        "closed": true
+        "closed": false
       },
       {
         "id": "moofx2mr71zw",
