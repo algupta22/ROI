@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-02T14:05:51.560Z",
+  "savedAt": "2026-05-02T14:09:21.581Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -9078,57 +9078,17 @@
         "id": "moodpbp7osay",
         "ticker": "IBIT",
         "contracts": 1,
-        "longStrike": null,
-        "longPremium": null,
-        "longExpiry": null,
-        "openDate": "4/29/2026",
+        "longStrike": 39,
+        "longPremium": 2.82,
+        "longExpiry": "5/15",
+        "openDate": "5/2/2026",
         "notes": "",
-        "noLongPut": true,
-        "shortPuts": [
-          {
-            "id": "moodpbp7j9ig",
-            "strike": 42.5,
-            "contracts": 1,
-            "received": 0,
-            "btcDebit": 7.04,
-            "expiry": "4/29/2026",
-            "openDate": "4/29/2026",
-            "closed": true,
-            "closeReason": "buyback",
-            "closeDate": "4/29/2026",
-            "posType": "SPUT"
-          },
-          {
-            "id": "moodpbp7obh8",
-            "strike": 42,
-            "contracts": 1,
-            "received": 22.94,
-            "expiry": "5/1/2026",
-            "openDate": "4/29/2026",
-            "closed": true,
-            "posType": "SPUT",
-            "closeReason": "expired",
-            "closeDate": "5/1/2026",
-            "buybackCost": 0
-          },
-          {
-            "id": "moodpbp7hca5",
-            "strike": 42.5,
-            "contracts": 1,
-            "received": 17.94,
-            "expiry": "4/29/2026",
-            "openDate": "4/28/2026",
-            "closed": true,
-            "posType": "SPUT",
-            "closeReason": "expired",
-            "closeDate": "4/29/2026",
-            "buybackCost": 0
-          }
-        ],
-        "closed": true,
-        "longPutClosed": true,
-        "longCloseAmount": 6.94,
-        "longCloseDate": "4/28/2026"
+        "noLongPut": false,
+        "shortPuts": [],
+        "closed": false,
+        "longPutClosed": false,
+        "longCloseAmount": 0,
+        "longCloseDate": null
       },
       {
         "id": "moodpbp7rkaj",
@@ -9198,25 +9158,21 @@
         "id": "moodpbp79x7g",
         "ticker": "PATH",
         "contracts": 1,
-        "longStrike": null,
-        "longPremium": null,
-        "longExpiry": null,
-        "openDate": "4/30/2026",
+        "longStrike": 10,
+        "longPremium": 1.2,
+        "longExpiry": "5/29",
+        "openDate": "5/2/2026",
         "notes": "",
-        "noLongPut": true,
+        "noLongPut": false,
         "shortPuts": [
           {
-            "id": "moodpbp73w7z",
+            "id": "moof3dw11m65",
             "strike": 10,
             "contracts": 1,
             "received": 23.94,
-            "expiry": "5/8/2026",
-            "openDate": "4/30/2026",
-            "closed": true,
-            "posType": "SPUT",
-            "closeReason": "buyback",
-            "closeDate": "4/30/2026",
-            "buybackCost": 6.04
+            "expiry": "5/8",
+            "openDate": "5/2/2026",
+            "closed": false
           }
         ],
         "closed": true
@@ -9233,36 +9189,6 @@
         "noLongPut": false,
         "shortPuts": [],
         "closed": false
-      },
-      {
-        "id": "moodpbp73huo",
-        "ticker": "SPY",
-        "contracts": 1,
-        "longStrike": 520,
-        "longPremium": 0,
-        "longExpiry": "5/29/2026",
-        "openDate": "4/30/2026",
-        "notes": "STC imported",
-        "noLongPut": false,
-        "longPutClosed": true,
-        "longCloseAmount": 14.94,
-        "longCloseDate": "4/30/2026",
-        "shortPuts": [
-          {
-            "id": "moodpbp7f23g",
-            "strike": 626,
-            "contracts": 1,
-            "received": 0,
-            "btcDebit": 82.04,
-            "expiry": "5/29/2026",
-            "openDate": "4/30/2026",
-            "closed": true,
-            "closeReason": "buyback",
-            "closeDate": "4/30/2026",
-            "posType": "SPUT"
-          }
-        ],
-        "closed": true
       },
       {
         "id": "moodpbp7hp64",
