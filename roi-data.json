@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-02T13:42:18.460Z",
+  "savedAt": "2026-05-02T13:47:22.952Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -9343,12 +9343,12 @@
         "id": "moodpbp7eont",
         "ticker": "LYFT",
         "contracts": 1,
-        "longStrike": null,
-        "longPremium": null,
-        "longExpiry": null,
-        "openDate": "4/30/2026",
+        "longStrike": 14,
+        "longPremium": 1.47,
+        "longExpiry": "6/18",
+        "openDate": "5/2/2026",
         "notes": "",
-        "noLongPut": true,
+        "noLongPut": false,
         "shortPuts": [
           {
             "id": "moodpbp7ig6t",
@@ -9358,19 +9358,6 @@
             "expiry": "5/8/2026",
             "openDate": "4/30/2026",
             "closed": false,
-            "posType": "SPUT"
-          },
-          {
-            "id": "moodpbp7696v",
-            "strike": 13.5,
-            "contracts": 1,
-            "received": 0,
-            "btcDebit": 3.04,
-            "expiry": "5/1/2026",
-            "openDate": "4/30/2026",
-            "closed": true,
-            "closeReason": "buyback",
-            "closeDate": "4/30/2026",
             "posType": "SPUT"
           }
         ],
@@ -9543,67 +9530,11 @@
         "closed": true
       },
       {
-        "id": "moodpbp78ozz",
-        "ticker": "NVDX",
-        "contracts": 1,
-        "longStrike": 17.43,
-        "longPremium": 0,
-        "longExpiry": "6/18/2026",
-        "openDate": "5/1/2026",
-        "notes": "STC imported",
-        "noLongPut": false,
-        "longPutClosed": true,
-        "longCloseAmount": 199.94,
-        "longCloseDate": "5/1/2026",
-        "shortPuts": [
-          {
-            "id": "moodpbp7aaut",
-            "strike": 16.5,
-            "contracts": 1,
-            "received": 26.94,
-            "expiry": "5/8/2026",
-            "openDate": "4/30/2026",
-            "closed": true,
-            "posType": "SPUT",
-            "closeReason": "buyback",
-            "closeDate": "4/28/2026",
-            "buybackCost": 5.04
-          },
-          {
-            "id": "moodpbp76erb",
-            "strike": 18,
-            "contracts": 1,
-            "received": 9.94,
-            "expiry": "5/1/2026",
-            "openDate": "4/28/2026",
-            "closed": true,
-            "posType": "SPUT",
-            "closeReason": "expired",
-            "closeDate": "5/1/2026",
-            "buybackCost": 0
-          },
-          {
-            "id": "moodpbp772fj",
-            "strike": 16,
-            "contracts": 1,
-            "received": 0,
-            "btcDebit": 5.04,
-            "expiry": "5/1/2026",
-            "openDate": "4/28/2026",
-            "closed": true,
-            "closeReason": "buyback",
-            "closeDate": "4/28/2026",
-            "posType": "SPUT"
-          }
-        ],
-        "closed": true
-      },
-      {
         "id": "moodpbp7hp64",
         "ticker": "NVDX",
-        "contracts": 1,
+        "contracts": 3,
         "longStrike": 15.43,
-        "longPremium": 1.2104000000000001,
+        "longPremium": 2.46,
         "longExpiry": "6/18/2026",
         "openDate": "5/1/2026",
         "notes": "",
@@ -9612,8 +9543,8 @@
           {
             "id": "moodpbp7ahp3",
             "strike": 16.5,
-            "contracts": 1,
-            "received": 19.94,
+            "contracts": 3,
+            "received": 60,
             "expiry": "5/8/2026",
             "openDate": "4/30/2026",
             "closed": false,
@@ -9621,36 +9552,11 @@
           }
         ],
         "closed": false,
-        "longPutClosed": true,
-        "longCloseAmount": 0.94,
-        "longCloseDate": "5/1/2026"
-      },
-      {
-        "id": "moodpbp7vd6h",
-        "ticker": "NVDX",
-        "contracts": 1,
-        "longStrike": null,
-        "longPremium": null,
-        "longExpiry": null,
-        "openDate": "5/1/2026",
-        "notes": "",
-        "noLongPut": true,
-        "shortPuts": [
-          {
-            "id": "moodpbp7m7hi",
-            "strike": 16.5,
-            "contracts": 1,
-            "received": 19.94,
-            "expiry": "5/8/2026",
-            "openDate": "5/1/2026",
-            "closed": false,
-            "posType": "SPUT"
-          }
-        ],
-        "closed": false,
-        "longPutClosed": true,
-        "longCloseAmount": 199.94,
-        "longCloseDate": "5/1/2026"
+        "longPutClosed": false,
+        "longCloseAmount": 0,
+        "longCloseDate": null,
+        "position": null,
+        "marketValueOverride": null
       },
       {
         "id": "moodpbp7jr7w",
