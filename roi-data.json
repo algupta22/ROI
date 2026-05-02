@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-02T14:32:57.621Z",
+  "savedAt": "2026-05-02T14:39:12.527Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -9660,19 +9660,6 @@
         "openDate": "5/1/2026",
         "notes": "",
         "noLongPut": false,
-        "shortPuts": [],
-        "closed": false
-      },
-      {
-        "id": "moofx2mrnqpk",
-        "ticker": "MCD",
-        "contracts": 1,
-        "longStrike": null,
-        "longPremium": null,
-        "longExpiry": null,
-        "openDate": "5/1/2026",
-        "notes": "",
-        "noLongPut": true,
         "shortPuts": [
           {
             "id": "moofx2mrnzxs",
@@ -9715,51 +9702,11 @@
         "closed": true
       },
       {
-        "id": "moofx2mrt0er",
-        "ticker": "HOOD",
-        "contracts": 1,
-        "longStrike": 71,
-        "longPremium": 2.9304,
-        "longExpiry": "5/8/2026",
-        "openDate": "4/29/2026",
-        "notes": "",
-        "noLongPut": false,
-        "shortPuts": [
-          {
-            "id": "moofx2mrpntb",
-            "strike": 74,
-            "contracts": 1,
-            "received": 81.94,
-            "expiry": "5/1/2026",
-            "openDate": "4/28/2026",
-            "closed": true,
-            "posType": "SPUT",
-            "closeReason": "expired",
-            "closeDate": "5/1/2026",
-            "buybackCost": 0
-          },
-          {
-            "id": "moofx2mrdrio",
-            "strike": 75,
-            "contracts": 1,
-            "received": 101.94,
-            "expiry": "5/1/2026",
-            "openDate": "4/28/2026",
-            "closed": true,
-            "posType": "SPUT",
-            "closeReason": "expired",
-            "closeDate": "5/1/2026",
-            "buybackCost": 0
-          }
-        ],
-        "closed": false
-      },
-      {
         "id": "moofx2mr71zw",
         "ticker": "HOOD",
-        "contracts": 1,
+        "contracts": 2,
         "longStrike": 71,
-        "longPremium": 3.1004,
+        "longPremium": 3.02,
         "longExpiry": "5/8/2026",
         "openDate": "4/29/2026",
         "notes": "",
@@ -9774,21 +9721,7 @@
             "openDate": "4/29/2026",
             "closed": false,
             "posType": "SPUT"
-          }
-        ],
-        "closed": false
-      },
-      {
-        "id": "moofx2mr3i7n",
-        "ticker": "HOOD",
-        "contracts": 1,
-        "longStrike": null,
-        "longPremium": null,
-        "longExpiry": null,
-        "openDate": "4/29/2026",
-        "notes": "",
-        "noLongPut": true,
-        "shortPuts": [
+          },
           {
             "id": "moofx2mr1jjz",
             "strike": 73,
@@ -9800,7 +9733,9 @@
             "posType": "SPUT"
           }
         ],
-        "closed": false
+        "closed": false,
+        "position": null,
+        "marketValueOverride": null
       },
       {
         "id": "moofx2mrruuu",
@@ -9827,46 +9762,6 @@
         "noLongPut": false,
         "shortPuts": [],
         "closed": false
-      },
-      {
-        "id": "moofx2mr978b",
-        "ticker": "F",
-        "contracts": 1,
-        "longStrike": null,
-        "longPremium": null,
-        "longExpiry": null,
-        "openDate": "4/28/2026",
-        "notes": "",
-        "noLongPut": true,
-        "shortPuts": [
-          {
-            "id": "moofx2mr6wbw",
-            "strike": 11.5,
-            "contracts": 1,
-            "received": 7.94,
-            "expiry": "5/1/2026",
-            "openDate": "4/28/2026",
-            "closed": true,
-            "posType": "SPUT",
-            "closeReason": "expired",
-            "closeDate": "5/1/2026",
-            "buybackCost": 0
-          },
-          {
-            "id": "moofx2mra1lu",
-            "strike": 11.5,
-            "contracts": 1,
-            "received": 9.94,
-            "expiry": "5/1/2026",
-            "openDate": "4/28/2026",
-            "closed": true,
-            "posType": "SPUT",
-            "closeReason": "expired",
-            "closeDate": "5/1/2026",
-            "buybackCost": 0
-          }
-        ],
-        "closed": true
       },
       {
         "id": "moofx2mqvzwd",
