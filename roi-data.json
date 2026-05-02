@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-02T16:07:49.336Z",
+  "savedAt": "2026-05-02T16:18:02.938Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -10817,7 +10817,7 @@
       {
         "id": "monr2dom5foo",
         "ticker": "SOFI",
-        "shares": 800,
+        "shares": 200,
         "costBasis": 19.66,
         "purchaseDate": "3/19/2026",
         "coveredCalls": [],
@@ -10980,6 +10980,16 @@
         "costBasis": 18.2,
         "purchaseDate": "",
         "coveredCalls": [],
+        "closed": false
+      },
+      {
+        "id": "share_1777738653184",
+        "ticker": "SOFI",
+        "shares": 600,
+        "costBasis": 19.66,
+        "purchaseDate": "3/19/2026",
+        "coveredCalls": [],
+        "shareSales": [],
         "closed": false
       }
     ],
