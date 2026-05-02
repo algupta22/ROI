@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-02T03:51:15.750Z",
+  "savedAt": "2026-05-02T03:55:10.655Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -38728,76 +38728,6 @@
     ],
     "self_roth": [
       {
-        "id": "molyomvudk25",
-        "ticker": "HIMZ",
-        "shares": 2.448096,
-        "costBasis": 5.78,
-        "purchaseDate": "1/2/2026",
-        "coveredCalls": [],
-        "shareSales": [],
-        "closed": false
-      },
-      {
-        "id": "molyomvulwx4",
-        "ticker": "HIMZ",
-        "shares": -2.4480960000000067,
-        "costBasis": 6,
-        "purchaseDate": "1/16/2026",
-        "coveredCalls": [],
-        "shareSales": [
-          {
-            "id": "molyomvuxni8",
-            "shares": 0.448096,
-            "salePrice": 5.28,
-            "saleDate": "1/14/2026"
-          },
-          {
-            "id": "molyomvu824u",
-            "shares": 102,
-            "salePrice": 5.28,
-            "saleDate": "1/14/2026"
-          }
-        ],
-        "closed": true
-      },
-      {
-        "id": "molyomvuf4jg",
-        "ticker": "JEPQ",
-        "shares": 9.946919000000001,
-        "costBasis": 58.73711246266305,
-        "purchaseDate": "2/10/2026",
-        "coveredCalls": [],
-        "shareSales": [],
-        "closed": false
-      },
-      {
-        "id": "molyomvuu97w",
-        "ticker": "JEPQ",
-        "shares": -0.051856999999999986,
-        "costBasis": 58.4,
-        "purchaseDate": "2/11/2026",
-        "coveredCalls": [],
-        "shareSales": [
-          {
-            "id": "molyomvunkg0",
-            "shares": 0.394322,
-            "salePrice": 58.24,
-            "saleDate": "2/11/2026"
-          }
-        ],
-        "closed": true
-      },
-      {
-        "id": "molyomvury6n",
-        "ticker": "PFE",
-        "shares": 100,
-        "costBasis": 27.5,
-        "purchaseDate": "2/20/2026",
-        "coveredCalls": [],
-        "shareSales": [],
-        "closed": false
-      },
-      {
         "id": "molyomvu08tc",
         "ticker": "CELH",
         "shares": 100,
@@ -38806,87 +38736,9 @@
         "coveredCalls": [],
         "shareSales": [],
         "closed": false
-      },
-      {
-        "id": "molyomvuz4t4",
-        "ticker": "NVTS",
-        "shares": 300,
-        "costBasis": 8.583333333333332,
-        "purchaseDate": "3/27/2026",
-        "coveredCalls": [],
-        "shareSales": [
-          {
-            "id": "molyomvuq5fm",
-            "shares": 100,
-            "salePrice": 9,
-            "saleDate": "3/18/2026"
-          },
-          {
-            "id": "molyomvuyjyz",
-            "shares": 100,
-            "salePrice": 8.65,
-            "saleDate": "2/2/2026"
-          }
-        ],
-        "closed": false
       }
     ],
-    "spouse_roth": [
-      {
-        "id": "molyqnc74qzl",
-        "ticker": "SPYI",
-        "shares": 11.061950000000001,
-        "costBasis": 52.75409049218266,
-        "purchaseDate": "2/11/2026",
-        "coveredCalls": [],
-        "shareSales": [],
-        "closed": false
-      },
-      {
-        "id": "molyqnc798xw",
-        "ticker": "QQQI",
-        "shares": 56.797871000000015,
-        "costBasis": 53.16815844523466,
-        "purchaseDate": "2/20/2026",
-        "coveredCalls": [],
-        "shareSales": [
-          {
-            "id": "molyqnc7qhtv",
-            "shares": 0.781663,
-            "salePrice": 53.16,
-            "saleDate": "2/11/2026"
-          },
-          {
-            "id": "molyqnc7tjpg",
-            "shares": 53,
-            "salePrice": 53.16,
-            "saleDate": "2/11/2026"
-          }
-        ],
-        "closed": false
-      },
-      {
-        "id": "molyqnc7gin1",
-        "ticker": "BBAI",
-        "shares": 400,
-        "costBasis": 4,
-        "purchaseDate": "4/10/2026",
-        "coveredCalls": [],
-        "shareSales": [],
-        "closed": false
-      }
-    ],
-    "spouse_ira": [
-      {
-        "id": "molys4ljb17t",
-        "ticker": "SCHD",
-        "shares": 7.259434,
-        "costBasis": 28.929146495443035,
-        "purchaseDate": "1/26/2026",
-        "coveredCalls": [],
-        "shareSales": [],
-        "closed": false
-      }
-    ]
+    "spouse_roth": [],
+    "spouse_ira": []
   }
 }
