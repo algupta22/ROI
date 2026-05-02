@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-02T14:17:36.963Z",
+  "savedAt": "2026-05-02T14:21:14.622Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -8811,6 +8811,40 @@
   },
   "putLadders": {
     "self": [
+      {
+        "id": "moofh88xy8o9",
+        "ticker": "ROBN",
+        "contracts": 2,
+        "longStrike": 7,
+        "longPremium": 1.01,
+        "longExpiry": "9/18",
+        "openDate": "5/2/2026",
+        "notes": "",
+        "position": null,
+        "noLongPut": false,
+        "longPutClosed": false,
+        "shortPuts": [
+          {
+            "id": "moofifpy0tsj",
+            "strike": 50,
+            "contracts": 1,
+            "received": 33.17,
+            "expiry": "9/18",
+            "openDate": "5/2/2026",
+            "closed": false
+          },
+          {
+            "id": "moofj83c2r96",
+            "strike": 43,
+            "contracts": 1,
+            "received": 26.59,
+            "expiry": "9/18",
+            "openDate": "5/2/2026",
+            "closed": false
+          }
+        ],
+        "closed": false
+      },
       {
         "id": "moofcuspvemq",
         "ticker": "TSLL",
