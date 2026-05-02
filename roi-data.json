@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-02T13:49:39.845Z",
+  "savedAt": "2026-05-02T13:51:16.954Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -8888,59 +8888,6 @@
         "closed": false
       },
       {
-        "id": "moodpbp7rx9y",
-        "ticker": "PLTR",
-        "contracts": 1,
-        "longStrike": 145,
-        "longPremium": 13.0504,
-        "longExpiry": "6/18/2026",
-        "openDate": "4/27/2026",
-        "notes": "",
-        "noLongPut": false,
-        "shortPuts": [
-          {
-            "id": "moodpbp748nn",
-            "strike": 105,
-            "contracts": 1,
-            "received": 0,
-            "btcDebit": 3.04,
-            "expiry": "5/1/2026",
-            "openDate": "4/27/2026",
-            "closed": true,
-            "closeReason": "buyback",
-            "closeDate": "4/27/2026",
-            "posType": "SPUT"
-          },
-          {
-            "id": "moodpbp72qgc",
-            "strike": 105,
-            "contracts": 1,
-            "received": 0,
-            "btcDebit": 3.04,
-            "expiry": "5/1/2026",
-            "openDate": "4/27/2026",
-            "closed": true,
-            "closeReason": "buyback",
-            "closeDate": "4/27/2026",
-            "posType": "SPUT"
-          }
-        ],
-        "closed": false
-      },
-      {
-        "id": "moodpbp7f1bv",
-        "ticker": "PLTR",
-        "contracts": 1,
-        "longStrike": 140,
-        "longPremium": 10.8004,
-        "longExpiry": "6/18/2026",
-        "openDate": "4/28/2026",
-        "notes": "",
-        "noLongPut": false,
-        "shortPuts": [],
-        "closed": false
-      },
-      {
         "id": "moodpbp7y7kv",
         "ticker": "SOFI",
         "contracts": 1,
@@ -9008,11 +8955,22 @@
         "openDate": "4/29/2026",
         "notes": "",
         "noLongPut": false,
-        "shortPuts": [],
-        "closed": true,
-        "longPutClosed": true,
-        "longCloseAmount": 2599.85,
-        "longCloseDate": "4/29/2026"
+        "shortPuts": [
+          {
+            "id": "moodpbp7rat3",
+            "strike": 134,
+            "contracts": 1,
+            "received": 294.94,
+            "expiry": "5/8/2026",
+            "openDate": "5/1/2026",
+            "closed": false,
+            "posType": "SPUT"
+          }
+        ],
+        "closed": false,
+        "longPutClosed": false,
+        "longCloseAmount": 0,
+        "longCloseDate": null
       },
       {
         "id": "moodpbp7tfn9",
@@ -9626,33 +9584,6 @@
           }
         ],
         "closed": false
-      },
-      {
-        "id": "moodpbp77r05",
-        "ticker": "PLTR",
-        "contracts": 1,
-        "longStrike": null,
-        "longPremium": null,
-        "longExpiry": null,
-        "openDate": "5/1/2026",
-        "notes": "",
-        "noLongPut": true,
-        "shortPuts": [
-          {
-            "id": "moodpbp7rat3",
-            "strike": 134,
-            "contracts": 1,
-            "received": 294.94,
-            "expiry": "5/8/2026",
-            "openDate": "5/1/2026",
-            "closed": false,
-            "posType": "SPUT"
-          }
-        ],
-        "closed": false,
-        "longPutClosed": true,
-        "longCloseAmount": 1610.91,
-        "longCloseDate": "4/29/2026"
       }
     ],
     "spouse": [
