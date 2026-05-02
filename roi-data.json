@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-02T20:11:18.958Z",
+  "savedAt": "2026-05-02T20:22:19.723Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -10208,9 +10208,9 @@
       {
         "id": "moork0s2s5fl",
         "ticker": "NVDX",
-        "contracts": 1,
-        "longStrike": 13.43,
-        "longPremium": 9.1004,
+        "contracts": 2,
+        "longStrike": 11.43,
+        "longPremium": 7.6,
         "longExpiry": "1/15/2027",
         "openDate": "4/27/2026",
         "notes": "",
@@ -10221,9 +10221,9 @@
       {
         "id": "moork0s21f5d",
         "ticker": "NVDX",
-        "contracts": 1,
+        "contracts": 2,
         "longStrike": 13.43,
-        "longPremium": 9.2004,
+        "longPremium": 9.15,
         "longExpiry": "1/15/2027",
         "openDate": "4/27/2026",
         "notes": "",
@@ -10329,19 +10329,6 @@
         "openDate": "4/29/2026",
         "notes": "",
         "noLongCall": false,
-        "shortCalls": [],
-        "closed": false
-      },
-      {
-        "id": "moork0s1djl3",
-        "ticker": "META",
-        "contracts": 1,
-        "longStrike": 615,
-        "longPremium": 25.4004,
-        "longExpiry": "5/29/2026",
-        "openDate": "4/30/2026",
-        "notes": "",
-        "noLongCall": false,
         "shortCalls": [
           {
             "id": "moork0s18d2b",
@@ -10356,15 +10343,15 @@
         "closed": false
       },
       {
-        "id": "moork0s1likt",
+        "id": "moork0s1djl3",
         "ticker": "META",
         "contracts": 1,
-        "longStrike": null,
-        "longPremium": null,
-        "longExpiry": null,
+        "longStrike": 615,
+        "longPremium": 25.4004,
+        "longExpiry": "5/29/2026",
         "openDate": "4/30/2026",
         "notes": "",
-        "noLongCall": true,
+        "noLongCall": false,
         "shortCalls": [
           {
             "id": "moork0s1nbvn",
@@ -10399,7 +10386,8 @@
             "closed": false
           }
         ],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 439
       }
     ],
     "spouse": [],
