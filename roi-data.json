@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-02T16:18:02.938Z",
+  "savedAt": "2026-05-02T19:16:01.768Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -10208,15 +10208,57 @@
     "spouse": [],
     "joint": [
       {
+        "id": "mooq20ied3lm",
+        "ticker": "BULL",
+        "contracts": 1,
+        "longStrike": 7.5,
+        "longPremium": 1.54,
+        "longExpiry": "1/15/2027",
+        "openDate": "5/2/2026",
+        "notes": "",
+        "noLongCall": false,
+        "longCallClosed": false,
+        "shortCalls": [],
+        "closed": false
+      },
+      {
+        "id": "mooq0by7f434",
+        "ticker": "ONDS",
+        "contracts": 1,
+        "longStrike": 12,
+        "longPremium": 2.8,
+        "longExpiry": "6/18",
+        "openDate": "5/2/2026",
+        "notes": "",
+        "noLongCall": false,
+        "longCallClosed": false,
+        "shortCalls": [],
+        "closed": false
+      },
+      {
+        "id": "moopu4qpt1rb",
+        "ticker": "SOFI",
+        "contracts": 5,
+        "longStrike": 12,
+        "longPremium": 9.57,
+        "longExpiry": "1/15/2027",
+        "openDate": "5/2/2026",
+        "notes": "",
+        "noLongCall": false,
+        "longCallClosed": false,
+        "shortCalls": [],
+        "closed": false
+      },
+      {
         "id": "monutdf2sgyh",
         "ticker": "NKE",
         "contracts": 1,
-        "longStrike": null,
-        "longPremium": null,
-        "longExpiry": null,
-        "openDate": "5/1/2026",
+        "longStrike": 40,
+        "longPremium": 15.05,
+        "longExpiry": "3/19/2027",
+        "openDate": "5/2/2026",
         "notes": "",
-        "noLongCall": true,
+        "noLongCall": false,
         "shortCalls": [
           {
             "id": "monutdf2p2xe",
@@ -10228,7 +10270,8 @@
             "closed": false
           }
         ],
-        "closed": false
+        "closed": false,
+        "longCallClosed": false
       }
     ],
     "self_roth": [
