@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-02T13:56:05.456Z",
+  "savedAt": "2026-05-02T14:00:21.574Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -8912,38 +8912,6 @@
         "closed": false
       },
       {
-        "id": "moodpbp7y7kv",
-        "ticker": "SOFI",
-        "contracts": 1,
-        "longStrike": 19,
-        "longPremium": 2.0604,
-        "longExpiry": "6/18/2026",
-        "openDate": "4/28/2026",
-        "notes": "",
-        "noLongPut": false,
-        "shortPuts": [],
-        "closed": true,
-        "longPutClosed": true,
-        "longCloseAmount": 267.94,
-        "longCloseDate": "4/28/2026"
-      },
-      {
-        "id": "moodpbp762v5",
-        "ticker": "SOFI",
-        "contracts": 2,
-        "longStrike": 19,
-        "longPremium": 2.0704,
-        "longExpiry": "6/18/2026",
-        "openDate": "4/28/2026",
-        "notes": "",
-        "noLongPut": false,
-        "shortPuts": [],
-        "closed": true,
-        "longPutClosed": true,
-        "longCloseAmount": 531.89,
-        "longCloseDate": "4/28/2026"
-      },
-      {
         "id": "moodpbp7nk2u",
         "ticker": "BBAI",
         "contracts": 5,
@@ -9021,82 +8989,9 @@
         "closed": false
       },
       {
-        "id": "moodpbp7ko4y",
-        "ticker": "SOFI",
-        "contracts": 1,
-        "longStrike": 18,
-        "longPremium": 2.6904000000000003,
-        "longExpiry": "6/18/2026",
-        "openDate": "4/29/2026",
-        "notes": "",
-        "noLongPut": false,
-        "shortPuts": [
-          {
-            "id": "moodpbp7hroy",
-            "strike": 18,
-            "contracts": 2,
-            "received": 113.9,
-            "expiry": "5/1/2026",
-            "openDate": "4/28/2026",
-            "closed": true,
-            "posType": "SPUT",
-            "closeReason": "expired",
-            "closeDate": "5/1/2026",
-            "buybackCost": 0
-          },
-          {
-            "id": "moodpbp7pyw3",
-            "strike": 17,
-            "contracts": 2,
-            "received": 0,
-            "btcDebit": 54.08,
-            "expiry": "5/1/2026",
-            "openDate": "4/28/2026",
-            "closed": true,
-            "closeReason": "buyback",
-            "closeDate": "4/28/2026",
-            "posType": "SPUT"
-          }
-        ],
-        "closed": true,
-        "longPutClosed": true,
-        "longCloseAmount": 344.94,
-        "longCloseDate": "4/29/2026"
-      },
-      {
-        "id": "moodpbp7wpsw",
-        "ticker": "SOFI",
-        "contracts": 1,
-        "longStrike": 18,
-        "longPremium": 2.6904000000000003,
-        "longExpiry": "6/18/2026",
-        "openDate": "4/29/2026",
-        "notes": "",
-        "noLongPut": false,
-        "shortPuts": [
-          {
-            "id": "moodpbp7jgmf",
-            "strike": 16.5,
-            "contracts": 1,
-            "received": 0,
-            "btcDebit": 17.04,
-            "expiry": "5/1/2026",
-            "openDate": "4/28/2026",
-            "closed": true,
-            "closeReason": "buyback",
-            "closeDate": "4/28/2026",
-            "posType": "SPUT"
-          }
-        ],
-        "closed": true,
-        "longPutClosed": true,
-        "longCloseAmount": 344.94,
-        "longCloseDate": "4/29/2026"
-      },
-      {
         "id": "moodpbp7k4pd",
         "ticker": "SOFI",
-        "contracts": 2,
+        "contracts": 4,
         "longStrike": 18,
         "longPremium": 2.6704000000000003,
         "longExpiry": "6/18/2026",
@@ -9105,91 +9000,18 @@
         "noLongPut": false,
         "shortPuts": [
           {
-            "id": "moodpbp7uiql",
+            "id": "mooes7oljvsz",
             "strike": 18,
             "contracts": 4,
             "received": 875.81,
-            "expiry": "5/8/2026",
-            "openDate": "4/29/2026",
-            "closed": true,
-            "posType": "SPUT",
-            "closeReason": "buyback",
-            "closeDate": "4/29/2026",
-            "buybackCost": 848.16
-          },
-          {
-            "id": "moodpbp76gjq",
-            "strike": 18,
-            "contracts": 1,
-            "received": 56.94,
-            "expiry": "5/1/2026",
-            "openDate": "4/28/2026",
-            "closed": true,
-            "posType": "SPUT",
-            "closeReason": "expired",
-            "closeDate": "5/1/2026",
-            "buybackCost": 0
-          },
-          {
-            "id": "moodpbp7e7s3",
-            "strike": 17.5,
-            "contracts": 1,
-            "received": 0,
-            "btcDebit": 41.04,
-            "expiry": "5/1/2026",
-            "openDate": "4/28/2026",
-            "closed": true,
-            "closeReason": "buyback",
-            "closeDate": "4/28/2026",
-            "posType": "SPUT"
-          },
-          {
-            "id": "moodpbp7sna6",
-            "strike": 18,
-            "contracts": 1,
-            "received": 56.94,
-            "expiry": "5/1/2026",
-            "openDate": "4/28/2026",
-            "closed": true,
-            "posType": "SPUT",
-            "closeReason": "expired",
-            "closeDate": "5/1/2026",
-            "buybackCost": 0
+            "expiry": "5/8",
+            "openDate": "5/2/2026",
+            "closed": false
           }
         ],
-        "closed": false
-      },
-      {
-        "id": "moodpbp7erja",
-        "ticker": "SOFI",
-        "contracts": 1,
-        "longStrike": 19,
-        "longPremium": 0,
-        "longExpiry": "6/18/2026",
-        "openDate": "4/29/2026",
-        "notes": "STC imported",
-        "noLongPut": false,
-        "longPutClosed": true,
-        "longCloseAmount": 345.94,
-        "longCloseDate": "4/29/2026",
-        "shortPuts": [],
-        "closed": true
-      },
-      {
-        "id": "moodpbp7o1b6",
-        "ticker": "SOFI",
-        "contracts": 1,
-        "longStrike": 19,
-        "longPremium": 0,
-        "longExpiry": "6/18/2026",
-        "openDate": "4/29/2026",
-        "notes": "STC imported",
-        "noLongPut": false,
-        "longPutClosed": true,
-        "longCloseAmount": 345.94,
-        "longCloseDate": "4/29/2026",
-        "shortPuts": [],
-        "closed": true
+        "closed": false,
+        "position": null,
+        "marketValueOverride": null
       },
       {
         "id": "moodpbp7osay",
@@ -9376,33 +9198,6 @@
         "closed": false
       },
       {
-        "id": "moodpbp7wzvv",
-        "ticker": "SMCI",
-        "contracts": 1,
-        "longStrike": null,
-        "longPremium": null,
-        "longExpiry": null,
-        "openDate": "4/30/2026",
-        "notes": "",
-        "noLongPut": true,
-        "shortPuts": [
-          {
-            "id": "moodpbp7u5o2",
-            "strike": 26,
-            "contracts": 1,
-            "received": 12.94,
-            "expiry": "5/1/2026",
-            "openDate": "4/30/2026",
-            "closed": true,
-            "posType": "SPUT",
-            "closeReason": "expired",
-            "closeDate": "5/1/2026",
-            "buybackCost": 0
-          }
-        ],
-        "closed": true
-      },
-      {
         "id": "moodpbp73huo",
         "ticker": "SPY",
         "contracts": 1,
@@ -9430,38 +9225,6 @@
             "posType": "SPUT"
           }
         ],
-        "closed": true
-      },
-      {
-        "id": "moodpbp7b4uy",
-        "ticker": "SOFI",
-        "contracts": 1,
-        "longStrike": 17,
-        "longPremium": 0,
-        "longExpiry": "5/15/2026",
-        "openDate": "5/1/2026",
-        "notes": "STC imported",
-        "noLongPut": false,
-        "longPutClosed": true,
-        "longCloseAmount": 102.94,
-        "longCloseDate": "5/1/2026",
-        "shortPuts": [],
-        "closed": true
-      },
-      {
-        "id": "moodpbp7q0w4",
-        "ticker": "SOFI",
-        "contracts": 1,
-        "longStrike": 17,
-        "longPremium": 0,
-        "longExpiry": "5/15/2026",
-        "openDate": "5/1/2026",
-        "notes": "STC imported",
-        "noLongPut": false,
-        "longPutClosed": true,
-        "longCloseAmount": 102.94,
-        "longCloseDate": "5/1/2026",
-        "shortPuts": [],
         "closed": true
       },
       {
