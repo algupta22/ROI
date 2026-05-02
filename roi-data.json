@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-02T03:30:07.540Z",
+  "savedAt": "2026-05-02T03:38:53.291Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -5818,46 +5818,46 @@
   ],
   "tickerPrices": {
     "GOOGL": 385.69,
-    "PLTR": 137.97,
-    "IBIT": 43.56,
-    "TSLZ": 15.12,
-    "HIMZ": 42.46,
+    "PLTR": 144.07,
+    "IBIT": 44.47,
+    "TSLZ": 13.72,
+    "HIMZ": 36.42,
     "HIMZ1": 45.7,
-    "TSLL": 12.19,
-    "ROBN": 16.96,
-    "NVTS": 15.48,
+    "TSLL": 13.07,
+    "ROBN": 18.12,
+    "NVTS": 17.45,
     "BBAI": 4.14,
-    "HIMS": 29.39,
-    "HOOD": 83.95,
-    "MSFT": 424.46,
-    "CDE": 18.88,
-    "CELH": 34.59,
-    "LYFT": 14.34,
-    "METU": 30.7,
-    "NKE": 44.69,
-    "NVDA": 216.61,
-    "NVDX": 19.65,
-    "PATH": 10.38,
-    "QQQ": 661.57,
-    "BULL": 6.9,
-    "NFLU": 28.59,
-    "QQQI": 53.86,
-    "RGTI": 16.08,
-    "SMCI": 26.32,
+    "HIMS": 27.41,
+    "HOOD": 73.66,
+    "MSFT": 414.44,
+    "CDE": 17.65,
+    "CELH": 33.73,
+    "LYFT": 14.42,
+    "METU": 24.7,
+    "NKE": 44.4,
+    "NVDA": 198.45,
+    "NVDX": 17.58,
+    "PATH": 10.67,
+    "QQQ": 674.15,
+    "BULL": 7.03,
+    "NFLU": 28.56,
+    "QQQI": 54.56,
+    "RGTI": 17.5,
+    "SMCI": 27.09,
     "SOFI": 15.525,
-    "SMCZ": 24.53,
+    "SMCZ": 27.53,
     "TTD": 24.37,
-    "SPY": 711.58,
-    "SMST": 32.06,
-    "SPXS": 30.94,
-    "SQQQ": 53.08,
-    "USAR": 22.03,
-    "SLV": 64.84,
-    "MRVL": 164.31,
-    "ONDS": 9.49,
-    "NFLX": 92.355,
-    "PLTZ": 30.58,
-    "FNGD": 44.15,
+    "SPY": 720.65,
+    "SMST": 27.45,
+    "SPXS": 29.8,
+    "SQQQ": 50.22,
+    "USAR": 26.33,
+    "SLV": 68.29,
+    "MRVL": 164.95,
+    "ONDS": 10.32,
+    "NFLX": 92.06,
+    "PLTZ": 27.91,
+    "FNGD": 43.48,
     "METD": 16.45,
     "RGTZ": 13.63
   },
@@ -38667,46 +38667,6 @@
     ],
     "joint": [
       {
-        "id": "momgabh3flat",
-        "ticker": "OKLS",
-        "shares": 25,
-        "costBasis": 19.43,
-        "purchaseDate": "1/2/2026",
-        "coveredCalls": [],
-        "shareSales": [],
-        "closed": false
-      },
-      {
-        "id": "momgabh3ak3t",
-        "ticker": "MSTU",
-        "shares": 100,
-        "costBasis": 9,
-        "purchaseDate": "1/9/2026",
-        "coveredCalls": [],
-        "shareSales": [],
-        "closed": false
-      },
-      {
-        "id": "momgabh37fzr",
-        "ticker": "MSTX",
-        "shares": 300,
-        "costBasis": 4.333333333333333,
-        "purchaseDate": "1/30/2026",
-        "coveredCalls": [],
-        "shareSales": [],
-        "closed": false
-      },
-      {
-        "id": "momgabh3b3hq",
-        "ticker": "TAIL",
-        "shares": 50,
-        "costBasis": 11.63,
-        "purchaseDate": "2/13/2026",
-        "coveredCalls": [],
-        "shareSales": [],
-        "closed": false
-      },
-      {
         "id": "momgabh34atx",
         "ticker": "SPXS",
         "shares": 24,
@@ -38750,26 +38710,6 @@
         "closed": false
       },
       {
-        "id": "momgabh344xn",
-        "ticker": "TSLQ",
-        "shares": 45,
-        "costBasis": 21.439999999999998,
-        "purchaseDate": "2/24/2026",
-        "coveredCalls": [],
-        "shareSales": [],
-        "closed": false
-      },
-      {
-        "id": "momgabh3qx1a",
-        "ticker": "MSTZ",
-        "shares": 100,
-        "costBasis": 13.655,
-        "purchaseDate": "2/25/2026",
-        "coveredCalls": [],
-        "shareSales": [],
-        "closed": false
-      },
-      {
         "id": "momgabh3z4jy",
         "ticker": "SOFI",
         "shares": -100,
@@ -38785,16 +38725,6 @@
           }
         ],
         "closed": true
-      },
-      {
-        "id": "momgabh3gnp9",
-        "ticker": "TLT",
-        "shares": 100,
-        "costBasis": 90,
-        "purchaseDate": "3/5/2026",
-        "coveredCalls": [],
-        "shareSales": [],
-        "closed": false
       },
       {
         "id": "momgabh3dquu",
@@ -38830,33 +38760,6 @@
           }
         ],
         "closed": true
-      },
-      {
-        "id": "momgabh3z9re",
-        "ticker": "TLT",
-        "shares": 0,
-        "costBasis": 90.5,
-        "purchaseDate": "3/11/2026",
-        "coveredCalls": [],
-        "shareSales": [
-          {
-            "id": "momgabh3iijd",
-            "shares": 100,
-            "salePrice": 88.9,
-            "saleDate": "3/10/2026"
-          }
-        ],
-        "closed": true
-      },
-      {
-        "id": "momgabh38hco",
-        "ticker": "SLV",
-        "shares": 100,
-        "costBasis": 63.5,
-        "purchaseDate": "3/20/2026",
-        "coveredCalls": [],
-        "shareSales": [],
-        "closed": false
       },
       {
         "id": "momgabh3vnxp",
@@ -38899,29 +38802,6 @@
         "purchaseDate": "3/30/2026",
         "coveredCalls": [],
         "shareSales": [],
-        "closed": false
-      },
-      {
-        "id": "momgabh3muae",
-        "ticker": "SQQQ",
-        "shares": 40,
-        "costBasis": 77.41193124999998,
-        "purchaseDate": "4/1/2026",
-        "coveredCalls": [],
-        "shareSales": [
-          {
-            "id": "momgabh3tqbp",
-            "shares": 16,
-            "salePrice": 76.82,
-            "saleDate": "3/19/2026"
-          },
-          {
-            "id": "momgabh3u935",
-            "shares": 6,
-            "salePrice": 72.15,
-            "saleDate": "2/19/2026"
-          }
-        ],
         "closed": false
       },
       {
