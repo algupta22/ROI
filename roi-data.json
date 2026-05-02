@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-02T13:34:43.207Z",
+  "savedAt": "2026-05-02T13:37:27.464Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -8812,6 +8812,30 @@
   "putLadders": {
     "self": [
       {
+        "id": "moodye1kh9w8",
+        "ticker": "BBAI",
+        "contracts": 1,
+        "longStrike": 4,
+        "longPremium": 0.92,
+        "longExpiry": "5/15",
+        "openDate": "3/31",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "moodpbp706pb",
+            "strike": 3.5,
+            "contracts": 1,
+            "received": 13.94,
+            "expiry": "5/8/2026",
+            "openDate": "4/30/2026",
+            "closed": false,
+            "posType": "SPUT"
+          }
+        ],
+        "closed": false
+      },
+      {
         "id": "moodpbp7m7en",
         "ticker": "NVTS",
         "contracts": 1,
@@ -9304,30 +9328,6 @@
         "longPutClosed": true,
         "longCloseAmount": 591.93,
         "longCloseDate": "4/30/2026"
-      },
-      {
-        "id": "moodpbp71x9e",
-        "ticker": "BBAI",
-        "contracts": 1,
-        "longStrike": null,
-        "longPremium": null,
-        "longExpiry": null,
-        "openDate": "4/30/2026",
-        "notes": "",
-        "noLongPut": true,
-        "shortPuts": [
-          {
-            "id": "moodpbp706pb",
-            "strike": 3.5,
-            "contracts": 1,
-            "received": 13.94,
-            "expiry": "5/8/2026",
-            "openDate": "4/30/2026",
-            "closed": false,
-            "posType": "SPUT"
-          }
-        ],
-        "closed": false
       },
       {
         "id": "moodpbp7eont",
