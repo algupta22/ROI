@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-02T20:06:36.652Z",
+  "savedAt": "2026-05-02T20:11:18.958Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -10320,19 +10320,6 @@
         "closed": false
       },
       {
-        "id": "moork0s13ac4",
-        "ticker": "GOOGL",
-        "contracts": 1,
-        "longStrike": 350,
-        "longPremium": 15.3904,
-        "longExpiry": "5/29/2026",
-        "openDate": "4/29/2026",
-        "notes": "",
-        "noLongCall": false,
-        "shortCalls": [],
-        "closed": false
-      },
-      {
         "id": "moork0s12si5",
         "ticker": "META",
         "contracts": 1,
@@ -10396,7 +10383,7 @@
         "ticker": "GOOGL",
         "contracts": 1,
         "longStrike": 355,
-        "longPremium": 32.0004,
+        "longPremium": 4.39,
         "longExpiry": "5/29/2026",
         "openDate": "5/1/2026",
         "notes": "",
@@ -10406,7 +10393,7 @@
             "id": "moork0s120m5",
             "strike": 360,
             "contracts": 1,
-            "received": 1099.92,
+            "received": 400,
             "expiry": "5/29/2026",
             "openDate": "4/29/2026",
             "closed": false
