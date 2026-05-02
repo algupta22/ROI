@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-02T14:55:17.490Z",
+  "savedAt": "2026-05-02T14:58:20.951Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -9396,7 +9396,7 @@
             "id": "moogb8r3vyym",
             "strike": 140,
             "contracts": 1,
-            "received": 293.94763,
+            "received": 763,
             "expiry": "5/15",
             "openDate": "5/2/2026",
             "closed": false
