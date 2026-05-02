@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-02T04:26:27.238Z",
+  "savedAt": "2026-05-02T04:30:06.473Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -30994,7 +30994,7 @@
         "id": "monr2domdx77",
         "ticker": "NVDX",
         "shares": 100,
-        "costBasis": 18,
+        "costBasis": 17.9,
         "purchaseDate": "1/30/2026",
         "coveredCalls": [],
         "shareSales": [],
@@ -31134,7 +31134,7 @@
         "id": "momgabh3idey",
         "ticker": "SOFI",
         "shares": 300,
-        "costBasis": 17,
+        "costBasis": 16.74,
         "purchaseDate": "2/19/2026",
         "coveredCalls": [],
         "shareSales": [],
@@ -31165,6 +31165,15 @@
         "ticker": "SQQQ",
         "shares": 40,
         "costBasis": 81.2,
+        "purchaseDate": "",
+        "coveredCalls": [],
+        "closed": false
+      },
+      {
+        "id": "monuepf64301",
+        "ticker": "CDE",
+        "shares": 100,
+        "costBasis": 18.2,
         "purchaseDate": "",
         "coveredCalls": [],
         "closed": false
