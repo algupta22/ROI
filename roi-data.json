@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-02T13:51:16.954Z",
+  "savedAt": "2026-05-02T13:56:05.456Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -8812,6 +8812,30 @@
   "putLadders": {
     "self": [
       {
+        "id": "mooejiz90qow",
+        "ticker": "PTON",
+        "contracts": 1,
+        "longStrike": 5,
+        "longPremium": 0.6,
+        "longExpiry": "6/28",
+        "openDate": "5/2/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "moodpbp70xjc",
+            "strike": 5,
+            "contracts": 1,
+            "received": 26,
+            "expiry": "5/8/2026",
+            "openDate": "4/29/2026",
+            "closed": false,
+            "posType": "SPUT"
+          }
+        ],
+        "closed": false
+      },
+      {
         "id": "mooee0ttc9m9",
         "ticker": "NVTS",
         "contracts": 2,
@@ -8976,41 +9000,18 @@
         "id": "moodpbp7tfn9",
         "ticker": "PTON",
         "contracts": 1,
-        "longStrike": null,
-        "longPremium": null,
-        "longExpiry": null,
-        "openDate": "4/29/2026",
+        "longStrike": 5,
+        "longPremium": 1.16,
+        "longExpiry": "1/15/27",
+        "openDate": "5/2/2026",
         "notes": "",
-        "noLongPut": true,
+        "noLongPut": false,
         "shortPuts": [
-          {
-            "id": "moodpbp7uot1",
-            "strike": 5,
-            "contracts": 1,
-            "received": 0,
-            "btcDebit": 3.04,
-            "expiry": "5/1/2026",
-            "openDate": "4/29/2026",
-            "closed": true,
-            "closeReason": "buyback",
-            "closeDate": "4/29/2026",
-            "posType": "SPUT"
-          },
-          {
-            "id": "moodpbp70xjc",
-            "strike": 5,
-            "contracts": 1,
-            "received": 18.94,
-            "expiry": "5/8/2026",
-            "openDate": "4/29/2026",
-            "closed": false,
-            "posType": "SPUT"
-          },
           {
             "id": "moodpbp7addf",
             "strike": 5,
             "contracts": 1,
-            "received": 31.94,
+            "received": 26,
             "expiry": "5/8/2026",
             "openDate": "4/27/2026",
             "closed": false,
@@ -9502,35 +9503,6 @@
         "openDate": "5/1/2026",
         "notes": "",
         "noLongPut": false,
-        "shortPuts": [],
-        "closed": false
-      },
-      {
-        "id": "moodpbp7kioo",
-        "ticker": "RGTI",
-        "contracts": 1,
-        "longStrike": 13.5,
-        "longPremium": 0,
-        "longExpiry": "5/1/2026",
-        "openDate": "5/1/2026",
-        "notes": "STC imported",
-        "noLongPut": false,
-        "longPutClosed": true,
-        "longCloseAmount": 0.94,
-        "longCloseDate": "5/1/2026",
-        "shortPuts": [],
-        "closed": true
-      },
-      {
-        "id": "moodpbp7jzth",
-        "ticker": "RGTI",
-        "contracts": 1,
-        "longStrike": null,
-        "longPremium": null,
-        "longExpiry": null,
-        "openDate": "5/1/2026",
-        "notes": "",
-        "noLongPut": true,
         "shortPuts": [
           {
             "id": "moodpbp75x2h",
@@ -9541,25 +9513,9 @@
             "openDate": "5/1/2026",
             "closed": false,
             "posType": "SPUT"
-          },
-          {
-            "id": "moodpbp7lc4r",
-            "strike": 14.5,
-            "contracts": 1,
-            "received": 0,
-            "btcDebit": 1.04,
-            "expiry": "5/1/2026",
-            "openDate": "5/1/2026",
-            "closed": true,
-            "closeReason": "buyback",
-            "closeDate": "5/1/2026",
-            "posType": "SPUT"
           }
         ],
-        "closed": false,
-        "longPutClosed": true,
-        "longCloseAmount": 268.94,
-        "longCloseDate": "5/1/2026"
+        "closed": false
       },
       {
         "id": "moodpbp7fm75",
