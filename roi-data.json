@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-02T13:47:22.952Z",
+  "savedAt": "2026-05-02T13:49:39.845Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -8812,6 +8812,32 @@
   "putLadders": {
     "self": [
       {
+        "id": "mooee0ttc9m9",
+        "ticker": "NVTS",
+        "contracts": 2,
+        "longStrike": 13,
+        "longPremium": 2.1,
+        "longExpiry": "5/29",
+        "openDate": "5/2/2026",
+        "notes": "",
+        "position": null,
+        "noLongPut": false,
+        "longPutClosed": false,
+        "shortPuts": [
+          {
+            "id": "moodpbp7mc93",
+            "strike": 10,
+            "contracts": 1,
+            "received": 9.94,
+            "expiry": "5/8/2026",
+            "openDate": "4/27/2026",
+            "closed": false,
+            "posType": "SPUT"
+          }
+        ],
+        "closed": false
+      },
+      {
         "id": "mooe3ne10387",
         "ticker": "HIMS",
         "contracts": 1,
@@ -8857,56 +8883,6 @@
             "openDate": "4/30/2026",
             "closed": false,
             "posType": "SPUT"
-          }
-        ],
-        "closed": false
-      },
-      {
-        "id": "moodpbp7m7en",
-        "ticker": "NVTS",
-        "contracts": 1,
-        "longStrike": null,
-        "longPremium": null,
-        "longExpiry": null,
-        "openDate": "4/27/2026",
-        "notes": "",
-        "noLongPut": true,
-        "shortPuts": [
-          {
-            "id": "moodpbp7mc93",
-            "strike": 10,
-            "contracts": 1,
-            "received": 9.94,
-            "expiry": "5/8/2026",
-            "openDate": "4/27/2026",
-            "closed": false,
-            "posType": "SPUT"
-          },
-          {
-            "id": "moodpbp748ho",
-            "strike": 13,
-            "contracts": 1,
-            "received": 8.94,
-            "expiry": "5/1/2026",
-            "openDate": "4/27/2026",
-            "closed": true,
-            "posType": "SPUT",
-            "closeReason": "expired",
-            "closeDate": "5/1/2026",
-            "buybackCost": 0
-          },
-          {
-            "id": "moodpbp7rlov",
-            "strike": 13,
-            "contracts": 1,
-            "received": 7.94,
-            "expiry": "5/1/2026",
-            "openDate": "4/27/2026",
-            "closed": true,
-            "posType": "SPUT",
-            "closeReason": "expired",
-            "closeDate": "5/1/2026",
-            "buybackCost": 0
           }
         ],
         "closed": false
