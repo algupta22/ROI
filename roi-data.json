@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-02T19:53:27.695Z",
+  "savedAt": "2026-05-02T20:02:15.484Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -10204,7 +10204,230 @@
     ]
   },
   "callLadders": {
-    "self": [],
+    "self": [
+      {
+        "id": "moork0s2s5fl",
+        "ticker": "NVDX",
+        "contracts": 1,
+        "longStrike": 13.43,
+        "longPremium": 9.1004,
+        "longExpiry": "1/15/2027",
+        "openDate": "4/27/2026",
+        "notes": "",
+        "noLongCall": false,
+        "shortCalls": [],
+        "closed": false
+      },
+      {
+        "id": "moork0s21f5d",
+        "ticker": "NVDX",
+        "contracts": 1,
+        "longStrike": 13.43,
+        "longPremium": 9.2004,
+        "longExpiry": "1/15/2027",
+        "openDate": "4/27/2026",
+        "notes": "",
+        "noLongCall": false,
+        "shortCalls": [],
+        "closed": false
+      },
+      {
+        "id": "moork0s2trld",
+        "ticker": "PLTR",
+        "contracts": 1,
+        "longStrike": 140,
+        "longPremium": 33.4504,
+        "longExpiry": "3/19/2027",
+        "openDate": "4/27/2026",
+        "notes": "",
+        "noLongCall": false,
+        "shortCalls": [],
+        "closed": false
+      },
+      {
+        "id": "moork0s2blz9",
+        "ticker": "PLTR",
+        "contracts": 1,
+        "longStrike": 135,
+        "longPremium": 35.0004,
+        "longExpiry": "3/19/2027",
+        "openDate": "4/28/2026",
+        "notes": "",
+        "noLongCall": false,
+        "shortCalls": [],
+        "closed": false
+      },
+      {
+        "id": "moork0s20cn1",
+        "ticker": "BBAI",
+        "contracts": 1,
+        "longStrike": 2.5,
+        "longPremium": 1.9804,
+        "longExpiry": "1/15/2027",
+        "openDate": "4/28/2026",
+        "notes": "",
+        "noLongCall": false,
+        "shortCalls": [],
+        "closed": false
+      },
+      {
+        "id": "moork0s2dro8",
+        "ticker": "BBAI",
+        "contracts": 2,
+        "longStrike": 2.5,
+        "longPremium": 1.9804,
+        "longExpiry": "1/15/2027",
+        "openDate": "4/28/2026",
+        "notes": "",
+        "noLongCall": false,
+        "shortCalls": [],
+        "closed": false
+      },
+      {
+        "id": "moork0s247lf",
+        "ticker": "BBAI",
+        "contracts": 1,
+        "longStrike": 2.5,
+        "longPremium": 1.9804,
+        "longExpiry": "1/15/2027",
+        "openDate": "4/28/2026",
+        "notes": "",
+        "noLongCall": false,
+        "shortCalls": [],
+        "closed": false
+      },
+      {
+        "id": "moork0s1myh3",
+        "ticker": "PTON",
+        "contracts": 1,
+        "longStrike": 6,
+        "longPremium": 1.3703999999999998,
+        "longExpiry": "1/15/2027",
+        "openDate": "4/29/2026",
+        "notes": "",
+        "noLongCall": false,
+        "shortCalls": [],
+        "closed": false
+      },
+      {
+        "id": "moork0s1a10q",
+        "ticker": "AMZN",
+        "contracts": 1,
+        "longStrike": 260,
+        "longPremium": 14.500399999999999,
+        "longExpiry": "5/29/2026",
+        "openDate": "4/29/2026",
+        "notes": "",
+        "noLongCall": false,
+        "shortCalls": [
+          {
+            "id": "moork0s1cgff",
+            "strike": 270,
+            "contracts": 1,
+            "received": 964.93,
+            "expiry": "5/29/2026",
+            "openDate": "4/29/2026",
+            "closed": false
+          }
+        ],
+        "closed": false
+      },
+      {
+        "id": "moork0s13ac4",
+        "ticker": "GOOGL",
+        "contracts": 1,
+        "longStrike": 350,
+        "longPremium": 15.3904,
+        "longExpiry": "5/29/2026",
+        "openDate": "4/29/2026",
+        "notes": "",
+        "noLongCall": false,
+        "shortCalls": [],
+        "closed": false
+      },
+      {
+        "id": "moork0s12si5",
+        "ticker": "META",
+        "contracts": 1,
+        "longStrike": 670,
+        "longPremium": 35.8104,
+        "longExpiry": "5/29/2026",
+        "openDate": "4/29/2026",
+        "notes": "",
+        "noLongCall": false,
+        "shortCalls": [],
+        "closed": false
+      },
+      {
+        "id": "moork0s1djl3",
+        "ticker": "META",
+        "contracts": 1,
+        "longStrike": 615,
+        "longPremium": 25.4004,
+        "longExpiry": "5/29/2026",
+        "openDate": "4/30/2026",
+        "notes": "",
+        "noLongCall": false,
+        "shortCalls": [
+          {
+            "id": "moork0s18d2b",
+            "strike": 680,
+            "contracts": 1,
+            "received": 3110.88,
+            "expiry": "5/29/2026",
+            "openDate": "4/29/2026",
+            "closed": false
+          }
+        ],
+        "closed": false
+      },
+      {
+        "id": "moork0s1likt",
+        "ticker": "META",
+        "contracts": 1,
+        "longStrike": null,
+        "longPremium": null,
+        "longExpiry": null,
+        "openDate": "4/30/2026",
+        "notes": "",
+        "noLongCall": true,
+        "shortCalls": [
+          {
+            "id": "moork0s1nbvn",
+            "strike": 630,
+            "contracts": 1,
+            "received": 1849.91,
+            "expiry": "5/29/2026",
+            "openDate": "4/30/2026",
+            "closed": false
+          }
+        ],
+        "closed": false
+      },
+      {
+        "id": "moork0s1m0sj",
+        "ticker": "GOOGL",
+        "contracts": 1,
+        "longStrike": 355,
+        "longPremium": 32.0004,
+        "longExpiry": "5/29/2026",
+        "openDate": "5/1/2026",
+        "notes": "",
+        "noLongCall": false,
+        "shortCalls": [
+          {
+            "id": "moork0s120m5",
+            "strike": 360,
+            "contracts": 1,
+            "received": 1099.92,
+            "expiry": "5/29/2026",
+            "openDate": "4/29/2026",
+            "closed": false
+          }
+        ],
+        "closed": false
+      }
+    ],
     "spouse": [],
     "joint": [
       {
