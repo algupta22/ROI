@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-03T19:26:23.033Z",
+  "savedAt": "2026-05-03T19:34:03.792Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -10472,7 +10472,8 @@
             "closed": false
           }
         ],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 4225
       },
       {
         "id": "moost2xsupjj",
@@ -10499,7 +10500,8 @@
         "notes": "",
         "noLongCall": false,
         "shortCalls": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 4708
       },
       {
         "id": "moosphhnoco0",
@@ -10513,7 +10515,8 @@
         "noLongCall": false,
         "longCallClosed": false,
         "shortCalls": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 6055
       },
       {
         "id": "moosjmtb88l4",
@@ -10526,33 +10529,22 @@
         "notes": "",
         "noLongCall": false,
         "shortCalls": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 650
       },
       {
         "id": "moosjmtb3je9",
         "ticker": "F",
-        "contracts": 2,
+        "contracts": 4,
         "longStrike": 15,
-        "longPremium": 0.2904,
+        "longPremium": 0.28,
         "longExpiry": "9/18/2026",
         "openDate": "4/27/2026",
         "notes": "",
         "noLongCall": false,
         "shortCalls": [],
-        "closed": false
-      },
-      {
-        "id": "moosjmtbkb8s",
-        "ticker": "F",
-        "contracts": 2,
-        "longStrike": 15,
-        "longPremium": 0.2704,
-        "longExpiry": "9/18/2026",
-        "openDate": "4/27/2026",
-        "notes": "",
-        "noLongCall": false,
-        "shortCalls": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 56
       },
       {
         "id": "moosjmtbs522",
