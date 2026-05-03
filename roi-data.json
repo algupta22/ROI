@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-03T19:38:01.070Z",
+  "savedAt": "2026-05-03T19:46:44.308Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -10275,7 +10275,8 @@
         "notes": "",
         "noLongCall": false,
         "shortCalls": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 1560
       },
       {
         "id": "moork0s21f5d",
@@ -10288,7 +10289,8 @@
         "notes": "",
         "noLongCall": false,
         "shortCalls": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 1300
       },
       {
         "id": "moork0s2trld",
@@ -10301,7 +10303,8 @@
         "notes": "",
         "noLongCall": false,
         "shortCalls": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 3395
       },
       {
         "id": "moork0s2blz9",
@@ -10314,7 +10317,8 @@
         "notes": "",
         "noLongCall": false,
         "shortCalls": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 3630
       },
       {
         "id": "moork0s20cn1",
@@ -10327,7 +10331,8 @@
         "notes": "",
         "noLongCall": false,
         "shortCalls": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 852
       },
       {
         "id": "moork0s2dro8",
@@ -10340,7 +10345,8 @@
         "notes": "",
         "noLongCall": false,
         "shortCalls": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 156
       },
       {
         "id": "moork0s1myh3",
@@ -10353,7 +10359,8 @@
         "notes": "",
         "noLongCall": false,
         "shortCalls": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 118
       },
       {
         "id": "moork0s1a10q",
@@ -10373,10 +10380,12 @@
             "received": 964.93,
             "expiry": "5/29/2026",
             "openDate": "4/29/2026",
-            "closed": false
+            "closed": false,
+            "mvOverride": -773
           }
         ],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 1350
       },
       {
         "id": "moork0s12si5",
@@ -10396,10 +10405,12 @@
             "received": 3110.88,
             "expiry": "5/29/2026",
             "openDate": "4/29/2026",
-            "closed": false
+            "closed": false,
+            "mvOverride": -313
           }
         ],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 420
       },
       {
         "id": "moork0s1djl3",
@@ -10419,10 +10430,12 @@
             "received": 1849.91,
             "expiry": "5/29/2026",
             "openDate": "4/30/2026",
-            "closed": false
+            "closed": false,
+            "mvOverride": -1273
           }
         ],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 1858
       },
       {
         "id": "moork0s1m0sj",
