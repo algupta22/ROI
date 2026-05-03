@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-03T18:09:01.270Z",
+  "savedAt": "2026-05-03T18:16:59.889Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -9835,7 +9835,8 @@
             "received": 22,
             "expiry": "5/8",
             "openDate": "5/2/2026",
-            "closed": false
+            "closed": false,
+            "mvOverride": -37
           }
         ],
         "closed": false,
@@ -9860,7 +9861,8 @@
             "received": 22,
             "expiry": "5/8",
             "openDate": "5/8",
-            "closed": false
+            "closed": false,
+            "mvOverride": -37
           }
         ],
         "closed": false,
@@ -9909,7 +9911,8 @@
             "received": 22,
             "expiry": "5/8",
             "openDate": "5/2/2026",
-            "closed": false
+            "closed": false,
+            "mvOverride": -37
           }
         ],
         "closed": false,
@@ -9987,12 +9990,13 @@
             "expiry": "5/8/2026",
             "openDate": "5/1/2026",
             "closed": false,
-            "posType": "SPUT"
+            "posType": "SPUT",
+            "mvOverride": -50
           }
         ],
         "closed": false,
         "position": null,
-        "marketValueOverride": 163
+        "marketValueOverride": 162.9
       }
     ],
     "self_roth": [
