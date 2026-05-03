@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-03T18:03:38.950Z",
+  "savedAt": "2026-05-03T18:07:28.106Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -9986,7 +9986,9 @@
             "posType": "SPUT"
           }
         ],
-        "closed": false
+        "closed": false,
+        "position": null,
+        "marketValueOverride": 163
       }
     ],
     "self_roth": [
