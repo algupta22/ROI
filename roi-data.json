@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-03T18:07:28.106Z",
+  "savedAt": "2026-05-03T18:09:01.270Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -9838,7 +9838,9 @@
             "closed": false
           }
         ],
-        "closed": false
+        "closed": false,
+        "position": null,
+        "marketValueOverride": 54
       },
       {
         "id": "moohzbbyss07",
@@ -9863,7 +9865,7 @@
         ],
         "closed": false,
         "position": null,
-        "marketValueOverride": null
+        "marketValueOverride": 40
       },
       {
         "id": "moohwd02qa1x",
@@ -9910,7 +9912,9 @@
             "closed": false
           }
         ],
-        "closed": false
+        "closed": false,
+        "position": null,
+        "marketValueOverride": 258
       },
       {
         "id": "moohwd02fvxk",
