@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-03T17:15:40.713Z",
+  "savedAt": "2026-05-03T18:03:38.950Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -10525,14 +10525,15 @@
         "ticker": "BULL",
         "contracts": 1,
         "longStrike": 7.5,
-        "longPremium": 1.54,
+        "longPremium": 3.1,
         "longExpiry": "1/15/2027",
         "openDate": "5/2/2026",
         "notes": "",
         "noLongCall": false,
         "longCallClosed": false,
         "shortCalls": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 1.54
       },
       {
         "id": "mooq0by7f434",
@@ -10546,7 +10547,8 @@
         "noLongCall": false,
         "longCallClosed": false,
         "shortCalls": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 84
       },
       {
         "id": "moopu4qpt1rb",
@@ -10560,7 +10562,8 @@
         "noLongCall": false,
         "longCallClosed": false,
         "shortCalls": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 3015
       },
       {
         "id": "monutdf2sgyh",
@@ -10584,7 +10587,8 @@
           }
         ],
         "closed": false,
-        "longCallClosed": false
+        "longCallClosed": false,
+        "marketValueOverride": 817
       }
     ],
     "self_roth": [
