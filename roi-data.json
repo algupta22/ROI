@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-03T19:34:03.792Z",
+  "savedAt": "2026-05-03T19:36:23.621Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -10487,7 +10487,8 @@
         "noLongCall": false,
         "longCallClosed": false,
         "shortCalls": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 1809
       },
       {
         "id": "moosr2w9um2r",
@@ -10567,7 +10568,8 @@
             "closed": false
           }
         ],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 755
       }
     ],
     "joint": [
