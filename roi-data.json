@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-03T19:36:23.621Z",
+  "savedAt": "2026-05-03T19:38:01.070Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -10469,7 +10469,8 @@
             "received": 3504,
             "expiry": "5/29",
             "openDate": "5/2/2026",
-            "closed": false
+            "closed": false,
+            "mvOverride": -12818
           }
         ],
         "closed": false,
@@ -10565,7 +10566,8 @@
             "received": 134.94,
             "expiry": "5/8/2026",
             "openDate": "5/1/2026",
-            "closed": false
+            "closed": false,
+            "mvOverride": -192
           }
         ],
         "closed": false,
