@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-03T18:19:10.625Z",
+  "savedAt": "2026-05-03T18:39:20.701Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -9788,10 +9788,13 @@
             "received": 25,
             "expiry": "5/8",
             "openDate": "5/2/2026",
-            "closed": false
+            "closed": false,
+            "mvOverride": -9
           }
         ],
-        "closed": false
+        "closed": false,
+        "position": null,
+        "marketValueOverride": 81
       },
       {
         "id": "mooi66igkt8r",
@@ -9812,10 +9815,13 @@
             "expiry": "5/8/2026",
             "openDate": "4/28/2026",
             "closed": false,
-            "posType": "SPUT"
+            "posType": "SPUT",
+            "mvOverride": -12
           }
         ],
-        "closed": false
+        "closed": false,
+        "position": null,
+        "marketValueOverride": 12
       },
       {
         "id": "mooi0eu8d1p3",
@@ -9888,10 +9894,13 @@
             "expiry": "5/8/2026",
             "openDate": "5/1/2026",
             "closed": false,
-            "posType": "SPUT"
+            "posType": "SPUT",
+            "mvOverride": -39
           }
         ],
-        "closed": false
+        "closed": false,
+        "position": null,
+        "marketValueOverride": 140
       },
       {
         "id": "moohwd022et5",
@@ -9938,12 +9947,13 @@
             "expiry": "5/8/2026",
             "openDate": "4/30/2026",
             "closed": false,
-            "posType": "SPUT"
+            "posType": "SPUT",
+            "mvOverride": -18
           }
         ],
         "closed": false,
         "position": null,
-        "marketValueOverride": null
+        "marketValueOverride": 46
       },
       {
         "id": "moohwd023rzg",
@@ -9964,12 +9974,13 @@
             "expiry": "5/8/2026",
             "openDate": "5/1/2026",
             "closed": false,
-            "posType": "SPUT"
+            "posType": "SPUT",
+            "mvOverride": -75
           }
         ],
         "closed": false,
         "position": null,
-        "marketValueOverride": null
+        "marketValueOverride": 282
       },
       {
         "id": "moohwd02t2nu",
@@ -9991,12 +10002,12 @@
             "openDate": "5/1/2026",
             "closed": false,
             "posType": "SPUT",
-            "mvOverride": -49.9
+            "mvOverride": -50
           }
         ],
         "closed": false,
         "position": null,
-        "marketValueOverride": 162.9
+        "marketValueOverride": 163
       }
     ],
     "self_roth": [
