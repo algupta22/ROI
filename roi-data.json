@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-04T18:17:02.275Z",
+  "savedAt": "2026-05-04T19:29:19.313Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -10528,6 +10528,32 @@
   "callLadders": {
     "self": [
       {
+        "id": "morleeieb9b3",
+        "ticker": "PLTR",
+        "contracts": 1,
+        "longStrike": 145,
+        "longPremium": 33.55,
+        "longExpiry": "3/19/2027",
+        "openDate": "5/4/2026",
+        "notes": "",
+        "noLongCall": false,
+        "shortCalls": [],
+        "closed": false
+      },
+      {
+        "id": "morldojzwo0v",
+        "ticker": "PLTR",
+        "contracts": 1,
+        "longStrike": 140,
+        "longPremium": 35.9,
+        "longExpiry": "3/19/2027",
+        "openDate": "5/4/2026",
+        "notes": "",
+        "noLongCall": false,
+        "shortCalls": [],
+        "closed": false
+      },
+      {
         "id": "moqcrkhgeefm",
         "ticker": "TSLL",
         "contracts": 1,
@@ -10606,8 +10632,11 @@
         "notes": "",
         "noLongCall": false,
         "shortCalls": [],
-        "closed": false,
-        "marketValueOverride": 3395
+        "closed": true,
+        "marketValueOverride": 3395,
+        "longCallClosed": true,
+        "longCloseAmount": 3580,
+        "longCloseDate": "5/4/2026"
       },
       {
         "id": "moork0s2blz9",
@@ -10620,8 +10649,11 @@
         "notes": "",
         "noLongCall": false,
         "shortCalls": [],
-        "closed": false,
-        "marketValueOverride": 3630
+        "closed": true,
+        "marketValueOverride": 3630,
+        "longCallClosed": true,
+        "longCloseAmount": 3825,
+        "longCloseDate": "5/4/2026"
       },
       {
         "id": "moork0s20cn1",
