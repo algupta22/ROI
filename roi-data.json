@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-04T17:16:41.542Z",
+  "savedAt": "2026-05-04T17:21:42.643Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -8821,7 +8821,18 @@
         "openDate": "5/3/2026",
         "notes": "",
         "noLongPut": false,
-        "shortPuts": [],
+        "shortPuts": [
+          {
+            "id": "moodpbp7mc93",
+            "strike": 10,
+            "contracts": 1,
+            "received": 9.94,
+            "expiry": "5/8/2026",
+            "openDate": "4/27/2026",
+            "closed": false,
+            "posType": "SPUT"
+          }
+        ],
         "closed": false,
         "position": null,
         "marketValueOverride": 3
@@ -8928,15 +8939,13 @@
         "noLongPut": false,
         "shortPuts": [
           {
-            "id": "moodpbp7hbw2",
-            "strike": 22.5,
+            "id": "morgs8x36s7p",
+            "strike": 21,
             "contracts": 1,
-            "received": 25.94,
-            "expiry": "5/8/2026",
-            "openDate": "5/1/2026",
-            "closed": false,
-            "posType": "SPUT",
-            "mvOverride": -29
+            "received": 12,
+            "expiry": "5/8",
+            "openDate": "5/4/2026",
+            "closed": false
           }
         ],
         "closed": false,
@@ -9024,14 +9033,13 @@
         "longPutClosed": false,
         "shortPuts": [
           {
-            "id": "moodpbp7mc93",
-            "strike": 10,
-            "contracts": 1,
-            "received": 9.94,
-            "expiry": "5/8/2026",
-            "openDate": "4/27/2026",
-            "closed": false,
-            "posType": "SPUT"
+            "id": "morgtjrowxyf",
+            "strike": 12,
+            "contracts": 2,
+            "received": 22,
+            "expiry": "5/8",
+            "openDate": "5/4/2026",
+            "closed": false
           }
         ],
         "closed": false,
@@ -9330,7 +9338,17 @@
         "openDate": "4/30/2026",
         "notes": "",
         "noLongPut": false,
-        "shortPuts": [],
+        "shortPuts": [
+          {
+            "id": "morgugca3nz4",
+            "strike": 26.5,
+            "contracts": 1,
+            "received": 120,
+            "expiry": "5/8",
+            "openDate": "5/4/2026",
+            "closed": false
+          }
+        ],
         "closed": false,
         "position": null,
         "marketValueOverride": 373
@@ -9402,7 +9420,19 @@
         "openDate": "5/2/2026",
         "notes": "",
         "noLongPut": false,
-        "shortPuts": [],
+        "shortPuts": [
+          {
+            "id": "moodpbp7hbw2",
+            "strike": 22.5,
+            "contracts": 1,
+            "received": 25.94,
+            "expiry": "5/8/2026",
+            "openDate": "5/1/2026",
+            "closed": false,
+            "posType": "SPUT",
+            "mvOverride": -29
+          }
+        ],
         "closed": false,
         "position": null,
         "marketValueOverride": 114
@@ -11012,11 +11042,18 @@
       {
         "id": "monr2domlr87",
         "ticker": "RGTI",
-        "shares": 200,
+        "shares": 175,
         "costBasis": 18.24,
         "purchaseDate": "3/30/2026",
         "coveredCalls": [],
-        "shareSales": [],
+        "shareSales": [
+          {
+            "id": "morgqxyz6b0o",
+            "shares": 25,
+            "salePrice": 18.48,
+            "saleDate": "5/4/2026"
+          }
+        ],
         "closed": false
       },
       {
