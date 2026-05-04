@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-04T17:21:42.643Z",
+  "savedAt": "2026-05-04T17:29:00.668Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -9056,9 +9056,12 @@
         "notes": "",
         "noLongPut": false,
         "shortPuts": [],
-        "closed": false,
+        "closed": true,
         "position": null,
-        "marketValueOverride": 21
+        "marketValueOverride": 21,
+        "longPutClosed": true,
+        "longCloseAmount": 21,
+        "longCloseDate": "5/4/2026"
       },
       {
         "id": "mooe2i4fh0tv",
@@ -9071,9 +9074,12 @@
         "notes": "",
         "noLongPut": false,
         "shortPuts": [],
-        "closed": false,
+        "closed": true,
         "position": null,
-        "marketValueOverride": 44
+        "marketValueOverride": 44,
+        "longPutClosed": true,
+        "longCloseAmount": 21,
+        "longCloseDate": "5/4/2026"
       },
       {
         "id": "moodye1kh9w8",
