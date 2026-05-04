@@ -1465,8 +1465,44 @@ function rPortfolioValueCard(portfolio) {
   var saved; try { saved = JSON.parse(localStorage.getItem(storeKey)||'{}'); } catch(e) { saved={}; }
 
   var initCash=saved.initCash||0, cash=saved.cash||0, pend=saved.pendFunds||0, coll=saved.collActVal||0;
-  var shr=saved.shrMV||0, put=saved.putMV||0, call=saved.callMV||0;
   var btc=saved.btc||0, eth=saved.eth||0, otherCrypto=saved.otherCrypto||0;
+
+  // Auto-calculate from actual positions; use saved override only if explicitly set
+  var live = (function() {
+    var res={shrMV:0,putMV:0,callMV:0};
+    try {
+      var shares=JSON.parse(localStorage.getItem('roi_shares_'+pk)||'[]');
+      shares.forEach(function(s){if(!s.closed)res.shrMV+=(s.shares||0)*(tickerPrices[s.ticker]||0);});
+    } catch(e){}
+    try {
+      var puts=JSON.parse(localStorage.getItem('roi_putladder_'+pk)||'[]');
+      puts.forEach(function(l){
+        if(l.closed)return;
+        if(!l.longPutClosed&&!l.noLongPut&&l.longStrike){
+          if(l.marketValueOverride!==undefined&&l.marketValueOverride!==null&&l.marketValueOverride!==''){res.putMV+=parseFloat(l.marketValueOverride);}
+          else{var cp=tickerPrices[l.ticker]||0;if(cp>0&&cp<l.longStrike)res.putMV+=(l.longStrike-cp)*100*(l.contracts||1);}
+        }
+        (l.shortPuts||[]).forEach(function(sp){if(!sp.closed)res.putMV+=(sp.mvOverride!==undefined&&sp.mvOverride!==null&&sp.mvOverride!=='')?parseFloat(sp.mvOverride):-(sp.received||0);});
+      });
+    } catch(e){}
+    try {
+      var calls=JSON.parse(localStorage.getItem('roi_callladder_'+pk)||'[]');
+      calls.forEach(function(l){
+        if(l.closed)return;
+        if(!l.longCallClosed&&!l.noLongCall&&l.longStrike){
+          if(l.marketValueOverride!==undefined&&l.marketValueOverride!==null&&l.marketValueOverride!==''){res.callMV+=parseFloat(l.marketValueOverride);}
+          else{var cp=tickerPrices[l.ticker]||0;if(cp>0&&cp>l.longStrike)res.callMV+=(cp-l.longStrike)*100*(l.contracts||1);}
+        }
+        (l.shortCalls||[]).forEach(function(sc){if(!sc.closed)res.callMV+=(sc.mvOverride!==undefined&&sc.mvOverride!==null&&sc.mvOverride!=='')?parseFloat(sc.mvOverride):-(sc.received||0);});
+      });
+    } catch(e){}
+    return res;
+  })();
+
+  // Use saved override if set, else auto-calculated live value
+  var shr = (saved.shrMV !== undefined && saved.shrMV !== null && saved.shrMV !== 0) ? saved.shrMV : live.shrMV;
+  var put = (saved.putMV !== undefined && saved.putMV !== null && saved.putMV !== 0) ? saved.putMV : live.putMV;
+  var call = (saved.callMV !== undefined && saved.callMV !== null && saved.callMV !== 0) ? saved.callMV : live.callMV;
   var cashTot=cash+pend+coll, optTot=put+call, portVal=cashTot+shr+optTot;
   var cryptoTot=btc+eth+otherCrypto, grand=portVal+cryptoTot, gains=grand-initCash;
   var gainsPct=initCash>0?((gains/initCash)*100).toFixed(1):'0.0';
@@ -1492,6 +1528,7 @@ function rPortfolioValueCard(portfolio) {
     + weeklyW.compareView
     +'<div style="display:flex;justify-content:flex-end;align-items:center;margin-bottom:16px;">'
       + weeklyW.weeklyBtns
+      +'<button onclick="refreshLiveMV(\''+pk+'\')" style="background:var(--bg2);border:0.5px solid var(--border2);border-radius:6px;padding:6px 12px;font-size:12px;font-weight:600;color:var(--text3);cursor:pointer;margin-right:6px;">↺ Live MV</button>'
       +'<button onclick="savePV(\''+pk+'\')" id="pv-savebtn-'+pk+'" style="background:var(--bg2);border:0.5px solid var(--border2);border-radius:6px;padding:6px 16px;font-size:12px;font-weight:600;color:var(--black);cursor:pointer;">Save</button>'
     +'</div>'
     +'<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px;align-items:start;">'
@@ -1588,6 +1625,16 @@ function pvToggleSection(sec) {
   if (arr) arr.textContent = open ? '▶' : '▼';
 }
 
+
+function refreshLiveMV(pk) {
+  // Clear saved MV overrides so live values show
+  try {
+    var saved = JSON.parse(localStorage.getItem('roi_pv_'+pk)||'{}');
+    delete saved.shrMV; delete saved.putMV; delete saved.callMV;
+    localStorage.setItem('roi_pv_'+pk, JSON.stringify(saved));
+  } catch(e) {}
+  rMain();
+}
 
 function savePV(pk) {
   function gv(id){var el=document.getElementById('pv-'+id+'-'+pk);return el?(parseFloat(el.value)||0):0;}
