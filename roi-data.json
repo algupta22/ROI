@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-04T19:30:31.513Z",
+  "savedAt": "2026-05-04T19:33:58.581Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -11054,6 +11054,19 @@
     ],
     "spouse_ira": [
       {
+        "id": "morlixscyh8d",
+        "ticker": "PLTR",
+        "contracts": 1,
+        "longStrike": 125,
+        "longPremium": 44,
+        "longExpiry": "3/19/27",
+        "openDate": "5/4/2026",
+        "notes": "",
+        "noLongCall": false,
+        "shortCalls": [],
+        "closed": false
+      },
+      {
         "id": "molyrsiezaa0",
         "ticker": "PLTR",
         "contracts": 1,
@@ -11064,8 +11077,11 @@
         "notes": "",
         "noLongCall": false,
         "shortCalls": [],
-        "closed": false,
-        "marketValueOverride": 6055
+        "closed": true,
+        "marketValueOverride": 6055,
+        "longCallClosed": true,
+        "longCloseAmount": 6310,
+        "longCloseDate": "5/4/2026"
       },
       {
         "id": "molyrsiekk6t",
