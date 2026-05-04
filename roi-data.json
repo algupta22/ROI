@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-04T17:33:45.043Z",
+  "savedAt": "2026-05-04T17:38:03.927Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -9861,7 +9861,17 @@
         "openDate": "5/2/2026",
         "notes": "",
         "noLongPut": false,
-        "shortPuts": [],
+        "shortPuts": [
+          {
+            "id": "morhdpben5d0",
+            "strike": 67,
+            "contracts": 1,
+            "received": 12,
+            "expiry": "5/15",
+            "openDate": "5/4/2026",
+            "closed": false
+          }
+        ],
         "closed": false,
         "position": null,
         "marketValueOverride": 20
