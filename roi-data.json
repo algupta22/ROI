@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-04T17:38:03.927Z",
+  "savedAt": "2026-05-04T18:17:02.275Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -8812,6 +8812,52 @@
   "putLadders": {
     "self": [
       {
+        "id": "morin1hwhwt0",
+        "ticker": "RGTI",
+        "contracts": 1,
+        "longStrike": 16,
+        "longPremium": 1.7,
+        "longExpiry": "6/12",
+        "openDate": "5/4/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "morinyc3b1xz",
+            "strike": 16,
+            "contracts": 1,
+            "received": 17,
+            "expiry": "5/8",
+            "openDate": "5/4/2026",
+            "closed": false
+          }
+        ],
+        "closed": false
+      },
+      {
+        "id": "mori9wg4mzgt",
+        "ticker": "TTD",
+        "contracts": 1,
+        "longStrike": 22.5,
+        "longPremium": 1.84,
+        "longExpiry": "6/18",
+        "openDate": "5/4/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "morib8puzarf",
+            "strike": 22,
+            "contracts": 1,
+            "received": 80,
+            "expiry": "5/8",
+            "openDate": "5/4/2026",
+            "closed": false
+          }
+        ],
+        "closed": false
+      },
+      {
         "id": "moq6xl75ycyr",
         "ticker": "NVTS",
         "contracts": 1,
@@ -10241,12 +10287,13 @@
             "received": 14,
             "expiry": "5/8",
             "openDate": "5/4/2026",
-            "closed": false
+            "closed": false,
+            "mvOverride": -19
           }
         ],
         "closed": false,
         "position": null,
-        "marketValueOverride": 19
+        "marketValueOverride": 26
       },
       {
         "id": "mooipo8oq88d",
@@ -10268,11 +10315,12 @@
             "received": 14,
             "expiry": "5/8",
             "openDate": "5/4/2026",
-            "closed": false
+            "closed": false,
+            "mvOverride": -19
           }
         ],
         "closed": false,
-        "marketValueOverride": 31
+        "marketValueOverride": 35
       },
       {
         "id": "mooimbjuumkk",
@@ -10295,11 +10343,11 @@
             "expiry": "5/8",
             "openDate": "5/2/2026",
             "closed": false,
-            "mvOverride": -156
+            "mvOverride": -134
           }
         ],
         "closed": false,
-        "marketValueOverride": 297
+        "marketValueOverride": 273
       }
     ],
     "spouse_roth": [
@@ -11078,8 +11126,8 @@
       {
         "id": "monr2domlr87",
         "ticker": "RGTI",
-        "shares": 175,
-        "costBasis": 18.24,
+        "shares": 100,
+        "costBasis": 17.88,
         "purchaseDate": "3/30/2026",
         "coveredCalls": [],
         "shareSales": [
@@ -11087,6 +11135,18 @@
             "id": "morgqxyz6b0o",
             "shares": 25,
             "salePrice": 18.48,
+            "saleDate": "5/4/2026"
+          },
+          {
+            "id": "morihvttouo7",
+            "shares": 25,
+            "salePrice": 17.98,
+            "saleDate": "5/4/2026"
+          },
+          {
+            "id": "moriifbr8ajk",
+            "shares": 50,
+            "salePrice": 18,
             "saleDate": "5/4/2026"
           }
         ],
