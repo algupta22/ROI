@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-04T17:29:00.668Z",
+  "savedAt": "2026-05-04T17:33:45.043Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -8962,7 +8962,17 @@
         "openDate": "5/2/2026",
         "notes": "",
         "noLongPut": false,
-        "shortPuts": [],
+        "shortPuts": [
+          {
+            "id": "morh8dtb76sr",
+            "strike": 22.5,
+            "contracts": 1,
+            "received": 95,
+            "expiry": "5/8",
+            "openDate": "5/4/2026",
+            "closed": false
+          }
+        ],
         "closed": false
       },
       {
@@ -9303,7 +9313,17 @@
         "openDate": "5/2/2026",
         "notes": "",
         "noLongPut": false,
-        "shortPuts": [],
+        "shortPuts": [
+          {
+            "id": "morh7xi398d9",
+            "strike": 23,
+            "contracts": 1,
+            "received": 115,
+            "expiry": "5/8",
+            "openDate": "5/4/2026",
+            "closed": false
+          }
+        ],
         "closed": false,
         "position": null,
         "marketValueOverride": 234
