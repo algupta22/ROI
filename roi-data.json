@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-04T02:38:31.076Z",
+  "savedAt": "2026-05-04T02:40:28.445Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -10849,38 +10849,8 @@
         "notes": "",
         "noLongCall": false,
         "shortCalls": [],
-        "closed": false
-      },
-      {
-        "id": "molyrsieof3a",
-        "ticker": "WMT",
-        "contracts": 1,
-        "longStrike": 132,
-        "longPremium": 3.0404,
-        "longExpiry": "5/15/2026",
-        "openDate": "4/24/2026",
-        "notes": "",
-        "noLongCall": false,
-        "shortCalls": [],
-        "closed": false
-      },
-      {
-        "id": "molyrsiem949",
-        "ticker": "WMT",
-        "contracts": 1,
-        "longStrike": 132,
-        "longPremium": 0,
-        "longExpiry": "5/15/2026",
-        "openDate": "4/24/2026",
-        "notes": "STC imported",
-        "noLongCall": false,
-        "longCallClosed": true,
-        "longCloseAmount": 249.94,
-        "longCloseDate": "4/24/2026",
-        "stcStrike": 132,
-        "stcExpiry": "5/15/2026",
-        "shortCalls": [],
-        "closed": true
+        "closed": false,
+        "marketValueOverride": 6055
       },
       {
         "id": "molyrsiekk6t",
@@ -10893,7 +10863,8 @@
         "notes": "",
         "noLongCall": false,
         "shortCalls": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 3853
       }
     ]
   },
