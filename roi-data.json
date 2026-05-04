@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-04T16:31:34.535Z",
+  "savedAt": "2026-05-04T17:16:41.542Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -9516,7 +9516,17 @@
         "position": null,
         "noLongPut": false,
         "longPutClosed": false,
-        "shortPuts": [],
+        "shortPuts": [
+          {
+            "id": "morf6m4m7pxt",
+            "strike": 14,
+            "contracts": 2,
+            "received": 76,
+            "expiry": "5/8",
+            "openDate": "5/4/2026",
+            "closed": false
+          }
+        ],
         "closed": false,
         "marketValueOverride": 262
       },
@@ -9718,7 +9728,17 @@
         "openDate": "5/2/2026",
         "notes": "",
         "noLongPut": false,
-        "shortPuts": [],
+        "shortPuts": [
+          {
+            "id": "morglesfdukx",
+            "strike": 17,
+            "contracts": 1,
+            "received": 30,
+            "expiry": "5/8",
+            "openDate": "5/4/2026",
+            "closed": false
+          }
+        ],
         "closed": false,
         "position": null,
         "marketValueOverride": 193
@@ -9733,7 +9753,17 @@
         "openDate": "5/1",
         "notes": "",
         "noLongPut": false,
-        "shortPuts": [],
+        "shortPuts": [
+          {
+            "id": "morf3jn6sllm",
+            "strike": 375,
+            "contracts": 1,
+            "received": 9,
+            "expiry": "5/8",
+            "openDate": "5/4/2026",
+            "closed": false
+          }
+        ],
         "closed": false,
         "position": null,
         "marketValueOverride": 58
@@ -9851,7 +9881,7 @@
       {
         "id": "moofx2mqvzwd",
         "ticker": "CDE",
-        "contracts": 1,
+        "contracts": 2,
         "longStrike": 17.5,
         "longPremium": 1.75,
         "longExpiry": "6/18/2026",
@@ -9869,11 +9899,20 @@
             "closed": false,
             "posType": "SPUT",
             "mvOverride": -50
+          },
+          {
+            "id": "morgo88rq6mt",
+            "strike": 17,
+            "contracts": 1,
+            "received": 40,
+            "expiry": "5/8",
+            "openDate": "5/4/2026",
+            "closed": false
           }
         ],
         "closed": false,
         "position": null,
-        "marketValueOverride": 163
+        "marketValueOverride": 168
       }
     ],
     "joint": [
