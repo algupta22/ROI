@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-03T22:41:14.993Z",
+  "savedAt": "2026-05-04T01:20:33.209Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -10343,7 +10343,18 @@
         "openDate": "5/3/2026",
         "notes": "",
         "noLongCall": false,
-        "shortCalls": [],
+        "shortCalls": [
+          {
+            "id": "moqcxkf1rfng",
+            "strike": 25,
+            "contracts": 2,
+            "received": 756,
+            "expiry": "6/18",
+            "openDate": "5/3/2026",
+            "closed": false,
+            "mvOverride": -2
+          }
+        ],
         "closed": false,
         "marketValueOverride": 500
       },
