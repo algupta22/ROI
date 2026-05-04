@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-04T22:17:53.762Z",
+  "savedAt": "2026-05-04T22:20:23.015Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -11011,7 +11011,8 @@
         "notes": "",
         "noLongCall": false,
         "shortCalls": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 1015
       },
       {
         "id": "molyp76hza7p",
@@ -11024,7 +11025,8 @@
         "notes": "",
         "noLongCall": false,
         "shortCalls": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 1980
       }
     ],
     "spouse_roth": [
