@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-04T02:17:06.053Z",
+  "savedAt": "2026-05-04T02:38:31.076Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -10129,7 +10129,9 @@
         "notes": "",
         "noLongPut": false,
         "shortPuts": [],
-        "closed": false
+        "closed": false,
+        "position": null,
+        "marketValueOverride": 19
       },
       {
         "id": "mooipo8oq88d",
@@ -10144,7 +10146,8 @@
         "noLongPut": false,
         "longPutClosed": false,
         "shortPuts": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 31
       },
       {
         "id": "mooimbjuumkk",
@@ -10166,10 +10169,12 @@
             "received": 131,
             "expiry": "5/8",
             "openDate": "5/2/2026",
-            "closed": false
+            "closed": false,
+            "mvOverride": -156
           }
         ],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 297
       }
     ],
     "spouse_roth": [
@@ -10253,10 +10258,13 @@
             "received": 249,
             "expiry": "5/8",
             "openDate": "5/2/2026",
-            "closed": false
+            "closed": false,
+            "mvOverride": -151
           }
         ],
-        "closed": false
+        "closed": false,
+        "position": null,
+        "marketValueOverride": 191
       },
       {
         "id": "mooiu3te6q4p",
@@ -10271,7 +10279,8 @@
         "noLongPut": false,
         "longPutClosed": false,
         "shortPuts": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 281
       },
       {
         "id": "molyr7xx35ue",
@@ -10291,7 +10300,8 @@
             "received": 151,
             "expiry": "5/8",
             "openDate": "5/2/2026",
-            "closed": false
+            "closed": false,
+            "mvOverride": -158
           }
         ],
         "closed": false,
@@ -10299,7 +10309,7 @@
         "longCloseAmount": 0,
         "longCloseDate": null,
         "position": null,
-        "marketValueOverride": null
+        "marketValueOverride": 393
       },
       {
         "id": "molyr7xx4szs",
@@ -10319,7 +10329,8 @@
             "received": 420,
             "expiry": "5/8I",
             "openDate": "5/2/2026",
-            "closed": false
+            "closed": false,
+            "mvOverride": -428
           }
         ],
         "closed": false,
@@ -10327,7 +10338,7 @@
         "longCloseAmount": 0,
         "longCloseDate": null,
         "position": null,
-        "marketValueOverride": null
+        "marketValueOverride": 940
       }
     ]
   },
