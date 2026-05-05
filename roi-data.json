@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-05T12:54:41.109Z",
+  "savedAt": "2026-05-05T22:44:23.237Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -10436,12 +10436,12 @@
             "expiry": "5/8",
             "openDate": "5/2/2026",
             "closed": false,
-            "mvOverride": -204
+            "mvOverride": -151
           }
         ],
         "closed": false,
         "position": null,
-        "marketValueOverride": 266
+        "marketValueOverride": 209
       },
       {
         "id": "mooiu3te6q4p",
@@ -10464,11 +10464,11 @@
             "expiry": "5/8",
             "openDate": "5/4/2026",
             "closed": false,
-            "mvOverride": -26
+            "mvOverride": -13
           }
         ],
         "closed": false,
-        "marketValueOverride": 320
+        "marketValueOverride": 297
       },
       {
         "id": "molyr7xx35ue",
@@ -10488,8 +10488,21 @@
             "received": 151,
             "expiry": "5/8",
             "openDate": "5/2/2026",
+            "closed": true,
+            "mvOverride": -118,
+            "closeReason": "buyback",
+            "closeDate": "5/5/2026",
+            "buybackCost": 54
+          },
+          {
+            "id": "mot7pnvn55dx",
+            "strike": 130,
+            "contracts": 1,
+            "received": 84,
+            "expiry": "5/8",
+            "openDate": "5/5/2026",
             "closed": false,
-            "mvOverride": -118
+            "mvOverride": -104
           }
         ],
         "closed": false,
@@ -10497,7 +10510,7 @@
         "longCloseAmount": 0,
         "longCloseDate": null,
         "position": null,
-        "marketValueOverride": 333
+        "marketValueOverride": 420
       },
       {
         "id": "molyr7xx4szs",
@@ -10518,7 +10531,7 @@
             "expiry": "5/8I",
             "openDate": "5/2/2026",
             "closed": false,
-            "mvOverride": -353
+            "mvOverride": -430
           }
         ],
         "closed": false,
@@ -10526,7 +10539,7 @@
         "longCloseAmount": 0,
         "longCloseDate": null,
         "position": null,
-        "marketValueOverride": 845
+        "marketValueOverride": 1135
       }
     ]
   },
