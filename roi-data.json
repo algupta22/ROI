@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-04T22:20:23.015Z",
+  "savedAt": "2026-05-05T02:52:53.513Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -5964,7 +5964,7 @@
     "HOOD": 73.66,
     "MSFT": 414.195,
     "CDE": 17.65,
-    "CELH": 33.73,
+    "CELH": 33.96,
     "LYFT": 14.42,
     "METU": 24.7,
     "NKE": 44.4,
@@ -10287,13 +10287,11 @@
             "received": 14,
             "expiry": "5/8",
             "openDate": "5/4/2026",
-            "closed": false,
-            "mvOverride": -19
+            "closed": false
           }
         ],
         "closed": false,
-        "position": null,
-        "marketValueOverride": 26
+        "position": null
       },
       {
         "id": "mooipo8oq88d",
@@ -10315,12 +10313,10 @@
             "received": 14,
             "expiry": "5/8",
             "openDate": "5/4/2026",
-            "closed": false,
-            "mvOverride": -19
+            "closed": false
           }
         ],
-        "closed": false,
-        "marketValueOverride": 35
+        "closed": false
       },
       {
         "id": "mooimbjuumkk",
@@ -10342,12 +10338,10 @@
             "received": 131,
             "expiry": "5/8",
             "openDate": "5/2/2026",
-            "closed": false,
-            "mvOverride": -134
+            "closed": false
           }
         ],
-        "closed": false,
-        "marketValueOverride": 273
+        "closed": false
       }
     ],
     "spouse_roth": [
