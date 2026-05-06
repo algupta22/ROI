@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-06T03:53:33.523Z",
+  "savedAt": "2026-05-06T22:20:47.682Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -5964,7 +5964,7 @@
     "HOOD": 76.55,
     "MSFT": 413.62,
     "CDE": 17.56,
-    "CELH": 33.74,
+    "CELH": 33.12,
     "LYFT": 14.06,
     "METU": 24.84,
     "NKE": 43.2,
@@ -10288,12 +10288,12 @@
             "expiry": "5/8",
             "openDate": "5/5/2026",
             "closed": false,
-            "mvOverride": -74
+            "mvOverride": -91
           }
         ],
         "closed": false,
         "position": null,
-        "marketValueOverride": 172
+        "marketValueOverride": 196
       },
       {
         "id": "mooiqzwcrg9n",
@@ -10314,12 +10314,12 @@
             "expiry": "5/8",
             "openDate": "5/4/2026",
             "closed": false,
-            "mvOverride": -7
+            "mvOverride": -8
           }
         ],
         "closed": false,
         "position": null,
-        "marketValueOverride": 11
+        "marketValueOverride": 3
       },
       {
         "id": "mooipo8oq88d",
@@ -10342,11 +10342,11 @@
             "expiry": "5/8",
             "openDate": "5/4/2026",
             "closed": false,
-            "mvOverride": -7
+            "mvOverride": -8
           }
         ],
         "closed": false,
-        "marketValueOverride": 15
+        "marketValueOverride": 3
       },
       {
         "id": "mooimbjuumkk",
@@ -10369,11 +10369,11 @@
             "expiry": "5/8",
             "openDate": "5/2/2026",
             "closed": false,
-            "mvOverride": -177
+            "mvOverride": -149
           }
         ],
         "closed": false,
-        "marketValueOverride": 285
+        "marketValueOverride": 319
       }
     ],
     "spouse_roth": [
@@ -11051,7 +11051,7 @@
         "noLongCall": false,
         "shortCalls": [],
         "closed": false,
-        "marketValueOverride": 1170
+        "marketValueOverride": 1078
       },
       {
         "id": "molyp76hza7p",
@@ -11065,7 +11065,7 @@
         "noLongCall": false,
         "shortCalls": [],
         "closed": false,
-        "marketValueOverride": 2216
+        "marketValueOverride": 1966
       }
     ],
     "spouse_roth": [
