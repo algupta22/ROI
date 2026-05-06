@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-06T03:48:40.590Z",
+  "savedAt": "2026-05-06T03:53:33.523Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -10270,6 +10270,32 @@
     ],
     "self_roth": [
       {
+        "id": "motiqxwmhuig",
+        "ticker": "CELH",
+        "contracts": 1,
+        "longStrike": 30,
+        "longPremium": 1.63,
+        "longExpiry": "6/18",
+        "openDate": "5/5/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "motitbzzcl9d",
+            "strike": 30,
+            "contracts": 1,
+            "received": 68,
+            "expiry": "5/8",
+            "openDate": "5/5/2026",
+            "closed": false,
+            "mvOverride": -74
+          }
+        ],
+        "closed": false,
+        "position": null,
+        "marketValueOverride": 172
+      },
+      {
         "id": "mooiqzwcrg9n",
         "ticker": "NVTS",
         "contracts": 1,
@@ -10288,12 +10314,12 @@
             "expiry": "5/8",
             "openDate": "5/4/2026",
             "closed": false,
-            "mvOverride": -19
+            "mvOverride": -7
           }
         ],
         "closed": false,
         "position": null,
-        "marketValueOverride": 27
+        "marketValueOverride": 11
       },
       {
         "id": "mooipo8oq88d",
@@ -10316,11 +10342,11 @@
             "expiry": "5/8",
             "openDate": "5/4/2026",
             "closed": false,
-            "mvOverride": -19
+            "mvOverride": -7
           }
         ],
         "closed": false,
-        "marketValueOverride": 37
+        "marketValueOverride": 15
       },
       {
         "id": "mooimbjuumkk",
@@ -10343,11 +10369,11 @@
             "expiry": "5/8",
             "openDate": "5/2/2026",
             "closed": false,
-            "mvOverride": -161
+            "mvOverride": -177
           }
         ],
         "closed": false,
-        "marketValueOverride": 286
+        "marketValueOverride": 285
       }
     ],
     "spouse_roth": [
