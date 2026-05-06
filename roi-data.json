@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-06T23:05:25.764Z",
+  "savedAt": "2026-05-06T23:07:56.987Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -5956,9 +5956,9 @@
     "TSLZ": 13.72,
     "HIMZ": 36.08,
     "HIMZ1": 45.7,
-    "TSLL": 13.07,
+    "TSLL": 13.58,
     "ROBN": 18.12,
-    "NVTS": 17.45,
+    "NVTS": 16.4,
     "BBAI": 4.17,
     "HIMS": 27.27,
     "HOOD": 76.55,
@@ -5979,13 +5979,13 @@
     "SMCI": 27.09,
     "SOFI": 15.525,
     "SMCZ": 27.53,
-    "TTD": 24.1,
+    "TTD": 24.01,
     "SPY": 720.65,
     "SMST": 24.3,
     "SPXS": 29.8,
     "SQQQ": 50.22,
     "USAR": 26.33,
-    "SLV": 68.29,
+    "SLV": 70.13,
     "MRVL": 163.66,
     "ONDS": 9.73,
     "NFLX": 92.06,
@@ -11348,9 +11348,9 @@
       {
         "id": "momfpb3ef1gs",
         "ticker": "METU",
-        "shares": 100,
-        "costBasis": 39.1,
-        "purchaseDate": "4/1",
+        "shares": 300,
+        "costBasis": 31.6,
+        "purchaseDate": "5/6",
         "coveredCalls": [],
         "closed": false
       }
