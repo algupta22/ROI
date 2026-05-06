@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-05T22:44:23.237Z",
+  "savedAt": "2026-05-06T00:10:10.820Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -11087,7 +11087,7 @@
         "noLongCall": false,
         "shortCalls": [],
         "closed": false,
-        "marketValueOverride": 4313
+        "marketValueOverride": 3483
       },
       {
         "id": "molyrsiezaa0",
@@ -11118,7 +11118,7 @@
         "noLongCall": false,
         "shortCalls": [],
         "closed": false,
-        "marketValueOverride": 3980
+        "marketValueOverride": 3270
       }
     ]
   },
