@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-06T22:43:52.056Z",
+  "savedAt": "2026-05-06T22:53:27.768Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -10843,6 +10843,30 @@
     ],
     "spouse": [
       {
+        "id": "mounbw5zsjl4",
+        "ticker": "METU",
+        "contracts": 2,
+        "longStrike": null,
+        "longPremium": null,
+        "longExpiry": null,
+        "openDate": "5/6/2026",
+        "notes": "",
+        "noLongCall": true,
+        "shortCalls": [
+          {
+            "id": "mounbw5zsi5e",
+            "strike": 32,
+            "contracts": 2,
+            "received": 40,
+            "expiry": "6/5",
+            "openDate": "5/6/2026",
+            "closed": false,
+            "mvOverride": -56
+          }
+        ],
+        "closed": false
+      },
+      {
         "id": "moosu9i89n42",
         "ticker": "QQQ",
         "contracts": 1,
@@ -10958,12 +10982,25 @@
             "received": 134.94,
             "expiry": "5/8/2026",
             "openDate": "5/1/2026",
+            "closed": true,
+            "mvOverride": -192,
+            "closeReason": "buyback",
+            "closeDate": "5/6/2026",
+            "buybackCost": 520
+          },
+          {
+            "id": "mounf2od1rxz",
+            "strike": 292.5,
+            "contracts": 1,
+            "received": 730,
+            "expiry": "5/15",
+            "openDate": "5/6",
             "closed": false,
-            "mvOverride": -192
+            "mvOverride": -625
           }
         ],
         "closed": false,
-        "marketValueOverride": 755
+        "marketValueOverride": 1323
       }
     ],
     "joint": [
