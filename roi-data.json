@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-06T03:44:42.135Z",
+  "savedAt": "2026-05-06T03:48:40.590Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -5964,7 +5964,7 @@
     "HOOD": 76.55,
     "MSFT": 413.62,
     "CDE": 17.56,
-    "CELH": 33.57,
+    "CELH": 33.74,
     "LYFT": 14.06,
     "METU": 24.84,
     "NKE": 43.2,
@@ -5990,7 +5990,7 @@
     "ONDS": 9.73,
     "NFLX": 92.06,
     "PLTZ": 27.11,
-    "FNGD": 43.48,
+    "FNGD": 41.78,
     "METD": 16.45,
     "RGTZ": 13.63
   },
@@ -11025,7 +11025,7 @@
         "noLongCall": false,
         "shortCalls": [],
         "closed": false,
-        "marketValueOverride": 1015
+        "marketValueOverride": 1170
       },
       {
         "id": "molyp76hza7p",
@@ -11039,7 +11039,7 @@
         "noLongCall": false,
         "shortCalls": [],
         "closed": false,
-        "marketValueOverride": 1980
+        "marketValueOverride": 2216
       }
     ],
     "spouse_roth": [
