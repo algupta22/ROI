@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-06T22:29:11.543Z",
+  "savedAt": "2026-05-06T22:35:29.313Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -10462,12 +10462,12 @@
             "expiry": "5/8",
             "openDate": "5/2/2026",
             "closed": false,
-            "mvOverride": -151
+            "mvOverride": -169
           }
         ],
         "closed": false,
         "position": null,
-        "marketValueOverride": 209
+        "marketValueOverride": 249
       },
       {
         "id": "mooiu3te6q4p",
@@ -10490,11 +10490,11 @@
             "expiry": "5/8",
             "openDate": "5/4/2026",
             "closed": false,
-            "mvOverride": -13
+            "mvOverride": -7
           }
         ],
         "closed": false,
-        "marketValueOverride": 297
+        "marketValueOverride": 306
       },
       {
         "id": "molyr7xx35ue",
@@ -10528,7 +10528,7 @@
             "expiry": "5/8",
             "openDate": "5/5/2026",
             "closed": false,
-            "mvOverride": -104
+            "mvOverride": -77
           }
         ],
         "closed": false,
@@ -10536,7 +10536,7 @@
         "longCloseAmount": 0,
         "longCloseDate": null,
         "position": null,
-        "marketValueOverride": 420
+        "marketValueOverride": 455
       },
       {
         "id": "molyr7xx4szs",
@@ -10557,7 +10557,7 @@
             "expiry": "5/8I",
             "openDate": "5/2/2026",
             "closed": false,
-            "mvOverride": -430
+            "mvOverride": -508
           }
         ],
         "closed": false,
@@ -10565,7 +10565,7 @@
         "longCloseAmount": 0,
         "longCloseDate": null,
         "position": null,
-        "marketValueOverride": 1135
+        "marketValueOverride": 1205
       }
     ]
   },
@@ -11113,7 +11113,7 @@
         "noLongCall": false,
         "shortCalls": [],
         "closed": false,
-        "marketValueOverride": 3483
+        "marketValueOverride": 3270
       },
       {
         "id": "molyrsiezaa0",
@@ -11144,7 +11144,7 @@
         "noLongCall": false,
         "shortCalls": [],
         "closed": false,
-        "marketValueOverride": 3270
+        "marketValueOverride": 3090
       }
     ]
   },
