@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-06T03:31:48.844Z",
+  "savedAt": "2026-05-06T03:44:42.135Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -10372,11 +10372,11 @@
             "expiry": "5/8",
             "openDate": "5/2/2026",
             "closed": false,
-            "mvOverride": -30
+            "mvOverride": -40
           }
         ],
         "closed": false,
-        "marketValueOverride": 245
+        "marketValueOverride": 235
       },
       {
         "id": "mooj65pxqku0",
@@ -10399,7 +10399,7 @@
             "expiry": "5/15",
             "openDate": "5/2/2026",
             "closed": false,
-            "mvOverride": -38
+            "mvOverride": -40
           },
           {
             "id": "mooj94yumw2b",
@@ -10409,11 +10409,11 @@
             "expiry": "5/8",
             "openDate": "5/2/2026",
             "closed": false,
-            "mvOverride": -21
+            "mvOverride": -22
           }
         ],
         "closed": false,
-        "marketValueOverride": 134
+        "marketValueOverride": 137
       }
     ],
     "spouse_ira": [
@@ -11056,7 +11056,7 @@
         "longCallClosed": false,
         "shortCalls": [],
         "closed": false,
-        "marketValueOverride": 848
+        "marketValueOverride": 836
       },
       {
         "id": "mooszdwn9cxg",
@@ -11071,7 +11071,7 @@
         "longCallClosed": false,
         "shortCalls": [],
         "closed": false,
-        "marketValueOverride": 80
+        "marketValueOverride": 85
       }
     ],
     "spouse_ira": [
