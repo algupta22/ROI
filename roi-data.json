@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-06T23:07:56.987Z",
+  "savedAt": "2026-05-06T23:28:52.391Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -9532,7 +9532,7 @@
             "expiry": "6/18",
             "openDate": "5/2/2026",
             "closed": false,
-            "mvOverride": -3185
+            "mvOverride": -2940
           }
         ],
         "closed": false,
@@ -9557,12 +9557,12 @@
             "expiry": "5/15",
             "openDate": "5/2/2026",
             "closed": false,
-            "mvOverride": -515
+            "mvOverride": -510
           }
         ],
         "closed": false,
         "position": null,
-        "marketValueOverride": 1
+        "marketValueOverride": 13
       },
       {
         "id": "mooh498xa4c4",
@@ -9577,7 +9577,7 @@
         "shortPuts": [],
         "closed": false,
         "position": null,
-        "marketValueOverride": 123
+        "marketValueOverride": 93
       },
       {
         "id": "mooh2v8ymufi",
@@ -9599,12 +9599,15 @@
             "received": 1434,
             "expiry": "5/15",
             "openDate": "5/2/2026",
-            "closed": false,
-            "mvOverride": -2030
+            "closed": true,
+            "mvOverride": -2030,
+            "closeReason": "assigned",
+            "closeDate": "5/6/2026",
+            "buybackCost": 0
           }
         ],
         "closed": false,
-        "marketValueOverride": 2
+        "marketValueOverride": 0.1
       },
       {
         "id": "moogzql9hjj5",
@@ -9622,15 +9625,38 @@
           {
             "id": "morf6m4m7pxt",
             "strike": 14,
-            "contracts": 2,
-            "received": 76,
+            "contracts": 1,
+            "received": 38,
             "expiry": "5/8",
             "openDate": "5/4/2026",
-            "closed": false
+            "closed": false,
+            "mvOverride": -5
+          },
+          {
+            "id": "mouohezneiwt",
+            "strike": 14,
+            "contracts": 1,
+            "received": 38,
+            "expiry": "5/8",
+            "openDate": "5/4/2026",
+            "closed": true,
+            "closeReason": "buyback",
+            "closeDate": "5/6/2026",
+            "buybackCost": 11
+          },
+          {
+            "id": "mouohw8ml9dp",
+            "strike": 14,
+            "contracts": 1,
+            "received": 42,
+            "expiry": "5/15",
+            "openDate": "5/6/2026",
+            "closed": false,
+            "mvOverride": -30
           }
         ],
         "closed": false,
-        "marketValueOverride": 262
+        "marketValueOverride": 244
       },
       {
         "id": "moogpxkwdn0j",
@@ -9642,10 +9668,21 @@
         "openDate": "5/2/2026",
         "notes": "",
         "noLongPut": false,
-        "shortPuts": [],
+        "shortPuts": [
+          {
+            "id": "morglesfdukx",
+            "strike": 17,
+            "contracts": 1,
+            "received": 30,
+            "expiry": "5/8",
+            "openDate": "5/4/2026",
+            "closed": false,
+            "mvOverride": -1
+          }
+        ],
         "closed": false,
         "position": null,
-        "marketValueOverride": 18
+        "marketValueOverride": 1
       },
       {
         "id": "moogdhm8n7st",
@@ -9695,11 +9732,11 @@
             "expiry": "5/15",
             "openDate": "5/2/2026",
             "closed": false,
-            "mvOverride": -610
+            "mvOverride": -808
           }
         ],
         "closed": false,
-        "marketValueOverride": 693
+        "marketValueOverride": 935
       },
       {
         "id": "moofx2mr3gkv",
@@ -9721,7 +9758,7 @@
             "openDate": "4/30/2026",
             "closed": false,
             "posType": "SPUT",
-            "mvOverride": -18
+            "mvOverride": -2
           },
           {
             "id": "moofx2mr8unc",
@@ -9732,12 +9769,12 @@
             "openDate": "4/30/2026",
             "closed": false,
             "posType": "SPUT",
-            "mvOverride": -18
+            "mvOverride": -2
           }
         ],
         "closed": false,
         "position": null,
-        "marketValueOverride": 198
+        "marketValueOverride": 160
       },
       {
         "id": "moofx2mrfan2",
@@ -9813,12 +9850,22 @@
             "openDate": "5/1/2026",
             "closed": false,
             "posType": "SPUT",
-            "mvOverride": -295
+            "mvOverride": -231
+          },
+          {
+            "id": "mouont80ynfy",
+            "strike": 135,
+            "contracts": 1,
+            "received": 163,
+            "expiry": "5/8",
+            "openDate": "5/5",
+            "closed": false,
+            "mvOverride": -291
           }
         ],
         "closed": false,
         "position": null,
-        "marketValueOverride": 1466
+        "marketValueOverride": 1826
       },
       {
         "id": "moofx2mrt1je",
@@ -9832,18 +9879,19 @@
         "noLongPut": false,
         "shortPuts": [
           {
-            "id": "morglesfdukx",
-            "strike": 17,
+            "id": "mouoanpuqs5p",
+            "strike": 17.5,
             "contracts": 1,
-            "received": 30,
+            "received": 10,
             "expiry": "5/8",
-            "openDate": "5/4/2026",
-            "closed": false
+            "openDate": "5/5",
+            "closed": false,
+            "mvOverride": -1
           }
         ],
         "closed": false,
         "position": null,
-        "marketValueOverride": 193
+        "marketValueOverride": 148
       },
       {
         "id": "moofx2mr62j9",
@@ -9863,12 +9911,13 @@
             "received": 9,
             "expiry": "5/8",
             "openDate": "5/4/2026",
-            "closed": false
+            "closed": false,
+            "mvOverride": -4
           }
         ],
         "closed": false,
         "position": null,
-        "marketValueOverride": 58
+        "marketValueOverride": 33
       },
       {
         "id": "moofx2mrqtyx",
@@ -9890,12 +9939,12 @@
             "openDate": "5/1/2026",
             "closed": false,
             "posType": "SPUT",
-            "mvOverride": -898
+            "mvOverride": -1123
           }
         ],
         "closed": false,
         "position": null,
-        "marketValueOverride": 1080
+        "marketValueOverride": 1275
       },
       {
         "id": "moofx2mravxz",
@@ -9920,7 +9969,7 @@
         ],
         "closed": false,
         "position": null,
-        "marketValueOverride": 20
+        "marketValueOverride": 12
       },
       {
         "id": "moofx2mr71zw",
@@ -9942,7 +9991,7 @@
             "openDate": "4/29/2026",
             "closed": false,
             "posType": "SPUT",
-            "mvOverride": -236
+            "mvOverride": -24
           },
           {
             "id": "moofx2mr1jjz",
@@ -9953,12 +10002,12 @@
             "openDate": "4/29/2026",
             "closed": false,
             "posType": "SPUT",
-            "mvOverride": -186
+            "mvOverride": -17
           }
         ],
         "closed": false,
         "position": null,
-        "marketValueOverride": 220
+        "marketValueOverride": 14
       },
       {
         "id": "moofx2mrruuu",
@@ -9970,10 +10019,21 @@
         "openDate": "4/27/2026",
         "notes": "",
         "noLongPut": false,
-        "shortPuts": [],
+        "shortPuts": [
+          {
+            "id": "mouotgow3jto",
+            "strike": 11.5,
+            "contracts": 1,
+            "received": 6,
+            "expiry": "5/8",
+            "openDate": "5/6/2026",
+            "closed": false,
+            "mvOverride": -2
+          }
+        ],
         "closed": false,
         "position": null,
-        "marketValueOverride": 7
+        "marketValueOverride": 5
       },
       {
         "id": "moofx2mrdrvr",
@@ -9988,7 +10048,7 @@
         "shortPuts": [],
         "closed": false,
         "position": null,
-        "marketValueOverride": 10
+        "marketValueOverride": 2
       },
       {
         "id": "moofx2mqvzwd",
@@ -10010,7 +10070,7 @@
             "openDate": "4/29/2026",
             "closed": false,
             "posType": "SPUT",
-            "mvOverride": -50
+            "mvOverride": -35
           },
           {
             "id": "morgo88rq6mt",
@@ -10019,12 +10079,13 @@
             "received": 40,
             "expiry": "5/8",
             "openDate": "5/4/2026",
-            "closed": false
+            "closed": false,
+            "mvOverride": -15
           }
         ],
         "closed": false,
         "position": null,
-        "marketValueOverride": 168
+        "marketValueOverride": 220
       }
     ],
     "joint": [
