@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-06T23:00:00.771Z",
+  "savedAt": "2026-05-06T23:05:25.764Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -10886,11 +10886,11 @@
             "expiry": "5/29",
             "openDate": "5/2/2026",
             "closed": false,
-            "mvOverride": -12818
+            "mvOverride": -15084
           }
         ],
         "closed": false,
-        "marketValueOverride": 4225
+        "marketValueOverride": 6298
       },
       {
         "id": "moost2xsupjj",
@@ -10905,7 +10905,7 @@
         "longCallClosed": false,
         "shortCalls": [],
         "closed": false,
-        "marketValueOverride": 1809
+        "marketValueOverride": 1749
       },
       {
         "id": "moosr2w9um2r",
@@ -10919,7 +10919,7 @@
         "noLongCall": false,
         "shortCalls": [],
         "closed": false,
-        "marketValueOverride": 4708
+        "marketValueOverride": 3770
       },
       {
         "id": "moosphhnoco0",
@@ -10934,7 +10934,7 @@
         "longCallClosed": false,
         "shortCalls": [],
         "closed": false,
-        "marketValueOverride": 6055
+        "marketValueOverride": 5030
       },
       {
         "id": "moosjmtb88l4",
@@ -10948,7 +10948,7 @@
         "noLongCall": false,
         "shortCalls": [],
         "closed": false,
-        "marketValueOverride": 650
+        "marketValueOverride": 765
       },
       {
         "id": "moosjmtb3je9",
@@ -10962,7 +10962,7 @@
         "noLongCall": false,
         "shortCalls": [],
         "closed": false,
-        "marketValueOverride": 56
+        "marketValueOverride": 68
       },
       {
         "id": "moosjmtbs522",
