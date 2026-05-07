@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-07T13:09:44.334Z",
+  "savedAt": "2026-05-07T13:22:29.973Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -11353,20 +11353,10 @@
         "closed": false
       },
       {
-        "id": "monr2dom5foo",
-        "ticker": "SOFI",
-        "shares": 200,
-        "costBasis": 19.66,
-        "purchaseDate": "3/19/2026",
-        "coveredCalls": [],
-        "shareSales": [],
-        "closed": false
-      },
-      {
         "id": "monr2domeukz",
         "ticker": "TSLZ",
-        "shares": 93,
-        "costBasis": 18.13,
+        "shares": 100,
+        "costBasis": 17.84,
         "purchaseDate": "3/23/2026",
         "coveredCalls": [],
         "shareSales": [],
@@ -11375,30 +11365,11 @@
       {
         "id": "monr2domlr87",
         "ticker": "RGTI",
-        "shares": 100,
-        "costBasis": 17.88,
+        "shares": 70,
+        "costBasis": 16.2,
         "purchaseDate": "3/30/2026",
         "coveredCalls": [],
-        "shareSales": [
-          {
-            "id": "morgqxyz6b0o",
-            "shares": 25,
-            "salePrice": 18.48,
-            "saleDate": "5/4/2026"
-          },
-          {
-            "id": "morihvttouo7",
-            "shares": 25,
-            "salePrice": 17.98,
-            "saleDate": "5/4/2026"
-          },
-          {
-            "id": "moriifbr8ajk",
-            "shares": 50,
-            "salePrice": 18,
-            "saleDate": "5/4/2026"
-          }
-        ],
+        "shareSales": [],
         "closed": false
       },
       {
@@ -11424,7 +11395,7 @@
       {
         "id": "monr2dom5c14",
         "ticker": "PLTR",
-        "shares": 100,
+        "shares": 20,
         "costBasis": 131.8,
         "purchaseDate": "4/24/2026",
         "coveredCalls": [],
@@ -11434,8 +11405,8 @@
       {
         "id": "monrf3xwun95",
         "ticker": "METD",
-        "shares": 30,
-        "costBasis": 16.42,
+        "shares": 15,
+        "costBasis": 16.38,
         "purchaseDate": "5/01/2026",
         "coveredCalls": [],
         "closed": false
