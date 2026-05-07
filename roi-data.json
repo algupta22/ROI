@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-07T12:14:41.600Z",
+  "savedAt": "2026-05-07T12:27:30.752Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -9511,6 +9511,60 @@
       }
     ],
     "spouse": [
+      {
+        "id": "movgly4n5d73",
+        "ticker": "QQQ",
+        "contracts": 1,
+        "longStrike": 475,
+        "longPremium": 5.67,
+        "longExpiry": "5/29",
+        "openDate": "3/1",
+        "notes": "",
+        "position": null,
+        "noLongPut": false,
+        "longPutClosed": false,
+        "shortPuts": [
+          {
+            "id": "movgmvn8udwx",
+            "strike": 546,
+            "contracts": 1,
+            "received": 1858,
+            "expiry": "5/29",
+            "openDate": "3/1",
+            "closed": false,
+            "mvOverride": -32
+          }
+        ],
+        "closed": false,
+        "marketValueOverride": 1
+      },
+      {
+        "id": "movgid6pdeo3",
+        "ticker": "PATH",
+        "contracts": 3,
+        "longStrike": 5,
+        "longPremium": 0.35,
+        "longExpiry": "1/15/27",
+        "openDate": "3/1",
+        "notes": "",
+        "position": null,
+        "noLongPut": false,
+        "longPutClosed": false,
+        "shortPuts": [
+          {
+            "id": "movgk3javnrx",
+            "strike": 12,
+            "contracts": 3,
+            "received": 519,
+            "expiry": "1/15/27",
+            "openDate": "3/2",
+            "closed": false,
+            "mvOverride": -999
+          }
+        ],
+        "closed": false,
+        "marketValueOverride": 105
+      },
       {
         "id": "mooh8qn1y50s",
         "ticker": "ROBN",
