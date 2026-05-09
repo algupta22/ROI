@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-09T18:08:16.830Z",
+  "savedAt": "2026-05-09T18:14:29.312Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -5652,22 +5652,7 @@
         "longCallClosed": false,
         "shortCalls": [],
         "closed": false,
-        "marketValueOverride": 952
-      },
-      {
-        "id": "mooszdwn9cxg",
-        "ticker": "PATH",
-        "contracts": 1,
-        "longStrike": 20,
-        "longPremium": 4.65,
-        "longExpiry": "1/15/27",
-        "openDate": "5/2/2026",
-        "notes": "",
-        "noLongCall": false,
-        "longCallClosed": false,
-        "shortCalls": [],
-        "closed": false,
-        "marketValueOverride": 72
+        "marketValueOverride": 848
       }
     ],
     "spouse_ira": [
