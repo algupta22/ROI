@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-09T04:22:43.169Z",
+  "savedAt": "2026-05-09T04:37:35.345Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -5853,8 +5853,8 @@
       {
         "id": "moxsn9alu823",
         "ticker": "SOFI",
-        "shares": 1500,
-        "costBasis": 0,
+        "shares": 1800,
+        "costBasis": 16.5,
         "purchaseDate": "5/8/2026",
         "coveredCalls": [],
         "shareSales": [],
