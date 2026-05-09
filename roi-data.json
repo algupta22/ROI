@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-09T04:55:53.701Z",
+  "savedAt": "2026-05-09T18:08:16.830Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -5638,20 +5638,6 @@
         "shortCalls": [],
         "closed": false,
         "marketValueOverride": 78
-      },
-      {
-        "id": "moxr95w0yfud",
-        "ticker": "BBAI",
-        "contracts": 4,
-        "longStrike": 2.5,
-        "longPremium": 1.97,
-        "longExpiry": "1/15/2027",
-        "openDate": "5/8/2026",
-        "notes": "",
-        "noLongCall": false,
-        "shortCalls": [],
-        "closed": false,
-        "marketValueOverride": 848
       },
       {
         "id": "moot168ua99d",
