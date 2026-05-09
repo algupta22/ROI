@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-09T03:57:21.977Z",
+  "savedAt": "2026-05-09T04:12:06.244Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -301,11 +301,18 @@
       "excelGrossValue": 10,
       "excelCurrentValue": 10,
       "excelProfit": -173,
-      "closed": false,
+      "closed": true,
       "notes": "",
       "manualPrice": null,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "05/08"
+      },
       "_noMerge": true,
       "cvOverride": 10
     },
@@ -323,11 +330,18 @@
       "excelGrossValue": 10,
       "excelCurrentValue": 10,
       "excelProfit": -150,
-      "closed": false,
+      "closed": true,
       "notes": "",
       "manualPrice": null,
       "rolledOver": false,
-      "closeAction": null,
+      "closeAction": {
+        "action": "Close",
+        "type": "zero",
+        "amount": 0,
+        "signedAmount": 0,
+        "notes": "Auto-expired (expiry date passed)",
+        "date": "05/08"
+      },
       "_noMerge": true,
       "cvOverride": 10
     },
