@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-09T18:47:06.432Z",
+  "savedAt": "2026-05-09T19:00:39.679Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -5509,16 +5509,6 @@
             "openDate": "5/8/2026",
             "closed": false,
             "mvOverride": -28
-          },
-          {
-            "id": "moxsn9all5es",
-            "strike": 20,
-            "contracts": 1,
-            "received": 25,
-            "expiry": "5/15/2026",
-            "openDate": "5/8/2026",
-            "closed": false,
-            "mvOverride": -28
           }
         ],
         "closed": false
@@ -5561,26 +5551,23 @@
         "openDate": "5/8/2026",
         "notes": "",
         "noLongCall": false,
-        "shortCalls": [],
+        "shortCalls": [
+          {
+            "id": "moypg1n0lyoo",
+            "strike": 50,
+            "contracts": 1,
+            "received": 16,
+            "expiry": "5/22",
+            "openDate": "5/1",
+            "closed": false,
+            "mvOverride": -9
+          }
+        ],
         "closed": false,
         "marketValueOverride": 895
       },
       {
         "id": "moxsn9aks5ds",
-        "ticker": "BULL",
-        "contracts": 1,
-        "longStrike": 7.5,
-        "longPremium": 3.1,
-        "longExpiry": "1/15/2027",
-        "openDate": "5/8/2026",
-        "notes": "",
-        "noLongCall": false,
-        "shortCalls": [],
-        "closed": false,
-        "marketValueOverride": 150
-      },
-      {
-        "id": "moxsn9ak5zzi",
         "ticker": "BULL",
         "contracts": 1,
         "longStrike": 7.5,
