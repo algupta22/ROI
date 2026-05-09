@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-09T01:53:23.713Z",
+  "savedAt": "2026-05-09T01:58:56.679Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -9512,7 +9512,350 @@
       }
     ],
     "spouse": [],
-    "joint": [],
+    "joint": [
+      {
+        "id": "moxp30oim9gj",
+        "ticker": "TSLL",
+        "contracts": 1,
+        "longStrike": 12,
+        "longPremium": 1.23,
+        "longExpiry": "6/5/2026",
+        "openDate": "5/8/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "moxp30oiay0k",
+            "strike": 12,
+            "contracts": 1,
+            "received": 25,
+            "expiry": "5/15/2026",
+            "openDate": "5/8/2026",
+            "closed": false,
+            "mvOverride": -4
+          }
+        ],
+        "closed": false,
+        "marketValueOverride": 31
+      },
+      {
+        "id": "moxp30oi53t9",
+        "ticker": "TSLL",
+        "contracts": 2,
+        "longStrike": 10.5,
+        "longPremium": 1.46,
+        "longExpiry": "5/29/2026",
+        "openDate": "5/8/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [],
+        "closed": false,
+        "marketValueOverride": 24
+      },
+      {
+        "id": "moxp30oii2ym",
+        "ticker": "SOFI",
+        "contracts": 3,
+        "longStrike": 16,
+        "longPremium": 1.01,
+        "longExpiry": "6/18/2026",
+        "openDate": "5/8/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "moxp30oiyavj",
+            "strike": 14.5,
+            "contracts": 3,
+            "received": 24,
+            "expiry": "5/15/2026",
+            "openDate": "5/8/2026",
+            "closed": false,
+            "mvOverride": -21
+          }
+        ],
+        "closed": false,
+        "marketValueOverride": 348
+      },
+      {
+        "id": "moxp30oicooa",
+        "ticker": "SLV",
+        "contracts": 1,
+        "longStrike": 64,
+        "longPremium": 11.42,
+        "longExpiry": "9/30/2026",
+        "openDate": "5/8/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "moxp30oima1v",
+            "strike": 57,
+            "contracts": 1,
+            "received": 572,
+            "expiry": "9/30/2026",
+            "openDate": "5/8/2026",
+            "closed": false,
+            "mvOverride": -228
+          }
+        ],
+        "closed": false,
+        "marketValueOverride": 448
+      },
+      {
+        "id": "moxp30oijajl",
+        "ticker": "SLV",
+        "contracts": 1,
+        "longStrike": 38,
+        "longPremium": 0.33,
+        "longExpiry": "9/30/2026",
+        "openDate": "5/8/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "moxp30oihb9d",
+            "strike": 63.5,
+            "contracts": 1,
+            "received": 910,
+            "expiry": "9/30/2026",
+            "openDate": "5/8/2026",
+            "closed": false,
+            "mvOverride": -428
+          }
+        ],
+        "closed": false,
+        "marketValueOverride": 16
+      },
+      {
+        "id": "moxp30oi2ex5",
+        "ticker": "PATH",
+        "contracts": 1,
+        "longStrike": 11,
+        "longPremium": 1.51,
+        "longExpiry": "6/18/2026",
+        "openDate": "5/8/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "moxp30oigntf",
+            "strike": 10.5,
+            "contracts": 2,
+            "received": 52,
+            "expiry": "5/15/2026",
+            "openDate": "5/8/2026",
+            "closed": false,
+            "mvOverride": -50
+          }
+        ],
+        "closed": false,
+        "marketValueOverride": 130
+      },
+      {
+        "id": "moxp30oir4os",
+        "ticker": "PATH",
+        "contracts": 1,
+        "longStrike": 10,
+        "longPremium": 1.13,
+        "longExpiry": "5/29/2026",
+        "openDate": "5/8/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [],
+        "closed": false,
+        "marketValueOverride": 62
+      },
+      {
+        "id": "moxp30oig0v3",
+        "ticker": "ONDS",
+        "contracts": 1,
+        "longStrike": 10,
+        "longPremium": 2.99,
+        "longExpiry": "6/18/2026",
+        "openDate": "5/8/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "moxp30oi7zu9",
+            "strike": 9,
+            "contracts": 1,
+            "received": 141,
+            "expiry": "6/18/2026",
+            "openDate": "5/8/2026",
+            "closed": false,
+            "mvOverride": -103
+          }
+        ],
+        "closed": false,
+        "marketValueOverride": 169
+      },
+      {
+        "id": "moxp30oi0jd8",
+        "ticker": "NKE",
+        "contracts": 1,
+        "longStrike": 45,
+        "longPremium": 2.38,
+        "longExpiry": "6/18/2026",
+        "openDate": "5/8/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "moxp30oi7hvu",
+            "strike": 43,
+            "contracts": 1,
+            "received": 31,
+            "expiry": "5/15/2026",
+            "openDate": "5/8/2026",
+            "closed": false,
+            "mvOverride": -33
+          }
+        ],
+        "closed": false,
+        "marketValueOverride": 270
+      },
+      {
+        "id": "moxp30oimwbq",
+        "ticker": "NKE",
+        "contracts": 1,
+        "longStrike": 42.5,
+        "longPremium": 1.67,
+        "longExpiry": "5/15/2026",
+        "openDate": "5/8/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "moxp30oit3fl",
+            "strike": 43.5,
+            "contracts": 1,
+            "received": 43,
+            "expiry": "5/15/2026",
+            "openDate": "5/8/2026",
+            "closed": false,
+            "mvOverride": -49
+          }
+        ],
+        "closed": false,
+        "marketValueOverride": 22
+      },
+      {
+        "id": "moxp30oh1t85",
+        "ticker": "MRVL",
+        "contracts": 1,
+        "longStrike": 80,
+        "longPremium": 5.74,
+        "longExpiry": "6/18/2026",
+        "openDate": "5/8/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "moxp30oiicqc",
+            "strike": 72.5,
+            "contracts": 2,
+            "received": 538,
+            "expiry": "6/18/2026",
+            "openDate": "5/8/2026",
+            "closed": false,
+            "mvOverride": -42
+          }
+        ],
+        "closed": false,
+        "marketValueOverride": 17
+      },
+      {
+        "id": "moxp30ohqdz5",
+        "ticker": "MRVL",
+        "contracts": 1,
+        "longStrike": 65,
+        "longPremium": 0.45,
+        "longExpiry": "6/18/2026",
+        "openDate": "5/8/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [],
+        "closed": false,
+        "marketValueOverride": 1
+      },
+      {
+        "id": "moxp30ohrbq3",
+        "ticker": "CDE",
+        "contracts": 1,
+        "longStrike": 17.5,
+        "longPremium": 1.62,
+        "longExpiry": "6/18/2026",
+        "openDate": "5/8/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "moxp30oibdi1",
+            "strike": 17.5,
+            "contracts": 1,
+            "received": 46,
+            "expiry": "5/15/2026",
+            "openDate": "5/8/2026",
+            "closed": false,
+            "mvOverride": -25
+          }
+        ],
+        "closed": false,
+        "marketValueOverride": 110
+      },
+      {
+        "id": "moxp30ohr06y",
+        "ticker": "CDE",
+        "contracts": 1,
+        "longStrike": 17.5,
+        "longPremium": 1.62,
+        "longExpiry": "6/18/2026",
+        "openDate": "5/8/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "moxp30oivxnh",
+            "strike": 17.5,
+            "contracts": 1,
+            "received": 46,
+            "expiry": "5/15/2026",
+            "openDate": "5/8/2026",
+            "closed": false,
+            "mvOverride": -25
+          }
+        ],
+        "closed": false,
+        "marketValueOverride": 110
+      },
+      {
+        "id": "moxp30oh5xr6",
+        "ticker": "BBAI",
+        "contracts": 2,
+        "longStrike": 2,
+        "longPremium": 0.07,
+        "longExpiry": "6/18/2026",
+        "openDate": "5/8/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "moxp30oiskk4",
+            "strike": 4,
+            "contracts": 2,
+            "received": 82,
+            "expiry": "6/18/2026",
+            "openDate": "5/8/2026",
+            "closed": false,
+            "mvOverride": -74
+          }
+        ],
+        "closed": false,
+        "marketValueOverride": 2
+      }
+    ],
     "self_roth": [
       {
         "id": "motiqxwmhuig",
@@ -10087,7 +10430,112 @@
       }
     ],
     "spouse": [],
-    "joint": [],
+    "joint": [
+      {
+        "id": "moxp30oi8cs2",
+        "ticker": "CDE",
+        "contracts": 1,
+        "longStrike": null,
+        "longPremium": null,
+        "longExpiry": null,
+        "openDate": "5/8/2026",
+        "notes": "",
+        "noLongCall": true,
+        "shortCalls": [
+          {
+            "id": "moxp30oihrks",
+            "strike": 20,
+            "contracts": 1,
+            "received": 25,
+            "expiry": "5/15/2026",
+            "openDate": "5/8/2026",
+            "closed": false,
+            "mvOverride": -28
+          },
+          {
+            "id": "moxp30oi8sj4",
+            "strike": 20,
+            "contracts": 1,
+            "received": 25,
+            "expiry": "5/15/2026",
+            "openDate": "5/8/2026",
+            "closed": false,
+            "mvOverride": -28
+          }
+        ],
+        "closed": false
+      },
+      {
+        "id": "moxp30oii1wo",
+        "ticker": "SOFI",
+        "contracts": 5,
+        "longStrike": 12,
+        "longPremium": 9.57,
+        "longExpiry": "1/15/2027",
+        "openDate": "5/8/2026",
+        "notes": "",
+        "noLongCall": false,
+        "shortCalls": [],
+        "closed": false,
+        "marketValueOverride": 2690
+      },
+      {
+        "id": "moxp30oigidi",
+        "ticker": "ONDS",
+        "contracts": 1,
+        "longStrike": 12,
+        "longPremium": 2.8,
+        "longExpiry": "6/18/2026",
+        "openDate": "5/8/2026",
+        "notes": "",
+        "noLongCall": false,
+        "shortCalls": [],
+        "closed": false,
+        "marketValueOverride": 34
+      },
+      {
+        "id": "moxp30oitwnx",
+        "ticker": "NKE",
+        "contracts": 1,
+        "longStrike": 40,
+        "longPremium": 15.05,
+        "longExpiry": "3/19/2027",
+        "openDate": "5/8/2026",
+        "notes": "",
+        "noLongCall": false,
+        "shortCalls": [],
+        "closed": false,
+        "marketValueOverride": 895
+      },
+      {
+        "id": "moxp30ohzqrj",
+        "ticker": "BULL",
+        "contracts": 1,
+        "longStrike": 7.5,
+        "longPremium": 3.1,
+        "longExpiry": "1/15/2027",
+        "openDate": "5/8/2026",
+        "notes": "",
+        "noLongCall": false,
+        "shortCalls": [],
+        "closed": false,
+        "marketValueOverride": 150
+      },
+      {
+        "id": "moxp30oh3mkl",
+        "ticker": "BULL",
+        "contracts": 1,
+        "longStrike": 7.5,
+        "longPremium": 3.1,
+        "longExpiry": "1/15/2027",
+        "openDate": "5/8/2026",
+        "notes": "",
+        "noLongCall": false,
+        "shortCalls": [],
+        "closed": false,
+        "marketValueOverride": 150
+      }
+    ],
     "self_roth": [
       {
         "id": "molyp76hjdrm",
@@ -10320,7 +10768,88 @@
       }
     ],
     "spouse": [],
-    "joint": [],
+    "joint": [
+      {
+        "id": "moxp30oitt9i",
+        "ticker": "SQQQ",
+        "shares": 40,
+        "costBasis": 81.2,
+        "purchaseDate": "5/8/2026",
+        "coveredCalls": [],
+        "shareSales": [],
+        "closed": false
+      },
+      {
+        "id": "moxp30oiumbk",
+        "ticker": "SPXS",
+        "shares": 20,
+        "costBasis": 39.68,
+        "purchaseDate": "5/8/2026",
+        "coveredCalls": [],
+        "shareSales": [],
+        "closed": false
+      },
+      {
+        "id": "moxp30oiyhy3",
+        "ticker": "SOFI",
+        "shares": 1500,
+        "costBasis": 0,
+        "purchaseDate": "5/8/2026",
+        "coveredCalls": [],
+        "shareSales": [],
+        "closed": false
+      },
+      {
+        "id": "moxp30oi4c93",
+        "ticker": "SMST",
+        "shares": 20,
+        "costBasis": 66.67,
+        "purchaseDate": "5/8/2026",
+        "coveredCalls": [],
+        "shareSales": [],
+        "closed": false
+      },
+      {
+        "id": "moxp30oidq1m",
+        "ticker": "SMCZ",
+        "shares": 38,
+        "costBasis": 37.02,
+        "purchaseDate": "5/8/2026",
+        "coveredCalls": [],
+        "shareSales": [],
+        "closed": false
+      },
+      {
+        "id": "moxp30oilmj1",
+        "ticker": "PATH",
+        "shares": 100,
+        "costBasis": 12.8,
+        "purchaseDate": "5/8/2026",
+        "coveredCalls": [],
+        "shareSales": [],
+        "closed": false
+      },
+      {
+        "id": "moxp30oi0ftp",
+        "ticker": "NKE",
+        "shares": 100,
+        "costBasis": 48.15,
+        "purchaseDate": "5/8/2026",
+        "coveredCalls": [],
+        "shareSales": [],
+        "closed": false
+      },
+      {
+        "id": "moxp30ohjwex",
+        "ticker": "CDE",
+        "shares": 100,
+        "costBasis": 18.65,
+        "purchaseDate": "5/8/2026",
+        "coveredCalls": [],
+        "shareSales": [],
+        "closed": false
+      }
+    ],
     "self_roth": [
       {
         "id": "molyomvu08tc",
