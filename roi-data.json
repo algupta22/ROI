@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-09T02:13:17.072Z",
+  "savedAt": "2026-05-09T02:16:51.347Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -5964,7 +5964,7 @@
     "HOOD": 76.55,
     "MSFT": 413.62,
     "CDE": 18.57,
-    "CELH": 33.12,
+    "CELH": 32.6,
     "LYFT": 14.06,
     "METU": 24.84,
     "NKE": 44.14,
@@ -9856,7 +9856,47 @@
         "marketValueOverride": 2
       }
     ],
-    "self_roth": [],
+    "self_roth": [
+      {
+        "id": "moxpno7pi30w",
+        "ticker": "CELH",
+        "contracts": 1,
+        "longStrike": 30,
+        "longPremium": 1.63,
+        "longExpiry": "6/18/2026",
+        "openDate": "5/8/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [],
+        "closed": false,
+        "marketValueOverride": 149
+      },
+      {
+        "id": "moxpno7p6mm1",
+        "ticker": "CELH",
+        "contracts": 1,
+        "longStrike": 33,
+        "longPremium": 3.75,
+        "longExpiry": "6/12/2026",
+        "openDate": "5/8/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "moxpno7pdeae",
+            "strike": 32,
+            "contracts": 1,
+            "received": 40,
+            "expiry": "5/15/2026",
+            "openDate": "5/8/2026",
+            "closed": false,
+            "mvOverride": -93
+          }
+        ],
+        "closed": false,
+        "marketValueOverride": 277
+      }
+    ],
     "spouse_roth": [],
     "spouse_ira": []
   },
@@ -10511,8 +10551,8 @@
       {
         "id": "molyomvu08tc",
         "ticker": "CELH",
-        "shares": 100,
-        "costBasis": 49.48,
+        "shares": 200,
+        "costBasis": 24.74,
         "purchaseDate": "3/6/2026",
         "coveredCalls": [],
         "shareSales": [],
