@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-09T04:12:06.244Z",
+  "savedAt": "2026-05-09T04:22:43.169Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -5741,16 +5741,6 @@
         "ticker": "TSLL",
         "shares": 2000,
         "costBasis": 16.62,
-        "purchaseDate": "5/8/2026",
-        "coveredCalls": [],
-        "shareSales": [],
-        "closed": false
-      },
-      {
-        "id": "moxsrctyxkde",
-        "ticker": "SMCI",
-        "shares": 100,
-        "costBasis": 0,
         "purchaseDate": "5/8/2026",
         "coveredCalls": [],
         "shareSales": [],
