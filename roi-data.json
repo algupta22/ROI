@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-09T02:56:08.496Z",
+  "savedAt": "2026-05-09T02:59:38.559Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -10157,7 +10157,47 @@
         "marketValueOverride": 277
       }
     ],
-    "spouse_roth": [],
+    "spouse_roth": [
+      {
+        "id": "moxr95w0q63w",
+        "ticker": "PATH",
+        "contracts": 1,
+        "longStrike": 11,
+        "longPremium": 1.56,
+        "longExpiry": "6/18/2026",
+        "openDate": "5/8/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "moxr95w0fcqw",
+            "strike": 10.5,
+            "contracts": 1,
+            "received": 65,
+            "expiry": "5/15/2026",
+            "openDate": "5/8/2026",
+            "closed": false,
+            "mvOverride": -25
+          }
+        ],
+        "closed": false,
+        "marketValueOverride": 130
+      },
+      {
+        "id": "moxr95w0t0r1",
+        "ticker": "BBAI",
+        "contracts": 5,
+        "longStrike": 4,
+        "longPremium": 0.66,
+        "longExpiry": "6/18/2026",
+        "openDate": "5/8/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [],
+        "closed": false,
+        "marketValueOverride": 185
+      }
+    ],
     "spouse_ira": []
   },
   "callLadders": {
@@ -10840,6 +10880,34 @@
       }
     ],
     "spouse_roth": [
+      {
+        "id": "moxr95w0obx3",
+        "ticker": "PATH",
+        "contracts": 1,
+        "longStrike": 20,
+        "longPremium": 4.65,
+        "longExpiry": "1/15/2027",
+        "openDate": "5/8/2026",
+        "notes": "",
+        "noLongCall": false,
+        "shortCalls": [],
+        "closed": false,
+        "marketValueOverride": 78
+      },
+      {
+        "id": "moxr95w0yfud",
+        "ticker": "BBAI",
+        "contracts": 4,
+        "longStrike": 2.5,
+        "longPremium": 1.97,
+        "longExpiry": "1/15/2027",
+        "openDate": "5/8/2026",
+        "notes": "",
+        "noLongCall": false,
+        "shortCalls": [],
+        "closed": false,
+        "marketValueOverride": 848
+      },
       {
         "id": "moot168ua99d",
         "ticker": "BBAI",
