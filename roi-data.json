@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-09T19:00:39.679Z",
+  "savedAt": "2026-05-09T19:11:15.676Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -4722,31 +4722,6 @@
         "shortPuts": [
           {
             "id": "moxsn9alnhcf",
-            "strike": 17.5,
-            "contracts": 1,
-            "received": 46,
-            "expiry": "5/15/2026",
-            "openDate": "5/8/2026",
-            "closed": false,
-            "mvOverride": -25
-          }
-        ],
-        "closed": false,
-        "marketValueOverride": 110
-      },
-      {
-        "id": "moxsn9alb5zz",
-        "ticker": "CDE",
-        "contracts": 1,
-        "longStrike": 17.5,
-        "longPremium": 1.62,
-        "longExpiry": "6/18/2026",
-        "openDate": "5/8/2026",
-        "notes": "",
-        "noLongPut": false,
-        "shortPuts": [
-          {
-            "id": "moxsn9albznx",
             "strike": 17.5,
             "contracts": 1,
             "received": 46,
