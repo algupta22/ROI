@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-09T04:37:35.345Z",
+  "savedAt": "2026-05-09T04:55:53.701Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -626,7 +626,7 @@
     "HIMZ1": 45.7,
     "TSLL": 15.59,
     "ROBN": 18.12,
-    "NVTS": 18.12,
+    "NVTS": 18.2,
     "BBAI": 4.17,
     "HIMS": 27.27,
     "HOOD": 76.55,
@@ -638,7 +638,7 @@
     "NKE": 44.14,
     "NVDA": 198.48,
     "NVDX": 20.53,
-    "PATH": 10.71,
+    "PATH": 10.79,
     "QQQ": 674.15,
     "BULL": 7.17,
     "NFLU": 27.82,
@@ -661,7 +661,8 @@
     "FNGD": 41.78,
     "METD": 16.45,
     "RGTZ": 10.7,
-    "MSTU": 8.93
+    "MSTU": 8.93,
+    "WMT": 130.5
   },
   "earningsDates": {
     "TSLL": {
@@ -5924,6 +5925,25 @@
       }
     ],
     "spouse_roth": [],
-    "spouse_ira": []
+    "spouse_ira": [
+      {
+        "id": "moxuvz3vpahu",
+        "ticker": "PLTR",
+        "shares": 100,
+        "costBasis": 133.8,
+        "purchaseDate": "5/8",
+        "coveredCalls": [],
+        "closed": false
+      },
+      {
+        "id": "moxv31p8at1h",
+        "ticker": "WMT",
+        "shares": 100,
+        "costBasis": 128.51,
+        "purchaseDate": "5/8",
+        "coveredCalls": [],
+        "closed": false
+      }
+    ]
   }
 }
