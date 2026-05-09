@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "savedAt": "2026-05-09T18:24:17.229Z",
+  "savedAt": "2026-05-09T18:27:14.752Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -5888,7 +5888,7 @@
         "id": "molyomvu08tc",
         "ticker": "CELH",
         "shares": 200,
-        "costBasis": 24.74,
+        "costBasis": 40.34,
         "purchaseDate": "3/6/2026",
         "coveredCalls": [],
         "shareSales": [],
