@@ -1,6 +1,6 @@
 {
   "version": 4,
-  "savedAt": "2026-05-11T13:30:39.870Z",
+  "savedAt": "2026-05-12T01:18:07.281Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -619,7 +619,7 @@
   ],
   "tickerPrices": {
     "GOOGL": 383.25,
-    "PLTR": 146.03,
+    "PLTR": 135.85,
     "IBIT": 45.4,
     "TSLZ": 11.32,
     "HIMZ": 40.58,
@@ -631,26 +631,26 @@
     "HIMS": 27.27,
     "HOOD": 76.55,
     "MSFT": 413.62,
-    "CDE": 18.57,
-    "CELH": 32.6,
+    "CDE": 19.88,
+    "CELH": 30.4,
     "LYFT": 14.34,
     "METU": 24.72,
-    "NKE": 44.14,
+    "NKE": 42.52,
     "NVDA": 198.48,
     "NVDX": 20.53,
-    "PATH": 10.79,
+    "PATH": 10.66,
     "QQQ": 674.15,
     "BULL": 7.17,
     "NFLU": 27.82,
     "QQQI": 54.51,
     "RGTI": 19.33,
     "SMCI": 35.36,
-    "SOFI": 15.82,
-    "SMCZ": 12.47,
+    "SOFI": 16.3,
+    "SMCZ": 13.48,
     "TTD": 22.94,
     "SPY": 720.65,
-    "SMST": 23.95,
-    "SPXS": 27.8,
+    "SMST": 22.48,
+    "SPXS": 22.7,
     "SQQQ": 42.27,
     "USAR": 26.33,
     "SLV": 70.13,
@@ -662,7 +662,7 @@
     "METD": 16.45,
     "RGTZ": 10.7,
     "MSTU": 8.93,
-    "WMT": 130.5
+    "WMT": 127.38
   },
   "earningsDates": {
     "TSLL": {
@@ -4030,6 +4030,31 @@
     ],
     "spouse": [
       {
+        "id": "mp1xwtta08hf",
+        "ticker": "NVDX",
+        "contracts": 1,
+        "longStrike": 21.5,
+        "longPremium": 2.38,
+        "longExpiry": "6/12",
+        "openDate": "5/11/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "mp1xxymr83h0",
+            "strike": 20.5,
+            "contracts": 1,
+            "received": 35,
+            "expiry": "5/15",
+            "openDate": "5/11/2026",
+            "closed": false
+          }
+        ],
+        "closed": false,
+        "position": null,
+        "marketValueOverride": 238
+      },
+      {
         "id": "moxsqnmveph8",
         "ticker": "TSLL",
         "contracts": 2,
@@ -4263,8 +4288,11 @@
         "notes": "",
         "noLongPut": false,
         "shortPuts": [],
-        "closed": false,
-        "marketValueOverride": 100
+        "closed": true,
+        "marketValueOverride": 100,
+        "longPutClosed": true,
+        "longCloseAmount": 85,
+        "longCloseDate": "5/11/2026"
       },
       {
         "id": "moxsqnmvoe1o",
@@ -4365,12 +4393,18 @@
             "received": 560,
             "expiry": "5/15/2026",
             "openDate": "5/8/2026",
-            "closed": false,
-            "mvOverride": -1740
+            "closed": true,
+            "mvOverride": -1740,
+            "closeReason": "buyback",
+            "closeDate": "5/11/2026",
+            "buybackCost": 1900
           }
         ],
-        "closed": false,
-        "marketValueOverride": 1960
+        "closed": true,
+        "marketValueOverride": 1960,
+        "longPutClosed": true,
+        "longCloseAmount": 2150,
+        "longCloseDate": "5/11/2026"
       },
       {
         "id": "moxsqnmv29fa",
@@ -4452,6 +4486,32 @@
       }
     ],
     "joint": [
+      {
+        "id": "mp1qcg56r5ig",
+        "ticker": "NKE",
+        "contracts": 1,
+        "longStrike": 42.5,
+        "longPremium": 2.07,
+        "longExpiry": "6/18",
+        "openDate": "5/11/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "moxsn9al5da9",
+            "strike": 43,
+            "contracts": 1,
+            "received": 31,
+            "expiry": "5/15/2026",
+            "openDate": "5/8/2026",
+            "closed": false,
+            "mvOverride": -104
+          }
+        ],
+        "closed": false,
+        "position": null,
+        "marketValueOverride": 215
+      },
       {
         "id": "moxsn9alpoxp",
         "ticker": "TSLL",
@@ -4640,20 +4700,12 @@
         "openDate": "5/8/2026",
         "notes": "",
         "noLongPut": false,
-        "shortPuts": [
-          {
-            "id": "moxsn9al5da9",
-            "strike": 43,
-            "contracts": 1,
-            "received": 31,
-            "expiry": "5/15/2026",
-            "openDate": "5/8/2026",
-            "closed": false,
-            "mvOverride": -33
-          }
-        ],
-        "closed": false,
-        "marketValueOverride": 270
+        "shortPuts": [],
+        "closed": true,
+        "marketValueOverride": 270,
+        "longPutClosed": true,
+        "longCloseAmount": 360,
+        "longCloseDate": "5/11/2026"
       },
       {
         "id": "moxsn9alzj9w",
@@ -4674,11 +4726,12 @@
             "expiry": "5/15/2026",
             "openDate": "5/8/2026",
             "closed": false,
-            "mvOverride": -49
+            "mvOverride": -137
           }
         ],
         "closed": false,
-        "marketValueOverride": 22
+        "marketValueOverride": 74,
+        "position": null
       },
       {
         "id": "moxsn9alimli",
@@ -4772,6 +4825,42 @@
     ],
     "self_roth": [
       {
+        "id": "mp1pgov6dey6",
+        "ticker": "CELH",
+        "contracts": 1,
+        "longStrike": 29,
+        "longPremium": 1.9,
+        "longExpiry": "6/12",
+        "openDate": "5/11/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "mp1pd2v1nifl",
+            "strike": 29,
+            "contracts": 1,
+            "received": 55,
+            "expiry": "5/15",
+            "openDate": "5/11/2026",
+            "closed": false,
+            "mvOverride": -31
+          },
+          {
+            "id": "moxpno7pdeae",
+            "strike": 32,
+            "contracts": 1,
+            "received": 40,
+            "expiry": "5/15/2026",
+            "openDate": "5/8/2026",
+            "closed": false,
+            "mvOverride": -200
+          }
+        ],
+        "closed": false,
+        "position": null,
+        "marketValueOverride": 145
+      },
+      {
         "id": "moxpno7pi30w",
         "ticker": "CELH",
         "contracts": 1,
@@ -4782,8 +4871,11 @@
         "notes": "",
         "noLongPut": false,
         "shortPuts": [],
-        "closed": false,
-        "marketValueOverride": 149
+        "closed": true,
+        "marketValueOverride": 149,
+        "longPutClosed": true,
+        "longCloseAmount": 250,
+        "longCloseDate": "5/11/2026"
       },
       {
         "id": "moxpno7p6mm1",
@@ -4795,20 +4887,12 @@
         "openDate": "5/8/2026",
         "notes": "",
         "noLongPut": false,
-        "shortPuts": [
-          {
-            "id": "moxpno7pdeae",
-            "strike": 32,
-            "contracts": 1,
-            "received": 40,
-            "expiry": "5/15/2026",
-            "openDate": "5/8/2026",
-            "closed": false,
-            "mvOverride": -93
-          }
-        ],
-        "closed": false,
-        "marketValueOverride": 277
+        "shortPuts": [],
+        "closed": true,
+        "marketValueOverride": 277,
+        "longPutClosed": true,
+        "longCloseAmount": 425,
+        "longCloseDate": "5/11/2026"
       }
     ],
     "spouse_roth": [
@@ -4872,11 +4956,12 @@
             "expiry": "5/15/2026",
             "openDate": "5/8/2026",
             "closed": false,
-            "mvOverride": -52
+            "mvOverride": -130
           }
         ],
         "closed": false,
-        "marketValueOverride": 526
+        "marketValueOverride": 746,
+        "position": null
       },
       {
         "id": "moxrc7h8r435",
@@ -4897,11 +4982,12 @@
             "expiry": "5/15/2026",
             "openDate": "5/8/2026",
             "closed": false,
-            "mvOverride": -92
+            "mvOverride": -79
           }
         ],
         "closed": false,
-        "marketValueOverride": 965
+        "marketValueOverride": 1000,
+        "position": null
       },
       {
         "id": "moxrc7h86oj0",
@@ -4922,11 +5008,12 @@
             "expiry": "5/15/2026",
             "openDate": "5/8/2026",
             "closed": false,
-            "mvOverride": -224
+            "mvOverride": -220
           }
         ],
         "closed": false,
-        "marketValueOverride": 288
+        "marketValueOverride": 302,
+        "position": null
       }
     ]
   },
@@ -5455,8 +5542,11 @@
         "notes": "",
         "noLongCall": false,
         "shortCalls": [],
-        "closed": false,
-        "marketValueOverride": 825
+        "closed": true,
+        "marketValueOverride": 825,
+        "longCallClosed": true,
+        "longCloseAmount": 956,
+        "longCloseDate": "5/11/2026"
       },
       {
         "id": "moxsqnmvhb08",
@@ -5579,7 +5669,7 @@
         "noLongCall": false,
         "shortCalls": [],
         "closed": false,
-        "marketValueOverride": 1218
+        "marketValueOverride": 1678
       },
       {
         "id": "molyp76hza7p",
@@ -5593,7 +5683,7 @@
         "noLongCall": false,
         "shortCalls": [],
         "closed": false,
-        "marketValueOverride": 2210
+        "marketValueOverride": 3230
       }
     ],
     "spouse_roth": [
@@ -5629,6 +5719,29 @@
     ],
     "spouse_ira": [
       {
+        "id": "mp1oqm2av22a",
+        "ticker": "WMT",
+        "contracts": 1,
+        "longStrike": null,
+        "longPremium": null,
+        "longExpiry": null,
+        "openDate": "5/11/2026",
+        "notes": "",
+        "noLongCall": true,
+        "shortCalls": [
+          {
+            "id": "mp1oqm2apd90",
+            "strike": 132,
+            "contracts": 1,
+            "received": 46,
+            "expiry": "5/15",
+            "openDate": "5/11/2026",
+            "closed": false
+          }
+        ],
+        "closed": false
+      },
+      {
         "id": "moxrc7h8ptgm",
         "ticker": "PLTR",
         "contracts": 1,
@@ -5638,9 +5751,20 @@
         "openDate": "5/8/2026",
         "notes": "",
         "noLongCall": false,
-        "shortCalls": [],
+        "shortCalls": [
+          {
+            "id": "mp1onvvrqtur",
+            "strike": 132,
+            "contracts": 1,
+            "received": 98,
+            "expiry": "5/15",
+            "openDate": "5/11/2026",
+            "closed": false,
+            "mvOverride": -130
+          }
+        ],
         "closed": false,
-        "marketValueOverride": 3313
+        "marketValueOverride": 3255
       },
       {
         "id": "moxrc7h87p3d",
@@ -5654,7 +5778,7 @@
         "noLongCall": false,
         "shortCalls": [],
         "closed": false,
-        "marketValueOverride": 3533
+        "marketValueOverride": 3480
       }
     ]
   },
@@ -5920,9 +6044,9 @@
     },
     "joint": {
       "initCash": 42112.66,
-      "cash": 132,
+      "cash": 0,
       "pendFunds": 0,
-      "collActVal": 2250,
+      "collActVal": 2402,
       "margin": 0,
       "borrowedCash": 0,
       "shrMV": 39025.66,
@@ -5950,11 +6074,13 @@
   "retpvData": {
     "self_roth": {
       "initCash": 16073,
-      "cash": 3152,
-      "pendFunds": 0,
-      "collActVal": 3200,
+      "cash": 62,
+      "pendFunds": 729,
+      "collActVal": 6100,
+      "margin": 0,
+      "borrowedCash": 0,
       "shrMV": 6520,
-      "putMV": 333,
+      "putMV": -148,
       "callMV": 3428
     },
     "spouse_roth": {
@@ -5968,23 +6094,25 @@
     },
     "spouse_ira": {
       "initCash": 385608,
-      "cash": 298761,
-      "pendFunds": 327,
+      "cash": 299089,
+      "pendFunds": 143,
       "collActVal": 51500,
-      "shrMV": 27653,
-      "putMV": 1411,
-      "callMV": 6846
+      "margin": 0,
+      "borrowedCash": 0,
+      "shrMV": 26323,
+      "putMV": 1619,
+      "callMV": 6559
     },
     "all": {
       "initCash": 421248,
-      "cash": 320183,
-      "pendFunds": 327,
-      "collActVal": 55750,
+      "cash": 317421,
+      "pendFunds": 872,
+      "collActVal": 58650,
       "margin": 0,
       "borrowedCash": 0,
-      "shrMV": 34173,
-      "putMV": 2034,
-      "callMV": 12224
+      "shrMV": 32403,
+      "putMV": 1823,
+      "callMV": 13417
     }
   },
   "weeklySnapshots": {
@@ -6264,6 +6392,21 @@
       "otherCrypto": 1684,
       "lockedAt": "2026-05-09T03:42:42.611Z"
     },
+    "roi_pv_weekly_ret-spouse_roth_2026-05-11": {
+      "lockedAt": "2026-05-11T21:39:53.421Z",
+      "initCash": 19567,
+      "cash": 18270,
+      "pendFunds": 0,
+      "collActVal": 1050,
+      "margin": 0,
+      "borrowedCash": 0,
+      "shrMV": 0,
+      "putMV": 290,
+      "callMV": 1950,
+      "btc": 0,
+      "eth": 0,
+      "otherCrypto": 0
+    },
     "roi_pv_weekly_pv-all_2025-05-04": {
       "initCash": 205933,
       "cash": 3180,
@@ -6310,6 +6453,21 @@
       "eth": 0,
       "otherCrypto": 0,
       "autoLocked": true
+    },
+    "roi_pv_weekly_ret-spouse_ira_2026-05-11": {
+      "lockedAt": "2026-05-11T21:39:53.421Z",
+      "initCash": 385608,
+      "cash": 299089,
+      "pendFunds": 143,
+      "collActVal": 51500,
+      "margin": 0,
+      "borrowedCash": 0,
+      "shrMV": 26323,
+      "putMV": 1619,
+      "callMV": 6559,
+      "btc": 0,
+      "eth": 0,
+      "otherCrypto": 0
     },
     "roi_pv_weekly_ret-self_roth_2026-05-03": {
       "initCash": 16073,
@@ -6530,6 +6688,21 @@
       "putMV": 290,
       "callMV": 928,
       "lockedAt": "2026-05-05T03:59:00.000Z"
+    },
+    "roi_pv_weekly_ret-all_2026-05-11": {
+      "lockedAt": "2026-05-11T21:39:53.421Z",
+      "initCash": 421248,
+      "cash": 317421,
+      "pendFunds": 872,
+      "collActVal": 58650,
+      "margin": 0,
+      "borrowedCash": 0,
+      "shrMV": 32403,
+      "putMV": 1823,
+      "callMV": 13417,
+      "btc": 0,
+      "eth": 0,
+      "otherCrypto": 0
     },
     "roi_pv_weekly_pv-joint_2026-05-03": {
       "initCash": 32213,
@@ -6979,6 +7152,21 @@
       "putMV": 1063,
       "callMV": 8293,
       "lockedAt": "2026-05-05T03:59:00.000Z"
+    },
+    "roi_pv_weekly_ret-self_roth_2026-05-11": {
+      "lockedAt": "2026-05-11T21:39:53.421Z",
+      "initCash": 16073,
+      "cash": 62,
+      "pendFunds": 729,
+      "collActVal": 6100,
+      "margin": 0,
+      "borrowedCash": 0,
+      "shrMV": 6520,
+      "putMV": -148,
+      "callMV": 3428,
+      "btc": 0,
+      "eth": 0,
+      "otherCrypto": 0
     },
     "roi_pv_weekly_ret-spouse_ira_2026-05-09": {
       "initCash": 385608,
