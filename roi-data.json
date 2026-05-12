@@ -1,6 +1,6 @@
 {
   "version": 4,
-  "savedAt": "2026-05-12T01:20:01.742Z",
+  "savedAt": "2026-05-12T01:28:07.125Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -619,50 +619,50 @@
   ],
   "tickerPrices": {
     "GOOGL": 383.25,
-    "PLTR": 135.85,
+    "PLTR": 136.89,
     "IBIT": 45.4,
-    "TSLZ": 11.32,
+    "TSLZ": 10.41,
     "HIMZ": 40.58,
     "HIMZ1": 45.7,
-    "TSLL": 15.59,
-    "ROBN": 18.12,
-    "NVTS": 18.2,
-    "BBAI": 4.17,
+    "TSLL": 16.835,
+    "ROBN": 21.56,
+    "NVTS": 21.71,
+    "BBAI": 4.32,
     "HIMS": 27.27,
     "HOOD": 76.55,
     "MSFT": 413.62,
     "CDE": 19.88,
-    "CELH": 30.4,
+    "CELH": 30.64,
     "LYFT": 14.34,
-    "METU": 24.72,
-    "NKE": 42.52,
+    "METU": 23.82,
+    "NKE": 42.39,
     "NVDA": 198.48,
     "NVDX": 20.53,
     "PATH": 10.66,
-    "QQQ": 674.15,
+    "QQQ": 713.29,
     "BULL": 7.17,
     "NFLU": 27.82,
-    "QQQI": 54.51,
-    "RGTI": 19.33,
-    "SMCI": 35.36,
-    "SOFI": 16.3,
-    "SMCZ": 13.48,
-    "TTD": 22.94,
-    "SPY": 720.65,
-    "SMST": 22.48,
-    "SPXS": 22.7,
-    "SQQQ": 42.27,
-    "USAR": 26.33,
-    "SLV": 70.13,
+    "QQQI": 56.59,
+    "RGTI": 20.51,
+    "SMCI": 33.52,
+    "SOFI": 16.26,
+    "SMCZ": 13.74,
+    "TTD": 21.52,
+    "SPY": 739.3,
+    "SMST": 21.89,
+    "SPXS": 27.66,
+    "SQQQ": 42.22,
+    "USAR": 26.3,
+    "SLV": 78,
     "MRVL": 172.15,
-    "ONDS": 9.73,
-    "NFLX": 92.06,
+    "ONDS": 9.42,
+    "NFLX": 85.45,
     "PLTZ": 30.03,
     "FNGD": 41.78,
-    "METD": 16.45,
-    "RGTZ": 10.7,
+    "METD": 16.735,
+    "RGTZ": 9.07,
     "MSTU": 8.93,
-    "WMT": 127.38
+    "WMT": 127.59
   },
   "earningsDates": {
     "TSLL": {
@@ -5459,7 +5459,7 @@
             "expiry": "6/5/2026",
             "openDate": "5/8/2026",
             "closed": false,
-            "mvOverride": -50
+            "mvOverride": -46
           }
         ],
         "closed": false
@@ -5476,7 +5476,7 @@
         "noLongCall": false,
         "shortCalls": [],
         "closed": false,
-        "marketValueOverride": 1614
+        "marketValueOverride": 1755
       },
       {
         "id": "moxsqnmvvd36",
@@ -5497,11 +5497,11 @@
             "expiry": "6/30/2026",
             "openDate": "5/8/2026",
             "closed": false,
-            "mvOverride": -16219
+            "mvOverride": -16264
           }
         ],
         "closed": false,
-        "marketValueOverride": 7785
+        "marketValueOverride": 7795
       },
       {
         "id": "moxsqnmv0021",
@@ -5515,7 +5515,7 @@
         "noLongCall": false,
         "shortCalls": [],
         "closed": false,
-        "marketValueOverride": 5370
+        "marketValueOverride": 5285
       },
       {
         "id": "moxsqnmvcbs2",
@@ -5529,7 +5529,7 @@
         "noLongCall": false,
         "shortCalls": [],
         "closed": false,
-        "marketValueOverride": 4108
+        "marketValueOverride": 4018
       },
       {
         "id": "moxsqnmvv5a6",
@@ -5560,7 +5560,7 @@
         "noLongCall": false,
         "shortCalls": [],
         "closed": false,
-        "marketValueOverride": 68
+        "marketValueOverride": 64
       }
     ],
     "joint": [
@@ -6035,7 +6035,7 @@
       "collActVal": 15600,
       "margin": 4697,
       "borrowedCash": 0,
-      "shrMV": 13618,
+      "shrMV": 13762,
       "putMV": -2198,
       "callMV": 5248,
       "btc": 0,
@@ -7056,21 +7056,19 @@
       "lockedAt": "2026-05-05T03:59:00.000Z"
     },
     "roi_pv_weekly_pv-spouse_2026-05-11": {
-      "lockedAt": "2026-05-11T12:24:53.431Z",
-      "_baselined": true,
+      "lockedAt": "2026-05-12T01:20:54.718Z",
       "initCash": 34511,
       "cash": 0,
       "pendFunds": 0,
       "collActVal": 15600,
       "margin": 4697,
       "borrowedCash": 0,
-      "shrMV": 13618,
+      "shrMV": 13762,
       "putMV": -2198,
       "callMV": 5248,
       "btc": 0,
       "eth": 0,
-      "otherCrypto": 10440,
-      "_overrideGrand": 34511
+      "otherCrypto": 10440
     },
     "roi_pv_weekly_pv-joint_2026-05-08": {
       "initCash": 32213,
