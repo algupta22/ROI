@@ -1,6 +1,6 @@
 {
   "version": 4,
-  "savedAt": "2026-05-12T01:28:07.125Z",
+  "savedAt": "2026-05-12T01:42:12.461Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -4047,7 +4047,8 @@
             "received": 35,
             "expiry": "5/15",
             "openDate": "5/11/2026",
-            "closed": false
+            "closed": false,
+            "mvOverride": -50
           }
         ],
         "closed": false,
@@ -4066,7 +4067,8 @@
         "noLongPut": false,
         "shortPuts": [],
         "closed": false,
-        "marketValueOverride": 82
+        "marketValueOverride": 58,
+        "position": null
       },
       {
         "id": "moxsqnmv5e6s",
@@ -4087,7 +4089,7 @@
             "expiry": "5/15/2026",
             "openDate": "5/8/2026",
             "closed": false,
-            "mvOverride": -15
+            "mvOverride": -7
           },
           {
             "id": "moxsqnmvzm90",
@@ -4097,11 +4099,12 @@
             "expiry": "5/15/2026",
             "openDate": "5/8/2026",
             "closed": false,
-            "mvOverride": -84
+            "mvOverride": -42
           }
         ],
         "closed": false,
-        "marketValueOverride": 464
+        "marketValueOverride": 384,
+        "position": null
       },
       {
         "id": "moxsqnmvy43i",
@@ -4121,7 +4124,8 @@
             "received": 15,
             "expiry": "5/15/2026",
             "openDate": "5/1",
-            "closed": false
+            "closed": false,
+            "mvOverride": -7
           }
         ],
         "closed": false,
@@ -4146,7 +4150,7 @@
             "expiry": "6/18/2026",
             "openDate": "5/8/2026",
             "closed": false,
-            "mvOverride": -3105
+            "mvOverride": -2870
           }
         ],
         "closed": false,
@@ -4171,11 +4175,12 @@
             "expiry": "6/30/2026",
             "openDate": "5/8/2026",
             "closed": false,
-            "mvOverride": -234
+            "mvOverride": -299
           }
         ],
         "closed": false,
-        "marketValueOverride": 74
+        "marketValueOverride": 110,
+        "position": null
       },
       {
         "id": "moxsqnmvprwy",
@@ -4196,11 +4201,12 @@
             "expiry": "5/15/2026",
             "openDate": "5/8/2026",
             "closed": false,
-            "mvOverride": -374
+            "mvOverride": -364
           }
         ],
         "closed": false,
-        "marketValueOverride": 1426
+        "marketValueOverride": 1476,
+        "position": null
       },
       {
         "id": "moxsqnmv30ws",
@@ -4221,11 +4227,12 @@
             "expiry": "5/15/2026",
             "openDate": "5/8/2026",
             "closed": false,
-            "mvOverride": -473
+            "mvOverride": -490
           }
         ],
         "closed": false,
-        "marketValueOverride": 623
+        "marketValueOverride": 653,
+        "position": null
       },
       {
         "id": "moxsqnmvam5e",
@@ -4246,11 +4253,12 @@
             "expiry": "1/15/2027",
             "openDate": "5/8/2026",
             "closed": false,
-            "mvOverride": -954
+            "mvOverride": -969
           }
         ],
         "closed": false,
-        "marketValueOverride": 54
+        "marketValueOverride": 102,
+        "position": null
       },
       {
         "id": "moxsqnmv36vo",
@@ -4271,11 +4279,12 @@
             "expiry": "5/15/2026",
             "openDate": "5/8/2026",
             "closed": false,
-            "mvOverride": -38
+            "mvOverride": -8
           }
         ],
         "closed": false,
-        "marketValueOverride": 226
+        "marketValueOverride": 128,
+        "position": null
       },
       {
         "id": "moxsqnmv2lkz",
@@ -4341,11 +4350,12 @@
             "expiry": "5/15/2026",
             "openDate": "5/8/2026",
             "closed": false,
-            "mvOverride": -535
+            "mvOverride": -615
           }
         ],
         "closed": false,
-        "marketValueOverride": 90
+        "marketValueOverride": 145,
+        "position": null
       },
       {
         "id": "moxsqnmvr4np",
@@ -4425,11 +4435,12 @@
             "expiry": "5/15/2026",
             "openDate": "5/8/2026",
             "closed": false,
-            "mvOverride": -3
+            "mvOverride": -1
           }
         ],
         "closed": false,
-        "marketValueOverride": 3
+        "marketValueOverride": 3,
+        "position": null
       },
       {
         "id": "moxsqnmvxifl",
@@ -4443,7 +4454,8 @@
         "noLongPut": false,
         "shortPuts": [],
         "closed": false,
-        "marketValueOverride": 3
+        "marketValueOverride": 5,
+        "position": null
       },
       {
         "id": "moxsqnmv2ks3",
@@ -4457,7 +4469,8 @@
         "noLongPut": false,
         "shortPuts": [],
         "closed": false,
-        "marketValueOverride": 2
+        "marketValueOverride": 2,
+        "position": null
       },
       {
         "id": "moxsqnmvloup",
@@ -4478,11 +4491,12 @@
             "expiry": "5/15/2026",
             "openDate": "5/8/2026",
             "closed": false,
-            "mvOverride": -56
+            "mvOverride": -16
           }
         ],
         "closed": false,
-        "marketValueOverride": 220
+        "marketValueOverride": 156,
+        "position": null
       }
     ],
     "joint": [
@@ -6033,9 +6047,9 @@
       "cash": 0,
       "pendFunds": 0,
       "collActVal": 15600,
-      "margin": 4697,
+      "margin": 3609,
       "borrowedCash": 0,
-      "shrMV": 13762,
+      "shrMV": 13760.8,
       "putMV": -2198,
       "callMV": 5248,
       "btc": 0,
@@ -7056,14 +7070,14 @@
       "lockedAt": "2026-05-05T03:59:00.000Z"
     },
     "roi_pv_weekly_pv-spouse_2026-05-11": {
-      "lockedAt": "2026-05-12T01:20:54.718Z",
+      "lockedAt": "2026-05-12T01:38:39.114Z",
       "initCash": 34511,
       "cash": 0,
       "pendFunds": 0,
       "collActVal": 15600,
       "margin": 4697,
       "borrowedCash": 0,
-      "shrMV": 13762,
+      "shrMV": 13760.8,
       "putMV": -2198,
       "callMV": 5248,
       "btc": 0,
