@@ -1,6 +1,6 @@
 {
   "version": 4,
-  "savedAt": "2026-05-12T02:22:58.965Z",
+  "savedAt": "2026-05-12T02:48:50.444Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -3482,6 +3482,29 @@
   "putLadders": {
     "self": [
       {
+        "id": "mp213xaqppae",
+        "ticker": "RGTI",
+        "contracts": 1,
+        "longStrike": 18,
+        "longPremium": 1.6,
+        "longExpiry": "6/18",
+        "openDate": "5/11/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "mp216i9c8uxh",
+            "strike": 17.5,
+            "contracts": 1,
+            "received": 29,
+            "expiry": "5/15",
+            "openDate": "5/11/2026",
+            "closed": false
+          }
+        ],
+        "closed": false
+      },
+      {
         "id": "mp203q1yuqda",
         "ticker": "NVDX",
         "contracts": 2,
@@ -3811,8 +3834,11 @@
         "notes": "",
         "noLongPut": false,
         "shortPuts": [],
-        "closed": false,
-        "marketValueOverride": 113
+        "closed": true,
+        "marketValueOverride": 113,
+        "longPutClosed": true,
+        "longCloseAmount": 85,
+        "longCloseDate": "5/11/2026"
       },
       {
         "id": "moxsrctyrx0u",
@@ -3825,8 +3851,11 @@
         "notes": "",
         "noLongPut": false,
         "shortPuts": [],
-        "closed": false,
-        "marketValueOverride": 136
+        "closed": true,
+        "marketValueOverride": 136,
+        "longPutClosed": true,
+        "longCloseAmount": 85,
+        "longCloseDate": "5/11/2026"
       },
       {
         "id": "moxsrctye4ql",
@@ -3874,8 +3903,11 @@
             "received": 131,
             "expiry": "5/15/2026",
             "openDate": "5/8/2026",
-            "closed": false,
-            "mvOverride": -107
+            "closed": true,
+            "mvOverride": -107,
+            "closeReason": "buyback",
+            "closeDate": "5/11/2026",
+            "buybackCost": 106
           },
           {
             "id": "moxsrctzgoy9",
@@ -3886,6 +3918,15 @@
             "openDate": "5/8/2026",
             "closed": false,
             "mvOverride": -374
+          },
+          {
+            "id": "mp20x9lexf01",
+            "strike": 133,
+            "contracts": 2,
+            "received": 388,
+            "expiry": "5/15",
+            "openDate": "5/11/2026",
+            "closed": false
           }
         ],
         "closed": false,
@@ -3901,7 +3942,17 @@
         "openDate": "5/8/2026",
         "notes": "",
         "noLongPut": false,
-        "shortPuts": [],
+        "shortPuts": [
+          {
+            "id": "mp20zazngqvj",
+            "strike": 132,
+            "contracts": 1,
+            "received": 130,
+            "expiry": "5/15",
+            "openDate": "5/11/2026",
+            "closed": false
+          }
+        ],
         "closed": false,
         "marketValueOverride": 485
       },
