@@ -1,6 +1,6 @@
 {
   "version": 4,
-  "savedAt": "2026-05-12T02:12:12.962Z",
+  "savedAt": "2026-05-12T02:22:58.965Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -3482,6 +3482,40 @@
   "putLadders": {
     "self": [
       {
+        "id": "mp203q1yuqda",
+        "ticker": "NVDX",
+        "contracts": 2,
+        "longStrike": 20.43,
+        "longPremium": 2.42,
+        "longExpiry": "6/18",
+        "openDate": "5/11/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "mp201cihjouc",
+            "strike": 20,
+            "contracts": 1,
+            "received": 30,
+            "expiry": "5/15",
+            "openDate": "5/11/2026",
+            "closed": false
+          },
+          {
+            "id": "mp209j57c5mw",
+            "strike": 19.5,
+            "contracts": 1,
+            "received": 30,
+            "expiry": "5/15",
+            "openDate": "5/11/2026",
+            "closed": false
+          }
+        ],
+        "closed": false,
+        "position": null,
+        "marketValueOverride": 406
+      },
+      {
         "id": "moxsrctywz2i",
         "ticker": "USAR",
         "contracts": 1,
@@ -3924,16 +3958,27 @@
       {
         "id": "moxsrcty1b18",
         "ticker": "NVDX",
-        "contracts": 3,
+        "contracts": 2,
         "longStrike": 15.43,
-        "longPremium": 2.46,
+        "longPremium": 4.92,
         "longExpiry": "6/18/2026",
         "openDate": "5/8/2026",
         "notes": "",
         "noLongPut": false,
         "shortPuts": [],
         "closed": false,
-        "marketValueOverride": 150
+        "marketValueOverride": 40,
+        "longPartialCloses": [
+          {
+            "id": "mp20376jgo6q",
+            "contracts": 1,
+            "amount": 55,
+            "closeDate": "5/11/2026"
+          }
+        ],
+        "longCloseAmount": 55,
+        "longCloseDate": "5/11/2026",
+        "position": null
       },
       {
         "id": "moxsrctyn1z1",
@@ -4009,7 +4054,17 @@
         "openDate": "5/8/2026",
         "notes": "",
         "noLongPut": false,
-        "shortPuts": [],
+        "shortPuts": [
+          {
+            "id": "mp1zyitv7xrs",
+            "strike": 4,
+            "contracts": 2,
+            "received": 37,
+            "expiry": "5/22",
+            "openDate": "5/11/2026",
+            "closed": false
+          }
+        ],
         "closed": false,
         "marketValueOverride": 160,
         "position": null
