@@ -1,6 +1,6 @@
 {
   "version": 4,
-  "savedAt": "2026-05-13T04:07:53.805Z",
+  "savedAt": "2026-05-13T04:10:54.128Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -5100,7 +5100,7 @@
   "positionsStaging": [
     {
       "ticker": "AMZN",
-      "posType": "Long Call",
+      "posType": "LCALL",
       "excelType": "Long Call",
       "rawSymbol": "AMZN 5/29 $260 Call",
       "assetType": "Options",
@@ -5111,7 +5111,7 @@
       "expiry": "5/29/2026",
       "mv": 1008,
       "status": "ready",
-      "selected": false,
+      "selected": true,
       "portfolio": "amit",
       "importedAt": "2026-05-13T02:42:15.451Z",
       "id": "ps_1778640135452_0_0_ojzv66dv"
