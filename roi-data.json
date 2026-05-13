@@ -1,6 +1,6 @@
 {
   "version": 4,
-  "savedAt": "2026-05-13T04:01:22.080Z",
+  "savedAt": "2026-05-13T04:07:53.805Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -3806,9 +3806,49 @@
   "shares": {
     "self": [
       {
+        "id": "p_1778645153453_77755e",
+        "ticker": "TTD",
+        "shares": 500,
+        "costBasis": 42.27,
+        "purchaseDate": "5/13/2026",
+        "coveredCalls": [],
+        "shareSales": [],
+        "closed": false
+      },
+      {
+        "id": "p_1778645153449_lp4t4a",
+        "ticker": "TSLZ",
+        "shares": 100,
+        "costBasis": 17.84,
+        "purchaseDate": "5/13/2026",
+        "coveredCalls": [],
+        "shareSales": [],
+        "closed": false
+      },
+      {
+        "id": "p_1778645039467_1dttbe",
+        "ticker": "TSLL",
+        "shares": 2000,
+        "costBasis": 16.62,
+        "purchaseDate": "5/13/2026",
+        "coveredCalls": [],
+        "shareSales": [],
+        "closed": false
+      },
+      {
+        "id": "p_1778644948907_vswnxu",
+        "ticker": "RGTZ",
+        "shares": 10,
+        "costBasis": 13.59,
+        "purchaseDate": "5/13/2026",
+        "coveredCalls": [],
+        "shareSales": [],
+        "closed": false
+      },
+      {
         "id": "p_1778644857636_g4nlqc",
         "ticker": "PLTZ",
-        "shares": 37.14,
+        "shares": 25,
         "costBasis": 37.14,
         "purchaseDate": "5/13/2026",
         "coveredCalls": [],
@@ -5486,15 +5526,16 @@
       "assetType": "Equities",
       "contractType": "",
       "qty": 13.59,
-      "strike": 0,
-      "avgPrice": 101.9,
+      "strike": 10,
+      "avgPrice": 13.59,
       "expiry": "",
       "mv": 101.9,
-      "status": "ready",
+      "status": "moved",
       "selected": false,
       "portfolio": "amit",
       "importedAt": "2026-05-13T02:42:15.452Z",
-      "id": "ps_1778640135452_23_0_nkbfjecs"
+      "id": "ps_1778640135452_23_0_nkbfjecs",
+      "movedAt": "2026-05-13T04:02:28.907Z"
     },
     {
       "ticker": "TSLL",
@@ -5508,11 +5549,12 @@
       "avgPrice": 16.62,
       "expiry": "",
       "mv": 31440,
-      "status": "ready",
+      "status": "moved",
       "selected": false,
       "portfolio": "amit",
       "importedAt": "2026-05-13T02:42:15.452Z",
-      "id": "ps_1778640135452_24_0_k216iuy5"
+      "id": "ps_1778640135452_24_0_k216iuy5",
+      "movedAt": "2026-05-13T04:03:59.468Z"
     },
     {
       "ticker": "TSLZ",
@@ -5526,11 +5568,12 @@
       "avgPrice": 1110,
       "expiry": "",
       "mv": 1110,
-      "status": "ready",
+      "status": "moved",
       "selected": false,
       "portfolio": "amit",
       "importedAt": "2026-05-13T02:42:15.452Z",
-      "id": "ps_1778640135452_25_0_ee8zmz9i"
+      "id": "ps_1778640135452_25_0_ee8zmz9i",
+      "movedAt": "2026-05-13T04:05:53.454Z"
     },
     {
       "ticker": "TTD",
@@ -5544,11 +5587,12 @@
       "avgPrice": 10635,
       "expiry": "",
       "mv": 10635,
-      "status": "ready",
+      "status": "moved",
       "selected": false,
       "portfolio": "amit",
       "importedAt": "2026-05-13T02:42:15.452Z",
-      "id": "ps_1778640135452_26_0_1xm7sxcw"
+      "id": "ps_1778640135452_26_0_1xm7sxcw",
+      "movedAt": "2026-05-13T04:05:53.454Z"
     },
     {
       "ticker": "BBAI",
