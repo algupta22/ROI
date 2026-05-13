@@ -1,6 +1,6 @@
 {
   "version": 4,
-  "savedAt": "2026-05-13T04:10:54.128Z",
+  "savedAt": "2026-05-13T04:12:42.731Z",
   "positions": [
     {
       "id": "crqjkyqp",
@@ -5111,7 +5111,7 @@
       "expiry": "5/29/2026",
       "mv": 1008,
       "status": "ready",
-      "selected": true,
+      "selected": false,
       "portfolio": "amit",
       "importedAt": "2026-05-13T02:42:15.451Z",
       "id": "ps_1778640135452_0_0_ojzv66dv"
@@ -5183,14 +5183,14 @@
       "expiry": "6/18/2026",
       "mv": 175,
       "status": "ready",
-      "selected": false,
+      "selected": true,
       "portfolio": "amit",
       "importedAt": "2026-05-13T02:42:15.452Z",
       "id": "ps_1778640135452_4_0_g19bbojs"
     },
     {
       "ticker": "BBAI",
-      "posType": "Long Call",
+      "posType": "LCALL",
       "excelType": "Long Call",
       "rawSymbol": "BBAI 1/15/2027 $2.5 Call",
       "assetType": "Options",
