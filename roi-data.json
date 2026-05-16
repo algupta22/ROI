@@ -1,6 +1,6 @@
 {
   "version": 4,
-  "savedAt": "2026-05-16T14:51:25.460Z",
+  "savedAt": "2026-05-16T15:08:10.047Z",
   "positions": [],
   "tickerPrices": {
     "GOOGL": 387.35,
@@ -5600,8 +5600,8 @@
       "margin": 40195,
       "borrowedCash": 0,
       "shrMV": 141682.75,
-      "putMV": -1256,
-      "callMV": 31184,
+      "putMV": 0,
+      "callMV": 29928,
       "btc": 0,
       "eth": 0,
       "otherCrypto": 55410
@@ -5820,16 +5820,6 @@
       "lockedAt": "2026-05-06T03:59:00.000Z",
       "autoLocked": true
     },
-    "roi_pv_weekly_ret-all_2026-05-03": {
-      "initCash": 421248,
-      "cash": 356708,
-      "pendFunds": 766.76,
-      "collActVal": 46800,
-      "shrMV": 3376,
-      "putMV": 1526,
-      "callMV": 14162,
-      "lockedAt": "2026-05-04T02:49:07.949Z"
-    },
     "roi_pv_weekly_ret-self_roth_2025-05-04": {
       "initCash": 16073,
       "cash": 3882,
@@ -5839,6 +5829,16 @@
       "putMV": 151,
       "callMV": 2995,
       "lockedAt": "2025-05-05T03:59:00.000Z"
+    },
+    "roi_pv_weekly_ret-all_2026-05-03": {
+      "initCash": 421248,
+      "cash": 356708,
+      "pendFunds": 766.76,
+      "collActVal": 46800,
+      "shrMV": 3376,
+      "putMV": 1526,
+      "callMV": 14162,
+      "lockedAt": "2026-05-04T02:49:07.949Z"
     },
     "roi_pv_weekly_pv-spouse_2026-05-07": {
       "lockedAt": "2026-05-07T12:50:32.303Z",
@@ -5943,6 +5943,13 @@
       "putMV": 1075,
       "callMV": 9890,
       "lockedAt": "2026-05-04T02:49:07.949Z"
+    },
+    "roi_pv_weekly_reset_dates_v1": {
+      "2026-05-11": 1,
+      "2026-05-12": 1,
+      "2026-05-13": 1,
+      "2026-05-14": 1,
+      "2026-05-15": 1
     },
     "roi_pv_weekly_ret-spouse_roth_2026-05-07": {
       "lockedAt": "2026-05-08T03:59:00.000Z",
