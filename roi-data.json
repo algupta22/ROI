@@ -1,6 +1,6 @@
 {
   "version": 4,
-  "savedAt": "2026-05-16T00:54:51.793Z",
+  "savedAt": "2026-05-16T01:02:35.203Z",
   "positions": [],
   "tickerPrices": {
     "GOOGL": 387.35,
@@ -2922,7 +2922,38 @@
       }
     ]
   },
-  "callLadders": {},
+  "callLadders": {
+    "spouse_roth": [
+      {
+        "id": "p_1778892911338_fofpv1",
+        "ticker": "PATH",
+        "contracts": 1,
+        "longStrike": 20,
+        "longPremium": 4.65,
+        "longExpiry": "1/15/2027",
+        "openDate": "5/15/2026",
+        "notes": "",
+        "noLongCall": false,
+        "shortCalls": [],
+        "closed": false,
+        "marketValueOverride": 78
+      },
+      {
+        "id": "p_1778892911338_mwrl2s",
+        "ticker": "BBAI",
+        "contracts": 4,
+        "longStrike": 2.5,
+        "longPremium": 1.97,
+        "longExpiry": "1/15/2027",
+        "openDate": "5/15/2026",
+        "notes": "",
+        "noLongCall": false,
+        "shortCalls": [],
+        "closed": false,
+        "marketValueOverride": 800
+      }
+    ]
+  },
   "shares": {},
   "pvData": {
     "self": {
@@ -4469,7 +4500,8 @@
       "id": "ps_1778891787978_2_0_gbk73pqz",
       "selected": false,
       "portfolio": "spouse_roth",
-      "status": "ready"
+      "status": "moved",
+      "movedAt": "2026-05-16T00:55:11.338Z"
     },
     {
       "ticker": "PATH",
@@ -4500,7 +4532,8 @@
       "id": "ps_1778891787978_4_0_yivw32mb",
       "selected": false,
       "portfolio": "spouse_roth",
-      "status": "ready"
+      "status": "moved",
+      "movedAt": "2026-05-16T00:55:11.338Z"
     }
   ],
   "wealthAccount": {
