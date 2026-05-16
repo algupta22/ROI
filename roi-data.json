@@ -1,6 +1,6 @@
 {
   "version": 4,
-  "savedAt": "2026-05-16T01:23:01.487Z",
+  "savedAt": "2026-05-16T01:26:00.159Z",
   "positions": [],
   "tickerPrices": {
     "GOOGL": 387.35,
@@ -2920,6 +2920,98 @@
         "shortPuts": [],
         "closed": true
       }
+    ],
+    "spouse_ira": [
+      {
+        "id": "p_1778894605894_4rk8kd",
+        "ticker": "WMT",
+        "contracts": 2,
+        "longStrike": 125,
+        "longPremium": 2.81,
+        "longExpiry": "6/18",
+        "openDate": "5/15/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [],
+        "closed": false,
+        "marketValueOverride": 416
+      },
+      {
+        "id": "p_1778894605894_o98xwd",
+        "ticker": "WMT",
+        "contracts": 2,
+        "longStrike": null,
+        "longPremium": null,
+        "longExpiry": null,
+        "openDate": "5/15/2026",
+        "notes": "",
+        "noLongPut": true,
+        "shortPuts": [
+          {
+            "id": "p_1778894605894_v9f5m0",
+            "strike": 125,
+            "contracts": 2,
+            "received": 190,
+            "expiry": "5/22",
+            "openDate": "5/15/2026",
+            "closed": false,
+            "mvOverride": -192
+          }
+        ],
+        "closed": false
+      },
+      {
+        "id": "p_1778894605894_7nbrxf",
+        "ticker": "PLTR",
+        "contracts": 1,
+        "longStrike": 140,
+        "longPremium": 13.15,
+        "longExpiry": "6/18",
+        "openDate": "5/15/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [],
+        "closed": false,
+        "marketValueOverride": 1095
+      },
+      {
+        "id": "p_1778894605894_5v6vul",
+        "ticker": "PLTR",
+        "contracts": 1,
+        "longStrike": 130,
+        "longPremium": 12,
+        "longExpiry": "5/29",
+        "openDate": "5/15/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [],
+        "closed": false,
+        "marketValueOverride": 300
+      },
+      {
+        "id": "p_1778894605894_xcc5ql",
+        "ticker": "PLTR",
+        "contracts": 1,
+        "longStrike": null,
+        "longPremium": null,
+        "longExpiry": null,
+        "openDate": "5/15/2026",
+        "notes": "",
+        "noLongPut": true,
+        "shortPuts": [
+          {
+            "id": "p_1778894605894_qbg9uj",
+            "strike": 132,
+            "contracts": 1,
+            "received": 216,
+            "expiry": "5/22",
+            "openDate": "5/15/2026",
+            "closed": false,
+            "mvOverride": -255
+          }
+        ],
+        "closed": false
+      }
     ]
   },
   "callLadders": {
@@ -2951,6 +3043,84 @@
         "shortCalls": [],
         "closed": false,
         "marketValueOverride": 800
+      }
+    ],
+    "spouse_ira": [
+      {
+        "id": "p_1778894605894_wjgm7x",
+        "ticker": "WMT",
+        "contracts": 1,
+        "longStrike": null,
+        "longPremium": null,
+        "longExpiry": null,
+        "openDate": "5/15/2026",
+        "notes": "",
+        "noLongCall": true,
+        "shortCalls": [
+          {
+            "id": "p_1778894605894_z69bpq",
+            "strike": 136,
+            "contracts": 1,
+            "received": 150,
+            "expiry": "5/22",
+            "openDate": "5/15/2026",
+            "closed": false,
+            "mvOverride": -149
+          }
+        ],
+        "closed": false
+      },
+      {
+        "id": "p_1778894605894_khalw0",
+        "ticker": "PLTR",
+        "contracts": 1,
+        "longStrike": 140,
+        "longPremium": 37.8,
+        "longExpiry": "6/17/2027",
+        "openDate": "5/15/2026",
+        "notes": "",
+        "noLongCall": false,
+        "shortCalls": [],
+        "closed": false,
+        "marketValueOverride": 3073
+      },
+      {
+        "id": "p_1778894605894_mztl55",
+        "ticker": "PLTR",
+        "contracts": 1,
+        "longStrike": 125,
+        "longPremium": 44,
+        "longExpiry": "3/19/2027",
+        "openDate": "5/15/2026",
+        "notes": "",
+        "noLongCall": false,
+        "shortCalls": [],
+        "closed": false,
+        "marketValueOverride": 3285
+      },
+      {
+        "id": "p_1778894605894_mlbnzx",
+        "ticker": "PLTR",
+        "contracts": 1,
+        "longStrike": null,
+        "longPremium": null,
+        "longExpiry": null,
+        "openDate": "5/15/2026",
+        "notes": "",
+        "noLongCall": true,
+        "shortCalls": [
+          {
+            "id": "p_1778894605894_kpoj8w",
+            "strike": 143,
+            "contracts": 1,
+            "received": 102,
+            "expiry": "5/22",
+            "openDate": "5/15/2026",
+            "closed": false,
+            "mvOverride": -88
+          }
+        ],
+        "closed": false
       }
     ]
   },
@@ -4605,7 +4775,8 @@
       "id": "ps_1778893946108_2_0_dj5unngn",
       "selected": false,
       "portfolio": "spouse_ira",
-      "status": "ready"
+      "status": "moved",
+      "movedAt": "2026-05-16T01:23:25.894Z"
     },
     {
       "ticker": "PLTR",
@@ -4620,7 +4791,8 @@
       "id": "ps_1778893946108_3_0_fqibc433",
       "selected": false,
       "portfolio": "spouse_ira",
-      "status": "ready"
+      "status": "moved",
+      "movedAt": "2026-05-16T01:23:25.894Z"
     },
     {
       "ticker": "PLTR",
@@ -4635,7 +4807,8 @@
       "id": "ps_1778893946108_4_0_ctt3hwgv",
       "selected": false,
       "portfolio": "spouse_ira",
-      "status": "ready"
+      "status": "moved",
+      "movedAt": "2026-05-16T01:23:25.894Z"
     },
     {
       "ticker": "PLTR",
@@ -4650,7 +4823,8 @@
       "id": "ps_1778893946108_5_0_b05m5cny",
       "selected": false,
       "portfolio": "spouse_ira",
-      "status": "ready"
+      "status": "moved",
+      "movedAt": "2026-05-16T01:23:25.894Z"
     },
     {
       "ticker": "PLTR",
@@ -4665,7 +4839,8 @@
       "id": "ps_1778893946108_6_0_ssgseuak",
       "selected": false,
       "portfolio": "spouse_ira",
-      "status": "ready"
+      "status": "moved",
+      "movedAt": "2026-05-16T01:23:25.894Z"
     },
     {
       "ticker": "PLTR",
@@ -4680,7 +4855,8 @@
       "id": "ps_1778893946108_7_0_j54sfwp3",
       "selected": false,
       "portfolio": "spouse_ira",
-      "status": "ready"
+      "status": "moved",
+      "movedAt": "2026-05-16T01:23:25.894Z"
     },
     {
       "ticker": "WMT",
@@ -4695,7 +4871,8 @@
       "id": "ps_1778893946108_8_0_149ebdeq",
       "selected": false,
       "portfolio": "spouse_ira",
-      "status": "ready"
+      "status": "moved",
+      "movedAt": "2026-05-16T01:23:25.894Z"
     },
     {
       "ticker": "WMT",
@@ -4710,7 +4887,8 @@
       "id": "ps_1778893946108_9_0_iajotsfj",
       "selected": false,
       "portfolio": "spouse_ira",
-      "status": "ready"
+      "status": "moved",
+      "movedAt": "2026-05-16T01:23:25.894Z"
     },
     {
       "ticker": "WMT",
@@ -4725,7 +4903,8 @@
       "id": "ps_1778893946108_10_0_i975uotj",
       "selected": false,
       "portfolio": "spouse_ira",
-      "status": "ready"
+      "status": "moved",
+      "movedAt": "2026-05-16T01:23:25.894Z"
     }
   ],
   "wealthAccount": {
