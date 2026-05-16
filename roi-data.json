@@ -1,6 +1,6 @@
 {
   "version": 4,
-  "savedAt": "2026-05-16T02:08:41.711Z",
+  "savedAt": "2026-05-16T13:28:45.156Z",
   "positions": [],
   "tickerPrices": {
     "GOOGL": 387.35,
@@ -5495,7 +5495,7 @@
   },
   "pvData": {
     "self": {
-      "initCash": 139828.79,
+      "initCash": 136485.7928533,
       "cash": 3480,
       "pendFunds": 0,
       "collActVal": 9750,
@@ -5509,7 +5509,7 @@
       "otherCrypto": 46114
     },
     "spouse": {
-      "initCash": 39317,
+      "initCash": 38791,
       "cash": 0,
       "pendFunds": 0,
       "collActVal": 15600,
@@ -5523,7 +5523,7 @@
       "otherCrypto": 10186
     },
     "joint": {
-      "initCash": 46620.92,
+      "initCash": 46615.32,
       "cash": 0,
       "pendFunds": 0,
       "collActVal": 2402,
@@ -5537,18 +5537,18 @@
       "otherCrypto": 0
     },
     "all": {
-      "initCash": 221909.71000000002,
-      "cash": 6558,
+      "initCash": 218040.71000000002,
+      "cash": 3480,
       "pendFunds": 0,
-      "collActVal": 27002,
+      "collActVal": 27752,
       "margin": 3609,
       "borrowedCash": 13251,
-      "shrMV": 105902.31,
-      "putMV": -1605,
-      "callMV": 35726,
+      "shrMV": 105902.71,
+      "putMV": -1847,
+      "callMV": 33919,
       "btc": 0,
       "eth": 0,
-      "otherCrypto": 57949
+      "otherCrypto": 56300
     }
   },
   "retpvData": {
@@ -5722,7 +5722,7 @@
       "otherCrypto": 10375
     },
     "roi_pv_weekly_pv-joint_2026-05-10": {
-      "lockedAt": "2026-05-16T00:16:26.295Z",
+      "lockedAt": "2026-05-16T02:09:02.333Z",
       "_baselined": true,
       "initCash": 46620.92,
       "cash": 0,
@@ -5736,7 +5736,7 @@
       "btc": 0,
       "eth": 0,
       "otherCrypto": 0,
-      "_overrideGrand": 46620.92
+      "_overrideGrand": 46615.32
     },
     "roi_pv_weekly_self_2026-05-03": {
       "initCash": 0,
@@ -5843,7 +5843,7 @@
       "lockedAt": "2026-05-09T03:42:42.611Z"
     },
     "roi_pv_weekly_pv-spouse_2026-05-10": {
-      "lockedAt": "2026-05-16T00:16:26.295Z",
+      "lockedAt": "2026-05-16T02:09:02.333Z",
       "_baselined": true,
       "initCash": 39317,
       "cash": 0,
@@ -5851,13 +5851,13 @@
       "collActVal": 15600,
       "margin": 3609,
       "borrowedCash": 0,
-      "shrMV": 13836,
+      "shrMV": 13564,
       "putMV": -2198,
       "callMV": 5248,
       "btc": 0,
       "eth": 0,
-      "otherCrypto": 10440,
-      "_overrideGrand": 39317
+      "otherCrypto": 10186,
+      "_overrideGrand": 38791
     },
     "roi_pv_weekly_pv-self_2026-05-05": {
       "initCash": 138728,
@@ -6147,21 +6147,21 @@
       "autoLocked": true
     },
     "roi_pv_weekly_pv-all_2026-05-10": {
-      "lockedAt": "2026-05-16T00:16:26.295Z",
+      "lockedAt": "2026-05-16T02:09:02.333Z",
       "_baselined": true,
-      "_overrideGrand": 221909.71000000002,
+      "_overrideGrand": 218040.71000000002,
       "initCash": 221909.71,
-      "cash": 6558,
+      "cash": 3480,
       "pendFunds": 0,
-      "collActVal": 27002,
+      "collActVal": 27752,
       "margin": 3609,
       "borrowedCash": 13251,
-      "shrMV": 105794.71,
+      "shrMV": 105902.71,
       "putMV": -1847,
       "callMV": 33919,
       "btc": 0,
       "eth": 0,
-      "otherCrypto": 57949
+      "otherCrypto": 56300
     },
     "roi_pv_weekly_ret-self_roth_2026-05-04": {
       "initCash": 16073,
@@ -6768,21 +6768,21 @@
       "lockedAt": "2026-05-09T19:40:31.366Z"
     },
     "roi_pv_weekly_pv-self_2026-05-10": {
-      "lockedAt": "2026-05-16T00:16:26.295Z",
+      "lockedAt": "2026-05-16T02:09:02.333Z",
       "_baselined": true,
       "initCash": 139828.79,
-      "cash": 6558,
+      "cash": 3480,
       "pendFunds": 0,
-      "collActVal": 9000,
+      "collActVal": 9750,
       "margin": 0,
       "borrowedCash": 0,
-      "shrMV": 52195.79,
+      "shrMV": 52575.79,
       "putMV": -242,
       "callMV": 24808,
       "btc": 0,
       "eth": 0,
-      "otherCrypto": 47509,
-      "_overrideGrand": 139828.79
+      "otherCrypto": 46114,
+      "_overrideGrand": 136485.7928533
     },
     "roi_pv_weekly_pv-joint_2026-05-04": {
       "initCash": 32213,
