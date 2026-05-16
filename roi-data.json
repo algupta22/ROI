@@ -1,6 +1,6 @@
 {
   "version": 4,
-  "savedAt": "2026-05-16T00:41:03.154Z",
+  "savedAt": "2026-05-16T00:54:51.793Z",
   "positions": [],
   "tickerPrices": {
     "GOOGL": 387.35,
@@ -2867,7 +2867,60 @@
     }
   },
   "putLadders": {
-    "spouse_roth": []
+    "spouse_roth": [
+      {
+        "id": "p_1778892819008_5itwu8",
+        "ticker": "PATH",
+        "contracts": 1,
+        "longStrike": 11,
+        "longPremium": 1.56,
+        "longExpiry": "6/18",
+        "openDate": "5/15/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [],
+        "closed": false,
+        "marketValueOverride": 158
+      },
+      {
+        "id": "p_1778892752342_zdxwj3",
+        "ticker": "BBAI",
+        "contracts": 5,
+        "longStrike": 4,
+        "longPremium": 0.66,
+        "longExpiry": "6/18",
+        "openDate": "5/15/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "p_1778892431630_mdnp8e",
+            "strike": 4,
+            "contracts": 5,
+            "received": 50,
+            "expiry": "5/22",
+            "openDate": "5/15/2026",
+            "closed": false,
+            "mvOverride": -65
+          }
+        ],
+        "closed": false,
+        "marketValueOverride": 185
+      },
+      {
+        "id": "p_1778892431630_0wr2ij",
+        "ticker": "BBAI",
+        "contracts": 5,
+        "longStrike": null,
+        "longPremium": null,
+        "longExpiry": null,
+        "openDate": "5/15/2026",
+        "notes": "",
+        "noLongPut": true,
+        "shortPuts": [],
+        "closed": true
+      }
+    ]
   },
   "callLadders": {},
   "shares": {},
@@ -4385,7 +4438,7 @@
       "selected": false,
       "portfolio": "spouse_roth",
       "status": "moved",
-      "movedAt": "2026-05-16T00:38:53.222Z"
+      "movedAt": "2026-05-16T00:47:11.631Z"
     },
     {
       "ticker": "BBAI",
@@ -4400,7 +4453,8 @@
       "id": "ps_1778891787978_1_0_ch6vkx18",
       "selected": false,
       "portfolio": "spouse_roth",
-      "status": "ready"
+      "status": "moved",
+      "movedAt": "2026-05-16T00:52:32.342Z"
     },
     {
       "ticker": "BBAI",
@@ -4430,7 +4484,8 @@
       "id": "ps_1778891787978_3_0_udb4683n",
       "selected": false,
       "portfolio": "spouse_roth",
-      "status": "ready"
+      "status": "moved",
+      "movedAt": "2026-05-16T00:53:39.008Z"
     },
     {
       "ticker": "PATH",
