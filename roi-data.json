@@ -1,6 +1,6 @@
 {
   "version": 4,
-  "savedAt": "2026-05-16T13:28:45.156Z",
+  "savedAt": "2026-05-16T13:43:51.147Z",
   "positions": [],
   "tickerPrices": {
     "GOOGL": 387.35,
@@ -5244,252 +5244,288 @@
   "shares": {
     "self": [
       {
-        "id": "p_1778896349247_ro9ygf",
+        "id": "p_1778938406625_bhupwo",
         "ticker": "TTD",
         "shares": 500,
         "costBasis": 42.27,
-        "purchaseDate": "5/15/2026",
+        "purchaseDate": "5/16/2026",
         "coveredCalls": [],
         "shareSales": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 10566.1
       },
       {
-        "id": "p_1778896349247_l46pvk",
+        "id": "p_1778938406625_n6e1qd",
         "ticker": "TSLZ",
         "shares": 100,
         "costBasis": 17.84,
-        "purchaseDate": "5/15/2026",
+        "purchaseDate": "5/16/2026",
         "coveredCalls": [],
         "shareSales": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 1168
       },
       {
-        "id": "p_1778896349247_o0iwgi",
+        "id": "p_1778938406625_e958uy",
         "ticker": "TSLL",
         "shares": 2000,
         "costBasis": 16.62,
-        "purchaseDate": "5/15/2026",
+        "purchaseDate": "5/16/2026",
         "coveredCalls": [],
         "shareSales": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 29519.8
       },
       {
-        "id": "p_1778896349247_r0zlcy",
+        "id": "p_1778938406625_50a456",
         "ticker": "RGTZ",
         "shares": 10,
         "costBasis": 13.59,
-        "purchaseDate": "5/15/2026",
+        "purchaseDate": "5/16/2026",
         "coveredCalls": [],
         "shareSales": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 113.58
       },
       {
-        "id": "p_1778896349247_siyq6k",
+        "id": "p_1778938406625_n5685p",
         "ticker": "RDZN",
         "shares": 60,
         "costBasis": 1.78,
-        "purchaseDate": "5/15/2026",
+        "purchaseDate": "5/16/2026",
         "coveredCalls": [],
         "shareSales": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 106.8
       },
       {
-        "id": "p_1778896349247_dpz90n",
+        "id": "p_1778938406625_v94nwx",
         "ticker": "PLTZ",
         "shares": 25,
         "costBasis": 37.14,
-        "purchaseDate": "5/15/2026",
+        "purchaseDate": "5/16/2026",
         "coveredCalls": [],
         "shareSales": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 791.25
       },
       {
-        "id": "p_1778896349247_dilnz7",
+        "id": "p_1778938406625_jbn770",
         "ticker": "NVDX",
         "shares": 100,
         "costBasis": 17.9,
-        "purchaseDate": "5/15/2026",
+        "purchaseDate": "5/16/2026",
         "coveredCalls": [],
         "shareSales": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 2226
       },
       {
-        "id": "p_1778896349246_7q3y20",
+        "id": "p_1778938406625_77tg24",
         "ticker": "LYFT",
         "shares": 200,
         "costBasis": 18.78,
-        "purchaseDate": "5/15/2026",
+        "purchaseDate": "5/16/2026",
         "coveredCalls": [],
         "shareSales": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 2582
       },
       {
-        "id": "p_1778896349246_cih3az",
+        "id": "p_1778938406625_f5dh2c",
         "ticker": "HIMZ",
         "shares": 78.142857,
         "costBasis": 101.06,
-        "purchaseDate": "5/15/2026",
+        "purchaseDate": "5/16/2026",
         "coveredCalls": [],
         "shareSales": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 2207.54
       },
       {
-        "id": "p_1778896349246_xtagjf",
+        "id": "p_1778938406625_ub4c7v",
         "ticker": "BTCZ",
         "shares": 100,
         "costBasis": 3.77,
-        "purchaseDate": "5/15/2026",
+        "purchaseDate": "5/16/2026",
         "coveredCalls": [],
         "shareSales": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 389.96
       }
     ],
     "spouse": [
       {
-        "id": "p_1778895944908_6hlsim",
+        "id": "p_1778938406625_aiywg2",
         "ticker": "SOFI",
         "shares": 300,
         "costBasis": 15.77,
-        "purchaseDate": "5/15/2026",
+        "purchaseDate": "5/16/2026",
         "coveredCalls": [],
         "shareSales": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 4656.78
       },
       {
-        "id": "p_1778895944908_1no808",
+        "id": "p_1778938406625_v6skg6",
         "ticker": "NVTS",
         "shares": 80,
         "costBasis": 9.15,
-        "purchaseDate": "5/15/2026",
+        "purchaseDate": "5/16/2026",
         "coveredCalls": [],
         "shareSales": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 1675.15
       },
       {
-        "id": "p_1778895944908_m9hfmg",
+        "id": "p_1778938406625_3cn442",
         "ticker": "METU",
         "shares": 300,
         "costBasis": 31.6,
-        "purchaseDate": "5/15/2026",
+        "purchaseDate": "5/16/2026",
         "coveredCalls": [],
         "shareSales": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 7410
       }
     ],
     "joint": [
       {
-        "id": "p_1778895351512_5app6u",
+        "id": "p_1778938406624_dyqbta",
         "ticker": "SQQQ",
         "shares": 40,
         "costBasis": 81.2,
-        "purchaseDate": "5/15/2026",
+        "purchaseDate": "5/16/2026",
         "coveredCalls": [],
         "shareSales": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 1739.2
       },
       {
-        "id": "p_1778895351512_9i852j",
+        "id": "p_1778938406624_xvc70v",
         "ticker": "SPXS",
         "shares": 20,
         "costBasis": 39.68,
-        "purchaseDate": "5/15/2026",
+        "purchaseDate": "5/16/2026",
         "coveredCalls": [],
         "shareSales": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 556.8
       },
       {
-        "id": "p_1778895351511_zv6j6f",
+        "id": "p_1778938406624_rj1z3d",
         "ticker": "SOFI",
         "shares": 1800,
         "costBasis": 17.66,
-        "purchaseDate": "5/15/2026",
+        "purchaseDate": "5/16/2026",
         "coveredCalls": [],
         "shareSales": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 27940.68
       },
       {
-        "id": "p_1778895351511_les709",
+        "id": "p_1778938406624_r6eslq",
         "ticker": "SMST",
         "shares": 20,
         "costBasis": 66.67,
-        "purchaseDate": "5/15/2026",
+        "purchaseDate": "5/16/2026",
         "coveredCalls": [],
         "shareSales": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 532
       },
       {
-        "id": "p_1778895351511_hdout8",
+        "id": "p_1778938406624_sdhtxc",
         "ticker": "SMCZ",
         "shares": 38,
         "costBasis": 37.02,
-        "purchaseDate": "5/15/2026",
+        "purchaseDate": "5/16/2026",
         "coveredCalls": [],
         "shareSales": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 582.54
       },
       {
-        "id": "p_1778895351511_jmh4sk",
+        "id": "p_1778938406624_ti57fu",
         "ticker": "PATH",
         "shares": 100,
         "costBasis": 12.8,
-        "purchaseDate": "5/15/2026",
+        "purchaseDate": "5/16/2026",
         "coveredCalls": [],
         "shareSales": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 1037
       },
       {
-        "id": "p_1778895351511_1r3qk8",
+        "id": "p_1778938406624_inccsw",
         "ticker": "NKE",
         "shares": 100,
         "costBasis": 48.15,
-        "purchaseDate": "5/15/2026",
+        "purchaseDate": "5/16/2026",
         "coveredCalls": [],
         "shareSales": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 4192
       },
       {
-        "id": "p_1778895351511_y33yy5",
+        "id": "p_1778938406624_bwx7kg",
         "ticker": "CDE",
         "shares": 100,
         "costBasis": 18.65,
-        "purchaseDate": "5/15/2026",
+        "purchaseDate": "5/16/2026",
         "coveredCalls": [],
         "shareSales": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 1773.57
       }
     ],
     "self_roth": [
       {
-        "id": "p_1778895045224_jbib4u",
+        "id": "p_1778938406624_wq5eds",
         "ticker": "CELH",
-        "shares": 200,
-        "costBasis": 40.34,
-        "purchaseDate": "5/15/2026",
+        "shares": 300,
+        "costBasis": 37.42,
+        "purchaseDate": "5/16/2026",
         "coveredCalls": [],
         "shareSales": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 9060
+      }
+    ],
+    "spouse_roth": [
+      {
+        "id": "mp8e7xwhss67",
+        "ticker": "PATH",
+        "shares": 100,
+        "costBasis": 9.85,
+        "purchaseDate": "5/15/2026",
+        "coveredCalls": [],
+        "closed": false,
+        "marketValueOverride": 1037
       }
     ],
     "spouse_ira": [
       {
-        "id": "p_1778894018185_kyfo0u",
+        "id": "p_1778938406624_l1jh4n",
         "ticker": "WMT",
         "shares": 100,
         "costBasis": 128.51,
-        "purchaseDate": "5/15/2026",
+        "purchaseDate": "5/16/2026",
         "coveredCalls": [],
         "shareSales": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 13204.9
       },
       {
-        "id": "p_1778894018184_fk7jrc",
+        "id": "p_1778938406624_xgjyd5",
         "ticker": "PLTR",
-        "shares": 100,
-        "costBasis": 133.8,
-        "purchaseDate": "5/15/2026",
+        "shares": 200,
+        "costBasis": 133.28,
+        "purchaseDate": "5/16/2026",
         "coveredCalls": [],
         "shareSales": [],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 26611
       }
     ]
   },
@@ -5870,26 +5906,6 @@
       "lockedAt": "2026-05-06T03:59:00.000Z",
       "autoLocked": true
     },
-    "roi_pv_weekly_ret-self_roth_2025-05-04": {
-      "initCash": 16073,
-      "cash": 3882,
-      "pendFunds": 27.9,
-      "collActVal": 5750,
-      "shrMV": 3396,
-      "putMV": 151,
-      "callMV": 2995,
-      "lockedAt": "2025-05-05T03:59:00.000Z"
-    },
-    "roi_pv_weekly_ret-all_2026-05-03": {
-      "initCash": 421248,
-      "cash": 356708,
-      "pendFunds": 766.76,
-      "collActVal": 46800,
-      "shrMV": 3376,
-      "putMV": 1526,
-      "callMV": 14162,
-      "lockedAt": "2026-05-04T02:49:07.949Z"
-    },
     "roi_pv_weekly_pv-self_2026-05-15": {
       "lockedAt": "2026-05-16T02:06:39.266Z",
       "initCash": 139828.79,
@@ -5904,6 +5920,26 @@
       "btc": 0,
       "eth": 0,
       "otherCrypto": 47509
+    },
+    "roi_pv_weekly_ret-all_2026-05-03": {
+      "initCash": 421248,
+      "cash": 356708,
+      "pendFunds": 766.76,
+      "collActVal": 46800,
+      "shrMV": 3376,
+      "putMV": 1526,
+      "callMV": 14162,
+      "lockedAt": "2026-05-04T02:49:07.949Z"
+    },
+    "roi_pv_weekly_ret-self_roth_2025-05-04": {
+      "initCash": 16073,
+      "cash": 3882,
+      "pendFunds": 27.9,
+      "collActVal": 5750,
+      "shrMV": 3396,
+      "putMV": 151,
+      "callMV": 2995,
+      "lockedAt": "2025-05-05T03:59:00.000Z"
     },
     "roi_pv_weekly_pv-spouse_2026-05-07": {
       "lockedAt": "2026-05-07T12:50:32.303Z",
@@ -6000,6 +6036,22 @@
       "btc": 0,
       "eth": 0,
       "otherCrypto": 0
+    },
+    "roi_pv_weekly_pv-joint_2026-05-15": {
+      "initCash": 42112.66,
+      "cash": 0,
+      "pendFunds": 0,
+      "collActVal": 2402,
+      "margin": 0,
+      "borrowedCash": 0,
+      "shrMV": 39025.66,
+      "putMV": 593,
+      "callMV": 3863,
+      "btc": 0,
+      "eth": 0,
+      "otherCrypto": 0,
+      "lockedAt": "2026-05-16T03:59:00.000Z",
+      "autoLocked": true
     },
     "roi_pv_weekly_pv-all_2025-05-04": {
       "initCash": 205933,
@@ -6667,6 +6719,22 @@
       "otherCrypto": 1684,
       "lockedAt": "2026-05-04T01:35:35.638Z"
     },
+    "roi_pv_weekly_pv-spouse_2026-05-15": {
+      "initCash": 34511,
+      "cash": 0,
+      "pendFunds": 0,
+      "collActVal": 15600,
+      "margin": 3609,
+      "borrowedCash": 0,
+      "shrMV": 13760.8,
+      "putMV": -2198,
+      "callMV": 5248,
+      "btc": 0,
+      "eth": 0,
+      "otherCrypto": 10440,
+      "lockedAt": "2026-05-16T03:59:00.000Z",
+      "autoLocked": true
+    },
     "roi_pv_weekly_ret-spouse_roth_2026-05-06": {
       "lockedAt": "2026-05-06T22:44:26.461Z",
       "initCash": 19567,
@@ -7007,6 +7075,22 @@
       "lockedAt": "2026-05-15T03:59:00.000Z",
       "autoLocked": true
     },
+    "roi_pv_weekly_pv-all_2026-05-15": {
+      "initCash": 207131.45,
+      "cash": 6690,
+      "pendFunds": 0,
+      "collActVal": 26850,
+      "margin": 4697,
+      "borrowedCash": 13251,
+      "shrMV": 105375.45,
+      "putMV": -1847,
+      "callMV": 33919,
+      "btc": 0,
+      "eth": 0,
+      "otherCrypto": 57949,
+      "lockedAt": "2026-05-16T03:59:00.000Z",
+      "autoLocked": true
+    },
     "roi_pv_weekly_ret-all_2026-05-14": {
       "initCash": 421248,
       "cash": 317421,
@@ -7164,7 +7248,7 @@
       "selected": false,
       "portfolio": "spouse_ira",
       "status": "moved",
-      "movedAt": "2026-05-16T01:13:38.185Z"
+      "movedAt": "2026-05-16T13:33:26.625Z"
     },
     {
       "ticker": "WMT",
@@ -7180,7 +7264,7 @@
       "selected": false,
       "portfolio": "spouse_ira",
       "status": "moved",
-      "movedAt": "2026-05-16T01:13:38.185Z"
+      "movedAt": "2026-05-16T13:33:26.625Z"
     },
     {
       "ticker": "PLTR",
@@ -7420,7 +7504,7 @@
       "selected": false,
       "portfolio": "self_roth",
       "status": "moved",
-      "movedAt": "2026-05-16T01:30:45.224Z"
+      "movedAt": "2026-05-16T13:33:26.625Z"
     },
     {
       "ticker": "NVTS",
@@ -7468,7 +7552,7 @@
       "selected": false,
       "portfolio": "joint",
       "status": "moved",
-      "movedAt": "2026-05-16T01:35:51.512Z"
+      "movedAt": "2026-05-16T13:33:26.625Z"
     },
     {
       "ticker": "NKE",
@@ -7484,7 +7568,7 @@
       "selected": false,
       "portfolio": "joint",
       "status": "moved",
-      "movedAt": "2026-05-16T01:35:51.512Z"
+      "movedAt": "2026-05-16T13:33:26.625Z"
     },
     {
       "ticker": "PATH",
@@ -7500,7 +7584,7 @@
       "selected": false,
       "portfolio": "joint",
       "status": "moved",
-      "movedAt": "2026-05-16T01:35:51.512Z"
+      "movedAt": "2026-05-16T13:33:26.625Z"
     },
     {
       "ticker": "SMCZ",
@@ -7516,7 +7600,7 @@
       "selected": false,
       "portfolio": "joint",
       "status": "moved",
-      "movedAt": "2026-05-16T01:35:51.512Z"
+      "movedAt": "2026-05-16T13:33:26.625Z"
     },
     {
       "ticker": "SMST",
@@ -7532,7 +7616,7 @@
       "selected": false,
       "portfolio": "joint",
       "status": "moved",
-      "movedAt": "2026-05-16T01:35:51.512Z"
+      "movedAt": "2026-05-16T13:33:26.625Z"
     },
     {
       "ticker": "SOFI",
@@ -7548,7 +7632,7 @@
       "selected": false,
       "portfolio": "joint",
       "status": "moved",
-      "movedAt": "2026-05-16T01:35:51.512Z"
+      "movedAt": "2026-05-16T13:33:26.625Z"
     },
     {
       "ticker": "SPXS",
@@ -7564,7 +7648,7 @@
       "selected": false,
       "portfolio": "joint",
       "status": "moved",
-      "movedAt": "2026-05-16T01:35:51.512Z"
+      "movedAt": "2026-05-16T13:33:26.625Z"
     },
     {
       "ticker": "SQQQ",
@@ -7580,7 +7664,7 @@
       "selected": false,
       "portfolio": "joint",
       "status": "moved",
-      "movedAt": "2026-05-16T01:35:51.512Z"
+      "movedAt": "2026-05-16T13:33:26.625Z"
     },
     {
       "ticker": "BBAI",
@@ -8044,7 +8128,7 @@
       "selected": false,
       "portfolio": "lovelina",
       "status": "moved",
-      "movedAt": "2026-05-16T01:45:44.908Z"
+      "movedAt": "2026-05-16T13:33:26.625Z"
     },
     {
       "ticker": "NVTS",
@@ -8060,7 +8144,7 @@
       "selected": false,
       "portfolio": "lovelina",
       "status": "moved",
-      "movedAt": "2026-05-16T01:45:44.908Z"
+      "movedAt": "2026-05-16T13:33:26.625Z"
     },
     {
       "ticker": "SOFI",
@@ -8076,7 +8160,7 @@
       "selected": false,
       "portfolio": "lovelina",
       "status": "moved",
-      "movedAt": "2026-05-16T01:45:44.908Z"
+      "movedAt": "2026-05-16T13:33:26.625Z"
     },
     {
       "ticker": "CDE",
@@ -8540,7 +8624,7 @@
       "selected": false,
       "portfolio": "amit",
       "status": "moved",
-      "movedAt": "2026-05-16T01:52:29.248Z"
+      "movedAt": "2026-05-16T13:33:26.625Z"
     },
     {
       "ticker": "HIMZ",
@@ -8556,7 +8640,7 @@
       "selected": false,
       "portfolio": "amit",
       "status": "moved",
-      "movedAt": "2026-05-16T01:52:29.248Z"
+      "movedAt": "2026-05-16T13:33:26.625Z"
     },
     {
       "ticker": "LYFT",
@@ -8572,7 +8656,7 @@
       "selected": false,
       "portfolio": "amit",
       "status": "moved",
-      "movedAt": "2026-05-16T01:52:29.248Z"
+      "movedAt": "2026-05-16T13:33:26.625Z"
     },
     {
       "ticker": "NVDX",
@@ -8588,7 +8672,7 @@
       "selected": false,
       "portfolio": "amit",
       "status": "moved",
-      "movedAt": "2026-05-16T01:52:29.248Z"
+      "movedAt": "2026-05-16T13:33:26.625Z"
     },
     {
       "ticker": "PLTZ",
@@ -8604,7 +8688,7 @@
       "selected": false,
       "portfolio": "amit",
       "status": "moved",
-      "movedAt": "2026-05-16T01:52:29.248Z"
+      "movedAt": "2026-05-16T13:33:26.625Z"
     },
     {
       "ticker": "RDZN",
@@ -8620,7 +8704,7 @@
       "selected": false,
       "portfolio": "amit",
       "status": "moved",
-      "movedAt": "2026-05-16T01:52:29.248Z"
+      "movedAt": "2026-05-16T13:33:26.625Z"
     },
     {
       "ticker": "RGTZ",
@@ -8636,7 +8720,7 @@
       "selected": false,
       "portfolio": "amit",
       "status": "moved",
-      "movedAt": "2026-05-16T01:52:29.248Z"
+      "movedAt": "2026-05-16T13:33:26.625Z"
     },
     {
       "ticker": "TSLL",
@@ -8652,7 +8736,7 @@
       "selected": false,
       "portfolio": "amit",
       "status": "moved",
-      "movedAt": "2026-05-16T01:52:29.248Z"
+      "movedAt": "2026-05-16T13:33:26.625Z"
     },
     {
       "ticker": "TSLZ",
@@ -8668,7 +8752,7 @@
       "selected": false,
       "portfolio": "amit",
       "status": "moved",
-      "movedAt": "2026-05-16T01:52:29.248Z"
+      "movedAt": "2026-05-16T13:33:26.625Z"
     },
     {
       "ticker": "TTD",
@@ -8684,7 +8768,7 @@
       "selected": false,
       "portfolio": "amit",
       "status": "moved",
-      "movedAt": "2026-05-16T01:52:29.248Z"
+      "movedAt": "2026-05-16T13:33:26.625Z"
     },
     {
       "ticker": "AMZN",
