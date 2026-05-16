@@ -1,6 +1,6 @@
 {
   "version": 4,
-  "savedAt": "2026-05-16T17:23:41.047Z",
+  "savedAt": "2026-05-16T19:18:00.083Z",
   "positions": [],
   "tickerPrices": {
     "GOOGL": 387.35,
@@ -3586,6 +3586,35 @@
     ],
     "spouse": [
       {
+        "id": "p_1778958104998_sd4jqt",
+        "ticker": "CDE",
+        "contracts": 2,
+        "longStrike": 17.5,
+        "longPremium": 1.75,
+        "longExpiry": "6/18",
+        "openDate": "5/16/2026",
+        "notes": "",
+        "noLongPut": false,
+        "shortPuts": [
+          {
+            "id": "p_1778958104998_9jhx4r",
+            "strike": 17,
+            "contracts": 2,
+            "received": 60,
+            "expiry": "5/22",
+            "openDate": "5/16/2026",
+            "closed": false,
+            "mvOverride": 76
+          }
+        ],
+        "closed": false,
+        "longPutClosed": false,
+        "longCloseAmount": 0,
+        "longCloseDate": null,
+        "position": null,
+        "marketValueOverride": 280
+      },
+      {
         "id": "p_1778896248722_av38w2",
         "ticker": "TSLL",
         "contracts": 2,
@@ -3849,44 +3878,6 @@
         "shortPuts": [],
         "closed": false,
         "marketValueOverride": 1
-      },
-      {
-        "id": "p_1778896034046_mfyyr3",
-        "ticker": "CDE",
-        "contracts": 2,
-        "longStrike": 17.5,
-        "longPremium": 1.75,
-        "longExpiry": "6/18",
-        "openDate": "5/15/2026",
-        "notes": "",
-        "noLongPut": false,
-        "shortPuts": [],
-        "closed": false,
-        "marketValueOverride": 280
-      },
-      {
-        "id": "p_1778896034046_und3yx",
-        "ticker": "CDE",
-        "contracts": 2,
-        "longStrike": null,
-        "longPremium": null,
-        "longExpiry": null,
-        "openDate": "5/15/2026",
-        "notes": "",
-        "noLongPut": true,
-        "shortPuts": [
-          {
-            "id": "p_1778896034046_2otft4",
-            "strike": 17,
-            "contracts": 2,
-            "received": 60,
-            "expiry": "5/22",
-            "openDate": "5/15/2026",
-            "closed": false,
-            "mvOverride": -76
-          }
-        ],
-        "closed": false
       }
     ],
     "joint": [
