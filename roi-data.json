@@ -1,6 +1,6 @@
 {
   "version": 4,
-  "savedAt": "2026-05-16T14:44:23.363Z",
+  "savedAt": "2026-05-16T14:51:25.460Z",
   "positions": [],
   "tickerPrices": {
     "GOOGL": 387.35,
@@ -5654,36 +5654,6 @@
     }
   },
   "weeklySnapshots": {
-    "roi_pv_weekly_ret-self_roth_2026-05-15": {
-      "lockedAt": "2026-05-16T01:34:03.599Z",
-      "initCash": 16073,
-      "cash": 826,
-      "pendFunds": 42.82,
-      "collActVal": 5950,
-      "margin": 0,
-      "borrowedCash": 0,
-      "shrMV": 5922,
-      "putMV": 208,
-      "callMV": 4387,
-      "btc": 0,
-      "eth": 0,
-      "otherCrypto": 0
-    },
-    "roi_pv_weekly_ret-spouse_ira_2026-05-15": {
-      "lockedAt": "2026-05-16T01:34:03.599Z",
-      "initCash": 385608,
-      "cash": 299421,
-      "pendFunds": 467.82,
-      "collActVal": 51700,
-      "margin": 0,
-      "borrowedCash": 0,
-      "shrMV": 26359,
-      "putMV": 1364,
-      "callMV": 6121,
-      "btc": 0,
-      "eth": 0,
-      "otherCrypto": 0
-    },
     "roi_pv_weekly_pv-joint_2026-05-06": {
       "initCash": 32213,
       "cash": 745,
@@ -5733,35 +5703,6 @@
       "callMV": 12224,
       "lockedAt": "2026-05-10T22:32:20.428Z"
     },
-    "roi_pv_weekly_pv-spouse_2026-05-12": {
-      "initCash": 34511,
-      "cash": 0,
-      "pendFunds": 0,
-      "collActVal": 15600,
-      "margin": 3609,
-      "borrowedCash": 0,
-      "shrMV": 13760.8,
-      "putMV": -2198,
-      "callMV": 5248,
-      "btc": 0,
-      "eth": 0,
-      "otherCrypto": 10440,
-      "lockedAt": "2026-05-13T03:59:00.000Z",
-      "autoLocked": true
-    },
-    "roi_pv_weekly_ret-self_roth_2026-05-13": {
-      "initCash": 16073,
-      "cash": 62,
-      "pendFunds": 729,
-      "collActVal": 6100,
-      "margin": 0,
-      "borrowedCash": 0,
-      "shrMV": 6520,
-      "putMV": -148,
-      "callMV": 3428,
-      "lockedAt": "2026-05-14T03:59:00.000Z",
-      "autoLocked": true
-    },
     "roi_pv_weekly_pv-spouse_2026-05-06": {
       "lockedAt": "2026-05-06T23:42:05.401Z",
       "initCash": 34992,
@@ -5807,22 +5748,6 @@
       "otherCrypto": 0,
       "lockedAt": "2026-05-04T01:48:52.713Z"
     },
-    "roi_pv_weekly_pv-all_2026-05-14": {
-      "initCash": 207131.45,
-      "cash": 6690,
-      "pendFunds": 0,
-      "collActVal": 26850,
-      "margin": 4697,
-      "borrowedCash": 13251,
-      "shrMV": 105375.45,
-      "putMV": -1847,
-      "callMV": 33919,
-      "btc": 0,
-      "eth": 0,
-      "otherCrypto": 57949,
-      "lockedAt": "2026-05-15T03:59:00.000Z",
-      "autoLocked": true
-    },
     "roi_pv_weekly_ret-spouse_ira_2026-05-08": {
       "initCash": 385608,
       "cash": 324789,
@@ -5833,22 +5758,6 @@
       "callMV": 6753,
       "lockedAt": "2026-05-09T03:42:42.611Z"
     },
-    "roi_pv_weekly_pv-joint_2026-05-14": {
-      "initCash": 42112.66,
-      "cash": 0,
-      "pendFunds": 0,
-      "collActVal": 2402,
-      "margin": 0,
-      "borrowedCash": 0,
-      "shrMV": 39025.66,
-      "putMV": 593,
-      "callMV": 3863,
-      "btc": 0,
-      "eth": 0,
-      "otherCrypto": 0,
-      "lockedAt": "2026-05-15T03:59:00.000Z",
-      "autoLocked": true
-    },
     "roi_pv_weekly_ret-spouse_ira_2026-05-10": {
       "initCash": 385608,
       "cash": 298761,
@@ -5858,21 +5767,6 @@
       "putMV": 1411,
       "callMV": 6846,
       "lockedAt": "2026-05-10T22:32:20.428Z"
-    },
-    "roi_pv_weekly_pv-joint_2026-05-11": {
-      "initCash": 42112.66,
-      "cash": 0,
-      "pendFunds": 0,
-      "collActVal": 2402,
-      "margin": 0,
-      "borrowedCash": 0,
-      "shrMV": 39025.66,
-      "putMV": 593,
-      "callMV": 3863,
-      "btc": 0,
-      "eth": 0,
-      "otherCrypto": 0,
-      "lockedAt": "2026-05-12T03:16:02.738Z"
     },
     "roi_pv_weekly_pv-joint_2026-05-05": {
       "initCash": 32213,
@@ -5926,21 +5820,6 @@
       "lockedAt": "2026-05-06T03:59:00.000Z",
       "autoLocked": true
     },
-    "roi_pv_weekly_pv-self_2026-05-15": {
-      "lockedAt": "2026-05-16T02:06:39.266Z",
-      "initCash": 139828.79,
-      "cash": 3480,
-      "pendFunds": 0,
-      "collActVal": 9750,
-      "margin": 0,
-      "borrowedCash": 0,
-      "shrMV": 52575.79,
-      "putMV": -242,
-      "callMV": 24808,
-      "btc": 0,
-      "eth": 0,
-      "otherCrypto": 47509
-    },
     "roi_pv_weekly_ret-all_2026-05-03": {
       "initCash": 421248,
       "cash": 356708,
@@ -5975,21 +5854,6 @@
       "btc": 0,
       "eth": 0,
       "otherCrypto": 10375
-    },
-    "roi_pv_weekly_pv-all_2026-05-11": {
-      "initCash": 207131.45,
-      "cash": 6690,
-      "pendFunds": 0,
-      "collActVal": 26850,
-      "margin": 4697,
-      "borrowedCash": 13251,
-      "shrMV": 105375.45,
-      "putMV": -1847,
-      "callMV": 33919,
-      "btc": 0,
-      "eth": 0,
-      "otherCrypto": 57949,
-      "lockedAt": "2026-05-12T03:16:02.738Z"
     },
     "roi_pv_weekly_pv-joint_2026-05-07": {
       "lockedAt": "2026-05-07T13:10:56.544Z",
@@ -6032,47 +5896,6 @@
       "otherCrypto": 1684,
       "lockedAt": "2026-05-09T03:42:42.611Z"
     },
-    "roi_pv_weekly_ret-spouse_roth_2026-05-11": {
-      "initCash": 19567,
-      "cash": 18270,
-      "pendFunds": 0,
-      "collActVal": 1050,
-      "shrMV": 0,
-      "putMV": 290,
-      "callMV": 1950,
-      "lockedAt": "2026-05-12T03:16:02.738Z"
-    },
-    "roi_pv_weekly_ret-all_2026-05-15": {
-      "lockedAt": "2026-05-16T01:34:03.599Z",
-      "initCash": 421248,
-      "cash": 316546,
-      "pendFunds": 560.4,
-      "collActVal": 60700,
-      "margin": 0,
-      "borrowedCash": 0,
-      "shrMV": 32281,
-      "putMV": 1850,
-      "callMV": 11386,
-      "btc": 0,
-      "eth": 0,
-      "otherCrypto": 0
-    },
-    "roi_pv_weekly_pv-joint_2026-05-15": {
-      "initCash": 42112.66,
-      "cash": 0,
-      "pendFunds": 0,
-      "collActVal": 2402,
-      "margin": 0,
-      "borrowedCash": 0,
-      "shrMV": 39025.66,
-      "putMV": 593,
-      "callMV": 3863,
-      "btc": 0,
-      "eth": 0,
-      "otherCrypto": 0,
-      "lockedAt": "2026-05-16T03:59:00.000Z",
-      "autoLocked": true
-    },
     "roi_pv_weekly_pv-all_2025-05-04": {
       "initCash": 205933,
       "cash": 3180,
@@ -6087,7 +5910,6 @@
       "lockedAt": "2025-05-05T03:59:00.000Z"
     },
     "roi_pv_weekly_pv-spouse_2026-05-16": {
-      "lockedAt": "2026-05-16T14:43:13.976Z",
       "initCash": 35971.93,
       "cash": 0,
       "pendFunds": 0,
@@ -6099,7 +5921,8 @@
       "callMV": 2180,
       "btc": 0,
       "eth": 0,
-      "otherCrypto": 9982
+      "otherCrypto": 9982,
+      "lockedAt": "2026-05-16T14:46:11.055Z"
     },
     "roi_pv_weekly_ret-self_roth_2026-05-10": {
       "initCash": 16073,
@@ -6121,30 +5944,6 @@
       "callMV": 9890,
       "lockedAt": "2026-05-04T02:49:07.949Z"
     },
-    "roi_pv_weekly_ret-all_2026-05-13": {
-      "initCash": 421248,
-      "cash": 317421,
-      "pendFunds": 872,
-      "collActVal": 58650,
-      "margin": 0,
-      "borrowedCash": 0,
-      "shrMV": 32403,
-      "putMV": 1823,
-      "callMV": 13417,
-      "lockedAt": "2026-05-14T03:59:00.000Z",
-      "autoLocked": true
-    },
-    "roi_pv_weekly_ret-spouse_roth_2026-05-13": {
-      "initCash": 19567,
-      "cash": 18270,
-      "pendFunds": 0,
-      "collActVal": 1050,
-      "shrMV": 0,
-      "putMV": 290,
-      "callMV": 1950,
-      "lockedAt": "2026-05-14T03:59:00.000Z",
-      "autoLocked": true
-    },
     "roi_pv_weekly_ret-spouse_roth_2026-05-07": {
       "lockedAt": "2026-05-08T03:59:00.000Z",
       "initCash": 19567,
@@ -6158,18 +5957,6 @@
       "eth": 0,
       "otherCrypto": 0,
       "autoLocked": true
-    },
-    "roi_pv_weekly_ret-spouse_ira_2026-05-11": {
-      "initCash": 385608,
-      "cash": 299089,
-      "pendFunds": 143,
-      "collActVal": 51500,
-      "margin": 0,
-      "borrowedCash": 0,
-      "shrMV": 26323,
-      "putMV": 1619,
-      "callMV": 6559,
-      "lockedAt": "2026-05-12T03:16:02.738Z"
     },
     "roi_pv_weekly_ret-self_roth_2026-05-03": {
       "initCash": 16073,
@@ -6203,35 +5990,6 @@
       "putMV": 290,
       "callMV": 928,
       "lockedAt": "2025-05-05T03:59:00.000Z"
-    },
-    "roi_pv_weekly_ret-spouse_ira_2026-05-12": {
-      "initCash": 385608,
-      "cash": 299089,
-      "pendFunds": 143,
-      "collActVal": 51500,
-      "margin": 0,
-      "borrowedCash": 0,
-      "shrMV": 26323,
-      "putMV": 1619,
-      "callMV": 6559,
-      "lockedAt": "2026-05-13T03:59:00.000Z",
-      "autoLocked": true
-    },
-    "roi_pv_weekly_pv-self_2026-05-12": {
-      "initCash": 134364.79,
-      "cash": 6558,
-      "pendFunds": 0,
-      "collActVal": 9000,
-      "margin": 0,
-      "borrowedCash": 0,
-      "shrMV": 52195.79,
-      "putMV": -242,
-      "callMV": 24808,
-      "btc": 0,
-      "eth": 0,
-      "otherCrypto": 47509,
-      "lockedAt": "2026-05-13T03:59:00.000Z",
-      "autoLocked": true
     },
     "roi_pv_weekly_pv-all_2026-05-10": {
       "lockedAt": "2026-05-16T14:41:49.555Z",
@@ -6270,19 +6028,6 @@
       "callMV": 10428,
       "lockedAt": "2026-05-09T03:42:42.611Z"
     },
-    "roi_pv_weekly_ret-self_roth_2026-05-12": {
-      "initCash": 16073,
-      "cash": 62,
-      "pendFunds": 729,
-      "collActVal": 6100,
-      "margin": 0,
-      "borrowedCash": 0,
-      "shrMV": 6520,
-      "putMV": -148,
-      "callMV": 3428,
-      "lockedAt": "2026-05-13T03:59:00.000Z",
-      "autoLocked": true
-    },
     "roi_pv_weekly_pv-all_2026-05-05": {
       "initCash": 205933,
       "cash": 3180,
@@ -6295,33 +6040,6 @@
       "eth": 2661,
       "otherCrypto": 1684,
       "lockedAt": "2026-05-06T03:59:00.000Z",
-      "autoLocked": true
-    },
-    "roi_pv_weekly_pv-self_2026-05-13": {
-      "initCash": 134364.79,
-      "cash": 6558,
-      "pendFunds": 0,
-      "collActVal": 9000,
-      "margin": 0,
-      "borrowedCash": 0,
-      "shrMV": 52195.79,
-      "putMV": -242,
-      "callMV": 24808,
-      "btc": 0,
-      "eth": 0,
-      "otherCrypto": 47509,
-      "lockedAt": "2026-05-14T03:59:00.000Z",
-      "autoLocked": true
-    },
-    "roi_pv_weekly_ret-spouse_roth_2026-05-12": {
-      "initCash": 19567,
-      "cash": 18270,
-      "pendFunds": 0,
-      "collActVal": 1050,
-      "shrMV": 0,
-      "putMV": 290,
-      "callMV": 1950,
-      "lockedAt": "2026-05-13T03:59:00.000Z",
       "autoLocked": true
     },
     "roi_pv_weekly_pv-spouse_2026-05-09": {
@@ -6405,7 +6123,6 @@
       "lockedAt": "2025-05-05T03:59:00.000Z"
     },
     "roi_pv_weekly_pv-all_2026-05-16": {
-      "lockedAt": "2026-05-16T14:42:51.755Z",
       "initCash": 223815.75,
       "cash": 246,
       "pendFunds": 0,
@@ -6413,11 +6130,12 @@
       "margin": 40195,
       "borrowedCash": 0,
       "shrMV": 141682.75,
-      "putMV": 0,
-      "callMV": 29928,
+      "putMV": -1256,
+      "callMV": 31184,
       "btc": 0,
       "eth": 0,
-      "otherCrypto": 55410
+      "otherCrypto": 55410,
+      "lockedAt": "2026-05-16T14:46:11.055Z"
     },
     "roi_pv_weekly_pv-self_2026-05-08": {
       "initCash": 138728,
@@ -6465,19 +6183,6 @@
       "lockedAt": "2026-05-06T03:59:00.000Z",
       "autoLocked": true
     },
-    "roi_pv_weekly_ret-all_2026-05-12": {
-      "initCash": 421248,
-      "cash": 317421,
-      "pendFunds": 872,
-      "collActVal": 58650,
-      "margin": 0,
-      "borrowedCash": 0,
-      "shrMV": 32403,
-      "putMV": 1823,
-      "callMV": 13417,
-      "lockedAt": "2026-05-13T03:59:00.000Z",
-      "autoLocked": true
-    },
     "roi_pv_weekly_ret-spouse_roth_2026-05-04": {
       "initCash": 19567,
       "cash": 15470,
@@ -6487,34 +6192,6 @@
       "putMV": 290,
       "callMV": 928,
       "lockedAt": "2026-05-05T03:59:00.000Z"
-    },
-    "roi_pv_weekly_ret-all_2026-05-11": {
-      "initCash": 421248,
-      "cash": 317421,
-      "pendFunds": 872,
-      "collActVal": 58650,
-      "margin": 0,
-      "borrowedCash": 0,
-      "shrMV": 32403,
-      "putMV": 1823,
-      "callMV": 13417,
-      "lockedAt": "2026-05-12T03:16:02.738Z"
-    },
-    "roi_pv_weekly_pv-all_2026-05-13": {
-      "initCash": 207131.45,
-      "cash": 6690,
-      "pendFunds": 0,
-      "collActVal": 26850,
-      "margin": 4697,
-      "borrowedCash": 13251,
-      "shrMV": 105375.45,
-      "putMV": -1847,
-      "callMV": 33919,
-      "btc": 0,
-      "eth": 0,
-      "otherCrypto": 57949,
-      "lockedAt": "2026-05-14T03:59:00.000Z",
-      "autoLocked": true
     },
     "roi_pv_weekly_pv-joint_2026-05-03": {
       "initCash": 32213,
@@ -6538,53 +6215,6 @@
       "putMV": 260,
       "callMV": 928,
       "lockedAt": "2026-05-04T02:49:07.949Z"
-    },
-    "roi_pv_weekly_pv-joint_2026-05-12": {
-      "initCash": 42112.66,
-      "cash": 0,
-      "pendFunds": 0,
-      "collActVal": 2402,
-      "margin": 0,
-      "borrowedCash": 0,
-      "shrMV": 39025.66,
-      "putMV": 593,
-      "callMV": 3863,
-      "btc": 0,
-      "eth": 0,
-      "otherCrypto": 0,
-      "lockedAt": "2026-05-13T03:59:00.000Z",
-      "autoLocked": true
-    },
-    "roi_pv_weekly_pv-spouse_2026-05-13": {
-      "initCash": 34511,
-      "cash": 0,
-      "pendFunds": 0,
-      "collActVal": 15600,
-      "margin": 3609,
-      "borrowedCash": 0,
-      "shrMV": 13760.8,
-      "putMV": -2198,
-      "callMV": 5248,
-      "btc": 0,
-      "eth": 0,
-      "otherCrypto": 10440,
-      "lockedAt": "2026-05-14T03:59:00.000Z",
-      "autoLocked": true
-    },
-    "roi_pv_weekly_ret-spouse_roth_2026-05-15": {
-      "lockedAt": "2026-05-16T01:34:03.599Z",
-      "initCash": 19567,
-      "cash": 16299,
-      "pendFunds": 49.76,
-      "collActVal": 3050,
-      "margin": 0,
-      "borrowedCash": 0,
-      "shrMV": 0,
-      "putMV": 278,
-      "callMV": 878,
-      "btc": 0,
-      "eth": 0,
-      "otherCrypto": 0
     },
     "roi_pv_weekly_ret-self_roth_2026-05-07": {
       "lockedAt": "2026-05-08T03:59:00.000Z",
@@ -6610,7 +6240,7 @@
       "shrMV": 32281,
       "putMV": 1850,
       "callMV": 11386,
-      "lockedAt": "2026-05-16T14:41:43.613Z"
+      "lockedAt": "2026-05-16T14:46:11.056Z"
     },
     "roi_pv_weekly_pv-self_2026-05-06": {
       "initCash": 138728,
@@ -6649,7 +6279,6 @@
       "lockedAt": "2026-05-05T03:59:00.000Z"
     },
     "roi_pv_weekly_pv-joint_2026-05-16": {
-      "lockedAt": "2026-05-16T14:43:20.152Z",
       "initCash": 44812.79,
       "cash": 166,
       "pendFunds": 0,
@@ -6661,7 +6290,8 @@
       "callMV": 3581,
       "btc": 0,
       "eth": 0,
-      "otherCrypto": 0
+      "otherCrypto": 0,
+      "lockedAt": "2026-05-16T14:46:11.055Z"
     },
     "roi_pv_weekly_ret-self_roth_2026-05-16": {
       "initCash": 16073,
@@ -6673,22 +6303,7 @@
       "shrMV": 5922,
       "putMV": 208,
       "callMV": 4387,
-      "lockedAt": "2026-05-16T14:41:43.613Z"
-    },
-    "roi_pv_weekly_pv-self_2026-05-11": {
-      "initCash": 134364.79,
-      "cash": 6558,
-      "pendFunds": 0,
-      "collActVal": 9000,
-      "margin": 0,
-      "borrowedCash": 0,
-      "shrMV": 52195.79,
-      "putMV": -242,
-      "callMV": 24808,
-      "btc": 0,
-      "eth": 0,
-      "otherCrypto": 47509,
-      "lockedAt": "2026-05-12T03:16:02.737Z"
+      "lockedAt": "2026-05-16T14:46:11.055Z"
     },
     "roi_pv_weekly_pv-spouse_2026-05-05": {
       "initCash": 34992,
@@ -6737,7 +6352,7 @@
       "shrMV": 0,
       "putMV": 278,
       "callMV": 878,
-      "lockedAt": "2026-05-16T14:41:43.613Z"
+      "lockedAt": "2026-05-16T14:46:11.056Z"
     },
     "roi_pv_weekly_pv-all_2026-05-06": {
       "initCash": 205933,
@@ -6753,22 +6368,6 @@
       "lockedAt": "2026-05-07T03:59:00.000Z",
       "autoLocked": true
     },
-    "roi_pv_weekly_pv-all_2026-05-12": {
-      "initCash": 207131.45,
-      "cash": 6690,
-      "pendFunds": 0,
-      "collActVal": 26850,
-      "margin": 4697,
-      "borrowedCash": 13251,
-      "shrMV": 105375.45,
-      "putMV": -1847,
-      "callMV": 33919,
-      "btc": 0,
-      "eth": 0,
-      "otherCrypto": 57949,
-      "lockedAt": "2026-05-13T03:59:00.000Z",
-      "autoLocked": true
-    },
     "roi_pv_weekly_pv-self_2026-05-07": {
       "initCash": 138728,
       "cash": 2179,
@@ -6778,33 +6377,6 @@
       "eth": 0,
       "otherCrypto": 0,
       "lockedAt": "2026-05-08T03:59:00.000Z",
-      "autoLocked": true
-    },
-    "roi_pv_weekly_ret-spouse_roth_2026-05-14": {
-      "initCash": 19567,
-      "cash": 18270,
-      "pendFunds": 0,
-      "collActVal": 1050,
-      "shrMV": 0,
-      "putMV": 290,
-      "callMV": 1950,
-      "lockedAt": "2026-05-15T03:59:00.000Z",
-      "autoLocked": true
-    },
-    "roi_pv_weekly_pv-spouse_2026-05-14": {
-      "initCash": 34511,
-      "cash": 0,
-      "pendFunds": 0,
-      "collActVal": 15600,
-      "margin": 3609,
-      "borrowedCash": 0,
-      "shrMV": 13760.8,
-      "putMV": -2198,
-      "callMV": 5248,
-      "btc": 0,
-      "eth": 0,
-      "otherCrypto": 10440,
-      "lockedAt": "2026-05-15T03:59:00.000Z",
       "autoLocked": true
     },
     "roi_pv_weekly_ret-spouse_ira_2026-05-16": {
@@ -6817,7 +6389,7 @@
       "shrMV": 26359,
       "putMV": 1364,
       "callMV": 6121,
-      "lockedAt": "2026-05-16T14:41:43.613Z"
+      "lockedAt": "2026-05-16T14:46:11.056Z"
     },
     "roi_pv_weekly_pv-spouse_2026-05-03": {
       "initCash": 25327,
@@ -6831,22 +6403,6 @@
       "eth": 2661,
       "otherCrypto": 1684,
       "lockedAt": "2026-05-04T01:35:35.638Z"
-    },
-    "roi_pv_weekly_pv-spouse_2026-05-15": {
-      "initCash": 34511,
-      "cash": 0,
-      "pendFunds": 0,
-      "collActVal": 15600,
-      "margin": 3609,
-      "borrowedCash": 0,
-      "shrMV": 13760.8,
-      "putMV": -2198,
-      "callMV": 5248,
-      "btc": 0,
-      "eth": 0,
-      "otherCrypto": 10440,
-      "lockedAt": "2026-05-16T03:59:00.000Z",
-      "autoLocked": true
     },
     "roi_pv_weekly_ret-spouse_roth_2026-05-06": {
       "lockedAt": "2026-05-06T22:44:26.461Z",
@@ -6896,19 +6452,6 @@
       "btc": 0,
       "eth": 0,
       "otherCrypto": 0,
-      "autoLocked": true
-    },
-    "roi_pv_weekly_ret-spouse_ira_2026-05-14": {
-      "initCash": 385608,
-      "cash": 299089,
-      "pendFunds": 143,
-      "collActVal": 51500,
-      "margin": 0,
-      "borrowedCash": 0,
-      "shrMV": 26323,
-      "putMV": 1619,
-      "callMV": 6559,
-      "lockedAt": "2026-05-15T03:59:00.000Z",
       "autoLocked": true
     },
     "roi_pv_weekly_ret-spouse_ira_2026-05-06": {
@@ -6989,19 +6532,6 @@
       "lockedAt": "2026-05-06T03:59:00.000Z",
       "autoLocked": true
     },
-    "roi_pv_weekly_ret-spouse_ira_2026-05-13": {
-      "initCash": 385608,
-      "cash": 299089,
-      "pendFunds": 143,
-      "collActVal": 51500,
-      "margin": 0,
-      "borrowedCash": 0,
-      "shrMV": 26323,
-      "putMV": 1619,
-      "callMV": 6559,
-      "lockedAt": "2026-05-14T03:59:00.000Z",
-      "autoLocked": true
-    },
     "roi_pv_weekly_ret-all_2026-05-09": {
       "initCash": 421248,
       "cash": 320183,
@@ -7060,37 +6590,6 @@
       "otherCrypto": 1684,
       "lockedAt": "2026-05-05T03:59:00.000Z"
     },
-    "roi_pv_weekly_pv-joint_2026-05-13": {
-      "initCash": 42112.66,
-      "cash": 0,
-      "pendFunds": 0,
-      "collActVal": 2402,
-      "margin": 0,
-      "borrowedCash": 0,
-      "shrMV": 39025.66,
-      "putMV": 593,
-      "callMV": 3863,
-      "btc": 0,
-      "eth": 0,
-      "otherCrypto": 0,
-      "lockedAt": "2026-05-14T03:59:00.000Z",
-      "autoLocked": true
-    },
-    "roi_pv_weekly_pv-spouse_2026-05-11": {
-      "initCash": 34511,
-      "cash": 0,
-      "pendFunds": 0,
-      "collActVal": 15600,
-      "margin": 3609,
-      "borrowedCash": 0,
-      "shrMV": 13760.8,
-      "putMV": -2198,
-      "callMV": 5248,
-      "btc": 0,
-      "eth": 0,
-      "otherCrypto": 10440,
-      "lockedAt": "2026-05-12T03:16:02.738Z"
-    },
     "roi_pv_weekly_pv-joint_2026-05-08": {
       "initCash": 32213,
       "cash": 0,
@@ -7135,7 +6634,6 @@
       "lockedAt": "2026-05-04T02:49:07.949Z"
     },
     "roi_pv_weekly_pv-self_2026-05-16": {
-      "lockedAt": "2026-05-16T14:42:59.986Z",
       "initCash": 133637.03,
       "cash": 80,
       "pendFunds": 0,
@@ -7147,7 +6645,8 @@
       "callMV": 25423,
       "btc": 0,
       "eth": 0,
-      "otherCrypto": 45428
+      "otherCrypto": 45428,
+      "lockedAt": "2026-05-16T14:46:11.055Z"
     },
     "roi_pv_weekly_pv-self_2026-05-09": {
       "initCash": 138728,
@@ -7187,63 +6686,6 @@
       "callMV": 8293,
       "lockedAt": "2026-05-05T03:59:00.000Z"
     },
-    "roi_pv_weekly_pv-self_2026-05-14": {
-      "initCash": 134364.79,
-      "cash": 6558,
-      "pendFunds": 0,
-      "collActVal": 9000,
-      "margin": 0,
-      "borrowedCash": 0,
-      "shrMV": 52195.79,
-      "putMV": -242,
-      "callMV": 24808,
-      "btc": 0,
-      "eth": 0,
-      "otherCrypto": 47509,
-      "lockedAt": "2026-05-15T03:59:00.000Z",
-      "autoLocked": true
-    },
-    "roi_pv_weekly_pv-all_2026-05-15": {
-      "initCash": 207131.45,
-      "cash": 6690,
-      "pendFunds": 0,
-      "collActVal": 26850,
-      "margin": 4697,
-      "borrowedCash": 13251,
-      "shrMV": 105375.45,
-      "putMV": -1847,
-      "callMV": 33919,
-      "btc": 0,
-      "eth": 0,
-      "otherCrypto": 57949,
-      "lockedAt": "2026-05-16T03:59:00.000Z",
-      "autoLocked": true
-    },
-    "roi_pv_weekly_ret-all_2026-05-14": {
-      "initCash": 421248,
-      "cash": 317421,
-      "pendFunds": 872,
-      "collActVal": 58650,
-      "margin": 0,
-      "borrowedCash": 0,
-      "shrMV": 32403,
-      "putMV": 1823,
-      "callMV": 13417,
-      "lockedAt": "2026-05-15T03:59:00.000Z",
-      "autoLocked": true
-    },
-    "roi_pv_weekly_ret-self_roth_2026-05-11": {
-      "initCash": 16073,
-      "cash": 62,
-      "pendFunds": 729,
-      "collActVal": 6100,
-      "margin": 0,
-      "borrowedCash": 0,
-      "shrMV": 6520,
-      "putMV": -148,
-      "callMV": 3428,
-      "lockedAt": "2026-05-12T03:16:02.738Z"
-    },
     "roi_pv_weekly_ret-spouse_ira_2026-05-09": {
       "initCash": 385608,
       "cash": 298761,
@@ -7253,19 +6695,6 @@
       "putMV": 1411,
       "callMV": 6846,
       "lockedAt": "2026-05-09T19:40:31.366Z"
-    },
-    "roi_pv_weekly_ret-self_roth_2026-05-14": {
-      "initCash": 16073,
-      "cash": 62,
-      "pendFunds": 729,
-      "collActVal": 6100,
-      "margin": 0,
-      "borrowedCash": 0,
-      "shrMV": 6520,
-      "putMV": -148,
-      "callMV": 3428,
-      "lockedAt": "2026-05-15T03:59:00.000Z",
-      "autoLocked": true
     }
   },
   "weeklySnapshotsLedger": null,
@@ -7279,8 +6708,6 @@
     "amit": 5043,
     "lovelina": 4351
   },
-  "holdingArea": [],
-  "holdingAreaSelectedPf": null,
   "positionsStaging": [
     {
       "ticker": "BBAI",
