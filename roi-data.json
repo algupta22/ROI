@@ -1,6 +1,6 @@
 {
   "version": 4,
-  "savedAt": "2026-05-16T00:23:47.595Z",
+  "savedAt": "2026-05-16T00:41:03.154Z",
   "positions": [],
   "tickerPrices": {
     "GOOGL": 387.35,
@@ -2866,7 +2866,9 @@
       "others": 1735
     }
   },
-  "putLadders": {},
+  "putLadders": {
+    "spouse_roth": []
+  },
   "callLadders": {},
   "shares": {},
   "pvData": {
@@ -2996,6 +2998,22 @@
       "otherCrypto": 0,
       "lockedAt": "2025-05-05T03:59:00.000Z"
     },
+    "roi_pv_weekly_pv-spouse_2026-05-12": {
+      "initCash": 34511,
+      "cash": 0,
+      "pendFunds": 0,
+      "collActVal": 15600,
+      "margin": 3609,
+      "borrowedCash": 0,
+      "shrMV": 13760.8,
+      "putMV": -2198,
+      "callMV": 5248,
+      "btc": 0,
+      "eth": 0,
+      "otherCrypto": 10440,
+      "lockedAt": "2026-05-13T03:59:00.000Z",
+      "autoLocked": true
+    },
     "roi_pv_weekly_joint_2026-05-03": {
       "initCash": 32213,
       "cash": 745,
@@ -3020,22 +3038,6 @@
       "putMV": 2034,
       "callMV": 12224,
       "lockedAt": "2026-05-10T22:32:20.428Z"
-    },
-    "roi_pv_weekly_pv-spouse_2026-05-12": {
-      "initCash": 34511,
-      "cash": 0,
-      "pendFunds": 0,
-      "collActVal": 15600,
-      "margin": 3609,
-      "borrowedCash": 0,
-      "shrMV": 13760.8,
-      "putMV": -2198,
-      "callMV": 5248,
-      "btc": 0,
-      "eth": 0,
-      "otherCrypto": 10440,
-      "lockedAt": "2026-05-13T03:59:00.000Z",
-      "autoLocked": true
     },
     "roi_pv_weekly_ret-self_roth_2026-05-13": {
       "initCash": 16073,
@@ -3631,6 +3633,16 @@
       "callMV": 5248,
       "lockedAt": "2025-05-05T03:59:00.000Z"
     },
+    "roi_pv_weekly_ret-spouse_roth_2026-05-09": {
+      "initCash": 19567,
+      "cash": 18270,
+      "pendFunds": 0,
+      "collActVal": 1050,
+      "shrMV": 0,
+      "putMV": 290,
+      "callMV": 1950,
+      "lockedAt": "2026-05-09T19:40:31.366Z"
+    },
     "roi_pv_weekly_pv-self_2026-05-08": {
       "initCash": 138728,
       "cash": 2767,
@@ -3645,16 +3657,6 @@
       "eth": 0,
       "otherCrypto": 47207,
       "lockedAt": "2026-05-09T03:42:42.611Z"
-    },
-    "roi_pv_weekly_ret-spouse_roth_2026-05-09": {
-      "initCash": 19567,
-      "cash": 18270,
-      "pendFunds": 0,
-      "collActVal": 1050,
-      "shrMV": 0,
-      "putMV": 290,
-      "callMV": 1950,
-      "lockedAt": "2026-05-09T19:40:31.366Z"
     },
     "roi_pv_weekly_ret-self_roth_2026-05-08": {
       "initCash": 16073,
@@ -4368,7 +4370,84 @@
   },
   "holdingArea": [],
   "holdingAreaSelectedPf": null,
-  "positionsStaging": [],
+  "positionsStaging": [
+    {
+      "ticker": "BBAI",
+      "posType": "SPUT",
+      "qty": 5,
+      "isShort": true,
+      "strike": 4,
+      "expiry": "5/22",
+      "avgPrice": 0.1,
+      "mv": -65,
+      "rawSymbol": "BBAI 5/22 $4 Put",
+      "id": "ps_1778891787978_0_0_4w8arfit",
+      "selected": false,
+      "portfolio": "spouse_roth",
+      "status": "moved",
+      "movedAt": "2026-05-16T00:38:53.222Z"
+    },
+    {
+      "ticker": "BBAI",
+      "posType": "LPUT",
+      "qty": 5,
+      "isShort": false,
+      "strike": 4,
+      "expiry": "6/18",
+      "avgPrice": 0.66,
+      "mv": 185,
+      "rawSymbol": "BBAI 6/18 $4 Put",
+      "id": "ps_1778891787978_1_0_ch6vkx18",
+      "selected": false,
+      "portfolio": "spouse_roth",
+      "status": "ready"
+    },
+    {
+      "ticker": "BBAI",
+      "posType": "LCALL",
+      "qty": 4,
+      "isShort": false,
+      "strike": 2.5,
+      "expiry": "1/15/2027",
+      "avgPrice": 1.97,
+      "mv": 800,
+      "rawSymbol": "BBAI 1/15/2027 $2.5 Call",
+      "id": "ps_1778891787978_2_0_gbk73pqz",
+      "selected": false,
+      "portfolio": "spouse_roth",
+      "status": "ready"
+    },
+    {
+      "ticker": "PATH",
+      "posType": "LPUT",
+      "qty": 1,
+      "isShort": false,
+      "strike": 11,
+      "expiry": "6/18",
+      "avgPrice": 1.56,
+      "mv": 158,
+      "rawSymbol": "PATH 6/18 $11 Put",
+      "id": "ps_1778891787978_3_0_udb4683n",
+      "selected": false,
+      "portfolio": "spouse_roth",
+      "status": "ready"
+    },
+    {
+      "ticker": "PATH",
+      "posType": "LCALL",
+      "qty": 1,
+      "isShort": false,
+      "strike": 20,
+      "expiry": "1/15/2027",
+      "avgPrice": 4.65,
+      "mv": 78,
+      "rawSymbol": "PATH 1/15/2027 $20 Call",
+      "id": "ps_1778891787978_4_0_yivw32mb",
+      "selected": false,
+      "portfolio": "spouse_roth",
+      "status": "ready"
+    }
+  ],
   "wealthAccount": {
     "balance": 55000,
     "transactions": [
