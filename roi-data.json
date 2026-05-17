@@ -1,6 +1,6 @@
 {
   "version": 4,
-  "savedAt": "2026-05-16T23:18:12.671Z",
+  "savedAt": "2026-05-17T01:06:44.889Z",
   "positions": [],
   "tickerPrices": {
     "GOOGL": 387.35,
@@ -3750,20 +3750,6 @@
         "openDate": "5/15/2026",
         "notes": "",
         "noLongPut": false,
-        "shortPuts": [],
-        "closed": false,
-        "marketValueOverride": 2055
-      },
-      {
-        "id": "p_1778896113876_0nj465",
-        "ticker": "PLTR",
-        "contracts": 1,
-        "longStrike": null,
-        "longPremium": null,
-        "longExpiry": null,
-        "openDate": "5/15/2026",
-        "notes": "",
-        "noLongPut": true,
         "shortPuts": [
           {
             "id": "p_1778896113876_7470qi",
@@ -3786,7 +3772,8 @@
             "mvOverride": -345
           }
         ],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 2055
       },
       {
         "id": "p_1778896034047_2e4swu",
