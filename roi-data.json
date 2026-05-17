@@ -1,6 +1,6 @@
 {
   "version": 4,
-  "savedAt": "2026-05-17T01:08:12.477Z",
+  "savedAt": "2026-05-17T02:27:29.021Z",
   "positions": [],
   "tickerPrices": {
     "GOOGL": 387.35,
@@ -3798,20 +3798,6 @@
         "openDate": "5/15/2026",
         "notes": "",
         "noLongPut": false,
-        "shortPuts": [],
-        "closed": false,
-        "marketValueOverride": 110
-      },
-      {
-        "id": "p_1778896034046_z8jml1",
-        "ticker": "NVTS",
-        "contracts": 1,
-        "longStrike": null,
-        "longPremium": null,
-        "longExpiry": null,
-        "openDate": "5/15/2026",
-        "notes": "",
-        "noLongPut": true,
         "shortPuts": [
           {
             "id": "p_1778896034046_oxmf8z",
@@ -3824,7 +3810,8 @@
             "mvOverride": -16
           }
         ],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 110
       },
       {
         "id": "p_1778896034046_i7eb6b",
@@ -4134,20 +4121,6 @@
         "openDate": "5/15/2026",
         "notes": "",
         "noLongPut": false,
-        "shortPuts": [],
-        "closed": false,
-        "marketValueOverride": 140
-      },
-      {
-        "id": "p_1778895453121_9qz12n",
-        "ticker": "CDE",
-        "contracts": 1,
-        "longStrike": null,
-        "longPremium": null,
-        "longExpiry": null,
-        "openDate": "5/15/2026",
-        "notes": "",
-        "noLongPut": true,
         "shortPuts": [
           {
             "id": "p_1778895453121_qqlwe3",
@@ -4160,7 +4133,8 @@
             "mvOverride": -38
           }
         ],
-        "closed": false
+        "closed": false,
+        "marketValueOverride": 140
       },
       {
         "id": "p_1778895453120_odsg11",
